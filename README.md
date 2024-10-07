@@ -1,6 +1,13 @@
 # Advent of Ruby
 
-CLI tool for doing Advent of Code in Ruby.
+There are [lots of CLI tools for doing Advent of Code in Ruby](#prior-art). Why make another?
+
+This one does a few things differently:
+
+- It shows other people's solutions. This was roughly inspired by [Exercism's community solutions](https://exercism.org/tracks/ruby/exercises/circular-buffer/solutions).
+- It's not geared toward the competition in December, but instead toward solving puzzles across all years.
+- It has a CLI that is simple to the point of magical, which mostly involves spamming the `arb` command.
+- It uses Git instead of a database to track the user's progress and current state.
 
 ## Installation
 
@@ -50,10 +57,9 @@ Note: all commands can be abbreviated with their first letter, e.g. `arb b` for 
 - `arb progress` shows progress (total and by year) based on the number of your solutions committed in Git.
 - `arb help` shows a summary of each command.
 
-## Other AoC Ruby CLI tools
+## Prior art
 
-This gem was originally based on [AoC-rb](https://github.com/Keirua/aoc-cli). Here are other similar tools:
-
+- [AoC-rb](https://github.com/Keirua/aoc-cli)—this gem was originally based on it
 - [AocRb](https://github.com/pacso/aoc_rb)
 - [aoc-cli](https://github.com/apexatoll/aoc-cli)
 - [aocli](https://github.com/astley92/aocli)
