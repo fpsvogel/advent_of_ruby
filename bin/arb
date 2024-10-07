@@ -88,7 +88,8 @@ class ArbApp < Thor
     year, day = validate_year_and_day(year, day, default_untracked_or_done: true)
 
     untracked_solutions = `git status -su | grep "^?? #{File.join("src", year || "")}"`
-    if untracked_solutions.empty?
+    last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
+    if untracked_solutions.empty? && !last_committed_solution
       bootstrap(year, day)
       return
     end
@@ -130,6 +131,13 @@ class ArbApp < Thor
 
     if correct_answer_2
       puts "🙌 You've already submitted the answers to both parts."
+
+      last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
+      if !last_committed_solution
+        puts "\nWhen you're done with this puzzle, run " \
+          "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to prep the next puzzle.\n"
+      end
+
       return
     elsif options.real_part_1? && correct_answer_1
       puts "🙌 You've already submitted the answer to this part."
@@ -170,9 +178,10 @@ class ArbApp < Thor
 
         last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
         if !last_committed_solution
-          puts "\n\nAfter you're completely done with the puzzle (be sure to " \
-            "look at other people's solutions and improve yours!), run " \
-            "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to prep the next puzzle.\n"
+          puts "\n\nNow it's time to improve your solution! Be sure to look " \
+            "at other people's solutions (in the \"others\" directory). When " \
+            "you're done, run `#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) " \
+            "to prep the next puzzle.\n"
         end
       else
         puts "❌ #{short_message}"
