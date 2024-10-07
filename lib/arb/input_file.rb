@@ -10,7 +10,7 @@ module Arb
       if File.exist?(file_path)
         puts "Already exists: #{file_path}" if notify_exists
       else
-        aoc_api = Arb::AocApi.new(Config.aoc_cookie)
+        aoc_api = Arb::AocApi.new(ENV["AOC_COOKIE"])
         response = aoc_api.input(year, day)
 
         File.write(file_path, response)

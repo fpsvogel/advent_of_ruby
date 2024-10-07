@@ -18,7 +18,7 @@ module Arb
       else
         url = "https://adventofcode.com/#{year}/day/#{day}"
 
-        aoc_api = Arb::AocApi.new(Config.aoc_cookie)
+        aoc_api = Arb::AocApi.new(ENV["AOC_COOKIE"])
         response = aoc_api.instructions(year, day)
         instructions = response.match(/(?<=<main>).+(?=<\/main>)/m).to_s
         markdown_instructions = ReverseMarkdown.convert(instructions).strip

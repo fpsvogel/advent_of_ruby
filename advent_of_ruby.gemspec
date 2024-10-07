@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = "~> #{File.read(".ruby-version").strip}"
 
-  spec.add_runtime_dependency "debug", "~> 1.0"
+  spec.add_runtime_dependency "dotenv", "~> 3.0"
   spec.add_runtime_dependency "httparty", "~> 0.22"
   spec.add_runtime_dependency "pastel", "~> 0.8"
   spec.add_runtime_dependency "reverse_markdown", "~> 2.0"
