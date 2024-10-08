@@ -7,7 +7,7 @@ module Arb
       padded_day = day.rjust(2, "0")
       year_last_two = year[-2..]
 
-      File.join(year_directory, "#{year_last_two}#{padded_day}.md")
+      File.join(year_directory, "#{padded_day}_instructions.md")
     end
 
     def self.download(year, day, notify_exists: true, overwrite: false)

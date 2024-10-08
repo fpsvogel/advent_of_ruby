@@ -43,7 +43,6 @@ Note: all commands can be abbreviated with their first letter, e.g. `arb b` for 
   - *If both arguments are omitted, it bootstraps the next puzzle, i.e. the puzzle after the one that was last committed to Git.*
   - *If only the day argument is omitted, it bootstraps the next puzzle of the given year.*
   - Opens all of the new files using `editor_command` in `config.yml`.
-  - Note: For easy file-searchability (Ctrl+P in VS Code), the instructions file is named (for day 1 of 2015, for example) `1501.md` and the other solutions are named `15011.rb` and `15012.rb` (part 1 and part 2).
 - `arb run [YEAR] [DAY]`
   - Runs specs for the given day.
   - Unless specs fail, runs the currently in-progress part (Part One or Part Two) of the given day.

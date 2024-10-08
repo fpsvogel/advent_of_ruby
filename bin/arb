@@ -130,7 +130,7 @@ class ArbApp < Thor
     return unless answer_1 || answer_2
 
     if correct_answer_2
-      puts "🙌 You've already submitted the answers to both parts."
+      puts "🙌 You've already submitted the answers to both parts.\n\n"
 
       last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
       if !last_committed_solution
@@ -140,7 +140,7 @@ class ArbApp < Thor
 
       return
     elsif options.real_part_1? && correct_answer_1
-      puts "🙌 You've already submitted the answer to this part."
+      puts "🙌 You've already submitted the answer to this part.\n\n"
       return
     end
 

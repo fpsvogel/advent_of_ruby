@@ -8,7 +8,7 @@ module Arb
       year_last_two = year[-2..]
 
       file_paths = %w[1 2].map do |part|
-        file_path = File.join(year_directory, "#{year_last_two}#{padded_day}#{part}.rb")
+        file_path = File.join(year_directory, "#{padded_day}_#{part}.rb")
 
         if File.exist?(file_path)
           puts "Already exists: #{file_path}"
