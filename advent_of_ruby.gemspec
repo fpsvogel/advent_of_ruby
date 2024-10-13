@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "reverse_markdown", "~> 2.0"
   spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "thor", "~> 1.0"
+  spec.add_runtime_dependency "debug", "~> 1.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
