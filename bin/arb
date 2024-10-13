@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "thor"
-require_relative "../lib/arb/cli"
+require_relative "../lib/arb/arb"
 
 # The CLI application
 class ArbApp < Thor

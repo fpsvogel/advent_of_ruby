@@ -1,7 +1,7 @@
-require "arb/cli"
+require "arb/arb"
 
 describe Arb::Cli do
-  describe "something" do
+  describe "::bootstrap" do
     it "returns true" do
     end
   end
