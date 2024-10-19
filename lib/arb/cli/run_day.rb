@@ -58,7 +58,7 @@ module Arb
 
         unless Git.last_committed(year:)
           puts "\nWhen you're done with this puzzle, run " \
-            "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to prep the next puzzle.\n"
+            "`#{PASTEL.blue.bold("arb commit")}` (or `arb c`) commit your solution to Git.\n"
         end
 
         return
@@ -84,13 +84,13 @@ module Arb
           .sub(/ \[\[.+/, "")
 
         if short_message.start_with?("That's the right answer!")
-          puts "⭐ #{short_message}\n\n"
+          puts "⭐ #{short_message}\n"
 
           # TODO don't re-download if the instructions file already contains the next part
           instructions_path = Files::Instructions.download(year, day, overwrite: true)
 
           if (options_part || inferred_part) == "1"
-            puts "Downloaded instructions for Part Two.\n\n"
+            puts "\nDownloaded instructions for Part Two.\n\n"
             `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
             spec_path = Files::Spec.create(year, day, notify_exists: false)

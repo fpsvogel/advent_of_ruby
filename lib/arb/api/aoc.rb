@@ -29,7 +29,7 @@ module Arb
         logged_in {
           connection.post(
             "/#{year}/day/#{day}/answer",
-            body: { level: part, answer: },
+            "level=#{part}&answer=#{answer}",
           )
         }
       end

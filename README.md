@@ -28,10 +28,9 @@ rake install
 
 Okay, if you *really* want to know all the details, here they are.
 
-Note: all commands can be abbreviated with their first letter, e.g. `arb b` for `arb bootstrap`.
+Note: all commands can be abbreviated with their first letter, e.g. `arb b` for `arb bootstrap`, and plain `arb` is short for `arb run`.
 
 - `arb bootstrap [YEAR] [DAY]`
-  - Commits new and modified solutions to Git.
   - Downloads the input and instructions files for the given day.
   - Creates a source file and a spec file for the given day.
   - Downloads other people's solutions, from these repos:
@@ -52,7 +51,7 @@ Note: all commands can be abbreviated with their first letter, e.g. `arb b` for 
     - `--real_part_2` (`-t`) runs only Part Two with the real input.
   - Optionally submits the answer, via a prompt that appears if it has not already been submitted.
   - *If both arguments are omitted, it runs the puzzle that is untracked in Git, if any.*
-- `arb git` commits new and modified solutions to Git. This is handy if (unlike the basic "solve and then run `arb bootstrap`" flow) you like to make multiple commits per solution, e.g. one after your own solution and then another after improving it based on other people's solutions.
+- `arb commit` commits new or modified solutions to Git.
 - `arb progress` shows progress (total and by year) based on the number of your solutions committed in Git.
 - `arb help` shows a summary of each command.
 

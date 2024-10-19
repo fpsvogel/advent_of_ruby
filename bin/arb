@@ -37,9 +37,9 @@ class ArbApp < Thor
   # TODO extract/abstract run_day contents (without terminal output) to a class,
   # then use it here to silently run each untracked puzzle before committing it,
   # and if anything is incorrect then show confirmation prompt to user.
-  desc "git", "Commits new and modified solutions to Git."
-  def git_commit
-    Arb::Cli.git_commit
+  desc "commit", "Commits new and modified solutions to Git."
+  def commit
+    Arb::Cli.commit
   end
 
   default_task :run_day
