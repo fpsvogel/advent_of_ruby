@@ -11,7 +11,7 @@ module Arb
           raise InputError, "If you specify the day, specify the year also."
         elsif !day
           if default_untracked_or_done
-            year, day = Git.untracked.last
+            year, day = Git.new_solutions.last
           end
 
           unless day
@@ -19,7 +19,7 @@ module Arb
               Dir.mkdir(File.join("src", year))
               day = "1"
             else
-              year, day = Git.last_committed(year:)
+              year, day = Git.last_committed_solution(year:)
 
               if day && !default_untracked_or_done
                 if day == "25"
@@ -64,7 +64,7 @@ module Arb
                 #   bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
                 # end
 
-                default_year, default_day = Git.last_committed(exclude_year: year)
+                default_year, default_day = Git.last_committed_solution(exclude_year: year)
                 if default_year
                   bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
                 else

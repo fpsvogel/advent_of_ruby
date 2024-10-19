@@ -1,24 +1,24 @@
 module Arb
   module Cli
     class Git
-      # Years and days of untracked solutions, or an empty array.
+      # Years and days of uncommitted new solutions, or an empty array.
       # @param year [String, Integer]
       # @return [Array<Array(String, String)>]
-      def self.untracked(year: nil)
-        output = `git status -su | grep -e "^?? #{File.join("src", year || "")}" -e "^?? #{File.join("spec", year || "")}"`
+      def self.new_solutions(year: nil)
+        output = `git status -su | grep -e "^?? #{File.join("src", year || "")}" -e "^?? #{File.join("spec", year || "")}" -e "^A  #{File.join("src", year || "")}" -e "^A  #{File.join("spec", year || "")}"`
         output.scan(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/).uniq
       end
 
-      # Years and days of modified solutions, or an empty array.
+      # Years and days of modified existing solutions, or an empty array.
       # @return [Array<Array(String, String)>]
-      def self.modified
-        output = `git status -su | grep -e "^ M src" -e "^ M spec"`
+      def self.modified_solutions
+        output = `git status -su | grep -e "^ M src" -e "^ M spec" -e "^M  src" -e "^M  spec"`
         output.scan(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/).uniq
       end
 
       # Year and day of the latest-date solution in the most recent commit, or nil.
       # @return [Array(String, String), nil]
-      def self.last_committed(year: nil, exclude_year: nil)
+      def self.last_committed_solution(year: nil, exclude_year: nil)
         output =
           if exclude_year
             `git log -n 1 --diff-filter=A --name-only --pretty=format: -- src spec ':!src/#{exclude_year}' ':!spec/#{exclude_year}'`
@@ -52,7 +52,7 @@ module Arb
 
       def self.commit_all!(message:)
         `git add -A`
-        `git commit -m #{message}`
+        `git commit -m "#{message}"`
       end
     end
   end

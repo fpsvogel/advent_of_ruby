@@ -16,7 +16,7 @@ module Arb
             puts "Result for #{part_name}:"
 
             if correct_answer
-              if answer == correct_answer
+              if answer.to_s == correct_answer
                 puts PASTEL.green.bold("✅ #{answer}")
               else
                 puts PASTEL.red.bold("❌ #{answer} -- should be #{correct_answer}")
