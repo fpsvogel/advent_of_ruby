@@ -3,7 +3,8 @@ module Arb
     class OtherSolutions
       def self.download(year, day)
         year_directory = File.join("others", year)
-        Dir.mkdir(year_directory) if !Dir.exist?(year_directory)
+        Dir.mkdir("others") unless Dir.exist?("others")
+        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
         padded_day = day.rjust(2, "0")
 

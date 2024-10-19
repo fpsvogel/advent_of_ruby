@@ -11,13 +11,14 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = "~> #{File.read(".ruby-version").strip}"
 
+  spec.add_runtime_dependency "debug", "~> 1.0"
   spec.add_runtime_dependency "dotenv", "~> 3.0"
-  spec.add_runtime_dependency "httparty", "~> 0.22"
+  spec.add_runtime_dependency "faraday", "~> 2.0"
   spec.add_runtime_dependency "pastel", "~> 0.8"
   spec.add_runtime_dependency "reverse_markdown", "~> 2.0"
   spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "thor", "~> 1.0"
-  spec.add_runtime_dependency "debug", "~> 1.0"
+  spec.add_runtime_dependency "vcr", "~> 6.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage

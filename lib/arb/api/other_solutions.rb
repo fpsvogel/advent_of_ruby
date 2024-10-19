@@ -1,12 +1,9 @@
 module Arb
   module Api
     class OtherSolutions
-      include HTTParty
-      base_uri "https://raw.githubusercontent.com"
-
       UI_URI = "https://github.com"
 
-      private attr_reader :headers
+      private attr_reader :connection
 
       PATHS = {
         "eregon" => ->(year, day, part) {
@@ -59,9 +56,12 @@ module Arb
       }
 
       def initialize
-        @headers = {
-          "User-Agent" => "github.com/fpsvogel/ruby-advent-of-code by fps.vogel@gmail.com"
-        }
+        @connection = Faraday.new(
+          url: "https://raw.githubusercontent.com",
+          headers: {
+            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com",
+          }
+        )
       end
 
       def other_solutions(year, day, part)
@@ -74,11 +74,11 @@ module Arb
 
             paths.each do |path|
               next if solution
-              response = self.class.get("/#{username}/#{path.sub("/tree/", "/")}", headers:)
-              next if response.not_found?
+              response = connection.get("/#{username}/#{path.sub("/tree/", "/")}")
+              next if response.status == 404
 
               actual_path = path
-              solution = (EDITS[username] || :itself.to_proc).call(response)
+              solution = (EDITS[username] || :itself.to_proc).call(response.body)
             end
 
             if solution

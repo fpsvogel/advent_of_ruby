@@ -3,7 +3,7 @@ module Arb
     class Spec
       def self.create(year, day, notify_exists: true)
         year_directory = File.join("spec", year)
-        Dir.mkdir(year_directory) if !Dir.exist?(year_directory)
+        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
         padded_day = day.rjust(2, "0")
         file_path = File.join(year_directory, "#{padded_day}_spec.rb")

@@ -1,46 +1,45 @@
 module Arb
   module Api
     class Aoc
-      include HTTParty
-      base_uri "https://adventofcode.com"
-
-      private attr_reader :headers
+      private attr_reader :connection
 
       def initialize(cookie)
-        @headers = {
-          "Cookie" => "session=#{cookie}",
-          "User-Agent" => "github.com/fpsvogel/ruby-advent-of-code by fps.vogel@gmail.com",
-        }
+        @connection = Faraday.new(
+          url: "https://adventofcode.com",
+          headers: {
+            "Cookie" => "session=#{cookie}",
+            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com",
+          }
+        )
       end
 
       def input(year, day)
         logged_in {
-          self.class.get("/#{year}/day/#{day}/input", headers:)
+          connection.get("/#{year}/day/#{day}/input")
         }
       end
 
       def instructions(year, day)
         logged_in {
-          self.class.get("/#{year}/day/#{day}", headers:)
+          connection.get("/#{year}/day/#{day}")
         }
       end
 
       def submit(year, day, part, answer)
         logged_in {
-          self.class.post(
+          connection.post(
             "/#{year}/day/#{day}/answer",
             body: { level: part, answer: },
-            headers:,
           )
         }
       end
 
       private
 
-      LOGED_OUT_RESPONSE = "Puzzle inputs differ by user.  Please log in to get your puzzle input.\n"
+      LOGGED_OUT_RESPONSE = "Puzzle inputs differ by user.  Please log in to get your puzzle input.\n"
 
       def logged_in(&block)
-        while (response = block.call.to_s) == LOGED_OUT_RESPONSE
+        while (response = block.call.body) == LOGGED_OUT_RESPONSE
           Config.refresh_aoc_cookie!
           initialize(ENV["AOC_COOKIE"])
         end

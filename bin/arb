@@ -9,7 +9,7 @@ class ArbApp < Thor
     "for a given year and optionally day (defaults to Day 1). Files created: " \
     "source, specs, input, instructions, and other solutions."
   def bootstrap(year = nil, day = nil)
-    Arb::Cli.bootstrap(year, day)
+    Arb::Cli.bootstrap(year:, day:)
   end
 
   # TODO add a [VARIANT] arg, so that additional versions of the same solution
@@ -25,7 +25,7 @@ class ArbApp < Thor
   method_option :real_part_1, type: :boolean, aliases: "-o"
   method_option :real_part_2, type: :boolean, aliases: "-t"
   def run_day(year = nil, day = nil)
-    Arb::Cli.run_day(year, day, options)
+    Arb::Cli.run_day(year:, day:, options:)
   end
 
   desc "progress", "Shows progress based on the number of your solutions " \

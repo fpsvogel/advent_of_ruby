@@ -1,17 +1,13 @@
 module Arb
   module Cli
     def self.progress
-      Shared::WorkingDirectory.prepare!
+      WorkingDirectory.prepare!
 
       past_year_count = 25 * (Date.today.year - 1 - 2015)
       this_year_count = (Date.today.month == 12 ? Date.today.day : 0).clamp(..25)
       total_count = past_year_count + this_year_count
 
-      my_counts_by_year = `git ls-files src/`
-        .split("\n")
-        .select { |path| File.basename(path).match?(/\d\d\.rb/) }
-        .group_by { |path| File.basename(File.dirname(path)) }
-        .transform_values(&:count)
+      my_counts_by_year = Git.count_by_subdirs(dir: "src")
       my_total_count = my_counts_by_year.values.sum
 
       total_percent = (my_total_count.to_f / total_count * 100).round(1)

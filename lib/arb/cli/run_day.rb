@@ -1,25 +1,24 @@
 module Arb
   module Cli
-    # @param year [String]
-    # @param day [String]
-    # @param options [Thor::CoreExt::HashWithIndifferentAccess]
-    def self.run_day(year, day, options)
-      Shared::WorkingDirectory.prepare!
+    # @param year [String, Integer]
+    # @param day [String, Integer]
+    # @param options [Thor::CoreExt::HashWithIndifferentAccess] see `method_option`s
+    #   above ArbApp#run_day.
+    def self.run_day(year:, day:, options:)
+      WorkingDirectory.prepare!
 
       if options.spec? && (options.real_part_1? || options.real_part_2?)
         raise InputError, "Don't use --spec (-s) with --real_part_1 (-o) or --real_part_2 (-t)"
       end
 
-      year, day = Shared::YearDayValidator.validate_year_and_day(year, day, default_untracked_or_done: true)
+      year, day = YearDayValidator.validate_year_and_day(year:, day:, default_untracked_or_done: true)
 
-      untracked_solutions = `git status -su | grep "^?? #{File.join("src", year || "")}"`
-      last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
-      if untracked_solutions.empty? && !last_committed_solution
+      if Git.untracked.none? && Git.last_committed(year:)
         bootstrap(year, day)
         return
       end
 
-      solution = Shared::Runner.load_solution(year, day)
+      solution = Runner.load_solution(year, day)
       input_path = Files::Input.download(year, day, notify_exists: false)
       answer_1, answer_2 = nil, nil
 
@@ -42,12 +41,12 @@ module Arb
       end
 
       if options.real_part_1? || (!options.real_part_2? && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
-        answer_1 = Shared::Runner.run_part("#{year}##{day}.1", correct_answer_1) do
+        answer_1 = Runner.run_part("#{year}##{day}.1", correct_answer_1) do
           solution.part_1(File.new(input_path))
         end
       end
       if options.real_part_2? || (!options.real_part_1? && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
-        answer_2 = Shared::Runner.run_part("#{year}##{day}.2", correct_answer_2) do
+        answer_2 = Runner.run_part("#{year}##{day}.2", correct_answer_2) do
           solution.part_2(File.new(input_path))
         end
       end
@@ -57,8 +56,7 @@ module Arb
       if correct_answer_2
         puts "🙌 You've already submitted the answers to both parts.\n\n"
 
-        last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
-        if !last_committed_solution
+        unless Git.last_committed(year:)
           puts "\nWhen you're done with this puzzle, run " \
             "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to prep the next puzzle.\n"
         end
@@ -101,8 +99,7 @@ module Arb
             File.write(spec_path, spec_without_skips)
           end
 
-          last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
-          if !last_committed_solution
+          unless Git.last_committed(year:)
             puts "\n\nNow it's time to improve your solution! Be sure to look " \
               "at other people's solutions (in the \"others\" directory). When " \
               "you're done, run `#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) " \

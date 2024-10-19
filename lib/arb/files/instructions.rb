@@ -3,11 +3,12 @@ module Arb
     class Instructions
       def self.path(year, day)
         year_directory = File.join("instructions", year)
-        Dir.mkdir(year_directory) if !Dir.exist?(year_directory)
+        Dir.mkdir("instructions") unless Dir.exist?("instructions")
+        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
         padded_day = day.rjust(2, "0")
 
-        File.join(year_directory, "#{padded_day}_instructions.md")
+        File.join(year_directory, "#{padded_day}.md")
       end
 
       def self.download(year, day, notify_exists: true, overwrite: false)

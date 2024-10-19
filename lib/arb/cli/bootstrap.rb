@@ -1,19 +1,19 @@
 module Arb
   module Cli
-    # @param year [String]
-    # @param day [String]
-    def self.bootstrap(year, day)
-      Shared::WorkingDirectory.prepare!
+    # @param year [String, Integer]
+    # @param day [String, Integer]
+    def self.bootstrap(year: nil, day: nil)
+      WorkingDirectory.prepare!
 
-      year, day = Shared::YearDayValidator.validate_year_and_day(year, day)
+      year, day = YearDayValidator.validate_year_and_day(year:, day:)
 
-      git_commit
+      Cli.git_commit
 
-      input_path = Files::Input.download(year, day)
       instructions_path = Files::Instructions.download(year, day)
+      others_1_path, others_2_path = Files::OtherSolutions.download(year, day)
+      input_path = Files::Input.download(year, day)
       source_path = Files::Source.create(year, day)
       spec_path = Files::Spec.create(year, day)
-      others_1_path, others_2_path = Files::OtherSolutions.download(year, day)
 
       puts "🤘 Bootstrapped #{year}##{day}\n\n"
 
@@ -25,8 +25,7 @@ module Arb
       `#{ENV["EDITOR_COMMAND"]} #{spec_path}`
       `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
-      last_committed_solution = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")}`.lines.last
-      if !last_committed_solution
+      unless Git.last_committed(year:)
         puts "Now fill in the spec for Part One with an example from the instructions, " \
           "then run it with `#{PASTEL.blue.bold("arb run")}` (or just `arb`) as " \
           "you implement the solution. When the spec passes, your solution will " \
