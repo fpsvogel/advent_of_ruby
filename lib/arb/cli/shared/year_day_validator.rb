@@ -30,46 +30,23 @@ module Arb
               end
 
               if !day || day == :end
-                # # TODO refactor to combine this with #progress
-                # default_year = "2015"
-                # default_day = "1"
-                # bootstrap_year_prompt = nil
+                default_year = "2015"
+                default_day = "1"
+                bootstrap_year_prompt = nil
 
-                # committed_solution_files = `git log --diff-filter=A --name-only --pretty=format: src`
-                # if committed_solution_files.empty?
-                #   bootstrap_year_prompt = "What year's puzzles do you want to start with? (default: #{default_year})"
-                # else
-                #   previous_days = (2015..Date.today.year - 1).map(&:to_s).map { [_1, (1..25).map { |day| day.to_s.rjust(2, "0") }] }.to_h
-                #   previous_days.merge!(Date.today.year.to_s => (1..Date.today.day).map { |day| day.to_s.rjust(2, "0") }) if Date.today.month == 12
-
-                #   committed_days = committed_solution_files
-                #     .split("\n")
-                #     .map {
-                #       match = _1.match(/(?<year>\d{4})\/(?<day>\d\d).rb$/)
-                #       year, day = match[:year], match[:day]
-                #       [year, day]
-                #     }
-                #     .group_by(&:first)
-                #     .transform_values { _1.map(&:last) }
-
-                #   default_year, default_day = previous_days
-                #     .map { |k, v| [k, v - (committed_days[k] || [])] }
-                #     .to_h
-                #     .then {
-                #       [_1.keys.first, _1.values.first.first]
-                #     }
-                #   default_day.delete_prefix!("0")
-
-                #   puts "You've recently finished #{year}. Yay!"
-                #   bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
-                # end
-
-                default_year, default_day = Git.last_committed_solution(exclude_year: year)
-                if default_year
-                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
-                else
-                  default_year, default_day = "2015", "1"
+                committed = Git.committed_by_year
+                total_committed = committed.values.sum { _1.values.count(&:itself) }
+                if total_committed.zero?
                   bootstrap_year_prompt = "What year's puzzles do you want to start with? (default: #{default_year})"
+                else
+                  earliest_year_with_fewest_committed = committed
+                    .transform_values { _1.values.count(&:itself) }
+                    .sort_by(&:last).first.first
+                  default_year = earliest_year_with_fewest_committed
+                  default_day = committed[default_year].values.index(false)
+
+                  puts "You've recently finished #{year}. Yay!"
+                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
                 end
 
                 loop do

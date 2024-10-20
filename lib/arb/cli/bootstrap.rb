@@ -23,7 +23,7 @@ module Arb
       `#{ENV["EDITOR_COMMAND"]} #{spec_path}`
       `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
-      unless Git.last_committed_solution(year:)
+      if Git.commit_count <= 1
         puts "Now fill in the spec for Part One with an example from the instructions, " \
           "then run it with `#{PASTEL.blue.bold("arb run")}` (or just `arb`) as " \
           "you implement the solution. When the spec passes, your solution will " \

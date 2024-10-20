@@ -3,11 +3,12 @@ module Arb
     def self.progress
       WorkingDirectory.prepare!
 
-      past_year_count = 25 * (Date.today.year - 2015)
-      this_year_count = (Date.today.month == 12 ? Date.today.day : 0).clamp(..25)
-      total_count = past_year_count + this_year_count
+      committed = Git.committed_by_year
 
-      my_counts_by_year = Git.count_by_subdirs(dir: "src")
+      total_count = committed.values.sum(&:count)
+      my_counts_by_year = committed
+        .transform_values { _1.values.count(&:itself) }
+        .reject { |k, v| v.zero? }
       my_total_count = my_counts_by_year.values.sum
 
       total_percent = (my_total_count.to_f / total_count * 100).round(1)
@@ -25,7 +26,7 @@ module Arb
 
         year_percent = (my_count.to_f / year_count * 100).round
 
-        puts "#{PASTEL.blue(year + ":")}\t#{year_percent}%\t#{my_count}/#{year_count}"
+        puts "#{PASTEL.blue("#{year}:")}\t#{year_percent}%\t#{my_count}/#{year_count}"
       end
     end
   end

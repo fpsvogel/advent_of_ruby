@@ -13,8 +13,8 @@ module Arb
 
       year, day = YearDayValidator.validate_year_and_day(year:, day:, default_untracked_or_done: true)
 
-      if Git.new_solutions.none? && Git.last_committed_solution(year:)
-        bootstrap(year, day)
+      if Git.new_solutions.none? && !Git.last_committed_solution(year:)
+        bootstrap(year:, day:)
         return
       end
 
@@ -56,8 +56,8 @@ module Arb
       if correct_answer_2
         puts "🙌 You've already submitted the answers to both parts.\n\n"
 
-        unless Git.last_committed_solution(year:)
-          puts "\nWhen you're done with this puzzle, run " \
+        if Git.commit_count <= 1
+          puts "When you're done with this puzzle, run " \
             "`#{PASTEL.blue.bold("arb commit")}` (or `arb c`) commit your solution to Git.\n"
         end
 
@@ -99,11 +99,11 @@ module Arb
             File.write(spec_path, spec_without_skips)
           end
 
-          unless Git.last_committed_solution(year:)
+          if Git.commit_count <= 1
             puts "\n\nNow it's time to improve your solution! Be sure to look " \
               "at other people's solutions (in the \"others\" directory). When " \
-              "you're done, run `#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) " \
-              "to prep the next puzzle.\n"
+              "you're done, run `#{PASTEL.blue.bold("arb commit")}` (or `arb c`) " \
+              "to commit your solution to Git.\n"
           end
         else
           puts "❌ #{short_message}"
