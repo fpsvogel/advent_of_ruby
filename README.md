@@ -11,12 +11,8 @@ This one does a few things differently:
 
 ## Installation
 
-This gem isn't published yet, so for now you can install it by running these commands:
-
 ```
-git clone https://github.com/fpsvogel/advent_of_ruby.git
-cd advent_of_ruby
-rake install
+gem install advent_of_ruby
 ```
 
 ## Usage
