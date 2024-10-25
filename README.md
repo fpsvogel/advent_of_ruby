@@ -36,11 +36,11 @@ Shortcuts:
 - Downloads the input and instructions files for the given day.
 - Creates a source file and a spec file for the given day.
 - Downloads other people's solutions, from these repos:
- - <https://github.com/eregon/adventofcode>
- - <https://github.com/gchan/advent-of-code-ruby>
- - <https://github.com/ahorner/advent-of-code>
- - <https://github.com/ZogStriP/adventofcode>
- - <https://github.com/erikw/advent-of-code-solutions>
+  - <https://github.com/eregon/adventofcode>
+  - <https://github.com/gchan/advent-of-code-ruby>
+  - <https://github.com/ahorner/advent-of-code>
+  - <https://github.com/ZogStriP/adventofcode>
+  - <https://github.com/erikw/advent-of-code-solutions>
 - *If both arguments are omitted, it bootstraps the next puzzle, i.e. the puzzle after the one that was last committed to Git.*
 - *If only the day argument is omitted, it bootstraps the next puzzle of the given year.*
 - Opens all of the new files using `editor_command` in `config.yml`.
