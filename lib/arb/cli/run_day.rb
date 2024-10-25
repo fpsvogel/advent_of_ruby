@@ -84,13 +84,13 @@ module Arb
           .sub(/ \[\[.+/, "")
 
         if short_message.start_with?("That's the right answer!")
-          puts "⭐ #{short_message}\n"
+          puts "\n⭐ #{short_message}"
 
           # TODO don't re-download if the instructions file already contains the next part
           instructions_path = Files::Instructions.download(year, day, overwrite: true)
 
           if (options_part || inferred_part) == "1"
-            puts "\nDownloaded instructions for Part Two.\n\n"
+            puts "Downloaded instructions for Part Two.\n"
             `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
             spec_path = Files::Spec.create(year, day, notify_exists: false)
