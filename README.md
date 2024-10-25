@@ -4,10 +4,10 @@ There are [lots of CLI tools for doing Advent of Code in Ruby](#prior-art). Why 
 
 This one does a few things differently:
 
-- It shows other people's solutions. This was inspired by [Exercism's community solutions](https://exercism.org/tracks/ruby/exercises/circular-buffer/solutions).
-- It's geared toward leisurely solving puzzles across all years. You *can* use it for the competition in December, but I didn't build it with that in mind.
-- It has a magically simple CLI, which mostly involves spamming the `arb` command.
-- It uses Git instead of a database to track the user's progress and current state.
+- It **shows other people's solutions**. This was inspired by [Exercism's community solutions](https://exercism.org/tracks/ruby/exercises/circular-buffer/solutions).
+- It's geared toward **leisurely solving puzzles across all years**. You *can* use it for the competition in December, but I didn't build it with that in mind.
+- It has **a magically simple CLI**, which mostly involves spamming the `arb` command.
+- It uses **Git instead of a database** to track the user's progress and current state.
 
 ## Installation
 
@@ -20,8 +20,8 @@ gem install advent_of_ruby
 In a directory where you want to store your solutions, run the command `arb` and follow the prompts. For example:
 
 ```
-mkdir aoc_ruby
-cd aoc_ruby
+mkdir aoc-ruby
+cd aoc-ruby
 arb
 ```
 
@@ -29,7 +29,7 @@ arb
 
 Shortcuts:
 
-- All commands can be abbreviated with their first letter, e.g. `arb b` for `arb bootstrap`.
+- Any command can be abbreviated with its first letter, e.g. `arb b` for `arb bootstrap`.
 - Just `arb` is short for `arb run`.
 - `arb help` shows a summary of each command.
 

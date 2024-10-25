@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    advent_of_ruby (0.0.0)
+    advent_of_ruby (0.1.0)
       debug (~> 1.0)
       dotenv (~> 3.0)
       faraday (~> 2.0)
