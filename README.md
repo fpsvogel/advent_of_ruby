@@ -17,13 +17,11 @@ gem install advent_of_ruby
 
 ## Usage
 
-In a directory where you want to store your solutions, run the command `arb` and follow the prompts. For example:
+In a directory where you want to store your solutions, run the command `arb` and follow the prompts.
 
-```
-mkdir aoc-ruby
-cd aoc-ruby
-arb
-```
+Here's a demo. (Not pictured: perusing other people's solutions for each part, `01_1.rb` and `01_2.rb`.)
+
+https://github.com/user-attachments/assets/e9a868c5-1867-4704-9da5-79aa3b0def89
 
 ## Commands
 
