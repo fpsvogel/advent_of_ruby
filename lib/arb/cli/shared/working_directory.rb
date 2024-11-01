@@ -2,20 +2,18 @@ module Arb
   module Cli
     class WorkingDirectory
       FILES = {
-        gitignore: <<~FILE,
+        ".gitignore" => <<~FILE,
           input/**/*
           instructions/**/*
           others/**/*
           .env
-
         FILE
-        ruby_version: "3.3.0\n",
-        gemfile: <<~FILE,
+        ".ruby-version" => "3.3.0\n",
+        "Gemfile" => <<~FILE,
           source "https://rubygems.org"
           ruby file: ".ruby-version"
-
         FILE
-        spec_helper_addition: <<~FILE
+        File.join("spec", "spec_helper.rb") => <<~FILE
           require "debug"
 
           Dir[File.join(__dir__, "..", "src", "**", "*.rb")].each do |file|
@@ -110,27 +108,19 @@ module Arb
 
         unless Dir.exist?("src")
           Dir.mkdir("src")
-          other_files_created << :src_dir
+          other_files_created << "src"
         end
 
         unless Dir.exist?("spec")
           Dir.mkdir("spec")
-          other_files_created << :spec_dir
+          other_files_created << "spec"
         end
 
-        unless File.exist?(".gitignore")
-          File.write(".gitignore", FILES.fetch(:gitignore))
-          other_files_created << :gitignore
-        end
-
-        unless File.exist?(".ruby-version")
-          File.write(".ruby-version", FILES.fetch(:ruby_version))
-          other_files_created << :ruby_version
-        end
-
-        unless File.exist?("Gemfile")
-          File.write("Gemfile", FILES.fetch(:gemfile))
-          other_files_created << :gemfile
+        FILES.slice(".gitignore", ".ruby-version", "Gemfile").each do |filename, contents|
+          unless File.exist?(filename)
+            File.write(filename, contents)
+            other_files_created << filename
+          end
         end
 
         spec_helper_path = File.join("spec", "spec_helper.rb")
@@ -138,16 +128,16 @@ module Arb
           rspec_init_output = `rspec --init`
           unless rspec_init_output.match?(/exist\s+spec.spec_helper.rb/)
             original_spec_helper = File.read(spec_helper_path)
-            File.write(spec_helper_path, FILES.fetch(:spec_helper_addition) + original_spec_helper)
-            other_files_created << :spec_helper
+            File.write(spec_helper_path, FILES.fetch(spec_helper_path) + original_spec_helper)
+            other_files_created << spec_helper_path
           end
-          other_files_created << :rspec
+          other_files_created << ".rspec"
         end
 
         unless Git.repo_exists?
           Git.init!
           Git.commit_all!(message: "Initial commit")
-          other_files_created << :git
+          other_files_created << ".git"
         end
 
         other_files_created

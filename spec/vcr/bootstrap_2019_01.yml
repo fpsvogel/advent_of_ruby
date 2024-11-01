@@ -1,0 +1,1096 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://adventofcode.com/2019/day/1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - session=stubbed_session_cookie
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      content-type:
+      - text/html
+      content-length:
+      - '3724'
+      connection:
+      - keep-alive
+      server:
+      - Apache
+      server-ip:
+      - 172.31.63.108
+      vary:
+      - Accept-Encoding
+      content-encoding:
+      - gzip
+      strict-transport-security:
+      - max-age=300
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <!DOCTYPE html>
+        <html lang="en-us">
+        <head>
+        <meta charset="utf-8"/>
+        <title>Day 1 - Advent of Code 2019</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css?31"/>
+        <link rel="stylesheet alternate" type="text/css" href="/static/highcontrast.css?1" title="High Contrast"/>
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <script>window.addEventListener('click', function(e,s,r){if(e.target.nodeName==='CODE'&&e.detail===3){s=window.getSelection();s.removeAllRanges();r=document.createRange();r.selectNodeContents(e.target);s.addRange(r);}});</script>
+        </head><!--
+
+
+
+
+        Oh, hello!  Funny seeing you here.
+
+        I appreciate your enthusiasm, but you aren't going to find much down here.
+        There certainly aren't clues to any of the puzzles.  The best surprises don't
+        even appear in the source until you unlock them for real.
+
+        Please be careful with automated requests; I'm not a massive company, and I can
+        only take so much traffic.  Please be considerate so that everyone gets to play.
+
+        If you're curious about how Advent of Code works, it's running on some custom
+        Perl code. Other than a few integrations (auth, analytics, social media), I
+        built the whole thing myself, including the design, animations, prose, and all
+        of the puzzles.
+
+        The puzzles are most of the work; preparing a new calendar and a new set of
+        puzzles each year takes all of my free time for 4-5 months. A lot of effort
+        went into building this thing - I hope you're enjoying playing it as much as I
+        enjoyed making it for you!
+
+        If you'd like to hang out, I'm @ericwastl@hachyderm.io on Mastodon and
+        @ericwastl on Twitter.
+
+        - Eric Wastl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -->
+        <body>
+        <header><div><h1 class="title-global"><a href="/">Advent of Code</a></h1><nav><ul><li><a href="/2019/about">[About]</a></li><li><a href="/2019/events">[Events]</a></li><li><a href="https://teespring.com/stores/advent-of-code" target="_blank">[Shop]</a></li><li><a href="/2019/settings">[Settings]</a></li><li><a href="/2019/auth/logout">[Log Out]</a></li></ul></nav><div class="user">Felipe Vogel <span class="star-count">2*</span></div></div><div><h1 class="title-event">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="title-event-wrap">//</span><a href="/2019">2019</a><span class="title-event-wrap"></span></h1><nav><ul><li><a href="/2019">[Calendar]</a></li><li><a href="/2019/support">[AoC++]</a></li><li><a href="/2019/sponsors">[Sponsors]</a></li><li><a href="/2019/leaderboard">[Leaderboard]</a></li><li><a href="/2019/stats">[Stats]</a></li></ul></nav></div></header>
+
+        <div id="sidebar">
+        <div id="sponsor"><div class="quiet">Our <a href="/2019/sponsors">sponsors</a> help make Advent of Code possible:</div><div class="sponsor"><a href="https://www.tngtech.com/" target="_blank" onclick="if(ga)ga('send','event','sponsor','sidebar',this.href);" rel="noopener">TNG</a> - The Nerd Group. Solving hard IT problems all year round.</div></div>
+        </div><!--/sidebar-->
+
+        <main>
+        <article class="day-desc"><h2>--- Day 1: The Tyranny of the Rocket Equation ---</h2><p>Santa has become stranded at the edge of the Solar System while delivering presents to other planets! To accurately calculate his position in space, safely align his warp drive, and return to Earth in time to save Christmas, he needs you to bring him <span title="If only you had time to grab an astrolabe.">measurements</span> from <em class="star">fifty stars</em>.</p>
+        <p>Collect stars by solving puzzles.  Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first.  Each puzzle grants <em class="star">one star</em>. Good luck!</p>
+        <p>The Elves quickly load you into a spacecraft and prepare to launch.</p>
+        <p>At the first Go / No Go poll, every Elf is Go until the Fuel Counter-Upper.  They haven't determined the amount of fuel required yet.</p>
+        <p>Fuel required to launch a given <em>module</em> is based on its <em>mass</em>.  Specifically, to find the fuel required for a module, take its mass, divide by three, round down, and subtract 2.</p>
+        <p>For example:</p>
+        <ul>
+        <li>For a mass of <code>12</code>, divide by 3 and round down to get <code>4</code>, then subtract 2 to get <code>2</code>.</li>
+        <li>For a mass of <code>14</code>, dividing by 3 and rounding down still yields <code>4</code>, so the fuel required is also <code>2</code>.</li>
+        <li>For a mass of <code>1969</code>, the fuel required is <code>654</code>.</li>
+        <li>For a mass of <code>100756</code>, the fuel required is <code>33583</code>.</li>
+        </ul>
+        <p>The Fuel Counter-Upper needs to know the total fuel requirement.  To find it, individually calculate the fuel needed for the mass of each module (your puzzle input), then add together all the fuel values.</p>
+        <p><em>What is the sum of the fuel requirements</em> for all of the modules on your spacecraft?</p>
+        </article>
+        <p>To begin, <a href="1/input" target="_blank">get your puzzle input</a>.</p>
+        <form method="post" action="1/answer"><input type="hidden" name="level" value="1"/><p>Answer: <input type="text" name="answer" autocomplete="off"/> <input type="submit" value="[Submit]"/></p></form>
+        <p>You can also <span class="share">[Share<span class="share-content">on
+          <a href="https://twitter.com/intent/tweet?text=I%27ve+completed+%22The+Tyranny+of+the+Rocket+Equation%22+%2D+Day+1+%2D+Advent+of+Code+2019&amp;url=https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F1&amp;related=ericwastl&amp;hashtags=AdventOfCode" target="_blank">Twitter</a>
+          <a href="javascript:void(0);" onclick="var ms; try{ms=localStorage.getItem('mastodon.server')}finally{} if(typeof ms!=='string')ms=''; ms=prompt('Mastodon Server?',ms); if(typeof ms==='string' && ms.length){this.href='https://'+ms+'/share?text=I%27ve+completed+%22The+Tyranny+of+the+Rocket+Equation%22+%2D+Day+1+%2D+Advent+of+Code+2019+%23AdventOfCode+https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F1';try{localStorage.setItem('mastodon.server',ms);}finally{}}else{return false;}" target="_blank">Mastodon</a
+        ></span>]</span> this puzzle.</p>
+        </main>
+
+        <!-- ga -->
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-69522494-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+        </script>
+        <!-- /ga -->
+        </body>
+        </html>
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/1.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '14'
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      content-type:
+      - text/plain; charset=utf-8
+      x-github-request-id:
+      - 5C31:240B77:A9DB4A:B7F882:67254679
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200142-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496122.233700,VS0,VE53
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 4295f5c4dc0394f862d46d1f25c6fd93e4972e7e
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: '404: Not Found'
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/1a.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '78'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"1932d60a3e6f13cf4504d66b8c70a84f1b42c09ffb4176eb243dc7979bc5b5cc"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - ED22:3DD57D:EDF0:FE80:67254622
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200099-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496122.417755,VS0,VE2
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 31e559c4e377b6ea0e49d48527ad8ac4033625d2
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: 'p File.readlines(''1.txt'').sum { |line| Integer(line) / 3 - 2 }
+
+        '
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/gchan/advent-of-code-ruby/main/2019/day-01/day-01-part-1.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '188'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"3955c3c14d934f1dadd1aab2223d172a6b542fdcb89ca5af565cd6866ec7dacc"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - DCDA:1356BA:20B1B:22DC5:67254624
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200077-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.547921,VS0,VE1
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 6e28631a955678f67db2d2267f86b3c3d24e67cf
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+
+        file_path = File.expand_path("../day-01-input.txt", __FILE__)
+        input     = File.read(file_path)
+
+        fuel = 0
+
+        modules = input.split("\n").map(&:to_i)
+
+        modules.each do |mass|
+          fuel += mass / 3 - 2
+        end
+
+        puts fuel
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/erikw/advent-of-code-solutions/main/2019/01/part1.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '118'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"1adfb9aba46f407ed2cdbf9f582d3d2c553ba8cac92a419ab2e876062fdc560d"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - B99E:20C9E0:104CA:1155E:67254620
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200035-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.678609,VS0,VE1
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 26c3b37b0f005e37ddfd08995a6b449a5ebd10cf
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+        # frozen_string_literal: true
+
+        puts ARGF.each_line.map { |l| l.to_i / 3 - 2 }.sum
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/1b.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '134'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"22c285dd184a41d4357df21090c2e4b3ade72b4efc72d44d92600ea0fbdfc926"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - 937B:23EF7A:13471:147A7:67254623
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100166-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.818119,VS0,VE2
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 328b59c0b0a1951e6a71ddbac927c002a3debb96
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        p File.readlines('1.txt').sum { |line|
+          mod = Integer(line)
+          total = 0
+          while fuel = mod / 3 - 2 and fuel > 0
+            total += fuel
+            mod = fuel
+          end
+          total
+        }
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/gchan/advent-of-code-ruby/main/2019/day-01/day-01-part-2.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '204'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"46a2dba59fe2fb6ae2873066ac6daf0d4f48a811f331a4977c603d8ca413c5a7"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - F952:3DD57D:EE93:FF27:67254624
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:02 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100172-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.957432,VS0,VE1
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 2a9a5cef49891961f05ebb680301748f45eb13e6
+      expires:
+      - Fri, 01 Nov 2024 21:27:02 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+
+        file_path = File.expand_path("../day-01-input.txt", __FILE__)
+        input     = File.read(file_path)
+
+        fuel = 0
+
+        modules = input.split("\n").map(&:to_i)
+
+        modules.each do |mass|
+          while mass > 0
+            mass = mass / 3 - 2
+            fuel += mass
+          end
+        end
+
+        puts fuel
+  recorded_at: Fri, 01 Nov 2024 21:22:02 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/ahorner/advent-of-code/main/lib/2019/01.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '236'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"39d83ce1fa294df90edaecd88a5c25d05a916649603ee22c44402d136f50e244"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - ABE3:232DEF:EC86:FD0B:67254622
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:03 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200106-IAD
+      x-cache:
+      - HIT
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.084234,VS0,VE3
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - af166fe5466a239d2868829a80469445eede7b15
+      expires:
+      - Fri, 01 Nov 2024 21:27:03 GMT
+      source-age:
+      - '86'
+    body:
+      encoding: UTF-8
+      string: |
+        MODULES = INPUT.split("\n").map(&:to_i)
+
+        def fuel_requirement(mass)
+          (mass / 3.0).floor - 2
+        end
+
+        total = MODULES.sum { |mass| fuel_requirement(mass) }
+        solve!("The total fuel requirement is:", total)
+
+        def compounded_fuel_requirement(mass)
+          fuel = 0
+          fuel += mass = [fuel_requirement(mass), 0].max while mass > 0
+
+          fuel
+        end
+
+        total = MODULES.sum { |mass| compounded_fuel_requirement(mass) }
+        solve!("The total fuel requirement (with compounding) is:", total)
+  recorded_at: Fri, 01 Nov 2024 21:22:03 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/ZogStriP/adventofcode/master/2019/01_the_tyranny_of_the_rocket_equation.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '493'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"655a9829e1d19a8b697cf31ba44bfe631cb094a2b03b173059e23982ad6ac1e5"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - A99E:221A44:A76F13:B58DEE:6725467A
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:03 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100151-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.218114,VS0,VE106
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - a62c4719f84086ec8c18d97d96dcda5368c809e4
+      expires:
+      - Fri, 01 Nov 2024 21:27:03 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        input = DATA.read.each_line.map(&:to_i)
+
+        p input.sum { |m| m / 3 - 2 }
+        p input.sum { |m| Enumerator.new { |e| e << m while (m = m / 3 - 2) > 0 }.sum }
+
+        __END__
+        129192
+        58561
+        57267
+        95382
+        84995
+        127372
+        93598
+        97264
+        138550
+        79327
+        135661
+        139468
+        108860
+        149642
+        72123
+        128333
+        69002
+        98450
+        86267
+        70171
+        101333
+        79822
+        142539
+        142743
+        51371
+        111381
+        62073
+        72210
+        125168
+        135952
+        131060
+        121842
+        88234
+        146774
+        136571
+        126719
+        50644
+        75696
+        51195
+        77171
+        118052
+        83691
+        133779
+        149814
+        64847
+        110697
+        92695
+        59453
+        139517
+        129487
+        79271
+        97896
+        146987
+        149822
+        71866
+        90797
+        104732
+        54997
+        50139
+        134115
+        133017
+        144979
+        89428
+        124750
+        91833
+        57252
+        67195
+        121624
+        102706
+        138245
+        127700
+        124098
+        110382
+        121557
+        103613
+        133576
+        122801
+        112306
+        120203
+        134696
+        76129
+        84576
+        80854
+        147237
+        71025
+        127513
+        143631
+        125090
+        115698
+        57979
+        84880
+        120177
+        147389
+        88380
+        114688
+        56355
+        126265
+        58220
+        63523
+        130179
+  recorded_at: Fri, 01 Nov 2024 21:22:03 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/erikw/advent-of-code-solutions/main/2019/01/part2.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '158'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"210d3aa1d2b11b3ff1605d9594be394d932f857287f6f73e064ae5be00a17c61"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - FC96:256EC1:B4FA17:C32F52:6725467B
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Fri, 01 Nov 2024 21:22:03 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100125-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730496123.449227,VS0,VE83
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 56d19e76c3f659291513b31180d9a3e9a95595a7
+      expires:
+      - Fri, 01 Nov 2024 21:27:03 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+        # frozen_string_literal: true
+
+        def fuel(mass)
+          f = mass / 3 - 2
+          f <= 0 ? 0 : f + fuel(f)
+        end
+
+        puts ARGF.each_line.map { |l| fuel(l.to_i) }.sum
+  recorded_at: Fri, 01 Nov 2024 21:22:03 GMT
+- request:
+    method: get
+    uri: https://adventofcode.com/2019/day/1/input
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - session=stubbed_session_cookie
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Fri, 01 Nov 2024 21:22:03 GMT
+      content-type:
+      - text/plain
+      content-length:
+      - '343'
+      connection:
+      - keep-alive
+      server:
+      - Apache
+      server-ip:
+      - 172.31.61.174
+      vary:
+      - Accept-Encoding
+      content-encoding:
+      - gzip
+      strict-transport-security:
+      - max-age=300
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        68958
+        82218
+        54333
+        59177
+        51874
+        100259
+        95468
+        124006
+        75078
+        113631
+        90315
+        147580
+        68233
+        81025
+        133084
+        90959
+        81196
+        92443
+        124832
+        65871
+        57704
+        140203
+        113053
+        76337
+        72195
+        115917
+        87843
+        131768
+        105816
+        131153
+        59714
+        94107
+        50933
+        139545
+        94969
+        149463
+        60042
+        66028
+        111190
+        63257
+        50020
+        88783
+        81428
+        73977
+        149240
+        137152
+        74738
+        55067
+        128829
+        56465
+        81962
+        67242
+        94121
+        92303
+        68477
+        88595
+        64324
+        82527
+        134717
+        140344
+        132026
+        137558
+        95643
+        79010
+        146346
+        86246
+        52341
+        147564
+        89159
+        66456
+        83190
+        128675
+        130658
+        122857
+        134538
+        122151
+        133900
+        117462
+        117791
+        139254
+        86366
+        66165
+        92897
+        121218
+        135962
+        143061
+        129220
+        114623
+        98257
+        76722
+        121014
+        77713
+        137858
+        133282
+        103595
+        118981
+        149137
+        101141
+        70765
+        141113
+  recorded_at: Fri, 01 Nov 2024 21:22:03 GMT
+recorded_with: VCR 6.3.1

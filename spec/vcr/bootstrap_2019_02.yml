@@ -1,0 +1,1037 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://adventofcode.com/2019/day/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - session=stubbed_session_cookie
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sat, 02 Nov 2024 01:12:29 GMT
+      content-type:
+      - text/html
+      content-length:
+      - '4074'
+      connection:
+      - keep-alive
+      server:
+      - Apache
+      server-ip:
+      - 172.31.59.243
+      vary:
+      - Accept-Encoding
+      content-encoding:
+      - gzip
+      strict-transport-security:
+      - max-age=300
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        <!DOCTYPE html>
+        <html lang="en-us">
+        <head>
+        <meta charset="utf-8"/>
+        <title>Day 2 - Advent of Code 2019</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css?31"/>
+        <link rel="stylesheet alternate" type="text/css" href="/static/highcontrast.css?1" title="High Contrast"/>
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <script>window.addEventListener('click', function(e,s,r){if(e.target.nodeName==='CODE'&&e.detail===3){s=window.getSelection();s.removeAllRanges();r=document.createRange();r.selectNodeContents(e.target);s.addRange(r);}});</script>
+        </head><!--
+
+
+
+
+        Oh, hello!  Funny seeing you here.
+
+        I appreciate your enthusiasm, but you aren't going to find much down here.
+        There certainly aren't clues to any of the puzzles.  The best surprises don't
+        even appear in the source until you unlock them for real.
+
+        Please be careful with automated requests; I'm not a massive company, and I can
+        only take so much traffic.  Please be considerate so that everyone gets to play.
+
+        If you're curious about how Advent of Code works, it's running on some custom
+        Perl code. Other than a few integrations (auth, analytics, social media), I
+        built the whole thing myself, including the design, animations, prose, and all
+        of the puzzles.
+
+        The puzzles are most of the work; preparing a new calendar and a new set of
+        puzzles each year takes all of my free time for 4-5 months. A lot of effort
+        went into building this thing - I hope you're enjoying playing it as much as I
+        enjoyed making it for you!
+
+        If you'd like to hang out, I'm @ericwastl@hachyderm.io on Mastodon and
+        @ericwastl on Twitter.
+
+        - Eric Wastl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        -->
+        <body>
+        <header><div><h1 class="title-global"><a href="/">Advent of Code</a></h1><nav><ul><li><a href="/2019/about">[About]</a></li><li><a href="/2019/events">[Events]</a></li><li><a href="https://teespring.com/stores/advent-of-code" target="_blank">[Shop]</a></li><li><a href="/2019/settings">[Settings]</a></li><li><a href="/2019/auth/logout">[Log Out]</a></li></ul></nav><div class="user">Felipe Vogel <span class="star-count">2*</span></div></div><div><h1 class="title-event">&nbsp;&nbsp;<span class="title-event-wrap">0.0.0.0:</span><a href="/2019">2019</a><span class="title-event-wrap"></span></h1><nav><ul><li><a href="/2019">[Calendar]</a></li><li><a href="/2019/support">[AoC++]</a></li><li><a href="/2019/sponsors">[Sponsors]</a></li><li><a href="/2019/leaderboard">[Leaderboard]</a></li><li><a href="/2019/stats">[Stats]</a></li></ul></nav></div></header>
+
+        <div id="sidebar">
+        <div id="sponsor"><div class="quiet">Our <a href="/2019/sponsors">sponsors</a> help make Advent of Code possible:</div><div class="sponsor"><a href="https://www.codethink.co.uk/" target="_blank" onclick="if(ga)ga('send','event','sponsor','sidebar',this.href);" rel="noopener">Codethink Ltd.</a> - Codethink is a software services company, expert in the use of Open Source technologies for systems software engineering.</div></div>
+        </div><!--/sidebar-->
+
+        <main>
+        <article class="day-desc"><h2>--- Day 2: 1202 Program Alarm ---</h2><p>On the way to your <a href="https://en.wikipedia.org/wiki/Gravity_assist">gravity assist</a> around the Moon, your ship computer beeps angrily about a "<a href="https://www.hq.nasa.gov/alsj/a11/a11.landing.html#1023832">1202 program alarm</a>". On the radio, an Elf is already explaining how to handle the situation: "Don't worry, that's perfectly norma--" The ship computer <a href="https://en.wikipedia.org/wiki/Halt_and_Catch_Fire">bursts into flames</a>.</p>
+        <p>You notify the Elves that the computer's <a href="https://en.wikipedia.org/wiki/Magic_smoke">magic smoke</a> seems to have <span title="Looks like SOMEONE forgot to change the switch to 'more magic'.">escaped</span>. "That computer ran <em>Intcode</em> programs like the gravity assist program it was working on; surely there are enough spare parts up there to build a new Intcode computer!"</p>
+        <p>An Intcode program is a list of <a href="https://en.wikipedia.org/wiki/Integer">integers</a> separated by commas (like <code>1,0,0,3,99</code>).  To run one, start by looking at the first integer (called position <code>0</code>). Here, you will find an <em>opcode</em> - either <code>1</code>, <code>2</code>, or <code>99</code>. The opcode indicates what to do; for example, <code>99</code> means that the program is finished and should immediately halt. Encountering an unknown opcode means something went wrong.</p>
+        <p>Opcode <code>1</code> <em>adds</em> together numbers read from two positions and stores the result in a third position. The three integers <em>immediately after</em> the opcode tell you these three positions - the first two indicate the <em>positions</em> from which you should read the input values, and the third indicates the <em>position</em> at which the output should be stored.</p>
+        <p>For example, if your Intcode computer encounters <code>1,10,20,30</code>, it should read the values at positions <code>10</code> and <code>20</code>, add those values, and then overwrite the value at position <code>30</code> with their sum.</p>
+        <p>Opcode <code>2</code> works exactly like opcode <code>1</code>, except it <em>multiplies</em> the two inputs instead of adding them. Again, the three integers after the opcode indicate <em>where</em> the inputs and outputs are, not their values.</p>
+        <p>Once you're done processing an opcode, <em>move to the next one</em> by stepping forward <code>4</code> positions.</p>
+        <p>For example, suppose you have the following program:</p>
+        <pre><code>1,9,10,3,2,3,11,0,99,30,40,50</code></pre>
+        <p>For the purposes of illustration, here is the same program split into multiple lines:</p>
+        <pre><code>1,9,10,3,
+        2,3,11,0,
+        99,
+        30,40,50
+        </code></pre>
+        <p>The first four integers, <code>1,9,10,3</code>, are at positions <code>0</code>, <code>1</code>, <code>2</code>, and <code>3</code>. Together, they represent the first opcode (<code>1</code>, addition), the positions of the two inputs (<code>9</code> and <code>10</code>), and the position of the output (<code>3</code>).  To handle this opcode, you first need to get the values at the input positions: position <code>9</code> contains <code>30</code>, and position <code>10</code> contains <code>40</code>.  <em>Add</em> these numbers together to get <code>70</code>.  Then, store this value at the output position; here, the output position (<code>3</code>) is <em>at</em> position <code>3</code>, so it overwrites itself.  Afterward, the program looks like this:</p>
+        <pre><code>1,9,10,<em>70</em>,
+        2,3,11,0,
+        99,
+        30,40,50
+        </code></pre>
+        <p>Step forward <code>4</code> positions to reach the next opcode, <code>2</code>. This opcode works just like the previous, but it multiplies instead of adding.  The inputs are at positions <code>3</code> and <code>11</code>; these positions contain <code>70</code> and <code>50</code> respectively. Multiplying these produces <code>3500</code>; this is stored at position <code>0</code>:</p>
+        <pre><code><em>3500</em>,9,10,70,
+        2,3,11,0,
+        99,
+        30,40,50
+        </code></pre>
+        <p>Stepping forward <code>4</code> more positions arrives at opcode <code>99</code>, halting the program.</p>
+        <p>Here are the initial and final states of a few more small programs:</p>
+        <ul>
+        <li><code>1,0,0,0,99</code> becomes <code><em>2</em>,0,0,0,99</code> (<code>1 + 1 = 2</code>).</li>
+        <li><code>2,3,0,3,99</code> becomes <code>2,3,0,<em>6</em>,99</code> (<code>3 * 2 = 6</code>).</li>
+        <li><code>2,4,4,5,99,0</code> becomes <code>2,4,4,5,99,<em>9801</em></code> (<code>99 * 99 = 9801</code>).</li>
+        <li><code>1,1,1,4,99,5,6,0,99</code> becomes <code><em>30</em>,1,1,4,<em>2</em>,5,6,0,99</code>.</li>
+        </ul>
+        <p>Once you have a working computer, the first step is to restore the gravity assist program (your puzzle input) to the "1202 program alarm" state it had just before the last computer caught fire. To do this, <em>before running the program</em>, replace position <code>1</code> with the value <code>12</code> and replace position <code>2</code> with the value <code>2</code>. <em>What value is left at position <code>0</code></em> after the program halts?</p>
+        </article>
+        <p>To begin, <a href="2/input" target="_blank">get your puzzle input</a>.</p>
+        <form method="post" action="2/answer"><input type="hidden" name="level" value="1"/><p>Answer: <input type="text" name="answer" autocomplete="off"/> <input type="submit" value="[Submit]"/></p></form>
+        <p>You can also <span class="share">[Share<span class="share-content">on
+          <a href="https://twitter.com/intent/tweet?text=%221202+Program+Alarm%22+%2D+Day+2+%2D+Advent+of+Code+2019&amp;url=https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F2&amp;related=ericwastl&amp;hashtags=AdventOfCode" target="_blank">Twitter</a>
+          <a href="javascript:void(0);" onclick="var ms; try{ms=localStorage.getItem('mastodon.server')}finally{} if(typeof ms!=='string')ms=''; ms=prompt('Mastodon Server?',ms); if(typeof ms==='string' && ms.length){this.href='https://'+ms+'/share?text=%221202+Program+Alarm%22+%2D+Day+2+%2D+Advent+of+Code+2019+%23AdventOfCode+https%3A%2F%2Fadventofcode%2Ecom%2F2019%2Fday%2F2';try{localStorage.setItem('mastodon.server',ms);}finally{}}else{return false;}" target="_blank">Mastodon</a
+        ></span>]</span> this puzzle.</p>
+        </main>
+
+        <!-- ga -->
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-69522494-1', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+        </script>
+        <!-- /ga -->
+        </body>
+        </html>
+  recorded_at: Sat, 02 Nov 2024 01:12:29 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/2.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '14'
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      content-type:
+      - text/plain; charset=utf-8
+      x-github-request-id:
+      - E22E:231C3F:C1554C:D1E5FD:67257C7B
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:30 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100020-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509950.095029,VS0,VE65
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 23b6319dd6eb8a1833bc430972df67338b5543b3
+      expires:
+      - Sat, 02 Nov 2024 01:17:30 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: '404: Not Found'
+  recorded_at: Sat, 02 Nov 2024 01:12:30 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/2a.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '236'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"e60f0ebc1eb2d4175b4df8518842589fa6fff20413ff9eb8d28b277df3077503"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - FDD0:113385:C6525B:D6E165:67257C7D
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:30 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200025-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509950.318277,VS0,VE92
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - cbd2183d15cce6663bb0d3b4bebd5191a750afdc
+      expires:
+      - Sat, 02 Nov 2024 01:17:30 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        input = File.read('2.txt')
+        code = input.chomp.split(',').map { |e| Integer(e) }
+
+        code[1] = 12
+        code[2] = 02
+
+        pc = 0
+        while opcode = code[pc] and opcode != 99
+          case opcode
+          when 1
+            a, b, out = code[pc+1, 3]
+            code[out] = code[a] + code[b]
+            pc += 4
+          when 2
+            a, b, out = code[pc+1, 3]
+            code[out] = code[a] * code[b]
+            pc += 4
+          else
+            raise "Unknown opcode: #{opcode}"
+          end
+        end
+
+        p code[0]
+  recorded_at: Sat, 02 Nov 2024 01:12:30 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/gchan/advent-of-code-ruby/main/2019/day-02/day-02-part-1.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '252'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"7f7e2dff5ce887b25546652b20194e76f8b415a8bc10267042574e00967750d9"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - F661:34EA51:1DE7E8:2063F6:67257C7B
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:30 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100100-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509951.543262,VS0,VE99
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - b769010fc689033907f7cd1abdf8a870f4b4af97
+      expires:
+      - Sat, 02 Nov 2024 01:17:30 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+
+        file_path = File.expand_path("../day-02-input.txt", __FILE__)
+        input     = File.read(file_path)
+
+        codes = input.split(",").map(&:to_i)
+
+        codes[1] = 12
+        codes[2] = 2
+
+        i = 0
+
+        loop do
+          case codes[i]
+          when 1
+            op = :+
+          when 2
+            op = :*
+          when 99
+            puts codes[0]
+            exit
+          end
+
+          codes[codes[i+3]] = codes[codes[i+1]].send(op, codes[codes[i+2]])
+
+          i += 4
+        end
+  recorded_at: Sat, 02 Nov 2024 01:12:30 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/erikw/advent-of-code-solutions/main/2019/02/part1.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '190'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"d64962e3bfe89ffe4c82f85ea9f32e359b3b416c52d8b48b95f081d64ab9b760"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - F262:2E7356:172169:199DF3:67257C7E
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:30 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200162-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509951.789153,VS0,VE101
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 9b1e44922806c2f4a7d48a4679c5d690c198a3bb
+      expires:
+      - Sat, 02 Nov 2024 01:17:30 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+        # frozen_string_literal: true
+
+        require_relative 'computer'
+
+        intcode = ARGF.readline.split(',').map(&:to_i)
+        intcode[IP_NOUN] = 12
+        intcode[IP_VERB] = 2
+        puts Computer.new.execute(intcode).memory[0]
+  recorded_at: Sat, 02 Nov 2024 01:12:30 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/eregon/adventofcode/master/2019/2b.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '342'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"0707674b4cc9cbae9b1a75342d48720dd2cb7a6c48ecab01072aa795d49a3fa1"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - AD4A:230D03:1BABE9:1E286B:67257C7D
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:31 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kjyo7100171-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509951.026329,VS0,VE125
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 56d6188115e3bdbf958ca33800f64f35f4bd84d2
+      expires:
+      - Sat, 02 Nov 2024 01:17:31 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: "input = File.read('2.txt')\ncode = input.chomp.split(',').map { |e|
+        Integer(e) }.freeze\n\ndef interpreter(memory, input1, input2)\n  memory =
+        memory.dup\n  memory[1] = input1\n  memory[2] = input2\n\n  ip = 0\n  while
+        opcode = memory[ip] and opcode != 99\n    case opcode\n    when 1\n      a,
+        b, out = memory[ip+1, 3]\n      memory[out] = memory[a] + memory[b]\n      ip
+        += 4\n    when 2\n      a, b, out = memory[ip+1, 3]\n      memory[out] = memory[a]
+        * memory[b]\n      ip += 4\n    else\n      raise \"Unknown opcode: #{opcode}\"\n
+        \   end\n  end\n  \n  memory[0]\nend\n\n100.times { |noun|\n  100.times {
+        |verb|\n    if interpreter(code, noun, verb) == 19690720\n      p 100 * noun
+        + verb\n      exit\n    end\n  }\n}\n"
+  recorded_at: Sat, 02 Nov 2024 01:12:31 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/gchan/advent-of-code-ruby/main/2019/day-02/day-02-part-2.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '338'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"8f8f3ffd3f0584557b8fa2ab3ea9c95f800f2978ae3c92c64536beb6e6db6de4"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - 23F0:BC17A:C34EFB:D3DF8A:67257C7E
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:31 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200146-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509951.296103,VS0,VE123
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - dc3dffdc3ccf722c0ff4d84101d90dd689e726a1
+      expires:
+      - Sat, 02 Nov 2024 01:17:31 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+
+        file_path = File.expand_path("../day-02-input.txt", __FILE__)
+        input     = File.read(file_path)
+
+        codes = input.split(",").map(&:to_i)
+
+        def run(noun, verb, codes)
+          codes[1] = noun
+          codes[2] = verb
+
+          i = 0
+
+          loop do
+            case codes[i]
+            when 1
+              op = :+
+            when 2
+              op = :*
+            when 99
+              return codes[0]
+            end
+
+            codes[codes[i+3]] = codes[codes[i+1]].send(op, codes[codes[i+2]])
+
+            i += 4
+          end
+        end
+
+        100.times do |n|
+          100.times do |v|
+            result = run(n, v, codes.clone)
+            if result == 19690720
+              puts 100 * n + v
+              exit
+            end
+          end
+        end
+  recorded_at: Sat, 02 Nov 2024 01:12:31 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/ahorner/advent-of-code/main/lib/2019/02.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '333'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"e9f48b8eda0f5ce90f09f289c85239ae3df9edc8b908087384ad33b4bfa306bf"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - CEA2:9A06A:C244E3:D2EC0C:67257C7F
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:31 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200094-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509952.563541,VS0,VE98
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 34752140094791a3deabea8d36f40ec338ba8c9b
+      expires:
+      - Sat, 02 Nov 2024 01:17:31 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        require_relative "shared/intcode"
+
+        def run(noun, verb)
+          program = INTCODE.dup
+          program[1] = noun
+          program[2] = verb
+
+          computer = Computer.new(program)
+          computer.run
+
+          computer[0]
+        end
+
+        SETTING ||= [12, 2].freeze
+        output = run(*SETTING)
+        solve!("The output of the program is:", output)
+
+        TARGET_OUTPUT = 19_690_720
+
+        def search(_intcode, target)
+          100.times { |n| 100.times { |v| return [n, v] if run(n, v) == target } }
+        end
+
+        noun, verb = search(INTCODE, TARGET_OUTPUT)
+
+        solve!("The noun/verb code for the target output is:", (noun * 100) + verb)
+  recorded_at: Sat, 02 Nov 2024 01:12:31 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/ZogStriP/adventofcode/master/2019/02_1202_program_alarm.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '421'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"4c082ae734c57d0b6db320dc15ccfd3846e5eb5f1341f0eed0f81dfac1a21669"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - CB64:162F39:C2FFA0:D3A456:67257C7E
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:31 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200160-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509952.807888,VS0,VE97
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - c8a2cdbc94624fc7ad8ec18ff081976ac378e9ef
+      expires:
+      - Sat, 02 Nov 2024 01:17:31 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        program = DATA.read.split(",").map(&:to_i)
+
+        def int_code(program, noun, verb)
+          program[1] = noun
+          program[2] = verb
+
+          pc = 0
+
+          loop do
+            case program[pc]
+            when 1
+              program[program[pc + 3]] = program[program[pc + 1]] + program[program[pc + 2]]
+            when 2
+              program[program[pc + 3]] = program[program[pc + 1]] * program[program[pc + 2]]
+            when 99
+              break
+            end
+            pc += 4
+          end
+
+          program[0]
+        end
+
+        p int_code(program.dup, 12, 1)
+
+        99.times { |noun|
+          99.times { |verb|
+            puts 100 * noun + verb if int_code(program.dup, noun, verb) == 19690720
+          }
+        }
+
+        __END__
+        1,0,0,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,13,19,1,9,19,23,2,13,23,27,2,27,13,31,2,31,10,35,1,6,35,39,1,5,39,43,1,10,43,47,1,5,47,51,1,13,51,55,2,55,9,59,1,6,59,63,1,13,63,67,1,6,67,71,1,71,10,75,2,13,75,79,1,5,79,83,2,83,6,87,1,6,87,91,1,91,13,95,1,95,13,99,2,99,13,103,1,103,5,107,2,107,10,111,1,5,111,115,1,2,115,119,1,119,6,0,99,2,0,14,0
+  recorded_at: Sat, 02 Nov 2024 01:12:31 GMT
+- request:
+    method: get
+    uri: https://raw.githubusercontent.com/erikw/advent-of-code-solutions/main/2019/02/part2.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      connection:
+      - keep-alive
+      content-length:
+      - '351'
+      cache-control:
+      - max-age=300
+      content-security-policy:
+      - default-src 'none'; style-src 'unsafe-inline'; sandbox
+      content-type:
+      - text/plain; charset=utf-8
+      etag:
+      - W/"a8b2b3ad62e93897567e1e2284bfd22f7a43c9fbdf99b1ab97019741ccfd343b"
+      strict-transport-security:
+      - max-age=31536000
+      x-content-type-options:
+      - nosniff
+      x-frame-options:
+      - deny
+      x-xss-protection:
+      - 1; mode=block
+      x-github-request-id:
+      - AF72:72537:1DC9E3:204614:67257C7F
+      content-encoding:
+      - gzip
+      accept-ranges:
+      - bytes
+      date:
+      - Sat, 02 Nov 2024 01:12:32 GMT
+      via:
+      - 1.1 varnish
+      x-served-by:
+      - cache-iad-kcgs7200022-IAD
+      x-cache:
+      - MISS
+      x-cache-hits:
+      - '0'
+      x-timer:
+      - S1730509952.053087,VS0,VE81
+      vary:
+      - Authorization,Accept-Encoding,Origin
+      access-control-allow-origin:
+      - "*"
+      cross-origin-resource-policy:
+      - cross-origin
+      x-fastly-request-id:
+      - 5a9e76ac20efe7f05ba1daea9bdecc90eeb85135
+      expires:
+      - Sat, 02 Nov 2024 01:17:32 GMT
+      source-age:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: |
+        #!/usr/bin/env ruby
+        # frozen_string_literal: true
+
+        require_relative 'computer'
+
+        SEARCHED = 19_690_720
+        VAL_RANGE = 0..99
+
+        def compute(computer, intcode, noun, verb)
+          intcode[IP_NOUN] = noun
+          intcode[IP_VERB] = verb
+          computer.execute(intcode).memory[0]
+        end
+
+        intcode = ARGF.readline.split(',').map(&:to_i)
+
+        noun = 0
+        verb = 0
+        computer = Computer.new
+        catch :found do
+          VAL_RANGE.each do |n|
+            VAL_RANGE.each do |v|
+              next unless compute(computer, intcode, n, v) == SEARCHED
+
+              noun = n
+              verb = v
+              throw :found
+            end
+          end
+        end
+        puts 100 * noun + verb
+  recorded_at: Sat, 02 Nov 2024 01:12:32 GMT
+- request:
+    method: get
+    uri: https://adventofcode.com/2019/day/2/input
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Cookie:
+      - session=stubbed_session_cookie
+      User-Agent:
+      - github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sat, 02 Nov 2024 01:12:32 GMT
+      content-type:
+      - text/plain
+      content-length:
+      - '145'
+      connection:
+      - keep-alive
+      server:
+      - Apache
+      server-ip:
+      - 172.31.16.87
+      vary:
+      - Accept-Encoding
+      content-encoding:
+      - gzip
+      strict-transport-security:
+      - max-age=300
+    body:
+      encoding: ASCII-8BIT
+      string: '1,0,0,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,10,19,1,19,6,23,2,23,13,27,1,27,5,31,2,31,10,35,1,9,35,39,1,39,9,43,2,9,43,47,1,5,47,51,2,13,51,55,1,55,9,59,2,6,59,63,1,63,5,67,1,10,67,71,1,71,10,75,2,75,13,79,2,79,13,83,1,5,83,87,1,87,6,91,2,91,13,95,1,5,95,99,1,99,2,103,1,103,6,0,99,2,14,0,0
+
+        '
+  recorded_at: Sat, 02 Nov 2024 01:12:32 GMT
+recorded_with: VCR 6.3.1
