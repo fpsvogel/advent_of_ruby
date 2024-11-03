@@ -3,17 +3,17 @@ require "arb/arb"
 describe Arb::Cli do
   describe "::bootstrap" do
     context "when no working directory files exist" do
-      it "prompts the user for initial config, then creates files, then downloads the puzzle", vcr: "bootstrap_2019_01" do
+      it "asks the user for initial config questions, then creates files, then downloads the puzzle", vcr: "bootstrap_2019_01" do
         year, day = "2019", "1"
         input_year, input_day = nil, nil
 
-        temp_dir, original_dir = create_temp_dir!
-        Dir.chdir(temp_dir)
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
-        expect(STDIN).to receive(:gets).once.and_return("\n")
+        expect(STDIN).to receive(:gets).once.and_return("\n") # accept default editor
         expect(STDIN).to receive(:gets).once.and_return("stubbed_session_cookie\n")
-        expect(STDIN).to receive(:gets).once.and_return("2019\n")
+        expect(STDIN).to receive(:gets).once.and_return("2019\n") # year to start with
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
@@ -23,10 +23,10 @@ describe Arb::Cli do
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
-        expect_working_directory_files_to_have_correct_contents
+        expect_working_dir_files_to_have_correct_contents
       ensure
         Dir.chdir(original_dir)
-        `rm -rf #{temp_dir}`
+        `rm -rf #{working_dir}`
       end
     end
 
@@ -35,10 +35,10 @@ describe Arb::Cli do
         year, day = "2019", "2"
         input_year, input_day = nil, nil
 
-        temp_dir, original_dir = create_temp_dir!
-        Dir.chdir(temp_dir)
-        create_working_directory_files!
-        create_previous_puzzle!(year:, day:)
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_fake_solution!(year:, day: (day.to_i - 1).to_s)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
 
@@ -50,8 +50,63 @@ describe Arb::Cli do
         expect_puzzle_files_to_have_correct_contents(year:, day:)
       ensure
         Dir.chdir(original_dir)
-        `rm -rf #{temp_dir}`
+        `rm -rf #{working_dir}`
       end
+    end
+
+    context "when a year is completed and no other year is in progress" do
+      it "asks the user which year to do next, then bootstraps Day 1 of that year", vcr: "bootstrap_2019_01" do
+        year, day = "2019", "1"
+        input_year, input_day = nil, nil
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        25.times do |index|
+          create_fake_solution!(year: "2016", day: (index + 1).to_s)
+        end
+
+        expect_puzzle_files_will_be_opened_in_editor(year:, day:)
+        expect(STDIN).to receive(:gets).once.and_return("2019\n") # year to do next
+
+        expect {
+          Arb::Cli.bootstrap(year: input_year, day: input_day)
+        }.to output(match("🤘 Bootstrapped 2019#1")).to_stdout
+        .and not_output(match("✅ Initial files created and committed to a new Git repository.")).to_stdout
+
+        expect_puzzle_files_to_have_correct_contents(year:, day:)
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
+      end
+    end
+  end
+
+  context "when a year is completed and another year is in progress" do
+    it "returns to the earliest in-progress year", vcr: "bootstrap_2019_02" do
+      year, day = "2019", "2"
+      input_year, input_day = nil, nil
+
+      working_dir, original_dir = create_working_dir!
+      Dir.chdir(working_dir)
+      create_working_dir_files!
+      25.times do |index|
+        create_fake_solution!(year: "2016", day: (index + 1).to_s)
+      end
+      create_fake_solution!(year: "2020", day: "1")
+      create_fake_solution!(year: "2019", day: "1")
+
+      expect_puzzle_files_will_be_opened_in_editor(year:, day:)
+
+      expect {
+        Arb::Cli.bootstrap(year: input_year, day: input_day)
+      }.to output(match("🤘 Bootstrapped 2019#2")).to_stdout
+      .and not_output(match("✅ Initial files created and committed to a new Git repository.")).to_stdout
+
+      expect_puzzle_files_to_have_correct_contents(year:, day:)
+    ensure
+      Dir.chdir(original_dir)
+      `rm -rf #{working_dir}`
     end
   end
 
@@ -71,8 +126,8 @@ describe Arb::Cli do
     expect(contents[:instructions]).to end_with("https://adventofcode.com/#{year}/day/#{day}\n")
   end
 
-  def expect_working_directory_files_to_have_correct_contents
-    self.class.working_directory_files do |filename, contents|
+  def expect_working_dir_files_to_have_correct_contents
+    self.class.working_dir_files do |filename, contents|
       if filename.include?("spec_helper")
         expect(File.read(filename)).to start_with contents
       else
@@ -86,8 +141,8 @@ describe Arb::Cli do
 
   # File paths and contents
 
-  def self.working_directory_files
-    @working_directory_files = {
+  def self.working_dir_files
+    @working_dir_files = {
       ".env" => <<~FILE.chomp,
         EDITOR_COMMAND=code
         AOC_COOKIE=stubbed_session_cookie
@@ -111,24 +166,24 @@ describe Arb::Cli do
 
   # Directory and file creation
 
-  def create_temp_dir!
+  def create_working_dir!
     original_dir = Dir.pwd
-    temp_dir = File.join(Dir.home, "arb_temp")
+    working_dir = File.join(Dir.home, "arb_temp")
 
-    if Dir.exist?(temp_dir)
-      `rm -rf #{temp_dir}`
+    if Dir.exist?(working_dir)
+      `rm -rf #{working_dir}`
     end
 
-    Dir.mkdir(temp_dir)
+    Dir.mkdir(working_dir)
 
-    [temp_dir, original_dir]
+    [working_dir, original_dir]
   end
 
-  def create_working_directory_files!
+  def create_working_dir_files!
     Dir.mkdir("src")
     Dir.mkdir("spec")
 
-    self.class.working_directory_files.each do |filename, contents|
+    self.class.working_dir_files.each do |filename, contents|
       File.write(filename, contents)
     end
 
@@ -137,16 +192,15 @@ describe Arb::Cli do
     `git commit -m "Initial commit"`
   end
 
-  def create_previous_puzzle!(year:, day:)
-    prev_day = (day.to_i - 1).to_s.rjust(2, "0")
+  def create_fake_solution!(year:, day:)
+    Dir.mkdir(File.join("src", year)) unless Dir.exist?(File.join("src", year))
+    Dir.mkdir(File.join("spec", year)) unless Dir.exist?(File.join("spec", year))
 
-    Dir.mkdir(File.join("src", year))
-    Dir.mkdir(File.join("spec", year))
-
-    File.write(File.join("src", year, "#{prev_day}.rb"), "a fake solution")
-    File.write(File.join("spec", year, "#{prev_day}_spec.rb"), "a fake spec")
+    padded_day = day.rjust(2, "0")
+    File.write(File.join("src", year, "#{padded_day}.rb"), "a fake solution")
+    File.write(File.join("spec", year, "#{padded_day}_spec.rb"), "a fake spec")
 
     `git add -A`
-    `git commit -m "Solve 2019#01"`
+    `git commit -m "Solve #{year}##{padded_day}"`
   end
 end
