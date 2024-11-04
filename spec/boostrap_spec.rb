@@ -1,6 +1,9 @@
 require "arb/arb"
+require "working_dir_file_creating"
 
 describe Arb::Cli do
+  include WorkingDirFileCreating
+
   describe "::bootstrap" do
     context "when no working directory files exist" do
       it "asks the user for initial config questions, then creates files, then downloads the puzzle", vcr: "bootstrap_2019_01" do
@@ -18,8 +21,8 @@ describe Arb::Cli do
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
-          match("✅ Initial files created and committed to a new Git repository.")
-          .and match("🤘 Bootstrapped 2019#1")
+          include("✅ Initial files created and committed to a new Git repository.")
+          .and include("🤘 Bootstrapped 2019#1")
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -44,8 +47,8 @@ describe Arb::Cli do
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
-        }.to output(match("🤘 Bootstrapped 2019#2")).to_stdout
-        .and not_output(match("✅ Initial files created and committed to a new Git repository.")).to_stdout
+        }.to output(include("🤘 Bootstrapped 2019#2")).to_stdout
+        .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
       ensure
@@ -71,8 +74,8 @@ describe Arb::Cli do
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
-        }.to output(match("🤘 Bootstrapped 2019#1")).to_stdout
-        .and not_output(match("✅ Initial files created and committed to a new Git repository.")).to_stdout
+        }.to output(include("🤘 Bootstrapped 2019#1")).to_stdout
+        .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
       ensure
@@ -100,8 +103,8 @@ describe Arb::Cli do
 
       expect {
         Arb::Cli.bootstrap(year: input_year, day: input_day)
-      }.to output(match("🤘 Bootstrapped 2019#2")).to_stdout
-      .and not_output(match("✅ Initial files created and committed to a new Git repository.")).to_stdout
+      }.to output(include("🤘 Bootstrapped 2019#2")).to_stdout
+      .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
 
       expect_puzzle_files_to_have_correct_contents(year:, day:)
     ensure
@@ -127,7 +130,7 @@ describe Arb::Cli do
   end
 
   def expect_working_dir_files_to_have_correct_contents
-    self.class.working_dir_files do |filename, contents|
+    working_dir_files do |filename, contents|
       if filename.include?("spec_helper")
         expect(File.read(filename)).to start_with contents
       else
@@ -139,18 +142,7 @@ describe Arb::Cli do
     expect(`git log -n 1 --pretty=format:%s`).to eq "Initial commit"
   end
 
-  # File paths and contents
-
-  def self.working_dir_files
-    @working_dir_files = {
-      ".env" => <<~FILE.chomp,
-        EDITOR_COMMAND=code
-        AOC_COOKIE=stubbed_session_cookie
-      FILE
-      **Arb::Cli::WorkingDirectory::FILES,
-      ".rspec" => "--require spec_helper\n",
-    }
-  end
+  # Files
 
   def puzzle_files(year:, day:)
     padded_day = day.rjust(2, "0")
@@ -162,34 +154,6 @@ describe Arb::Cli do
       spec: File.join("spec", year, "#{padded_day}_spec.rb"),
       instructions: File.join("instructions", year, "#{padded_day}.md"),
     }
-  end
-
-  # Directory and file creation
-
-  def create_working_dir!
-    original_dir = Dir.pwd
-    working_dir = File.join(Dir.home, "arb_temp")
-
-    if Dir.exist?(working_dir)
-      `rm -rf #{working_dir}`
-    end
-
-    Dir.mkdir(working_dir)
-
-    [working_dir, original_dir]
-  end
-
-  def create_working_dir_files!
-    Dir.mkdir("src")
-    Dir.mkdir("spec")
-
-    self.class.working_dir_files.each do |filename, contents|
-      File.write(filename, contents)
-    end
-
-    `git init`
-    `git add -A`
-    `git commit -m "Initial commit"`
   end
 
   def create_fake_solution!(year:, day:)

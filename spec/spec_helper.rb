@@ -1,10 +1,29 @@
 require "bundler/setup"
 require "vcr"
 
+ENV["TEST_ENV"] = "true"
+
 RSpec::Matchers.define_negated_matcher :not_change, :change
 RSpec::Matchers.define_negated_matcher :not_output, :output
 RSpec::Matchers.define_negated_matcher :not_raise_error, :raise_error
 RSpec::Matchers.define_negated_matcher :not_be_empty, :be_empty
+
+RSpec::Matchers.define :include_ignoring_colors_and_spacing do |expected|
+  match do |actual|
+    ignore_colors_and_spacing(actual).include?(ignore_colors_and_spacing(expected))
+  end
+
+  failure_message do |actual|
+    "expected that output ignoring colors would include:\n#{ignore_colors_and_spacing(expected)}\nbut got:\n#{ignore_colors_and_spacing(actual)}"
+  end
+
+  def ignore_colors_and_spacing(string)
+    string
+      .gsub(/\e\[\d+(;\d)?m/, "") # Remove ANSI color codes
+      .gsub(/\s/, "") # Remove spacing
+  end
+end
+
 
 VCR.configure do |c|
   c.cassette_library_dir = "spec/vcr"
