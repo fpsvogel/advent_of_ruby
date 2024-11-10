@@ -3,7 +3,7 @@ module Arb
     class Git
       # Years and days of uncommitted new solutions, or an empty array.
       # @return [Array<Array(String, String)>]
-      def self.new_solutions
+      def self.uncommitted_solutions
         output = `git status -su | grep -e "^?? src" -e "^?? spec" -e "^A  src" -e "^A  spec"`
         output.scan(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/).uniq
       end

@@ -51,8 +51,8 @@ Shortcuts:
 - If specs pass, also runs the currently in-progress part (Part One or Part Two) of the given day.
 - If you're seeing specs run when you want to run only the real input, or vice versa, add one of the following flags:
   - `--spec` (`-s`) runs only the specs. (To run only Part One or Part Two specs, in the spec file change `it` to `xit` on the other part's example to skip it.)
-  - `--real_part_1` (`-o`) runs only Part One with the real input.
-  - `--real_part_2` (`-t`) runs only Part Two with the real input.
+  - `--one` (`-o`) runs only Part One with the real input.
+  - `--two` (`-t`) runs only Part Two with the real input.
 - Optionally submits the answer, via a prompt that appears if specs pass and the answer has not already been submitted.
 - *If both arguments are omitted, it runs the puzzle that is untracked in Git, if any.*
 

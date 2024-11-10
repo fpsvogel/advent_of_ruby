@@ -11,7 +11,7 @@ describe Arb::Cli do
         padded_day = day.rjust(2, "0")
         input_year, input_day = nil, nil
 
-        rspec_partial_output = <<~OUT
+        rspec_output = <<~OUT
           F*
 
           Pending: (Failures listed here are expected and do not affect your suite's status)
@@ -39,7 +39,9 @@ describe Arb::Cli do
 
         expect {
           Arb::Cli.run(year: input_year, day: input_day, options: {})
-        }.to output(include_ignoring_colors_and_spacing(rspec_partial_output)).to_stdout_from_any_process
+        }.to output(
+          include_ignoring_colors_and_spacing(rspec_output)
+        ).to_stdout_from_any_process
       ensure
         Dir.chdir(original_dir)
         `rm -rf #{working_dir}`
@@ -54,7 +56,7 @@ describe Arb::Cli do
         input = input_for_2017_01
 
         run_results_output = <<~OUT
-          👍 Specs passed!
+          Specs passed!
 
           Result for 2017#1.1:
           1182
@@ -66,8 +68,7 @@ describe Arb::Cli do
         working_dir, original_dir = create_working_dir!
         Dir.chdir(working_dir)
         create_working_dir_files!
-        create_puzzle!(year:, day:, part: "1", input:)
-        solve_2017_01_1!
+        create_puzzle!(year:, day:, input:, **solution_and_spec_for_2017_01_1)
 
         expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
 
@@ -81,7 +82,7 @@ describe Arb::Cli do
           .and include(submit_prompt_output)
           .and include(correct_answer_output)
           .and include(redownloaded_instructions_output)
-        ).to_stdout_from_any_process
+        ).to_stdout
 
         expect_instructions_file_to_have_been_redownloaded(year:, day:)
         expect_part_two_spec_to_have_been_unskipped(year:, day:)
@@ -98,7 +99,7 @@ describe Arb::Cli do
         input = input_for_2017_01
 
         run_results_output = <<~OUT
-          👍 Specs passed!
+          Specs passed!
 
           Result for 2017#1.2:
           1152
@@ -109,8 +110,7 @@ describe Arb::Cli do
         working_dir, original_dir = create_working_dir!
         Dir.chdir(working_dir)
         create_working_dir_files!
-        create_puzzle!(year:, day:, part: "2", input:)
-        solve_2017_01_2!
+        create_puzzle!(year:, day:, submitted_answers: [1182], input:, **solution_and_spec_for_2017_01_2)
 
         expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
 
@@ -120,7 +120,7 @@ describe Arb::Cli do
           include_ignoring_colors_and_spacing(run_results_output)
           .and include(submit_prompt_output)
           .and include(correct_answer_output)
-        ).to_stdout_from_any_process
+        ).to_stdout
       ensure
         Dir.chdir(original_dir)
         `rm -rf #{working_dir}`
@@ -129,31 +129,179 @@ describe Arb::Cli do
 
     context "when both parts have been solved" do
       it "runs both parts" do
+        year, day = "2017", "1"
+        input_year, input_day = nil, nil
+        input = input_for_2017_01
 
+        run_results_output_part_1 = <<~OUT
+          Specs passed!
+
+          Result for 2017#1.1:
+          ✅ 1182
+        OUT
+        run_results_output_part_2 = <<~OUT
+          Result for 2017#1.2:
+          ✅ 1152
+        OUT
+        already_submitted_output = "You've already submitted the answers to both parts."
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_puzzle!(year:, day:, submitted_answers: [1182, 1152], input:, **solution_and_spec_for_2017_01_2)
+
+        expect {
+          Arb::Cli.run(year: input_year, day: input_day, options: {})
+        }.to output(
+          include_ignoring_colors_and_spacing(run_results_output_part_1)
+          .and include_ignoring_colors_and_spacing(run_results_output_part_2)
+          .and include(already_submitted_output)
+        ).to_stdout
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
       end
     end
 
     context "when both parts have been committed" do
       it "runs both parts" do
+        year, day = "2017", "1"
+        input_year, input_day = nil, nil
+        input = input_for_2017_01
 
+        run_results_output_part_1 = <<~OUT
+          Specs passed!
+
+          Result for 2017#1.1:
+          ✅ 1182
+        OUT
+        run_results_output_part_2 = <<~OUT
+          Result for 2017#1.2:
+          ✅ 1152
+        OUT
+        already_submitted_output = "You've already submitted the answers to both parts."
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_puzzle!(year:, day:, submitted_answers: [1182, 1152], input:, **solution_and_spec_for_2017_01_2, git_commit: true)
+
+        expect {
+          Arb::Cli.run(year: input_year, day: input_day, options: {})
+        }.to output(
+          include_ignoring_colors_and_spacing(run_results_output_part_1)
+          .and include_ignoring_colors_and_spacing(run_results_output_part_2)
+          .and include(already_submitted_output)
+        ).to_stdout
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
       end
     end
 
     context "with --spec flag" do
       it "runs only specs" do
+        year, day = "2017", "1"
+        input_year, input_day = nil, nil
+        input = input_for_2017_01
 
+        rspec_output = "2 examples, 0 failures"
+        run_results_not_output_part_1 = <<~OUT
+          Result for 2017#1.1:
+          ✅ 1182
+        OUT
+        run_results_not_output_part_2 = <<~OUT
+          Result for 2017#1.2:
+          ✅ 1152
+        OUT
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_puzzle!(year:, day:, submitted_answers: [1182, 1152], input:, **solution_and_spec_for_2017_01_2)
+
+        expect {
+          Arb::Cli.run(year: input_year, day: input_day, options: {spec: true})
+        }.to output(
+          include(rspec_output)
+          .and not_include_ignoring_colors_and_spacing(run_results_not_output_part_1)
+          .and not_include_ignoring_colors_and_spacing(run_results_not_output_part_2)
+        ).to_stdout_from_any_process
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
       end
     end
 
     context "with --one flag" do
       it "runs only Part One" do
+        year, day = "2017", "1"
+        input_year, input_day = nil, nil
+        input = input_for_2017_01
 
+        run_results_output = <<~OUT
+          Result for 2017#1.1:
+          ✅ 1182
+        OUT
+        already_submitted_output = "You've already submitted the answers to both parts."
+        specs_passed_not_output = "Specs passed!"
+        run_results_not_output_other_part = <<~OUT
+          Result for 2017#1.2:
+          ✅ 1152
+        OUT
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_puzzle!(year:, day:, submitted_answers: [1182, 1152], input:, **solution_and_spec_for_2017_01_2)
+
+        expect {
+          Arb::Cli.run(year: input_year, day: input_day, options: {one: true})
+        }.to output(
+          include_ignoring_colors_and_spacing(run_results_output)
+          .and include(already_submitted_output)
+          .and not_include_ignoring_colors_and_spacing(specs_passed_not_output)
+          .and not_include_ignoring_colors_and_spacing(run_results_not_output_other_part)
+        ).to_stdout
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
       end
     end
 
     context "with --two flag" do
       it "runs only Part Two" do
+        year, day = "2017", "1"
+        input_year, input_day = nil, nil
+        input = input_for_2017_01
 
+        run_results_output = <<~OUT
+          Result for 2017#1.2:
+          ✅ 1152
+        OUT
+        already_submitted_output = "You've already submitted the answers to both parts."
+        specs_passed_not_output = "Specs passed!"
+        run_results_not_output_other_part = <<~OUT
+          Result for 2017#1.1:
+          ✅ 1182
+        OUT
+
+        working_dir, original_dir = create_working_dir!
+        Dir.chdir(working_dir)
+        create_working_dir_files!
+        create_puzzle!(year:, day:, submitted_answers: [1182, 1152], input:, **solution_and_spec_for_2017_01_2)
+
+        expect {
+          Arb::Cli.run(year: input_year, day: input_day, options: {two: true})
+        }.to output(
+          include_ignoring_colors_and_spacing(run_results_output)
+          .and include(already_submitted_output)
+          .and not_include_ignoring_colors_and_spacing(specs_passed_not_output)
+          .and not_include_ignoring_colors_and_spacing(run_results_not_output_other_part)
+        ).to_stdout
+      ensure
+        Dir.chdir(original_dir)
+        `rm -rf #{working_dir}`
       end
     end
   end
@@ -174,12 +322,12 @@ describe Arb::Cli do
 
   # File creation/editing
 
-  def create_puzzle!(year:, day:, part: "1", input: "")
+  def create_puzzle!(year:, day:, submitted_answers: [], input: "", solution: nil, spec: nil, git_commit: false)
     padded_day = day.rjust(2, "0")
 
     instructions = "## Day 1\n\nSome instructions.\n"
-    if part.to_i == 2
-      instructions << "\nYour puzzle answer was `something`.\n"
+    submitted_answers.each do |answer|
+      instructions << "\nYour puzzle answer was `#{answer}`.\n"
     end
     Dir.mkdir("instructions")
     Dir.mkdir(File.join("instructions", year))
@@ -190,14 +338,19 @@ describe Arb::Cli do
     File.write(File.join("input", year, "#{padded_day}.txt"), input)
 
     Dir.mkdir(File.join("src", year))
-    File.write(File.join("src", year, "#{padded_day}.rb"), Arb::Files::Source.source(year, day))
+    File.write(File.join("src", year, "#{padded_day}.rb"), solution || Arb::Files::Source.source(year, day))
     load "#{Dir.pwd}/src/#{year}/#{padded_day}.rb"
 
     Dir.mkdir(File.join("spec", year))
-    File.write(File.join("spec", year, "#{padded_day}_spec.rb"), Arb::Files::Spec.source(year, day))
+    File.write(File.join("spec", year, "#{padded_day}_spec.rb"), spec || Arb::Files::Spec.source(year, day))
+
+    if git_commit
+      `git add -A`
+      `git commit -m "Solve #{year}##{padded_day}"`
+    end
   end
 
-  def solve_2017_01_1!
+  def solution_and_spec_for_2017_01_1
     solution = <<~SRC
       # https://adventofcode.com/2017/day/1
       module Year2017
@@ -242,13 +395,10 @@ describe Arb::Cli do
       end
     SPEC
 
-    File.write(File.join("src", "2017", "01.rb"), solution)
-    File.write(File.join("spec", "2017", "01_spec.rb"), spec)
-
-    load "#{Dir.pwd}/src/2017/01.rb"
+    {solution:, spec:}
   end
 
-  def solve_2017_01_2!
+  def solution_and_spec_for_2017_01_2
     solution = <<~SRC
       # https://adventofcode.com/2017/day/1
       module Year2017
@@ -298,10 +448,7 @@ describe Arb::Cli do
       end
     SPEC
 
-    File.write(File.join("src", "2017", "01.rb"), solution)
-    File.write(File.join("spec", "2017", "01_spec.rb"), spec)
-
-    load "#{Dir.pwd}/src/2017/01.rb"
+    {solution:, spec:}
   end
 
   # Other puzzle-specific info

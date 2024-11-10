@@ -7,6 +7,7 @@ RSpec::Matchers.define_negated_matcher :not_change, :change
 RSpec::Matchers.define_negated_matcher :not_output, :output
 RSpec::Matchers.define_negated_matcher :not_raise_error, :raise_error
 RSpec::Matchers.define_negated_matcher :not_be_empty, :be_empty
+RSpec::Matchers.define_negated_matcher :not_include_ignoring_colors_and_spacing, :include_ignoring_colors_and_spacing
 
 RSpec::Matchers.define :include_ignoring_colors_and_spacing do |expected|
   match do |actual|

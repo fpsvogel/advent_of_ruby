@@ -3,7 +3,7 @@ module Arb
     def self.commit
       WorkingDirectory.prepare!
 
-      change_year, change_day = Git.new_solutions.first
+      change_year, change_day = Git.uncommitted_solutions.first
       unless change_year
         files_modified = true
         change_year, change_day = Git.modified_solutions.first

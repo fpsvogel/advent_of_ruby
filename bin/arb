@@ -20,8 +20,8 @@ class ArbApp < Thor
   desc "run [YEAR] [DAY]", "Runs the puzzle that's untracked in Git, or the " \
     "puzzle of the given day and year. `-s` runs only specs, `-o` part 1, `-t` part 2."
   method_option :spec, type: :boolean, aliases: "-s"
-  method_option :real_part_1, type: :boolean, aliases: "-o"
-  method_option :real_part_2, type: :boolean, aliases: "-t"
+  method_option :one, type: :boolean, aliases: "-o"
+  method_option :two, type: :boolean, aliases: "-t"
   def run_day(year = nil, day = nil) # can't be named `run` due to Thor conflict
     Arb::Cli.run(year:, day:, options:)
   end

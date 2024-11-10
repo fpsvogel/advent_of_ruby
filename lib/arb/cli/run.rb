@@ -6,13 +6,13 @@ module Arb
     def self.run(year:, day:, options:)
       WorkingDirectory.prepare!
 
-      if options[:spec] && (options[:real_part_1] || options[:real_part_2])
-        raise InputError, "Don't use --spec (-s) with --real_part_1 (-o) or --real_part_2 (-t)"
+      if options[:spec] && (options[:one] || options[:two])
+        raise InputError, "Don't use --spec (-s) with --one (-o) or --two (-t)"
       end
 
-      year, day = YearDayValidator.validate_year_and_day(year:, day:, default_untracked_or_done: true)
+      year, day = YearDayValidator.validate_year_and_day(year:, day:, default_to_last_committed: true)
 
-      if Git.new_solutions.none? && !Git.last_committed_solution(year:)
+      if Git.uncommitted_solutions.none? && !Git.last_committed_solution(year:)
         bootstrap(year:, day:)
         return
       end
@@ -29,7 +29,7 @@ module Arb
       if options[:spec]
         run_specs_only(year, day)
         return
-      elsif !(options[:real_part_1] || options[:real_part_2])
+      elsif !(options[:one] || options[:two])
         specs_passed, skip_count = run_specs_before_real(year, day)
         return unless specs_passed
         puts "👍 Specs passed!"
@@ -39,12 +39,12 @@ module Arb
         puts "\n"
       end
 
-      if options[:real_part_1] || (!options[:real_part_2] && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
+      if options[:one] || (!options[:two] && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
         answer_1 = Runner.run_part("#{year}##{day}.1", correct_answer_1) do
           solution.part_1(File.new(input_path))
         end
       end
-      if options[:real_part_2] || (!options[:real_part_1] && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
+      if options[:two] || (!options[:one] && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
         answer_2 = Runner.run_part("#{year}##{day}.2", correct_answer_2) do
           solution.part_2(File.new(input_path))
         end
@@ -61,7 +61,7 @@ module Arb
         end
 
         return
-      elsif options[:real_part_1] && correct_answer_1
+      elsif options[:one] && correct_answer_1
         puts "🙌 You've already submitted the answer to this part.\n\n"
         return
       end
@@ -71,7 +71,7 @@ module Arb
       submit = STDIN.gets.strip.downcase
 
       if submit == "y" || submit == ""
-        options_part = options[:real_part_1] ? "1" : (options[:real_part_2] ? "2" : nil)
+        options_part = options[:one] ? "1" : (options[:two] ? "2" : nil)
         inferred_part = correct_answer_1.nil? ? "1" : "2"
         aoc_api = Api::Aoc.new(ENV["AOC_COOKIE"])
 
@@ -114,9 +114,15 @@ module Arb
 
     private_class_method def self.run_specs_only(year, day)
       padded_day = day.rjust(2, "0")
-      spec_filename =	[File.join("spec", year, "#{padded_day}_spec.rb")]
+      spec_filename =	File.join("spec", year, "#{padded_day}_spec.rb")
 
-      RSpec::Core::Runner.run(spec_filename)
+      # Running RSpec from within RSpec causes problems, so in the test environment
+      # run RSpec in a subprocess.
+      if ENV["TEST_ENV"]
+        system "rspec #{spec_filename}"
+      else
+        RSpec::Core::Runner.run([spec_filename])
+      end
     end
 
     private_class_method def self.run_specs_before_real(year, day)
@@ -126,7 +132,7 @@ module Arb
       # Running RSpec from within RSpec causes problems, so in the test environment
       # run RSpec in a subprocess.
       if ENV["TEST_ENV"]
-        stdout, _stderr, _status = Open3.capture3("rspec #{spec_filename} --color --tty")
+        stdout, _status = Open3.capture2("rspec #{spec_filename} --color --tty")
       else
         stdout = StringIO.new
 
