@@ -27,8 +27,10 @@ module Arb
         puts "\n🎉 You've finished #{change_year}!\n\n"
       end
 
+      puts "Solution committed 🎉"
+
       if Git.commit_count <= 1
-        puts "Solution committed! When you're ready to start the next puzzle, run " \
+        puts "\nWhen you're ready to start the next puzzle, run " \
           "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`)."
       end
     end

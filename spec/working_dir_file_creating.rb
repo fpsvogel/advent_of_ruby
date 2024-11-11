@@ -10,29 +10,33 @@ module WorkingDirFileCreating
     }
   end
 
-  def create_working_dir!
-    original_dir = Dir.pwd
-    working_dir = File.join(Dir.home, "arb_temp")
+  def create_working_dir!(create_files: true)
+    @original_dir = Dir.pwd
+    @working_dir = File.join(Dir.home, "arb_temp")
 
-    if Dir.exist?(working_dir)
-      `rm -rf #{working_dir}`
+    if Dir.exist?(@working_dir)
+      `rm -rf #{@working_dir}`
     end
 
-    Dir.mkdir(working_dir)
+    Dir.mkdir(@working_dir)
+    Dir.chdir(@working_dir)
 
-    [working_dir, original_dir]
+    if create_files
+      Dir.mkdir("src")
+      Dir.mkdir("spec")
+
+      working_dir_files.each do |filename, contents|
+        File.write(filename, contents)
+      end
+
+      `git init`
+      `git add -A`
+      `git commit -m "Initial commit"`
+    end
   end
 
-  def create_working_dir_files!
-    Dir.mkdir("src")
-    Dir.mkdir("spec")
-
-    working_dir_files.each do |filename, contents|
-      File.write(filename, contents)
-    end
-
-    `git init`
-    `git add -A`
-    `git commit -m "Initial commit"`
+  def remove_working_dir!
+    Dir.chdir(@original_dir)
+    `rm -rf #{@working_dir}`
   end
 end

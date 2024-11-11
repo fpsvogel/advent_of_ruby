@@ -89,7 +89,7 @@ module Arb
           instructions_path = Files::Instructions.download(year, day, overwrite: true)
 
           if (options_part || inferred_part) == "1"
-            puts "Downloaded instructions for Part Two.\n"
+            puts "Downloaded instructions for Part Two."
             `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
             spec_path = Files::Spec.create(year, day, notify_exists: false)
@@ -99,7 +99,7 @@ module Arb
           end
 
           if Git.commit_count <= 1
-            puts "\n\nNow it's time to improve your solution! Be sure to look " \
+            puts "\nNow it's time to improve your solution! Be sure to look " \
               "at other people's solutions (in the \"others\" directory). When " \
               "you're done, run `#{PASTEL.blue.bold("arb commit")}` (or `arb c`) " \
               "to commit your solution to Git.\n"

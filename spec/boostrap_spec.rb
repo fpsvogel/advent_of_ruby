@@ -10,8 +10,7 @@ describe Arb::Cli do
         year, day = "2019", "1"
         input_year, input_day = nil, nil
 
-        working_dir, original_dir = create_working_dir!
-        Dir.chdir(working_dir)
+        create_working_dir!(create_files: false)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
         expect(STDIN).to receive(:gets).once.and_return("\n") # accept default editor
@@ -28,8 +27,7 @@ describe Arb::Cli do
         expect_puzzle_files_to_have_correct_contents(year:, day:)
         expect_working_dir_files_to_have_correct_contents
       ensure
-        Dir.chdir(original_dir)
-        `rm -rf #{working_dir}`
+        remove_working_dir!
       end
     end
 
@@ -38,22 +36,21 @@ describe Arb::Cli do
         year, day = "2019", "2"
         input_year, input_day = nil, nil
 
-        working_dir, original_dir = create_working_dir!
-        Dir.chdir(working_dir)
-        create_working_dir_files!
+        create_working_dir!
         create_fake_solution!(year:, day: (day.to_i - 1).to_s)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
-        }.to output(include("🤘 Bootstrapped 2019#2")).to_stdout
-        .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
+        }.to output(
+          include("🤘 Bootstrapped 2019#2")
+          .and not_include("✅ Initial files created and committed to a new Git repository.")
+        ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
       ensure
-        Dir.chdir(original_dir)
-        `rm -rf #{working_dir}`
+        remove_working_dir!
       end
     end
 
@@ -62,9 +59,7 @@ describe Arb::Cli do
         year, day = "2019", "1"
         input_year, input_day = nil, nil
 
-        working_dir, original_dir = create_working_dir!
-        Dir.chdir(working_dir)
-        create_working_dir_files!
+        create_working_dir!
         25.times do |index|
           create_fake_solution!(year: "2016", day: (index + 1).to_s)
         end
@@ -74,13 +69,14 @@ describe Arb::Cli do
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
-        }.to output(include("🤘 Bootstrapped 2019#1")).to_stdout
-        .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
+        }.to output(
+          include("🤘 Bootstrapped 2019#1")
+          .and not_include("✅ Initial files created and committed to a new Git repository.")
+        ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
       ensure
-        Dir.chdir(original_dir)
-        `rm -rf #{working_dir}`
+        remove_working_dir!
       end
     end
   end
@@ -90,9 +86,7 @@ describe Arb::Cli do
       year, day = "2019", "2"
       input_year, input_day = nil, nil
 
-      working_dir, original_dir = create_working_dir!
-      Dir.chdir(working_dir)
-      create_working_dir_files!
+      create_working_dir!
       25.times do |index|
         create_fake_solution!(year: "2016", day: (index + 1).to_s)
       end
@@ -103,13 +97,14 @@ describe Arb::Cli do
 
       expect {
         Arb::Cli.bootstrap(year: input_year, day: input_day)
-      }.to output(include("🤘 Bootstrapped 2019#2")).to_stdout
-      .and not_output(include("✅ Initial files created and committed to a new Git repository.")).to_stdout
+      }.to output(
+        include("🤘 Bootstrapped 2019#2")
+        .and not_include("✅ Initial files created and committed to a new Git repository.")
+      ).to_stdout
 
       expect_puzzle_files_to_have_correct_contents(year:, day:)
     ensure
-      Dir.chdir(original_dir)
-      `rm -rf #{working_dir}`
+      remove_working_dir!
     end
   end
 
