@@ -37,7 +37,7 @@ describe Arb::Cli do
         input_year, input_day = nil, nil
 
         create_working_dir!
-        create_fake_solution!(year:, day: (day.to_i - 1).to_s)
+        create_fake_solutions!(year:, days: day.to_i - 1)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
 
@@ -60,9 +60,7 @@ describe Arb::Cli do
         input_year, input_day = nil, nil
 
         create_working_dir!
-        25.times do |index|
-          create_fake_solution!(year: "2016", day: (index + 1).to_s)
-        end
+        create_fake_solutions!(year: "2016", days: "1".."25")
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
         expect(STDIN).to receive(:gets).once.and_return("2019\n") # year to do next
@@ -87,11 +85,9 @@ describe Arb::Cli do
       input_year, input_day = nil, nil
 
       create_working_dir!
-      25.times do |index|
-        create_fake_solution!(year: "2016", day: (index + 1).to_s)
-      end
-      create_fake_solution!(year: "2020", day: "1")
-      create_fake_solution!(year: "2019", day: "1")
+      create_fake_solutions!(year: "2016", days: "1".."25")
+      create_fake_solutions!(year: "2020", days: "1")
+      create_fake_solutions!(year: "2019", days: "1")
 
       expect_puzzle_files_will_be_opened_in_editor(year:, day:)
 
@@ -149,17 +145,5 @@ describe Arb::Cli do
       spec: File.join("spec", year, "#{padded_day}_spec.rb"),
       instructions: File.join("instructions", year, "#{padded_day}.md"),
     }
-  end
-
-  def create_fake_solution!(year:, day:)
-    Dir.mkdir(File.join("src", year)) unless Dir.exist?(File.join("src", year))
-    Dir.mkdir(File.join("spec", year)) unless Dir.exist?(File.join("spec", year))
-
-    padded_day = day.rjust(2, "0")
-    File.write(File.join("src", year, "#{padded_day}.rb"), "a fake solution")
-    File.write(File.join("spec", year, "#{padded_day}_spec.rb"), "a fake spec")
-
-    `git add -A`
-    `git commit -m "Solve #{year}##{padded_day}"`
   end
 end

@@ -20,8 +20,9 @@ RSpec::Matchers.define :include_ignoring_colors_and_spacing do |expected|
 
   def ignore_colors_and_spacing(string)
     string
-      .gsub(/\e\[\d+(;\d)?m/, "") # Remove ANSI color codes
-      .gsub(/\n\s*/, "") # Remove spacing
+      .gsub(/\e\[\d+(;\d)?m/, "") # Remove ANSI color and formatting codes
+      .gsub(/\n\s*/, "") # Remove newlines and leading spacing
+      .gsub(/\s+/, " ") # Convert all other spacing into a single space
   end
 end
 
