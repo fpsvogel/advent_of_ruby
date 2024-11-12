@@ -9,19 +9,19 @@ module Arb
         "eregon" => ->(year, day, part) {
           if part == "1"
             [
-              "adventofcode/tree/master/#{year}/#{day}.rb",
-              "adventofcode/tree/master/#{year}/#{day}a.rb",
+              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}.rb",
+              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}a.rb",
             ]
           elsif part == "2"
-            ["adventofcode/tree/master/#{year}/#{day}b.rb"]
+            ["adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}b.rb"]
           end
         },
         "gchan" => ->(year, day, part) {
-          ["advent-of-code-ruby/tree/main/#{year}/day-#{day.rjust(2, "0")}/day-#{day.rjust(2, "0")}-part-#{part}.rb"]
+          ["advent-of-code-ruby/tree/main/#{year}/day-#{day}/day-#{day}-part-#{part}.rb"]
         },
         "ahorner" => ->(year, day, part) {
           return [] if part == "1"
-          ["advent-of-code/tree/main/lib/#{year}/#{day.rjust(2, "0")}.rb"]
+          ["advent-of-code/tree/main/lib/#{year}/#{day}.rb"]
         },
         "ZogStriP" => ->(year, day, part) {
           return [] if part == "1"
@@ -33,10 +33,10 @@ module Arb
             .downcase
             .gsub(" ", "_")
 
-          ["adventofcode/tree/master/#{year}/#{day.rjust(2, "0")}_#{puzzle_name}.rb"]
+          ["adventofcode/tree/master/#{year}/#{day}_#{puzzle_name}.rb"]
         },
         "erikw" => ->(year, day, part) {
-          ["advent-of-code-solutions/tree/main/#{year}/#{day.rjust(2, "0")}/part#{part}.rb"]
+          ["advent-of-code-solutions/tree/main/#{year}/#{day}/part#{part}.rb"]
         },
       }
 

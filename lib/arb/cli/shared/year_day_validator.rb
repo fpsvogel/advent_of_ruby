@@ -2,7 +2,7 @@ module Arb
   module Cli
     class YearDayValidator
       def self.validate_year_and_day(year:, day:, default_to_last_committed: false)
-        year, day = year&.to_s, day&.to_s
+        year, day = year&.to_s, day&.to_s&.rjust(2, "0")
 
         # The first two digits of the year may be omitted.
         year = "20#{year}" if year && year.length == 2
@@ -15,7 +15,7 @@ module Arb
           unless day
             if year && !Dir.exist?(File.join("src", year))
               Dir.mkdir(File.join("src", year))
-              day = "1"
+              day = "01"
             else
               year, day = Git.last_committed_puzzle(year:)
 
@@ -29,7 +29,7 @@ module Arb
 
               if !day || day == :end
                 default_year = "2015"
-                default_day = "1"
+                default_day = "01"
                 bootstrap_year_prompt = nil
 
                 committed = Git.committed_by_year
@@ -44,7 +44,7 @@ module Arb
                   default_day = committed[default_year].values.index(false)
 
                   puts "You've recently finished #{year}. Yay!"
-                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day}])"
+                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day.to_s.sub(/\A0/, "")}])"
                 end
 
                 loop do
@@ -57,7 +57,7 @@ module Arb
                     day = default_day
                   else
                     year = year_input.strip.match(/\A\d{4}\z/)&.to_s
-                    day = "1"
+                    day = "01"
                   end
                   break if year
                 end
@@ -76,7 +76,7 @@ module Arb
           raise InputError, "Day must be between 1 and 25, and <= today."
         end
 
-        [year.to_s, day.to_s]
+        [year.to_s, day.to_s.rjust(2, "0")]
       end
     end
   end

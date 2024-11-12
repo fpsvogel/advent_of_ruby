@@ -7,8 +7,8 @@ describe Arb::Cli do
   describe "::progress" do
     it "shows how many puzzles have been committed in each year where any have been committed" do
       create_working_dir!
-      create_fake_solutions!(year: "2016", days: "1".."25")
-      create_fake_solutions!(year: "2019", days: "1")
+      create_fake_solutions!(year: "2016", days: "01".."25")
+      create_fake_solutions!(year: "2019", days: "01")
       create_fake_solutions!(year: "2020", days: "10".."20")
 
       output = <<~OUT

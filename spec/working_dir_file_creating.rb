@@ -49,12 +49,12 @@ module WorkingDirFileCreating
 
     days = Array(days).map(&:to_s)
     days.each do |day|
-      padded_day = day.rjust(2, "0")
-      File.write(File.join("src", year, "#{padded_day}.rb"), "a fake solution")
-      File.write(File.join("spec", year, "#{padded_day}_spec.rb"), "a fake spec")
+      day = day.rjust(2, "0") if day.length == 1
+      File.write(File.join("src", year, "#{day}.rb"), "a fake solution")
+      File.write(File.join("spec", year, "#{day}_spec.rb"), "a fake spec")
 
       `git add -A`
-      `git commit -m "Solve #{year}##{padded_day}"`
+      `git commit -m "Solve #{year}##{day}"`
     end
   end
 end

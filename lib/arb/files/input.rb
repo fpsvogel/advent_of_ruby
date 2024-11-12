@@ -6,8 +6,7 @@ module Arb
         Dir.mkdir("input") unless Dir.exist?("input")
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-        padded_day = day.rjust(2, "0")
-        file_path = File.join(year_directory, "#{padded_day}.txt")
+        file_path = File.join(year_directory, "#{day}.txt")
 
         if File.exist?(file_path)
           puts "Already exists: #{file_path}" if notify_exists

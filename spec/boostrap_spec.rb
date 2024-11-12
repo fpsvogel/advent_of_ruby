@@ -7,7 +7,7 @@ describe Arb::Cli do
   describe "::bootstrap" do
     context "when no working directory files exist" do
       it "asks the user for initial config questions, then creates files, then downloads the puzzle", vcr: "bootstrap_2019_01" do
-        year, day = "2019", "1"
+        year, day = "2019", "01"
         input_year, input_day = nil, nil
 
         create_working_dir!(create_files: false)
@@ -15,13 +15,13 @@ describe Arb::Cli do
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
         expect(STDIN).to receive(:gets).once.and_return("\n") # accept default editor
         expect(STDIN).to receive(:gets).once.and_return("stubbed_session_cookie\n")
-        expect(STDIN).to receive(:gets).once.and_return("2019\n") # year to start with
+        expect(STDIN).to receive(:gets).once.and_return("#{year}\n") # year to start with
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
           include("✅ Initial files created and committed to a new Git repository.")
-          .and include("🤘 Bootstrapped 2019#1")
+          .and include("🤘 Bootstrapped #{year}##{day}")
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -33,7 +33,7 @@ describe Arb::Cli do
 
     context "when all working directory files and a previously solved puzzle already exist" do
       it "downloads the next puzzle", vcr: "bootstrap_2019_02" do
-        year, day = "2019", "2"
+        year, day = "2019", "02"
         input_year, input_day = nil, nil
 
         create_working_dir!
@@ -44,7 +44,7 @@ describe Arb::Cli do
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
-          include("🤘 Bootstrapped 2019#2")
+          include("🤘 Bootstrapped #{year}##{day}")
           .and not_include("✅ Initial files created and committed to a new Git repository.")
         ).to_stdout
 
@@ -56,19 +56,19 @@ describe Arb::Cli do
 
     context "when a year is completed and no other year is in progress" do
       it "asks the user which year to do next, then bootstraps Day 1 of that year", vcr: "bootstrap_2019_01" do
-        year, day = "2019", "1"
+        year, day = "2019", "01"
         input_year, input_day = nil, nil
 
         create_working_dir!
-        create_fake_solutions!(year: "2016", days: "1".."25")
+        create_fake_solutions!(year: "2016", days: "01".."25")
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
-        expect(STDIN).to receive(:gets).once.and_return("2019\n") # year to do next
+        expect(STDIN).to receive(:gets).once.and_return("#{year}\n") # year to do next
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
-          include("🤘 Bootstrapped 2019#1")
+          include("🤘 Bootstrapped #{year}##{day}")
           .and not_include("✅ Initial files created and committed to a new Git repository.")
         ).to_stdout
 
@@ -81,20 +81,20 @@ describe Arb::Cli do
 
   context "when a year is completed and another year is in progress" do
     it "returns to the earliest in-progress year", vcr: "bootstrap_2019_02" do
-      year, day = "2019", "2"
+      year, day = "2019", "02"
       input_year, input_day = nil, nil
 
       create_working_dir!
-      create_fake_solutions!(year: "2016", days: "1".."25")
-      create_fake_solutions!(year: "2020", days: "1")
-      create_fake_solutions!(year: "2019", days: "1")
+      create_fake_solutions!(year: "2016", days: "01".."25")
+      create_fake_solutions!(year: "2020", days: "01")
+      create_fake_solutions!(year: "2019", days: "01")
 
       expect_puzzle_files_will_be_opened_in_editor(year:, day:)
 
       expect {
         Arb::Cli.bootstrap(year: input_year, day: input_day)
       }.to output(
-        include("🤘 Bootstrapped 2019#2")
+        include("🤘 Bootstrapped #{year}##{day}")
         .and not_include("✅ Initial files created and committed to a new Git repository.")
       ).to_stdout
 
@@ -116,8 +116,8 @@ describe Arb::Cli do
     contents = puzzle_files(year:, day:).transform_values { File.read _1 }
 
     expect(contents.values).to all not_be_empty
-    expect(contents[:instructions]).to start_with("## --- Day #{day}: ")
-    expect(contents[:instructions]).to end_with("https://adventofcode.com/#{year}/day/#{day}\n")
+    expect(contents[:instructions]).to start_with("## --- Day #{day.delete_prefix("0")}: ")
+    expect(contents[:instructions]).to end_with("https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}\n")
   end
 
   def expect_working_dir_files_to_have_correct_contents
@@ -136,14 +136,13 @@ describe Arb::Cli do
   # Files
 
   def puzzle_files(year:, day:)
-    padded_day = day.rjust(2, "0")
     {
-      others_1: File.join("others", year, "#{padded_day}_1.rb"),
-      others_2: File.join("others", year, "#{padded_day}_2.rb"),
-      input: File.join("input", year, "#{padded_day}.txt"),
-      source: File.join("src", year, "#{padded_day}.rb"),
-      spec: File.join("spec", year, "#{padded_day}_spec.rb"),
-      instructions: File.join("instructions", year, "#{padded_day}.md"),
+      others_1: File.join("others", year, "#{day}_1.rb"),
+      others_2: File.join("others", year, "#{day}_2.rb"),
+      input: File.join("input", year, "#{day}.txt"),
+      source: File.join("src", year, "#{day}.rb"),
+      spec: File.join("spec", year, "#{day}_spec.rb"),
+      instructions: File.join("instructions", year, "#{day}.md"),
     }
   end
 end

@@ -2,9 +2,8 @@ module Arb
   module Cli
     class Runner
       def self.load_solution(year, day)
-        padded_day = day.rjust(2, "0")
-        require "#{Dir.pwd}/src/#{year}/#{padded_day}"
-        Module.const_get("Year#{year}").const_get("Day#{padded_day}").new
+        require "#{Dir.pwd}/src/#{year}/#{day}"
+        Module.const_get("Year#{year}").const_get("Day#{day}").new
       rescue NameError
         puts "There is no solution for this puzzle"
       end

@@ -15,20 +15,20 @@ module Arb
 
       def input(year, day)
         logged_in {
-          connection.get("/#{year}/day/#{day}/input")
+          connection.get("/#{year}/day/#{day.delete_prefix("0")}/input")
         }
       end
 
       def instructions(year, day)
         logged_in {
-          connection.get("/#{year}/day/#{day}")
+          connection.get("/#{year}/day/#{day.delete_prefix("0")}")
         }
       end
 
       def submit(year, day, part, answer)
         logged_in {
           connection.post(
-            "/#{year}/day/#{day}/answer",
+            "/#{year}/day/#{day.delete_prefix("0")}/answer",
             "level=#{part}&answer=#{answer}",
           )
         }

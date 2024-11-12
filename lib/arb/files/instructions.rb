@@ -6,9 +6,7 @@ module Arb
         Dir.mkdir("instructions") unless Dir.exist?("instructions")
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-        padded_day = day.rjust(2, "0")
-
-        File.join(year_directory, "#{padded_day}.md")
+        File.join(year_directory, "#{day}.md")
       end
 
       def self.download(year, day, notify_exists: true, overwrite: false)
@@ -17,7 +15,7 @@ module Arb
         if File.exist?(file_path) && !overwrite
           puts "Already exists: #{file_path}" if notify_exists
         else
-          url = "https://adventofcode.com/#{year}/day/#{day}"
+          url = "https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}"
 
           aoc_api = Api::Aoc.new(ENV["AOC_COOKIE"])
           response = aoc_api.instructions(year, day)

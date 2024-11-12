@@ -5,8 +5,7 @@ module Arb
         year_directory = File.join("src", year)
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-        padded_day = day.rjust(2, "0")
-        file_path = File.join(year_directory, "#{padded_day}.rb")
+        file_path = File.join(year_directory, "#{day}.rb")
 
         if File.exist?(file_path)
           puts "Already exists: #{file_path}"
@@ -18,12 +17,10 @@ module Arb
       end
 
       def self.source(year, day)
-        padded_day = day.rjust(2, "0")
-
         <<~TPL
-          # https://adventofcode.com/#{year}/day/#{day}
+          # https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}
           module Year#{year}
-            class Day#{padded_day}
+            class Day#{day}
               def part_1(input_file)
                 lines = input_file.readlines(chomp: true)
 

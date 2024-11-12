@@ -5,8 +5,7 @@ module Arb
         year_directory = File.join("spec", year)
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-        padded_day = day.rjust(2, "0")
-        file_path = File.join(year_directory, "#{padded_day}_spec.rb")
+        file_path = File.join(year_directory, "#{day}_spec.rb")
 
         if File.exist?(file_path)
           puts "Already exists: #{file_path}" if notify_exists
@@ -18,10 +17,8 @@ module Arb
       end
 
       def self.source(year, day)
-        padded_day = day.rjust(2, "0")
-
         <<~TPL
-          RSpec.describe Year#{year}::Day#{padded_day} do
+          RSpec.describe Year#{year}::Day#{day} do
             let(:input) {
               StringIO.new(
                 <<~IN
