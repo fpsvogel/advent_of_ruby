@@ -10,14 +10,14 @@ module Arb
         if day && !year
           raise InputError, "If you specify the day, specify the year also."
         elsif !day
-          year, day = Git.uncommitted_solutions.last
+          year, day = Git.uncommitted_puzzles.keys.last
 
           unless day
             if year && !Dir.exist?(File.join("src", year))
               Dir.mkdir(File.join("src", year))
               day = "1"
             else
-              year, day = Git.last_committed_solution(year:)
+              year, day = Git.last_committed_puzzle(year:)
 
               if day && !default_to_last_committed
                 if day == "25"

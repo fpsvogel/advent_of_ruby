@@ -3,13 +3,14 @@ module Arb
     def self.commit
       WorkingDirectory.prepare!
 
-      change_year, change_day = Git.uncommitted_solutions.first
-      unless change_year
+      puzzles = Git.modified_puzzles
+      if puzzles.any?
         files_modified = true
-        change_year, change_day = Git.modified_solutions.first
+      else
+        puzzles = Git.uncommitted_puzzles
       end
 
-      unless change_year
+      if puzzles.empty?
         puts "Nothing to commit."
 
         if Git.commit_count <= 2
@@ -19,15 +20,17 @@ module Arb
         return
       end
 
-      message = "#{files_modified ? "Improve" : "Solve"} #{change_year}##{change_day}"
-      Git.commit_all!(message:)
+      puzzles.each do |(year, day), filenames|
+        message = "#{files_modified ? "Improve" : "Solve"} #{year}##{day}"
+        Git.commit!(filenames:, message:)
 
-      # TODO less naive check: ensure prev. days are finished too
-      if !files_modified && change_day == "25"
-        puts "\n🎉 You've finished #{change_year}!\n\n"
+        # TODO less naive check: ensure prev. days are finished too
+        if !files_modified && day == "25"
+          puts "\n🎉 You've finished #{year}!\n\n"
+        end
+
+        puts "Puzzle #{year}##{day}#{" (modified)" if files_modified} committed 🎉"
       end
-
-      puts "Solution committed 🎉"
 
       if Git.commit_count <= 1
         puts "\nWhen you're ready to start the next puzzle, run " \

@@ -1,23 +1,36 @@
 module Arb
   module Cli
     class Git
-      # Years and days of uncommitted new solutions, or an empty array.
+      # A hash whose keys are ["<year>", "<day>"] of new solutions or specs, and
+      # and whose values are the names of the modified files (solution, spec, or both).
       # @return [Array<Array(String, String)>]
-      def self.uncommitted_solutions
+      def self.uncommitted_puzzles
         output = `git status -su | grep -e "^?? src" -e "^?? spec" -e "^A  src" -e "^A  spec"`
-        output.scan(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/).uniq
+        filenames = output.scan(/(?:src|spec)\/\d{4}\/\d\d(?:_spec)?.rb/).uniq
+        filenames.group_by { |filename|
+          filename
+            .match(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/)
+            .captures
+        }
       end
 
-      # Years and days of modified existing solutions, or an empty array.
-      # @return [Array<Array(String, String)>]
-      def self.modified_solutions
+      # A hash whose keys are ["<year>", "<day>"] of modified existing solutions
+      # or specs, and whose values are the names of the modified files
+      # (solution, spec, or both).
+      # @return [Hash{Array(String, String), Array<String>}]
+      def self.modified_puzzles
         output = `git status -su | grep -e "^ M src" -e "^ M spec" -e "^M  src" -e "^M  spec"`
-        output.scan(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/).uniq
+        filenames = output.scan(/(?:src|spec)\/\d{4}\/\d\d(?:_spec)?.rb/).uniq
+        filenames.group_by { |filename|
+          filename
+            .match(/(?<year>\d{4})\/(?<day>\d\d)(?:_spec)?.rb$/)
+            .captures
+        }
       end
 
       # Year and day of the latest-date solution in the most recent commit, or nil.
       # @return [Array(String, String), nil]
-      def self.last_committed_solution(year: nil, exclude_year: nil)
+      def self.last_committed_puzzle(year: nil, exclude_year: nil)
         if exclude_year
           output = `git log -n 1 --diff-filter=A --name-only --pretty=format: -- src spec ':!src/#{exclude_year}' ':!spec/#{exclude_year}'`
         else
@@ -71,6 +84,11 @@ module Arb
 
       def self.init!
         `git init`
+      end
+
+      def self.commit!(filenames:, message:)
+        `git add #{filenames.join(" ")}`
+        `git commit -m "#{message}"`
       end
 
       def self.commit_all!(message:)

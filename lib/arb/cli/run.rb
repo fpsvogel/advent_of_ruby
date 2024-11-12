@@ -12,7 +12,7 @@ module Arb
 
       year, day = YearDayValidator.validate_year_and_day(year:, day:, default_to_last_committed: true)
 
-      if Git.uncommitted_solutions.none? && !Git.last_committed_solution(year:)
+      if Git.uncommitted_puzzles.empty? && !Git.last_committed_puzzle(year:)
         bootstrap(year:, day:)
         return
       end
