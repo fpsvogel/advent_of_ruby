@@ -10,7 +10,7 @@ module Arb
         raise InputError, "Don't use --spec (-s) with --one (-o) or --two (-t)"
       end
 
-      year, day = YearDayValidator.validate_year_and_day(year:, day:, default_to_last_committed: true)
+      year, day = YearDayValidator.validate_year_and_day(year:, day:, default_to_untracked_or_last_committed: true)
 
       if Git.uncommitted_puzzles.empty? && !Git.last_committed_puzzle(year:)
         bootstrap(year:, day:)

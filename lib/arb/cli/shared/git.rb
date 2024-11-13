@@ -70,10 +70,13 @@ module Arb
 
         previous_days.map { |year, days|
           days_hash = days.map { |day|
-            [day, committed_days.has_key?(year) && committed_days[year].include?(day)]
+            [
+              day.to_s.rjust(2, "0"),
+              committed_days.has_key?(year) && committed_days[year].include?(day),
+            ]
           }.to_h
 
-          [year, days_hash]
+          [year.to_s, days_hash]
         }.to_h
       end
 

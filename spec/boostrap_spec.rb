@@ -54,6 +54,30 @@ describe Arb::Cli do
       end
     end
 
+    context "when a different year is inputted" do
+      it "downloads the next puzzle in that year", vcr: "bootstrap_2019_02" do
+        year, day = "2019", "02"
+        input_year, input_day = "2019", nil
+
+        create_working_dir!
+        create_fake_solutions!(year: "2019", days: "01")
+        create_fake_solutions!(year: "2020", days: "01".."02")
+
+        expect_puzzle_files_will_be_opened_in_editor(year:, day:)
+
+        expect {
+          Arb::Cli.bootstrap(year: input_year, day: input_day)
+        }.to output(
+          include("🤘 Bootstrapped #{year}##{day}")
+          .and not_include("✅ Initial files created and committed to a new Git repository.")
+        ).to_stdout
+
+        expect_puzzle_files_to_have_correct_contents(year:, day:)
+      ensure
+        remove_working_dir!
+      end
+    end
+
     context "when a year is completed and no other year is in progress" do
       it "asks the user which year to do next, then bootstraps Day 1 of that year", vcr: "bootstrap_2019_01" do
         year, day = "2019", "01"

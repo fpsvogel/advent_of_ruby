@@ -1,7 +1,7 @@
 module Arb
   module Cli
     class YearDayValidator
-      def self.validate_year_and_day(year:, day:, default_to_last_committed: false)
+      def self.validate_year_and_day(year:, day:, default_to_untracked_or_last_committed: false)
         year, day = year&.to_s, day&.to_s&.rjust(2, "0")
 
         # The first two digits of the year may be omitted.
@@ -10,16 +10,17 @@ module Arb
         if day && !year
           raise InputError, "If you specify the day, specify the year also."
         elsif !day
-          year, day = Git.uncommitted_puzzles.keys.last
+          if default_to_untracked_or_last_committed
+            year, day = Git.uncommitted_puzzles.keys.last
+          end
 
           unless day
-            if year && !Dir.exist?(File.join("src", year))
-              Dir.mkdir(File.join("src", year))
+            if year && Git.committed_by_year[year].values.none?
               day = "01"
             else
               year, day = Git.last_committed_puzzle(year:)
 
-              if day && !default_to_last_committed
+              if day && !default_to_untracked_or_last_committed
                 if day == "25"
                   day = :end
                 else
