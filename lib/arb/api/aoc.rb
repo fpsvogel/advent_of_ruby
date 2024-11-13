@@ -3,7 +3,7 @@ module Arb
     class Aoc
       private attr_reader :connection
 
-      def initialize(cookie)
+      def initialize(cookie:)
         @connection = Faraday.new(
           url: "https://adventofcode.com",
           headers: {
@@ -13,19 +13,19 @@ module Arb
         )
       end
 
-      def input(year, day)
+      def input(year:, day:)
         logged_in {
           connection.get("/#{year}/day/#{day.delete_prefix("0")}/input")
         }
       end
 
-      def instructions(year, day)
+      def instructions(year:, day:)
         logged_in {
           connection.get("/#{year}/day/#{day.delete_prefix("0")}")
         }
       end
 
-      def submit(year, day, part, answer)
+      def submit(year:, day:, part:, answer:)
         logged_in {
           connection.post(
             "/#{year}/day/#{day.delete_prefix("0")}/answer",

@@ -6,7 +6,7 @@ module Arb
       private attr_reader :connection
 
       PATHS = {
-        "eregon" => ->(year, day, part) {
+        "eregon" => ->(year:, day:, part:) {
           if part == "1"
             [
               "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}.rb",
@@ -16,17 +16,17 @@ module Arb
             ["adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}b.rb"]
           end
         },
-        "gchan" => ->(year, day, part) {
+        "gchan" => ->(year:, day:, part:) {
           ["advent-of-code-ruby/tree/main/#{year}/day-#{day}/day-#{day}-part-#{part}.rb"]
         },
-        "ahorner" => ->(year, day, part) {
+        "ahorner" => ->(year:, day:, part:) {
           return [] if part == "1"
           ["advent-of-code/tree/main/lib/#{year}/#{day}.rb"]
         },
-        "ZogStriP" => ->(year, day, part) {
+        "ZogStriP" => ->(year:, day:, part:) {
           return [] if part == "1"
 
-          puzzle_name = File.read(Files::Instructions.path(year, day))
+          puzzle_name = File.read(Files::Instructions.path(year:, day:))
             .match(/## --- Day \d\d?: (.+)(?= ---)/)
             .captures
             .first
@@ -35,7 +35,7 @@ module Arb
 
           ["adventofcode/tree/master/#{year}/#{day}_#{puzzle_name}.rb"]
         },
-        "erikw" => ->(year, day, part) {
+        "erikw" => ->(year:, day:, part:) {
           ["advent-of-code-solutions/tree/main/#{year}/#{day}/part#{part}.rb"]
         },
       }
@@ -64,13 +64,13 @@ module Arb
         )
       end
 
-      def other_solutions(year, day, part)
+      def other_solutions(year:, day:, part:)
         "# #{year} Day #{day} Part #{part}\n\n" +
           PATHS
           .map { |username, path_builder|
             actual_path = nil
             solution = nil
-            paths = path_builder.call(year, day, part)
+            paths = path_builder.call(year:, day:, part:)
 
             paths.each do |path|
               next if solution

@@ -6,7 +6,7 @@ module Arb
 
       def self.run_part(year:, day:, part:, variant: nil, correct_answer:)
         answer = nil
-        input_file = File.new(Files::Input.path(year, day))
+        input_file = File.new(Files::Input.path(year:, day:))
         solution = solution_instance(year:, day:)
 
         normal_method_name = "part_#{part}"

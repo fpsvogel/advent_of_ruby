@@ -7,11 +7,11 @@ module Arb
 
       year, day = YearDayValidator.validate_year_and_day(year:, day:)
 
-      instructions_path = Files::Instructions.download(year, day)
-      others_1_path, others_2_path = Files::OtherSolutions.download(year, day)
-      input_path = Files::Input.download(year, day)
-      solution_path = Files::Solution.create(year, day)
-      spec_path = Files::Spec.create(year, day)
+      instructions_path = Files::Instructions.download(year:, day:)
+      others_1_path, others_2_path = Files::OtherSolutions.download(year:, day:)
+      input_path = Files::Input.download(year:, day:)
+      solution_path = Files::Solution.create(year:, day:)
+      spec_path = Files::Spec.create(year:, day:)
 
       puts "🤘 Bootstrapped #{year}##{day}"
       puts

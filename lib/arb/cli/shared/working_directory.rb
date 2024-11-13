@@ -53,15 +53,13 @@ module Arb
         File.write(".env", generate_dotenv)
       end
 
-      private
-
-      def self.generate_dotenv(new_dotenv)
+      private_class_method def self.generate_dotenv(new_dotenv)
         new_dotenv.slice(*env_keys).map { |k, v|
           "#{k}=#{v}"
         }.join("\n")
       end
 
-      def self.create_dotenv!(existing_dotenv)
+      private_class_method def self.create_dotenv!(existing_dotenv)
         new_dotenv = existing_dotenv.dup
 
         puts "🎄 Welcome to Advent of Code in Ruby! 🎄"
@@ -87,7 +85,7 @@ module Arb
         File.write(".env", generate_dotenv(new_dotenv))
       end
 
-      def self.input_aoc_cookie
+      private_class_method def self.input_aoc_cookie
         aoc_cookie = nil
 
         loop do
@@ -108,7 +106,7 @@ module Arb
         aoc_cookie
       end
 
-      def self.create_other_files!
+      private_class_method def self.create_other_files!
         other_files_created = []
 
         unless Dir.exist?("src")

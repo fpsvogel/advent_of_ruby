@@ -322,11 +322,11 @@ describe Arb::Cli do
     File.write(File.join("input", year, "#{day}.txt"), input)
 
     Dir.mkdir(File.join("src", year))
-    File.write(File.join("src", year, "#{day}.rb"), solution || Arb::Files::Solution.template(year, day))
+    File.write(File.join("src", year, "#{day}.rb"), solution || Arb::Files::Solution.template(year:, day:))
     load "#{Dir.pwd}/src/#{year}/#{day}.rb"
 
     Dir.mkdir(File.join("spec", year))
-    File.write(File.join("spec", year, "#{day}_spec.rb"), spec || Arb::Files::Spec.template(year, day))
+    File.write(File.join("spec", year, "#{day}_spec.rb"), spec || Arb::Files::Spec.template(year:, day:))
   end
 
   def part_one_solution

@@ -1,7 +1,7 @@
 module Arb
   module Files
     class Spec
-      def self.create(year, day, notify_exists: true)
+      def self.create(year:, day:, notify_exists: true)
         year_directory = File.join("spec", year)
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
@@ -10,13 +10,13 @@ module Arb
         if File.exist?(file_path)
           puts "Already exists: #{file_path}" if notify_exists
         else
-          File.write(file_path, template(year, day))
+          File.write(file_path, template(year:, day:))
         end
 
         file_path
       end
 
-      def self.template(year, day)
+      def self.template(year:, day:)
         <<~SPECS
           RSpec.describe Year#{year}::Day#{day} do
             let(:input) {

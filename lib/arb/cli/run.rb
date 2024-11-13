@@ -17,16 +17,16 @@ module Arb
         return
       end
 
-      instructions_path = Files::Instructions.download(year, day, notify_exists: false, overwrite: false)
+      instructions_path = Files::Instructions.download(year:, day:, notify_exists: false, overwrite: false)
       instructions = File.read(instructions_path)
       correct_answer_1, correct_answer_2 = instructions.scan(/Your puzzle answer was `([^`]+)`./).flatten
       skip_count = 0
 
       if options[:spec]
-        run_specs_only(year, day)
+        run_specs_only(year:, day:)
         return
       elsif !(options[:one] || options[:two])
-        specs_passed, skip_count = run_specs_before_real(year, day)
+        specs_passed, skip_count = run_specs_before_real(year:, day:)
         return unless specs_passed
         puts "👍 Specs passed!"
         if skip_count > 1 || (skip_count == 1 && correct_answer_1)
@@ -35,7 +35,7 @@ module Arb
         puts
       end
 
-      Files::Input.download(year, day, notify_exists: false)
+      Files::Input.download(year:, day:, notify_exists: false)
       answer_1, answer_2 = nil, nil
 
       begin
@@ -76,9 +76,9 @@ module Arb
       if submit == "y" || submit == ""
         options_part = options[:one] ? "1" : (options[:two] ? "2" : nil)
         inferred_part = correct_answer_1.nil? ? "1" : "2"
-        aoc_api = Api::Aoc.new(ENV["AOC_COOKIE"])
+        aoc_api = Api::Aoc.new(cookie: ENV["AOC_COOKIE"])
 
-        response = aoc_api.submit(year, day, options_part || inferred_part, answer_2 || answer_1)
+        response = aoc_api.submit(year:, day:, part: options_part || inferred_part, answer: answer_2 || answer_1)
         message = response.match(/(?<=<article>).+(?=<\/article>)/m).to_s.strip
         markdown_message = ReverseMarkdown.convert(message)
         short_message = markdown_message
@@ -90,13 +90,13 @@ module Arb
           puts "⭐ #{short_message}"
 
           # TODO don't re-download if the instructions file already contains the next part
-          instructions_path = Files::Instructions.download(year, day, overwrite: true)
+          instructions_path = Files::Instructions.download(year:, day:, overwrite: true)
 
           if (options_part || inferred_part) == "1"
             puts "Downloaded instructions for Part Two."
             `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
-            spec_path = Files::Spec.create(year, day, notify_exists: false)
+            spec_path = Files::Spec.create(year:, day:, notify_exists: false)
             spec = File.read(spec_path)
             spec_without_skips = spec.gsub("  xit ", "  it ")
             File.write(spec_path, spec_without_skips)
@@ -117,7 +117,7 @@ module Arb
       puts PASTEL.red(e.message)
     end
 
-    private_class_method def self.run_specs_only(year, day)
+    private_class_method def self.run_specs_only(year:, day:)
       spec_filename =	File.join("spec", year, "#{day}_spec.rb")
 
       # Running RSpec from within RSpec causes problems, so in the test environment
@@ -129,7 +129,7 @@ module Arb
       end
     end
 
-    private_class_method def self.run_specs_before_real(year, day)
+    private_class_method def self.run_specs_before_real(year:, day:)
       spec_filename =	File.join("spec", year, "#{day}_spec.rb")
 
       # Running RSpec from within RSpec causes problems, so in the test environment

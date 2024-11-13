@@ -1,7 +1,7 @@
 module Arb
   module Files
     class OtherSolutions
-      def self.download(year, day)
+      def self.download(year:, day:)
         year_directory = File.join("others", year)
         Dir.mkdir("others") unless Dir.exist?("others")
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
@@ -12,7 +12,7 @@ module Arb
           if File.exist?(file_path)
             puts "Already exists: #{file_path}"
           else
-            other_solutions = Api::OtherSolutions.new.other_solutions(year, day, part)
+            other_solutions = Api::OtherSolutions.new.other_solutions(year:, day:, part:)
             File.write(file_path, other_solutions)
           end
 
