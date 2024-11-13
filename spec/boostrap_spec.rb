@@ -164,7 +164,7 @@ describe Arb::Cli do
       others_1: File.join("others", year, "#{day}_1.rb"),
       others_2: File.join("others", year, "#{day}_2.rb"),
       input: File.join("input", year, "#{day}.txt"),
-      source: File.join("src", year, "#{day}.rb"),
+      solution: File.join("src", year, "#{day}.rb"),
       spec: File.join("spec", year, "#{day}_spec.rb"),
       instructions: File.join("instructions", year, "#{day}.md"),
     }

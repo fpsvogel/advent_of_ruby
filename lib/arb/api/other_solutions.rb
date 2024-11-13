@@ -82,14 +82,14 @@ module Arb
             end
 
             if solution
-              <<~TPL
+              <<~SOLUTION
                 # ------------------------------------------------------------------------------
                 # #{username}: #{UI_URI}/#{username}/#{actual_path}
                 # ------------------------------------------------------------------------------
 
                 #{solution}
 
-              TPL
+              SOLUTION
             end
           }
           .compact

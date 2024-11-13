@@ -1,6 +1,6 @@
 module Arb
   module Files
-    class Source
+    class Solution
       def self.create(year, day)
         year_directory = File.join("src", year)
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
@@ -10,14 +10,14 @@ module Arb
         if File.exist?(file_path)
           puts "Already exists: #{file_path}"
         else
-          File.write(file_path, source(year, day))
+          File.write(file_path, template(year, day))
         end
 
         file_path
       end
 
-      def self.source(year, day)
-        <<~TPL
+      def self.template(year, day)
+        <<~SRC
           # https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}
           module Year#{year}
             class Day#{day}
@@ -34,7 +34,7 @@ module Arb
               end
             end
           end
-        TPL
+        SRC
       end
     end
   end

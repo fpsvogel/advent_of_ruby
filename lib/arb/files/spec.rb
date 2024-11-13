@@ -10,14 +10,14 @@ module Arb
         if File.exist?(file_path)
           puts "Already exists: #{file_path}" if notify_exists
         else
-          File.write(file_path, source(year, day))
+          File.write(file_path, template(year, day))
         end
 
         file_path
       end
 
-      def self.source(year, day)
-        <<~TPL
+      def self.template(year, day)
+        <<~SPECS
           RSpec.describe Year#{year}::Day#{day} do
             let(:input) {
               StringIO.new(
@@ -35,7 +35,7 @@ module Arb
               expect(subject.part_2(input)).to eq(:todo)
             end
           end
-        TPL
+        SPECS
       end
     end
   end

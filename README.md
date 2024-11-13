@@ -34,7 +34,7 @@ Shortcuts:
 ### `arb bootstrap [YEAR] [DAY]`
 
 - Downloads the input and instructions files for the given day.
-- Creates a source file and a spec file for the given day.
+- Creates a solution file and a spec file for the given day.
 - Downloads other people's solutions, from these repos:
   - <https://github.com/eregon/adventofcode>
   - <https://github.com/gchan/advent-of-code-ruby>

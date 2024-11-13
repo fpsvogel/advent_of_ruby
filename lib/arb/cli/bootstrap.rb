@@ -10,7 +10,7 @@ module Arb
       instructions_path = Files::Instructions.download(year, day)
       others_1_path, others_2_path = Files::OtherSolutions.download(year, day)
       input_path = Files::Input.download(year, day)
-      source_path = Files::Source.create(year, day)
+      solution_path = Files::Solution.create(year, day)
       spec_path = Files::Spec.create(year, day)
 
       puts "🤘 Bootstrapped #{year}##{day}"
@@ -20,7 +20,7 @@ module Arb
       `#{ENV["EDITOR_COMMAND"]} #{others_1_path}`
       `#{ENV["EDITOR_COMMAND"]} #{others_2_path}`
       `#{ENV["EDITOR_COMMAND"]} #{input_path}`
-      `#{ENV["EDITOR_COMMAND"]} #{source_path}`
+      `#{ENV["EDITOR_COMMAND"]} #{solution_path}`
       `#{ENV["EDITOR_COMMAND"]} #{spec_path}`
       `#{ENV["EDITOR_COMMAND"]} #{instructions_path}`
 
