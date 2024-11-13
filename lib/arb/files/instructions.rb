@@ -3,14 +3,14 @@ module Arb
     class Instructions
       def self.path(year, day)
         year_directory = File.join("instructions", year)
-        Dir.mkdir("instructions") unless Dir.exist?("instructions")
-        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
-
         File.join(year_directory, "#{day}.md")
       end
 
       def self.download(year, day, notify_exists: true, overwrite: false)
-        file_path = path(year, day)
+        Dir.mkdir("instructions") unless Dir.exist?("instructions")
+        year_directory = File.join("instructions", year)
+        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
+        file_path = File.join(year_directory, "#{day}.md")
 
         if File.exist?(file_path) && !overwrite
           puts "Already exists: #{file_path}" if notify_exists

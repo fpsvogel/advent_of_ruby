@@ -11,17 +11,12 @@ class ArbApp < Thor
     Arb::Cli.bootstrap(year:, day:)
   end
 
-  # TODO add a [VARIANT] arg, so that additional versions of the same solution
-  # can co-exist as additional methods, e.g.:
-  #
-  #   #part_1_first     # for my initial attempt
-  #   #part_1_concise   # for a code-golf type solution
-  #   #part_1_alt       # for an alternative approach
   desc "run [YEAR] [DAY]", "Runs the puzzle that's untracked in Git, or the " \
     "puzzle of the given day and year. `-s` runs only specs, `-o` part 1, `-t` part 2."
   method_option :spec, type: :boolean, aliases: "-s"
   method_option :one, type: :boolean, aliases: "-o"
   method_option :two, type: :boolean, aliases: "-t"
+  method_option :variant, type: :string, aliases: "-v"
   def run_day(year = nil, day = nil) # can't be named `run` due to Thor conflict
     Arb::Cli.run(year:, day:, options:)
   end

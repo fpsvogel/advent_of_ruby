@@ -1,11 +1,15 @@
 module Arb
   module Files
     class Input
-      def self.download(year, day, notify_exists: true)
+      def self.path(year, day)
         year_directory = File.join("input", year)
-        Dir.mkdir("input") unless Dir.exist?("input")
-        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
+        File.join(year_directory, "#{day}.txt")
+      end
 
+      def self.download(year, day, notify_exists: true)
+        Dir.mkdir("input") unless Dir.exist?("input")
+        year_directory = File.join("input", year)
+        Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
         file_path = File.join(year_directory, "#{day}.txt")
 
         if File.exist?(file_path)

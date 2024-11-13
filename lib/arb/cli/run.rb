@@ -17,10 +17,6 @@ module Arb
         return
       end
 
-      solution = Runner.load_solution(year, day)
-      input_path = Files::Input.download(year, day, notify_exists: false)
-      answer_1, answer_2 = nil, nil
-
       instructions_path = Files::Instructions.download(year, day, notify_exists: false, overwrite: false)
       instructions = File.read(instructions_path)
       correct_answer_1, correct_answer_2 = instructions.scan(/Your puzzle answer was `([^`]+)`./).flatten
@@ -39,21 +35,27 @@ module Arb
         puts "\n"
       end
 
-      if options[:one] || (!options[:two] && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
-        answer_1 = Runner.run_part("#{year}##{day}.1", correct_answer_1) do
-          solution.part_1(File.new(input_path))
+      Files::Input.download(year, day, notify_exists: false)
+      answer_1, answer_2 = nil, nil
+
+      begin
+        if options[:one] || (!options[:two] && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
+          answer_1 = Runner.run_part(year:, day:, part: "1", variant: options[:variant], correct_answer: correct_answer_1)
         end
-      end
-      if options[:two] || (!options[:one] && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
-        answer_2 = Runner.run_part("#{year}##{day}.2", correct_answer_2) do
-          solution.part_2(File.new(input_path))
+        if options[:two] || (!options[:one] && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
+          answer_2 = Runner.run_part(year:, day:, part: "2", variant: options[:variant],correct_answer: correct_answer_2)
         end
+      rescue Runner::SolutionNotFoundError
+        puts PASTEL.red("Solution class not found. Make sure this class exists: #{PASTEL.bold("Year#{year}::Day#{day}")}")
+      rescue Runner::SolutionArgumentError
+        puts PASTEL.red("ArgumentError when running your solution. Make sure every method has a one parameter (the input file).")
+      rescue Runner::SolutionArgumentError
       end
 
       return unless answer_1 || answer_2
 
       if correct_answer_2
-        puts "🙌 You've already submitted the answers to both parts.\n\n"
+        puts "🙌 You've already submitted the answers to both parts.\n"
 
         if Git.commit_count <= 1
           puts "When you're done with this puzzle, run " \

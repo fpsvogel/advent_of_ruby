@@ -68,7 +68,7 @@ describe Arb::Cli do
     context "when Part One has been solved" do
       it "runs Part One and prompts to submit it", vcr: "run_2017_01_1" do
         create_working_dir!
-        solution, spec = part_one_solution_and_spec
+        solution, spec = part_one_solution, part_one_specs
         create_puzzle!(solution:, spec:)
 
         outputs = [
@@ -100,7 +100,7 @@ describe Arb::Cli do
       it "runs Part Two and prompts to submit it", vcr: "run_2017_01_2" do
         create_working_dir!
         previously_submitted_answers = [1182]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         outputs = [
@@ -126,7 +126,7 @@ describe Arb::Cli do
       it "runs both parts" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         outputs = [
@@ -153,7 +153,7 @@ describe Arb::Cli do
       it "runs both parts" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         `git add -A`
@@ -183,7 +183,7 @@ describe Arb::Cli do
       it "runs only specs" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         options = {spec: true}
@@ -209,7 +209,7 @@ describe Arb::Cli do
       it "runs only Part One" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         options = {one: true}
@@ -238,7 +238,7 @@ describe Arb::Cli do
       it "runs only Part Two" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
-        solution, spec = part_two_solution_and_spec
+        solution, spec = part_two_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         options = {two: true}
@@ -258,6 +258,34 @@ describe Arb::Cli do
         ]
 
         run_with(options:, outputs:, not_outputs:)
+      ensure
+        remove_working_dir!
+      end
+    end
+
+    context "with --variant flag" do
+      it "runs a variant, if it exists" do
+        create_working_dir!
+        previously_submitted_answers = [1182, 1152]
+        solution, spec = variant_solution, part_two_specs
+        create_puzzle!(solution:, spec:, previously_submitted_answers:)
+
+        options = {variant: "golf"}
+        outputs = [
+          <<~OUT,
+            Specs passed!
+
+            Result for 2017#01.1 (variant `golf`):
+            ✅ 1182
+          OUT
+          <<~OUT,
+            Result for 2017#01.2:
+            ✅ 1152
+          OUT
+          "You've already submitted the answers to both parts.",
+        ]
+
+        run_with(options:, outputs:)
       ensure
         remove_working_dir!
       end
@@ -301,8 +329,8 @@ describe Arb::Cli do
     File.write(File.join("spec", year, "#{day}_spec.rb"), spec || Arb::Files::Spec.source(year, day))
   end
 
-  def part_one_solution_and_spec
-    solution = <<~SRC
+  def part_one_solution
+    <<~SRC
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
@@ -325,8 +353,10 @@ describe Arb::Cli do
         end
       end
     SRC
+  end
 
-    spec = <<~SPEC
+  def part_one_specs
+    <<~SPEC
       RSpec.describe Year2017::Day01 do
         let(:input) {
           StringIO.new(
@@ -345,12 +375,10 @@ describe Arb::Cli do
         end
       end
     SPEC
-
-    [solution, spec]
   end
 
-  def part_two_solution_and_spec
-    solution = <<~SRC
+  def part_two_solution
+    <<~SRC
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
@@ -378,8 +406,10 @@ describe Arb::Cli do
         end
       end
     SRC
+  end
 
-    spec = <<~SPEC
+  def part_two_specs
+    <<~SPEC
       RSpec.describe Year2017::Day01 do
         let(:input) {
           StringIO.new(
@@ -398,7 +428,40 @@ describe Arb::Cli do
         end
       end
     SPEC
+  end
 
-    [solution, spec]
+  def variant_solution
+    <<~SRC
+      # https://adventofcode.com/2017/day/1
+      module Year2017
+        class Day01
+          def part_1(input_file)
+            captcha = input_file.read.chomp.chars.map(&:to_i)
+            captcha << captcha.first # simulates a circular list
+
+            captcha
+              .chunk_while { _1 == _2 }
+              .map { _1.drop(1) }
+              .flatten
+              .sum
+          end
+
+          def part_1_golf(input_file)
+            input_file.read.chomp.chars.map(&:to_i).tap { _1 << _1.first }.each_cons(2).sum { _1 == _2 ? _1 : 0 }
+          end
+
+          def part_2(input_file)
+            captcha = input_file.read.chomp.chars.map(&:to_i)
+            first_half, second_half = captcha.each_slice(captcha.size / 2).to_a
+
+            first_half
+              .zip(second_half)
+              .filter { _1 == _2 }
+              .flatten
+              .sum
+          end
+        end
+      end
+    SRC
   end
 end
