@@ -41,7 +41,8 @@ module Arb
         files_created += create_other_files!
 
         if files_created.any?
-          puts "✅ Initial files created and committed to a new Git repository.\n\n"
+          puts "✅ Initial files created and committed to a new Git repository."
+          puts
         end
       end
 
@@ -63,8 +64,10 @@ module Arb
       def self.create_dotenv!(existing_dotenv)
         new_dotenv = existing_dotenv.dup
 
-        puts "🎄 Welcome to Advent of Code in Ruby! 🎄\n\n"
-        puts "Let's start with some configuration.\n\n"
+        puts "🎄 Welcome to Advent of Code in Ruby! 🎄"
+        puts
+        puts "Let's start with some configuration."
+        puts
 
         unless existing_dotenv.has_key?("EDITOR_COMMAND")
           puts "What's the shell command to start your editor? (default: #{default_editor_command})"
@@ -74,6 +77,7 @@ module Arb
           new_dotenv["EDITOR_COMMAND"] = editor_command
         end
 
+        puts
         puts
 
         unless existing_dotenv.has_key?("AOC_COOKIE")
@@ -95,6 +99,7 @@ module Arb
 
           aoc_cookie = STDIN.gets.strip
 
+          puts
           puts
 
           break unless aoc_cookie.strip.empty?

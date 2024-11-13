@@ -13,7 +13,8 @@ module Arb
       source_path = Files::Source.create(year, day)
       spec_path = Files::Spec.create(year, day)
 
-      puts "🤘 Bootstrapped #{year}##{day}\n\n"
+      puts "🤘 Bootstrapped #{year}##{day}"
+      puts
 
       # Open the new files.
       `#{ENV["EDITOR_COMMAND"]} #{others_1_path}`

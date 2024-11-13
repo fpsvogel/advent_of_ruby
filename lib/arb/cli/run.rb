@@ -32,7 +32,7 @@ module Arb
         if skip_count > 1 || (skip_count == 1 && correct_answer_1)
           puts PASTEL.yellow.bold("🤐 #{skip_count} skipped, however")
         end
-        puts "\n"
+        puts
       end
 
       Files::Input.download(year, day, notify_exists: false)
@@ -71,6 +71,7 @@ module Arb
       puts "Submit solution? (Y/n)"
       print PASTEL.green("> ")
       submit = STDIN.gets.strip.downcase
+      puts
 
       if submit == "y" || submit == ""
         options_part = options[:one] ? "1" : (options[:two] ? "2" : nil)
@@ -85,7 +86,8 @@ module Arb
           .sub(/ \[\[.+/, "")
 
         if short_message.start_with?("That's the right answer!")
-          puts "\n⭐ #{short_message}"
+          puts
+          puts "⭐ #{short_message}"
 
           # TODO don't re-download if the instructions file already contains the next part
           instructions_path = Files::Instructions.download(year, day, overwrite: true)
@@ -101,7 +103,8 @@ module Arb
           end
 
           if Git.commit_count <= 1
-            puts "\nNow it's time to improve your solution! Be sure to look " \
+            puts
+            puts "Now it's time to improve your solution! Be sure to look " \
               "at other people's solutions (in the \"others\" directory). When " \
               "you're done, run `#{PASTEL.blue.bold("arb commit")}` (or `arb c`) " \
               "to commit your solution to Git.\n"

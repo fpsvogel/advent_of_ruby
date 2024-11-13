@@ -14,7 +14,8 @@ module Arb
         puts "Nothing to commit."
 
         if Git.commit_count <= 2
-          puts "\nRun `#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to start the next puzzle."
+          puts
+          puts "Run `#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`) to start the next puzzle."
         end
 
         return
@@ -26,14 +27,17 @@ module Arb
 
         # TODO less naive check: ensure prev. days are finished too
         if !files_modified && day == "25"
-          puts "\n🎉 You've finished #{year}!\n\n"
+          puts
+          puts "🎉 You've finished #{year}!"
+          puts
         end
 
         puts "Puzzle #{year}##{day}#{" (modified)" if files_modified} committed 🎉"
       end
 
       if Git.commit_count <= 1
-        puts "\nWhen you're ready to start the next puzzle, run " \
+        puts
+        puts "When you're ready to start the next puzzle, run " \
           "`#{PASTEL.blue.bold("arb bootstrap")}` (or `arb b`)."
       end
     end

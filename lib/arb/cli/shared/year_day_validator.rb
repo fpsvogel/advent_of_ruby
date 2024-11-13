@@ -45,7 +45,7 @@ module Arb
                   default_day = committed[default_year].values.index(false)
 
                   puts "You've recently finished #{year}. Yay!"
-                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day.to_s.sub(/\A0/, "")}])"
+                  bootstrap_year_prompt = "What year do you want to bootstrap next? (default: #{default_year} [at Day #{default_day.to_s.delete_prefix("0")}])"
                 end
 
                 loop do
@@ -53,6 +53,8 @@ module Arb
                   print PASTEL.green("> ")
                   year_input = STDIN.gets.strip
                   puts
+                  puts
+
                   if year_input.strip.empty?
                     year = default_year
                     day = default_day
