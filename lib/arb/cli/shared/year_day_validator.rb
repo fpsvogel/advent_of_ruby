@@ -10,7 +10,7 @@ module Arb
         if day && !year
           raise InputError, "If you specify the day, specify the year also."
         elsif !day
-          if default_to_untracked_or_last_committed
+          if !year && default_to_untracked_or_last_committed
             year, day = Git.uncommitted_puzzles.keys.last
           end
 
