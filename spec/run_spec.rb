@@ -263,29 +263,34 @@ describe Arb::Cli do
       end
     end
 
-    context "with --variant flag" do
-      it "runs a variant, if it exists" do
+    context "with a variant solution" do
+      it "runs the variant(s) alongside the main solution" do
         create_working_dir!
         previously_submitted_answers = [1182, 1152]
         solution, spec = variant_solution, part_two_specs
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
-        options = {variant: "golf"}
         outputs = [
           <<~OUT,
             Specs passed!
 
-            Result for 2017#01.1 (variant `golf`):
+            Result for 2017#01.1:
             ✅ 1182
           OUT
           <<~OUT,
+            Result for 2017#01.1 `golf`:
+            ✅ 1182
+          OUT
+          <<~OUT,
+            ------------
+
             Result for 2017#01.2:
             ✅ 1152
           OUT
           "You've already submitted the answers to both parts.",
         ]
 
-        run_with(options:, outputs:)
+        run_with(outputs:)
       ensure
         remove_working_dir!
       end

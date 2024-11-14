@@ -16,7 +16,6 @@ class ArbApp < Thor
   method_option :spec, type: :boolean, aliases: "-s"
   method_option :one, type: :boolean, aliases: "-o"
   method_option :two, type: :boolean, aliases: "-t"
-  method_option :variant, type: :string, aliases: "-v"
   def run_day(year = nil, day = nil) # can't be named `run` due to Thor conflict
     Arb::Cli.run(year:, day:, options:)
   end

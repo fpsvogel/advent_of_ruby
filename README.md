@@ -53,7 +53,6 @@ Shortcuts:
   - `--spec` (`-s`) runs only the specs. (To run only Part One or Part Two specs, in the spec file change `it` to `xit` on the other part's example to skip it.)
   - `--one` (`-o`) runs only Part One with the real input.
   - `--two` (`-t`) runs only Part Two with the real input.
-  - `--variant=my_variant` (`-v my_variant`) runs a variant (`#part_1_my_variant` and/or `#part_2_my_variant` in this case).
 - Optionally submits the answer, via a prompt that appears if specs pass and the answer has not already been submitted.
 - *If both arguments are omitted, it runs the puzzle that is untracked in Git, if any.*
 

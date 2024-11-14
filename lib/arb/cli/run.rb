@@ -36,14 +36,19 @@ module Arb
       end
 
       Files::Input.download(year:, day:, notify_exists: false)
-      answer_1, answer_2 = nil, nil
+      answers_1, answers_2 = [], []
 
       begin
         if options[:one] || (!options[:two] && ((correct_answer_1.nil? && skip_count <= 1) || correct_answer_2))
-          answer_1 = Runner.run_part(year:, day:, part: "1", variant: options[:variant], correct_answer: correct_answer_1)
+          answers_1 = Runner.run_part(year:, day:, part: "1", correct_answer: correct_answer_1)
         end
         if options[:two] || (!options[:one] && ((correct_answer_1 && !correct_answer_2 && skip_count.zero?) || correct_answer_2))
-          answer_2 = Runner.run_part(year:, day:, part: "2", variant: options[:variant],correct_answer: correct_answer_2)
+          if answers_1.count > 1
+            puts "------------"
+            puts
+          end
+
+          answers_2 = Runner.run_part(year:, day:, part: "2",correct_answer: correct_answer_2)
         end
       rescue Runner::SolutionNotFoundError
         puts PASTEL.red("Solution class not found. Make sure this class exists: #{PASTEL.bold("Year#{year}::Day#{day}")}")
@@ -51,6 +56,8 @@ module Arb
         puts PASTEL.red("ArgumentError when running your solution. Make sure every method has a one parameter (the input file).")
       rescue Runner::SolutionArgumentError
       end
+
+      answer_1, answer_2 = answers_1.compact.first, answers_2.compact.first
 
       return unless answer_1 || answer_2
 
