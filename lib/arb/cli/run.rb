@@ -50,11 +50,14 @@ module Arb
 
           answers_2 = Runner.run_part(year:, day:, part: "2",correct_answer: correct_answer_2)
         end
-      rescue Runner::SolutionNotFoundError
-        puts PASTEL.red("Solution class not found. Make sure this class exists: #{PASTEL.bold("Year#{year}::Day#{day}")}")
-      rescue Runner::SolutionArgumentError
-        puts PASTEL.red("ArgumentError when running your solution. Make sure every method has a one parameter (the input file).")
-      rescue Runner::SolutionArgumentError
+      rescue Runner::SolutionFileNotFoundError
+        puts PASTEL.red("Solution file not found. Make sure this file exists: #{PASTEL.bold("./src/#{year}/#{day}")}")
+      rescue Runner::SolutionClassNotFoundError
+        puts PASTEL.red("Solution class not found. Make sure the class #{PASTEL.bold("Year#{year}::Day#{day}")} exists in this file (which *does* exist): ./src/#{year}/#{day}")
+      rescue Runner::SolutionMethodNotFoundError
+        puts PASTEL.red("🤔 Couldn't find the method #{PASTEL.bold("##{base_method_name}")}, though the class Year#{year}::Day#{day} exists.")
+      rescue Runner::SolutionArgumentError => e
+        puts PASTEL.red("#{e.message.capitalize}. Make sure that method has one parameter, the input file.")
       end
 
       answer_1, answer_2 = answers_1.compact.first, answers_2.compact.first

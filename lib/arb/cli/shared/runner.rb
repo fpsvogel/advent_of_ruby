@@ -1,7 +1,9 @@
 module Arb
   module Cli
     class Runner
-      SolutionNotFoundError = Class.new(StandardError)
+      SolutionFileNotFoundError = Class.new(StandardError)
+      SolutionClassNotFoundError = Class.new(StandardError)
+      SolutionMethodNotFoundError = Class.new(StandardError)
       SolutionArgumentError = Class.new(StandardError)
 
       def self.run_part(year:, day:, part:, correct_answer:)
@@ -13,8 +15,7 @@ module Arb
             .sort
 
         if variant_method_names.empty?
-          puts PASTEL.red("🤔 Couldn't find the method #{PASTEL.bold("Year#{year}::Day#{day}##{base_method_name}")}.")
-          return
+          raise SolutionMethodNotFoundError
         end
 
         answers = []
@@ -30,8 +31,8 @@ module Arb
             end
             variant = variant_method_name.to_s.delete_prefix(base_method_name).delete_prefix("_")
             variant_note = " `#{PASTEL.blue.bold(variant)}`" unless variant.empty?
-          rescue ArgumentError
-            raise SolutionArgumentError
+          rescue ArgumentError => e
+            raise SolutionArgumentError, "#{e.message} at .#{e.backtrace.first.delete_prefix(Dir.pwd)}"
           end
 
           part_name = "#{year}##{day}.#{part}#{variant_note}"
@@ -74,8 +75,10 @@ module Arb
         Module
           .const_get("Year#{year}")
           .const_get("Day#{day}")
+      rescue LoadError
+        raise SolutionFileNotFoundError
       rescue NameError
-        raise SolutionNotFoundError
+        raise SolutionClassNotFoundError
       end
     end
   end
