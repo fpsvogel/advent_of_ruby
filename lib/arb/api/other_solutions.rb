@@ -1,3 +1,13 @@
+# TODO
+# Add https://github.com/ZogStriP/adventofcode-old
+# Convert into a separate app that downloads all of a year's solutions for any language.
+#   - each of the transformations in PATHS will become an executable script
+#     so that the user can add scripts for repos containing solutions for their
+#     own chosen languge.
+# Use GitHub API to get all filenames then select on day/part.
+#   - e.g. to get all variants https://github.com/eregon/adventofcode/tree/master/2024
+#   - and e.g. to avoid having to match the exact name for ZogStriP/adventofcode-old
+# Get solutions from Reddit too https://www.reddit.com/dev/api/oauth#GET_comments_{article}
 module Arb
   module Api
     class OtherSolutions
