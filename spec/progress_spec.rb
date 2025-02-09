@@ -11,6 +11,8 @@ describe Arb::Cli do
       create_fake_solutions!(year: "2019", days: "01")
       create_fake_solutions!(year: "2020", days: "10".."20")
 
+      expect(Date).to receive(:today).at_least(:once).and_return(Date.new(2024, 1, 1))
+
       output = <<~OUT
         You have completed:
 
