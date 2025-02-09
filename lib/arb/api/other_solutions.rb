@@ -8,6 +8,7 @@
 #   - e.g. to get all variants https://github.com/eregon/adventofcode/tree/master/2024
 #   - and e.g. to avoid having to match the exact name for ZogStriP/adventofcode-old
 # Get solutions from Reddit too https://www.reddit.com/dev/api/oauth#GET_comments_{article}
+#   - similar project: https://github.com/rpalo/aoc_language_bot
 module Arb
   module Api
     class OtherSolutions
