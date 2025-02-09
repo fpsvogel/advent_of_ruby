@@ -24,19 +24,19 @@ module Arb
         FILE
       }
 
-      def self.env_keys = ["EDITOR_COMMAND", "AOC_COOKIE"]
-      def self.default_editor_command = "code"
+      ENV_KEYS = ["EDITOR_COMMAND", "AOC_COOKIE"]
+      DEFAULT_EDITOR_COMMAND = "code"
 
       def self.prepare!
         files_created = []
 
         existing_dotenv = Dotenv.parse(".env")
-        unless env_keys.all? { existing_dotenv.has_key?(_1) }
+        unless ENV_KEYS.all? { existing_dotenv.has_key?(_1) }
           create_dotenv!(existing_dotenv)
           files_created << :dotenv
         end
         Dotenv.load
-        Dotenv.require_keys(*env_keys)
+        Dotenv.require_keys(*ENV_KEYS)
 
         files_created += create_other_files!
 
@@ -54,7 +54,7 @@ module Arb
       end
 
       private_class_method def self.generate_dotenv(new_dotenv)
-        new_dotenv.slice(*env_keys).map { |k, v|
+        new_dotenv.slice(*ENV_KEYS).map { |k, v|
           "#{k}=#{v}"
         }.join("\n")
       end
@@ -68,10 +68,10 @@ module Arb
         puts
 
         unless existing_dotenv.has_key?("EDITOR_COMMAND")
-          puts "What's the shell command to start your editor? (default: #{default_editor_command})"
+          puts "What's the shell command to start your editor? (default: #{DEFAULT_EDITOR_COMMAND})"
           print PASTEL.green("> ")
           editor_command = STDIN.gets.strip
-          editor_command = default_editor_command if editor_command.empty?
+          editor_command = DEFAULT_EDITOR_COMMAND if editor_command.empty?
           new_dotenv["EDITOR_COMMAND"] = editor_command
         end
 
