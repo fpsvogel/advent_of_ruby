@@ -32,19 +32,11 @@ GEM
       reline (>= 0.4.2)
     json (2.7.2)
     logger (1.6.1)
+    mini_portile2 (2.8.8)
     net-http (0.4.1)
       uri
-    nokogiri (1.16.7-aarch64-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-arm-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
+    nokogiri (1.16.7)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     pastel (0.8.0)
       tty-color (~> 0.5)
@@ -89,7 +81,7 @@ DEPENDENCIES
   advent_of_ruby!
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.4.1p0
 
 BUNDLED WITH
    2.5.15
