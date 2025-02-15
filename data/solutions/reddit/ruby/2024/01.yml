@@ -1,0 +1,201 @@
+---
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/m0c0fmv/
+  :body: |-
+    [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day01.rb)
+
+    Using Ruby for this problem almost felt like cheating: between `Array#transpose` and `Enumerable#tally`, I barely had to write any code of my own :) My Ruby is definitely a bit rusty, so this was a nice opportunity to review those classes' interfaces in preparation for future days.
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzvccp8/
+  :body: |-
+    > This looks like a job for ... [Trans Pose](https://ruby-doc.org/3.3.6/Array.html#method-i-transpose)! :)
+
+    ```ruby
+    input = File
+      .readlines('input01.txt')
+      .map { |line| line.scan(/\d+/).map &:to_i }
+
+    # Part 1
+    p input.transpose.map(&:sort).transpose.sum { |a,b| (a - b).abs }
+
+    # Part 2
+    a,b = input.transpose
+    p a.sum { |i| i * b.count(i) }
+    ```
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztxpm4/
+  :body: |-
+    7062/1094 I could have made it to the first 1k if I didn't have to help my wife with something between the two parts :D
+
+    ```ruby
+    # 1.rb
+    DAY = __FILE__.sub(".rb", ".input")
+    def parse(io)
+      _line_parts = io.readlines.map { |l| l.chomp.split.map(&:to_i) }
+    end
+    def daily_input
+      File.open(DAY) do |fd|
+        return parse(fd)
+      end
+    end
+
+    def solve_easy(pairs)
+      a, b = pairs.transpose.map(&:sort)
+      a.zip(b).sum { (_1 - _2).abs }
+    end
+
+    def solve_hard(pairs)
+      a, b = pairs.transpose
+      t = b.tally
+      a.sum { _1 * t.fetch(_1, 0) }
+    end
+    ```
+
+    edit: usual complaint, I hate that ruby's `Array#zip` with a block returns `nil`
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzx6a3o/
+  :body: |-
+    ```ruby
+    lines = File.readlines('input1.txt', chomp: true)
+    list1 = []
+    list2 = []
+    freq = Hash.new(0)
+
+    lines.each do |line|
+      ids = line.split.map(&:to_i)
+      list1 << ids[0]
+      list2 << ids[1]
+      freq[ids[1]] += 1
+    end
+
+    list1.sort!
+    list2.sort!
+
+    distance = 0
+    similarity = 0
+    list1.zip(list2).each do |id1, id2|
+      distance += (id1 - id2).abs
+      similarity += id1 * freq[id1]
+    end
+
+    puts distance, similarity
+    ```
+
+    My very first Ruby script, critiques more than welcome!
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztwobe/
+  :body: |-
+    ```ruby
+    left, right = ARGF.readlines.map(&:split).map { _1.map(&:to_i) }.transpose
+    puts left.sort.zip(right.sort).map { (_1 - _2).abs }.sum
+    puts left.map { [_1, right.count(_1)] }.map { _1 * _2 }.sum
+    ```
+
+    Initially had a small bug in my part 2 with using `find` instead of `count`, I blame sleep deprivation!
+  :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzufxbj/
+  :body: |-
+    ```ruby
+    l1, l2 = ARGF.each.map(&:split).transpose.map {|x| x.map(&:to_i).sort }
+    puts l1.zip(l2).sum { |a, b| (a-b).abs }
+    puts l1.sum { |x| x*l2.count(x) }
+    ```
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzunulz/
+  :body: |-
+    ```ruby
+    lists = $<.map { _1.scan(/\d+/).map(&:to_i) }.transpose
+    lists.each(&:sort!)
+    puts lists[0].zip(lists[1]).lazy.map { |(a, b)| (a - b).abs }.sum
+    puts lists[0].lazy.map { |a|
+      lo = lists[1].bsearch_index { |b| b >= a }
+      next 0 if lo.nil?
+      count = (lo...).lazy.take_while { _1 < lists[1].size && lists[1][_1] == a }.count
+      a * count
+    }.sum
+    ```
+  :replies:
+  - :author: stellar_opossum
+    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuqguv/
+    :body: "`left_element * right_list.count(left_element)`. Now that's `lazy`"
+
+    :replies:
+    - :author: glebm
+      :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuzfy6/
+      :body: That's quadratic, you're making the computer do all the work, so inconsiderate!
+
+      :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzusygn/
+  :body: |-
+    [https://github.com/vinc/advent-of-code](https://github.com/vinc/advent-of-code)
+
+    Part 1
+
+    ```ruby
+    a, b = ARGF.read.split.map(&:to_i).each_slice(2).to_a.transpose.map(&:sort)
+    puts a.zip(b).map { |x, y| (x - y).abs }.sum
+    ```
+
+    Part 2
+
+    ```ruby
+    a, b = ARGF.read.split.map(&:to_i).each_slice(2).to_a.transpose
+    puts a.map { |x| x * b.count(x) }.sum
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzut10v/
+  :body: "[https://github.com/careyi3/aoc\\_2024/tree/master/solutions/1](https://github.com/careyi3/aoc_2024/tree/master/solutions/1)"
+  :replies: []
+- :author: Cheswick32
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzw82qi/
+  :body: |-
+    The first day always feels like a test of "So how much thought we putting into running this thing?".
+
+    I was going to use [aoc\_rb](https://github.com/pacso/aoc_rb) but I can't bring myself to write spec tests this early in the month
+
+    [Paste](https://topaz.github.io/paste/#XQAAAQA1BQAAAAAAAAA5GUqKNoFH6SMqgz5/p0SQOJLmsq1ZB0a/1piD4YtOTl2yryMSPb8yt+HzPgs17kMK3qa5Pt4XB0i+P157YAYOjqPnnUayVBdNcP2YpHcA4r3Y+MR8fkwdqbk0WawDRDBeQKH/SQvLD4n5TgrbeiQ/D4eTIWxM62dZwygva6quKx2/9Uyy7AZBhywh5jp5z5L03KUMCcbXBCpAj7raYZaeBrU/ABVkIUOL4vo5b26uNY8YphcqbCWnmSktj3KUqxUFxqRzk1tnEawkklHFBTy9qP7wRZSC7ZAPqxZpAvJgqUWsz3nPJSNOmGSUj8xIst85XDJv1YojTeG6YIGzJCIsFTvmpE++CfYzEmsCjhct2EAixl3SPSOSJmpjNa1T7ojdJeZLsdzM19XbycmPJ1ndMUeJMsA0KZu7dZZZuW1M+jC4icyESt5m7D4lUJdHy4SPrzgI9C1SUxkM13YNcnGA8UPyqOXtespj1ltgM1AnHpKbkuEoETy/LRGGPuEH4K5dfGGFlb9jRS9NPe1ix5HeQdoEwYHbPFU/mH/odgPP6//lQ3jvSbqkxxTaKRvMvmEWWGmmBUSbmwvpTjtlnPr7YEar767MJoAONUBzHxY67Nu4zXlVVfnzfKQHT/CXvARSNBZJf8EkJStTB507isAwz9wFlZUxZ9uPXyS7BG6asaHjPmVHW+wmSTgnPFkGiZXeusyi44je3g0cEEZXA5kbKyBwN7Nip79YTaNDAcPrqUUeJzPY1L/gdZhIKi3vS6QK8+V2rx0g6xcR6uEO+82kf01Aw8hO3CdDAwr9pwqNBYgBGZYuoaraAD6DppkjnyOH/mo9RA==)
+  :replies: []
+- :author: zaniwoop
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwfu9m/
+  :body: |-
+    ```ruby
+    # part 1
+    list_1 = values.map(&:first).sort
+    list_2 = values.map(&:last).sort
+
+    differences = list_1.map.with_index do |value, index|
+        difference = value - list_2[index]
+        difference = -difference if difference < 0
+        [value, list_2[index], difference]
+    end
+
+    puts differences.map{ |value| value[2] }.sum
+
+    # part 2
+    occurances = list_1.map.with_index do |value, index|
+        occurance = value * list_2.select{ |a| a == value }.count
+        [value, list_2[index], occurance]
+    end
+
+    puts occurances.map{ |value| value[2] }.sum
+    ```
+  :replies: []
+- :author: Robowiko123
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwhsbr/
+  :body: |-
+    ```ruby
+    # Part 1
+    p File.open("input").read.split("\n").map { |x| x.split.reject(&:empty?).map &:to_i }.transpose.map(&:sort).transpose.map { |x| (x[0]-x[1]).abs }.sum
+    # Part 2
+    left, right = File.open("input").read.split("\n").map { |x| x.split.reject(&:empty?).map &:to_i }.transpose
+    p left.map { |x| x * right.count(x) }.sum
+    ```
+  :replies: []

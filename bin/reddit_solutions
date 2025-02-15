@@ -1,0 +1,80 @@
+#!/usr/bin/env ruby
+
+require "debug"
+require "dotenv"
+require "faraday"
+require "reverse_markdown"
+require "thor"
+require "yaml"
+require_relative "../lib/arb/api/reddit"
+require_relative "../lib/arb/version"
+
+# AoC Reddit Solutions Downloader CLI application
+class RedditSolutionsApp < Thor
+  desc "download", "Downloads Reddit solutions for the given language (-l), " \
+    "for the given year (-y) and day (-d)."
+  # TODO  "optionally only for the given year (-y) starting on the given day (-d)."
+  method_option :language, type: :array, aliases: "-l", default: ["ruby"]
+  method_option :year, type: :numeric, aliases: "-y"
+  method_option :day, type: :numeric, aliases: "-d"
+  def download
+    reddit_api_keys = %w[CLIENT_ID CLIENT_SECRET USERNAME PASSWORD]
+
+    Dotenv.load
+    Dotenv.require_keys(reddit_api_keys)
+
+    reddit = Arb::Api::Reddit.new(
+      client_id: ENV["CLIENT_ID"],
+      client_secret: ENV["CLIENT_SECRET"],
+      username: ENV["USERNAME"],
+      password: ENV["PASSWORD"],
+    )
+
+    comments = reddit.get_comments(
+      year: options[:year],
+      day: options[:day],
+      language_names: options[:language],
+    )
+
+    File.write(
+      File.join("data", "solutions", "reddit", options[:language].join("-"), "2024", "01.yml"),
+      comments.to_yaml,
+    )
+
+    # TODO loop through all years and days
+
+    # TODO separately, transform to Markdown:
+    #
+    # comments = YAML.load_file(...)
+    #
+    # comments_markdown = comments.map { |comment|
+    #   comment_to_markdown(comment)
+    # }.join
+    #
+    # File.write(
+    #   ...,
+    #   comments_markdown,
+    # )
+  end
+
+  default_task :download
+
+  private
+
+  def comment_to_markdown(comment, level: 0)
+    replies = comment[:replies].map { |reply|
+      comment_to_str(reply, level: level + 1)
+    }.join("\n\n")
+
+    <<~COMMENT.gsub(/(?:\n\s*){3,}/, "\n\n")
+      #{"#" * (level + 1)} #{"↳" * level}#{level.zero? ? "Solution by" : "Reply by"} #{comment[:author]}
+      #{comment[:url]}
+
+      #{comment[:body]}
+
+      #{replies unless replies.empty?}
+    COMMENT
+  end
+end
+
+RedditSolutionsApp.start

@@ -3,7 +3,7 @@
 require "thor"
 require_relative "../lib/arb/arb"
 
-# The CLI application
+# Advent of Ruby CLI application
 class ArbApp < Thor
   desc "bootstrap [YEAR] [DAY]", "Creates puzzle files for the next day, or " \
     "for a given year and optionally day (defaults to Day 1)."
