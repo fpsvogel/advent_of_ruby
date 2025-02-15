@@ -2,3 +2,4 @@
 bin/rspec
 spec/tmp
 scratch*
+.env

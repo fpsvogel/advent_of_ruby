@@ -1,6 +1,16 @@
 module Arb
   module Api
     class Reddit
+      ThrottledError = Class.new(StandardError)
+
+      # TODO WIP
+      # https://www.reddit.com/r/redditdev/comments/12f885c/getting_all_the_comments_in_a_post/
+      # https://gist.github.com/davestevens/4257bbfc82b1e59eeec7085e66314215#get-all-comments
+      # https://www.reddit.com/r/redditdev/comments/v7sw57/will_i_get_all_the_comments_of_a_post_through/
+      # https://www.reddit.com/dev/api/oauth#GET_comments_%7Barticle%7D
+      # https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/
+
+      # From https://www.reddit.com/r/adventofcode/wiki/archives/solution_megathreads
       MEGATHREADS = {
         2024 => %w[1h3vp6n 1h4ncyr 1h5frsp 1h689qf 1h71eyz 1h7tovg 1h8l3z5 1h9bdmp 1ha27bo 1hau6hl 1hbm0al 1hcdnk0 1hd4wda 1hdvhvu 1hele8m 1hfboft 1hg38ah 1hguacy 1hhlb8g 1hicdtb 1hj2odw 1hjroap 1hkgj5b 1hl698z 1hlu4ht],
         2023 => %w[1883ibu 188w447 189m3qw 18actmy 18b4b0r 18bwe6t 18cnzbm 18df7px 18e5ytd 18evyu9 18fmrjk 18ge41g 18h940b 18i0xtn 18isayp 18jjpfk 18k9ne5 18l0qtr 18ltr8m 18mmfxb 18nevo3 18o7014 18oy4pc 18pnycy 18qbsxs],
@@ -14,12 +24,240 @@ module Arb
         2015 => %w[3uyl7s 3v3w2f 3v8roh 3vdn8a 3viazx 3vmltn 3vr4m4 3vw32y 3w192e 3w6h3m 3wbzyv 3wh73d 3wm0oy 3wqtx2 3wwj84 3x1i26 3x6cyr 3xb3cj 3xflz8 3xjpp2 3xnyoi 3xspyl 3xxdxt 3y1s7f 3y5jco],
       }
 
-      def self.megathread_url(year:, day:)
+      def self.megathread_path(year:, day:)
         if year.to_i == 2015 && day.to_i == 1
-          return "https://www.reddit.com/r/programming/comments/#{MEGATHREADS[2015][0]}"
+          return "/r/programming/comments/#{MEGATHREADS[2015][0]}/daily_programming_puzzles_at_advent_of_code/"
         end
 
-        "https://www.reddit.com/r/adventofcode/comments/#{MEGATHREADS[year.to_i][day.to_i - 1]}"
+        slug = "day_#{day.to_i}_solutions"
+        slug = "#{year.to_i}_#{slug}" if year.to_i > 2015
+
+        "/r/adventofcode/comments/#{megathread_id(year:, day:)}/#{slug}.json"
+      end
+
+      def self.megathread_id(year:, day:)
+        MEGATHREADS[year.to_i][day.to_i - 1]
+      end
+
+      private attr_reader :user_agent, :client_id, :client_secret, :username, :password
+
+      def initialize(client_id:, client_secret:, username:, password:)
+        @user_agent = "AdventOfRubyScript/#{Arb::VERSION} by fpsvogel"
+        @client_id = client_id
+        @client_secret = client_secret
+        @username = username
+        @password = password
+      end
+
+      def get_comments(year:, day:, language_names:)
+        thread_id = "t3_#{self.class.megathread_id(year:, day:)}"
+        initial_response = connection.get(self.class.megathread_path(year:, day:))
+        comments = get_comments_for(thread_id:, initial_response:)
+
+        # Lists of unfetched replies (children) are kept separate so that those
+        # that are replies to a comment that will have been kept in filtering
+        # (below) they can then be fetched.
+        more_childrens, comments = comments.partition { it[:children] }
+
+        # Filter comments by language.
+        filtered_comments = comments.filter { |comment|
+          comment_body = comment[:body]&.downcase
+          next unless comment_body
+
+          language_specified = comment_body.match?(/\[[[:punct:]]*language:/i)
+
+          if language_specified
+            language_names.any? { |language|
+              comment_body.match?(/\[[[:punct:]]*language:\s*#{language}/i)
+            }
+          else
+            language_names.any? { |language| comment_body.match?(/(?<!```)ruby/) }
+          end
+        }
+
+        filtered_comments.each do |comment|
+          add_missing_replies!(comment, comments, more_childrens, thread_id)
+        end
+
+        filtered_comments.each do |comment|
+          remove_language_tag!(comment, language_names)
+        end
+
+        filtered_comments.each do |comment|
+          remove_ids!(comment)
+        end
+
+        filtered_comments
+      end
+
+      private
+
+      def connection
+        @connection ||= Faraday.new(
+          url: "https://oauth.reddit.com",
+          headers: {
+            "User-Agent" => user_agent,
+            "Accept" => "application/json",
+          }
+        ) do |f|
+          f.request :authorization, "Bearer", -> { auth_token }
+        end
+      end
+
+      def auth_token
+        return @auth_token if @auth_token
+
+        connection = Faraday.new(
+          url: "https://www.reddit.com",
+          headers: {
+            "User-Agent" => user_agent,
+          }
+        ) do |f|
+          f.request :authorization, :basic, client_id, client_secret
+          f.response :json
+        end
+
+        response = connection.post(
+          "/api/v1/access_token",
+          "grant_type=password&username=#{username}&password=#{password}",
+        )
+
+        @auth_token = response.body["access_token"]
+      end
+
+      def get_comments_for(thread_id:, parent_id: thread_id, initial_response: nil, more_children: nil)
+        comments = []
+
+        loop do
+          if initial_response
+            if initial_response.body.empty?
+              raise ThrottledError, "Reddit throttled you and returned an " \
+                "empty initial response. Wait a few minutes and then try again."
+            end
+
+            comments_from_response = simplify_comments(
+              JSON.parse(initial_response.body).dig(-1, "data", "children")
+            )
+          else
+            response = connection.get(
+              "/api/morechildren.json" \
+              "?link_id=#{thread_id}" \
+              "&children=#{more_children[:children].join(",")}",
+            )
+
+            # Occasionally there is an empty set of more children, e.g. below
+            # zaniwoop near the bottom of the 2024 day 1 solutions megathread.
+            return comments if response.body.empty?
+
+            comments_from_response = simplify_comments(
+              JSON.parse(response.body).dig("jquery", 10, 3, 0)
+            )
+          end
+
+          initial_response = nil
+          comments += comments_from_response[..-2]
+          last = comments_from_response.last
+
+          # Fetch more if there are more top-level comments left.
+          if last && last[:children] && last[:parent_id] == parent_id
+            more_children = last
+          elsif last
+            comments << last
+            break
+          end
+        end
+
+        comments
+      end
+
+      def simplify_comments(raw_comments)
+        # Simplify the comments.
+        raw_comments.map { |raw_comment|
+          # If it is a list of more children.
+          if raw_comment["kind"] == "more"
+            more_children = {
+              children: raw_comment["data"]["children"],
+              parent_id: raw_comment["data"]["parent_id"],
+            }
+
+            next more_children
+          end
+
+          comment = {
+            author: raw_comment["data"]["author"],
+            url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
+            body: body_markdown(raw_comment["data"]["body_html"]),
+            id: raw_comment["data"]["name"],
+            parent_id: raw_comment["data"]["parent_id"],
+            replies: [],
+          }
+
+          # Replies that came along with the comment. (Other replies are
+          # represented in `more_children` and have yet to be fetched, below.)
+          unless raw_comment["data"]["replies"]&.empty?
+            comment[:replies] = raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
+              {
+                author: child["data"]["author"],
+                body: body_markdown(child["data"]["body_html"]),
+                id: child["data"]["name"],
+                parent_id: child["data"]["parent_id"],
+              } unless child["data"]["author"] == "AutoModerator"
+            }
+          end
+
+          comment
+        }
+      end
+
+      def body_markdown(body_html)
+        body_html
+          .gsub("\u00a0", " ")
+          .gsub("&amp;", "&")
+          .gsub("&lt;", "<")
+          .gsub("&gt;", ">")
+          .sub(/\A<div class="md">/, "")
+          .sub(/<\/div>\z/, "")
+          # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
+          .gsub("<pre>", "<pre class=\"brush:ruby;\">")
+          .then { |cleaned_body_html|
+            ReverseMarkdown
+              .convert(cleaned_body_html, github_flavored: true)
+          }
+      end
+
+      def remove_language_tag!(comment, language_names)
+        language_names.each do |language|
+          comment[:body].sub!(/\[[[:punct:]]*language:\s*#{language}[[:punct:]]*\]/i, "")
+        end
+
+        comment[:body].strip!
+
+        comment[:replies].each do |reply|
+          remove_language_tag!(reply, language_names)
+        end
+      end
+
+      def remove_ids!(comment)
+        comment.delete(:id)
+        comment.delete(:parent_id)
+
+        comment[:replies].each do |reply|
+          remove_ids!(reply)
+        end
+      end
+
+      def add_missing_replies!(comment, comments, more_childrens, thread_id)
+        more_children = more_childrens.find { it[:parent_id] == comment[:id] }
+        if more_children
+          comments += get_comments_for(thread_id:, parent_id: comment[:id], more_children:)
+        end
+
+        children = comments.filter { it[:parent_id] == comment[:id] }
+        comment[:replies] += children
+
+        children.each do |child|
+          add_missing_replies!(child, comments, more_childrens, thread_id)
+        end
       end
     end
   end
