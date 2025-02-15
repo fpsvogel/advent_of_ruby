@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require "debug"
+require "dotenv"
+require "faraday"
+require "reverse_markdown"
+require "thor"
+require_relative "../lib/arb/api/reddit"
+require_relative "../lib/arb/version"
+
+# AoC Reddit Solutions Downloader CLI application
+class RedditSolutionsApp < Thor
+  desc "download [LANGUAGE]", "Downloads Reddit solutions for the given language."
+  method_option :language, type: :array, aliases: "-l", default: ["ruby"]
+  def download
+    reddit_api_keys = %w[CLIENT_ID CLIENT_SECRET USERNAME PASSWORD]
+
+    Dotenv.load
+    Dotenv.require_keys(reddit_api_keys)
+
+    reddit = Arb::Api::Reddit.new(
+      client_id: ENV["CLIENT_ID"],
+      client_secret: ENV["CLIENT_SECRET"],
+      username: ENV["USERNAME"],
+      password: ENV["PASSWORD"],
+    )
+
+    comments = reddit.get_comments(year: 2024, day: 25, language_names: options[:language])
+
+    debugger
+
+    # TODO loop through all years and days
+    # reddit.get_comments(year: 2024, day: 1, languages: options[:languages])
+  end
+
+  default_task :download
+end
+
+RedditSolutionsApp.start
