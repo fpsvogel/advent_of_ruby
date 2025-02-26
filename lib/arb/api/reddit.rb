@@ -1,8 +1,6 @@
 module Arb
   module Api
     class Reddit
-      ThrottledError = Class.new(StandardError)
-
       # TODO WIP
       # https://www.reddit.com/r/redditdev/comments/12f885c/getting_all_the_comments_in_a_post/
       # https://gist.github.com/davestevens/4257bbfc82b1e59eeec7085e66314215#get-all-comments
@@ -51,7 +49,19 @@ module Arb
 
       def get_comments(year:, day:, language_names:)
         thread_id = "t3_#{self.class.megathread_id(year:, day:)}"
-        initial_response = connection.get(self.class.megathread_path(year:, day:))
+        initial_response = nil
+        loop do
+          initial_response = connection.get(self.class.megathread_path(year:, day:))
+
+          if initial_response.body.empty?
+            puts "Throttled by Reddit. Sleeping for 30 seconds..."
+            sleep 30
+          else
+            puts "Fetching comments..."
+            break
+          end
+        end
+
         comments = get_comments_for(thread_id:, initial_response:)
 
         # Lists of unfetched replies (children) are kept separate so that those
@@ -130,11 +140,6 @@ module Arb
 
         loop do
           if initial_response
-            if initial_response.body.empty?
-              raise ThrottledError, "Reddit throttled you and returned an " \
-                "empty initial response. Wait a few minutes and then try again."
-            end
-
             comments_from_response = simplify_comments(
               JSON.parse(initial_response.body).dig(-1, "data", "children")
             )
