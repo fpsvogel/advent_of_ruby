@@ -81,7 +81,7 @@ module Arb
               comment_body.match?(/\[[[:punct:]]*language:\s*#{language}/i)
             }
           else
-            language_names.any? { |language| comment_body.match?(/(?<!```)ruby/) }
+            language_names.any? { |language| comment_body.match?(/(?<!```)#{language}/i) }
           end
         }
 
@@ -140,7 +140,7 @@ module Arb
 
         loop do
           if initial_response
-            comments_from_response = simplify_comments(
+            comments += simplify_comments(
               JSON.parse(initial_response.body).dig(-1, "data", "children")
             )
           else
@@ -154,30 +154,32 @@ module Arb
             # zaniwoop near the bottom of the 2024 day 1 solutions megathread.
             return comments if response.body.empty?
 
-            comments_from_response = simplify_comments(
+            comments += simplify_comments(
               JSON.parse(response.body).dig("jquery", 10, 3, 0)
             )
           end
 
           initial_response = nil
-          comments += comments_from_response[..-2]
-          last = comments_from_response.last
 
-          # Fetch more if there are more top-level comments left.
-          if last && last[:children] && last[:parent_id] == parent_id
-            more_children = last
-          elsif last
-            comments << last
-            break
+          more_top_level_childrens, comments = comments.partition { it[:children] && it[:parent_id] == parent_id }
+
+          break unless more_top_level_childrens.any?
+
+          if more_top_level_childrens.count > 1
+            debugger
           end
+
+          # Loop again to fetch more if there are more top-level comments.
+          more_children = more_top_level_childrens.first
         end
 
         comments
       end
 
       def simplify_comments(raw_comments)
-        # Simplify the comments.
-        raw_comments.map { |raw_comment|
+        more_childrens_from_replies = []
+
+        comments = raw_comments.map { |raw_comment|
           # If it is a list of more children.
           if raw_comment["kind"] == "more"
             more_children = {
@@ -201,17 +203,36 @@ module Arb
           # represented in `more_children` and have yet to be fetched, below.)
           unless raw_comment["data"]["replies"]&.empty?
             comment[:replies] = raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
-              {
-                author: child["data"]["author"],
-                body: body_markdown(child["data"]["body_html"]),
-                id: child["data"]["name"],
-                parent_id: child["data"]["parent_id"],
-              } unless child["data"]["author"] == "AutoModerator"
+              if child["kind"] == "more"
+                # Move "more children" lists out to an array that is appended
+                # onto the top-level comments (below), because that's where
+                # other "more children" lists may be, and that way they can all
+                # be dealt with together by #add_missing_replies!
+                more_childrens_from_replies << {
+                  children: child["data"]["children"],
+                  parent_id: child["data"]["parent_id"],
+                }
+
+                next nil
+              end
+
+              if child["data"]["author"] != "AutoModerator"
+                {
+                  author: child["data"]["author"],
+                  body: body_markdown(child["data"]["body_html"]),
+                  id: child["data"]["name"],
+                  parent_id: child["data"]["parent_id"],
+                }
+              else
+                nil
+              end
             }
           end
 
           comment
         }
+
+        comments + more_childrens_from_replies
       end
 
       def body_markdown(body_html)
@@ -225,8 +246,7 @@ module Arb
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
           .gsub("<pre>", "<pre class=\"brush:ruby;\">")
           .then { |cleaned_body_html|
-            ReverseMarkdown
-              .convert(cleaned_body_html, github_flavored: true)
+            ReverseMarkdown.convert(cleaned_body_html, github_flavored: true)
           }
       end
 
@@ -257,7 +277,10 @@ module Arb
           comments += get_comments_for(thread_id:, parent_id: comment[:id], more_children:)
         end
 
-        children = comments.filter { it[:parent_id] == comment[:id] }
+        children = comments
+          .filter { it[:parent_id] == comment[:id] }
+          .filter { it[:author] != "AutoModerator" }
+
         comment[:replies] += children
 
         children.each do |child|

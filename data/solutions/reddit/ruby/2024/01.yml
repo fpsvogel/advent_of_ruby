@@ -124,12 +124,10 @@
   - :author: stellar_opossum
     :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuqguv/
     :body: "`left_element * right_list.count(left_element)`. Now that's `lazy`"
-
     :replies:
     - :author: glebm
       :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuzfy6/
       :body: That's quadratic, you're making the computer do all the work, so inconsiderate!
-
       :replies: []
 - :author: vinc686
   :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzusygn/
