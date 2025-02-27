@@ -37,7 +37,7 @@ class RedditSolutionsApp < Thor
     )
 
     File.write(
-      File.join("data", "solutions", "reddit", options[:language].join("-"), "2024", "01.yml"),
+      File.join("data", "solutions", "reddit", options[:language].join("-"), options[:year].to_s, "#{options[:day].to_s.rjust(2, "0")}.yml"),
       comments.to_yaml,
     )
 

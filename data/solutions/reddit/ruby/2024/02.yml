@@ -1,0 +1,303 @@
+---
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0gyoci/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day02.rb)"
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0c085b/
+  :body: |-
+    [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day02.rb)
+
+    Not much to report (_ba-dum tsss_) for this one: I used a basic regex for parsing and was able to use the same safety evaluation function for Part 1 and (a painfully brute-force) Part 2. I was able to express the strictly increasing/decreasing criterion mostly within a single line, which is somewhat satisfying; additionally, I added a new function, `Integer#signum`, to my extensions library since these types of classifications have been common in years past.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m06h0vq/
+  :body: "[https://github.com/careyi3/aoc\\_2024/tree/master/solutions/2](https://github.com/careyi3/aoc_2024/tree/master/solutions/2)"
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzx7xs/
+  :body: |-
+    I'm just going to say, this is the first version of my solution for part 1, I could not think of a valid way to say "this is not inc or dec" beyond rand(). I'm lucky it worked :D
+
+    ```ruby
+    def solve_easy(input)
+      input.find_all do |levels|
+        levels.each_cons(2).map do |a, b|
+          if (a < b && b - a <= 3)
+            :inc
+          elsif (a > b && a - b <= 3)
+            :dec
+          else
+            rand
+          end
+        end.uniq.size == 1
+      end.size
+    end
+    ```
+
+    I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force [https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706](https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706)
+  :replies: []
+- :author: adherry
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00r8jc/
+  :body: |-
+    [https://github.com/adherry/AOC2024/blob/main/aoc2.rb](https://github.com/adherry/AOC2024/blob/main/aoc2.rb)
+
+    Was pondering quite a bit about the second part until i checked the array functions and found `array.combine` that when called as `array.combine(array.length -1)` will give me all variations of an array with a single element removed.
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m09z9lg/
+    :body: Nice find.
+    :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02he32/
+  :body: |-
+    ```ruby
+    nums = ARGF.each.map { | l | l.split.map(&:to_i) }
+
+    def valid_report?(r)
+      deltas = r.each_cons(2).map { | (a, b) | (a-b) }
+      deltas.all? { _1.between?(1,3) } || deltas.all? { _1.between?(-3,-1) }
+    end
+
+    puts nums.filter { | r | valid_report?(r) } .count
+    puts nums.filter { | r | (0...r.length).any? { | i | valid_report?(r[...i] + r[(i+1)..]) } } .count
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzw6uc/
+  :body: |-
+    ```ruby
+    reports = ARGF.map { |line| line.split.map(&:to_i) }
+
+    def validate(report)
+      diffs = report.each_cons(2).map { _2 - _1 }
+      diffs.all? { (1..3) === _1 } || diffs.all? { (-3..-1) === _1 }
+    end
+
+    def validate2(report)
+      return true if validate(report)
+      report.size.times do |index|
+        r = report.dup
+        r.delete_at index
+        return true if validate r
+      end
+      false
+    end
+
+    puts reports.count { validate _1 }
+    puts reports.count { validate2 _1 }
+    ```
+
+    Initially had something way wordier but managed to condense it a little at least. Still feels way too verbose though.
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzyf2x/
+    :body: |-
+      Of course, after checking some other solutions in this thread I realize it can be shortened several lines by using `combination`:
+
+      ```ruby
+      reports = ARGF.map { |line| line.split.map(&:to_i) }
+
+      def validate(report)
+        diffs = report.each_cons(2).map { _2 - _1 }
+        diffs.all? { (1..3) === _1 } || diffs.all? { (-3..-1) === _1 }
+      end
+
+      def validate2(report)
+        validate(report) || report.combination(report.size - 1).any? { validate _1 }
+      end
+
+      puts reports.count { validate _1 }
+      puts reports.count { validate2 _1 }
+      ```
+    :replies:
+    - :author: Maravedis
+      :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m006u16/
+      :body: I don't even think you need the `validate(report) ||` in `validate2`,
+        since if a report is valid without mistake, then removing one always makes
+        it a valid report still.
+      :replies:
+      - :author: Sharparam
+        :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00blwl/
+        :body: That's probably true, in an already valid report, removing the first
+          or last element will make it still be valid. Good catch!
+        :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m010hfe/
+  :body: |-
+    Part 1
+
+    ```ruby
+    p File.read("input.txt")
+                .split("\n")
+                .map(&:split)
+                .map{ |l| l.map(&:to_i) }
+                .map{ |l| l.each_cons(2).map{|a, b| a - b} }
+                .count{ |l| l.all?{ |e| e.between?(1, 3)} || l.all?{ |e| e.between?(-3, -1)}}
+    ```
+
+    Part 2
+
+    ```ruby
+    p File.read("input.txt")
+                .split("\n")
+                .map(&:split)
+                .map{ |l| l.map(&:to_i) }
+                .map{ |l| (0..l.size).map{|i| l.dup.tap{|e| e.delete_at(i)}}
+                    .map{ |l| l.each_cons(2).map{|a, b| a - b} }
+                }
+                .count{ |l| l.any? {|e| e.all?{ |b| b.between?(1, 3)} || e.all?{ |b| b.between?(-3, -1)}} }
+    ```
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03eo4i/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQDdAgAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ZrE9yw9d+ctWKcaSkOKfcmYiy2wP4+D4BSgAd5xpef/i0FFExLUzl8+s3srYAeYV5C84s00uBfTf6IfDuMqSYX979rxWt4A6rhyFOEJkGgG4g3u2D3nuHlCc4s73egxXwgJZE6RHkA9KvxGL6FIObMJQqGkPk6bDqCb68JbzfvjIqP9umTLpR2VV6b1DxPue/qU2jPwfg5Fsc9DlODkb5VwGyYzle711NuiKYzpgl2t7/4CFydG4XrOvU+8i7711FRlHOSzn0BcG9YpopQW3yp7oVfhN/ta4+54cBrMTJpArHoMlEKpQlRGA1gBXqLFA4aFI6cDvLimx02ARU51/6pqL5dZqWpZJt0CvjQlpOWQb9EY6h8PuLIzu7xMD3pLAecg0LKFSKIToaUxU5pLZ+h0ELY72iHyiFI9womjv1mif6uvAX/1ossQA=)
+
+    O(n<sup>2)</sup> brute force. Cannot imagine doing this in one pass but two pass is likely possible. That logic will probably be quite involved and I have other things to do.
+  :replies: []
+- :author: XtremeNolaner
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m045adg/
+  :body: |-
+    ```ruby
+    def safety_check(report)
+      decreased = 0
+      increased = 0
+      bad_diff = false
+
+      for i in 0..(report.count - 2) do
+        diff = report[i] - report[i + 1]
+
+        decreased += 1 if diff > 0
+        increased += 1 if diff < 0
+        bad_diff = true if diff.abs < 1 || diff.abs > 3
+      end
+
+      return 0 if decreased > 0 && increased > 0 || bad_diff
+
+      1
+    end
+
+    def run_dampener(report)
+      report.each_with_index do |num, index|
+        report.delete_at(index)
+        return 1 if safety_check(report) == 1
+        report.insert(index, num)
+      end
+
+      0
+    end
+
+    reports = []
+    good_reports = 0
+
+    File.foreach("input.txt") do |line|
+      arr = line.split(' ').map { |num| num.to_i }
+      reports << arr
+    end
+
+    for report in reports do
+      if safety_check(report) == 1
+        good_reports += 1
+      else
+        good_reports += run_dampener(report)
+      end
+    end
+
+    puts good_reports
+    ```
+  :replies: []
+- :author: zaniwoop
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00w9fv/
+  :body: |-
+    ```ruby
+    input = File.read("day_2_data.txt")
+    rows = input.split("\n")
+    rows = rows.map { |row| row.split(" ") }
+    rows = rows.map { |row| row.map(&:to_i) }
+
+    def valid_asc?(entry, record)
+        entry < record && (record <= (entry + 3))
+    end
+
+    def valid_desc?(entry, record)
+        entry > record && (record >= (entry - 3))
+    end
+
+    def safe?(record)
+        direction = record[0] < record[1] ? 'asc' : 'desc'
+        entries = record.select.with_index do |entry, index|
+            next true if index == (record.count - 1)
+
+            next_record = [record[index + 1]]
+
+            valid_records = if direction == 'asc'
+                                next_record.select do |next_record|
+                                    true if valid_asc?(entry, next_record)
+                                end
+                            else
+                                next_record.select do |next_record|
+                                    true if valid_desc?(entry, next_record)
+                                end
+                            end
+
+            next true if valid_records.any?
+
+            false
+        end
+
+        entries.count == record.count
+    end
+
+    # part 1
+    puts rows.select { |row| safe?(row) }.count
+
+    # part 2
+    puts rows.select do |row|
+        (0..(row.count - 1)).to_a.select do |index|
+            tmp_row = row
+            safe?(tmp_row.reject.with_index {|v, i| i == index })
+        end.any?
+    end.count
+    ```
+  :replies: []
+- :author: Screech-1
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02ns7r/
+  :body: "``\n\nputs File.read('input.txt').split(\"\\n\").map { |line| line.split.map(&:to\\_i)
+    }.then { |data| safe = -\\>(r) { (r.each\\_cons(2).all? { |a, b| a \\< b } ||
+    r.each\\_cons(2).all? { |a, b| a \\> b }) && r.each\\_cons(2).all? { |a, b| (1..3).cover?((a
+    - b).abs) } }; \"#{data.count { |r| safe[r] }} #{data.count { |r| safe[r] || (0...r.length).any?
+    { |i| safe[r[0...i] + r[(i+1)..-1]] } }}\"}  \n``"
+  :replies:
+  - :author: daggerdragon
+    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03is2b/
+    :body: The triple-backticks code fence (``​`​``) only works on new.reddit. Please
+      edit your comment to use the [four-spaces Markdown syntax](https://old.reddit.com/r/adventofcode/wiki/faqs/code_formatting/code_blocks)
+      for a code block so your code is easier to read inside a scrollable box that
+      preserves whitespace and indentation.
+    :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00m5vv/
+  :body: |-
+    ```ruby
+    reports = input.lines.map { |l|
+        report = l.strip.split.map(&:to_i)
+    }
+
+    def safe(report)
+            incdec = (report.sort == report) || (report.sort == report.reverse)
+            deltas = report.each_cons(2).map { |a,b| (a-b).abs }
+            incdec && (deltas.max < 4 and deltas.min > 0)
+    end
+
+    part1 = reports.map { |report| safe(report) }.count(true)
+
+    part2 = reports.map { | report |
+        (0..report.size).map { | idx |
+            version = report.clone
+            version.delete_at(idx)
+            safe(version)
+        }.include?(true)
+    }.count(true)
+    ```
+  :replies: []
