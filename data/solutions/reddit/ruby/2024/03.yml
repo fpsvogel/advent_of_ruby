@@ -1,0 +1,622 @@
+---
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0g5wom/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day03.rb)"
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bzqyo/
+  :body: |-
+    [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day03.rb)
+
+    I ended up using a disgusting regex for the parsing and somewhat overengineered the instruction execution by using separate `Data` classes for the two different instruction variants; the latter choice did allow me to implement both parts almost entirely through pattern matching, which is pretty fun!
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bu7nh/
+  :body: |-
+    Part 1
+
+    ```ruby
+    p File.read("input.txt")
+          .scan(/mul\((\d+),(\d+)\)/)
+          .map{ |l| l.map(&:to_i).inject(:*) }
+          .sum
+    ```
+
+    Part 2
+
+    Realizing that the input file contains more than one line took me a while.
+
+    ```ruby
+    p File.read("input.txt")
+          .gsub(/\n/,"")
+          .gsub(/don't\(\).*?(do\(\)|$)/, "")
+          .scan(/mul\((\d+),(\d+)\)/)
+          .sum{ |l| l.map(&:to_i).inject(:*) }
+    ```
+  :replies:
+  - :author: chad3814
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0dy5n4/
+    :body: |-
+      I don't grok Ruby, but I think your part 2 fails if line ends in the middle of a `mul(xxx,yyy)` or a `do()` or `don't` like:
+
+      ```ruby
+      .ddf..hdfgjkmul(12
+      2,12),.fduhmidon't
+      ()mul(2,4),jsdyhum
+      ```
+
+      probably should've replaced `\n` with `.` or something not in any of the target strings since newlines are terminators
+    :replies: []
+  - :author: ArmlessJohn404
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0cj7oo/
+    :body: Yeah same! I just added a single line flag to the don't/do regex and it
+      worked
+    :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0ba4fc/
+  :body: |-
+    I really wanted to use the flip-flop operator for this, but I couldn't figure it out.
+
+    I went with a `StringScanner` in the end,
+
+    [pastie](https://topaz.github.io/paste/#XQAAAQCcAgAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8KxkURAq1MNsPYeLWddbrnT8FYoEKNLOua2iFodHtPGBqac9YqLaxMc20XwhUjJJhFP49euI9938JlvVqHXre8Q6IGGRDRQhWGUC8yPJoTN5Zt1yHA0E2SralkypvbZYsrWfRpZjxgal7yKmUwGL69u2Ym27P278yrLQZyfA1qYz0rLBcwo/Y0xEGVKFdTZctEcwXW/B7Izkylw1m97Xls5Bsmbg8htOcqetravgWSB9Zv9jPnsUZ9JOYXD8gm1FflhyvLq8glOdk15/lwoC345JfFmR4P3J/o9JoNtn5YoVwVZFvcKIvW2aBBpwycyUZPa5SMZzzSGQ1jiBUGnGgaokCJaMBFXjLdsEvzSQE62OkIM3UZJBfF3S5UXQIJCcSUw45rxSewUs931DWTZizNUGoUlVcH8Qybg2+XAczjNcoQYdYWg4E1DbzpGCMLEtwwm/636+HbWLoIwyFlYi0YmP7RknpuAdX/7f/LFA==)
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05xkjv/
+  :body: |-
+    ```ruby
+    input = File.read('input03.txt')
+
+    # Part 1
+    p input.scan(/mul\((\d+),(\d+)\)/).sum { |a,b| a.to_i * b.to_i }
+
+    # Part 2
+    sum = 0
+    enabled = true
+
+    input.scan(/do(n't)?\(\)|mul\((\d+),(\d+)\)/) do
+      if $& == "do()"
+        enabled = true
+      elsif $& == "don't()"
+        enabled = false
+      elsif enabled
+        sum+= $2.to_i * $3.to_i
+      end
+    end
+
+    p sum
+    ```
+  :replies:
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m07uatk/
+    :body: |-
+      Or, to reuse the logic from part 1 in part 2, just use more regex to remove everything between any `don't()` and `do()`:
+
+      ```ruby
+      input = File.read('input03.txt')
+
+      # Part 1
+      p input
+        .scan(/mul\((\d+),(\d+)\)/).sum { |a,b| a.to_i * b.to_i }
+
+      # Part 2
+      p input
+        .gsub(/don't\(\).*?do\(\)/m,'---skip---')
+        .scan(/mul\((\d+),(\d+)\)/).sum { |a,b| a.to_i * b.to_i }
+      ```
+    :replies:
+    - :author: FCBStar-of-the-South
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m080f19/
+      :body: |-
+        Ah the gsub is very clever. Care explaining why the `m` flag is needed? My [original solution](https://topaz.github.io/paste/#XQAAAQBoAgAAAAAAAAAzGknWt5Bv2qwBBozyqeTA6pRzO8rm9LH3DWozdnfDy8iyMhig1p93ahHDb6Hm4YVLsyVTtbP+9ckmHojS4mzp3HLAe+v06SXohVCYGeu8cdGUmjA2txmHMW5U6j70xhvSVl5zeh5BruZ6IgjU38ID2nAFBU/jxFH2p36G3s/GBe8jNfnKCbSe4yyMfJNzWhNa1bwgRUtbY2Ql2+egDdi79rizLCYkeb1zSvRLU2EQUBeHZrIy48O8R4n04RRB2xaOMp/LpwO4k5xlFkx/cLdipx5naZ40SbDahQnaPfLVsbNXwsJ9PKQllitGsJF+m2ll/ZT9WCuxHP7ND6qizsR9uJHz8rQVMPTOwPdn4FBdNmthq7XBFHTpjhI0gBIUsSSqrrWLNnzUhFGWI2YJViLEwgYMtHg4Kf/vv/Ku) is quite similar to your first attempt but I am going to steal your idea
+
+        I also didn't know about these special variables. I am using this year's AoC to learn Ruby and so far I am not quite sure how to feel about Ruby syntax haha. Coming from a more Python/C++ background, the amount of sugar and functionality built into the language is pretty crazy
+      :replies:
+      - :author: el_daniero
+        :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m08j32i/
+        :body: |-
+          Thanks.
+
+          My input contains a linebreak somewhere, I think between a `don't()` and a `do()`, and the dot in `.\*?` [doesn't match that](https://www.regular-expressions.info/dot.html) without the `m` (multiline), so I got the wrong answer without it.
+
+          Yup, the language has [a few](https://ruby-doc.org/docs/ruby-doc-bundle/Manual/man-1.4/variable.html) [obscure](https://codegolf.stackexchange.com/questions/363/tips-for-golfing-in-ruby?answertab=scoredesc#tab-top) quirks :D I've only really been using Ruby for [AoC](https://github.com/daniero/code-challenges/tree/master) and [codegolf](https://codegolf.stackexchange.com/search?tab=relevance&q=user%3a4372%20is%3aa%20ruby&searchOn=3), but it's probably the one language that has been the most influential to me as a programmer. For example, for AoC, it at least _seems_ like the majority of the problems can be solved but nothing but the standard [string](https://ruby-doc.org/core-3.0.1/String.html), [array](https://ruby-doc.org/core-3.0.1/Array.html) and [enumerable](https://ruby-doc.org/core-3.0.1/Enumerable.html) functions, and the API is really super clean. You find yourself just asking "what function is that?" when encounting an obstacle, which lets your focus the bigger picture. Ruby is awesome :)
+        :replies: []
+    - :author: _tfa
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bwjb2/
+      :body: |-
+        I had the same problem with the multi-lined input string first. But additonally my input ends with a "don't()" so I had to consider the input's end when removing the dead code
+
+        ```ruby
+        p File.read("input.txt")
+              .gsub(/\n/,"")
+              .gsub(/don't\(\).*?(do\(\)|$)/m, "")
+              .scan(/mul\((\d+),(\d+)\)/)
+              .sum{ |l| l.map(&:to_i).inject(:*) }
+        ```
+      :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06d4x1/
+  :body: |-
+    [https://github.com/vinc/advent-of-code](https://github.com/vinc/advent-of-code)
+
+    Part 1
+
+    ```ruby
+    puts ARGF.read
+             .scan(/mul\((\d+),(\d+)\)/)
+             .map { |x, y| x.to_i * y.to_i }
+             .sum
+    ```
+
+    Part 2
+
+    ```ruby
+    puts ARGF.read
+             .gsub(/don't\(\)(?:.*?do\(\)|.*$)/m, "")
+             .scan(/mul\((\d+),(\d+)\)/)
+             .map { |x, y| x.to_i * y.to_i }
+             .sum
+    ```
+
+    Edit: I could replace `map` with `sum` to simplify my answer
+  :replies:
+  - :author: makingthematrix
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06ggka/
+    :body: Ha, that's a clever use of regex for finding "mul" only between "don't"
+      and "do". Nice :)
+    :replies:
+    - :author: vinc686
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06tzzb/
+      :body: The regex also has to handle one or more `don't` at the end of the input,
+        I lost some time before realizing that!
+      :replies: []
+  - :author: daggerdragon
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bj6hr/
+    :body: |-
+      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
+
+      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history. This means from prior years too!
+    :replies:
+    - :author: vinc686
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0c9tl1/
+      :body: |-
+        I already have the input in my `.gitignore` from last year but forgot to remove the previous years with:
+
+        ```ruby
+        git rm --cached `git ls-files -i -c --exclude-from=.gitignore`
+        ```
+      :replies: []
+- :author: im_sofi
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m07fpvu/
+  :body: |-
+    A pretty decent "Do you know Regex?" day.
+
+    After some thinking, I even found an approach to do part 2 with a single pass regex.
+
+    [https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day\_03.rb](https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day_03.rb)
+  :replies:
+  - :author: eregontp
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0821rp/
+    :body: Neat solution to use "optional" capture groups like this
+    :replies: []
+  - :author: SwampThingTom
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m082gwc/
+    :body: That part 2 regex is a work of art. Nice job!
+    :replies: []
+  - :author: FCBStar-of-the-South
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m083esh/
+    :body: |-
+      Nice. I am not super familiar with lookahead/behinds so couldn't figure it out. Glad someone did it with one regex
+
+      Edit: Is the \z quantifier necessary? Why or why not?
+    :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0837xn/
+  :body: |-
+    ```ruby
+    file = File.read('input3.txt')
+    result1 = file.scan(/mul\(([0-9]{1,3}),([0-9]{1,3})\)/).sum { |num1, num2| num1.to_i * num2.to_i }
+
+    cleaned = file.gsub(/don't\(\).*?do\(\)/m, '').gsub(/don't\(\).*?$/, '')
+    result2 = cleaned.scan(/mul\(([0-9]{1,3}),([0-9]{1,3})\)/).sum { |num1, num2| num1.to_i * num2.to_i }
+
+    puts result1
+    puts result2
+    ```
+
+    By far the best regex experience in any language that I've tried for AoC, and I have tried [a few](https://github.com/Casper-Guo/AoC-Language-Exploration)
+  :replies:
+  - :author: pindab0ter
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m089a39/
+    :body: |-
+      I wrote the same Regex to filter out the disabled instructions, while also removing anything between last `don't` and the line ending.
+
+      I still ended with too high an answer. Does anyone else have this too?
+
+      Maybe I’m missing some edge case in my input that doesn’t appear in anyone else’s?
+    :replies:
+    - :author: FCBStar-of-the-South
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m089ueq/
+      :body: Looks like this solution I have posted would fail to consider the don't
+        to the end edge case. I stole some part 2 ideas from another solution in this
+        thread. My [original solution](https://topaz.github.io/paste/#XQAAAQBoAgAAAAAAAAAzGknWt5Bv2qwBBozyqeTA6pRzO8rm9LH3DWozdnfDy8iyMhig1p93ahHDb6Hm4YVLsyVTtbP+9ckmHojS4mzp3HLAe+v06SXohVCYGeu8cdGUmjA2txmHMW5U6j70xhvSVl5zeh5BruZ6IgjU38ID2nAFBU/jxFH2p36G3s/GBe8jNfnKCbSe4yyMfJNzWhNa1bwgRUtbY2Ql2+egDdi79rizLCYkeb1zSvRLU2EQUBeHZrIy48O8R4n04RRB2xaOMp/LpwO4k5xlFkx/cLdipx5naZ40SbDahQnaPfLVsbNXwsJ9PKQllitGsJF+m2ll/ZT9WCuxHP7ND6qizsR9uJHz8rQVMPTOwPdn4FBdNmthq7XBFHTpjhI0gBIUsSSqrrWLNnzUhFGWI2YJViLEwgYMtHg4Kf/vv/Ku)
+        captured everything of interest separately and kept track of a boolean, which
+        should work more generally.
+      :replies: []
+- :author: keidax
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09i56j/
+  :body: |-
+    In all my years of writing Ruby, I've never had a use for [the flip-flop operator](https://docs.ruby-lang.org/en/master/syntax/control_expressions_rdoc.html#label-Flip-Flop)... until now
+
+    ```ruby
+    input = ARGF.read
+
+    part1 = input.scan(/mul\((\d{1,3}),(\d{1,3})\)/).sum do |x, y|
+      x.to_i * y.to_i
+    end
+    part2 = input.scan(/mul\((\d{1,3}),(\d{1,3})\)|(do)\(\)|(don't)\(\)/).sum do |x, y, on, off|
+      next 0 if off..on
+
+      x.to_i * y.to_i
+    end
+
+    puts part1
+    puts part2
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bb7cx/
+    :body: |-
+      This is nice. I really wanted to use the flip-flop but just couldn't quite figure it out.
+
+      Thanks for sharing.
+    :replies:
+    - :author: keidax
+      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bqrez/
+      :body: You're welcome!
+      :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05qy6m/
+  :body: |-
+    (317/3510)
+
+    ```ruby
+    class Computer
+      def initialize(advanced = false)
+        @advanced = advanced
+        @enabled = true
+      end
+
+      def MUL(x, y)
+        @enabled ? x * y : 0
+      end
+
+      def DO()
+        return 0 unless @advanced
+        @enabled = true
+        0
+      end
+
+      def DONT()
+        return 0 unless @advanced
+        @enabled = false
+        0
+      end
+    end
+
+    instrs = ARGF.read.upcase.gsub("DON'T", "DONT").scan(/MUL\(\d+,\d+\)|DO(?:NT)?\(\)/)
+
+    puts Computer.new.then { |c| instrs.map { c.instance_eval _1 }.sum }
+    puts Computer.new(true).then { |c| instrs.map { c.instance_eval _1 }.sum }
+    ```
+
+    Part 1 was very neat with a simple `eval` solution, but then part 2 came and messed it up with the whole `do` business, so I had to re-think my strategy and massage the input some more before it would work.
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05uh1p/
+    :body: |-
+      Man, a solution that doesn't use `eval` actually ends up shorter:
+
+      ```ruby
+      puts ARGF.read.scan(/(mul)\((\d+),(\d+)\)|(do(?:n't)?)\(\)/).reduce([0, 0, true]) { |(p1, p2, e), i|
+        case i
+        in ["mul", a, b, *]
+          [p1 + a.to_i * b.to_i, e ? p2 + a.to_i * b.to_i : p2, e]
+        in [*, "do"] then [p1, p2, true]
+        in [*, "don't"] then [p1, p2, false]
+        end
+      }[0..1]
+      ```
+    :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05vp2x/
+  :body: |-
+    as usual, annoyed that ruby's String#scan does not do named captures, but easy enough
+
+    ```ruby
+    def solve_easy(input)
+      input.scan(/mul\((\d+),(\d+)\)/).sum { |a,b| a.to_i * b.to_i }
+    end
+
+    def solve_hard(input)
+      ops = input.scan(/(mul\((\d+),(\d+)\))| (don't\(\)) | (do\(\)) /x)
+      ops.inject([true, 0]) do |(active, total), (_, a, b, donot, dodo)|
+        if a
+          if active
+            [active, total + a.to_i * b.to_i]
+          else
+            [active, total]
+          end
+        elsif donot
+          [false, total]
+        elsif dodo
+          [true, total]
+        end
+      end.last
+    end
+    ```
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05t6x7/
+  :body: |-
+    (https://topaz.github.io/paste/#XQAAAQD3AQAAAAAAAAAyGUj/T2CE9ViT6/7BySFNF5fO60VjKKNV35fqvTM71voiintBpJKghjvNGD8+rvCpK2WQ42M9j5JG3XzqNi6NSM18udDST/e+rBLZk5erpVnvfz2/mX1aC0eZ+alyWCAJT8N0Ke1qfNvyumti8WRYPY1xk1z+dCiQxOxz6ZX5AqPybuQYIqFjJVLM0nABL7eQ+NFfRPwo3CI0T7ZxXwVykUtftbAwGx5aWh56mQY7wq4EuTGhx2vQlJyW8nPrKJ8zUNAXPv0jINm76OsGn4PEXil4FBOObU0/jVCYQy6hzX3gh6qmFfZVYCTtGjyK4JkUeKPcfPZUzXV/5iumNWcXh2pzERWC0jRj/E2Ekw==)
+
+    Spent way too long figuring out why my Part 2 didn't work only to finally realize that I misread: I thought each _line_ started out as enabled until a `don't()` appeared, so I was resetting to enabled after each newline character!
+  :replies:
+  - :author: NealSr
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05tl62/
+    :body: |-
+      OMG thank you for the hint. I also thought each line was a new batch and was enabled already.
+
+      It would have been MUCH better if the entire input were on one line, like the samples.
+    :replies: []
+  - :author: lrtDam
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05tlj7/
+    :body: Same...took me forever to realize
+    :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0631ah/
+  :body: |-
+    Re: Part 2. First time I've gotten to use the flip flop in ten years of Ruby.
+
+    ```ruby
+    puts ("do()" + File.read('input.txt'))
+      .scan(Regexp.union(/mul\((\d+),(\d+)\)/, /(do)\(\)/, /(don't)\(\)/))
+      .filter_map {|x, y, on, off| x.to_i * y.to_i if on..off }
+      .sum
+    ```
+  :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m064tyu/
+  :body: |-
+    ```ruby
+    part1 = input.scan(/mul\(([0-9]{1,3}),([0-9]{1,3})\)/).map { |mul| mul.map(&:to_i).inject(:*) }.sum
+    part2 = input.scan(/(mul\([0-9]{1,3},[0-9]{1,3}\)|do\(\)|don\'t\(\))/).each_with_object( {enabled: true, result: 0} ) { |v,a|
+       case v[0]
+       when """don't()"""
+           a[:enabled] = false
+       when """do()"""
+           a[:enabled] = true
+       when /mul\(([0-9]{1,3}),([0-9]{1,3})\)/
+           a[:result] += $1.to_i * $2.to_i if a[:enabled]
+       end
+    }[:result]
+
+    [part1,part2]
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06kdig/
+  :body: |-
+    141 bytes golfed ruby both parts
+
+    ```ruby
+    i=$<.flat_map{_1.scan(/(do|don't)\(\)|mul\((\d+),(\d+)\)/)}
+    e,m=1,lambda{_1[1].to_i*_1[2].to_i}
+    p i.sum(&m),i.sum{|d|e=d[0]=="do"if d[0];e ?m[d]:0}
+    ```
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06ta8d/
+    :body: |-
+      134 (not my own just iterating on yours):
+
+      ```ruby
+      i=$<.read.scan /(do|don't)\(\)|mul\((\d+),(\d+)\)/
+      e,m=1,->{_1[1].to_i*_1[2].to_i}
+      p i.sum(&m),i.sum{|d|e=d[0]=="do"if d[0];e ?m[d]:0}
+      ```
+    :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05spvd/
+  :body: "```ruby\nr1 = 0\nr2 = 0\ndoing = true\nDATA.each_line.map do |line|\n  line.chomp.scan(/(mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\))/)\nend.flatten.each
+    do |inst|\n  next doing = false if inst == \"don't()\"\n  next doing = true if
+    inst == \"do()\"\n  val = inst.scan(/\\d+/).map(&:to_i).reduce(:*)\n  r1 += val\n
+    \ r2 += val if doing\nend\nputs r1\nputs r2\n\n__END__    \nhow(){%}mul(764.....\n```"
+  :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m060zrl/
+  :body: |-
+    ```ruby
+    input = ARGF.read
+
+    puts input.scan(/mul\((\d+),(\d+)\)/).sum { | a, b | a.to_i * b.to_i }
+
+    enabled = true
+    puts input.scan(/do\(\)|don't\(\)|mul\(\d+,\d+\)/).sum { | x |
+      if x =~ /mul\((\d+),(\d+)\)/
+        enabled ? $1.to_i * $2.to_i : 0
+      else
+        enabled = x == "do()"
+        0
+      end
+    }
+    ```
+  :replies: []
+- :author: progdog1
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m066jzs/
+  :body: |-
+    First time I've ever had to use the flipflop operator.
+
+    ```ruby
+    mem = File.read('2024d03.input')
+
+    puts mem.scan(/mul\((\d+),(\d+)\)/)
+           .sum { _1.map(&:to_i).reduce(1, :*) }
+
+    puts mem.scan(/(don't)\(\)|(do)\(\)|mul\((\d+),(\d+)\)/)
+           .sum { |f|
+      (f[0] == "don't")..(f[1] == 'do') ? 0 : f[2..].map(&:to_i).reduce(1, :*)
+    }
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06gk6i/
+  :body: |-
+    Well, regex for the win I guess!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/3](https://github.com/careyi3/aoc_2024/tree/master/solutions/3)
+  :replies: []
+- :author: zaniwoop
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06i5in/
+  :body: |-
+    ```ruby
+    input = File.read("day_3_data.txt")
+
+    # part 1
+
+    multiplications = input.scan(/mul\(\d+,\d+\)/)
+    multiplications.map do |row|
+        row = row.split(',').map do |number|
+            number.match(/\d+/).to_s.to_i
+        end
+        row[0] * row[1]
+    end.sum
+
+    # part 2
+
+    multiplications = input.scan(/(mul\(\d+,\d+\))|(do\(\))|(don\'t\(\))/).flatten.compact
+    multiplying_enabled = true
+    multiplications.map do |row|
+        if row == "do()"
+            multiplying_enabled = true
+        elsif row == "don't()"
+            multiplying_enabled = false
+        end
+
+        if multiplying_enabled and row.match?(/mul/)
+            row = row.split(',').map do |number|
+                number.match(/\d+/).to_s.to_i
+            end
+            row[0] * row[1]
+        else
+            0
+        end
+    end.sum
+    ```
+  :replies: []
+- :author: XtremeNolaner
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m07vrch/
+  :body: |-
+    Going for maximum readability with Ruby
+
+    ```ruby
+    result = 0
+    mul_enabled = true
+    pattern = /mul\((\d{1,3}),(\d{1,3})\)|(don't\(\)|do\(\))/
+
+    input = File.read("input.txt")
+
+    matches = input.scan(pattern)
+
+    for match in matches do
+      if match.include? "do()"
+        mul_enabled = true
+      elsif match.include? "don't()"
+        mul_enabled = false
+      else
+        if mul_enabled
+          result += match[0].to_i * match[1].to_i
+        end
+      end
+    end
+
+    puts result
+    ```
+  :replies: []
+- :author: clonewolf
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m095gvz/
+  :body: |-
+    ```ruby
+    module Advent
+      module Year2024
+        class Day03 < Advent::Challenge
+          def call
+            puts "Part 1: #{part1}"
+            puts "Part 2: #{part2}"
+          end
+
+          def part1
+            calculate_multiplications(mul_matches)
+          end
+
+          def part2
+            enabled = true
+            matches = more_matches.select do |match|
+              case match
+              when /mul/ then enabled
+              when /don't/
+                enabled = false
+                false
+              when /do/
+                enabled = true
+                false
+              end
+            end
+
+            calculate_multiplications(matches)
+          end
+
+          def calculate_multiplications(matches)
+            matches
+              .map { |match| mul_digits(match) }
+              .map { |a, b| a * b }
+              .sum
+          end
+
+          def mul_matches
+            input_text.scan(/mul\(\d+,\d+\)/)
+          end
+
+          def more_matches
+            input_text.scan(/mul\(\d+,\d+\)|do\(\)|don't\(\)/)
+          end
+
+          def mul_digits(mul_string)
+            mul_string.scan(/\d+/).map(&:to_i)
+          end
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: adherry
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06rlpk/
+  :body: I was prepared for a trick and them using a 4 digit number to make the mul
+    invalid, but they did not, so i could have replaced the \d{1,3} with a simple
+    \d+. [paste](https://topaz.github.io/paste/#XQAAAQCEAgAAAAAAAAA0m4poOBLJ+DFPUO+aZQGPHZhaFUucypWoKq40s+q2fAw1o4NFfhSc0+/30SigzZyPEQKlu39h3xDuaHCLSdtd9DyAnZaPiVmFJbFweKI+8NxsykPRnrndEmrMMvTx0OgDdn8pAurca1R4h2kYFyf4XITN0P5phES9Ez0PBxTrN8VW78XAVR1cB+Klhfan3gBSRcZEDe/eRKpiuC7WEvTxi9zEvIK0B4lH1VB4WosHOyOu9C63wJmWs7h8uR1hmiqInG1+Q20RiduwP4DXgn5/XK2uP3agGQFYPxDLGFqusKS3a0Rirx66y7NwKT5Mwr12jGX1kKgex7PClha47L8pv49EgCJGuwWURLk62pRdq7aS2A5LDhTbRJLE+ftkhRgHEclR+cGw71fRRXTnQ6PfIFgPNJAdoXHon2tnyHo/hzqWD+lw2O0ELzRiho+H8FHN0nVv2k3bT6FlX+mfmwUTh3JWWf/s4hYG)
+  :replies: []
+- :author: Utsav-2
+  :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09orf8/
+  :body: |-
+    Solution using RegEx.
+
+    [GitLab](https://git.utsav2.dev/utsav/AoC-2024/-/blob/main/Day%203/main.rb?ref_type=heads)
+  :replies:
+  - :author: daggerdragon
+    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09zody/
+    :body: |-
+      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
+
+      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history.
+    :replies: []

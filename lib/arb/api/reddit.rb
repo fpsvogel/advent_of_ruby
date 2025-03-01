@@ -190,49 +190,50 @@ module Arb
             next more_children
           end
 
-          comment = {
+          {
             author: raw_comment["data"]["author"],
             url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
             body: body_markdown(raw_comment["data"]["body_html"]),
             id: raw_comment["data"]["name"],
             parent_id: raw_comment["data"]["parent_id"],
-            replies: [],
+            replies: simplify_replies(raw_comment, more_childrens_from_replies),
           }
-
-          # Replies that came along with the comment. (Other replies are
-          # represented in `more_children` and have yet to be fetched, below.)
-          unless raw_comment["data"]["replies"]&.empty?
-            comment[:replies] = raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
-              if child["kind"] == "more"
-                # Move "more children" lists out to an array that is appended
-                # onto the top-level comments (below), because that's where
-                # other "more children" lists may be, and that way they can all
-                # be dealt with together by #add_missing_replies!
-                more_childrens_from_replies << {
-                  children: child["data"]["children"],
-                  parent_id: child["data"]["parent_id"],
-                }
-
-                next nil
-              end
-
-              if child["data"]["author"] != "AutoModerator"
-                {
-                  author: child["data"]["author"],
-                  body: body_markdown(child["data"]["body_html"]),
-                  id: child["data"]["name"],
-                  parent_id: child["data"]["parent_id"],
-                }
-              else
-                nil
-              end
-            }
-          end
-
-          comment
         }
 
         comments + more_childrens_from_replies
+      end
+
+      # Extracts replies that came along with the comment. (Other replies are
+      # represented in `more_children` and have yet to be fetched.)
+      def simplify_replies(raw_comment, more_childrens_from_replies)
+        debugger if raw_comment["data"]["replies"].nil?
+        return [] if raw_comment["data"]["replies"].empty?
+
+        raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
+          next nil if child["data"]["author"] == "AutoModerator"
+
+          if child["kind"] == "more"
+            # Move "more children" lists out to an array that is appended
+            # onto the top-level comments (below), because that's where
+            # other "more children" lists may be, and that way they can all
+            # be dealt with together by #add_missing_replies!
+            more_childrens_from_replies << {
+              children: child["data"]["children"],
+              parent_id: child["data"]["parent_id"],
+            }
+
+            next nil
+          end
+
+          {
+            author: child["data"]["author"],
+            url: "https://www.reddit.com#{child["data"]["permalink"]}",
+            body: body_markdown(child["data"]["body_html"]),
+            id: child["data"]["name"],
+            parent_id: child["data"]["parent_id"],
+            replies: simplify_replies(child, more_childrens_from_replies),
+          }
+        }
       end
 
       def body_markdown(body_html)
@@ -257,7 +258,7 @@ module Arb
 
         comment[:body].strip!
 
-        comment[:replies].each do |reply|
+        comment[:replies]&.each do |reply|
           remove_language_tag!(reply, language_names)
         end
       end
