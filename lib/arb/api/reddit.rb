@@ -144,10 +144,10 @@ module Arb
               JSON.parse(initial_response.body).dig(-1, "data", "children")
             )
           else
-            response = connection.get(
-              "/api/morechildren.json" \
-              "?link_id=#{thread_id}" \
-              "&children=#{more_children[:children].join(",")}",
+            response = connection.post(
+              "/api/morechildren.json",
+              "link_id=#{thread_id}" \
+                "&children=#{more_children[:children].join(",")}",
             )
 
             # Occasionally there is an empty set of more children, e.g. below
