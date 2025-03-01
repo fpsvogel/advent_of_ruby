@@ -1,0 +1,252 @@
+---
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h3vio/
+  :body: |-
+    Part 1, Transposing and slanting to scan 4 ways
+
+    Part 2, Build a grid in a Hash and then look at the neighbours of each 'A'
+
+    [pastie](https://topaz.github.io/paste/#XQAAAQATBwAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlD3WW8r2Z9pYT30S21lwwMjnqdWQ4XfHZzmceBl5wKaaJ4xilahILfHtZbOzQGguUewkWfurSY8SsqQYAEf7SWbnYJSci3CeHICS49opyLoBTh0SCj3Symr4ZewHSYFy0PjXGWrPMd6np+Avrje03cwCny75xH0tt4r5W5ezTzLo5Pw4bf1Mp3oO2BSiqNS+a5mewFQa3Ox2PxiEArAbG5B4BzOoj40qrrzBRCRsPv1X12FdIsLiHn6gGgPExmsQmQu6G5JP4/Acxz42VrLONQm1aXa7K5E6REL0OSzSmaKUzyssdk4mm5xoVcRA3GHUO1THzoSnVTp9ua4Td27uVkYw6/OfL2JumRT/r5s5befMAQ7onpSD5ateoFtARTUBWeQ5hVd2kWnsIsHyAFIrI2UlTfEcqsQSDXr2I+xS3lqXwbA3HWLLsPF6yiTsquewmn34dhBZMGjQQSQFg7OpKgK0NEC7eebely2Ggm1JwwgXB1KN6fuklWiRVEyZzkV9HDSLRFLs7c59pVFLciFjElWNwDid88bBkzVDPV3VWk5Q6uoBWE5eNlk+KpSApam2HNJVhAm/LPzBm9yyeGhiMO2rVtPMGceEXwFF3d8FKTizupeGrGxzH2g7sgfDJs61/i4+1NE9xbj54DUd5MwbNdCYUERApRyhe8dhpEHeVBQNwadF320cNYXt/3lHPp1u0e7OI8L3te+uxRAAAPLKMukVUbN9+S4QGk+9uCaM+QYZQPSnZazhctxwdMgkfLa+uPo1IYHXJ36mKFJGfbZTozzcpQebJo4S+3ZAZAxEpY1zaOASmLrQU703Ao6gbxe9KY6dCfRacLGavizVO3uaQUMBlkbMkgYvlpv7BkEwTETng+5o4kXjNQj86cl8+wVt3IHZg9lpnmR+6OizBo5zIKDSWg4EHahCnwd1hK6Ml256akNgzjgoBZJV4rD3MRTZ3v2gpEpb5OTluUsljqgvm3f/483j2)
+
+    [edit: Extracted another lambda, because who doesn't love lambdas?]
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g5ote/
+  :body: |-
+    ```ruby
+    input = File
+      .readlines('input04.txt')
+      .map { _1.chomp.chars }
+      .map { |row| [?.]*3 + row + [?.]*3 } # Pad columns
+      .then { [_1.first.map{?.}] * 3 + _1 + [_1.first.map{?.}] * 3 } # Pad rows
+
+    dirs = [
+      [-1,-1], [-1,0], [-1,1],
+      [0,-1], [0,1],
+      [1,-1], [1,0], [1,1],
+    ]
+
+    # Part 1
+    p input.map.with_index.sum { |row,y|
+      row.each_index.sum { |x|
+        dirs.count { |v,u|
+          input[y+u*0][x+v*0] == 'X' &&
+          input[y+u*1][x+v*1] == 'M' &&
+          input[y+u*2][x+v*2] == 'A' &&
+          input[y+u*3][x+v*3] == 'S'
+        }
+      }
+    }
+
+    # Part 2
+    p input.map.with_index.sum { |row,y|
+      row.map.with_index.count { |char,x|
+        char == 'A' &&
+        [input[y-1][x-1],input[y+1][x+1]].sort.join == 'MS' &&
+        [input[y+1][x-1],input[y-1][x+1]].sort.join == 'MS'
+      }
+    }
+    ```
+  :replies:
+  - :author: minikomi
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0giiu6/
+    :body: Very clean!
+    :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g4w98/
+  :body: "[https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day04.rb](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day04.rb)"
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c086a/
+  :body: |-
+    Happy with my solution for part 2. I think this is about as tight as I can get it.
+
+    ```ruby
+    crosses = [["M", "M", "S", "S"], ["S", "M", "M", "S"],
+                 ["S", "S", "M", "M"], ["M", "S", "S", "M"]]
+      (1..(data.size-2)).sum { |x|
+        (1..(data[0].size-2)).count { |y|
+          diags = [
+            data[x-1][y+1], data[x+1][y+1],
+            data[x+1][y-1], data[x-1][y-1]
+          ]
+          data[x][y]=="A" && crosses.include?(diags)
+        }
+      }
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c84rt/
+  :body: |-
+    part 1 golfed: 157 bytes
+
+    ```ruby
+    i=*$<;h,w=i.size,i[0].size
+    c=->(x,y,a,b){"XMAS".chars.all?{y>=0&&y
+    ```
+
+    part 2 golfed: 190 bytes
+
+    ```ruby
+    i=*$<;h,w=i.size,i[0].size
+    c=->(x,y,a,b){"MAS".chars.all?{y>=0&&y
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h5ews/
+    :body: |-
+      Can you substitute `length` for `size`?
+
+      That would shave 4 bytes off each.
+    :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0bzj4f/
+  :body: |-
+    [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day04.rb)
+
+    I'm fairly pleased with how concise this solution ended up being: it's fairly brute-force, but the expression of the core parameters for both searches in just two lines of code is quite satisfying :)
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0brrii/
+  :body: |-
+    happy I keep a Grid class around, I've typoed a 9-sized square too many times. I wasted a lot of time in part 2 since I didn't draw the right squares tho
+
+    ```ruby
+    def solve_easy(input)
+      g = DenseGrid.new(rows: input)
+
+      dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1]]
+
+      found = []
+      g.each_with_position do |tile, i, j|
+        if tile.value == "X"
+          dirs.each do |di, dj|
+            ni, nj = i + di, j + dj
+            next unless g[ni, nj].value == "M"
+
+            ni, nj = ni + di, nj + dj
+            next unless g[ni, nj].value == "A"
+
+            ni, nj = ni + di, nj + dj
+            next unless g[ni, nj].value == "S"
+
+            found << [i, j]
+          end
+        end
+      end
+      found.size
+    end
+
+    def solve_hard(input)
+      g = DenseGrid.new(rows: input)
+
+      crosses = /^
+        M.M.A.S.S |
+        S.M.A.S.M |
+        S.S.A.M.M |
+        M.S.A.M.S
+      $/x
+
+      found = []
+      g.each_with_position do |tile, i, j|
+        next unless tile.value == "A"
+
+        str = g.square9(i, j, ".").map(&:value).join
+        next unless crosses.match(str)
+
+        found << str
+      end
+
+      found.size
+    end
+    ```
+  :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c8udf/
+  :body: "After trying for some time to get something working with array transposition
+    and skewing I went for the KISS approach:\n\n```ruby\ndef xmaswords(grid,x,y)\n
+    \   return [] if grid[[x,y]] != 'X'\n    dirs = [\n        [[x,y],[x+1,y],[x+2,y],[x+3,y]],\n
+    \       [[x,y],[x-1,y],[x-2,y],[x-3,y]],\n        [[x,y],[x+1,y+1],[x+2,y+2],[x+3,y+3]],\n
+    \       [[x,y],[x-1,y-1],[x-2,y-2],[x-3,y-3]],\n        [[x,y],[x,y+1],[x,y+2],[x,y+3]],\n
+    \       [[x,y],[x,y-1],[x,y-2],[x,y-3]],\n        [[x,y],[x-1,y+1],[x-2,y+2],[x-3,y+3]],\n
+    \       [[x,y],[x+1,y-1],[x+2,y-2],[x+3,y-3]],\n    ]\n    dirs.map { |dir|\n
+    \       dir.map { |x,y|\n            grid[[x,y]]\n        }.join()\n    }\nend\n\ng
+    = AOC::grid(input,'.')\npart1 = g.map { | k,_ |\n    x, y = k\n    xmaswords(g,x,y)\n}.flatten.filter
+    { | w | w == \"XMAS\" }.count\n\ndef x_mas?(grid,x,y)\n    return false if grid[[x,y]]
+    != 'A'\n    dirs = [\n        [[x-1,y-1],[x,y],[x+1,y+1]],\n        [[x+1,y-1],[x,y],[x-1,y+1]]\n
+    \   ]\n    dirs.map { |dir|\n        dir.map { |x,y|\n            grid[[x,y]]\n
+    \       }.join()\n    }.filter { | w | \n            w == 'MAS' or w == 'SAM'\n
+    \   }.size == 2     \nend\npart2 = g.map { | k,_ |\n    x, y = k\n    x_mas?(g,x,y)\n}.count(true)\n[part1,part2]\n```"
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0cle3b/
+  :body: |-
+    Easier part 2 than part 1, how odd!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/4](https://github.com/careyi3/aoc_2024/tree/master/solutions/4)
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0dswek/
+  :body: |-
+    Absolutely nothing fancy after getting bit by trying to do day 2 in O(n). I have a feeling that we will use this Grid class again
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAJBQAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ZrE9yw9d+ctWKulKkOKfcmYiy2wP4+D4BSgAd5xpef/i0FFExLVq8vfWWEJVfiFpGbeKMYYtsBdb8uegrTtXFO7GCRd6n0CEhFeLGLQrvxd1gZoLG6GgdnQG/Bgd9PbJqfopma6aVdXPaCW1Jy9jGPL/GINIxN3u0XJGD/7LNv82L6Rjxrc69RtEDcOuAlldVwCoQbASf3gvfzEOHQ63FYiRbAqYJW65KHFCFSsPDO1rJtDTBhHwv89UQIQ33v25hIFrgYolBrzvIi2ZQvB5HRiPaHv3tm/5vbVWqqNzvYHKmqFSZ//TPrYSB7vR7iiscsnsdZp4FiQknen76fZzIt5H67eN3H6lvfH2uJ3J03FzHI6K25zBQnZTOgeVdCYVtqI1ZjGrV+Trt8LMc2olzuut2qnnkadNDTe3Ei16KOcicmFOBPTIAIR1piVmXadwhJmksld4rjVizFBeBF9n4iO+c3AicPb0+S7Cy6mp4W0o3NbcnzUz4UQ2GpXkmtLM+Cmp6m/4S8/eGsEo6C8U8whO1IGmbQij0cw6sdhbC9PLjG9uFjLn5RMBMSHeZUhGfrV0F3zvRR5CIls8JKGmL+C3XB3OIfNfU2SvWTTevUPCuMIZuVsvcXNO5jWrO3dRT2unxQeMLaiJH1m1jvXZtcKAZEUZeQwFeqXT9NmoVFKWBhe/kDijKI2VBExIkjlEJDR0ftM0AO2ZGXp4mDgsxnCX99h/U/w==)
+
+    I am becoming a fan
+  :replies: []
+- :author: clonewolf
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0e9gr2/
+  :body: "Part 2: Detect all diagonal \"MAS\"s, then find how many \"A\"s overlap
+    \ \n[https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb)"
+  :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ekpzj/
+  :body: "```ruby\n$input = ARGF.each.to_a\n$w = $input[0].length\n$h = $input.length\n\ndef
+    at(x, y)\n  (x < 0 || x >= $w || y < 0 || y >= $h)? \".\" : $input[y][x]\nend\n\ndef
+    word?(x, y, dx, dy, word)\n  [word, word.reverse].any? {\n    _1.chars.each_with_index.all?
+    { | c, i | at(x + dx*i, y + dy*i) == c }\n  }\nend\n\ndirections = [[1,0],[1,1],[0,1],[-1,1]]\n\np
+    Enumerator::product(0...$w, 0...$h, directions).count { |x, y, d| \n  word?(x,
+    y, d[0], d[1], \"XMAS\")\n}\n\ndef xword?(x, y, word)\n  word?(x, y, 1, 1, word)
+    && word?(x+word.length-1, y, -1, 1, word)\nend\n\np Enumerator::product(0...$w,
+    0...$h).count { |x, y| \n  xword?(x, y, \"MAS\")\n}\n```"
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ep1gh/
+  :body: "Part 1\n\n```ruby\ninput = File.read(\"input.txt\").split(\"\\n\")\nwidth
+    = input.size\nheight = input[0].size\ngrid = {}\ncoords = []\n\nwidth.times do
+    |y|\n  height.times do |x|\n    grid[Complex(x,y)] = input[y][x] \n    coords
+    << Complex(x,y)\n  end\nend\n\ndir = [0+1i, 0-1i, 1+0i, -1+0i, 1+1i, 1-1i, -1+1i,
+    -1-1i]\n\npattern = dir.map{ |d| (0..3).to_a.map{|e| e * d}}\n  \np coords\n   .map{
+    |c| pattern.map{ |p| p.map{|q| c + q}} }\n   .sum{ |a| a.count{ |z| z.map{ |c|
+    grid[c]} == %w{X M A S}}}\n```\n\nPart 2\n\n```ruby\ninput = File.read(\"input.txt\").split(\"\\n\")\nwidth
+    = input.size\nheight = input[0].size\ngrid = {}\ncoords = []\n\nwidth.times do
+    |y|\n  height.times do |x|\n    grid[Complex(x,y)] = input[y][x] \n    coords
+    << Complex(x,y)\n  end\nend\n\nMATCH = [%w{M S}, %w{S M}]\n  \np coords.count{
+    |c| grid[c] == ?A && \n                    MATCH.include?([grid[c+(-1-1i)], grid[c+(1+1i)]])
+    && \n                    MATCH.include?([grid[c+(-1+1i)], grid[c+(+1-1i)]]) \n
+    \ }\n```"
+  :replies:
+  - :author: Ill_Information_9522
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0eqn1b/
+    :body: Wow nice. I just finished my Ruby solutions and they're way longer. I just
+      started learning Ruby a week or so ago. Would you mind explaining your code
+      here, for educational purposes? Thanks!
+    :replies:
+    - :author: _tfa
+      :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0f05g0/
+      :body: |-
+        Thank you! Sure I can try to explain.
+
+        First I use a hashmap to store the whole input. The key is a complex number representing the coordinates (x=real, y=imag), the value is just the letter at this position. This is a nice trick when working with grids. With arrays and strings you always have to check the bounds. A hash returns just `nil` when querying a position out of bounds.
+
+        For part 1 I define the 8 directions (dir) a word can be positioned as complex numbers, like offset-vectors. The pattern-array contains for every direction the 4 positions towards this direction, just by multiplying the "offset-vector" with 0, 1, 2 and 3. Next I check every position of the grid if it matches "XMAS" when "reading" the word-coordinates (as offsets c + q). Every position can have several hits (for each direction), so we have to count all of them. Finally everything is summed up to get the solution.
+
+        Part 2 is even easier. I just check every position. The pos has to contain an "A" and the adjacent letters upper-left and lower-right and upper-right and lower-left must be "SM" or "MS".
+
+        Hope this helps.
+      :replies:
+      - :author: Ill_Information_9522
+        :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0p5vuq/
+        :body: Great, thanks for that. I'm going to use complex numbers for other
+          grid problems and see how they work. Nice little trick indeed!
+        :replies: []

@@ -93,6 +93,10 @@ module Arb
           remove_language_tag!(comment, language_names)
         end
 
+        filtered_comments.reject! do |comment|
+          comment[:parent_id] != thread_id
+        end
+
         filtered_comments.each do |comment|
           remove_ids!(comment)
         end
@@ -287,6 +291,8 @@ module Arb
         children.each do |child|
           add_missing_replies!(child, comments, more_childrens, thread_id)
         end
+
+        comment[:replies].uniq!
       end
     end
   end
