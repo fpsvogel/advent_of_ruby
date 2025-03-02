@@ -1,0 +1,444 @@
+---
+- :author: RazarTuk
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ynz5p/
+  :body: |-
+    These isn't enough Ruby on this subreddit, so I may as well start posting _my_ solutions. Also, this is very intentionally only part _1_, in case anyone reading wants to practice by extending it for part 2. And I know it would probably be easier to just tokenize each line as I'm reading them in, but I'm using that first line as boilerplate so I don't have to think about input.
+
+    ```ruby
+    file = IO.foreach(ARGV[0]).map &:strip
+
+    def check(equation)
+        stack = [[equation[0], equation.count - 1]]
+        until stack.empty?
+            target, idx = stack.pop
+            if idx == 1
+                return true if target == equation[1]
+            else
+                stack << [target - equation[idx], idx - 1] if target - equation[idx] >= equation[1]
+                stack << [target / equation[idx], idx - 1] if target % equation[idx] == 0
+            end
+        end
+        false
+    end
+
+    res = file.sum do |line|
+        equation = line.split(/:?\s+/).map(&:to_i)
+        check(equation) ? equation[0] : 0
+    end
+
+    puts res
+    ```
+
+    EDIT: Oh, and it executes in ~100ms
+  :replies: []
+- :author: SwagosaurusFlex
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8enb/
+  :body: |-
+    I'm having trouble figuring out why my solution isn't passing for Part 2. It works on Part 1 and the example case, but it's giving too high of an answer on Part 2. Any help appreciated, thanks
+
+    ```ruby
+    def calc(total, parts, runningTotal)
+      if Integer(runningTotal) == Integer(total)
+        return true
+      end
+
+      if (parts.size == 0)
+        return false
+      end
+
+      if (calc(total, parts[1..], Integer(runningTotal) + Integer(parts[0])) == true) or (calc(total, parts[1..], Integer(runningTotal) * Integer(parts[0])) == true) or (calc(total, parts[1..], String(runningTotal) + parts[0]) == true)
+        return true
+      end
+
+      return false
+    end
+
+    if __FILE__ == $0
+      sum = 0
+      totals = Array.new
+      parts = Array.new
+
+      File.open('day7input.txt', 'r') do |f|
+        f.each_line do |line|
+          line = line.split(': ')
+          line[1] = line[1].split(' ')
+          if calc(line[0], line[1][1..], line[1][0])
+            sum += Integer(line[0])
+          end
+        end
+      end
+
+      puts sum
+    end
+    ```
+  :replies:
+  - :author: thereal_peasant
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uabou/
+    :body: 'What happens when your `runningTotal` is equal to the `total` but there
+      are still numbers left in `parts`? For example, take the input `''100: 10 10
+      3''`. Does this return `true`? Should it?'
+    :replies:
+    - :author: SwagosaurusFlex
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ucr4t/
+      :body: Ah that makes sense, can't believe I missed that! Thanks, finally got
+        the star
+      :replies: []
+    - :author: ASteelyDan
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uf841/
+      :body: Ah, had the same problem, thank you!
+      :replies: []
+- :author: NullT3rminated
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tr6lg/
+  :body: |-
+    970/553
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAIAgAAAAAAAAAynEqz7f26DE+jk7bC9aN1f+FpLIK77itzuRsxYRP1MQ4bdqwA34ZbJoTpXR/wY63etWrSody9lO7a4gi6YfU+SOjXiC7PPk5rhv+qHEKEa1khJlmL8NgOK2wdwJDD+ksQVvZL2kwrgrblfafJbCQlyrI41PYV9IGlKaxUDgtfPgYcd5+AN/Z7CJAdScc04ElST0Y7pUdBBvz0Ebw41ydBuqRWkg0X38H6bWyFOidxvpcodCiBpHK7x5Auy6z65bvNnP/dUWekMGxemfpw8L/Wm2FKiBgwhVBUHrRQNi23198Sd7gJKt+lS9iM4T+LpuaXMWD1M9NP23rDLtfldFZ22XVKmIwZ/9C4ji4=)
+
+    First time getting top 1000, which is exciting for me! Definitely not the fastest solution though.
+  :replies:
+  - :author: FCBStar-of-the-South
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttgnx/
+    :body: |-
+      Oh and I was excited to be the first Ruby in the megathread haha
+
+      What is your runtime like? I only started learning ruby by doing AoC this year so I will really appreciate it if you can give me some feedback on my solution!
+    :replies:
+    - :author: NullT3rminated
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuf38/
+      :body: I get about 3 seconds on my laptop. Just slow enough to make me start
+        to worry and start thinking about optimizations before it completed. YJIT
+        speeds it up by about 300ms.
+      :replies:
+      - :author: FCBStar-of-the-South
+        :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tv98q/
+        :body: I think the only difference between our implementation is how we do
+          ||. You use string concatenation and I use the logarithm. Will have to benchmark
+          your way tmr
+        :replies:
+        - :author: NullT3rminated
+          :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8m8s/
+          :body: |-
+            Ok I changed mine to use log10 instead of string concatenation, and I went from 2.781s with YJIT to 1.549s with YJIT, so log is definitely faster.
+
+            Here's the code if you're curious:[paste](https://topaz.github.io/paste/#XQAAAQAVAgAAAAAAAAAynEqz7f26DE+jk7bC9aN1f+FpLIK77itzuRsxYRP1MQ4bdqwA34ZbJoTpXR/wY63etWrSody9lO7a4gi6YfU+SOjXiC7PPk5rhv+qHEKEa1khJlmL8NgOK2wdwJDD+ksQVvZL2kwrgrblfafJbCQlyrI41PYV9IGlKaxUDgtfPgYcd5+AN/Z7CJAdScc04ElST0Y7pUdBBvz0Ebw41ydBuqRWkg0X38H6bWyFOidxvpcodCiBpHK7x5Auy64VPe+huB2Mjz45waTc684cF0A0/usGCi9BMiIKDe3u9iKVZRJs2hRVS8hX1rpnLQH1zpBt0NqDYoOKJ1dyR7diSIm+GCHaOB4AKZvD/QAxx81gCyIRRFb8zVj7)
+
+            here's some performance numbers from hyperfine:
+
+            ```ruby
+            Benchmark 1: ruby --yjit 7_fast.rb 7.txt
+              Time (mean ± σ): 1.629 s ± 0.121 s [User: 1.578 s, System: 0.041 s]
+              Range (min … max): 1.456 s … 1.815 s 10 runs
+
+            Benchmark 2: ruby --yjit 7.rb 7.txt
+              Time (mean ± σ): 2.816 s ± 0.119 s [User: 2.739 s, System: 0.063 s]
+              Range (min … max): 2.695 s … 2.995 s 10 runs
+
+            Summary
+              ruby --yjit 7_fast.rb 7.txt ran
+                1.73 ± 0.15 times faster than ruby --yjit 7.rb 7.txt
+            ```
+          :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tyk8p/
+  :body: |-
+    [LANGUAGE: Go]
+
+    I must preferred the Ruby implementation's ability to pass a list of methods to call on integers and implementing the `concat` method on `Integer`, but it was fun playing around with custom types in Go.
+
+    Not sure why people thought keeping lists of results was a good idea -- I just accumulated the partial result and recursed along each operator path down until there were no more values to operate on, so compare with the result.
+
+    [Ruby Solution](https://github.com/phene/advent-of-code/blob/main/2024/07/7.rb) runs in about 2s and [Go Solution](https://github.com/phene/advent-of-code/blob/main/2024/07/7.go) runs in 1s.
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uc4nt/
+  :body: |-
+    Part 1
+
+    ```ruby
+    p File.read("input.txt")
+          .scan(/(\d+): (.*)/)
+          .map{ |r,n| [r.to_i, n.split().map(&:to_i)]}
+          .filter{ |r,n| [:*, :+].repeated_permutation(n.size-1)
+                                 .any?{|p| n[1..].each_with_index.inject(n.first){|a,(z,i)| a.send(p[i], z)} == r}}
+          .sum(&:first)
+    ```
+
+    Part 2
+
+    Just the same like part 1, but with a concat-operator for the Integer-class.
+
+    ```ruby
+    class Integer
+        def |(other)
+            self.to_s.concat(other.to_s).to_i
+        end
+    end
+
+    p File.read("input.txt")
+          .scan(/(\d+): (.*)/)
+          .map{ |r,n| [r.to_i, n.split().map(&:to_i)]}
+          .filter{ |r,n| [:*, :+, :|].repeated_permutation(n.size-1)
+                                     .any?{|p| n[1..].each_with_index.inject(n.first){|a,(z,i)| a.send(p[i], z)} == r}}
+          .sum(&:first)
+    ```
+  :replies:
+  - :author: Ill_Information_9522
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m1b2e92/
+    :body: This is great... very idiomatic. Still learning-- hadn't though of adding
+      a bar operator to Integer. Love the built-in permutation methods though, quite
+      handy. Not sure if other languages have such powerful stdlibs.
+    :replies: []
+- :author: fredster231
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vh0np/
+  :body: |-
+    10 seconds lol, fun anonymous recursive pattern tho
+
+    [https://gist.github.com/scockram/3ce5efc10cad27bf08c78bca4bcffd5f](https://gist.github.com/scockram/3ce5efc10cad27bf08c78bca4bcffd5f)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vm2bo/
+  :body: |-
+    Tight on time today, brute force did the job!
+
+    EDIT: Okay, the recursive solution is actually less code and way more efficient, so I rewrote it in about 5 mins and it works way faster.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/7](https://github.com/careyi3/aoc_2024/tree/master/solutions/7)
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tt4k6/
+  :body: |-
+    ```ruby
+    require_relative 'utils'
+    require 'set'
+
+    equations = File.readlines('input7.txt').map { |line| ints(line) }
+
+    def solve_part1(equation)
+      target = equation[0]
+      results = Set[equation[1]]
+
+      equation[2...equation.length].each do |num|
+        add = results.map { |result| result + num }
+        mul = results.map { |result| result * num }
+        results = (add + mul).to_set
+      end
+      results.include?(target) ? target : 0
+    end
+
+    def solve_part2(equation)
+      target = equation[0]
+      results = Set[equation[1]]
+
+      equation[2...equation.length].each do |num|
+        add = results.map { |result| result + num }
+        mul = results.map { |result| result * num }
+        combine = results.map { |result| result * 10**(Math.log10(num).floor + 1) + num }
+        results = (add + mul + combine).to_set
+      end
+      results.include?(target) ? target : 0
+    end
+
+    puts equations.map { |equation| solve_part1(equation) }.sum
+    puts equations.map { |equation| solve_part2(equation) }.sum
+    ```
+
+    Part 1 runs in half a second. Altogether takes about 8 seconds. Initially I had an early stopping condition that checks the minimum achieveable result is smaller than the target. This turns out to have no effect on the runtime.
+
+    Simply optimizing the data structures used can probably lower the runtime substantially without modification to the algorithm. But that is for tomorrow morning.
+
+    Edit: not using a set cuts this down to barely a second
+  :replies:
+  - :author: yourparadigm
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u05oy/
+    :body: You'd save a lot of time and memory by not saving all the possible results.
+    :replies:
+    - :author: FCBStar-of-the-South
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0xtael/
+      :body: Eh this morning I just said what if I don’t do any deduplication with
+        sets. Cut it right down to barely over a second and that’s good enough for
+        me
+      :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttkxm/
+  :body: |-
+    today was ... easy? I wasted some time on part 1 cause I tried to build the result down by subtracting and dividing instead of building it up, which didn't work. Also on part two I thought brute force would take a while, but turned out I was brute forcing \*the whole input as a single line\* which, well, didn't go anywhere.
+
+    Simple recursive solution with no memoization or TCO runs in 2s, so good enough.
+
+    ```ruby
+    def test_value(target, array, use_concat:)
+      do_test_value(target, 0, array, use_concat:)
+    end
+
+    def do_test_value(target, current, array, use_concat:)
+      if current > target
+        false
+      elsif array.empty?
+        current == target
+      else
+        top = array.first
+        rest = array[1..]
+        do_test_value(target, current + top, rest, use_concat:) ||
+          do_test_value(target, current * top, rest, use_concat:) ||
+          (use_concat && do_test_value(target, (current.to_s + top.to_s).to_i, rest, use_concat:))
+      end
+    end
+
+    def solve_easy(lines)
+      lines.sum { |result, *operands| test_value(result, operands, use_concat: false) ? result : 0 }
+    end
+
+    def solve_hard(lines)
+      lines.sum { |result, *operands| test_value(result, operands, use_concat: true) ? result : 0 }
+    end
+    ```
+  :replies:
+  - :author: phord
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuz30/
+    :body: It never occurred to me to optimize by stopping when I exceed the target.
+      But it ran so fast from the start, I obviously didn't need to.
+    :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0usl5m/
+  :body: |-
+    Not the weekend day I feared :)
+
+    ```ruby
+    eqs = input.lines.map { |l|
+        tval,eq = l.split(':')
+        [tval.to_i, eq.split().map(&:to_i)]
+    }
+
+    def can?(test, eq)
+        # p "#{test} <= #{eq}"
+        return eq[0] == test if eq.size == 1
+        # too big?
+        return false if eq[0] > test
+        can?(test , [eq[0] + eq[1] , *eq[2..]]) ||
+        can?(test, [eq[0] * eq[1] , *eq[2..]])
+    end
+
+    def can2?(test, eq)
+        # p "#{test} <= #{eq}"
+        return eq[0] == test if eq.size == 1
+        # too big?
+        return false if eq[0] > test
+        can2?(test , [eq[0] + eq[1] , *eq[2..]]) ||
+        can2?(test, [eq[0] * eq[1] , *eq[2..]]) ||
+        can2?(test , ["#{eq[0]}#{eq[1]}".to_i , *eq[2..]])
+    end
+
+    eqs.map { |t,eq|
+        [can?(t,eq) ? t : 0,
+         can2?(t,eq)? t : 0]
+    }.transpose.map(&:sum)
+    ```
+  :replies:
+  - :author: masterarms
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0w9n1j/
+    :body: |-
+      Going from right to left is _much_ faster.
+
+      ```ruby
+      eqs = input.lines.map { |l|
+          tval,eq = l.split(':')
+          [tval.to_i, eq.split().map(&:to_i)]
+      }
+
+      ## Checking from left to right can only trim
+      ## multiplication branches if the result is too big
+      ## If you do it from right to left you can stop checking
+      ## the 'multiplication' branch if the equation part is not a
+      ## divisor of the current target. This is *much* faster
+
+      def can?(target, eq)
+          # p "#{target},#{eq}"
+          return eq[0] == target if eq.size == 1
+          tail = eq[-1]
+          return true if target % tail == 0 && can?(target/tail, eq[0..-2])
+          return true if target > tail && can?(target-tail, eq[0..-2])
+          return false
+      end
+
+      def can2?(target, eq)
+          # p "#{target},#{eq}"
+          return eq[0] == target if eq.size == 1
+          tail = eq[-1]
+          return true if target % tail == 0 && can2?(target/tail, eq[0..-2])
+          return true if target > tail && can2?(target-tail, eq[0..-2])
+          tail_s = tail.to_s
+          return true if target.to_s.end_with?(tail_s) && can2?(target/10.pow(tail_s.size), eq[0..-2])
+          return false
+      end
+
+      ok_can, nok_can = eqs.partition { |t, eq| can?(t,eq) }
+      part1 = ok_can.map(&:first).sum
+      ok_can2, _ = nok_can.partition { |t, eq| can2?(t,eq) }
+      part2 = ok_can2.map(&:first).sum + part1
+      [part1, part2]
+      ```
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v417f/
+  :body: |-
+    I could smell the Dynamic Programming from far away, but this is the first time I've realized that I don't have to build up that whole double array to keep track of everything. Probably also the first time I wrote a nested `reduce` like that.
+
+    ```ruby
+    require 'set'
+
+    input = File
+      .readlines('input07.txt')
+      .map { _1.scan(/\d+/).map(&:to_i) }
+
+    def dp(numbers)
+      return numbers
+        .drop(1)
+        .reduce(Set[numbers.first]) { |prev_nums,next_num|
+          prev_nums.reduce(Set[]) { |acc,prev_num| acc.merge(yield prev_num, next_num) }
+        }
+    end
+
+    p input.filter { |result, *numbers|
+        dp(numbers) { |a,b| [a+b, a*b] }.include? result
+      }.sum(&:first)
+
+    p input.filter { |result, *numbers|
+        dp(numbers) { |a,b| [a+b, a*b, "#{a}#{b}".to_i] }.include? result
+      }.sum(&:first)
+    ```
+  :replies:
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v9d0d/
+    :body: |-
+      And a brute force solution for good measure
+
+      ```ruby
+      input = File
+        .readlines('../input/07.txt')
+        .map { _1.scan(/\d+/).map(&:to_i) }
+
+      ops = [
+        lambda(&:+),
+        lambda(&:*),
+        #lambda { |a,b| (a.to_s + b.to_s).to_i }
+      ]
+
+      p input.filter { |res,a,*b|
+        ops.repeated_permutation(b.length).any? { |perm|
+          perm.zip(b).reduce(a) { |acc,(op,n)| op[acc,n] } == res
+        }
+      }.sum(&:first)
+      ```
+    :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v7ys7/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day07.rb)"
+  :replies: []
+- :author: mpyne
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vjiih/
+  :body: |-
+    I was doing my solutions in Rust this year, but Ruby has an iterator operator that is more or less genetically designed for this problem, `repeated_permutation`, so I wanted to throw it in and test it out.
+
+    - Part 1: [https://github.com/purinchu/advent-of-code/tree/main/2024/13](https://github.com/purinchu/advent-of-code/tree/main/2024/13)
+    - Part 2: [https://github.com/purinchu/advent-of-code/tree/main/2024/14](https://github.com/purinchu/advent-of-code/tree/main/2024/14)
+  :replies: []

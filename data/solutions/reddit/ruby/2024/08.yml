@@ -1,0 +1,206 @@
+---
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zmy7o/
+  :body: |-
+    767/751
+
+    First sub-1000 this year! I really love ~~Array#permutation~~ `Array#combination`
+
+    [Github](https://github.com/phene/advent-of-code/blob/main/2024/08/8.rb)
+  :replies:
+  - :author: daggerdragon
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znnej/
+    :body: "> ~~[COAL] I really love~~\n\n~~Comment temporarily removed due to naughty language. [Keep the megathreads professional](https://old.reddit.com/r/adventofcode/wiki/rules/pg_is_mandatory).~~\n\n~~Edit your comment to take out the naughty language and I will re-approve the comment.~~ edit: \U0001F44D"
+    :replies:
+    - :author: yourparadigm
+      :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znwax/
+      :body: fixed
+      :replies: []
+  - :author: FCBStar-of-the-South
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zs1g0/
+    :body: Ah this is a nice implementation. I should've thought about passing the range of search as a parameter instead of just duplicating my part 1 code with some extra logic haha
+    :replies: []
+- :author: NullT3rminated
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zn5lg/
+  :body: |-
+    1460/1044
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAhBAAAAAAAAAA5GUqKNoFH6SMqVwa6yG0l+GabeOhtkUXHD/4ozp9AjlKFr4zlGfaA1sRKskz0ctUOG9Np0DS349GTSGYESmUgdTr7rFM5/AHaqxUGGNE+1EJKpIYxVqkGWFC+0JhxLQDE4cvOeQMW7pDsSPl1QR9Za74byBkKHtdQM1ALdE29hwAnn73I9ELdAkvLUreJ0Dh8u+HTKJLyeNc1rnG/nX8tWYIKerADYYtVL0e1kYKb/PiShEfcfJLBNq8hU0yoKbqp21cDzwa8eFzs/FZ8BW76PZ4eeIhBNgtw/CGrmbVcm5SoBZ3SbPIMMJD9KaFMzavYoDi66pV5B3uLfg0p0iC/C6cehDCfZua2BGVSCAuK+KBB3mYRz1Xf3/gQJm3GOf2SwjnjIJi8NfiAze/7EOl9twKq1sRfiytWZLq5xhNo3SI/kUMd/O06UYLGzzY/plX/k+FSmzLC9zEjWVdM8zzjcoIJGKjmNIojpz5N+MftwY0cQihFw4nu7p7Gcfey/+1kN6LGAGJ0P21BXOM4TqDcv1nhJc2MN26nLm+vulsOE7QZy3V6BJTF9awlqpARgdjGpBvWIQq8mZiXWS0A9gEGolB/L76LWATFskCfUB4hTRmiEgllr8I1+jrLWPYKFyZjcJNYlQLayXGpscCiifHWDoGlsfGxKFx+DOYQ0JewVzA+Nv5DFtg=)
+
+    perhaps the worst code I've ever written. But it works.
+  :replies:
+  - :author: yourparadigm
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znay2/
+    :body: Fellow fan of `Array#permutation` I see! Could have just used `Array#combination`, though.
+    :replies:
+    - :author: NullT3rminated
+      :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znlsy/
+      :body: I think they should add `Array#digg` to the standard library
+      :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10ymdx/
+  :body: |-
+    ```ruby
+    input = File.read("input.txt").split("\n")
+    @width, @height = input.size, input[0].size
+    antennas = Hash.new{ |h,k| h[k] = [] }
+
+    @width.times do |y|
+      @height.times do |x|
+        antennas[input[y][x]] << Complex(x,y) unless input[y][x] == ?.
+      end
+    end
+
+    def inbounds?(c) = c.real.between?(0, @width-1) && c.imag.between?(0, @height-1)
+
+    antinodes1, antinodes2 = Set.new, Set.new
+
+    antennas.values.each do |a|
+        a.combination(2) do |x,y|
+           diff = x-y
+           f = 0
+           while inbounds?(pos = x + f*diff) do
+             antinodes1 << pos if f==1
+             antinodes2 << pos
+             f+=1
+           end
+           f = 0
+           while inbounds?(pos = y - f*diff) do
+             antinodes1 << pos if f==1
+             antinodes2 << pos
+             f+=1
+           end
+        end
+    end
+
+    puts "Part 1: #{antinodes1.count}", "Part 2: #{antinodes2.count}"
+    ```
+  :replies:
+  - :author: Ill_Information_9522
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m1b1zz8/
+    :body: I've been using your complex number trick for grids... thanks again, works like a charm! Need to catch up on your solutions after spending the last day catching up myself on the puzzles. How much harder will it get? :p
+    :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zrsv3/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQCWBwAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8e/jkEufM3yoDFdhZ+yEf8qLEaYbQkVMczFDglBo54Df7x04iyapFESymP4RpA8pK7/Oo81GULm0seNo4p2lgswLwoNgGrdZhMabcEyYWZIT4KUpQErXdOPoKse6pKtT3JZL0rB1tPM2EkwStv2DpPpJo+GKSP9yHTrSm9ZneZ+KYGmUTRxErhBtg93jpclModLhQSpnwYneVUFMFQiCrkqDGmefi8uKhKQ88epNB0Tncu4DKTPI8YoXaPXuHPsbsntKZGWQaj7wAXSBNEMAf9DV6sn5/VtUy6wrVNIHfnJFjsNXb7+T5Y76WZ0sC1cSadqiooQ6syScsmSrKQ3nxYn0uSWlZzv2DILX4sEXAosmJXvjRGXdMlynUjmqvxz7XMi6vvhpvcf7gTbUIckFKkEV1PDWV+U91MaX4ZgkX13RB8RIRsbrA2m4/1WtjB9ymoJd+5QzhxwTyYsRXg4+S1l8rb4n5oa3p8S5HB+PekoacUxxCnMdFGEBR+e+dkcKd/Boqm788e+/5YS6p19zjz0UIweVnSOOSGO7VJoTmWeKQI9kI7g4/y+jfN4ThSSz3cJVxbw9Trl6Zt/At5DRknhmggN3EIev3B/11n0YEgQ6U/t3/OsBHvlh4DXMxjcYL0HlqvNy2QdAlPNHuFd9bCKsELx3HpPjRg7YsIASS01aViLS3PEsi4cYg/ldcZgIHNYE09pTe5EMBnvGL4BTGlSvDc7zqy1HM7PUCGxywfdCeH57c8n+C3HfE8lRLT3f/EkIJNkE+MCtBaC2KBBGJO9P+gYOQVjaVf+X5Ujf05SsiIUbPSnOV0xPZ6i9J/+v5axI=)
+
+    Abuse of Ruby map and not my proudest code
+  :replies: []
+- :author: alexbaguette1
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zsyz0/
+  :body: |-
+    Suprised it worked this easily.
+
+    Accidentally copied and pasted an old (non working for part 1) version to part 2 and it somehow worked after adding the part 2 logic. Maybe I'm just incredibly luckly to get away with buggy code...
+
+    [Part 1](https://topaz.github.io/paste/#XQAAAQA5AgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYpRrZq3oCFpfxXu9nP0lKhMM6pt8OBX3NbPRuatlL47kGgI+ZTKskiShBT3sxm24XXUTwUH9yfPPOQGUeUudn/tXPSUVxzv9ThJ5G/RRixgnwBWorLUqr1mm99Ia1IzKBJTQyDdXDkIePw1MRehVyM+daRqSRKfiVxilt2RkzP3lWzxE1uaql2iSOyz40jXQsa6h+btA4+MX2s/vTr3Gi3emXq9WNzcpGDbecGD0QnDECukkKO206GNETwJaH60N6ilAoUmk/BHSxCUFHjtX1+jcMCE1Odp/zGCV8OitbdBRgy6WB881aE0qXcq5LZ7rgrEUeaE7HSyJV+ryMwNWqqb/3/AWzIGPIdCsdTaX0X9b2gfDJpVayJ4vm3DjP7adKujNPgpIiqMB0qkBES6yDB1h1TRnSE/8ux7mqjYolYDASlngIio2vrY83/mKYww==)
+
+    [Part 2](https://topaz.github.io/paste/#XQAAAQBaAgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYpRrZq3oCFpfxXu9nP0lKhMM6pt8OBX3NbPRuatlL47kGgI+ZTKskiShBT3sxm24XXUTwUH9yfPPOQGUeUudn/tXPSUVxzv9ThJ5G/RRixgnwBWorLUqr1mm99Ia1IzKBJTQyDdXDkIePw1MRehVyM+daRqSRKfiVxilt2RkzP3lWzxE1uaql2iSOyz40jXQsa6h+btA4+MX2s/vTr3Gi3emXq9WNzcpGDbecGD0QnDECukkKO206GNETwJaH60N6ilAoUmk/BHSxCUFHjtX1+jcMCE1Odp/zGCV8OitbdBRgy6WB881aE0qXcq5LZ7rgrEUeaE7HSyJV+ryMwNWqqXdpR9FTHdn/mDvbtFVS7xh6J2pg3YXAc4T3qR72QURNe+3JNGbKSBUlQqlsk6SvDsOBvV3fpotIxajopInM2QHToU1ozeC1Seqfg/7eXukKhqjbb5BqmZEhAP/4Ehvh)
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10n7o3/
+  :body: |-
+    ```ruby
+    input = File.readlines('input08.txt').map(&:chomp)
+    positions = Hash.new { |h,k| h[k] = [] }
+    input.each_with_index { |row,y|
+      row.chars.each_with_index { |char,x|
+        positions[char] << [x,y] unless char == '.'
+      }
+    }
+
+    def in_bounds(input, x, y) = y >= 0 && y < input.length && x >= 0 && x < input[y].length
+
+    # Part 1
+    p positions.flat_map { |char,positions|
+        positions
+          .permutation(2)
+          .map { |(x1,y1),(x2,y2)| [2*x1 - x2, 2*y1 - y2] }
+          .filter { |nx,ny| in_bounds(input, nx, ny) }
+      }
+      .uniq.size
+
+    # Part 2
+    p positions.flat_map { |char,positions|
+        positions.permutation(2).flat_map { |(x1,y1),(x2,y2)|
+          dx, dy = x2-x1, y2-y1
+
+          0.step.lazy
+            .map { |v| [x1 - dx*v, y1 - dy*v] }
+            .take_while { |nx,ny| in_bounds(input, nx, ny) }.to_a
+        }
+      }
+      .uniq.size
+    ```
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11b8pf/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day08.rb)"
+  :replies: []
+- :author: fredster231
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11jdl1/
+  :body: |-
+    Full code: [https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d](https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d)
+
+    Fun little pattern , with the lambda:
+
+    ```ruby
+    vec_do = ->(op,u,v) { u.zip(v).map { _1.send(op, _2) } }
+    ```
+
+    Can write this for part 2 (where a and b are [x0, y0], [x1, y1])
+
+    ```ruby
+    [[a, :-], [b, :+]].flat_map { |init,op|
+      Enumerator
+        .produce(init) { |prev| vec_do.(op, prev, ab) }
+        .take_while { _1.between?(0, input.length-1) && _2.between?(0, input[0].length-1) }
+        .to_a
+    }
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11vdbe/
+  :body: |-
+    Took longer to code this than I thought, but it was pretty straight forward, my initial instinct worked perfectly and the change for part 2 was trivial. Manhatten distance and some algebra. Solution runs in a few milisecond.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/8](https://github.com/careyi3/aoc_2024/tree/master/solutions/8)
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m104v61/
+  :body: |-
+    Pretty straightforward one today but I got hit hard by reading comprehension. I totally missed that the antennas themselves became antinodes in part 2. After I was done I went back and tightened my code up and realized this whole thing becomes really simple if you represent the x,y coordinates as complex numbers.
+
+    ```ruby
+    antenna.each.with_object(Set.new) { |coords, antinodes|
+        coords.permutation(2).each { |a, b|
+          (0..).each { |step|
+            c = a + step*(b - a)
+            break unless in_bounds?(max, c)
+            antinodes << c
+          }
+        }
+      }.size
+    ```
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/08/solution.rb)
+  :replies: []
+- :author: RivtenGray
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10dpu8/
+  :body: |-
+    [Github](https://github.com/rivten/aoc-2024/blob/main/08/rivten/08.rb)Learning Ruby for this year's AoC, I like how I get more comfortable with Ruby and the code is reducing in size while keeping clarity (or so I think !)
+
+    Also thank you to [/u/4HbQ](/u/4HbQ) for mentionning complex numbers a few days ago. Really helped here !
+  :replies:
+  - :author: daggerdragon
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m13uyjx/
+    :body: |-
+      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
+
+      I see full plaintext puzzle inputs in your public repo here:
+
+      > [https://github.com/rivten/aoc-2024/tree/main](https://github.com/rivten/aoc-2024/tree/main)
+
+      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history.
+    :replies: []

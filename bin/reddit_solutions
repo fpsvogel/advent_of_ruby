@@ -38,7 +38,7 @@ class RedditSolutionsApp < Thor
 
     path = File.join("data", "solutions", "reddit", options[:language].join("-"), options[:year].to_s, "#{options[:day].to_s.rjust(2, "0")}.yml")
 
-    File.write(path, comments.to_yaml)
+    File.write(path, comments.to_yaml(line_width: -1))
 
     puts "✅ Saved to #{path}"
 
