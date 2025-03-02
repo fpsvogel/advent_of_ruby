@@ -1,0 +1,345 @@
+---
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0my8nw/
+  :body: |-
+    This was a fun one, implementing a custom sort algorithm. I have no idea what type of sort I created, or what the Big O notation might be, but it works and seems to be fairly performant.
+
+    [pastie](https://topaz.github.io/paste/#XQAAAQBcBAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlD3WW8r2Z9pYT30X7PldGU70XB3egANSDGaglT19UFgzZK2FcUaGiOj2QwDkRsdSI8VlTlRHSx96rEK2fgYkMopVYMKvFrxYEOtlpraQtqXI869FkwIsNbKnv6kcagyhdLWfX1FrLl8cJPgtkQe8xLG+avOac7tsm2wzZjJAichGLIJe9pTdisr1vtXsU3qY0B+qxOP04rSWBTWOsIUzYidqufpLIMbHSc2mRiKVRtfOPytmcjdxuNZ88HGUtQYhQj5oRfApkIikmSc7LwHkj+/qxyQ/14ilCVT1UA+dggc1BlIiGBMDdiyKElBXCnuPhwhZnHZ4ydwmaw0i0QafjZcAQiq8KsDn+SSZLxk3cL1AS5MkB8D+vl96hAPL1U8Q4cZVmMA/0hp4tZOrPZrdm6H1jpMMPLFq4MR5QxHAEgv+AG8Q+uPPtIoba+uvxlwXQyuEEUWUudm3ee1Xfvsj5vOZVA/YVg8F1LwpawkD46eKBV8A2at6zmXymUBhK3JhHhAQIb2drHe61bY5XIkjxHzKoS4SSjWwlExFQ7Z05kxWy3WsxazIE7ID/mP6iVSLUE1kMpUhcd1I8oidpQBtSBHCSEXRhC8c2+F8spS5DlP0//yr/1AA=)
+  :replies:
+  - :author: nullset_2
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0t597s/
+    :body: "+1 for ruby \\<3"
+    :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0hz686/
+  :body: |-
+    ```ruby
+    orderings, updates = ARGF.read.split "\n\n"
+
+    orderings = orderings.lines.map { _1.split("|").map(&:to_i) }
+    rules = orderings.reduce(Hash.new { _1[_2] = Set.new }) { |a, (l, r)| a[l].add(r); a }
+    updates = updates.lines.map { _1.split(",").map(&:to_i) }
+
+    incorrect = []
+
+    puts updates.sum { |pages|
+      next pages[pages.size / 2] if pages.size.times.all? { |i|
+        pages[..i].then { |*h, t| h.all? { !rules[t].include? _1 } }
+      }
+      incorrect << pages
+      0
+    }
+
+    puts incorrect.map { _1.sort { |a, b|
+      rules[a].include?(b) ? -1 : rules[b].include?(a) ? 1 : 0
+    } }.sum { _1[_1.size / 2] }
+    ```
+
+    It took a while for me to grasp how to solve it, but then it turns out it wasn't so complex.
+
+    Part 2 was quite easy by just using the rules in a custom comparator for the `sort` method.
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i076g/
+  :body: |-
+    3324/5754
+
+    well this was horrible. I think I should have used the TSort module in the stdlib, but then I got carried away. Very unhappy with the logic to check if a solution is good for part 1 (which I reused in part 2 but it's not needed), which I think should be simpler
+
+    [https://gist.github.com/riffraff/70e9feca5b8d3c236557a7e0796268db](https://gist.github.com/riffraff/70e9feca5b8d3c236557a7e0796268db)
+  :replies:
+  - :author: musifter
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iepv5/
+    :body: Don't worry about not using a topological sort. The input is not a DAG,
+      it has loops. There is no complete sort of the pages, only subsets of them.
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kiv0k/
+  :body: |-
+    Had a hunch about this one. Felt pretty good when on part 2 I just had to change a `.filter` into a `.partition` and the rest just fell in place by itself :)
+
+    ```ruby
+    require 'set'
+
+    input = File.read('input05.txt')
+
+    order = Hash.new { |h,k| h[k] = Set[] }
+    input.scan(/(\d+)\|(\d+)/) { order[$1.to_i] << $2.to_i }
+
+    updates = input[/(?<=\n\n).*/m].lines.map { _1.scan(/\d+/).map &:to_i }
+
+    (correct,incorrect) = updates.partition { |update|
+      update.map.with_index.all? { |page,i|
+        update[0...i].none? { |before| order[page].include? before }
+      }
+    }
+
+    # Part 1
+    p correct.sum { _1[_1.length/2] }
+
+    # Part 2
+    p incorrect
+      .map { _1.sort { |a,b| order[a].include?(b) ? -1 : order[b].include?(a) ? 1 : 0 } }
+      .sum { _1[_1.length/2] }
+    ```
+
+    ([part 2 diff](https://github.com/daniero/code-challenges/commit/6923d035a911359c626333c75bae423c28d0c553))
+  :replies:
+  - :author: TailorSubstantial863
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kylv4/
+    :body: |-
+      I'm pretty sure my code does the exact same thing as yours (algorithmically speaking) but it takes 83 lines.
+
+      nicely done. I'm gonna have to put your code in debug mode to figure it out I think.
+    :replies: []
+- :author: gosshedd
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iagt3/
+  :body: |-
+    Using the spaceship operator makes both parts equally simple.
+
+    [Gist](https://gist.github.com/gmitrev/47b0498c2bd403589cd866b2b077689a)
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ihywy/
+  :body: |-
+    Part 1
+
+    ```ruby
+    rules, input = File.read("input.txt").split("\n\n").map{|l| l.split("\n")}
+
+    rules = rules.map{ _1.split("|")}
+    input = input.map{ _1.split(",")}
+
+    p input.filter{ |l| rules.all?{|a,b| !l.include?(a) || !l.include?(b) || l.index(a) < l.index(b)}}
+           .map{ _1[_1.size/2]}
+           .sum(&:to_i)
+    ```
+
+    Part 2
+
+    ```ruby
+    rules, input = File.read("input.txt").split("\n\n").map{|l| l.split("\n")}
+
+    rules = rules.map{ _1.split("|")}
+    input = input.map{ _1.split(",")}
+
+    incorrect = input.filter{ |l| !rules.all?{|a,b| !l.include?(a) || !l.include?(b) || l.index(a) < l.index(b)}}
+
+    p incorrect.map{ |l| [l, rules.filter{|a,b| l.include?(a) && l.include?(b)}]}
+               .map{ |l,r| l.map{|n| [n,r.map(&:first).count(n)]}}
+               .map{ |p| p.sort_by(&:last).map(&:first)}
+               .map{ _1[_1.size/2]}
+               .sum(&:to_i)
+    ```
+  :replies:
+  - :author: Ill_Information_9522
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0lng6f/
+    :body: Enjoying following along with your solutions after solving them myself
+      with my beginner's grasp of Ruby. Thanks for sharing.
+    :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k2hny/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQA0AwAAAAAAAAA5GUqKNoFH6SMqoVC09YUYn9dyScIBDNYTI4hnvKYWXrPwLsHeHO6l2A0mcRl8Ns3HhQylr3Khfz4JY3+czGhZ93QRGZ/H13DAhWFK7sa7Zv6wWS5++4B4VBZWS5ooiS9de/AlbgI7SjS9heaT2QZnwnZj8giLuaos879X3tI0OJIAogzVUHsgYA0ss0NCeSeaaYRd5dTDriXvXcR0BJQhPeX656k0aWJc79qLHua5fmyFZlpkgrmWHeyQcwm2HzboaMyI/PkhtftOcshzo6ZF1Fn7BRPLa0yZS+JtnWne3EwZRdofK4WG9fc//SX9tbDPgPzr6nYntRd6tKj6WoQNGbtVnOEMA2gKAm4nkVd5SxafWvtFGYpqVBu+r5l6ZIef8H3S7eXUz8qMynQtLBemtp5tY8OnRd6NYf6pRe5XfCBYuuihZxi63r2bpv7S2qR0C/ZenWzHdeCYwMvvEg8M2GwIASjVE1KXXIh38dhsMemXkqdBaX1CUWqSYebyBGT9zhDtieKKnpdIk/18Tf3qLsMSzff/tJCSSw==)
+
+    Very interesting problem that is actually quite educational about binary relation and total ordering. Might write up a tutorial post later as a review for myself as well ([done!](https://www.reddit.com/r/adventofcode/comments/1h7mm3w/2024_day_05_part_2_how_nice_is_the_input_a_binary))
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kvznz/
+  :body: |-
+    both parts, quick and easy:
+
+    ```ruby
+    order, list = $<.read.split("\n\n").map { |l|
+        l.split("\n").map { _1.split(/\||,/).map(&:to_i) }
+    }
+
+    ogt = order.group_by(&:first).transform_values { _1.map(&:last) }
+    olt = order.group_by(&:last).transform_values { _1.map(&:first) }
+
+    sol = list.reduce(Hash.new(0)) { |h, l|
+        pl = l.sort { |a, b|
+            ogt[a]&.include?(b) ? -1 :
+            (olt[a]&.include?(b) ? 1 : 0)
+        }
+        h[l.zip(pl).all? { _1[0] == _1[1] }] += pl[pl.size/2]
+        h
+    }
+
+    print('Part 1: ', sol[true], "\n")
+    print('Part 2: ', sol[false], "\n")
+    ```
+  :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0l9y1s/
+  :body: |-
+    ```ruby
+    rules, reports = ARGF.map(&:strip).reject(&:empty?).partition { | l | l.index("|") }
+
+    $rules_db = Hash.new { |h,k| h[k] = [] }
+    rules.each do | line |
+      a, b = line.strip.split("|").map(&:to_i)
+      $rules_db[a].push(b)
+    end
+
+    def compare(a, b)
+      return -1 if $rules_db.include?(a) && $rules_db[a].include?(b)
+      return 1 if !$rules_db.include?(b) || $rules_db[b].include?(a)
+      0
+    end
+
+    reports.map! { | line | line.split(",").map(&:to_i) }
+    correct, incorrect = reports.partition do | report |
+      report.each_cons(2).all? { | a, b | compare(b, a) != -1 }
+    end
+    incorrect.map! { _1.sort { | a, b | compare(b, a) } }
+
+    p [correct, incorrect].map { _1.sum { | r | r[r.length/2] } }
+    ```
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i5hkk/
+  :body: |-
+    [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day05.rb)
+
+    I wasted a significant amount of time implementing a topological sort of the ordering constraints, just to discover that my input had cycles, so that sort wasn't really possible. After that, I implemented the non-graph solution above. Notable features are the reversal of the updates in `unordered?`, which allows me to check whether any ordering constraint is violated without having to iterate through the constraints, and the usage of an insertion-sort-style first-fit allocation algorithm for pages in Part 2 to perform the allocation of each page in linear time.
+  :replies:
+  - :author: Eilip999
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6mgo/
+    :body: "It should not be possible for cycles in input to happen, if it was a case
+      you wouldn't be able to sort it even with your algorithm which is not based
+      on graph.  \nEdit, Okay it might be possible to have cycle in rules, but then
+      cycle should not be visible in list of pages, so like, you have the edges, but
+      vertices are missing so these edges should not be included in the graph."
+    :replies:
+    - :author: HAEC_EST_SPARTA
+      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i7zul/
+      :body: Right, the global set of ordering constraints does contain cycles, although
+        if you pare it down to only the pages contained in each update, then that
+        is no longer the case. I realised that a bit too late, but _c'est la vie_.
+      :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6xkn/
+  :body: |-
+    I initially wasted time creating "before rules" and "after rules" for part 2, thinking I would need the reverse map to 'squeeze' a value in to the right place. But saw through testing after I was done that it was pointless. I wish I would've thought of the 'sort' method though as that's a clean result.
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/05/solution.rb)
+  :replies: []
+- :author: im_sofi
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ix512/
+  :body: |-
+    Interesting day. Worked a bit on my `std++` library and added a `Enumerable#partitions` function to allow a partitioned scan of `|left, current, right|` over the elements so i could handle the rules being defined as `before` and `after`.
+
+    Later realized that you only really need to check one of these, and `Enumerable#partitions` lost a lot of its value. Still a fun experiment.
+
+    [https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day\_05.rb](https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day_05.rb)
+  :replies: []
+- :author: Independent_Top_8716
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iy7eq/
+  :body: "After (not unexpectedly) realizing that a recursive or permutations based
+    approach would not scale for part2 I used a hinted approach for part 2\n\n```ruby\npreface,
+    body = input.split(\"\\n\\n\")\nrules = preface.lines.each_with_object(Set.new)
+    { |l,a|\n    a << l.strip.split(\"|\").map(&:to_i)\n    a\n}\nupdates = body.lines.map
+    { |l|\n    update = l.strip.split(\",\").map(&:to_i)\n}\n\ndef valid?(update,rules)\n
+    \       update.each_cons(2).map { |curr, nxt|\n            rules.include? [curr,nxt]\n
+    \       }.all?\nend\n\ndef score(updates, rules)\n    updates.map { |update|\n
+    \       if valid?(update,rules) then\n            update[(update.size-1)/2].to_i\n
+    \       else\n            0\n        end\n    }.sum\nend\n\npart1 = score(updates,rules)\n\ninvalid
+    = updates.filter { |update| \n    !valid?(update,rules)\n}\n\ndef sort(update,
+    rules)\n    workdone = 0\n    loop do     \n        # p update\n        (0..update.size-1).each
+    { | idx |\n            l = update[idx]\n            r = update[idx+1]\n            next
+    if rules.include? [l,r]    \n            if rules.include? [r,l] then\n                update[idx]
+    = r\n                update[idx+1] = l\n                workdone = 1\n            end\n
+    \           }\n            break if valid? update, rules\n        end\n    update\nend\n\nvalidated
+    = invalid.map{ |update| sort(update, rules) }\n\npart2 = score(validated, rules)\n[part1,
+    part2]\n```"
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j6f41/
+  :body: |-
+    It wasn't immediately obvious to me that implementing a ruby sort function would just work here, but it seems there is only one validly sorted order for the string based on the rules, making this leap confirmed the solution to me.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/5](https://github.com/careyi3/aoc_2024/tree/master/solutions/5)
+  :replies:
+  - :author: FCBStar-of-the-South
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jtl71/
+    :body: I did not want to implement sorting because there is not any guarantee
+      that the | relation is transitive but apparently it is
+    :replies:
+    - :author: careyi4
+      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k1hjd/
+      :body: Yeah, same, it didn't feel like it should work, but when I tried it and
+        it did work I was surprised. I felt like there surely should be multiple orders
+        that satisified the rules, apparently not per the rules.
+      :replies:
+      - :author: FCBStar-of-the-South
+        :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k23ww/
+        :body: I was probably reading between the lines too closely haha. The example
+          explicitly checked the ordering between every pair instead of just the adjacent
+          pairs and I thought that's a sign the relation might not be transitive
+        :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j9e9o/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day05.rb)"
+  :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jm95n/
+  :body: "Part 2 took me quite some time before realizing a sort would work.\n\n```ruby\npreface,
+    body = input.split(\"\\n\\n\")\nrules = preface.lines.each_with_object(Set.new)
+    { |l,a|\n    a << l.strip.split(\"|\").map(&:to_i)\n    a\n}\nupdates = body.lines.map
+    { |l|\n    update = l.strip.split(\",\").map(&:to_i)\n}\n\ndef valid?(update,rules)\n
+    \       update.each_cons(2).map { |curr, nxt|\n            rules.include? [curr,nxt]\n
+    \       }.all?\nend\n\ndef score(updates, rules)\n    updates.map { |update|\n
+    \       if valid?(update,rules) then\n            update[(update.size-1)/2].to_i\n
+    \       else\n            0\n        end\n    }.sum\nend\n\npart1 = score(updates,rules)\n\ninvalid
+    = updates.filter { |update| \n    !valid?(update,rules)\n}\n\n# Considering the
+    rules are a complete set of a|b combinations  \n# If a|b is not a rule a must
+    be after b\n\nvalidated = invalid.map { |i| i.sort {| a, b | if rules.include?([a,b])
+    then -1 else 1 end }}\n\npart2 = score(validated, rules)\n[part1, part2]\n```"
+  :replies: []
+- :author: fredster231
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jploy/
+  :body: "```ruby\nrules, updates = File.readlines('005.input')\n  .map { _1.strip
+    }\n  .reject { _1.empty? }\n  .partition { _1.include? '|' }\n  .map { |list|
+    list.map { _1.split(/\\D/).map(&:to_i) } }\n\ncorrect, incorrect = updates\n  .partition
+    { |u| !rules.any? { u.include?(_1) && u.include?(_2) && u.index(_1) >= u.index(_2)
+    } }\n\n# Part 1\np correct.sum { _1[_1.size/2] }\n\n# Part 2\np incorrect\n  .map
+    { |pages|\n    # Filtering the list of rules once and then iterating over that
+    list pairwise is quite a lot\n    # faster than iterating over the list every
+    pair, for the relevant sizes of the lists: rules, update.\n    relevant_rules
+    = rules.filter { |r| r.all? { pages.include?(_1) } } \n    pages.sort { relevant_rules.include?([_1,
+    _2]) ? -1 : 0 }\n  }\n  .sum { _1[_1.size/2] }\n```"
+  :replies: []
+- :author: clonewolf
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kh6du/
+  :body: |-
+    Unable to do a TSort on the whole set, I'm doing TSorts on each subset of the graph defined by each update.
+
+    [https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day05.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day05.rb)
+  :replies: []
+- :author: sigmazero13
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kl2i7/
+  :body: |-
+    Parts 1 and 2 together.
+
+    [2025 Day 05](https://topaz.github.io/paste/#XQAAAQB1BgAAAAAAAAARiArHwcXVMMi3ARNdxyce9ZWdY4wAZS5105VirpgIVjqsFysGsQ1Md9jiWx3r6ZOwrvi9TSxnbWFcRH8V3hqszL1EkvVGMEAHUtCGxRwFXdSZXKIbJvZyCTWIhdpmB71/PjYRh5scBVZCrAKGzmnJtSzMPYR6xHaakk1oEoPEsrW67zfbQPqIUFDkO7ZI1Ar369GmOAuoymaDxfrQVsLEenRoFYR4a57SSm6pnWNbM6TUir70nNBme/xwpxpoiLl2Cpdrq+yTZd19v/PUNcNQN31gbGDCNDq/du2JBGf5mmK8W6oMZ2nkO9nFqzknuH4uPNaBsJZ6OlNuGEQI27bDGTQghNRbc8z8A769z1yFdBZuViuk+1h+0w0II26PiL6PlR0PCKmxZio/X7iT30KKROsd64On7yIr00TdYvMBqZuoqwh0y8h98tZjMDdKHd5+Jm7pJj4b9VWHdaRVgNiBYJDg0RfJhzAZJeQWYppCJi+VlbZ0I41c6MTE34Dt1mj80VFLPHR0IP1DUhf/mjW8uDkicZE8ccfBeT8OX8eat7BPFySc822OL8Q1pLAzLNIxGM6z+j7QjnlplnRpRA2slhUqDaEW4v2B3XjbUStWpYxRxy/l3i2fizkWW5h+/V/tkMyuZP3B2Ey8NATG8ULx7ukX/UTHpdq7BHWBf7UMeF9YWXuOWCEjSFwdHDRjin01OSLnEZ7p+vSHThidGOcf+WZKTGlVst7pP1ZkA65fjLdy/LeiZNlCuw8mOMYgQBBnFaXHtZieEeXtE/UutuOYUGKPamBJRhtqvLXJ4IYjKoFTu9Egj9QaHi/w2d2W3TlmTRacmVTBPIGiRnDkvp+dcMxRv8DAUWAungPnSeCT6NT15Jnn8KVG9WtrlE6yAL4c4qXSYb60DcOifdW2TLJWix5R2W3efotNY8cyGngx/ZSsNg==)
+
+    Basically, just created a Page class with methods to allow for custom sorting using the rules. From there, finding the valid updates (and fixing the invalid ones) was a piece of cake.
+  :replies:
+  - :author: rcraggs
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kpg4l/
+    :body: |-
+      I did the same thing in Python. No idea about efficiency but it makes for really tidy code and a simple idea
+
+      ```ruby
+      ```
+      def page_sort(page1, page2, rules):
+          if [page1, page2] in rules:
+              return -1
+          elif [page2, page1] in rules:
+              return 1
+          else:
+              return 0
+      ```
+      ```
+    :replies: []

@@ -183,7 +183,7 @@ module Arb
       def simplify_comments(raw_comments)
         more_childrens_from_replies = []
 
-        comments = raw_comments.map { |raw_comment|
+        comments = raw_comments.filter_map { |raw_comment|
           # If it is a list of more children.
           if raw_comment["kind"] == "more"
             more_children = {
@@ -191,7 +191,11 @@ module Arb
               parent_id: raw_comment["data"]["parent_id"],
             }
 
-            next more_children
+            if more_children[:children].any?
+              next more_children
+            else
+              next nil
+            end
           end
 
           {
@@ -221,10 +225,12 @@ module Arb
             # onto the top-level comments (below), because that's where
             # other "more children" lists may be, and that way they can all
             # be dealt with together by #add_missing_replies!
-            more_childrens_from_replies << {
+            more_children = {
               children: child["data"]["children"],
               parent_id: child["data"]["parent_id"],
             }
+
+            more_childrens_from_replies << more_children if more_children[:children].any?
 
             next nil
           end
