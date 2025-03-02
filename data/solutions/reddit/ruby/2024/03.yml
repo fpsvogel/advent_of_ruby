@@ -429,10 +429,29 @@
     :replies: []
 - :author: ni3t
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m05spvd/
-  :body: "```ruby\nr1 = 0\nr2 = 0\ndoing = true\nDATA.each_line.map do |line|\n  line.chomp.scan(/(mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\))/)\nend.flatten.each
-    do |inst|\n  next doing = false if inst == \"don't()\"\n  next doing = true if
-    inst == \"do()\"\n  val = inst.scan(/\\d+/).map(&:to_i).reduce(:*)\n  r1 += val\n
-    \ r2 += val if doing\nend\nputs r1\nputs r2\n\n__END__    \nhow(){%}mul(764.....\n```"
+  :body: |-
+    ```ruby
+    r1 = 0
+    r2 = 0
+    doing = true
+    DATA.each_line.map do |line|
+      line.chomp.scan(/(mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\))/)
+    end.flatten.each
+    do |inst|
+      next doing = false if inst == \"don't()\"
+      next doing = true if
+    inst == \"do()\"
+      val = inst.scan(/\\d+/).map(&:to_i).reduce(:*)
+      r1 += val
+
+    \ r2 += val if doing
+    end
+    puts r1
+    puts r2
+
+    __END__
+    how(){%}mul(764.....
+    ```
   :replies: []
 - :author: The_Jare
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m060zrl/

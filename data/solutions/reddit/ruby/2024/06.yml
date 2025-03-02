@@ -76,27 +76,64 @@
   :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ot8pg/
-  :body: "It was quickly obvious that trying a block on every empty grid position
-    would not scale. But with 2 optimisations the runtime was tolerable.\n\n```ruby\ngrid
-    = AOC.grid(input,nil) # Make a grid hasmap of the input\n\ndef step(guard, g)\n
-    \   rotate_right = {'>': 'v', 'v': '<', '<': '^', '^': '>'}\n    x,y = guard[:pos]\n
-    \   dir = guard[:dir]\n    next_pos = case dir\n        when '^'\n            [x,y-1]\n
-    \       when '>'\n            [x+1,y]\n        when 'v' \n            [x,y+1]\n
-    \       when '<'\n            [x-1,y]\n      end\n    return {pos: [x,y], dir:
-    rotate_right[dir.to_sym]} if ['#', 'O'].include? g[next_pos]\n    return {pos:
-    next_pos, dir: dir} if ['.', 'X','^'].include? g[next_pos]\n    nil       \nend\n\ndef
-    visited(g)\n    guard = {pos: g.find { |k,v| v == '^' }.first, dir: '^'}\n    states
-    = Set.new # Whoever said an Array here was slow wasn't lying\n    has_loop = loop
-    do\n        states << guard\n        g[guard[:pos]] = 'X'\n        nxt = step(guard,g)\n
-    \       break false if nxt.nil?\n        break true if states.include? nxt\n        guard
-    = nxt\n    end\n    visited = states.map { |state| state[:pos] }.to_set\n    {visited:
-    visited, has_loop: has_loop}\nend\n\ng = grid.clone\nguard = {pos: g.find { |k,v|
-    v == '^' }.first, dir: '^'}\nstart = guard[:pos]\n\npart1 = visited(g)\ncount
-    = 0\nRubyVM::YJIT.enable\n# Try the only spots that can make a difference\ncands
-    = part1[:visited].filter { | e | e != start }\npart2 = cands.map { |cand|\n    p
-    count if count % 100 == 0\n    testgrid = grid.clone\n    testgrid[cand] = 'O'\n
-    \   count += 1\n    visited(testgrid)[:has_loop]\n}.count(true)\np [part1[:visited].size,
-    part2]\n```"
+  :body: |-
+    It was quickly obvious that trying a block on every empty grid position would not scale. But with 2 optimisations the runtime was tolerable.
+
+    ```ruby
+    grid = AOC.grid(input,nil) # Make a grid hasmap of the input
+
+    def step(guard, g)
+        rotate_right = {'>': 'v', 'v': '<', '<': '^', '^': '>'}
+        x,y = guard[:pos]
+        dir = guard[:dir]
+        next_pos = case dir
+            when '^'
+                [x,y-1]
+            when '>'
+                [x+1,y]
+            when 'v'
+                [x,y+1]
+            when '<'
+                [x-1,y]
+          end
+        return {pos: [x,y], dir: rotate_right[dir.to_sym]} if ['#', 'O'].include? g[next_pos]
+        return {pos: next_pos, dir: dir} if ['.', 'X','^'].include? g[next_pos]
+        nil
+    end
+
+    def visited(g)
+        guard = {pos: g.find { |k,v| v == '^' }.first, dir: '^'}
+        states = Set.new # Whoever said an Array here was slow wasn't lying
+        has_loop = loop do
+            states << guard
+            g[guard[:pos]] = 'X'
+            nxt = step(guard,g)
+            break false if nxt.nil?
+            break true if states.include? nxt
+            guard = nxt
+        end
+        visited = states.map { |state| state[:pos] }.to_set
+        {visited: visited, has_loop: has_loop}
+    end
+
+    g = grid.clone
+    guard = {pos: g.find { |k,v| v == '^' }.first, dir: '^'}
+    start = guard[:pos]
+
+    part1 = visited(g)
+    count = 0
+    RubyVM::YJIT.enable
+    # Try the only spots that can make a difference
+    cands = part1[:visited].filter { | e | e != start }
+    part2 = cands.map { |cand|
+        p count if count % 100 == 0
+        testgrid = grid.clone
+        testgrid[cand] = 'O'
+        count += 1
+        visited(testgrid)[:has_loop]
+    }.count(true)
+    p [part1[:visited].size, part2]
+    ```
   :replies:
   - :author: masterarms
     :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pa90y/

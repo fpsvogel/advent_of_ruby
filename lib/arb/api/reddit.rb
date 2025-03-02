@@ -256,6 +256,7 @@ module Arb
           .sub(/<\/div>\z/, "")
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
           .gsub("<pre>", "<pre class=\"brush:ruby;\">")
+          .gsub(/ +\n/, "\n")
           .then { |cleaned_body_html|
             ReverseMarkdown.convert(cleaned_body_html, github_flavored: true)
           }

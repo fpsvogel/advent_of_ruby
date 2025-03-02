@@ -263,11 +263,15 @@
   :replies: []
 - :author: Screech-1
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02ns7r/
-  :body: "``\n\nputs File.read('input.txt').split(\"\\n\").map { |line| line.split.map(&:to\\_i)
+  :body: |-
+    ``
+
+    puts File.read('input.txt').split(\"\\n\").map { |line| line.split.map(&:to\\_i)
     }.then { |data| safe = -\\>(r) { (r.each\\_cons(2).all? { |a, b| a \\< b } ||
     r.each\\_cons(2).all? { |a, b| a \\> b }) && r.each\\_cons(2).all? { |a, b| (1..3).cover?((a
     - b).abs) } }; \"#{data.count { |r| safe[r] }} #{data.count { |r| safe[r] || (0...r.length).any?
-    { |i| safe[r[0...i] + r[(i+1)..-1]] } }}\"}  \n``"
+    { |i| safe[r[0...i] + r[(i+1)..-1]] } }}\"}
+    ``
   :replies:
   - :author: daggerdragon
     :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03is2b/

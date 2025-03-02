@@ -163,20 +163,55 @@
   :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c8udf/
-  :body: "After trying for some time to get something working with array transposition
-    and skewing I went for the KISS approach:\n\n```ruby\ndef xmaswords(grid,x,y)\n
-    \   return [] if grid[[x,y]] != 'X'\n    dirs = [\n        [[x,y],[x+1,y],[x+2,y],[x+3,y]],\n
-    \       [[x,y],[x-1,y],[x-2,y],[x-3,y]],\n        [[x,y],[x+1,y+1],[x+2,y+2],[x+3,y+3]],\n
-    \       [[x,y],[x-1,y-1],[x-2,y-2],[x-3,y-3]],\n        [[x,y],[x,y+1],[x,y+2],[x,y+3]],\n
-    \       [[x,y],[x,y-1],[x,y-2],[x,y-3]],\n        [[x,y],[x-1,y+1],[x-2,y+2],[x-3,y+3]],\n
-    \       [[x,y],[x+1,y-1],[x+2,y-2],[x+3,y-3]],\n    ]\n    dirs.map { |dir|\n
-    \       dir.map { |x,y|\n            grid[[x,y]]\n        }.join()\n    }\nend\n\ng
-    = AOC::grid(input,'.')\npart1 = g.map { | k,_ |\n    x, y = k\n    xmaswords(g,x,y)\n}.flatten.filter
-    { | w | w == \"XMAS\" }.count\n\ndef x_mas?(grid,x,y)\n    return false if grid[[x,y]]
-    != 'A'\n    dirs = [\n        [[x-1,y-1],[x,y],[x+1,y+1]],\n        [[x+1,y-1],[x,y],[x-1,y+1]]\n
-    \   ]\n    dirs.map { |dir|\n        dir.map { |x,y|\n            grid[[x,y]]\n
-    \       }.join()\n    }.filter { | w | \n            w == 'MAS' or w == 'SAM'\n
-    \   }.size == 2     \nend\npart2 = g.map { | k,_ |\n    x, y = k\n    x_mas?(g,x,y)\n}.count(true)\n[part1,part2]\n```"
+  :body: |-
+    After trying for some time to get something working with array transposition and skewing I went for the KISS approach:
+
+    ```ruby
+    def xmaswords(grid,x,y)
+        return [] if grid[[x,y]] != 'X'
+        dirs = [
+            [[x,y],[x+1,y],[x+2,y],[x+3,y]],
+            [[x,y],[x-1,y],[x-2,y],[x-3,y]],
+            [[x,y],[x+1,y+1],[x+2,y+2],[x+3,y+3]],
+            [[x,y],[x-1,y-1],[x-2,y-2],[x-3,y-3]],
+            [[x,y],[x,y+1],[x,y+2],[x,y+3]],
+            [[x,y],[x,y-1],[x,y-2],[x,y-3]],
+            [[x,y],[x-1,y+1],[x-2,y+2],[x-3,y+3]],
+            [[x,y],[x+1,y-1],[x+2,y-2],[x+3,y-3]],
+        ]
+        dirs.map { |dir|
+            dir.map { |x,y|
+                grid[[x,y]]
+            }.join()
+        }
+    end
+
+    g = AOC::grid(input,'.')
+    part1 = g.map { | k,_ |
+        x, y = k
+        xmaswords(g,x,y)
+    }.flatten.filter { | w | w == "XMAS" }.count
+
+    def x_mas?(grid,x,y)
+        return false if grid[[x,y]] != 'A'
+        dirs = [
+            [[x-1,y-1],[x,y],[x+1,y+1]],
+            [[x+1,y-1],[x,y],[x-1,y+1]]
+        ]
+        dirs.map { |dir|
+            dir.map { |x,y|
+                grid[[x,y]]
+            }.join()
+        }.filter { | w |
+                w == 'MAS' or w == 'SAM'
+        }.size == 2
+    end
+    part2 = g.map { | k,_ |
+        x, y = k
+        x_mas?(g,x,y)
+    }.count(true)
+    [part1,part2]
+    ```
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0cle3b/
@@ -201,30 +236,88 @@
   :replies: []
 - :author: The_Jare
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ekpzj/
-  :body: "```ruby\n$input = ARGF.each.to_a\n$w = $input[0].length\n$h = $input.length\n\ndef
-    at(x, y)\n  (x < 0 || x >= $w || y < 0 || y >= $h)? \".\" : $input[y][x]\nend\n\ndef
-    word?(x, y, dx, dy, word)\n  [word, word.reverse].any? {\n    _1.chars.each_with_index.all?
-    { | c, i | at(x + dx*i, y + dy*i) == c }\n  }\nend\n\ndirections = [[1,0],[1,1],[0,1],[-1,1]]\n\np
-    Enumerator::product(0...$w, 0...$h, directions).count { |x, y, d| \n  word?(x,
-    y, d[0], d[1], \"XMAS\")\n}\n\ndef xword?(x, y, word)\n  word?(x, y, 1, 1, word)
-    && word?(x+word.length-1, y, -1, 1, word)\nend\n\np Enumerator::product(0...$w,
-    0...$h).count { |x, y| \n  xword?(x, y, \"MAS\")\n}\n```"
+  :body: |-
+    ```ruby
+    $input = ARGF.each.to_a
+    $w = $input[0].length
+    $h = $input.length
+
+    def at(x, y)
+      (x < 0 || x >= $w || y < 0 || y >= $h)? "." : $input[y][x]
+    end
+
+    def word?(x, y, dx, dy, word)
+      [word, word.reverse].any? {
+        _1.chars.each_with_index.all? { | c, i | at(x + dx*i, y + dy*i) == c }
+      }
+    end
+
+    directions = [[1,0],[1,1],[0,1],[-1,1]]
+
+    p Enumerator::product(0...$w, 0...$h, directions).count { |x, y, d|
+      word?(x, y, d[0], d[1], "XMAS")
+    }
+
+    def xword?(x, y, word)
+      word?(x, y, 1, 1, word) && word?(x+word.length-1, y, -1, 1, word)
+    end
+
+    p Enumerator::product(0...$w, 0...$h).count { |x, y|
+      xword?(x, y, "MAS")
+    }
+    ```
   :replies: []
 - :author: _tfa
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ep1gh/
-  :body: "Part 1\n\n```ruby\ninput = File.read(\"input.txt\").split(\"\\n\")\nwidth
-    = input.size\nheight = input[0].size\ngrid = {}\ncoords = []\n\nwidth.times do
-    |y|\n  height.times do |x|\n    grid[Complex(x,y)] = input[y][x] \n    coords
-    << Complex(x,y)\n  end\nend\n\ndir = [0+1i, 0-1i, 1+0i, -1+0i, 1+1i, 1-1i, -1+1i,
-    -1-1i]\n\npattern = dir.map{ |d| (0..3).to_a.map{|e| e * d}}\n  \np coords\n   .map{
-    |c| pattern.map{ |p| p.map{|q| c + q}} }\n   .sum{ |a| a.count{ |z| z.map{ |c|
-    grid[c]} == %w{X M A S}}}\n```\n\nPart 2\n\n```ruby\ninput = File.read(\"input.txt\").split(\"\\n\")\nwidth
-    = input.size\nheight = input[0].size\ngrid = {}\ncoords = []\n\nwidth.times do
-    |y|\n  height.times do |x|\n    grid[Complex(x,y)] = input[y][x] \n    coords
-    << Complex(x,y)\n  end\nend\n\nMATCH = [%w{M S}, %w{S M}]\n  \np coords.count{
-    |c| grid[c] == ?A && \n                    MATCH.include?([grid[c+(-1-1i)], grid[c+(1+1i)]])
-    && \n                    MATCH.include?([grid[c+(-1+1i)], grid[c+(+1-1i)]]) \n
-    \ }\n```"
+  :body: |-
+    Part 1
+
+    ```ruby
+    input = File.read("input.txt").split("\n")
+    width = input.size
+    height = input[0].size
+    grid = {}
+    coords = []
+
+    width.times do |y|
+      height.times do |x|
+        grid[Complex(x,y)] = input[y][x]
+        coords << Complex(x,y)
+      end
+    end
+
+    dir = [0+1i, 0-1i, 1+0i, -1+0i, 1+1i, 1-1i, -1+1i, -1-1i]
+
+    pattern = dir.map{ |d| (0..3).to_a.map{|e| e * d}}
+
+    p coords
+       .map{ |c| pattern.map{ |p| p.map{|q| c + q}} }
+       .sum{ |a| a.count{ |z| z.map{ |c| grid[c]} == %w{X M A S}}}
+    ```
+
+    Part 2
+
+    ```ruby
+    input = File.read("input.txt").split("\n")
+    width = input.size
+    height = input[0].size
+    grid = {}
+    coords = []
+
+    width.times do |y|
+      height.times do |x|
+        grid[Complex(x,y)] = input[y][x]
+        coords << Complex(x,y)
+      end
+    end
+
+    MATCH = [%w{M S}, %w{S M}]
+
+    p coords.count{ |c| grid[c] == ?A &&
+                        MATCH.include?([grid[c+(-1-1i)], grid[c+(1+1i)]]) &&
+                        MATCH.include?([grid[c+(-1+1i)], grid[c+(+1-1i)]])
+      }
+    ```
   :replies:
   - :author: Ill_Information_9522
     :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0eqn1b/

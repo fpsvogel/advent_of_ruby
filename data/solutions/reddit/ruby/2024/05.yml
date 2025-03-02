@@ -236,23 +236,65 @@
   :replies: []
 - :author: Independent_Top_8716
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iy7eq/
-  :body: "After (not unexpectedly) realizing that a recursive or permutations based
-    approach would not scale for part2 I used a hinted approach for part 2\n\n```ruby\npreface,
-    body = input.split(\"\\n\\n\")\nrules = preface.lines.each_with_object(Set.new)
-    { |l,a|\n    a << l.strip.split(\"|\").map(&:to_i)\n    a\n}\nupdates = body.lines.map
-    { |l|\n    update = l.strip.split(\",\").map(&:to_i)\n}\n\ndef valid?(update,rules)\n
-    \       update.each_cons(2).map { |curr, nxt|\n            rules.include? [curr,nxt]\n
-    \       }.all?\nend\n\ndef score(updates, rules)\n    updates.map { |update|\n
-    \       if valid?(update,rules) then\n            update[(update.size-1)/2].to_i\n
-    \       else\n            0\n        end\n    }.sum\nend\n\npart1 = score(updates,rules)\n\ninvalid
-    = updates.filter { |update| \n    !valid?(update,rules)\n}\n\ndef sort(update,
-    rules)\n    workdone = 0\n    loop do     \n        # p update\n        (0..update.size-1).each
-    { | idx |\n            l = update[idx]\n            r = update[idx+1]\n            next
-    if rules.include? [l,r]    \n            if rules.include? [r,l] then\n                update[idx]
-    = r\n                update[idx+1] = l\n                workdone = 1\n            end\n
-    \           }\n            break if valid? update, rules\n        end\n    update\nend\n\nvalidated
-    = invalid.map{ |update| sort(update, rules) }\n\npart2 = score(validated, rules)\n[part1,
-    part2]\n```"
+  :body: |-
+    After (not unexpectedly) realizing that a recursive or permutations based approach would not scale for part2 I used a hinted approach for part 2
+
+    ```ruby
+    preface, body = input.split("\n\n")
+    rules = preface.lines.each_with_object(Set.new) { |l,a|
+        a << l.strip.split("|").map(&:to_i)
+        a
+    }
+    updates = body.lines.map { |l|
+        update = l.strip.split(",").map(&:to_i)
+    }
+
+    def valid?(update,rules)
+            update.each_cons(2).map { |curr, nxt|
+                rules.include? [curr,nxt]
+            }.all?
+    end
+
+    def score(updates, rules)
+        updates.map { |update|
+            if valid?(update,rules) then
+                update[(update.size-1)/2].to_i
+            else
+                0
+            end
+        }.sum
+    end
+
+    part1 = score(updates,rules)
+
+    invalid = updates.filter { |update|
+        !valid?(update,rules)
+    }
+
+    def sort(update, rules)
+        workdone = 0
+        loop do
+            # p update
+            (0..update.size-1).each { | idx |
+                l = update[idx]
+                r = update[idx+1]
+                next if rules.include? [l,r]
+                if rules.include? [r,l] then
+                    update[idx] = r
+                    update[idx+1] = l
+                    workdone = 1
+                end
+                }
+                break if valid? update, rules
+            end
+        update
+    end
+
+    validated = invalid.map{ |update| sort(update, rules) }
+
+    part2 = score(validated, rules)
+    [part1, part2]
+    ```
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j6f41/
@@ -284,31 +326,76 @@
   :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jm95n/
-  :body: "Part 2 took me quite some time before realizing a sort would work.\n\n```ruby\npreface,
-    body = input.split(\"\\n\\n\")\nrules = preface.lines.each_with_object(Set.new)
-    { |l,a|\n    a << l.strip.split(\"|\").map(&:to_i)\n    a\n}\nupdates = body.lines.map
-    { |l|\n    update = l.strip.split(\",\").map(&:to_i)\n}\n\ndef valid?(update,rules)\n
-    \       update.each_cons(2).map { |curr, nxt|\n            rules.include? [curr,nxt]\n
-    \       }.all?\nend\n\ndef score(updates, rules)\n    updates.map { |update|\n
-    \       if valid?(update,rules) then\n            update[(update.size-1)/2].to_i\n
-    \       else\n            0\n        end\n    }.sum\nend\n\npart1 = score(updates,rules)\n\ninvalid
-    = updates.filter { |update| \n    !valid?(update,rules)\n}\n\n# Considering the
-    rules are a complete set of a|b combinations  \n# If a|b is not a rule a must
-    be after b\n\nvalidated = invalid.map { |i| i.sort {| a, b | if rules.include?([a,b])
-    then -1 else 1 end }}\n\npart2 = score(validated, rules)\n[part1, part2]\n```"
+  :body: |-
+    Part 2 took me quite some time before realizing a sort would work.
+
+    ```ruby
+    preface, body = input.split("\n\n")
+    rules = preface.lines.each_with_object(Set.new) { |l,a|
+        a << l.strip.split("|").map(&:to_i)
+        a
+    }
+    updates = body.lines.map { |l|
+        update = l.strip.split(",").map(&:to_i)
+    }
+
+    def valid?(update,rules)
+            update.each_cons(2).map { |curr, nxt|
+                rules.include? [curr,nxt]
+            }.all?
+    end
+
+    def score(updates, rules)
+        updates.map { |update|
+            if valid?(update,rules) then
+                update[(update.size-1)/2].to_i
+            else
+                0
+            end
+        }.sum
+    end
+
+    part1 = score(updates,rules)
+
+    invalid = updates.filter { |update|
+        !valid?(update,rules)
+    }
+
+    # Considering the rules are a complete set of a|b combinations
+    # If a|b is not a rule a must be after b
+
+    validated = invalid.map { |i| i.sort {| a, b | if rules.include?([a,b]) then -1 else 1 end }}
+
+    part2 = score(validated, rules)
+    [part1, part2]
+    ```
   :replies: []
 - :author: fredster231
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jploy/
-  :body: "```ruby\nrules, updates = File.readlines('005.input')\n  .map { _1.strip
-    }\n  .reject { _1.empty? }\n  .partition { _1.include? '|' }\n  .map { |list|
-    list.map { _1.split(/\\D/).map(&:to_i) } }\n\ncorrect, incorrect = updates\n  .partition
-    { |u| !rules.any? { u.include?(_1) && u.include?(_2) && u.index(_1) >= u.index(_2)
-    } }\n\n# Part 1\np correct.sum { _1[_1.size/2] }\n\n# Part 2\np incorrect\n  .map
-    { |pages|\n    # Filtering the list of rules once and then iterating over that
-    list pairwise is quite a lot\n    # faster than iterating over the list every
-    pair, for the relevant sizes of the lists: rules, update.\n    relevant_rules
-    = rules.filter { |r| r.all? { pages.include?(_1) } } \n    pages.sort { relevant_rules.include?([_1,
-    _2]) ? -1 : 0 }\n  }\n  .sum { _1[_1.size/2] }\n```"
+  :body: |-
+    ```ruby
+    rules, updates = File.readlines('005.input')
+      .map { _1.strip }
+      .reject { _1.empty? }
+      .partition { _1.include? '|' }
+      .map { |list| list.map { _1.split(/\D/).map(&:to_i) } }
+
+    correct, incorrect = updates
+      .partition { |u| !rules.any? { u.include?(_1) && u.include?(_2) && u.index(_1) >= u.index(_2) } }
+
+    # Part 1
+    p correct.sum { _1[_1.size/2] }
+
+    # Part 2
+    p incorrect
+      .map { |pages|
+        # Filtering the list of rules once and then iterating over that list pairwise is quite a lot
+        # faster than iterating over the list every pair, for the relevant sizes of the lists: rules, update.
+        relevant_rules = rules.filter { |r| r.all? { pages.include?(_1) } }
+        pages.sort { relevant_rules.include?([_1, _2]) ? -1 : 0 }
+      }
+      .sum { _1[_1.size/2] }
+    ```
   :replies: []
 - :author: clonewolf
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kh6du/
