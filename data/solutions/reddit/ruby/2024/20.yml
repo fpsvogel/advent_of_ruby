@@ -1,0 +1,113 @@
+---
+- :author: eggselent_folk
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32h60h/
+  :body: |-
+    Part 1
+
+    1. Using Dijkstra to first calculate the one and only path. [Code](https://topaz.github.io/paste/#XQAAAQCSCgAAAAAAAAAxm8rOIKvf+s1X+3/ql1GvzcY8rsOBAxCz+TAXgKsPEu51khhgDYTz4Llygtm1vimuA/IDTRWggRLpes53OkLP1HeqVGACgl0l26fPxNUsDt9hlpWQ1yeSi8FvpqSw1VK5fug/l6bgl48NS/GIzyYIOJzm8gDIXpI1QKqhfY0uK83Qwt4odKyRthkWpy9l8Hh9wq/eO+BrurbMRgvNLqxbcWW9xoBxxsYgnyVFjek6GUu8EqHH2Nc05/pKHlGQ8vKv3q7dCIm+8M72Gz/LFfPnjroJJtuHAEcgytypULcWbQcuyqtk/ymqRlyovykD/FvYKcy10V/3hNTJV/caQN45Hc/CXCmGePAHtnkivA8ILK2bL87acOx2bMZKZlDwTvZ4FkD41GUDt/SDbMPSFMTBeZC5bhZshWCSxCL7qaBPRDxjTfqace+7QdeEUQnwSCh/ePpMkq3/i1SCYys4dQ8smkjOT1hLIzfAzOJE4wYR5EM/jK9efAQJhXSG5FllWjPEfHmDeR7Xyduvf6ggXSQnkJN1cvgzseFGOUnyYvWC5/kBqP3uJiz+qspgLh/oMDPe9ESWuup+gD2XAA4MFIH0ChZcKD2kUddYzJ1s/T25i76HqHOrpQhorH0ioxhWtVpLwprtGbziNTGxC8+l9fJNBFSXIEvRPjmHeTTyhB25yqExvXedeVZVdv9WWDCjAm80Kc6LoHVHWO7DRLmUtimlqJ1WdVz3fIKf2CGDVgCZAqpF5lviIgigQylvQMDylUZPoF3Jf3jZfxKOdQozDfTqQFhd3NKFNtRYUvPNIHHKqbK8e2l7GJkT51BQkvBTvE26msWIpZe5VxbLLU1+Gvlwxgq+PBMRsMnlN21oaLWDvTwisieIqrPQ/v1OF+MNMeorQzcpWouWF71KEg65etZT7pXQKry0quKBywgzESFsaIGfjcBsCu7fTxQaq9aDbQRybxHuMW12cskMYF4pzM27CiQDQsHTUOev1KC7IJemw6yeXUG3q+ohS/yskSx/YiV3V1dC6MEMekjt3FHZeb35DT0LGwAK7sy5clNDjk08AWtZP/UjHKaYfb4FN2KeP7X3P9fYsNgylD5bwfwb/GhSDjLMp2xRfxzRzWTBuCo3z+1XGWQcHq9Xg8UdK47VFqPqIwr87/x9)
+    2. Get the length of the path.
+    3. Then, remove walls one by one while recalculating the shortest length of the path. This runs very slowly.
+    4. Filter out potential cheats based on the amount that can be saved (100).
+
+    Part 2
+
+    [Code](https://topaz.github.io/paste/#XQAAAQBXAQAAAAAAAAA5GUqKNoFH6SKufxdCrLeXzl/r7oI8pLzRkk/8AoN8YnvSd31COCWMyZcSjsBDPIkRMvGZwuxEW9fg/fLEewfbjWRugkJ/XpRB3W0CvdMcmNF7D92Ew8uKsGoYZ3qq0WMw7uEy5FkbhhOWRGef2kVYMUqO5M/CP5PKxX2dHEC9zU7O5TWImcIZqeOFyENXAiyTovXlsZxvt5ACNLGKu9+cm4Vliq31TWnqG6I/lipcO3xWRpMwUoBLLV1/fX3I66vGdpG82Gqz0FFEwLjolZj+70QerIP//j5VGQ==)
+
+    I tried a similar approach to Part 1, but it was really slow. Then I realized there’s no need to keep running Dijkstra since there’s only one path. Instead, we can just use the path we already have: the savings come from how many grid cells along the path we can skip minus how many we pass by 'cheating' through the wall.
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32dmpd/
+  :body: |-
+    [Day 20 git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day20/day20.rb)
+
+    Part 1 was okay, I solved it using a single bfs search, and then iterate through all the "#" and did some math to calculate, since you know that a "#" has to connect two "." so you just calculate off those two "."
+
+    Part 2, I brute forced with it bfs for each node along the path. Took about 30s. I did try to optimize with caching, but whatever it is I was trying to cache wasn't working. Another idea came along, which could probably work, but it's a bit too much work to redo, something to with shifting the nodes calculated after the 20th iteration, since im traversing along the known path.
+
+    Edit: implemented manhattan distance instead. Learned something today.
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m31r0rz/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQBSBQAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8fKlEL/CNiVvHcK3eo2f1wG2uFy9c4gJqYPLUFmRQObk0r1ctDG23Tm34gRt6y0eQyY1K3b+i262JFsBcUTwua3DLm6KSkqYEXQeJcnMzX2GiPxLyHJWGSpd1fxuDnJy73MlIlL5A6O9r7sUJc74tEcDpuOSFvnIDUAJroBJOl4///H6DVYUL4ZAWQeDifCTkpGd48wf1XWh8OaloKZi3EBui3TYbf2XczZyUTJ0gCrwy+Vh0acUQfuSoTFGJySKo455BdcpopJKl1y3juBmP7oTORtH9I+4Yc9FW6x16Zu2xxSRUQlgzbf1x9qA59hab7ZSSFhgnpgKR6yEueMsduCcaTE1MrEBvThUWafam677wcu+jaQ0J84QspD7caKAlferv+Cj6YKtb/tS78hON9X62Q3+NBEhKbWgkmSs1PcSSmSWgs42iMkoOr9LXiNfqHCdow+xffrKvSWd3WUHN5tOBn2/PX1R+2MMcMD4wUHU+1P6f5hal6aCciijFQ0qntvI31170SCUg5hBWTqE6dsM1/zVWkIBB/gbB70aKBu3Qy2Agvif5WFB9bkR0kjjnpR6QbiR4KCh90LFncnJON33o5rLoSRAJoAX7OxByKGSgzusOC1JU9xhRYzPFiLQHTI4k/ZRdX6QWrS/VNyt489cJmMbQ6EZXS2aSNxDtXZ0Pm1aQYcpSQwVxg9KYOECireQAH48ATQOjXOAcdn2yBJMFPtw0yGLODKhKxBj/RCss1ZFRDrLxOdeuQTyEAlkxA3LEvUBMmyXOIiv09YUM/5OhmCMOYedljBc2+9RK4+e/rLITQNz/vHkIsQ==)
+
+    I really don't think today's problem description was very good. Part 1 was clear but I just didn't read carefully. Part 2 sure felt a bit underspecified
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2yun6p/
+  :body: |-
+    ```ruby
+    start, target, map = nil, nil, Set.new
+
+    File.readlines("input.txt").each_with_index do |l, y|
+        l.chars.each.with_index do |c, x|
+          p = Complex(x,y)
+          map << p unless c == ?#
+          start = p if c == ?S
+          target = p if c == ?E
+        end
+    end
+
+    DIRS = [1+0i, 0-1i, -1+0i, 0+1i]
+    @dist = {}
+
+    @dist[target] = 0
+    queue = [target]
+    visited = Set.new
+
+    until queue.empty?
+        node = queue.pop
+        visited << node
+        DIRS.map{ node + _1 }
+            .filter{ map.include?(_1) && !visited.include?(_1)}
+            .each{ |pos| @dist[pos] = @dist[node] + 1; queue << pos }
+    end
+
+    def manhattan(a, b) = (a.real-b.real).abs + (a.imag-b.imag).abs
+
+    def count(cheatsize) =
+        @dist.keys.combination(2)
+             .filter{ |a,b| manhattan(a,b) <= cheatsize }
+             .count{ |a,b| @dist[b] - @dist[a] >= manhattan(a,b) + 100 }
+
+    puts count(2), count(20)
+    ```
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2ycfqu/
+  :body: |-
+    Advent of the Grid! Quick bfs to get the shortest path. It wasn't immediately obvious to me that there was only one path through, so I wasted time trying to tweak my bfs at first. My find\_path function returns a hash of all the points on the grid and their step counts. For part 1, I went to every point and checked if 1 or 2 steps in any direction would let me short circuit the path. For part 2, this was slow, but worked just changing it to 20 steps in any direction. I cut part 2 down from 7 seconds to 4 by instead testing every point in the grid with every later point to see if it was less than the cheat distance away from the first point. This technique slowed down part 1 quite a bit. I'm curious if anyone found faster solutions.
+
+    ```ruby
+    maxCheat = 20
+      stepCnt = find_path()
+      points = stepCnt.keys.to_set
+      stepCnt.to_a.sum { |pos1, step1|
+        points.delete(pos1).count { |pos2|
+          cheat = (pos2[0] - pos1[0]).abs + (pos2[1] - pos1[1]).abs
+          next if cheat > maxCheat
+          stepCnt[pos2] - (step1 + cheat) >= 100
+        }
+      }
+    ```
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/20/solution.rb)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zkao9/
+  :body: |-
+    Not too bad today, I was surprised that my lazy solution for part 2 worked in a reasonable time. I made a mistake at the start and assumed that there was a third move needed to get you back onto the track and was overcomplicating it, but turned out not to be an issue anyway. Solution is to run dijkstra, then with the known set of visited paths, for each one, see if it is N steps away (through walls) from another visited point on the path who's distance from the start is longer. For part 1 N = 2, for part 2, N = 20. I use a dump 40x40 grid in the second part centered on the point of interst and then calculate all the points that have a manhatten distance of 20 or less as candidates.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/20](https://github.com/careyi3/aoc_2024/tree/master/solutions/20)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zvmsc/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day20.rb)"
+  :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2z9o0z/
+  :body: |-
+    For part1 the brute force solution (doing a BFS for every possible cheat pair from the start and the end) correctly finished before I wrote the faster solution for both parts. But it was clear that part2 would take ages.
+
+    In the end the result takes 11s for both parts on my machine: [code](https://github.com/mpcjanssen/aoc-python/blob/master/2024/20/solution.rb)
+  :replies: []

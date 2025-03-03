@@ -30,7 +30,7 @@ module Arb
           "you implement the solution. When the spec passes, your solution will " \
           "be run with the real input and you'll be prompted to submit your solution."
       end
-    rescue AppError => e
+    rescue InputError => e
       puts Pastel.new.red(e.message)
     end
   end

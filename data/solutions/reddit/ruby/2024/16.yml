@@ -1,0 +1,28 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hfboft/2024_day_16_solutions/m2kuqgw/
+  :body: |-
+    Didn't have much time to work on this yesterday. Pretty much just a straight-shoot A\* but finding a priority queue gem with all the needed functionality took a while (still learning the language). show\_path is for debugging only.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQD7CgAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcHDkxoKCi/QicVvXncjAUUoxkur5sqQIbSDx0EVfweW3ZBi4EtB90UU2lVihnGKgad/aNndLI1/96SSzT9/XIkQE9bEwoDE+cjtfansHNQsT0mbhdU/+I8GNDOKAX2/S+NgzD7SAYOeVot2EAjLeg4Xeax1wTLHCxhcYPx8TtwpF+UQPBHw2B6299QQ6vja1sg+rJfvLRnkvgfis5melbecWtAig6a5sVjU7m6E4LzFVLevGnL1ptUPGUQQ4WPg0t6c5y9qYr4t/IVg9FR2wqBNE8w4Xp2YwQ5zzTV2/CgnFDO+piJ4ohxbn8JnR1H8hQL5ecYDonEEb1mtdoErmdy6zEoPSU9qDC7Uj06FCV13yo9U+9kY3pdb2vbzCHqHuSEn2ypELHY63vkNCbA7yKsg+y4DjIlxmJhfOJWCTYne/SYUS9Qu0P9tMg3fDYjUlnkw2mf/4aPdejIpn3iFw70/VlvhTYr5NY+zqKGOD2Hdmivi1gHmvh39aq/2ElQyRz7ZvY/uHeqmAvTN+moGbxGYj2YbivaCNYf1lfvBuI69CwNUhylms5lS9fX+ibXNBbreme3E3QliDtI9EI1nrXFE8OFzfkxnBpdA7IvpzG1PUof0nhImSBH+pr4r9AVjSH2U7KiWhaXia5+Ds+el6z3LFMNLx4/mkAvOG849gzkkhI/p5THN0T+ZvMQ8CHR8WnOrejtM5v1bG+gcW0W0voT/Lnfr4DKsyQ2bvcgaRyDlyGXTRjSVZ/7PJSQ6lTvgsekNx1dAg26fzRRRpoBYMrIE8tjntQIXqL+wdwIfrwnLJniGztyWwdd5xX3aqQ9VQu3P7PdS9x+/sSTtDUaqBXgbVXJCUTWkJrvfYPsTuN4JuOCjO09ORJLYjbM3pinvlaKdvMKj5g2Bri9+9kYa4KyLACCjblk6oJfJCixO4WhyZNP9xmHprNhvsmMMiyissGJb684XMSprZp/L6kYZ2eCno3aydx5MI3gLnS8R/BhXzpflUNHvGLC6NPQHFC1A2sYFGpgW3APfC9JBlxGlNpsoBMLY7UZGiPzZfP0uubBIIPV1UYPLt2Af+AxGIaEODLBHxeGoam8habktqeTYl3NhBFcKprdM16hx1jP9ElOXdOUDzmk1ld9J5n6K2yvvZySmYaJZu2znrInEvjfopjPzG5oQai55agyJoHh+4d6whHQfcLdCPO0fRrIkeadv9To75aRXj7hIoEGG3Z+Ui7lXnnUXQUvIewNJHKCkiFyKgS0MhLgP9hkAWYvH3PByoX0uAeD/Di7KKYO3p/aW2b0mB44m+uqTr1TSmN4c3BLfuV5FqmqKAfgSEFKAWsDo3P4K25YhNe4TC0tBDIn/+8EdO)
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hfboft/2024_day_16_solutions/m2fcks7/
+  :body: |-
+    [Day 16](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day16/day16.rb)
+
+    Struggled alot today actually, with part 1. I recognized that it was Djistrka but I didn't understand that each direction for each node matter as well.
+
+    For Part 2 I didn't quite understand what they meant by best path, but after a while I got it, and it became clear we could do a dfs after we know the final score, the idea is there can be multiple path that leads to the end point with the same score. We want to find all those path, so it became a relatively straight forward dfs to find the path. Then you can store the chain in a set, which would give you a unique count at the end.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hfboft/2024_day_16_solutions/m2d2o8k/
+  :body: |-
+    Super messy, implemented Dijkstra, then used the info from this to rewalk the graph pruning for paths the exceep the shortest path to each node. Works, but not pretty!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/16](https://github.com/careyi3/aoc_2024/tree/master/solutions/16)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hfboft/2024_day_16_solutions/m2c4bi8/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day16.rb)"
+  :replies: []

@@ -8,9 +8,9 @@ require "pastel"
 require "reverse_markdown"
 require "rspec/core"
 
-class AppError < StandardError; end
-class InputError < AppError; end
-class ConfigError < AppError; end
+module Arb
+  InputError = Class.new(StandardError)
+end
 
 PASTEL = Pastel.new
 

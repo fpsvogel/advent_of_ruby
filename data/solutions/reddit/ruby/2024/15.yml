@@ -1,0 +1,39 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hele8m/2024_day_15_solutions/m28qx6c/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQCTDwAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8fKlEL/C49oYSKRg6kqFigCWb/16n+qCCjbP0ro+FJ5Lds084T3zBc6WcbkVlzWed3N6KtpvKaegCunJV8PM0gPtPpMyqCFRqRG829y5sW84lHf6woq6lGRggpQyqR7GtmLGaPMMY2BfleWpgpEm1HehYyjrmilBo/w/R+WezfouXB0TNNU1kP96i35zUeTHQbIPC8LikUpClkoA0K0fyiHTaY50HOGOb0GF4HgcCtxyh+HZH/HjFPjZOooy8IMOSaSor4dxQGsMNj5+zyUhqSqMndNhvIFm6VhtpkWIwAXSUBhlhz+GGp9pBDlFIOwmJ4dG0Z0vZ052IDprrvXxMEZfPDTBi0YQNNXwjgaFbp0YV+nJE01p6+6E6ouZVVwPfENnpQ/s4SQvFUy9UtsDHIax2xVu1kC4z++FnjSiKBF7yoR1cGjM/BBgXAS+mDoTOBPM+IGuMf8FEChkj3s/klR6Rmq9SfA+GXHymPtePyM8CQWJ3P0+RqmPKwNilieD7nmHgYcoAk63dDvN/12gan6NF+n4j8SQH77hBbmPa495jy3FG0ZuXVf/ti15gvzxQtXUfOsXfUAQFXwgFDZiwN1+fG5Qs7HWRCMAhmN1FlluDk0rwSgiYZO5o/K+S93Y8kmpv4OyfGivuYUiwP/PF+YeUMJFPR8WVT0sHESeKriG78MOOhYN/DKvMK7Ev+68IXsMHf4IavaQKetmm/Ol0VNWaz2mn3ejAVCPQcVnrfEQKFW0o+zlVOtBu2qv05dqpQxpU776Y++8iXbWDRs7Aotg0FU2TLIPhkybf6VnWpYKMmGK2l1LU7Ip/hMGZ7gvJKqYS2RcHo4Fj2O/F7BTP7Ke+JGatcs8lSZ+YtP4YX9rkIbKqeo2kdn/4S+Hw16RBmkE0q3p/Ww93JGmNbYa18XminY40lisb5OP3ZF42BYAJomWUIj/1qQfrM9T70Veju3/bInk4wxmRN1GLBYUObx5SZ/RCRSNwINfUpEnEU4ZmsML8eSHiYzoy9xwWjFTOCmNYw1dAKjhGrzCj8Yh+lCw3SYT7p8JFVw0YlT2uKBQE5b+rUnHpWKr4A3wGRW92ycqFzunDlKtXKUPDQxcH8JukIVks3P01tYqJqn9YPesFaPjf2SXQ3A5cJTZKjHr/DCLhF6Fg45bklpG6uY09yTL3XZ0bKmz6qDCzs4LvgMZyqLc4XWgofyfJI1EvgQgVHP7LW0oRZ7yskMWxlbuzhza7N/gCiW7ZN51J6B3wHF06LRSdof//eZDSmiJVL7Chu4dZJ+uLiIUZHEwP+4xXQpZFJbE7jKQpIPv7cO8Z95Fj0ygFHrS24c+KoJqWFcps0jbx+sJX8AhIZ4w6iBQT7IHOQ6SX1ifet5izobBHGJxCpNS5uqzk2MK5+8MGp/7FCJbQCD7R2t/jJg1Ifo+0dzDYxLwKhMjFP+jCfJIZ1E2kotRRd5kxYefiAUPqV+j0kgzI6iL/iB6PVBLFqC6T0gF5x/jmqeBOLOggncddkFERNBlOOS5ml/tyJl10irhFcmt+iv5AVlkVyL62ULAH60KmcTrWrJll4TZ2cIN0DugFaOtHL+TE8pJ/UoERX0eUfqPhWkuJ16MmmO8pkkviYICpvZK6753+eWen)
+
+    I hate debugging recursion so I didn't do that. Part 2 horizontal movement is pretty close to part 1. For part 2 vertical movement I deployed the ol' "implement how you would solve this manually strategy" and it worked very well with minimal debugging needed. A quick BFS to get all the boxes that will be shuffled (this also checks whether there is any wall blocking them) and then simply shift the boxes up/down. Ended up accidentally breaking the logic when I was refactoring tho, silly me
+
+    This was my 250th stars all events together! I will probably put a pause on the remaining 10 days until the new year and just enjoy my travel now
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hele8m/2024_day_15_solutions/m27vmxb/
+  :body: |-
+    [day15 ruby](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day15/day15.rb)
+
+    Not proud of what i wrote cuz it's alot, but part 2 is almost the same as part1, only really needed a special looping condition for the up and downs since overlapping between 2 indices is only possible there, while left and right movement is irrelevant since we can treat [, and] the same as O in horizontal movement
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hele8m/2024_day_15_solutions/m27hdah/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day15.rb)"
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hele8m/2024_day_15_solutions/m24tmi4/
+  :body: |-
+    1385/1756
+
+    The logic for part 2 came to me immediately, but I probably burned 20 minutes on part 2 scoring because I misinterpreted it as edge of the box to the closest edge of the map.
+
+    [Github](https://github.com/phene/advent-of-code/blob/main/2024/15/15.rb)
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1hele8m/2024_day_15_solutions/m257pq6/
+  :body: |-
+    (1843/4158)
+
+    Code I got the stars with: [[GitHub]](https://github.com/Sharparam/advent-of-code/blob/39369be3fab24d4ed959c73e5d90fbdbf830fcc9/src/2024/15/solve.rb)
+
+    Current improved code: [[GitHub]](https://github.com/Sharparam/advent-of-code/blob/main/src/2024/15/solve.rb) (After looking at a friend's solution and improving mine based on that.)
+  :replies: []

@@ -1,0 +1,146 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3dig7t/
+  :body: |-
+    Really overcomplicated this on my first attempt and wrote something that took 20s. Significantly refactored and this runs in about 1s which is just fine by me for AoC purposes.
+
+    ```ruby
+    require 'set'
+
+    seeds = File.readlines('input22.txt', chomp: true).map(&:to_i)
+    sales = Hash.new(0)
+    secret_sum = 0
+
+    def next_secret(secret)
+      secret = (secret ^ (secret << 6)) & 0xFFFFFF
+      secret = (secret ^ (secret >> 5)) & 0xFFFFFF
+      (secret ^ (secret << 11)) & 0xFFFFFF
+    end
+
+    seeds.each do |seed|
+      seen = Set.new
+      diffs = 0
+
+      4.times do
+        old_price = seed % 10
+        seed = next_secret(seed)
+        new_price = seed % 10
+        # adjust range from (-9, 9) to (0, 18)
+        diffs = (diffs << 5) + (new_price - old_price + 9)
+      end
+
+      seen << diffs
+      sales[diffs] += seed % 10
+
+      1996.times do
+        old_price = seed % 10
+        seed = next_secret(seed)
+        new_price = seed % 10
+
+        # take lowest 15 bits
+        diffs = ((diffs & 0x7FFF) << 5) + (new_price - old_price + 9)
+        sales[diffs] += new_price unless seen.include?(diffs)
+        seen << diffs
+      end
+      secret_sum += seed
+    end
+
+    puts secret_sum
+    puts sales.values.max
+    ```
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3c9pg4/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day22.rb)"
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a99nb/
+  :body: |-
+    Busy weekend, didn't get day 21 done yet, but happy this one wasn't too bad. For part 2 I generated a hash of all sequences I encountered and stored the values found. Then I summed the matching sequences across each start number, the largest value in the end was the correct answer. Fairly slow, but not optimised at all, can deffinately make it faster. Runs in about 5 seconds for me.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/22](https://github.com/careyi3/aoc_2024/tree/master/solutions/22)
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a2wy5/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day22/day22.rb)
+
+    straight forward solution for part 1, just plugging into the formula
+
+    Part 2, I used an inner set to mark sequences I already seen for a number, and it gets processed into a frequency table, which accumulates the price, then it's a simple sort, and pick the last one. There was one mistake I made, and it was that I choose the maximal value a particular sequence is worth for a number, cuz I figure that is the best way to min max, but it turns out the monkey only picks a sequence the first time it appears.
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m38ylua/
+  :body: |-
+    (1352/1270)
+
+    [[GitHub]](https://github.com/Sharparam/advent-of-code/blob/main/src/2024/22/solve.rb)
+
+    Completes both parts in around 43 seconds on my machine, pure brute force. With how easy today was it makes me shiver in fear for the coming two final days before day 25…
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39lq9x/
+  :body: |-
+    ```ruby
+    input = File.readlines("input.txt").map(&:to_i)
+
+    def nextnum(n)
+       n = (n << 6 ^ n) & 0xFFFFFF
+       n = (n >> 5 ^ n) & 0xFFFFFF
+           (n << 11 ^ n) & 0xFFFFFF
+    end
+
+    def rand(n, times) = (times.times { n = nextnum(n) }; n)
+
+    def prices(n)
+        price, diff,last = [], [], 0
+
+        2000.times do
+            price << v = n % 10
+            diff << v - last
+            last = v
+            n = nextnum(n)
+        end
+        res = {}
+        diff[1..].each_cons(4).with_index.each do |seq, ix|
+            res[seq] ||= price[ix+4]
+        end
+        res.default_proc = proc {0}
+        res
+    end
+
+    p input.sum{ rand(_1, 2000) }
+
+    maps = input.map{ prices(_1) }
+    seqs = maps.map(&:keys).inject(&:concat).uniq
+
+    p seqs.map{ |s| maps.sum{ _1[s] }}.max
+    ```
+  :replies: []
+- :author: birblett
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m390b32/
+  :body: |-
+    ```ruby
+    puts (seq = {}) && File.read("in.txt").split(/\n/).map(&:to_i).sum { |cu, h = {}, last4 = 1048575|
+      2000.times {
+        i = ((i = ((i = (cu << 6 ^ cu) & 16777215) >> 5 ^ i) & 16777215) << 11 ^ i) & 16777215
+        key = (key = (price = i % 10) - cu % 10) < 0 ? 16 | key.abs : key
+        last4 = ((last4 << 5) + key) & 1048575
+        cu = _1 < 3 || h[last4] ? i : (seq[last4] = seq.fetch(last4, 0) + price) && (h[last4] = i)
+      } && cu
+    }, seq.max_by { _2 }[1]
+    ```
+
+    just use the last 4 prices as a key to sum up the results of each individual sequence. used some funky bitwise stuff during key generation to save the overhead of passing entire arrays around as keys. runs in about ~1s on my machine (using truffleruby).
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39a4gv/
+  :body: |-
+    [LANGUAGE: Go]
+
+    Implementing in both languages in order to get more familiar with Go.
+
+    Simple iteration over all possible sequences in the sets of sequences and find the one with the best score. Memoization is pretty important here.
+
+    [Ruby](https://github.com/phene/advent-of-code/blob/main/2024/22/22.rb) in 49s and [Go](https://github.com/phene/advent-of-code/blob/main/2024/22/22.go) in 11s.
+  :replies: []

@@ -1,0 +1,135 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2qz0ir/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQB8CgAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcHDkxoKCi/QicVvXncjAUUpHr5KdZkGS65g6AjDBWjmhQNW8xAK3HDD/WikKVUN9CVUuws2wjHNA0gkOrWaunxXGb7F1LN9Mh5X9aKBT4gCSnSL/LmXJUgDHwUcfjeObrm2HC08TifVBY73P2y27+qwFuy6xAQ/tz7dRDfaVpEhcD4AHNF4ZUVHwWIdkktDYSaE7FBpJYg+AfLUIvuJWQ0pRnoqiVZOSuI0xVbxkVLx1meM5iFpbtAgDgsd/Wk3hR4hwGsneHCBb8lHVFXNp5a0wAZ8HxfRipV7xQRw5jHk+LR+3Nyzo+9Ted5oin5K56cB7jRG7vVDt48avyH0rv1rREnsmCv+rLj92PrYmAitWZRwZezqvW1fpLvCXTFMdh+z853tmJmf1pm7vHBs72GAPTtQ0whmls3GVjoA5eXUsr98DOZttwNUVG/WquEOVWILYFTpI8zz2/lkYK+FzljmDLbLsDvnVeGqQtnBp69KsW6nNfnHCKstApuJv1wOm3oytOhQiAlNzPOixIfFvU9ekkVE0ioYca/f21MNhtRYD+TQbBT5iWFS33Sf4m7wn6RNmO6PGFbebSSHWPRiqgQssHvF7a4OQGPn2oYSbtfur4DRukbf5XoXyGxdAAc/JfTWpWnPLnlKwMYJBdrMQdbV3WmKkVvSA/vEwPLrGJvGzsdwkVvhes2dPC5aprhZ1CP2nHOsngFOzNAJUJF1XqcfIbgEwbhOphCvB21DMRnOplX5bsRJtjG0EOIPfxaMYa+iGj8IYgEii5hJzTD5N4/Tm7yhhMgJ7vsAahBrD3PkE0I4I6tPDFdFooM0HxiUReVgOIjrNNDn0h4+Pw5Y0aZ0X4y+nrGCLEgradBwAEKtw6wM7i8EYB5yLbKhi0SWnfTV9BMU2R4VxWWK2Iz6dVA8Gaah01q0szgu+jK2cqCG/XPS+Fg4QY+S2SnFBE8jmiXWbQ7qiRCKkoL3V5qtBytNTmadie3EJ4WzvE2iqZ4f/iY1etPI0/+CP7Dfmq2/muNX0c0a3QM/CnuEaxqcbr6N1birgg3FgEvTw94cU094rpJ0D79u4XM6IZ3Qpiw+otDtvVB0fw7NojydwFVk+kJcBE4IecieHCHfX7mkKWHjNxztLpXm1KzqaHMpg3udDyzxe2ltIkXQQWiCqMuc886HNGZcE/oea2gdjMFxKtClaqha2lDfRIdMtLZK/lET3SDlkSZoFjvnGDZ8hAmlFVgJ+C8IBtoasCWkkvO1Isb4In1cs1ohN8Qo2CCq7RmCJaW/SmK83iOr00COiVIXBW2LSpGjfJpPqHpUEeaPD8tcFjgaLAO1mIXQI3gQm7Z3R6fn+Cu7eQkh9fTb/WGN9kZvyAAUnLP+NgyHhMlLO+o8NUVcYemP3oMz2Zn3MSIJ/i6n//BXjMA==)
+
+    Just reuse day 16 A\* implementation with a binary search for part 2
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2pkmwq/
+  :body: |-
+    I thought part 2 was gonna be about making the run while the bytes were falling down (or was it? I'm not sure), so I made a search that allowed stepping on a cell before a byte potentially lands on it. Turns out that wasn't necessary, but at least I could solve part 2 only by adding a few lines without changing any existing lines:
+
+    ```ruby
+    # Part 1
+    grid = make_grid(input.take(WAIT))
+    p find_path(grid, WAIT)
+
+    # Part 2
+    puts input.drop(WAIT).find.with_index { |(x,y),i|
+      grid[y][x] = i+WAIT
+      !find_path(grid, i+WAIT+1)
+    }&.join(",")
+    ```
+
+    The whole thing here: [https://github.com/daniero/code-challenges/blob/master/aoc2024/ruby/18.rb](https://github.com/daniero/code-challenges/blob/master/aoc2024/ruby/18.rb)
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2p22rz/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day18/day18.rb)
+
+    Part 1 djikstra algo. It is literally the same solution I used for day 16, except the scoring is different.
+
+    Part 2 reuses the djikstra algorithmn above, and brute f-, nah I am just playing, you can optimize it. Basically when you do djikstra's algo, you can also determine the shortest path that was taken, and store them in a set, and as you iterate through your test data, if the indices don't interfere with your current known path, then you can skip it, and move on to the next until you find one that does. Then simply recalculate and repeat, until you get a measurement where the final node is infinity meaning you never reached it.
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2mbzzn/
+  :body: |-
+    Reused my dijkstra from day 16. And part 2 was a simple binary search.
+
+    ```ruby
+    def part_2
+      min, max = 1024, data.size
+      byteCnt = loop do
+        mid = (max + min)/2
+        if (find_path(data[0...mid].to_set) == nil)
+          max = mid
+        else
+          min = mid
+        end
+        break min + 1 if max - min <= 1
+      end
+      "#{data[byteCnt-1][0]},#{data[byteCnt-1][1]}"
+    end
+    ```
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/18/solution.rb)
+  :replies:
+  - :author: iandj1
+    :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2njxk9/
+    :body: |-
+      I had similar, but used the built-in [binary search function](https://docs.ruby-lang.org/en/master/bsearch_rdoc.html)
+
+      ```ruby
+      # part 2
+      index = (0...falling.count).bsearch do |i|
+        !calc_distances(size, start, falling[0,i+1].to_set)[finish]
+      end
+      puts falling[index].join(',')
+      ```
+    :replies:
+    - :author: globalreset
+      :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2ommf1/
+      :body: Nice! Thanks for that! I love all the ruby built-ins and didn’t realize this existed. That’s going in the toolbox.
+      :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2mtflo/
+  :body: |-
+    ```ruby
+    input = File.read("input.txt")
+                .scan(/(\d+),(\d+)/m)
+                .map{ |x, y| Complex(x.to_i, y.to_i)}
+
+    ADJ = [-1+0i, 0-1i, 1+0i, 0+1i]
+    START, TARGET = 0+0i, 70+70i
+    BOUNDS = (0..70)
+
+    def dist(walls, pos)
+        queue = [START]
+        d = Hash.new(Float::INFINITY)
+        d[START] = 0
+        until queue.empty?
+            node = queue.pop
+            ADJ.map{ |adj| node + adj }
+               .filter{ |p| BOUNDS.include?(p.real) && BOUNDS.include?(p.imag) && !walls.include?(p)}
+               .each{ |p| (d[p] = d[node]+1; queue << p) if d[node]+1 < d[p] }
+        end
+        d[TARGET]
+    end
+
+    def reachable?(walls)
+        visited = Set.new([START])
+        queue = [START]
+        until queue.empty?
+            node = queue.pop
+            return true if node == TARGET
+            ADJ.map{ |adj| node + adj }
+               .filter{ |p| BOUNDS.include?(p.real) && BOUNDS.include?(p.imag) && !walls.include?(p) && !visited.include?(p)}
+               .each{ |p| visited << p; queue << p }
+        end
+    end
+
+    puts dist(Set.new(input[0...1024]), START)
+
+    walls = Set.new(input)
+    pos = input[input.rindex{ |v| reachable?(walls.delete(v))}]
+
+    puts "#{pos.real},#{pos.imag}"
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2n1l5g/
+  :body: |-
+    Dijkstra again, and for part 2, 30 seconds worth of manual binary searching!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/18](https://github.com/careyi3/aoc_2024/tree/master/solutions/18)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hguacy/2024_day_18_solutions/m2nhy32/
+  :body: |-
+    [Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day18.rb)
+
+    Almost like everyone here, walk the grid with BFS and solved part 2 with binary search.
+  :replies: []

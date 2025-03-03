@@ -1,0 +1,194 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3t5vpl/
+  :body: |-
+    ```ruby
+    # frozen_string_literal: true
+
+    require_relative 'utils'
+
+    schematics = File.read('input25.txt').split("\n\n")
+    locks = []
+    keys = []
+
+    schematics.each do |schema|
+      grid = Grid.new(schema.split("\n").map(&:chars))
+      schema_number = 0
+      (0...grid.num_cols).each_with_index do |col, col_index|
+        # least significant three bits is first column
+        schema_number += ((grid.get_col(col).count('#') - 1) << (col_index * 3))
+      end
+      if grid[[0, 0]] == '#'
+        locks << schema_number
+      else
+        keys << schema_number
+      end
+    end
+
+    def check_match(lock, key)
+      (0...5).each do |col|
+        # deal with trailing zero bits by lshift 5 the same amount
+        return 0 if ((lock & (0b111 << (col * 3))) + (key & (0b111 << (col * 3)))) > (5 << (col * 3))
+      end
+      1
+    end
+
+    puts locks.product(keys).map { |lock, key| check_match(lock, key) }.sum
+    ```
+
+    No part 2 because I still need to analyze day 24 part 2 haha
+
+    [Full repo](https://github.com/Casper-Guo/AoC-Language-Exploration)
+  :replies:
+  - :author: dhruvasagar
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3ti2an/
+    :body: |-
+      Here's my ruby solution :
+
+      ```ruby
+      def is_key?(grid) = grid[-1].all? {|c| c == '#'}
+      def is_lock?(grid) = grid[0].all? {|c| c == '#'}
+
+      def key_to_heights(key) = key.transpose.map {|l| l.reverse.rindex('#')}
+      def lock_to_pin_heights(lock) = lock.transpose.map {|l| l.rindex('#')}
+
+      def key_fits_lock(key, lock) = key.zip(lock).map(&:sum).all? {|h| h < 6}
+
+      def part1(keys, locks)
+        key_heights = keys.map {|k| key_to_heights(k)}
+        lock_pin_heights = locks.map {|l| lock_to_pin_heights(l)}
+
+        key_heights.product(lock_pin_heights).filter {|k,l| key_fits_lock(k, l)}.size
+      end
+      def part2(keys, locks) = 0
+      def tdiff(s,e) = "#{(e - s) * 1000}ms"
+
+      lines = ARGF.read.split("\n\n").map {|l| l.split("\n").map(&:chars)}
+      keys, locks = lines.partition {|l| is_key?(l)}
+      s = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      p part1 keys, locks
+      e1 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      p part2 keys, locks
+      e2 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      puts "Time taken part1: #{tdiff(s,e1)}, part2: #{tdiff(e1,e2)}, total: #{tdiff(s,e2)}"
+      ```
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qm9ez/
+  :body: |-
+    I couldn't really be bothered counting the rows and all of that, so I just lay the keys and locks on top of each other and check at for each position there is at least one `'.'`
+
+    ```ruby
+    locks, keys = File
+      .read('input25.txt')
+      .split("\n\n")
+      .map { _1.split.map(&:chars) }
+      .partition { _1[0][0] == '#' }
+
+    p locks.product(keys).count { |lock,key|
+      lock.zip(key).all? { |lock_row, key_row|
+        lock_row.zip(key_row).all? { _1.include? '.' }
+      }
+    }
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qi0nw/
+  :body: |-
+    ```ruby
+    input = File.read("input.txt").split("\n\n")
+
+    locks, keys = [], []
+    input.each do |i|
+        r = i.split("\n")
+        (r[0][0] == ?# ? locks : keys) << (0..4).to_a.map{|c| r.map{_1[c]}.count(?#) - 1}
+    end
+
+    p locks.product(keys).map{|l,k| l.zip(k).map{_1 + _2}}.count{ _1.all?{|v| v<=5}}
+    ```
+  :replies:
+  - :author: IvanOG_Ranger
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qkn3f/
+    :body: Regex is more readable than this, that's crazy
+    :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qe6ck/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day25/day25.rb)
+
+    basic for loop, with a set to eliminate duplicates. Had a bit of issue of making wrong assumptions during the parsing phase, that is invalidating all rows with "#" that are filled up. Anyway simple fix, just include those and raise the limit by 2.
+  :replies: []
+- :author: bigfunlx
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3plinf/
+  :body: |-
+    I coded it on my iPhone while waiting in the emergency room with symptoms of meningitis, for better or worse this will be my most memorable moment of AoC!
+
+    [Rubist](https://imagebin.co/images/IMG_4243.png) screenshot
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pf0js/
+  :body: |-
+    Today I will post 2 full solutions in one comment because together they still fit in half a punchcard.
+
+    ```ruby
+    p STDIN.read.split("\n\n").combination(2).count{ _2.tr('#.', '.#')[/#{_1}/] }
+    ```
+
+    * * *
+
+    ```ruby
+    l, k = STDIN.read.split("\n\n").map{ _1.split.map(&:chars).transpose }.
+      partition{ _1[0][0] == ?# }.map{ |x| x.map{ |x| x.map{ _1.count ?# } } }
+    p l.sum{ |l| k.count{ |k| l.zip(k).none?{ _1 + _2 > 7 } } }
+    ```
+
+    - Solution #1 makes no effort to optimize runtime and takes about 1.1 seconds to run on my machine.
+    - Solution #2 runs in around 0.04 seconds over a baseline of `time ruby -e ""`; I'm sure it would be faster with something a little longer than `.map(&:chars).transpose`.
+    - You may replace `.map{ |x| x.map{ |x| x.map{ _1.` with `.map{ |x| x.map{ |x| x.map{ |x| x.` if you like fractals.
+  :replies:
+  - :author: 4HbQ
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pgl7v/
+    :body: 'Solution #1 is so clever but sooo dirty. I love it!'
+    :replies:
+    - :author: Nnnes
+      :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pjpar/
+      :body: Thanks! In previous years I've abused various combinations of Regexps and `.tr` but it didn't cross my mind this year until today
+      :replies: []
+- :author: birblett
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pbi5s/
+  :body: |-
+    1023/890
+
+    merry christmas and thanks for the puzzles!
+
+    ```ruby
+    keys, locks = File.read("in.txt").split("\n\n")
+        .map { _1.split("\n").map(&:chars).transpose }
+        .reduce([[], []]) { |(k, l), q| (q[0][0] == "." ? k : l).push(q.each_with_index.sum { |arr, i| arr.count("#") << (i << 2) }) && [k, l] }
+    puts "#{locks.sum { |lock| keys.sum { (lock + _1) & 559240 > 0 ? 0 : 1 } }}"
+    ```
+
+    moderately cursed bitwise math solution...
+  :replies: []
+- :author: botimoo
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3paoro/
+  :body: |-
+    [Paste](https://pastebin.com/YWnevdb0)
+
+    Repeating the output for part 2 here as well: `Merry Christmas! Congrats on 10 years, Eric!`
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3paos8/
+    :body: "[removed]"
+    :replies: []
+- :author: mpyne
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p6e9k/
+  :body: |-
+    [Solution](https://topaz.github.io/paste/#XQAAAQBlBQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlDHZo7bAS6PU4u3JQTaPBfElS53PuuvCNKd61mUYVeaYDdAeSC2XFVeCm8Q3FHzXZwO042pLKQpW8DpUxlQZ7m2m2ucv3ZRIB5M1n/6IP9NHaGdvFYRINgn6fTKCyfLi11w2NyW7MyWtYYcFGKPVF5qgC/CR8TFMpHMaQzfZNFBWiu4p66zeIdHVzTuvJuTkwMOVJYe6sv7FgXgvhPE6YRBKHPDxxvRxHDD8nN2lKoCzoOJA2D8A2vuo5iJ3PeE980/uGwMHe+rEanQj52YTy/Ohi8w3Gz2Se2buUnbcmaZosn+tUh37yaAtAllh79qmEGzhgoKbInKWNHuE9/DzZChFLfXW0NJ2o59kDDqHVJrCpt3y7TY5seNgkRzTxooawWc26EmweWuNRbTfKqRKZTlwCf4rM49BXzR/DfDNiLUwXWZkt1skddu6R4tw7JtXUZZTd0lDkuNhPto1O99aF4fZ+KKQt0z2d02slJOURQDNRrLAPc030efst5wOzseIHbeu+FAkHDizdXuneW2B2QDEy8tNjVdJcyv5ZjQ7MiBw/zjLpLScMH6SLOdZDpqsnRI1xoe94SzffCv73eoD/).
+
+    Will probably redo it in Rust later after some sleep but not too bad for not being a competitive programmer.
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p79dr/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day25.rb)"
+  :replies: []

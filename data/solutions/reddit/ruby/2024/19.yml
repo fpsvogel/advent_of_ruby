@@ -1,0 +1,234 @@
+---
+- :author: jafuentest
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2x6w5g/
+  :body: "Filtering down the patterns really helped, specially on part 2, ex:  \n`relevant_patterns = patterns.select { |e| target.include?(e) }`\n\n[Part 1](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-1.rb), [Part 2](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-2.rb)"
+  :replies:
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m4qoaf6/
+    :body: Very impressed with your solution. Had you used it for some other problem before?
+    :replies:
+    - :author: jafuentest
+      :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m5rgbud/
+      :body: Thanks! Filtering usually works to reduce execution time when complexity is quadratic or worse
+      :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2widl9/
+  :body: |-
+    ```ruby
+    input = File.read('input19.txt').split("\n\n")
+    prefixes = input[0].strip.split(', ')
+    designs = input[1].split("\n")
+
+    $num_ways = { '' => 1 }
+    def count_possible(prefixes, design)
+      return $num_ways[design] if $num_ways.include?(design)
+
+      $num_ways[design] = prefixes.sum do |prefix|
+        design.start_with?(prefix) ? count_possible(prefixes, design[prefix.length..]) : 0
+      end
+
+      $num_ways[design]
+    end
+
+    # populate $num_ways memo
+    part2 = designs.map { |design| count_possible(prefixes, design) }.sum
+    puts designs.map { |design| $num_ways[design].zero? ? 0 : 1 }.sum
+    puts part2
+    ```
+
+    After writing separate functions for part 1 and part 2 I realized only part 2 is needed to solve both parts. This can probably go faster but the code is already so minimal I don't really see where improvements can be found
+  :replies:
+  - :author: eggselent_folk
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2wtil3/
+    :body: "I was stuck because my implementation was trying to seek through the design string back-and-forth, instead of using each towel as the start of the search. I realized the problem is I did not consider the uniqueness of some of the possible arrangements. Just realized this after reading your solution.\n\nNice and well-written. \U0001F44D"
+    :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2uyv5y/
+  :body: |-
+    [day19 git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day19/day19.rb)
+
+    part 1/part 2 both use the same dfs function to solve it, with a slight variable change.
+
+    Really easy today ngl. Basically a dfs with memoization is very viable here in that since you can consider your patterns nodes. all you have to do is identify whatever substrings is possible from your current string window (two pointer window, which always has a limit, that is the longest pattern in your collection of patterns). And you just repeat until you read the end of the string.
+
+    Then you drop in your memoization to optimize because you will be encountering repeated patterns of words and indexes.
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sv7i7/
+  :body: "golfed both parts: 143 bytes.\n\nstart\\_with? would be significantly faster but the regex match saves 6 bytes  \nIt also hits that `0` evaluates to a truthy value in ruby. otherwise the final print could've saved the extra `>0` block\n\n```ruby\nt,i=$<.read.split(\"\\n\\n\").map{_1.split(/\\n|, /)}\nm,f={},->(q){m[q]||=q==\"\"?1:t.sum{q=~/^#{_1}/?f[q[_1.size..]]:0}}\np i.count{f[_1]>0},i.sum(&f)\n```"
+  :replies: []
+- :author: Mon_Ouie
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s3zyk/
+  :body: |-
+    Nothing special about the recursive search for part 2, but part 1 was solved using the cute `Regexp.union` method.
+
+    ```ruby
+    a, b = DATA.read.split("\n\n")
+    available_patterns = a.split(", ")
+
+    desired_patterns = b.split("\n").map { |x| x.strip }
+
+    def possible?(pattern, available_patterns)
+      pattern =~ /^#{Regexp.union(*available_patterns)}+$/
+    end
+
+    CACHE = {}
+
+    def count_patterns(x, patterns)
+      if old = CACHE[x]
+        old
+      elsif x == ""
+        1
+      else
+        CACHE[x] = patterns.select { |p|
+          x.start_with?(p)
+        }.map { |p| count_patterns(x[p.size..-1], patterns) }.sum
+      end
+    end
+
+    p desired_patterns.count { |x| possible?(x, available_patterns) }
+    p desired_patterns.map { |x| count_patterns(x, available_patterns) }.sum
+
+    __END__
+    [My input here]
+    ```
+  :replies:
+  - :author: whyrememberpassword
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sa7kd/
+    :body: |-
+      yeah this (along with the equivalent python version) doesn't work on my input. here's a minimized test case that breaks your solution
+
+      ```ruby
+      b, bb, bbu, bg, bgg, bggw, br, brw, bu, bur, burw, gg, ggu, ggw, ggwg, ggwgwbrw, gr, grw, gu, guu, guw, gw, gwb, gwg, gwr, r, rb, rbu, rgw, ru, rub, rubg, ruw, rw, rwr, rww, rwww, u, ub, ubb, ubg, ugg, ugr, ur, uru, urw, urwr, uu, uuw, uuwu, uuwur, uw, uwg, uwu, w, wb, wbr, wg, wgu, wguu, wgw, wr, wrb, wrg, wru, wu, wub, wug, wurubggw, ww, wwu, www
+
+      ugguwugrwrgwruwguuwurubggwgwbrwwwubburwrburg
+      ```
+    :replies: []
+  - :author: globalreset
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sbkg8/
+    :body: Nice, that is cute!
+    :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2tfq1q/
+  :body: |-
+    ```ruby
+    t, p = File.read("input.txt").split("\n\n")
+
+    @cache = {}
+    @towels = t.scan(/([wubgr]+)/).flatten
+    designs = p.split("\n")
+
+    def count(design) =
+        @cache[design] ||= @towels.filter{ design.start_with?(_1)}.sum { |t| t == design ? 1 : count(design[t.size..]) }
+
+    counts = designs.map{count _1}
+    p counts.count{_1 > 0 }, counts.sum
+    ```
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sc76v/
+  :body: |-
+    I'm scared for tomorrow. Part 1, I started off with a simple "select all the patterns that work for the start of the current design, then check if any recursions on the substring after that pattern get us to the end of string". Part 2 was just change the .any? on that second part to .sum and adding memoization so we could complete in reasonable time. I later went back and adjusted my part 1 to use a regex trick that I learned here so hopefully I'll remember it for next time.
+
+    ```ruby
+    def part_1
+      pattern = /^#{Regexp.union(*data[0].split(", "))}+$/
+      data[2..].count { |design| design =~ pattern }
+    end
+
+    def count_paths(design, pattern, cache)
+      return 1 if design.empty?
+
+      cache[design] ||=
+        pattern.select { |p| design.start_with?(p) }
+               .sum { |p| count_paths(design[p.length..], pattern, cache) }
+    end
+
+    def part_2
+      pattern = data[0].split(", ")
+      cache = {}
+      data[2..].sum { |design| count_paths(design, pattern, cache) }
+    end
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sdi3m/
+    :body: ah I love part 1!
+    :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sco2c/
+  :body: |-
+    basic recursion and memoization. For some reason the Memoist library has decided not to work at the top level anymore, which I'm sure it did at some time, so I need to define a useless class but eh, it works and solve each part in 1s (could do both together, but I usually don't)
+
+    ```ruby
+    class C
+      extend Memoist
+      memoize def solve_easy_design(towels, design)
+        towels.sum do |towel|
+          if design == towel
+            1
+          elsif design.start_with?(towel)
+            solve_easy_design(towels, design[towel.size..])
+          else
+            0
+          end
+        end
+      end
+    end
+
+    def solve_easy(input)
+      towels, designs = input
+      c=C.new
+      solutions = designs.map do |design|
+        sol = c.solve_easy_design(towels, design)
+      end
+      solutions.select(&:positive?).size
+    end
+
+    def solve_hard(input)
+      towels, designs = input
+      c=C.new
+      solutions = designs.map do |design|
+        sol = c.solve_easy_design(towels, design)
+      end
+      solutions.sum
+    end
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sxxpi/
+  :body: |-
+    Straight forward today, I did a recursive solution which finds matches for the start of the string, then chomps off the ones that match from the string and trys again. Part 1, short circuit to return true if it finds any valid combo. Part 2, remove ths short circuit return logic so that we check each path, but add a cache to speed it up.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/19](https://github.com/careyi3/aoc_2024/tree/master/solutions/19)
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s6hju/
+  :body: |-
+    665/869
+
+    For part 1, a simple recursive function did the trick:
+
+    ```ruby
+    def can_make?(towel, patterns)
+          return true if towel.empty?
+
+          pats = patterns.select { |pat| towel.start_with?(pat) }
+          pats.any? { |pat| can_make?(towel[pat.size..], patterns) }
+        end
+    ```
+
+    For part 2, adding memoization was necessary. Without it, the code will probably never finish. As seen here, the code completes in about 0.7 seconds.
+
+    ```ruby
+    def variations(towel, patterns, memo = {})
+          return 1 if towel.empty?
+          return memo[towel] if memo.key?(towel)
+
+          pats = patterns.select { |pat| towel.start_with?(pat) }
+          memo[towel] = pats.sum { |pat| variations(towel[pat.size..], patterns, memo) }
+        end
+    ```
+
+    full solution including I/O [here](https://github.com/jstanley0/advent-2024/commit/f4eeacde267ee4ac8fe1ab4cd8336b20d9e8dca1)
+  :replies: []

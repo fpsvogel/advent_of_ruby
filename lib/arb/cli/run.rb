@@ -123,7 +123,7 @@ module Arb
           puts "❌ #{short_message}"
         end
       end
-    rescue AppError => e
+    rescue InputError => e
       puts PASTEL.red(e.message)
     end
 

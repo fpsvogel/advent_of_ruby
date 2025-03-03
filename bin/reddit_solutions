@@ -3,21 +3,43 @@
 require "debug"
 require "dotenv"
 require "faraday"
+require "pastel"
 require "reverse_markdown"
 require "thor"
 require "yaml"
 require_relative "../lib/arb/api/reddit"
 require_relative "../lib/arb/version"
 
+InputError = Class.new(StandardError)
+
+PASTEL = Pastel.new
+
 # AoC Reddit Solutions Downloader CLI application
 class RedditSolutionsApp < Thor
   desc "download", "Downloads Reddit solutions for the given language (-l), " \
-    "for the given year (-y) and day (-d)."
-  # TODO  "optionally only for the given year (-y) starting on the given day (-d)."
+    "optionally only for the given year (-y) starting on the given day (-d)."
   method_option :language, type: :array, aliases: "-l", default: ["ruby"]
   method_option :year, type: :numeric, aliases: "-y"
   method_option :day, type: :numeric, aliases: "-d"
   def download
+    input_year = options[:year] || 2015
+    input_day = options[:day] || 1
+
+    max_year, max_day = if Date.today.year == input_year && Date.today.month == 12
+      [Date.today.year, Date.today.day]
+    else
+      [Date.today.year - 1, 25]
+    end
+
+    debugger
+
+    unless input_year.between?(2015, Date.today.year)
+      raise InputError, "Year must be between 2015 and this year."
+    end
+    unless input_day.between?(1, max_day)
+      raise InputError, "Day must be between 1 and 25, and <= today."
+    end
+
     reddit_api_keys = %w[CLIENT_ID CLIENT_SECRET USERNAME PASSWORD]
 
     Dotenv.load
@@ -30,19 +52,23 @@ class RedditSolutionsApp < Thor
       password: ENV["PASSWORD"],
     )
 
-    comments = reddit.get_comments(
-      year: options[:year],
-      day: options[:day],
-      language_names: options[:language],
-    )
+    input_year.upto(max_year) do |year|
+      input_day.upto(max_day) do |day|
+        debugger if day > 25
+        comments = reddit.get_comments(
+          year:,
+          day:,
+          language_names: options[:language],
+        )
 
-    path = File.join("data", "solutions", "reddit", options[:language].join("-"), options[:year].to_s, "#{options[:day].to_s.rjust(2, "0")}.yml")
+        path = File.join("data", "solutions", "reddit", options[:language].join("-"), year.to_s, "#{day.to_s.rjust(2, "0")}.yml")
 
-    File.write(path, comments.to_yaml(line_width: -1))
+        File.write(path, comments.to_yaml(line_width: -1))
 
-    puts "✅ Saved to #{path}"
-
-    debugger
+        puts "Saved #{Pastel.new.blue("#{year}##{day.to_s.rjust(2, "0")}")} to #{path}"
+        puts
+      end
+    end
 
     # TODO loop through all years and days
 
@@ -58,6 +84,8 @@ class RedditSolutionsApp < Thor
     #   ...,
     #   comments_markdown,
     # )
+  rescue InputError => e
+    puts Pastel.new.red(e.message)
   end
 
   default_task :download

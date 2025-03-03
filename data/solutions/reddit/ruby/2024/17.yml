@@ -1,0 +1,140 @@
+---
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2t16pp/
+  :body: |-
+    late to the party, because I didn't think my approach through the end
+
+    After reverse engineering the code I noticed, that each output is based on a few octal input digits of the A register. I first thought it was 3 and I was wondering why 50% of my solutions were off by 1 digit after running my program, until I was given the hint by [u/IsatisCrucifer](/u/IsatisCrucifer) that it was actually 4 digits.
+
+    So my actual algorithm for part 2 first builds all possible octal digit tuples for every output digit 0-7. These are used to backtrace the program digits into all possible digit combinations, joined by the predecessors and successors. The minimum of these converted to decimal should be the required value for register A.
+
+    The total runtime is somewhat between 40-50ms in ruby
+
+    The full ruby code is available [here](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2024/17.rb) and there is also C++ version also available [here](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2024/17.cpp)
+  :replies: []
+- :author: eggselent_folk
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2pnlcb/
+  :body: |-
+    [Code](https://topaz.github.io/paste/#XQAAAQBeCQAAAAAAAAARiAqHodvKIwHSvNw9kKWn/nYvsilVuEqA02Yvh73BCxyQtWtpitgBJEp5hJogQfXndNsYMoivkyHhpWNZLlIYputlxm3To4bk40Bv6y7Xub1USc6R5yr0jAlIK62Z9OZy0fhCy4JMLwcaDZlNf2Rdm1ryPwCNBC5/7aXJMlKROh3BfSyBI+Uy5tYoXczafdX4cY+hAC57q+y6ODUHpUg6U+wf3ZmCJEMaadzeP2ViPskDmHi7JF3F/2/+wpWHjY+FtSjwFp/K8SbptL2PxGvGiJ9sbtLlfEuNHoPF6zEOBbdElRt4JaPkVJJv1pkX+d8TlP6sKymTXnKG+yJVqCB9kuqDov6a/0S8ViCjplymRnJDIZFWD96wZTqjrBSmbG74+Dqe8uCkhyJGkGaLSzp5ne1o9gxwDe8x13lwVC52uil+uAz15ounMtqpvmQhlCk+aW0GG8TEqXQv5rkGp6LkLoKh6JIqfoXH3XJPAosaX04x1IN2PVyIoGG9xqDCMPYbeAtTiDowz75M+KQJ3BF/e03A4B0PiuSe+bu7TVGeGbJYEsJ/vjHILw/8HswDJxQ0Q441Il7K15TfrYU7lMNGtBKJINtsyKuwIpGradRE9hWXTp/8cSpYNlKv9NHnug2Qdw3+HNpWgoZ8+HeNxG5NooyU2hz7P+UeQfZnZWRK5eKxze6I2DZMKJR8nG+W/wYF0fYQq53tj7xbC0XGycJ0WcxWODHPGzpeRsIzf/MdidIZ94MZaoH7qowOOZPScXy82wwDZYI938R1fJswWAQftyBpkXGG7P6hl3AdBB5UKu0UWpDTAiwi/qge7jTHtsaoyziO6sJ4y9pKZBRXijqDDAfKNZ6dWo0OfNXFeqZ4eVWHhJ0R918GUCRE+CvrCPlNLbeZ2wX6dCaw3JkxyrlsKRVnk5nnYy3a6UFyn7A8tTZurpvt3jqm1HODTFkKm2tqOE4ZP1vmizqOMYssotD6OL64ZRSrI1W3PFN9zBavriIBsqzfcDy4chlEAPsPeqhKyICd0fiZcQpTk7HPY+EgbmkDcbWJOI1fIN5wRlPpIaYarji0myUt7usEWao/saqGr/9D9zsA)
+
+    This one is super challenging. I had already reverse-engineered the instructions since yesterday because brute forcing is not possible, but I could not figure out how to quickly remove the impossible cases. I need to come back the next day and have a read on Reddit comments ☺️, to finally realize my wrong approach to test the register A number.
+  :replies: []
+- :author: jafuentest
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2ns6ah/
+  :body: "Got part 2 to run in ~0.090s\n\nPart 1 doesn't need much explanation. For part 2, I started by brute forcing values of A and noticed a couple things\"\n\n1. The resulting output array, has n positions, where n is log\\_8(A), so any A under 64 will give an output of [x1, x2], any A under 512 will give [x1, x2, x3] and so on. So your A will be lo lower than 8^x, where x is the size of the target array minus 1.\n\n2. The last numbers in the resulting array are pretty consistent. You'll notice that for any A in [512, 1023], all resulting arrays will have the same last element (1 in my case), so they all look like this: [x1, x2, x3, **1**]. 512 in octal is 0o1000, 1023 is 0o1777. \n\nSo basically, when you simulate for any A between [512, 4095], if the last element is not the one you wanted, increase A by 0o1000 (512), if the last one is right, but the previous one is not, then increase only by 64, and so on.\n\n[Here's the code](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-17-2.rb)"
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvvae/
+  :body: |-
+    [LANGUAGE: Ruby + Go]
+
+    Part 1 tripped me up with the last 2 instructions updating register a instead of the input register, but was ultimately straightforward.
+
+    Part 2 required a lot of analysis by just iterating over inputs and observing outputs. Helped when I was outputting as binary and noticing the relationship between output and individual octets, then I could use a BFS to search the space of octets rather than the massive computation of just iterating.
+
+    [Ruby](https://github.com/phene/advent-of-code/blob/main/2024/17/17.rb) and [Go](https://github.com/phene/advent-of-code/blob/main/2024/17/17.go)
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvu0c/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day17/day17.rb)
+
+    Part 1 simple case statements to handle different inputs.
+
+    Part 2 is a hard coded solution that can only solve my give instruction.
+
+    Basically I pulled a pro gamer move, and mathematically predetermined what to back track for my register A. I interpreted my sequence and realized some orders of the operations don't hinder the result of A, and in fact, by undoing the operation that changes my A, the previous A value can determine the B and C values.
+
+    Edit: So, I am almost certain everyone has the 0, 3 instruction in their chain because that is the only operation that can change A, in other words, you can use that to your advantage because once you know A, the other values should be determinable programmatically even if you dont what your program's routine is
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kubku/
+  :body: |-
+    [part1](https://topaz.github.io/paste/#XQAAAQDCBwAAAAAAAAARiArGwlYyUY4y4+WXcBMx4AslbmwFSidMZ9Hevh3xVA2dW72YBXGMPfL/wI7RP69L7aVaWqtyPOxw2CanNE1oQ80boojjqwC7+uN804+FxmmMONZpbzehJAU4wRQLn73839CWEtvaxc2pYLBommamF4lPyzcqzCwA61hoXkOlhzg3QvYjnCNXElBbjKUh1h/ZRZxbXrV+rmqAsgxe+Vm3YMwoTw/CJHgoBn9eCRqLmnlweORtd/72b3/WvJDe7acD5pNlIn15NVh3LecKCoBptKyKC53JXC4NWF9fwMM/C1eVbEboPaYfcsoDeLIuO6Xew9ynnWK4Hd4ETU3Z2nbkYQlDZTaHSc+JhlrLaohnVa3/Ymv2ya2/Xadl5gRZqzHlftF3P9kg+yT8jDmCGNqBsAGBMUY209WBDlC1eWWQe4oGcrktTqP7T8a9Kp5tSUgHeCVSwppftAzF3EqdMmgEIhxe7in408mSz7im/XJxUfJrFRHqa9VdiOGnu+f0oTcoyINxT6U/EaMmc/Sd7Mt3W5C6MyRnIFE3dbtUNtUi6E6fEXMqxopvf10ffTVwIKAAWs0PEzh3ntBSy29JLJFNRRidGsqE4hrFH0Sg+6pxnuLQDeB8jqhU83gSsOOi5J8DQxJU0bgbk+7SVa09UiPhK97PKeKz28LqqbJ8S7+72Ctxwf13SEeHMYswCgjrCnq3fChj6WOz5CqsTvxItQg/ptxZxbmvWYtqiTJ2lm7ilVrUwhQuGZEtPeTOwdq/wpwvqL1y52iJTj1vD1frPw5R3gmgARhlE/0Y/kkxPHFHZ0HRwuzspyq0BNzeF+6elwKIRdLx7uhD5Ke0JjW9DNFXRaOPEmsQLP3sMCGdkYvK7NAi+PpvyK5fSwviCaM4ym6dBUOpZQxl1G3CaEixj6P/8OLDVg==)
+
+    [part2](https://topaz.github.io/paste/#XQAAAQCXAgAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8fK6shsLMxUnjj4w2Dxtm76YG+Ui+FyApxoSPvgUv5cG2pzVNPg0y3Vu+3Kam1P7ywJ+DqkKIAOI0qlV1go6l12TMl9D4hmAnGtfMhvWy/97VE+/LLamYXgpgeMq5ykWCAMpaHJsFYYtR1OC733PrCgGTRWQvJEqZw7GsXJXRo3ABgDTZO3QfFDyswtExyk8cTcJbWO8c3Cw16gBhXIJ00lzK4H7i/x9K87JcrUM2Ff2T83gOTEre89SCgOJ69fnVLS/dMai/coiot7PhOnGQd8wJIJGTIPCK09znLMFFsriy1b5cAwaTxoNLCFXtnJ2aBqpbEF21M/RcwgVGmBQLoj+AUzBRNEGv0JYUxvRGBCk9DUxe1akgkOhiLoJ6NZPvYVbZSjpIIw4EzU40CDP61fboWZZPVZwTPfuxjRAtnl6c40J5c21Q9c2QUYqXrkHPC32vMlEY4qc52YDv/oZw/w==)
+
+    Just my implementation of a (reverse) assembler and a simulator for today's insturction set. For part 2 I tried to understand the program but cannot produce desired behavior consistently. Ended up just doing a reverse search which ran very quickly due to low branching factor.
+  :replies: []
+- :author: iwanttoseeyourcatpls
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k254j/
+  :body: |-
+    Once I understood what part 2 was asking for, it worked itself out, but it took me a long time to get to that point. The lightbulb moment for me was realizing that the computer would eat one three-bit-chunk to produce each output, so instead of looking for an integer I really was looking for a string (that represented an integer in base 8)
+
+    [github](https://github.com/ggggbbybby/aoc2024/blob/master/day17.rb#L135-L160)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2imo9r/
+  :body: |-
+    Part 2 was very tricky, I didn't have a good instinct on it until I went looking for a hint on the subreddit. I wouldn't have made the mental leap on my own, even after I understood it, coding it took me a little while, I tied myself up in knots thinking about how to match what I had done to the result. Got there in the end, fun puzzle!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/17](https://github.com/careyi3/aoc_2024/tree/master/solutions/17)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2h27ko/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day17.rb)"
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2jgi69/
+  :body: |-
+    First brute-forcing the right half of A, then the left one.
+
+    ```ruby
+    regA, prg = File.read("input.txt").scan(/Register A: (\d+).*Program: (.*)/m).flatten
+
+    regA = regA.to_i
+    @prg = prg.split(?,).map(&:to_i)
+
+    def func(a)
+        b, c, i = 0, 0, 0
+        out = []
+
+        loop do
+            op, v = @prg[i..i+1]
+            combo = [0, 1, 2, 3, a, b, c][v]
+
+            case op
+                when 0 then a = a / 2 ** combo
+                when 1 then b ^= v
+                when 2 then b = combo % 8
+                when 3 then i = (a!=0 ? v-2 : i)
+                when 4 then b = b ^ c
+                when 5 then out << combo % 8
+                when 6 then b = a / 2 ** combo
+                when 7 then c = a / 2 ** combo
+            end
+            i+=2
+            return out if i >= @prg.size
+        end
+    end
+
+    def search(start, rightHalf)
+        offset, range = rightHalf ? [24, 8..] : [0, 0..]
+        result = Float::INFINITY
+
+        (0..7).to_a.repeated_permutation(8).each do |digits|
+            a = digits.map.with_index{|d, i| d << ((3*i)+offset) }.inject(&:|) | start
+            result = [result, a].min if func(a)[range] == @prg[range]
+        end
+        result
+    end
+
+    puts func(regA).map(&:to_s).join(?,)
+    puts search(search(0, true), false)
+    ```
+  :replies:
+  - :author: _tfa
+    :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k6onx/
+    :body: |-
+      Stupid me! Why do I program two loops from 0 to 16777215 when I could do also with 16 loops from 0 to 7? Okay, it's a bit more than that, but now it takes only a few milliseconds...
+
+      ```ruby
+      def search2(pos, a)
+          return a if func(a) == @prg
+          f = (0..7).to_a.filter{ |c| func(a | c << pos*3) [pos] == @prg[pos] }
+          f.map{|j| search2(pos-1, a | j << pos*3)}
+      end
+
+      puts search2(15,0).flatten.min
+      ```
+    :replies: []

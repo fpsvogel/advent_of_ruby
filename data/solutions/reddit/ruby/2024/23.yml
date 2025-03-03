@@ -1,0 +1,234 @@
+---
+- :author: False-Expression-985
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3i1ax2/
+  :body: |-
+    Code: [https://github.com/ChrisBrandhorst/adventofcode/blob/master/2024/23/main.rb](https://github.com/ChrisBrandhorst/adventofcode/blob/master/2024/23/main.rb)
+
+    ```ruby
+    Prep: 3ms
+    Part 1: 45ms
+    Part 2: 1.5ms
+    ```
+
+    For prep, make the trivial `from -> to[]` map.
+
+    Part 1 was just looping through all sets of computers `[a, b, c]` where `c` once again connects to `a` and where one of them started with a `t`.
+
+    Part 2 was interesting. I got the following process by doing some quasi-random intersections on the data (example data shown). On the one hand this feel intuitive to me, but on the other I can't shake the feeling that the way the input is organised results in this method.
+
+    Take one of the entries in your trivial `from -> to[]` map:
+
+    ```ruby
+    de -> [cg,co,ta,ka]
+    ```
+
+    Get all likewise entries for all the `to[]` values:
+
+    ```ruby
+    cg -> [de,tb,yn,aq]
+    co -> [ka,ta,de,tc]
+    ta -> [co,ka,de,kh]
+    ka -> [co,tb,ta,de]
+    ```
+
+    Intersect the complete initial entry (key + value set), with each of the other entries (also key + value set):
+
+    ```ruby
+    [cg,de]
+    [co,ka,ta,de]
+    [co,ka,ta,de]
+    [co,ka,ta,de]
+    ```
+
+    Count the unique ones:
+
+    ```ruby
+    [cg,de] -> 1
+    [co,ta,ka,de] -> 3
+    ```
+
+    The bottom count is equal to the initial entries' `to[].size - 1` (if you include the intersection with itself, you can skip the minus 1). **This only holds for the answer set** , so you can stop after you find the first one (which for me is after just 39 of 3380 input entries).
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3gwj71/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQB6BQAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1ep9IBYPPdblNB+e+LbTiO+aeJ6+cRA4yPOmC7Qaz1eL62nSqw7zBuYzSqTOFQgaI2kIHocSAPLoEezoZhVcCkfVH5FIAQyQU0OcylwJssDkMV0w3PaMNhW6cQTeersZZZUr0mekSjDa8+ZRH9ekQB/LYwBKvIiAdv5FzbvVSy+d5x4vlb1w2z6CBmjFMC2TYZVh2n5N8QIZH7ZQ4zDP0NKCsyjHrXTG3F8VrOdBd6XC3cTTYnD2Fh/H76DmJdLQP94jhhQLXfksvRyAOFNvCInesVrqV4AuJZzY63HPM0/r30G9oLhbLEb/I8O+GnDDFdev26UrYVPg4o2FYAVW5SipZceu1bwUhtiyWNzM+Ij+VgD130gLmfJZDbSMtMJtcbu4ZZtZkhgt+4u/1dNEs7bGM1GqpOpV0mK4HFZCkWSVZCJuxApFU2PlSAYgb3Y+gJqnm1EzczY/15xn0dQD3nujF2Mccg7Qt/AXm7WPL59wIjA+qiTx3A2t7ugnOA7ZGKqVXI7uU3F8A0UeMhNxsGEcLIrlyiOpzmiqnv1dC62nrf7nXPkW+nUbvwsIyYDg9c9dbnwlar7HnGjJCGp+A66MeZOUTnxP5h4EKcrUC7OoEU1qRMMohzBcoXbetm/wW7iZFmYAAoX48j33ks0VECGdbsSQjIpJH2jp+kN04jJiHXcAOqU0QkLkp2AeR676ucv328GMdWGNeKFsXwOrYlhAq+JYG0OFLr58WPeN+aIeHvb5B0Q2/OPobygzzr/Gtl/ufGr73AZ0KqmdcZqq03eYiFBeyvb//VQw0AA==)
+
+    Part 1 is pretty straightforward. Complexity is O(|V||E|). There is definitely room for improvement but I don't see a way to a better complexity class.
+
+    For part 2, today I learnt about the [Bron–Kerbosch algorithm](https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm). Actually a somewhat straight-shot algorithm once you understand it
+  :replies:
+  - :author: ChasmoGER
+    :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3him0j/
+    :body: Thanks for sharing the algorithm name!
+    :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3gsazr/
+  :body: |-
+    That was fun, did a dumb check every combinations thing for the first part. Then for part 2, I constructed a binary number for each set of points and what it was connected to. I then anded each pair of these sets. A group of connected computers should contain a the same number of computers in common. So by tallying the results of all the ands, you can see the one that occours the most should be the largest number of connected computers.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/23](https://github.com/careyi3/aoc_2024/tree/master/solutions/23)
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3gkxv7/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day23/day23.rb)
+
+    Part 1, I built a table of connections for each node, and did a simple dfs with a depth 2 to check for a loop
+
+    Part 2, I used the connections table above, and did a nested loop, which would be alot if we didn't have iterate through only 13 values per loop. Then I used a frequency table to store seqeunces of unique nodes that have connections to each other. Turns out this matters cuz you have different sequences with the same length but their frequencies are different.
+
+    Overall, alot easier than I thought it would be cuz when I did the first part, I had expected another memoization slog fest like a few days ago.
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3gd7b0/
+  :body: |-
+    ```ruby
+    require 'set'
+    input = File.readlines('input23.txt', chomp: true).map { _1.split('-') }
+
+    connections = Hash.new { Set[] }
+    input.each { |a,b| connections[a] += [b]; connections[b] += [a] }
+
+    # Part 1
+    ticc = Set[] # (Three Inter-Connected Computers)
+    connections.each { |cmp,cons|
+      cons.each { |con|
+        a = cons - [con]
+        b = connections[con] - [cmp]
+        (a&b).each { ticc << [cmp, con, _1].sort }
+    } }
+    puts ticc.count { |set| set.any? { _1.start_with? 't' } }
+
+    # Part 2
+    subsets = [[]]
+    connections.each { |cmp,cons|
+      new_subsets = []
+      subsets.each { |subset|
+        if subset.all? { cons.include? _1 }
+          new_subsets << subset + [cmp]
+        end
+      }
+      subsets += new_subsets
+    }
+    puts subsets.max_by(&:size).sort.join(',')
+    ```
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3fy0wg/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day23.rb)"
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3fxw3m/
+  :body: |-
+    Nothing special here. Runs in ~ 100ms
+
+    ```ruby
+    input = File.read("input.txt").scan(/(..)\-(..)/)
+
+    $map = Hash.new {|h,k| h[k] = Set.new}
+
+    input.each do |a,b|
+        $map[a]<
+    ```
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3ee1s7/
+  :body: |-
+    851/1863
+
+    Not extremely efficient, but still runs in under a second. A much larger dataset could have made this a lot more painful.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB1BQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw6AjPxo/gbHVfkb/lFqEN/cVLFFRr5hB8At2Ya6RvYvxrcrj9+/hWpyd2xTGLsezZSupxlbZ8zenEPWJeoe7/CshYyiqEEaTOm7lLuqxNFbbIMrN7ugc9qoSceYRu1lQzsT4BsDnLd6zxO0da4l73kExIxHwmjktTM4qNlMhR2mhfRkuOVHu4qnDnt6xGkT7/jjpUvk+yRqvP5ijERekL+j9DBL44H/1L8a8fiupGXI/pzcSWoPv+F2geLy0M81z9UX4obpEPiIyQWPEJ50gWwLXaQSZm5ELexB8ciciGRcQ5nedFd12DJck3atWOGk6MOYQi6H9brjxpRVwr0XWP+AFdetJbUbZXA6UkfIagBn1ioXgjPd4OGfqg1207D4k5uhSPyGFo+2EG65qPsPKt+Vq6lAN+a6htIwz92yEQU4bTtgbwohEnAG660Grc1UhpYyR8xgV93c4sIg2mrXD+TkNxdE3DMFXdKOaJqAD/ubmwUEsZrIZbGLgcpqzYrkhC6tfSa1KeXkGxs7N7Z8QLmop8V9ZAmaYY0SKT7VPN3yTM/gEifrxpW/WGN+zT6g5lwyUYVjFmHAuzbcxOqOAfASlVR044i+kC+9MFPL2e6z996vwJVl2EQIq5IJ0UeMhyx81CdjBacMjeF676MKd3y51ToIPFAVqDVAsWtPOLuAi8wIYAgZovrdWV7oDP0gHXja3H/+Y0b16)
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3ekc9i/
+  :body: |-
+    I just recursively tried to build the largest group I could starting with the beginning network of each node. Runtime was longer than I could wait so started looking for speedups. My biggest speedup was maintaining a running max and skipping over nodes whose starting network was smaller than my current max group. Still only got it down to 1.6s so I want to play around with better algorithms.
+
+    ```ruby
+    def build_group(nodes, group, net)
+      return group if nodes.empty?
+      nodes.map { |n|
+        # recursively check the union of current nodes under consideration and
+        # all the nodes connected to 'n' while considering adding 'n' to the group
+        newNodes = nodes & net[n]
+        nodes -= [n] # remove from future consideration as it's redundant
+        build_group(newNodes, group + [n], net)
+      }.max_by { |g| g.size }
+    end
+
+    def part_2
+      net = data.map { |line| line.split("-") }.each.with_object({}) { |(a,b), net|
+        ((net[a] ||= Set.new) << b) && ((net[b] ||= Set.new) << a)
+      }
+
+      max_group = []
+      net.keys.sort_by { |n| -net[n].size }.map { |start|
+        # skip any node with starting network < current max
+        next if net[start].size + 1 <= max_group.size
+        max_group = [max_group, build_group(net[start], [start], net)].max_by { |g| g.size }
+      }
+      max_group.sort.join(",")
+    end
+    ```
+  :replies: []
+- :author: Mon_Ouie
+  :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3eqwj1/
+  :body: |-
+    Just for reference, the basic DFS search for a maximum clique seems to have first been described by [Carraghan and Pardalos (1990)](https://www.sciencedirect.com/science/article/abs/pii/016763779090057C). It includes a pruning step that some solutions here don't have (you can backtrack early if the current clique combined with all vertices that can extend it would still not be bigger than the current best clique). The inputs are easy enough that you don't even need this.
+
+    ```ruby
+    edges = DATA.read.each_line.map { |x| x.strip.split("-") }
+
+    graph = Hash.new { |k, v| k[v] = Set.new }
+
+    edges.each do |a, b|
+      graph[a] << b
+      graph[b] << a
+    end
+
+    p graph.sum { |m1, neighbors|
+      neighbors.sum { |m2|
+        next 0 if m2 < m1
+        (graph[m2] & neighbors).count { |m3|
+          m3 > m2 && (m1.start_with?("t") ||
+                      m2.start_with?("t") ||
+                      m3.start_with?("t"))
+        }
+      }
+    }
+
+    def dfs_clique(graph, best_clique = [], current_clique = [],
+                           candidates = Set.new(graph.keys))
+      return best_clique if candidates.size + current_clique.size <= best_clique.size
+
+      remaining_candidates = candidates.dup
+      candidates.each do |k|
+        current_clique << k
+        if current_clique.size > best_clique.size
+          best_clique.replace current_clique
+        end
+
+        remaining_candidates.delete(k)
+        dfs_clique(graph, best_clique, current_clique, remaining_candidates & graph[k])
+
+        current_clique.pop
+      end
+
+      best_clique
+    end
+
+    puts dfs_clique(graph).sort.join(",")
+    __END__
+    [input here]
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3eqwj9/
+    :body: "[removed]"
+    :replies:
+    - :author: Mon_Ouie
+      :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3er960/
+      :body: Why is this case sensitive though?
+      :replies: []

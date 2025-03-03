@@ -1,0 +1,143 @@
+---
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m4achod/
+  :body: |-
+    Finally had time to sit down and go through part 2. Notation explained at the end. My process:
+
+    1. Went and found some old slides and notes about full adders from my computer organization class. I definitely said/thought "why tf am I learning this" back then
+
+    2. First wrote a simple backtracker that expands all gates down to basic x and y inputs. Then I simplified a few gates to get the hang of it. For example, rewriting `z01 = x01 XOR y01` as `z01 = S01`.
+
+    3. Wrote a program to automate the simplification after I got the hang of it. Dumped the simplified formulae into a file and looked for errors. For example, `z05 = (c05) XOR (C04)` when it should be `z05 = (S05) XOR (C04)`. I knew logically how to automate the detecting and switching as well but decided that manual inspection would be faster.
+
+    [code](https://topaz.github.io/paste/#XQAAAQAPCgAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1ep9IBYPPdblNB+e+LbTikMEDr7EPadc0bHnbGAhNR/0tta50i0Ov4WZ8MyyHwuTTp85Epg9N62L3Q3y4Saj203dKd/Pf6JYBh9edMthF81jqnYJIF1qXhYl/7jMQJvs5HjmlauSe8G1QttwlJguqihQp6GriyQ2XBQN7xPEGwv9e+i12mjUTwHLOvv7i3bnpXavvDViZozctMf0/LpskGiVhbeRQtbm5N83M0ZXIPF1genkQ6l01ZtjetRP1z5xQE6VauDp7KubJ3MiU0Gm+vKtBv36MV+l/IqZDSqiIycLVyOVGbAE7S0j2/WCjUO8SaUOgWWZNcvXfPNDk4oO9zJcXhO0nPjNRwEWdYfkWtzVnKLOp0OLUHOeBEUHZdoTa5ROlrcHvjEW4j+u2KkF24+txsXh6y+c/AYz7NRbF3bryLhPAYlS6xh5UitIWuOILmqnbGiN2fhks05xxcwHLWkqNdovPQ/AgzjKjzO4P4deC8UDBUHkssG1u8T7RzI5YjZJ2s/iBtTWty3DpI0PBONHd0vaRHHuXgOHf9aRCaqxSFoC4dN2Yu/rvtLVPaWr9pEng0Dqcm+fOKenzj26TJGEifWrkw6ErN6zwagHqur+CT4NoJwANsoCbDx0ne0ykfGfPhChfy78YT73+2uTttC5nirXKlylMIohlEPw5U4durt4aH/kuAtZC7UBsoiAzEo7/x81v9yjf92ak+NWs7UM0XcMYOO3XehDJwDHX9xasNC0YyKzFNVoNOIH8EgqssCQm/V7Qmt1JLI0y7DslL48a7AGp3mll/P8BP3nSHRuWfyTR6tuPDIoyA1jSG+qysWdRMMHDeId7EJ3tyfxwzZY8i8VSbgNDK0WeiWXCWmX1yUugDDn0TlYWIJA6OGI168KqoWqgVQ1IdA/ZGHgOrv7p3DFVrlahaJDSYeKoY+r1XhNHJTCK5nXpfZIvULkuaJTXKH0HubhP4mr7vM3J44qgWEqDyBAu/tCPMZ7NfZubueBstkqWzIBw7NpKGebeUh94aADb1ZNGjeWBIEBU7+AOaLyYJj7RUpFUUDPV1QQ5sUlTkXSaVoBL8TrqytA8C+Td/BLHXA==)
+
+    Notations:
+
+    There are five gates in a full adder. We summarize each of their inputs and outputs recursively.
+
+    Let x_i and y\_i be the input bits, and C_(i-1) be the input carry bit. Then:
+
+    x\_i XOR y\_i = S\_i (naive sum)
+
+    x\_i AND y\_i = c\_i (naive carry)
+
+    S_i AND C_(i-1) = s\_i (carry sum)
+
+    z_i = S\_i XOR C_(i-1) (output bit)
+
+    C\_i = c\_i OR s\_i (output carry).
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3nq8qw/
+  :body: |-
+    [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day24/day24.rb)
+
+    Part 1. Simple queue that keeps rotating elements until they are all solved.
+
+    Part 2, took forever, and some visualization from the peepz here who showed it for me to bank on a routine that would work. Essentially that was what it was, a routine. There is a particular outcome for every operation, and if the next one isn't the expected ones, then those are your faulty wiring. In fact you don't even need to fix it, you just needed to know which ones are broken.
+
+    Basically the routine is this, x + y will always lead to XOR / AND, if those aren't the outcome, then you found an issue. XORs will either end up with a XOR and AND, or it has a Z value. AND will only have ORs as outcomes, and for ORs, you only have to check if they lead to XORs and ANDs, you don't even have to process those after because your previous routine should covered all the nodes.
+
+    There are two edge cases which is x00, y00, and x45, and y45. They have a bit of a unique behavior but I don't think those are twisted up in anyone's puzzle data.
+  :replies: []
+- :author: RazarTuk
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3n1lex/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQAEAwAAAAAAAAAzGknWt5Bv2rAv+DcT5iE66ZPnRosfrwe0LaRaq6pZwCaP76Bpsar4qeuAw4e9Ixi5xNP/ZyUwagqs339V43rea6G7KVaUGQ7i8MQ6AnOIsjiqzY3D0Bom2hL0ycs4QauTiRfwUF3cuF2LEi8T3+Up6fQ+pR4ym4DHsqqfkyprgCGYT/3q4qsl2meOgwW2hGZyFiF1n5ZhGwu4lIHhI/xmkfuwuvjyFLZl8NfaPH2yC5ZI/re/m1eXbbhGpfuFdhFevPbjvTMg3s4pKIebuGoYtIT5Rj/5LE6vJ/Sux+7X3ihc7dPU9lae5CdmNNf7wYElfrc3DoLfWIELZ/lIPazd2rTMEia3+x9De9/mzj5wy1iIs81aqbbUBV5IO//y2J09aFGonakAjsU0TugvmtKS9covY8aQEHkTdQgmDBUF3+kUGac9desS8/BHFXqwTGh73YOitIRNYjSyV9wgHxXnoy2zizW9sSfES41vNVx5Q0GsEmLkw0Pe1IU8qAXh/+af7uQ=)
+
+    Yeah, Ruby _definitely_ made today go faster. For example, if you want to parse something as a hash, just call `.to_h` with a block that returns `[key, value]` as an array. Or if you're using regexes to match in a `case` statement, the matching groups automatically get extracted into the pseudovariables `$1`, `$2`, `$3`, etc. So for example, this code handled parsing all the gates:
+
+    ```ruby
+    $gates = file[cutoff+1...].to_h do |line|
+        case line
+        when /(.{3}) AND (.{3}) -> (.{3})/ then [$3, [$1, :'&', $2]]
+        when /(.{3}) OR (.{3}) -> (.{3})/ then [$3, [$1, :'|', $2]]
+        when /(.{3}) XOR (.{3}) -> (.{3})/ then [$3, [$1, :'^', $2]]
+        end
+    end
+    ```
+
+    Or similarly, since everything's an object and most operators are secretly just methods, I was able to use things like `wire1.send(:'&', wire2)` to call all the operations.
+
+    So it's definitely some _dense_ code, but I also think it shows off a lot of the syntactic sugar in Ruby.
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l88sf/
+  :body: |-
+    1396/1765
+
+    Like many here, it took me much longer to implement a solution via code than to find one through analysis. I used DOT and graphviz to generate a graph to help me figure out what was going on. With some colors, the "correct" patterns start to reveal themselves, and weird shapes indicate something is wrong. (Note, my graph below actually highlights the bad nodes, though I didn't add that until later).
+
+    With the graph alone, I was able to actually come up with and validate the answer for my input, but I spent more time afterwards coming up with a programmatic way to derive the solution.
+
+    First, I did individual bit additions to test direct bit output and carry over to identify suspect outputs.
+
+    From these suspect outputs, I identified which ones were not the outputs from XOR operations and observed that of those, the subsequent bit was also suspect. This led me to believe that this z node needed to be swapped for one of the nodes directly upstream of the subsequent z node.
+
+    From this, I was able to identify 3 non-XOR z outputs, and a group of candidates for each of them to swap. I was left with a bunch of other z outputs with XOR outputs with otherwise suspect ancestors, so I grouped them all together to find a pair from that remaining group.
+
+    Then it was a relatively small search space through the combinations of those groups.
+
+    [code](https://github.com/phene/advent-of-code/blob/main/2024/24/24.rb) and [broken graph](https://raw.githubusercontent.com/phene/advent-of-code/refs/heads/main/2024/24/graph-orig.svg) and [fixed graph](https://raw.githubusercontent.com/phene/advent-of-code/refs/heads/main/2024/24/graph-fixed.svg)
+  :replies:
+  - :author: RonGnumber
+    :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3m1k8v/
+    :body: I had a similar idea and similar graph (less fancy). Every year there are are a couple of problems where Graphviz is a life-saver, it's really worth taking the time to learn its basic options and get comfortable generating pictures which tell so much more than numbers! (I've done it yesterday too, and 2023 day 25.)
+    :replies: []
+- :author: birblett
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3kqkl2/
+  :body: |-
+    this solution is _maybe_ functional for any variation of this specific day's input, i have only tested it on two different inputs so far so i can't say for sure that i haven't missed edge cases. i originally solved it by hand and then reverse engineered it to arrive here.
+
+    ```ruby
+    start, out = File.read("in.txt").split(/\n\n/).map { _1.split(/\n/) }
+    start, k = start.map { [(a = _1.split(": "))[0],a[1].to_i] }.to_h, nil
+    final, regs, bad, sregs, is, queue, is_done = "z#{start.keys.sort[-1].scan(/\d+/)[0].to_i + 1}", {}, [], {"x00" => true, "y00" => true}, {}, start.keys.sort, {}
+    out.each { |s|
+      op1, op, op2 = (str, dst = s.split(" -> "))[0].split(" ")
+      regs[dst] ? (regs[dst][0] = op) && (regs[dst][1] = [op1, op2]) : regs[dst] = [op, [op1, op2], []]
+      [op1, op2].each { (is[_1] = is.fetch(_1, [])).push([str, dst]) && (regs[_1] ? regs[_1][2].push(dst) : (regs[_1] = [nil, [], [dst]])) }
+    }
+    regs.each { |k, v|
+      v[2].empty? ? (k == final ? (bad.push(k) if v[0] != "OR") :
+        v[0] != "XOR" || v[1].any? { start[_1] && _1.scan(/\d+/) != k.scan(/\d+/)} ? bad.push(k) : v[1].each { |p|
+          regs[p][1].any? { start[_1] } ? (bad.push(p) if regs[p][0] != "XOR" unless regs[p][1].any? { sregs[_1] }) :
+            (bad.push(p) if regs[p][0] != "OR" unless start[p]) })
+        : (v[1].each { bad.push(_1) if regs[_1][0] != "AND" } if v[0] == "OR") }
+    (is[k].each { |instr, dest|
+      next unless ((op1, op, op2) = instr.split(" ")) and start[op1] and start[op2]
+      is_done[instr + dest] ? next : is_done[instr + dest] = true
+      start[queue.push(dest) && dest] = start[op1].method(op == "AND" ? :& : op == "OR" ? :| : :^).call(start[op2])
+    } if is[k]) while (k = queue.shift)
+    puts start.keys.sort.reduce(0) { |s, k2| (s += start[k2] << (k2.scan /\d+/)[0].to_i if k2.start_with? "z") || s }, bad.sort.join(",")
+    ```
+
+    for p2, basically iterate over all the nodes, following this algorithm:
+
+    ```ruby
+    IF $current is result reg
+      IF $current is last result reg (z45)
+        mark $current as bad IF not result of OR
+      ELSE
+        mark $current as bad IF $current not result of XOR
+        IF $current not bad
+          FOR any parent $par of $current
+            IF $par not child of start node
+              mark $par as bad IF not result of OR
+            ELSE if parents of $par are not first regs (x00 and y00)
+              mark $par as bad IF not result of XOR
+    ELSE IF $current is result of OR
+      FOR any parent $par of $current
+        mark $par as bad IF not result of AND
+
+    sort and concatenate bad regs
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l1mih/
+  :body: |-
+    Very messy, but by knowing the correct structure of a ripple adder, I was able to find paris of adjacent bits that were incorrect. I then used trial and error updating my input each time until there were no more errors. I couldn't think of a clever way to automate what I was trying to do, but because I knew there were a limited number of ways it could go together. Manual checking was not very hard.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/24](https://github.com/careyi3/aoc_2024/tree/master/solutions/24)
+  :replies: []

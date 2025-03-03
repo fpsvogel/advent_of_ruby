@@ -48,6 +48,7 @@ module Arb
       end
 
       def get_comments(year:, day:, language_names:)
+        debugger if day > 25
         thread_id = "t3_#{self.class.megathread_id(year:, day:)}"
         initial_response = nil
         loop do
@@ -57,7 +58,7 @@ module Arb
             puts "Throttled by Reddit. Sleeping for 30 seconds..."
             sleep 30
           else
-            puts "Fetching comments..."
+            puts "Fetching comments for #{year}##{day.to_s.rjust(2, "0")}..."
             break
           end
         end

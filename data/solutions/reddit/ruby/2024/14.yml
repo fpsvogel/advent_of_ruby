@@ -1,0 +1,47 @@
+---
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m22vdlg/
+  :body: |-
+    [github link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day14/day14.rb)
+
+    Part 1. I solved it with math. Yeah it was just plug in any iteration, and it works.
+
+    Part 2, simply using part 1 to brute force until a tree appeared. Honestly all I had to do was look for the trunk, but this required me to know what the tree looked like before hand, so it's a bit cheesing it. Originally I considered looking for a pattern where I would check for a 3, 5, 7 pattern but the trunk approach was easier since it is a simple 3, 3, 3 pattern.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m21yspj/
+  :body: |-
+    Fun simulation code, but the second part got me a little bit. Then I decided to dump 10000 iterations of ascii terminal vis into a text file. ctrl-f for a long chain of '#' characters, found it and had the iterations also dump into the file above each frame. Very silly solution but worked!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/14](https://github.com/careyi3/aoc_2024/tree/master/solutions/14)
+  :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m211gxk/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQD5BwAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlD3WW8r2Z9pYT30ODveiMJ3JeJFSTLhdWR3FmXt2oGu9YdB1CZE/gbIVlI1reXAJ8hMN6/7ctv/R0Gq8QgadIdMfp96vKa6SL0+aCJbqFXXQPgfIdtmSyzc0vmg67mqsuw6FBP+h6e62YhnTlA1M9ZB4fFkq2IwKQB3KdY5OyU39DVK423dPSFsZaMUaZPmrWqRemZmUxTaFe24U0F1OH+kMj9WfvRpS/5KxpCmVKWoOWV7aD7HWNapE4+uUuy17VxFh6KVOPIImIePgLUWBrVJ/WORNx9hCMM3kZqnkhtbkRO42eksRrlrGae6ac6HcQqh5yUioH8o8bzSFTg3A1vW9LB1HIGBCZIkfD3VwQnG2ktnq3YTPhdrIQ8NtFTNQmjIHdIecGZiJ0wC8FRwbMm+WHj0gQIf2hZ4xOrJS/bmKCP0bJcJCzjmnoJ+kS8PZQFSWoodkIqxgRMweGE3RPHQZLcTiIt+fgz1tN1Rbh5x6gRMDqBr/GY8aHHaqmskM1EE1Sa74Kwe5JhfrTTMKTlkq0Je4ijjQ5eAv/FjUBlecdUedPKHfOjU1rEKRASgTZYtkR+4RAhOxN9by1+TXX3blFMS8hi1tn3gR5cfBDbXvZpLpflD7DLDwqnrKtUUcBxT6GHaDW6W8mcmN4nmzT8qlFAQ6jitlOL5r/NgjSTKH66lezo5vMLcs+BKZILQnr1kzjGLVJZlrAjfLqdDch+WBLK1HIY+SFJ2iEwiVcIPqZIm1E7vLIUSn8AU16MgmufZMgMLEt2AYJYPsECZtSF1s6Zyv30w5BfgCM+XFx49FDUHBaCsK7IYiy/G3H9WNVHbP5xTafb6QCGL8etSb3/0B5rQA=)
+
+    Ashamed to say that I had to take a hint from the main thread. Of course the safety factor will be low when the robots are playing at being a Christmas tree.
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m1zapc1/
+  :body: |-
+    1115/747
+
+    The trick mentioned several times in here about unique points can be an optimization, but it didn't uniquely provide the Easter egg time. I used a strategy of looking for the largest contiguous group of robots.
+
+    [GitHub](https://github.com/phene/advent-of-code/blob/main/2024/14/14.rb)
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m20hz1s/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQBdBAAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDtBnHwB0CRbBF+F9hNoUjkUtOS/X/ERl2aixnmPmVTO8ihaWOMh31/f3Q1zLWH7F6R00l6RGeDO0jreNP7EvY3PTzZqtcxb5RsbMz90I/ZfBOsQAywaMAjun3bW8cpyFEqjc0j8kCBgmmJoHhu7yQZzRIH+xNVGSrO0yyJmVrOksWBbA0KVUYsy6Cucdruq/mvoGJ3UGoFATeyeBHnDxnTEH4gPglavFLM46aTOP0hnROPZIPB3fAGxD0sixBXxyyABiNhLnUjFQ6oM+UsSM3bdPrCVRUoCrwGKCCc+fKEIXUkP7RQuWYoDTAiaEACjEhU8h8GZtNaeZ/A02TehyOrl40bLkwhruWJHKKW/Mqn2a353+CqsWg7QdVONzNr0CEq4NF4ogz5ss3LlIWpM9PYlijrCYUJ1HQJ21p/SZrbQTr/nQWYBmfPTclbCzZmeCqnu7Y+kxTxmAFIbMHZDtH+O+1FYyjzNGIY6dY7jDqHEn1QEUcE1iJPwH/tjIcnK8krcYKfHCK2yOBdUJVAWuPwvy2I7LPaxsOAA0Ko7gwYhcnvO25vqHNYB7SfSvqW0OdvkQqG34hejARc2x8X56QSnmwG14bgmJVvJceQ8Xw2JCCMtC3N5lxTYyb3/+IEJsg==)
+
+    Why code when manual inspection do trick (and probably faster too)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hdvhvu/2024_day_14_solutions/m20p7jj/
+  :body: |-
+    [Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day14.rb)
+
+    I tried to find the tree by looking at the grid dispersion. It kinda worked for my input, where the sum of variation in the X and Y axis were minimum when the tree appeared.
+  :replies: []
