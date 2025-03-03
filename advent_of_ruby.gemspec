@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.required_ruby_version = "~> #{File.read(".ruby-version").strip}"
 
+  spec.add_runtime_dependency "benchmark", "~> 0.4"
   spec.add_runtime_dependency "debug", "~> 1.0"
   spec.add_runtime_dependency "dotenv", "~> 3.0"
   spec.add_runtime_dependency "faraday", "~> 2.0"
