@@ -1,0 +1,196 @@
+---
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bi93k/
+  :body: |-
+    ```ruby
+    require 'matrix'
+
+    GRID = ARGF.readlines(chomp: true).flat_map.with_index { |line, y|
+      line.chars.map.with_index { |h, x| [Vector[x, y], h.to_i] }
+    }.to_h.tap { _1.default = Float::INFINITY }
+
+    DIRS = [Vector[1, 0], Vector[-1, 0], Vector[0, 1], Vector[0, -1]].freeze
+
+    def neighbors(current)
+      DIRS.map { current + _1 }.select { GRID[_1] - GRID[current] == 1 }
+    end
+
+    puts GRID.filter_map { _2.zero? ? _1 : nil }.map { |start|
+      queue = [start]
+      seen = Set.new
+      score = 0
+      rating = 0
+
+      until queue.empty?
+        current = queue.pop
+        if GRID[current] == 9
+          score += 1 if seen.add? current
+          rating += 1
+        end
+        neighbors(current).each { queue.push _1 }
+      end
+
+      [score, rating]
+    }.transpose.map { _1.reduce(:+) }
+    ```
+
+    Today felt quite easy, probably because this type of problem has occurred several times in years past.
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bxurp/
+  :body: |-
+    Reused once more my grid class to get neighbors. I misunderstood part 1 and solved it as part1, so it took nothing to to part2 after I finally did part1 :D
+
+    I hope we're done with grids for a while cause I don't want to implement another dijkstra/flood fill/TSP and fail at it this year too :D
+
+    ```ruby
+    def paths(grid, start, path, &accumulator)
+      grid.neighbors4(start).each_with_object(Set.new) do |neighbor, set|
+        if start.value == "8" && neighbor.value == "9"
+          set << accumulator.call(path + [neighbor])
+        elsif neighbor.value == start.value.succ
+          set.merge(paths(grid, neighbor, path + [neighbor], &accumulator))
+        end
+      end
+    end
+
+    def solve_easy(grid)
+      grid
+        .tiles_with_value("0")
+        .sum { |start| paths(grid, start, [start]) { |path| path.last }.size }
+    end
+
+    def solve_hard(grid)
+      grid
+        .tiles_with_value("0")
+        .sum { |start| paths(grid, start, [start]) { |path| path }.size }
+    end
+    ```
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bgwpx/
+  :body: |-
+    Man, I was feeling good about this one. Thought I went so fast. I accidentally got the sample data result for part 2 while I was doing part 1 because I forgot to check my 'visited' set. So just had to comment out that line and part 2 was correct on first try. About a minute between part 1 completion and part 2.
+
+    ```ruby
+    def dfs(pos, visited, unique = true)
+      return 0 if(unique && visited.include?(pos))
+      visited << pos
+      curr = data[pos]
+      return 1 if curr == 9
+      [Vector[-1,0], Vector[1,0], Vector[0,-1], Vector[0,1]].sum { |d|
+        next 0 if(data[pos+d] != curr + 1)
+        dfs(pos+d, visited, unique)
+      }
+    end
+
+    def part_1
+      data.select { |k, v| v==0 }.keys.sum { |k| dfs(k, Set.new, true) }
+    end
+
+    def part_2
+      data.select { |k, v| v==0 }.keys.sum { |k| dfs(k, Set.new, false) }
+    end
+
+    private
+      def process_dataset(set)
+        set.each_with_index.with_object({}) { |(line, y), grid|
+          line.chars.each_with_index { |c, x|
+            grid[Vector[y, x]] = c.to_i
+          }
+        }
+      end
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cnys0/
+  :body: "[https://gist.github.com/thofoer/88bb2c1308a3beb5f822229c999bcd73](https://gist.github.com/thofoer/88bb2c1308a3beb5f822229c999bcd73)"
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cpkyf/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day10.rb)"
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cvcfo/
+  :body: |-
+    Frustrated myself by misreading the problem and overcomplicating it. It was actually a fairly simple recursive path finding algorithm. No real clever optimisations, runs in a few miliseconds.
+
+    EDIT: Also, managed to accidentally solve part 2 before part 1
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/10](https://github.com/careyi3/aoc_2024/tree/master/solutions/10)
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1dok13/
+  :body: |-
+    Yea I fell into the solve part 2 before part 1 trap because I did not read the question carefully. Initial hunch was to BFS from 0s but backtracking from 9s is much easier to implement.
+
+    ```ruby
+    require_relative 'utils'
+    require 'set'
+
+    grid = Grid.new(File.readlines('input10.txt', chomp: true).map { |line| line.chars.map(&:to_i) })
+    $trailhead_scores = {}
+    $trailhead_ratings = Hash.new(0)
+
+    def backtrack(grid, start_coord, current_coord)
+      if grid.at(*current_coord).zero?
+        ($trailhead_scores[current_coord] ||= Set.new) << start_coord
+        $trailhead_ratings[current_coord] += 1
+        return
+      end
+
+      grid.get_direct_neighbors(*current_coord).each do |next_coord, next_height|
+        backtrack(grid, start_coord, next_coord) if next_height == grid.at(*current_coord) - 1
+      end
+    end
+
+    grid.coords.each do |coord|
+      backtrack(grid, coord, coord) if grid.at(*coord) == 9
+    end
+
+    puts $trailhead_scores.values.map(&:length).sum
+    puts $trailhead_ratings.values.sum
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1du98p/
+  :body: |-
+    I, too, accidentally solved part 2 before part 1.
+
+    ```ruby
+    def in_bounds(grid, x, y) = y >= 0 && y < grid.length && x >= 0 && x < grid[y].length
+
+    def find_trails(grid, v, x, y, steps=[[x,y]])
+      return [] unless in_bounds(grid, x, y) && grid[y][x] == v
+      return [steps] if v == 9
+
+      return [[0,-1], [1,0], [0,1], [-1,0]]
+        .map { |dx,dy| [x+dx, y+dy] }
+        .flat_map { |nx, ny| find_trails(grid, v+1, nx, ny, [*steps, [nx,ny]]) }
+    end
+
+    input = File
+      .readlines('input10.txt', chomp: true)
+      .map { _1.chars.map &:to_i }
+
+    trails = input
+      .each_with_index
+      .flat_map { |row,y|
+        row.each_index.flat_map { |x| find_trails(input, 0, x, y) }
+      }
+
+    p trails.group_by(&:first).sum { |_,trail| trail.map(&:last).uniq.size }
+    p trails.size
+    ```
+  :replies: []
+- :author: Infinite-Club4374
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1chhwm/
+  :body: |-
+    (the best duh)
+
+    Decided that this scenario would be perfect for a recursive solution, probably my most elegant lol?
+
+    Solution 1 was 27 lines and solution 2 is 22, I’ll take it
+
+    [https://github.com/Leftyxiv/advent\_of\_code/blob/main/2024/day10/day10.rb](https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day10/day10.rb)
+  :replies: []

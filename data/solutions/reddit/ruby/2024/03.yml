@@ -170,22 +170,6 @@
       :body: The regex also has to handle one or more `don't` at the end of the input,
         I lost some time before realizing that!
       :replies: []
-  - :author: daggerdragon
-    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0bj6hr/
-    :body: |-
-      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
-
-      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history. This means from prior years too!
-    :replies:
-    - :author: vinc686
-      :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0c9tl1/
-      :body: |-
-        I already have the input in my `.gitignore` from last year but forgot to remove the previous years with:
-
-        ```ruby
-        git rm --cached `git ls-files -i -c --exclude-from=.gitignore`
-        ```
-      :replies: []
 - :author: im_sofi
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m07fpvu/
   :body: |-
@@ -631,11 +615,4 @@
     Solution using RegEx.
 
     [GitLab](https://git.utsav2.dev/utsav/AoC-2024/-/blob/main/Day%203/main.rb?ref_type=heads)
-  :replies:
-  - :author: daggerdragon
-    :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09zody/
-    :body: |-
-      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
-
-      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history.
-    :replies: []
+  :replies: []

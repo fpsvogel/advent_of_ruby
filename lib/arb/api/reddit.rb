@@ -218,7 +218,7 @@ module Arb
         return [] if raw_comment["data"]["replies"].empty?
 
         raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
-          next nil if child["data"]["author"] == "AutoModerator"
+          next nil if %w[AutoModerator daggerdragon].include? child["data"]["author"]
 
           if child["kind"] == "more"
             # Move "more children" lists out to an array that is appended
@@ -291,7 +291,7 @@ module Arb
 
         children = comments
           .filter { it[:parent_id] == comment[:id] }
-          .filter { it[:author] != "AutoModerator" }
+          .filter { !%w[AutoModerator daggerdragon].include? it[:author] }
 
         comment[:replies] += children
 

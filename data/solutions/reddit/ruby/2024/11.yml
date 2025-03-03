@@ -1,0 +1,289 @@
+---
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1ll9mf/
+  :body: |-
+    Very educational. I enjoyed today's puzzle.
+
+    p1: 5 ms
+
+    p2: 245 ms
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCmBAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlD3WW8r2Z9pYT30X7PnBBcHhvVYDeawoIrg724t03bzRtEFKq3EaQt+aC2nR+OYZ4ictRUUGoc6jrCQVGb7WP1dLwVfa9/LKeRJi29rlBtKwnVWc4lWefLECWCktqIUoW+ZB6J7BaZfFkFGJOzYANtSlttzIq2Iz3IQRjI5tBoZvyQV4GGv8xFfmNYDJ1WTqxTWVl9u3qdRXUZMqzOuXpnmDVL/Zr5MVYGuP/hZwXkjyeLgoyKdhJuSqd6AX2tKF2X8NB49J/pwWJQFdIRRTUbnvgOy/9HZzkTaGEM82pY1TrjjI5DFEtR71rtVFxC0BTqaP0FISfyYxQvXNNssTTo8UUjXn6YqxG1/e7IZVKTJmE89Oy6CT0WlJ2YcsmwxTXyttFrM105lV0LVLtuNp0P8O3Oo2AgFaquxsbphYUoD8Y02TMTlnz17QWll4gWjG1ikQnFa8uJG6+0C7y3KPeNc7DCiTctA3xcnmIq3hKqWwNpfmcPWf7LLmOu9/k9qi4O9yXFOmCz8wmurFjA1Of7IshfqGJK8WrlAuEXStJ/ztkQanjW5vji0h+LSjyqDXXmrAnLJTrSGQLLaHf+/f9sgUhcaOkZAXMS9UIK7GL8HgjL0BnqSnLSF3Rhiu+MZtoMcL9h1ho9znbXq4uUtlrwdeTMe7kUrU2tuL0lz5627dFQ8L+uCP3)
+  :replies: []
+- :author: The_Jare
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1l8pbn/
+  :body: |-
+    I still see very few Ruby solutions, so happy to post mine. It just keeps a hash of different elements and how many of each there are, iterates the hash once per blink. I like this approach more than recursive + memo but I can't say why. I don't know which is faster.
+
+    Code solves one problem per line in the input which was convenient for testing, although testing proved unnecessary as it all just worked straight away.
+
+    ```ruby
+    stone_lines = ARGF.map { _1.split.map(&:to_i)}
+
+    def evolve_stone(v)
+      return [1] if v == 0
+      vs = v.to_s
+      l = vs.length
+      return [vs[...l/2].to_i, vs[l/2..].to_i] if l % 2 == 0
+      [v*2024]
+    end
+
+    Enumerator.product(stone_lines, [25, 75]) do |stones, blinks|
+      coll = Hash.new { |h,k| h[k] = 0 }
+      stones.each { coll[_1] += 1 }
+      (1..blinks).each do
+        co2 = Hash.new { |h,k| h[k] = 0 }
+        coll.each do |(v, n)|
+          nv = evolve_stone(v)
+          nv.each { |v| co2[v] += n }
+        end
+        coll = co2
+      end
+      p coll. sum { _1[1] }
+    end
+    ```
+  :replies:
+  - :author: feyn
+    :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1nsg5s/
+    :body: |-
+      > return [vs[...l/2].to\_i, vs[l/2..].to\_i] if l % 2 == 0
+
+      Instead of `vs[...l/2]`, I read it as `vs[...1/2]`. I was so surprised that you can use `1/2` in a range to take half of a string. I tried in in IRB and was sadly dissapointed :D
+    :replies:
+    - :author: The_Jare
+      :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1o2vrg/
+      :body: Haha yeah I need to avoid using lowercase L as a single-letter variable even if this case looks oddly appropriate:)
+      :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1htopa/
+  :body: |-
+    Took a bit of fiddling but here's a half-punchcard-sized full solution I'm happy with. Credit to [/u/AlexTelon](/u/AlexTelon) for the idea of dealing with the numbers as strings most of the time - my solutions with `Math.log10(n).to_i + 1` or `(d = n.digits.reverse).size` could fit (and ran about twice as fast), but the line breaks were awful.
+
+    ```ruby
+    @c = Hash.new{ |h, k| n, s = k; h[k] = s == 0 ? 1 : case n.sub!(/^0*/, '')
+      when ''; h[['1', s - 1]]
+      when /^(..)+$/; h[[n[0...n.size / 2], s - 1]] + h[[n[n.size / 2..-1], s - 1]]
+      else h[[(n.to_i * 2024).to_s, s - 1]]; end }
+    puts [25, 75].map{ |s| (@in ||= STDIN.read).split(' ').map{ @c[[_1, s]] }.sum }
+    ```
+
+    - Ruby's [hash default proc](https://ruby-doc.org/3.3.6/Hash.html#class-Hash-label-Default+Proc) is my favorite short method for implementing memoization. `Hash.new{ |hash, key| hash[key] = ... }` is no `@functools.cache`, but it's pretty clean (for a one-time script :])
+    - I used a `case` statement mostly so I could (mis)use Regexp to check if a number has an even number of digits. `/^(..)+$/`
+    - `@c` has about 127k entries when the program is finished. The largest number is 14 digits long, or 46 binary bits.
+  :replies:
+  - :author: AlexTelon
+    :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1hxyx1/
+    :body: |-
+      Nice one!
+
+      Now I feel tempted to look into using the re module in python for this days problem!
+
+      Nice trick with`(..)+` !
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1i215l/
+  :body: |-
+    ```ruby
+    input = [125, 17]
+    tally = input.tally
+
+    75.times do
+      next_tally = Hash.new { 0 }
+
+      tally.each do |i,n|
+        case
+        when i == 0
+          next_tally[1] += n
+        when i.digits.length.even?
+          d = i.to_s
+          next_tally[d[0,d.size/2].to_i] += n
+          next_tally[d[d.size/2..].to_i] += n
+        else
+          next_tally[i*2024] += n
+        end
+      end
+
+      tally = next_tally
+    end
+
+    p tally.values.sum
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1hv9va/
+  :body: |-
+    ```ruby
+    input = File.read("input.txt").split.map{|z| [z, 1]}.to_h
+
+    def blink(a, times)
+      times.times do
+        b = Hash.new(0)
+        a.entries.each do |n, c|
+          if n == ?0
+            b[?1] += c
+          elsif n.size.even?
+            b[n[0..(n.length/2-1)]] += c
+            b[n[(n.length/2)..].to_i.to_s] += c
+          else
+            b[(n.to_i * 2024).to_s] += c
+          end
+        end
+        a = b
+      end
+      a.values.sum
+    end
+    puts "Part 1: #{blink(input, 25)}", "Part 2: #{blink(input, 75)}"
+    ```
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1iy63k/
+  :body: |-
+    ```ruby
+    require_relative 'utils'
+
+    stones = ints(File.read('input11.txt', chomp: true))
+    stones_freq = Hash.new(0)
+    stones.map { |stone| stones_freq[stone] += 1 }
+
+    def blink(stone)
+      if stone.zero?
+        [1]
+      elsif ((Math.log10(stone).floor + 1) % 2).zero?
+        str = stone.to_s
+        [str[...str.length / 2], str[str.length / 2..]].map(&:to_i)
+      else
+        [stone * 2024]
+      end
+    end
+
+    def blink_all(stones_freq)
+      new_freq = Hash.new(0)
+      stones_freq.each_pair do |stone, freq|
+        blink(stone).map { |new_stone| new_freq[new_stone] += freq }
+      end
+      new_freq
+    end
+
+    75.times do
+      stones_freq = blink_all(stones_freq)
+    end
+
+    puts stones_freq.values.sum
+    ```
+
+    Looked up lantern fish after seeing all the posts referencing it. Looked it up and immediately knew this is the algorithm to go for. It was not obvious that the number of distinct stones scales slowly/converges!
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1hi4yx/
+  :body: |-
+    Wasted a bunch of time memoizing a dfs search before I abandoned it. Even cutting off large paths of the search with the cached counts was killing me in time/space. Then it dawned on me to just operate directly on the cache rather than using the call stack to hold it or an array in memory. This solution runs in 80ms.
+
+    ```ruby
+    def part_2
+      stones = data.split(" ").map(&:to_i)
+      counters = stones.zip(Array.new(stones.size, 1)).to_h
+      75.times {
+        counters = counters.each.with_object((Hash.new(0))) { |(stone, cnt), updated|
+          s = stone.to_s.chars
+          if(stone==0)
+            updated[1] += cnt
+          elsif(s.size.even?)
+            updated[s[0...s.size/2].join.to_i] += cnt
+            updated[s[s.size/2..-1].join.to_i] += cnt
+          else
+            updated[stone * 2024] += cnt
+          end
+        }
+      }
+      counters.values.sum
+    end
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1hit82/
+  :body: |-
+    Since we don't get the fancy @cache annotation that pythonistas can use I had to implement it myself:
+
+    ```ruby
+    stones = "".split
+    MAP = {}
+
+    def tick(x, i)
+      x = x.to_i.to_s
+      return MAP[[x,i]] if MAP[[x,i]]
+      if i == 0
+        1
+      elsif x == "0"
+        MAP[[x,i]] = tick("1", i - 1)
+      elsif x.length % 2 == 0
+        a = x[0..x.length/2-1]
+        b = x[x.length/2..-1]
+        MAP[[x,i]] = [
+          tick(a, i - 1),
+          tick(b, i - 1)
+        ].sum
+      else
+        MAP[[x,i]] = tick((x.to_i * 2024).to_s, i - 1)
+      end
+    end
+
+    puts stones.sum {|s| tick(s, 25)}
+    puts stones.sum {|s| tick(s, 75)}
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1i5ox1/
+  :body: |-
+    Not too bad today, part 1, simple brute force approach to get the logic correct, second part, recursive solution with caching.
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/11](https://github.com/careyi3/aoc_2024/tree/master/solutions/11)
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1ilqae/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day11.rb)"
+  :replies: []
+- :author: eggselent_folk
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1jwn7s/
+  :body: "~200ms for part 2\n\nI spent a lot of time finding optimization because simplest solution for part 1 does not work at all for part 2 \U0001F923\n\nAfter a while, finally I got toanalyzing the pattern and found out it can be memoized.\n\n```ruby\ninput = '2701 64945 0 9959979 93 781524 620 1'.split(' ').map { |x| x.to_i }\n\n$memoize = {}\ndef blink(num, i)\n  return $memoize[\"#{num}-#{i}\"] if $memoize[\"#{num}-#{i}\"] != nil\n  return 1 if i > 75\n\n  return $memoize[\"#{num}-#{i}\"] = blink(1, i + 1) if num == 0\n\n  len = num.to_s.length\n  if len % 2 == 0\n    return $memoize[\"#{num}-#{i}\"] = blink(num.to_s[0...(len/2)].to_i, i + 1) +\n                                     blink(num.to_s[(len/2)...len].to_i, i + 1)\n  end\n\n  return $memoize[\"#{num}-#{i}\"] = blink(num * 2024, i + 1)\nend\n\ntotal = 0\ninput.each { |num| total += blink(num, 1) }\nputs total\n```"
+  :replies: []
+- :author: JAntaresN
+  :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1kjzf7/
+  :body: |-
+    I treated it like a tree, and did a dfs with memoization, which worked quite well
+
+    ```ruby
+    $memo_table = {}
+
+    def dfs(number, depth)
+      return 1 if depth == 0
+      return $memo_table[number][depth] if $memo_table[number] && $memo_table[number][depth]
+
+      nodes = []
+      if number == "0"
+       nodes << "1"
+      elsif number.length % 2 == 0
+        nodes << number[0...number.length / 2].to_i.to_s
+        nodes << number[(number.length/2)..].to_i.to_s
+      else
+        nodes << "#{number.to_i * 2024}"
+      end
+
+      length = 0
+      nodes.each { |num|length += dfs(num, depth - 1)}
+
+      $memo_table[number] ||= {}
+      $memo_table[number][depth] = length
+      length
+    end
+
+    def solution(str)
+      total = 0
+      str.split(" ").each do |root|
+        t = dfs(root, ITERATION_LIMIT)
+        $memo_table[root][ITERATION_LIMIT] = t
+        total += t
+      end
+      total
+    end
+    ```
+  :replies: []

@@ -8,14 +8,6 @@
 
     [Github](https://github.com/phene/advent-of-code/blob/main/2024/08/8.rb)
   :replies:
-  - :author: daggerdragon
-    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znnej/
-    :body: "> ~~[COAL] I really love~~\n\n~~Comment temporarily removed due to naughty language. [Keep the megathreads professional](https://old.reddit.com/r/adventofcode/wiki/rules/pg_is_mandatory).~~\n\n~~Edit your comment to take out the naughty language and I will re-approve the comment.~~ edit: \U0001F44D"
-    :replies:
-    - :author: yourparadigm
-      :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znwax/
-      :body: fixed
-      :replies: []
   - :author: FCBStar-of-the-South
     :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zs1g0/
     :body: Ah this is a nice implementation. I should've thought about passing the range of search as a parameter instead of just duplicating my part 1 code with some extra logic haha
@@ -192,15 +184,4 @@
     [Github](https://github.com/rivten/aoc-2024/blob/main/08/rivten/08.rb)Learning Ruby for this year's AoC, I like how I get more comfortable with Ruby and the code is reducing in size while keeping clarity (or so I think !)
 
     Also thank you to [/u/4HbQ](/u/4HbQ) for mentionning complex numbers a few days ago. Really helped here !
-  :replies:
-  - :author: daggerdragon
-    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m13uyjx/
-    :body: |-
-      [Do not share your puzzle input](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) which also means [do not commit puzzle inputs to your repo](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs) without a `.gitignore` or the like. [Do not share the puzzle text](https://old.reddit.com/r/adventofcode/wiki/faqs/copyright/puzzle_texts) either.
-
-      I see full plaintext puzzle inputs in your public repo here:
-
-      > [https://github.com/rivten/aoc-2024/tree/main](https://github.com/rivten/aoc-2024/tree/main)
-
-      Please remove (or .gitignore) all puzzle text and puzzle input files from your repo and scrub them from your commit history.
-    :replies: []
+  :replies: []

@@ -1,0 +1,215 @@
+---
+- :author: mpyne
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1yfahi/
+  :body: |-
+    I actually did this in Rust first but I think Ruby makes this pretty elegant in conjunction with a bit of more advanced high school algebra
+
+    ```ruby
+    require 'matrix'
+
+    data = File.read(ARGV.shift || 'input').split("\n\n").map { |p|
+      match = /(\d+)\D*(\d+)\D*(\d+)\D*(\d+)\D*(\d+)\D*(\d+)/.match(p)
+      match[1..].map(&:to_i)
+    }
+
+    # performs part 1 and part 2 in sequence
+    [0, 10000000000000].each { |offset|
+      sum = data.map { |data|
+        x1, y1, x2, y2, x_tot, y_tot = data
+        x_tot += offset
+        y_tot += offset
+
+        claw = Matrix.columns([[x1, y1], [x2, y2]])
+        total = Matrix.columns([[x_tot, y_tot]])
+        (claw.inverse * total).column(0).to_a
+      }.filter { |res|
+        [res[0], res[1]].all? { |x| x.denominator == 1 }
+      }.map { |res|
+        3 * res[0].to_i + res[1].to_i
+      }.sum
+
+      puts "#{sum}"
+    }
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1uhhgl/
+  :body: |-
+    golfed both parts: 164 bytes
+
+    ```ruby
+    l=$<.read.split("\n\n").map{_1.scan(/\d+/).map(&:to_f)}
+    2.times{|i|i*=1e13;l.map{_1[4]+=i;_1[5]+=i}
+    p l.sum{b=(_6*(_1-3*_3)-_5*(_2-3*_4))/(_1*_4-_2*_3)
+    b%1==0?b:0}}
+    ```
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1to61k/
+  :body: |-
+    My strategy started off thinking I was going to do some dynamic programming to get to the result. But I quickly scrapped that and fell on my trusty Z3 solver. Which made part 2 pretty trivial. So after I was done, I went back and re-educated myself about how to solve a system of equations (without a solver!). And Cramer's rule came in handy.
+
+    ```ruby
+    def solve(ax, ay, bx, by, px, py)
+      # Cramer's rule
+      # d = |ax bx| , a = |px bx| / d , b = |ax py| / d
+      # |ay by| |py by| |ay py|
+      d = ax * by - bx * ay # determinant
+      return nil if(d == 0) # skip parallel lines
+
+      a = (px * by - py * bx) / (d*1.0)
+      b = (py * ax - px * ay) / (d*1.0)
+      return nil unless a == a.floor && b == b.floor # skip non-integer solution
+
+      return nil if a < 0 || b < 0 # skip negative solution
+
+      [a.floor, b.floor]
+    end
+    ```
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/13/solution.rb)
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1trx40/
+  :body: |-
+    I initially solved part 1 with brute force, knowing it would not work, then I went straight to Z3 cause I need to save brain cycles for future problems :)
+
+    ```ruby
+    def solve_chunk(a, b, p, offset)
+      solver = Z3::Optimize.new
+
+      ax = Z3.Int("ax")
+      ay = Z3.Int("ay")
+      bx = Z3.Int("bx")
+      by = Z3.Int("by")
+      px = Z3.Int("px")
+      py = Z3.Int("py")
+      times_a = Z3.Int("times_a")
+      times_b = Z3.Int("times_b")
+
+      solver.assert(ax == a[0])
+      solver.assert(ay == a[1])
+      solver.assert(bx == b[0])
+      solver.assert(by == b[1])
+      solver.assert(px == (p[0] + offset))
+      solver.assert(py == (p[1] + offset))
+
+      solver.assert((ax * times_a + bx * times_b) == px)
+      solver.assert((ay * times_a + by * times_b) == py)
+
+      solver.assert(times_a >= 0)
+      solver.assert(times_b >= 0)
+
+      solver.minimize(times_a)
+
+      if solver.satisfiable?
+        solver.model.to_h[times_a].to_i * 3 + solver.model.to_h[times_b].to_i
+      else
+        0
+      end
+    end
+
+    def solve_easy(chunks)
+      chunks.sum { solve_chunk(_1, _2, _3, 0) }
+    end
+
+    def solve_hard(chunks)
+      chunks.sum { solve_chunk(_1, _2, _3, 10000000000000) }.sum
+    end
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1u0zjj/
+  :body: |-
+    [LANGUAGE: Python]
+
+    I'm not great at math, especially not when it's been years since I was in uni.
+
+    I solved part 1 with Ruby, without any fancy tricks really: [[GitHub]](https://github.com/Sharparam/advent-of-code/blob/main/src/2024/13/solve.rb)
+
+    But for part 2 that obviously wouldn't work, so I had to switch to Python to get (easy) access to Z3: [[GitHub]](https://github.com/Sharparam/advent-of-code/blob/main/src/2024/13/part2.py)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1uaeue/
+  :body: |-
+    Easy maths today!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/13](https://github.com/careyi3/aoc_2024/tree/master/solutions/13)
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1uasny/
+  :body: |-
+    ```ruby
+    @input = File.read("input.txt")
+                 .scan(/.*?X\+(\d+), Y\+(\d+).*?X\+(\d+), Y\+(\d+).*?X=(\d+), Y=(\d+)/m)
+                 .map{ _1.map(&:to_f)}
+
+    X = lambda{ |a, b, c, d, e, f| (e*c - b*f) / (e*a - b*d) }
+    Y = lambda{ |a, b, c, d, e, f| (a*f - c*d) / (e*a - b*d) }
+
+    def tokens(offset=0) =
+      @input.map { |ax, ay, bx, by, px, py| 3 * X.call(ax, bx, px+offset, ay, by, py+offset) +
+                                                Y.call(ax, bx, px+offset, ay, by, py+offset) }
+            .filter{ _1 % 1 == 0}
+            .sum
+            .to_i
+    p tokens
+    p tokens(10000000000000)
+    ```
+  :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1ut6aq/
+  :body: |-
+    [Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day13.rb)
+
+    Solved with linear algebra.
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1uz84m/
+  :body: |-
+    ```ruby
+    require_relative 'utils'
+
+    # x1, y1, x2, y2, target_x, target_y in order
+    machines = File.read('input13.txt').split("\n\n").map { |machine| ints(machine) }
+
+    def validate_solution(sol_x, sol_y, part2: false)
+      tol = 0.001
+      int_x = sol_x.round
+      int_y = sol_y.round
+      return 0 unless (sol_x - int_x).abs < tol && (sol_y - int_y).abs < tol
+
+      return 3 * int_x + int_y if part2
+
+      int_x.between?(0, 100) && int_y.between?(0, 100) ? 3 * int_x + int_y : 0
+    end
+
+    def matrix_inverse(machine, part2: false)
+      if part2
+        machine[4] += 10_000_000_000_000
+        machine[5] += 10_000_000_000_000
+      end
+
+      det = (machine[0] * machine[3] - machine[1] * machine[2]).to_f
+      return 0 if det.zero?
+
+      sol_x = (1 / det) * (machine[4] * machine[3] - machine[5] * machine[2])
+      sol_y = (1 / det) * (machine[4] * -machine[1] + machine[5] * machine[0])
+      validate_solution(sol_x, sol_y, part2: part2)
+    end
+
+    puts machines.map { |machine| matrix_inverse(machine) }.sum
+    puts machines.map { |machine| matrix_inverse(machine, part2: true) }.sum
+    ```
+
+    Sure love when the input is nice to you.
+  :replies: []
+- :author: iwanttoseeyourcatpls
+  :url: https://www.reddit.com/r/adventofcode/comments/1hd4wda/2024_day_13_solutions/m1tjnxv/
+  :body: |-
+    [github](https://github.com/ggggbbybby/aoc2024/blob/master/day13.rb)
+
+    I used regular old algebra to solve it. I was a little thrown off by the "minimum number of tokens" because there wasn't more than one solution for each machine, I thought I would have to do more math than this when I read the description.
+
+    the hardest part of this was dealing with floating point math. even using big decimal, 28.999999 doesn't equal 29.
+  :replies: []

@@ -272,14 +272,7 @@
     - b).abs) } }; \"#{data.count { |r| safe[r] }} #{data.count { |r| safe[r] || (0...r.length).any?
     { |i| safe[r[0...i] + r[(i+1)..-1]] } }}\"}
     ``
-  :replies:
-  - :author: daggerdragon
-    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03is2b/
-    :body: The triple-backticks code fence (``​`​``) only works on new.reddit. Please
-      edit your comment to use the [four-spaces Markdown syntax](https://old.reddit.com/r/adventofcode/wiki/faqs/code_formatting/code_blocks)
-      for a code block so your code is easier to read inside a scrollable box that
-      preserves whitespace and indentation.
-    :replies: []
+  :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00m5vv/
   :body: |-

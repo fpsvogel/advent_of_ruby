@@ -1,0 +1,89 @@
+---
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1ttukt/
+  :body: |-
+    Long and complicated solution, but finally it worked.
+
+    [https://gist.github.com/thofoer/fcdda1a0743f193f878590dd9042378f](https://gist.github.com/thofoer/fcdda1a0743f193f878590dd9042378f)
+  :replies: []
+- :author: FCBStar-of-the-South
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1rqteo/
+  :body: |-
+    Not proud of this one. First instinct was to get all the distinct edges and do some sort of union find to collect them into sides. Was annoying to implement with the orientation and stuff. Eventually came to the sub for help and just decided to go with the counting corners and 16 different cases.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQALCwAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8fKlEL/CNiVvHcK3eo2f1wG2uFy9c4gJqYPLUFmRQObk0r1ZXyU23Tm34gRt6y0eQyY1K3b+i262JFsBcUTwua3DLm6KTBbQg8CC8Rodb9gL52GlTW0N2qORt7dBV4CwUpm3lLu6RLl1ogK0d63e9tyuueHgAgtxDMoatd9vGGfGZnY21xRp25IJiEMKhh6Ke86I4FrZ8W9A37xgrFUJUloGcNqKnSchj7irMNiXDS00k5w9V9YulY2B59SdWfQ14ghDCtqD3XnYKarwPGUY07fC3AijJRjv8HS3WPreoiuTIRBr7jkEuNp+a5WplzZDFSvUA+SGvi/PwnaD6/ZivkZFvbyeGBve+j0ziP92qTpuA5DmMkD2uZQDd+y2oke9Tk70dnbo77SUwQW4eBW4AHYcFQ9W/I+dsop7XLo3cgYxJyi94YHJA5Vvh7jJXh9FAEoE9lQAeU0T1kuZFrNislGm9IDh1+f9nrO1HUPOnaovDrBljkmE7FeHjbjQHYGpKdAX2cognxu58PU7LwXRVCWlNbGSYa/60kDDAqw2gmNBJ74N2E6qTmkhe3vxmWX628uns27Zsp9WIQBOvdglNCGkAcbq1PLl9zIxjwYDAFZ86ZJXkfMZls0TiaLAN57rItao/tYvm9HaNAkrjlPMvcWl2QbkCPZgFl6j7upXZH8qJjP91A9cMAP6oww0PYbukUe/Oqt4VwubY1JScxdH7567llJM0gBq97AYi6UUUv/BD+crMh2ZoKCP5bR9xMub4YFHsJSbjNk8RfkIHoVa8SVXfWdN5ryqLk0c3iT+FRgTbd3gPOcKMgw35FIsTYCUah2N/Hvi9z6y7yA23tURikbXuDpMuIhiw/4Ve+nGvMGAsL6B/bWYABDb2btKaFeDRO+Yh/AidiuA6GgFTlbpJNkWgooMHH7n6hEs6THsdLxLwM5UpXNxwvD+F2RnUF/HzGFb6R424CjWQCsUzYpFIHF56/3z4m1SKfcODNZH2o13nGEsYhHv3lfuDLZheKTIDtldt0JBcCONc3mGHNCGSuiId8Z2Ue678cKufKm7MfB/0hnlAXs5yF9g3uimDv5ihxe20x1f3z1BKNmvVIUzxquHODfLhkYyLXv36hWmo5kW0841c9eGMdYrA5+P/+ggtgg==)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1pa6ug/
+  :body: |-
+    Probably the most messy code I've written this year so far for finding side counts for part 2, but aside from that, straight forward version of the "count islands problem", easy solution with recursion. Part 2 usues part 1 as a tool to generate the data to compute the sides. I'm 100% sure there is a better way to do it, but this worked!
+
+    [https://github.com/careyi3/aoc\_2024/tree/master/solutions/12](https://github.com/careyi3/aoc_2024/tree/master/solutions/12)
+  :replies:
+  - :author: Physium
+    :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1zyrxc/
+    :body: |-
+      I just want to say thank you for writing this in ruby. As messy as you think it is, i was able to visualise how you counted sides and implemented a similar approach to you.
+
+      You are the only one that use a dfs approach that i could understand and relate to. THANK YOU!
+    :replies:
+    - :author: careyi4
+      :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m21b5to/
+      :body: Ahh you are very welcome! Glad it helped!!
+      :replies: []
+- :author: Stronbold
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1p6fhq/
+  :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day12.rb)"
+  :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1qhvc1/
+  :body: |-
+    Spent a lot of time thinking today, but happy to have come up with a solution without using any kinds of hints.
+
+    Started with a BFS-based Flood Fill algorithm, labeling all regions with an ID-number, and merging areas when needed. Then, for each region, find and store which of its plots that border something else (i.e. edge of map or other region). This is stored in one Set<sup>1</sup> per direction (up, down, left, right), and one plot can appear in multiple sets. The number of perimeters (for part 1) is the sum of the sizes of these sets.
+
+    For part 2, go through each of the four boundary sets, one plot at a time, and remove (from the set) any plot adjacent to it in any direction perpendicular to the direction its mismatching plot was found in. This leaves only one plot per side in the sets, and the sum of sizes of the sets after this gives the number of sides instead of perimeters.
+
+    [Code on github](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2024/12/garden_groups.rb)
+
+    * * *
+
+    <sup>1)</sup> <sup>Using</sup> <sup>Set</sup> <sup>instead</sup> <sup>of</sup> <sup>Array</sup> <sup>for</sup> <sup>quicker</sup> <sup>deletion</sup> <sup>in</sup> <sup>part</sup> <sup>2.</sup>
+  :replies: []
+- :author: eggselent_folk
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1qtvud/
+  :body: |-
+    I stored direction of fences (perimeters), and then traverse all perimeters to only increase number of sides once for each continuous perimeters with the same direction.
+
+    [CODE](https://topaz.github.io/paste/#XQAAAQABDQAAAAAAAAA0m4poOBCMfthGvIqKnJBTU3eCvWf8e8dOecf0I5sIQTLtbcTd+HjCfYpKjvhIQVogm5aX2yu9Jh6koUIOjZBgppsFea2VpHS3B1Hw1hnHVet4Q3X4nWbYdyk1Fdj8ZETXiirCwsSaIuTtQS2Cf6RQdrrPc4iWsZq9WY0FeWxa7rzevx3vVvzzMvpf/2KddB/dnF3XEfrg4cuVuebBZSYZKbebtS/y84FY5p65+hRuUoOvrLmOYR7pg6ORXwYnidFYSxbwxgpUVMso/ehH87PNgziYVRAtA9wdB5gmqnYjUfSqQZFaoIzNTtofuCZDH1TJo9WkxvGM69CcelhxLB+rJJxQ6SePoEayFUpXcriKQM0ltyuBcXvz3/+RzR8exM577LPyezUWkU4Cdii1RCZDBEyF8VON66xlnjLJv5NVaIxrHTkb78hJZfmwDXudeAFuHMHM9jQ92+7nzRCsQXB/PwgYm0uq4YBiBSHhtg87uXifXW0V8FTlLNbagP1utEZEF2lQ4e6hboWY1roXQO/5G8FSl63dVdp3q4ZXKwxvuFnSYQM0fJWwVqEvT9QF3R1lityGYvuzw9a6/zBP9PEJpzdRYMroDuUQPG0aFRBWPMB7ikXEjZB+4jUC1opmUhNLFtSAUruQL72AcXRvHOYRrUTybUSIXt6U/W6SR6Wk0yXrYNfrL/WVXAcnVto4/BBF8/0Lg7rTuC3QLKjrKXGCRLzgMXM3RRon7IBnoNwzCqlm4HkbrlVvli81Q5gHfOQkREzKdVPJ4oSIvX/2U0NjExT7LYLsXxRMJREGOyKwBQkMBv0oM4wOlbwPStVaEknV7ExY0Wr93Z0bG3MT4bk1a53s7Wj56Ur+F+SvrJe6lXrfls+Ys0ELJy5sroWzwkhqpEv2JCYah+fRN2EYGIsj8K6UCY3SIO4Yt75yMBo6agnqDOkZYH39tERA+ZnB/20hIRR1rNHxNJwqQulaC3N4UtsEfF2Tlyj6gD9NoNrzQz6tAzriYQC3n+ZhkiLFbmROjwXOc8Otnv/F5ge+)
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1nplow/
+  :body: |-
+    I had to get out the old pencil and paper to figure out how to count unique sides of a shape. Happy with this solution. My get\_regions function is basically "go to every (unseen) point and do a bfs for that point's matching neighbors". Used Vector to make stepping in a given direction simple.
+
+    ```ruby
+    def part_2
+      get_regions.sum { |r|
+        r.size *
+        r.each.with_object(Set.new) { |p, sides|
+          # pick any perimeter point, find the edge that's the outside edge,
+          # turn 90 degrees and walk until you hit the next edge. This makes it so
+          # we are counting the outside border edge before every corner (clockwise)
+          DIR.each { |d|
+            next if r.include?(p + d) # not the border side
+            curr = p
+            walk_dir = Vector[d[1], -d[0]] # rotate 90 degrees
+            # step until you would leave region or leave border side
+            while r.include?(curr + walk_dir) && !r.include?(curr + d + walk_dir)
+              curr += walk_dir
+            end
+            sides << [curr, d] # keyed off the side we're testing, not walking
+          }
+        }.size
+      }
+    end
+    ```
+
+    [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/12/solution.rb)
+  :replies: []
