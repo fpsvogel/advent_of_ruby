@@ -85,7 +85,7 @@ class RedditSolutionsApp < Thor
     #   comments_markdown,
     # )
   rescue InputError => e
-    puts Pastel.new.red(e.message)
+    puts PASTEL.red(e.message)
   end
 
   default_task :download

@@ -31,7 +31,7 @@ module Arb
           "be run with the real input and you'll be prompted to submit your solution."
       end
     rescue InputError => e
-      puts Pastel.new.red(e.message)
+      puts PASTEL.red(e.message)
     end
   end
 end
