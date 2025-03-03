@@ -1,0 +1,607 @@
+---
+- :author: dafarmerz
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kca5hsi/
+  :body: |-
+    Part 1
+
+    def check\_winners(file\_path)
+
+    counts = File.readlines(file\_path).map do |line|
+
+    left, right = line.chomp.split(':').last.strip.split(' | ').map { |str| str.split.map(&:to\_i) }
+
+    left.count { |num| right.include?(num) }.positive? ? 2\*\*(left.count { |num| right.include?(num) } - 1) : 0
+
+    end
+
+    counts.sum
+
+    end
+
+    p check\_winners('cards.txt')
+  :replies: []
+- :author: Potential-Series-105
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzlfo6/
+  :body: |-
+    66 bytes seem to be enough for part 1
+
+    ```ruby
+    p $<.sum{m=_1.scan /\d+/;r=m[1..10]&m[11..];r[0]?2**(r.size-1):0}
+    ```
+  :replies:
+  - :author: Potential-Series-105
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzmwg3/
+    :body: Thanks to [/u/erikade](/u/erikade) this can be shortened even further to 57 bytes. look at his comment for the magic.
+    :replies: []
+  - :author: erikade
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzou5t/
+    :body: Oh wow! Congrats on this beautiful solution, AoC is so much fun!
+    :replies: []
+- :author: coderhs
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx9i7w/
+  :body: |-
+    Part 1
+
+    ```ruby
+    File.read("./data.txt").split("\n").map { |r| r.split(" | ") }.map { |r| s= r[0].split(':'); [s.last.strip.split(" "), r.last.strip.split(" ")] }.map { |r| 2 ** ((r[0] & r[1]).length - 1).to_i }.select { |r| r >= 1 }.sum
+    ```
+
+    Part 2 (Took a while to run this code (10 seconds) looking into more efficient way)
+
+    ```ruby
+    h = {}
+
+    def rec_fetch(h, number)
+      return h[number] if number.class != Array
+
+      [
+       number[0],
+       number[1..-1].map do |k|
+        rec_fetch(h, h[k])
+       end
+      ]
+    end
+
+    File.read("./data.txt").split("\n").map { |r| r.split(" | ") }.
+    map { |r| s= r[0].split(':'); [s.last.strip.split(" "), r.last.strip.split(" ")] }.
+    each_with_index.map { |r, i
+      | h[i+1] = (0..(r[0] & r[1]).length).to_a.map { |r| (i+1) + r }; h[i+1] }.map { |r| rec_fetch(h, r) }.flatten.length
+    ```
+  :replies:
+  - :author: cwby_bbop
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxb143/
+    :body: |-
+      The process is there, but your approach is making tons of transformation before storing it all in `f`.
+
+      Here was my approach for today: [https://www.reddit.com/r/adventofcode/comments/18actmy/comment/kbx8do6/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18actmy/comment/kbx8do6/?utm_source=share&utm_medium=web2x&context=3)
+    :replies:
+    - :author: coderhs
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxbwl7/
+      :body: |-
+        Ya, its on purpose, I am trying to do as much as I can i one line. (running it in IRB)
+
+        Part 1, I was able to pull it off. But part 2, sadly the only way I could think of was using a recursive function. And I couldn't write then in the same line itself.
+
+        Thanks for sharing your code.
+
+        `card, win, have = line.chomp.match(/^Card\s*(\d+):\s+(.*?)\s+\|\s+(.*)\z/)&.captures`
+
+        ​
+
+        That is a better approach to break down the string.
+      :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhn9f/
+  :body: |-
+    almost golfed. how can I compress this further?There has to be a way to generate the cnt array in one line!
+
+    ```ruby
+    input = File.readlines('input.txt')
+
+    wins = input.map { |l| l.split(/ \| |: /)[1, 2].map { _1.split.map(&:to_i) }.reduce(&:&).size }
+    puts "Part 1: #{wins.map { _1 > 0 ? 2.pow(_1 - 1) : 0 }.sum}"
+
+    cnt = wins.map { 1 }
+    wins.each.with_index { |w, i| (i + 1..i + w).each { cnt[_1] += cnt[i] if cnt[_1] } }
+    puts "Part 2: #{cnt.sum}"
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxk858/
+    :body: |-
+      line 2 can be
+
+      ```ruby
+      wins = input.map { _,b,c=_1.split(/[:|]/);(b.split&c.split).size }
+      ```
+
+      on line 3 if you use `**` rather than `.pow` you can save one character :D
+
+      EDIT: also, if you have map+sum you can just do sum
+
+      ```ruby
+      print('Part 1: ', wins.sum { _1 > 0 ? 2**(_1 - 1) : 0 }, "\n")
+      ```
+    :replies:
+    - :author: Symbroson
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrntu/
+      :body: "golfing this I can get this down to 202 bytes. Removed the bounds check and w-[0] for pow -1 elimination as well  \nI could change the IO strings or probably read from stdin too but yeah..\n\n```ruby\nw=File.readlines('input.txt').map{_,b,c=_1.split(/:|\\|/);(b.split&c.split).size}\nputs\"Part1:#{(w-[0]).sum{2**(_1-1)}}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```"
+      :replies:
+      - :author: riffraff
+        :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbyz4q8/
+        :body: |-
+          yeah using `$<.map` instead of `File.readlines('input.txt')` would make this quite a few characters less :)
+
+          Another trick is to always use `map` instead of `each` which should shave a couple more characters (it still iterates, you just discard the return value)
+
+          But yeah, the count array initialization is annoying! I _think_ you could do something nasty with `inject` but ATM I can't see it being shorter.
+        :replies: []
+- :author: cwby_bbop
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx8do6/
+  :body: |-
+    Easy day today!! Got it in 33 lines of clean Ruby
+
+    [https://github.com/ealvar3z/aoc-2023/blob/master/day04.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day04.rb)
+  :replies: []
+- :author: lycheejuice225
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhg3d/
+  :body: "[https://github.com/Animeshz/AdventOfCode2023](https://github.com/Animeshz/AdventOfCode2023)"
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhoph/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    puts ARGF.each_line.reduce(0) { |sum, line|
+      winning, ours = line.sub(/^Card +(\d+): +/, '').
+        split(/ +\| +/).
+        map { _1.split(/ +/).map(&:to_i) }
+      num_winning = (winning & ours).size
+      score = num_winning > 0 ? 2 ** (num_winning - 1) : 0
+      sum + score
+    }
+    ```
+
+    Part 2:
+
+    ```ruby
+    card_wins = ARGF.each_line.map { |line|
+      winning, ours = line.sub(/^Card +(\d+): +/, '').
+        split(/ +\| +/).
+        map { _1.split(/ +/).map(&:to_i) }
+      (winning & ours).size
+    }
+
+    puts Array.new(card_wins.size).tap { |net|
+      (0...net.size).reverse_each { |i|
+        net[i] = net[i + 1..i + card_wins[i]].sum + 1
+      }
+    }.sum
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxjdse/
+    :body: I think you do not need to `.to_i`, this should work fine with strings ("23" is the same as "23") , but I am not sure what is going on with spaces.
+    :replies:
+    - :author: glebm
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxl62c/
+      :body: Yeah it should work fine with strings, there are no spaces left at that point. Numbers are much faster to compare and hash than strings though (not that it matters here).
+      :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbybnx3/
+  :body: |-
+    Another easier one than the day before... Starting to see a pattern here
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/4)
+
+    [Video Walkthrough](https://youtu.be/6F4xUVLvQOM)
+  :replies: []
+- :author: Jonathan_Frias
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbz8l0q/
+  :body: |-
+    Part 1
+
+    ```ruby
+    input = File.read(ARGV[0])
+    input.lines.map do |line|
+      left, right = line.split("|")
+      winning_numbers = left.split(":")[1].strip.split(" ")
+      my_numbers = right.strip.split(" ")
+      1 << ((winning_numbers & my_numbers).length) >> 1
+    end.sum => result
+    puts result
+    ```
+
+    Part 2
+
+    ```ruby
+    input = File.read(ARGV[0])
+
+    cards = input.lines.map do |line|
+      left, right = line.split("|")
+      card, winning_numbers = left.split(":")
+      card = card.split(" ")[1].to_i
+      winning_numbers = winning_numbers.strip.split(" ")
+
+      my_numbers = right.strip.split(" ")
+
+      {
+        card:,
+        length: (winning_numbers & my_numbers).length,
+        copies: 1,
+        runs: 0,
+      }
+    end
+
+    cards.each_with_index do |card, index|
+      loop do
+        break if card[:runs] == card[:copies]
+
+        card[:length].times do |i|
+          cards[index + i + 1][:copies] += 1
+        end if card[:length] > 0
+        card[:runs] += 1
+      end
+    end
+
+    puts cards.map { |h| h[:copies] }.sum
+    ```
+  :replies: []
+- :author: trevor-e
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzafzf/
+  :body: |-
+    This day seemed a lot easier than the others, although at first I thought there was a bug in my part\_two since it took a few seconds to run. If anyone is curious I think my Ruby solutions are pretty straightforward to follow along, no bells and whistles:
+
+    [https://github.com/trevor-e/AdventOfCode2023/blob/main/day4/day4.rb](https://github.com/trevor-e/AdventOfCode2023/blob/main/day4/day4.rb)
+  :replies: []
+- :author: 6f937f00-3166-11e4-8
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kc08jk5/
+  :body: |-
+    ```ruby
+    require 'set'
+
+    def gen_matches_counts(lines)
+      lines.map do |line|
+        card_numbers, winning_numbers = line.strip.split(': ').last.split(' | ').map { |ns| Set.new(ns.split(' ').map(&:to_i)) }
+        (card_numbers & winning_numbers).length
+      end
+    end
+
+    def part_one(lines)
+      gen_matches_counts(lines).sum { |c| c > 0 ? 2 ** (c - 1) : 0 }
+    end
+
+    def get_copies(card, matches_counts, memoized_copies)
+      return memoized_copies[card] if memoized_copies[card]
+
+      copies = 1
+
+      if matches_counts[card] > 0
+        copies += ((card + 1) .. (card + matches_counts[card])).map.sum do |c|
+          get_copies(c, matches_counts, memoized_copies)
+        end
+      end
+
+      memoized_copies[card] = copies
+    end
+
+    def part_two(lines)
+      matches_counts = gen_matches_counts(lines)
+      memoized_copies = Array.new
+
+      lines.each_with_index.sum do |_, card|
+        get_copies(card, matches_counts, memoized_copies)
+      end
+    end
+
+    puts "part one test1.txt", part_one(File.read('test1.txt').lines)
+    puts "part one input1.txt", part_one(File.read('input1.txt').lines)
+    puts "part two test1.txt", part_two(File.read('test1.txt').lines)
+    puts "part two input1.txt", part_two(File.read('input1.txt').lines)
+    ```
+  :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx5ynn/
+  :body: |-
+    Part 1 (1255)
+
+    ```ruby
+    points = 0
+    $stdin.readlines.each do |line|
+      numbers = line.split(':').last.strip
+      winning, mine = numbers.split('|').map { |list| Set.new(list.strip.split(/\s+/).map(&:to_i)) }
+      multiplier = (winning & mine).size
+      points += 2 ** (multiplier - 1) if multiplier > 0
+    end
+    puts points
+    ```
+
+    Part 2 (4328):
+
+    ```ruby
+    def make_copies(game_id)
+      ((game_id + 1)..(game_id + $games[game_id]))
+        .each { $copies[_1] += 1 }
+        .each { make_copies(_1) }
+    end
+    $games, $copies = Hash.new(0), Hash.new(0)
+    $stdin.readlines.each_with_index do |line, game_id|
+      winning, mine = line.split(':').last.strip.split('|').map do |list|
+        Set.new(list.strip.split(/\s+/).map(&:to_i))
+      end
+      $games[game_id] = (winning & mine).size
+      $copies[game_id] = 1
+    end
+    $games.each_key { make_copies(_1) }
+    puts $copies.values.sum
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx6sp8/
+  :body: |-
+    ```ruby
+    cards = Hash[ARGF.read.scan(/^[^\d]+(\d+): ([\d\]+) \| (.+)$/).map do
+      [_1.to_i, [_2.split.map(&:to_i), _3.split.map(&:to_i)]]
+    end]
+
+    win_count = {}
+
+    puts cards.sum { |i, (w, n)|
+      c = n.count { w.include? _1 }
+      win_count[i] = c
+      c == 0 ? 0 : 2 ** (c - 1)
+    }
+
+    total_count = Hash[win_count.keys.map { [_1, 1] }]
+    ids = cards.keys
+
+    ids.each do |id|
+      next if win_count[id] == 0
+      c_ids = ids[id..(id + win_count[id] - 1)]
+      e = (total_count[id] * win_count[id]) / c_ids.size
+      c_ids.each { total_count[_1] += e }
+    end
+
+    puts total_count.values.sum
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/04/solve.rb))
+
+    Part 2 is a bit messy, but oh well.
+  :replies: []
+- :author: the_bengal_lancer
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7t4h/
+  :body: |-
+    p1:
+
+    ```ruby
+    data = File
+      .readlines("input.txt")
+      .map{|line|
+        _, b = line.split(": ")
+        b.strip.split(" | ")
+      }
+      .map{|sides| sides.map{|side| side.split.map{|s| s.to_i}}}
+      .each_with_index
+      .map{|(winning_nums, potential_nums), idx|
+        [idx+1, potential_nums.filter{|num| winning_nums.include?(num)}]
+      }
+      .reject{|idx, nums| nums.empty?}
+      .map{|idx, nums|
+        case nums.length
+        in 1
+          1
+        else
+          nums[1..-1].reduce(1) {|acc, _| acc * 2}
+        end
+      }
+      .reduce(:+)
+
+    pp data
+    ```
+
+    p2:
+
+    ```ruby
+    data = File
+      .readlines("input.txt")
+      .each_with_index
+      .map{|line, idx|
+        _, b = line.split(": ")
+        winning_nums, potential_nums = b.strip.split(" | ")
+
+          [idx+1, {
+            :instances => 1,
+            :winning_nums => winning_nums.split.map{|s| s.to_i},
+            :potential_nums => potential_nums.split.map{|s| s.to_i},
+          }]
+      }
+
+    data.each_with_index do |(card_id, card), idx|
+      matching_len = card[:potential_nums]
+        .filter{|n| card[:winning_nums].include?(n)}
+        .length
+
+      if matching_len != 0
+        extra_nums = (1..matching_len).to_a
+        extra_card_idxs = extra_nums.map{|n| n + idx}
+
+        extra_card_idxs.each do |idx|
+          data[idx][1][:instances] += 1 * card[:instances]
+        end
+      end
+    end
+
+    pp data.map{|idx, card| card[:instances]}.reduce(:+)
+    ```
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7uid/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day04.rb)
+
+    I spent far longer than I'd like to admit trying to figure out that I was initially parsing some card numbers as winning numbers. Once that issue was resolved, though, the solution to Part 2 came along pretty quickly — this was an instance where writing the optimised solution was faster than writing a non-optimal one. The recurrence relation was quite fun to figure out!
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxitph/
+  :body: |-
+    I think this can be shorter, but I am happy enough I didn't hit nasty edge cases
+
+    EDIT: too long code block removed [https://gist.github.com/riffraff/0ebd1dc883e67539fb1bf0d43180d876](https://gist.github.com/riffraff/0ebd1dc883e67539fb1bf0d43180d876)
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxm0se/
+  :body: "[Allez Cuisine!]\n\n230 bytes both parts and fits on 5x80 punchcard[Edit] removed an unnecessary bounds check\n\n```ruby\nw=File.readlines('input.txt').map{|l|l.split(/\\||:/)[1,2].\nmap{_1.split.map(&:to_i)}.reduce(&:&).size}\nputs\"Part1:#{w.map{_1>0?2.pow(_1-1):0}.sum}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```\n\nan updated 4 line 202 bytes version with some optimizations and applying [u/riffraff](/u/riffraff)'s suggestions  \nyes the first line is _exactly_ 80 bytes. Could be even shorter by changing the IO strings but nah\n\n```ruby\nw=File.readlines('input.txt').map{_,b,c=_1.split(/:|\\|/);(b.split&c.split).size}\nputs\"Part1:#{(w-[0]).sum{2**(_1-1)}}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```"
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxpmum/
+  :body: |-
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayFour2023
+      def self.part_one(lines)
+        lines.sum do |line|
+          winners = line.scan(/(?:\d+)/)[1..].tally.values.count { |value| value == 2 }
+          winners.zero? ? 0 : (2**(winners - 1))
+        end
+      end
+
+      def self.part_two(lines)
+        cards_with_winners = lines.each_with_object({}) do |line, acc|
+          id, *numbers = line.scan(/(?:\d+)/)
+          winners = numbers.tally.values.count { |value| value == 2 }
+          acc[id] = winners
+        end
+
+        cards = cards_with_winners.each_with_object({}) do |(key, value), acc|
+          start = key.to_i
+          finish = start + value
+          acc[start] = []
+          (start..finish).each { |card| acc[start] << card }
+          acc
+        end
+
+        cards.values.flatten.tally.keys.each_with_object(Hash.new(0)) do |key, acc|
+          cards[key].each { |card| acc[card] += key == card ? 1 : acc[key] }
+          acc
+        end.values.sum
+      end
+    end
+    ```
+  :replies: []
+- :author: Tourister6001PR
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrtuk/
+  :body: "[https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb](https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb)"
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvodm/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    def count(line)
+      win, own = line.split(": ").last.split(" | ").map { |s| s.split.map(&:to_i) }
+      n = (win & own).count
+      n > 0 ? 2 ** (n - 1) : 0
+    end
+    p ARGF.read.split("\n").map { |line| count(line) }.sum
+    ```
+
+    Part 2:
+
+    ```ruby
+    h = Hash.new(0)
+    ARGF.read.split("\n").each_with_index do |line, i|
+      win, own = line.split(": ").last.split(" | ").map { |s| s.split.map(&:to_i) }
+      n = (win & own).count
+      (h[i] += 1).times { (0...n).each { |j| h[i + j + 1] += 1 } }
+    end
+    p h.values.sum
+    ```
+
+    [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04)
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvtr1/
+  :body: |-
+    PART 1
+
+    ```ruby
+    points = []
+
+    File.open('input').each do |line|
+      parts = line.split(/[:|]/)
+      game = parts[0].scan(/[0-9]+/)
+      winners = parts[1].scan(/[0-9]+/)
+      results = parts[2].scan(/[0-9]+/)
+
+      total = 0
+      results.each do |result|
+        total = total == 0 ? 1 : total * 2 if winners.include?(result)
+      end
+      points.push total
+    end
+
+    p points.sum
+    ```
+
+    PART 2
+
+    ```ruby
+    h = {}
+
+    File.open('input').each do |line|
+      parts = line.split(/[:|]/)
+      game = parts[0].scan(/[0-9]+/)[0]
+      winners = parts[1].scan(/[0-9]+/)
+      results = parts[2].scan(/[0-9]+/)
+      h[game.to_i] = {winners: winners, results: results}
+    end
+
+    cards = h.keys
+    total_cards = 0
+    cards.each do |card|
+      total_cards += 1
+      next_card_to_get = card + 1
+      h[card][:results].each do |result|
+        if h[card][:winners].include?(result)
+          cards.push next_card_to_get
+          next_card_to_get += 1
+        end
+      end
+    end
+
+    p total_cards
+    ```
+  :replies: []
+- :author: aJanuary
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kby5u3j/
+  :body: |-
+    Particularly proud of implementing part 2 with a single loop.
+
+    ```ruby
+    #!/usr/bin/env ruby
+    require 'set'
+    total = 0
+    extra_copies = Hash.new(0)
+    # Keeps track of the sum of values in extra_copies for all keys > index
+    extra_copies_sum = 0
+    $stdin.each_line.each_with_index do |line, index|
+      _, expected, actual = line.split(/\[:|\]/)
+      matches = Set.new(expected.scan(/\\d+/)).intersection(Set.new(actual.scan(/\\d+/))).length
+      num_cards = 1 + extra_copies_sum
+      total += num_cards
+      extra_copies[index + matches] += num_cards
+      extra_copies_sum += num_cards - (extra_copies[index] || 0)
+    end
+    puts total
+    ```
+
+    As you evaluate each card from top-to-bottom, you know you're never going to get more copies of it. Cards only give you copies of cards above it, not below it.
+
+    For each card, you have the initial 1 card, and then however many copies of it you have. Then you know that for `matches` indexes after, you will have as many extra copies of that card as you have copies of this card. Rather than looping to increment those counts, you can just keep track of a running tally.
+
+    The trick is to decrement your running tally when you reach `matches` indexes after. I do this by keeping track of those in a hash map, which is a constant time lookup.
+  :replies: []

@@ -1,0 +1,619 @@
+---
+- :author: Lower_Ambition_2147
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kdgo9b2/
+  :body: |-
+    Learning refactoring with this year's Advent of Code. Check commits to see the steps!
+
+    Main class snippet: [paste](https://topaz.github.io/paste/#XQAAAQD1BgAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeFow35uS8WMaXd28j7dIXlpM4haerijs2dOkt/K7KK0fb/3NdQ+3JZD4KzQPzVwG5Gf17qq5hDLppRq9z1ZsrV9lsqQ2EuUKfbOajpwEbSFEwvU7a7TFmqZ1MfbQJkTHEUI8iruFGpv+hXRVsIFrv3LmA1HG9ehMDL92o87HoHHwBzezxJ8XfdUIQ8UwAsf5oil2I6cvvIzgXjx7LpQpagZi5GxpbITg+40Ox9KD/QSiuGvDmcjfmbkXWw8w12yQ0fJdVvhwe45Odw3M1LaIajsRNLc3Y/OdDW2ANgcXKlMUXOajPh7GoALLTQMKOkF9PE3Xk4SSbxhZ7O1uj6z26TxliM7bXFwlaA118PHdPhANI9boqP57tYsrxEO3U83hasLlghWZbLXAyElFKqNKG2VYU0cGnfJj3VqKw+ezGzxSVen2bZHcNysAIeeLvFw6wYQnxV78D0hT936AVFi4Qw6xPHz6FsYJFWBi4VpEzpZ99F0d3/8pfUZgKY1xD/rKfbwRuGAypHzHxhJ64Ghzhv5/b2mrMiiEEZfiodUZAIk8Ylrp1q7sPU7Vu9DlE3A64AAAOph/jC/F/c8WA4HTjE/1FhRZR7/YFlqvr+PueNmbZnyNGOSbkxTZURfXczSf+ih4D1hE5GDTAz/FGHBHE9+wRHYbEgipO6mgdSt0xSk9oJnCiUgu4glXC3jmVDtambMdoQwHAUmxf/1/8q67tU=)
+
+    Whole solution with history of refactorings as commits: [https://github.com/takiarek/advent\_of\_code\_2023\_day\_3/tree/day\_3](https://github.com/takiarek/advent_of_code_2023_day_3/tree/day_3)
+  :replies: []
+- :author: Best_Pirate_69
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kc9o9dh/
+  :body: |-
+    Regex and Ruby rock!
+
+    Part 1
+
+    ```ruby
+    # frozen_string_literal: true
+
+    s = ARGF.readlines(chomp: true).map { |l| ".#{l}." }
+
+    n = s.length
+    s.prepend '.' * (n + 2)
+    s.append '.' * (n + 2)
+
+    ans = 1.upto(n).sum do |i|
+      s[i].gsub(/\d+/).sum do |num|
+        a, b = Regexp.last_match.offset(0)
+        a -= 1
+
+        regex = /^[.\d]*$/
+        exclude = s[i][a] == '.' && s[i][b] == '.'
+        exclude &= s[i - 1][a..b].match? regex
+        exclude &= s[i + 1][a..b].match? regex
+        exclude ? 0 : num.to_i
+      end
+    end
+
+    puts ans
+    ```
+
+    Part 2
+
+    ```ruby
+    # frozen_string_literal: true
+
+    s = ARGF.readlines(chomp: true).map { |l| ".#{l}." }
+
+    n = s.length
+    s.prepend '.' * (n + 2)
+    s.append '.' * (n + 2)
+
+    nums = s.map { |line| line.gsub(/.(\d+)/).map { [Regexp.last_match(1).to_i, Range.new(*Regexp.last_match.offset(0))] } }
+
+    ans = 1.upto(n).sum do |i|
+      s[i].gsub(/\*/).sum do
+        gear_index = Regexp.last_match.begin(0)
+        adjacent_parts = nums[(i - 1)..(i + 1)].flat_map { |p| p.select { |_, r| r.cover?(gear_index) } }.map(&:first)
+        adjacent_parts.length == 2 ? adjacent_parts.inject(&:*) : 0
+      end
+    end
+
+    puts ans
+    ```
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsgfkh/
+  :body: |-
+    ```ruby
+    # frozen_string_literal: true
+
+    require "set"
+
+    class DayThree2023
+      def self.part_one(lines)
+        engine = generate_engine(lines)
+        engine.each_with_index.reduce(0) do |acc, (row, idx)|
+          row.each_with_index do |item, idy|
+            next if item.scan(/(?:\d|\.)/).first
+
+            neighbords = find_neigbords(engine, idx, idy)
+            acc += neighbords.sum
+          end
+          acc
+        end
+      end
+
+      def self.part_two(lines)
+        engine = generate_engine(lines)
+        engine.each_with_index.reduce(0) do |acc, (row, idx)|
+          row.each_with_index do |item, idy|
+            next if item.scan(/(?:\d|\.)/).first
+
+            neighbords = find_neigbords(engine, idx, idy)
+            acc += neighbords.reduce(&:*) if neighbords.size == 2
+          end
+          acc
+        end
+      end
+
+      class << self
+        def generate_engine(lines)
+          lines.each_with_object([]) do |line, matrix|
+            numbers = line.scan(/(?:\d+|.)/)
+            matrix << numbers.each_with_object([]) do |number, row|
+              number.length.times { |_| row << number }
+              row
+            end
+            matrix
+          end
+        end
+
+        def find_neigbords(engine, idx, idy)
+          positions = [0, 1, -1].freeze
+          neighbords = positions.each_with_object([]) do |x, acc|
+            positions.each do |y|
+              acc << engine[idx + x][idy + y].to_i
+            end
+            acc
+          end
+          Set.new(neighbords).reject(&:zero?)
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kburlwr/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    require 'set'
+
+    class Schematic
+      class Part
+        attr_accessor :number, :x, :y
+
+        def initialize(number, x, y)
+          @number = number
+          @x = x
+          @y = y
+        end
+
+        def eql?(other) = @number == other.number && @x == other.x && @y == other.y
+        def hash = [@number, @x, @y].hash
+      end
+
+      attr_accessor :width, :height, :data, :parts
+
+      def initialize(width = 140, height = 140)
+        @width = width
+        @height = height
+        @data = File.read(File.join( __dir__ , 'input.txt')).gsub(/\s*/, '')
+        @parts = Set.new
+      end
+
+      def char_at(x, y)
+        return '.' if y < 0 || y > @height
+        return '.' if x < 0 || x > @width
+
+        @data[y * @width + x]
+      end
+
+      def symbol(x, y)
+        char = char_at(x, y)
+        /[^\d\.]/.match?(char) ? char : nil
+      end
+
+      def number(x, y)
+        char = char_at(x, y)
+        /\d/.match?(char) ? char : nil
+      end
+
+      def add_part(x, y)
+        if n = number(x, y)
+          scan_x = x
+          scan_x -= 1 while number(scan_x - 1, y)
+          start_x = scan_x
+          part_number = []
+
+          while number(scan_x, y)
+            part_number << number(scan_x, y)
+            scan_x += 1
+          end
+
+          @parts << Part.new(part_number.join.to_i, start_x, y)
+        end
+      end
+
+      def find_parts
+        0.upto(@height) do |y|
+          0.upto(@width) do |x|
+            current_char = char_at(x, y)
+
+            if symbol(x, y)
+              [
+                [-1, -1], [0, -1], [1, -1],
+                [-1, 0], [1, 0],
+                [-1, 1], [0, 1], [1, 1],
+              ].each do |ox, oy|
+                add_part(x + ox, y + oy)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    schematic = Schematic.new
+    schematic.find_parts
+    puts schematic.parts.sum { |part| part.number }
+    ```
+
+    Part 2:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'set'
+
+    class Schematic
+      class Part
+        attr_accessor :number, :x, :y
+
+        def initialize(number, x, y)
+          @number = number
+          @x = x
+          @y = y
+        end
+
+        def eql?(other) = @number == other.number && @x == other.x && @y == other.y
+        def hash = [@number, @x, @y].hash
+      end
+
+      attr_accessor :width, :height, :data, :parts
+
+      def initialize(width = 140, height = 140)
+        @width = width
+        @height = height
+        @data = File.read(File.join( __dir__ , 'input.txt')).gsub(/\s*/, '')
+        @parts = Set.new
+      end
+
+      def char_at(x, y)
+        return '.' if y < 0 || y > @height
+        return '.' if x < 0 || x > @width
+
+        @data[y * @width + x]
+      end
+
+      def gear(x, y)
+        char = char_at(x, y)
+        char == '*' ? char : nil
+      end
+
+      def number(x, y)
+        char = char_at(x, y)
+        /\d/.match?(char) ? char : nil
+      end
+
+      def get_part(x, y)
+        if n = number(x, y)
+          scan_x = x
+          scan_x -= 1 while number(scan_x - 1, y)
+          start_x = scan_x
+          part_number = []
+
+          while number(scan_x, y)
+            part_number << number(scan_x, y)
+            scan_x += 1
+          end
+
+          Part.new(part_number.join.to_i, start_x, y)
+        end
+      end
+
+      def sum_gears
+        sum = 0
+
+        0.upto(@height) do |y|
+          0.upto(@width) do |x|
+            current_char = char_at(x, y)
+
+            if gear(x, y)
+              parts = Set.new
+
+              [
+                [-1, -1], [0, -1], [1, -1],
+                [-1, 0], [1, 0],
+                [-1, 1], [0, 1], [1, 1],
+              ].each do |ox, oy|
+                if part = get_part(x + ox, y + oy)
+                  parts << part
+                end
+              end
+
+              parts = parts.to_a
+              sum += parts[0].number * parts[1].number if parts.size == 2
+            end
+          end
+        end
+
+        sum
+      end
+    end
+
+    puts Schematic.new.sum_gears
+    ```
+  :replies: []
+- :author: Potential-Series-105
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbzj4v8/
+  :body: |-
+    part 1. 195 bytes.
+
+    ```ruby
+    b=?.*142;p [b,*$<.map{?.+_1.chomp+?.},b].each_cons(3).sum{|a,b,c|b.to_enum(:scan,/\d+/).map{["#$~".to_i,*$~.offset(0)]}.sum{|n,s,e|r=/[^.]/;b[s-1]!=?.||b[e]!=?.||a[s-1..e][r]||c[s-1..e][r]?n:0}}
+    ```
+
+    part 2. 224 bytes.
+
+    ```ruby
+    b=?.*142;p [b,*$<.map{?.+_1.chomp+?.},b].each_cons(3).sum{|a|a[1].to_enum(:scan,?*).map{$~.offset(0)}.sum{|s,|v=a.flat_map{_1.to_enum(:scan,/\d+/).select{v,w=$~.offset(0);w>=s&&v<=s+1}}.compact.map &:to_i;v[1]?v[0]*v[1]:0}}
+    ```
+  :replies: []
+- :author: JelloRough
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs9nvp/
+  :body: |-
+    I did two different approaches on each part. I missed to see how to adapt part 1 to get part 2 as most of the solutions I have seen. Adding a map when a \* was found.
+
+    I am learning ruby so suggestions are welcome!
+
+    [day3.rb](https://github.com/hugomosh/adventura-de-codigo/blob/sandbox/2023/day3.rb)
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsca0p/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day03.rb)
+
+    This was a pretty neat problem: I certainly wasn't expecting to be reaching for the `Matrix` module already on Day 3, but it ended up working quite well to model the grid. I unfortunately lost quite a bit of time to some faulty deduplication logic on Part 1 (the uniqueness constraint should be value, column, _and row_!), but Part 2 was trivial thereafter.
+  :replies:
+  - :author: PassifloraCaerulea
+    :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf7je/
+    :body: Interesting. More structured than my Ruby code since I decided that an array of strings was _perfectly cromulent_ for treating as a two-dimensional data structure :D I've not kept up with the latest Ruby stuff either!
+    :replies: []
+- :author: cwby_bbop
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsid0t/
+  :body: |-
+    Edge cases will always get you lol
+
+    [https://github.com/ealvar3z/aoc-2023/blob/master/day03.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day03.rb)
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsittp/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    require 'strscan'
+
+    LINES = [""]
+    ARGF.each_line { |line| LINES << ".#{line.chomp}." }
+    width = LINES[1].size - 2
+    height = LINES.size - 1
+    LINES[0] = '.' * (width + 2)
+    LINES << '.' * (width + 2)
+
+    def sym?(c) = /[^0-9.]/.match?(c)
+
+    puts (1..height).reduce(0) { |sum, y|
+      line = LINES[y]
+      scanner = StringScanner.new(line)
+      until scanner.eos?
+        scanner.skip(/[^\d]+/)
+        num = scanner.scan(/\d+/)
+        break unless scanner.matched?
+        x_beg = scanner.pos - scanner.matched_size
+        x_end = scanner.pos
+        next unless sym?(line[x_beg - 1]) || sym?(line[x_end]) ||
+          [-1, 1].any? { |dy| sym? LINES[y + dy][x_beg - 1..x_end] }
+        sum += num.to_i
+      end
+      sum
+    }
+    ```
+
+    Part 2:
+
+    ```ruby
+    require 'strscan'
+
+    LINES = [""]
+    ARGF.each_line { |line| LINES << ".#{line.chomp}." }
+    width = LINES[1].size - 2
+    height = LINES.size - 1
+    LINES[0] = '.' * (width + 2)
+    LINES << '.' * (width + 2)
+    NEIGHBOURS = (-1..1).to_a.product((-1..1).to_a) - [[0, 0]]
+
+    def digit?(c) = /\d/.match?(c)
+
+    puts (1..height).reduce(0) { |sum, y|
+      scanner = StringScanner.new(LINES[y])
+      until scanner.eos?
+        scanner.scan_until(/\*/)
+        break unless scanner.matched?
+        x = scanner.pos - 1
+        ranges = NEIGHBOURS.filter_map do |dx, dy|
+          line = LINES[y + dy]
+          x_beg = x + dx
+          next nil unless digit?(line[x_beg])
+          x_beg -= 1 while digit?(line[x_beg - 1])
+          x_end = x_beg + 1
+          x_end += 1 while digit?(line[x_end])
+          [y + dy, x_beg, x_end]
+        end
+        nums = ranges.uniq.map { |(y, b, e)| LINES[y][b...e].to_i }
+        next unless nums.size == 2
+        sum += nums.reduce(:*)
+      end
+      sum
+    }
+    ```
+  :replies: []
+- :author: 6f937f00-3166-11e4-8
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbvctzx/
+  :body: |-
+    ```ruby
+    require 'set'
+
+    def pad(lines)
+      # pad all lines with dots to avoid problems at edge of schematic
+      lines = lines.map { |line| ["."] + line.strip.chars + ["."] }
+      [["."] * lines[0].length] + lines + [["."] * lines[0].length]
+    end
+
+    def part_one(lines)
+      lines = pad(lines)
+
+      # Create set of positions that valid parts must overlap
+      valid_part_positions = Set.new
+      lines.each_with_index do |line, y|
+        line.each_with_index do |char, x|
+          next unless char =~ /[^\d\.]/
+          [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].each do |dy, dx|
+            valid_part_positions.add [y + dy, x + dx]
+          end
+        end
+      end
+
+      # iterate through numbers and any digit is in a valid part position
+      lines.map.with_index do |line, y|
+        line.join.enum_for(:scan, /(\d+)/).sum do |val|
+          x_start = Regexp.last_match.begin(0)
+          x_end = x_start + val[0].length - 1
+          (x_start..x_end).any? { |x| valid_part_positions.include?([y, x]) } ? val[0].to_i : 0
+        end
+      end.sum
+    end
+
+    def part_two(lines)
+      lines = pad(lines)
+
+      # Create mapping of gear potential neighbour positions to gear position
+      gear_neighbours_to_gears = Hash.new
+      lines.each_with_index do |line, y|
+        line.each_with_index do |char, x|
+          next unless char == "*"
+          [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].each do |dy, dx|
+            gear_neighbours_to_gears[[y + dy, x + dx]] = [y, x]
+          end
+        end
+      end
+
+      # maps gear coords to set of neighbouring number tuple [first digit y, first digit x, number value]
+      gears_to_neighbouring_numbers = Hash.new { |h, k| h[k] = Set.new }
+
+      # iterate through numbers and check if next to a gear
+      lines.map.with_index do |line, y|
+        line.join.enum_for(:scan, /(\d+)/).each do |val|
+          x_start = Regexp.last_match.begin(0)
+          x_end = x_start + val[0].length - 1
+          (x_start..x_end).each do |x|
+            next unless gear_neighbours_to_gears.include?([y, x])
+            gears_to_neighbouring_numbers[gear_neighbours_to_gears[[y, x]] ].add([y, x_start, val[0].to_i])
+          end
+        end
+      end
+
+      # sum the product of the neighbouring numbers for each gear with two neighbours
+      gears_to_neighbouring_numbers.select { |_, v| v.length == 2 }.map { |_, v| v.map(&:last).reduce(&:*) }.sum
+    end
+
+    puts "part one test1.txt", part_one(File.read('test1.txt').lines)
+    puts "part one input1.txt", part_one(File.read('input1.txt').lines)
+    puts "part two test1.txt", part_two(File.read('test1.txt').lines)
+    puts "part two input1.txt", part_two(File.read('input1.txt').lines)
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs8gke/
+  :body: |-
+    Too long to paste today: [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb)
+
+    I need to go back and clean this up, but at least it works. Had a number of bugs that took me too long to notice. Edit: Cleaned it up a bit now, still not ideal but at least there's no ugly code dupe anymore.
+
+    The big one was that I didn't clear my "number buffer" when a symbol happened directly between two numbers on a line, so `123*456` on a line would be parsed as the single number `123456`.
+  :replies: []
+- :author: PassifloraCaerulea
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsdpcp/
+  :body: |-
+    [Part 1](https://topaz.github.io/paste/#XQAAAQBzBAAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ENYxIxejQDv6proEW4TnDiEStYttJDmsfdts1SPJTgrn1Yy2FoQ5yqiZ879eZsad0KfFmufusabgOJvYtEIio2trRduiAfDurOicYk5UU12aM1ar4Ox9sLAOiyrQhp+bGXsIcbhzgAqOdfdTYGZkw3MUQ3anL4nbGMc91pm3MMs4FPc0QHzsv+9KQoO6VxE5e4VvzU/wH/8HvIbsyPrvAQdwnYNK1LmymhFxd9Cln56W6WEBU9UdTHsZjtPfeWf2GvtM2bYyPFLdkC7jl+huxEzXipEvG7TRficTul7CEUk63gYBUQFhWCwXXoYg/FkEDUXaUuPpKn86FBcLGyFmnXazCsxA1rOsf/w0s86ycx5PzSTY/SqWyevzu7gfko1EqXZSnstejIZtOp+WigJT3fzobiu+5OqnlPyebbFLxR7EH2raULX9JUVfp/lUOiJNasOtAQytC8Jtmq8h3qMMS9W7/Fn5TYlkRmkSxCjXpAmy2/40/2wJUMTlGJsJvEENDMHVppaWAoJXC02NrPlSQIGmbB8JCuh6zWhvuFfaoFUbsk3Mqn+z16dRMFPNQvdxpG2Q6Vbz//+NQ28Y=)
+
+    [LANGUAGE: C]
+
+    [Part 2](https://topaz.github.io/paste/#XQAAAQBzBAAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ENYxIxejQDv6proEW4TnDiEStYttJDmsfdts1SPJTgrn1Yy2FoQ5yqiZ879eZsad0KfFmufusabgOJvYtEIio2trRduiAfDurOicYk5UU12aM1ar4Ox9sLAOiyrQhp+bGXsIcbhzgAqOdfdTYGZkw3MUQ3anL4nbGMc91pm3MMs4FPc0QHzsv+9KQoO6VxE5e4VvzU/wH/8HvIbsyPrvAQdwnYNK1LmymhFxd9Cln56W6WEBU9UdTHsZjtPfeWf2GvtM2bYyPFLdkC7jl+huxEzXipEvG7TRficTul7CEUk63gYBUQFhWCwXXoYg/FkEDUXaUuPpKn86FBcLGyFmnXazCsxA1rOsf/w0s86ycx5PzSTY/SqWyevzu7gfko1EqXZSnstejIZtOp+WigJT3fzobiu+5OqnlPyebbFLxR7EH2raULX9JUVfp/lUOiJNasOtAQytC8Jtmq8h3qMMS9W7/Fn5TYlkRmkSxCjXpAmy2/40/2wJUMTlGJsJvEENDMHVppaWAoJXC02NrPlSQIGmbB8JCuh6zWhvuFfaoFUbsk3Mqn+z16dRMFPNQvdxpG2Q6Vbz//+NQ28Y=)
+
+    Because I'm an inveterate polyglot I had to switch languages halfway through since today was pretty comfortable for C. Fun excuse to use that wierdo string function `strpbrk`.
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf3cu/
+  :body: |-
+    really struggled today.
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day03/day03.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day03/day03.rb)
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsq0ib/
+  :body: |-
+    My code is ugly :(
+
+    [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03)
+  :replies: []
+- :author: Chemical-Mixture1942
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbt7my5/
+  :body: |-
+    [https://github.com/mathexresources/adventOfCode2023/tree/main/day3](https://github.com/mathexresources/adventOfCode2023/tree/main/day3)
+
+    My code is quite big so i figured ill just paste the github repo link, both parts done, feel free to take a look or mention my mistakes and opportunities to improve the code.
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbtqifk/
+  :body: |-
+    PART 1
+
+    ```ruby
+    engine = File.read('input').split("\n")
+    # surround entire engine schematic with '.' to eliminate all annoying edge cases.
+    engine.unshift '.' * engine[0].length
+    engine.push '.' * engine[0].length
+    engine.each.each_with_index do |line, lineno|
+      engine[lineno] = '.' + line + '.'
+    end
+    okparts = []
+    engine.each_with_index do |line, lineno|
+      # determine all engine part numbers and their position in the line
+      positions = line.enum_for(:scan, /[0-9]+/).map { [Regexp.last_match.to_s, Regexp.last_match.begin(0)] }
+      # collect all engine numbers that are adjacent to symbols
+      positions.each do |partnum, position|
+        c = ''
+        c << engine[lineno - 1].slice(position - 1..position + partnum.length)
+        c << line[position - 1]
+        c << line[position + partnum.length]
+        c << engine[lineno + 1].slice(position - 1..position + partnum.length)
+        okparts.push partnum.to_i if not c.scan(/[^\.]/).empty?
+      end
+    end
+    p okparts.sum
+    ```
+
+    PART 2
+
+    ```ruby
+    engine = File.read('input').split("\n")
+    # surround entire engine schematic with '.' to eliminate all annoying edge cases.
+    engine.unshift '.' * engine[0].length
+    engine.push '.' * engine[0].length
+    engine.each.each_with_index do |line, lineno|
+      engine[lineno] = '.' + line + '.'
+    end
+    gear = {}
+    engine.each_with_index do |line, lineno|
+      # determine all engine part numbers and their position in the line
+      positions = line.enum_for(:scan, /[0-9]+/).map { [Regexp.last_match.to_s, Regexp.last_match.begin(0)] }
+      # create a hash with each gear and collect all the engine parts that are adjacent
+      positions.each do |partnum, position|
+        c = ''
+        (lineno - 1..lineno + 1).each do |i|
+          c << engine[i].slice(position - 1..position + partnum.length)
+        end
+        gears = c.enum_for(:scan, /\*/).map { [Regexp.last_match.to_s, Regexp.last_match.begin(0)] }
+        gears.each do |g|
+          l = lineno + (g[1]/(partnum.length+2)-1)
+          p = position + (g[1]%(partnum.length+2)-1)
+          gear["#{l.to_s+','+p.to_s}"] ||= []
+          gear["#{l.to_s+','+p.to_s}"] << partnum.to_i
+        end
+      end
+    end
+    ratio = 0
+    gear.each do |k, v|
+      # only a gear that has EXACTLY two adjacent parts get counted
+      if v.length == 2
+        ratio += v[0] * v[1]
+      end
+    end
+    p ratio
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbttcry/
+  :body: |-
+    Damn, maybe Sunday morning brain, but didn't expect that to be that hard!
+
+    [GitHub](https://github.com/careyi3/aoc_2023/tree/master/solutions/3)
+
+    [Video Walkthrough](https://youtu.be/3Q1hCLpJijw)
+  :replies: []

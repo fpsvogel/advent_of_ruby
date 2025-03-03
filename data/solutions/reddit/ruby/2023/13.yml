@@ -1,0 +1,135 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kdb034y/
+  :body: |-
+    A day late but still going, this was tough!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/13)
+
+    [Video Walkthrough](https://youtu.be/ng88PiHxLCo)
+  :replies: []
+- :author: grimlyforming
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd9sbam/
+  :body: |-
+    [https://pastebin.com/iwbrMUac](https://pastebin.com/iwbrMUac)
+
+    I tried the brute-force method of changing every character in the graph, wasn't getting the answer, and it was too cumbersome to debug. Then I realized that instead of changing every char and looking for a reflection, look for a modified reflection. The wrapper around the code is too full of print stmts etc, but I'm happy with the core solution.
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd5o37o/
+  :body: |-
+    No clever tricks needed today, simply brute-force.
+
+    Part 1:
+
+    ```ruby
+    def solve(data)
+      (1...data.size).find { |i|
+        len = [i, data.size - i].min
+        (1..len).all? { data[i - _1] == data[i + _1 - 1] }
+      } || 0
+    end
+
+    puts loop.map {
+      data = $<.lazy.map(&:chomp).take_while { !_1.empty? }.to_a.map(&:chars)
+      raise StopIteration if data.empty?
+      row = solve(data)
+      column = solve(data.transpose)
+      row * 100 + column
+    }.sum
+    ```
+
+    Part 2:
+
+    ```ruby
+    def solve(data, ignore = -1)
+      (1...data.size).find { |i|
+        next if i == ignore
+        len = [i, data.size - i].min
+        (1..len).all? { data[i - _1] == data[i + _1 - 1] }
+      } || 0
+    end
+
+    def smudge(c) = c == '#' ? '.' : '#'
+
+    puts loop.map {
+      data = $<.lazy.map(&:chomp).take_while { !_1.empty? }.to_a.map(&:chars)
+      raise StopIteration if data.empty?
+      initial_row = solve(data)
+      initial_column = solve(data.transpose)
+      row, column = (0...data.size).lazy.filter_map { |y|
+        (0...data[0].size).lazy.filter_map { |x|
+          data[y][x] = smudge(data[y][x])
+          row = solve(data, initial_row)
+          column = solve(data.transpose, initial_column)
+          data[y][x] = smudge(data[y][x])
+          [row, column] if row != 0 || column != 0
+        }.first
+      }.first
+      row * 100 + column
+    }.sum
+    ```
+
+    [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+  :replies: []
+- :author: Various_Frosting4888
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6hozf/
+  :body: "[https://pastebin.com/gRvQvrWx](https://pastebin.com/gRvQvrWx)"
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6j5b3/
+  :body: |-
+    My initial code was horrible, after cleanup it actually looks quite nice.
+
+    Until I started golfing my solution, which turned the code back into a horrible mess. I adopted some of it back into my initial code, but some things were pure evil just to save like 2 bytes...
+
+    ```ruby
+    test = lambda { |l, nudge|
+        for i in 0...l.size - 1
+            k = i + 1
+            next unless l[i].zip(l[k]).count { _1 != _2 } <= nudge
+
+            m2 = (0...[k, l.size - k].min).filter { l[k + _1] != l[i - _1] }
+            next unless m2.size == nudge
+
+            nudged = m2[0] && l[i - m2[0]].zip(l[k + m2[0]]).count { _1 != _2 }
+            return k if nudge == 0 || nudged == 1
+        end
+        0
+    }
+
+    res = $<.read.tr("\r", '').split("\n\n").sum do |l|
+        m = l.split("\n").map(&:chars)
+        (
+            100 * test[m, 0] + test[m.transpose, 0] +
+            100i * test[m, 1] + 1i * test[m.transpose, 1])
+    end
+    puts "Part 1: #{res.real}"
+    puts "Part 2: #{res.imag}"
+    ```
+
+    Golfed Ruby: `308` bytes.
+
+    The main thing was that I was able to write the whole `test` function into a single line statement using various tricks. After that I nudged it even more using a negative range for reverse iteration, to be able to store the first match index from the last iteration.
+
+    Also the main test loop starts from 1 to size because it is 2 bytes shorter in total to calculate `i` from `k = (i+1)` than the other way around
+
+    I wonder if some of the conditions could be made even shorter but I'm quite happy with it, not considering the awful amount of time I spent on this
+
+    ```ruby
+    t=->(l,n){(1...(h=l.size)).sum{|k|l[i=k-1].zip(l[k]).count{_1!=_2}<=n&&(
+    (-[k,h-k].min+1..w=0).count{l[k-_1]!=l[i+_1]&&w=_1}==n&&
+    (n==0||l[i+w].zip(l[k-w]).count{_1!=_2}==1)&&k)||0}}
+    p *$<.read.tr(?\r,'').split("\n\n").map{m=_1.split(?\n).map(&:chars)
+    [0,1].map{|n|100*t[m,n]+t[m.transpose,n]}}.transpose.map(&:sum)
+    ```
+  :replies: []
+- :author: Unhappy_Adeptness_93
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd72ekb/
+  :body: |-
+    Finding hamming distance in part 2 was easy after using int representations of the rows/columns for debugging on part 1.
+
+    The thing I think is _pretty_ neat, is that I compared every combination of rows, and then grouped those by the average of their indexes, which gives you the center line. You have to filter out half the pairs, because the mirror would be _on_ a row or column.
+
+    [https://github.com/andyAtChime/advent\_of\_code/blob/solutions-2023/2023/code/day\_13.rb](https://github.com/andyAtChime/advent_of_code/blob/solutions-2023/2023/code/day_13.rb)
+  :replies: []

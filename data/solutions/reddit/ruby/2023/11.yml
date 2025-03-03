@@ -1,0 +1,363 @@
+---
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcyshi4/
+  :body: |-
+    [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-11/part_1.rb)
+
+    In part 1 I actually expanded the grid,
+
+    [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-11/part_2.rb)
+
+    For part 2, I just counted how many times a galaxy pair crossed an expansion and added that to the distance.
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwuxjw/
+  :body: |-
+    I stored the galaxy coordinates as a hash from X coordinate to array of Y coordinates, and I expanded space with the following function:
+
+    ```ruby
+    # Space.galaxies is a hash from X coordinate to array of Y coordinates
+    def expand_horizontally(factor = 2)
+      ret = Space.new
+      cols = galaxies.keys.sort
+      x0 = cols.shift
+      ret.galaxies[x0] = galaxies[x0]
+      expansion = 0
+      while (x = cols.shift)
+        expansion += (x - x0 - 1) * (factor - 1)
+        ret.galaxies[x + expansion] = galaxies[x]
+        x0 = x
+      end
+      ret
+    end
+    ```
+
+    I then transposed the array and repeated for the other axis, i.e.
+
+    ```ruby
+    def expand(factor = 2)
+      expand_horizontally(factor).transpose.
+        expand_horizontally(factor).transpose
+    end
+    ```
+
+    For part 2, all I had to do was add the factor argument. My initial answer was too high until I realized I needed to subtract 1 from the scale factor.
+
+    [Full solution](https://github.com/jstanley0/advent-2023/blob/main/11.rb)
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc079/
+  :body: |-
+    Nice easy one after last night:
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCpAgAAAAAAAAARiAqGkkN2w8uW9zdu4QV9huA3XtLPyAMJ+BUFIW/0tlJ05GEjbzGbpJ/rHVTmRpgeuahr+5Hp9htXWjnoQu+9zgWkc88D6vYgpVMbYUeyugJvbW3A+du35kd185oV5nxgW6/J2rVW8v5uYC0jQV5YOF2RCj5i7dO6DacK23eyXmS8fQWenB1IA+8s05eV9rHUM0WiMpIvdBH9ftZSYWJEZDMxCXLPnXDdXDqerxTKp7HwuKLeSP6Mo1tEbuQX9nePbO6W2zCP23Kcm3ySvBRW9hwXaplvlDcPfI50Ge+wczTtKOjwza+JFhwP4zd7G1F98lgiTFrJmyV3y79dTbRWZ4xNQRbipOxSKSiDnKauebwnEAa3JVSjTEDkKdf5FyXpuLoprBkj9t6MnxkJHlNNbp2HYazcreTAcniNf3rt/rassEMO2Own5/A48+qsitDoNZqSKxbBnXydIQfJ2pb3hT/+nZ9lkmyxRp3HjH5bKfYRZH5/Tkbd1eZC5DtxfQRRUd5chnH/zDNOMA==)
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc6tn/
+  :body: |-
+    Parts 1 and 2 (for part 1, change `1000000` to `2`):
+
+    ```ruby
+    rows = $<.readlines(chomp: true).map(&:chars)
+
+    inflated_y, inflated_x = [rows, rows.transpose].map { |xs|
+      xs.reduce([]) { |inflated, col|
+        prev = inflated.empty? ? -1 : inflated[-1]
+        inflated << prev + (col.all? { _1 == '.' } ? 1000000 : 1)
+      }
+    }
+
+    stars = []
+    (0...rows.size).each { |y|
+      (0...rows[0].size).each { |x|
+        stars << [inflated_x[x], inflated_y[y]] if rows[y][x] == '#'
+      }
+    }
+
+    result = 0
+    (0...stars.size).each { |i|
+      (0...i).each { |j|
+        a, b = stars[i], stars[j]
+        dist = (a[0] - b[0]).abs + (a[1] - b[1]).abs
+        result += dist
+      }
+    }
+    puts result
+    ```
+
+    [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+  :replies: []
+- :author: Jonathan_Frias
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw0fyd/
+  :body: |-
+    I used native ranges to signify the distance between the range bounds and some fancy matrix transpose stuff :)
+
+    This was a really fun one
+
+    ```ruby
+    input = File.read("./sample")
+
+    range = 1..2 # part1
+    range = 1..1000000 # part2
+
+    range_diff = range.end - range.begin
+
+    input.lines.map do |line|
+      line.strip.split("")
+    end.map do |line|
+      if line.all? { |c| c != '#' }
+        [line.map { range }]
+      else
+        [line]
+      end
+    end.flatten(1).transpose.map do |column|
+      if column.all? { |c| c != '#' }
+        [column.map { range }]
+      else
+        [column]
+      end
+    end.flatten(1).transpose.then do |grid|
+      coordinates = grid.each_with_index.map do |row, x|
+        row.each_with_index.map do |char, y|
+          [x, y] if grid[x][y] == '#'
+        end
+      end.flatten(1).compact
+
+      coordinates.combination(2).reduce(0) do |acc, ((x1, y1), (x2, y2))|
+        acc += (x1 - x2).abs + (y1 - y2).abs +
+          (grid[x1][Range.new(*([y1, y2].sort))].count { |cell| cell.is_a?(Range) } * (range_diff)) +
+          (grid.transpose[y1][Range.new(*([x1, x2].sort))].count { |cell| cell.is_a?(Range) } * (range_diff))
+      end
+    end => result
+
+    puts result
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw2i1k/
+  :body: |-
+    I'm extracting all row and col indices of empty lines
+
+    Then I do an range check of the unordered `#` coordinates, counting the intersected spaces and multiply the age factor
+
+    ```ruby
+    input = *$<
+    rowidx = ->(l) { (0...l.size).filter { l[_1] =~ /^\.+$/ } }
+    cols = rowidx[input]
+    rows = rowidx[input.map(&:chars).transpose.map(&:join)]
+
+    w = input[0].size
+    pos = []
+    input.join.scan(/[#]/) { pos << [$`.size % w, $`.size / w] }
+
+    cdist = lambda { |((a, b), (c, d))|
+        ex = rows.count { _1 > a != _1 > c }
+        ex += cols.count { _1 > b != _1 > d }
+        (a - c).abs + (b - d).abs + ~-$age * ex
+    }
+
+    $age = 2
+    puts "Part 1: #{pos.combination(2).map(&cdist).sum}"
+    $age = 1_000_000
+    puts "Part 2: #{pos.combination(2).map(&cdist).sum}"
+    ```
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw3kts/
+  :body: |-
+    One day less!
+
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayEleven2023
+      def self.part_one(lines)
+        solve(lines, coeficient: 1)
+      end
+
+      def self.part_two(lines)
+        solve(lines, coeficient: 999_999)
+      end
+
+      class << self
+        def solve(lines, coeficient:)
+          galaxies, vertical_expansion, horizontal_expansion = create_universe(lines)
+          galaxies.combination(2).sum do |(x1, y1), (x2, y2)|
+            distance = (x2 - x1).abs + (y2 - y1).abs
+            vertical_expansion.each do |expansion|
+              min, max = [x1, x2].minmax
+              distance += coeficient if (min..max).cover? expansion
+        end
+            horizontal_expansion.each do |expansion|
+              min, max = [y1, y2].minmax
+              distance += coeficient if (min..max).cover? expansion
+            end
+            distance
+          end
+        end
+
+        def create_universe(lines)
+          vertical_expansion = Set.new
+          horizontal_expansion = Set.new
+          galaxies = lines.each_with_index.with_object([]) do |(column, idx), acc|
+            vertical_expansion.add(idx) if column.chars.uniq.size == 1
+            column.chars.each_with_index do |row, idy|
+              horizontal_expansion.add(idy) if lines.map { |line| line[idy] }.uniq.size == 1
+              acc << [idx, idy] if row == "#"
+            end
+          end
+
+          [galaxies, vertical_expansion, horizontal_expansion]
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: WindyMiller2006
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw7r3p/
+  :body: |-
+    [paste](https://pastebin.com/x6TtP1ML)
+
+    Haven't seen much love for Ruby on here, so here's my solution
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwfawq/
+  :body: |-
+    Nice one today, simple hash map for the points, some maths for handling expansion and then Manhattan distance!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/11)
+
+    [Video Walkthrough](https://youtu.be/ccrQzihAfhU)
+  :replies: []
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwjgx8/
+  :body: |-
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day11.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day11.rb)
+
+    im glad i found out about #transpose and #combination, they were useful here
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwrhp5/
+  :body: |-
+    Update of my [previous solution](https://www.reddit.com/r/adventofcode/comments/18fmrjk/comment/kcw2i1k), which doesnt calculate on point but on the axes individually.
+
+    ```ruby
+    input = *$<
+    rowidx = ->(l) { (0...l.size).filter { l[_1] =~ /^\.+$/ } }
+    cols = rowidx[input]
+    rows = rowidx[input.map(&:chars).transpose.map(&:join)]
+
+    w = input[0].size
+    pos = []
+    input.join.scan(/[#]/) { pos << [$`.size % w, $`.size / w] }
+    pos = pos.transpose.zip([rows, cols])
+
+    cdist = lambda { |(a, b), r, f|
+        ex = r.count { _1 > a != _1 > b }
+        (a - b).abs + f * ex
+    }
+    solve = ->(n) { pos.map { |(c, r, _)| c.combination(2).sum { cdist[_1, r, n] } }.sum }
+
+    puts "Part 1: #{solve[1]}"
+    puts "Part 2: #{solve[999999]}"
+    ```
+
+    Golfed solution 282 bytes. I tried to use complex numbers and calculate the result at the end with `p w=z.real+z.imag,w+z.imag*99999`, but accessing real and imag actually made this `10` bytes longer
+
+    ```ruby
+    i=*$<;r=->(l){(0...l.size).filter{l[_1]=~/^\.+$/}}
+    w=i[0].size;p=[];i.join.scan(/[#]/){p<<[$`.size% w,$`.size/w]}
+    v=->(f){p.transpose.zip([r[i.map(&:chars).transpose.map(&:join)],r[i]])
+    .map{|(c,r,_)|c.combination(2).sum{|(a,b)|(a-b).abs+f*r.count{_1>a!=_1>b}}}.sum}
+    p v[1],v[999999]
+    ```
+  :replies: []
+- :author: michiexile
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcx4jfv/
+  :body: |-
+    Running time: 100ms for each part of the problem.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB/AwAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/W02rPyQBiSoPmfIi3W4h0i6AsYWl3So3gWCZREGK7TvBStDM2GBa+3lYXgKW5GvrDaTFMB/dBIF3eUHOVTrYx52IiinhO/zCsVcsf2xwTBKh8z2YFxVTVYNVr0hiVSs2+fRcz4Q5LTRnpJsl0r9QA3xT/KC2WbaqQkMnZlbrjGBgNewRSmjUrWFLZUh7nm+t/dzvNx6o7Vr/tnp5GxDRjX2+QcpO9toKul/XeQJrcEi1GOVcnhUMavAuEpPC5eY9jtD6hgpw3C2inNrVtw1LKJuGPKcoMf1V8Bl3beyId0HIXKmBuSCJXmoqxo5iqI/bO5U/B0MQJWArfXNm9vU5joyZS/LxtLt59R0aYCKDyyo7o/Iv8VZSoqnXeW9DonjRt+ZBw9AZIfmYmY7+x9mrhKyWrXEjIBQ2DMNCV6nBl1K8E+yHFE5POxZ0udrGSvMcMCek5LhlWzpvBkXq2pM3IenYaTbYYegJ+74KtOeIc7zGkNq25xEXAXxCfeEheR3IMkdRdrbA8jrB78uCdJiA473PhR6JeFaUZZBR2DHEXErPWGYuh9UdPoSMSszZ3mmxP+n+J+6mMEgzviRlZEGgiTyixnGI8bZlUzx8cYnEM8e8r1SBSJGeXbMaTeYuJsxEVNk4R+L0G/6xrj8=)
+
+    Basically, I iterated through raw string lines to pick out coordinates of the stars, stored in `stars` as an array of arrays of length 2. Finding the empty rows and columns then boiled down to:
+
+    ```ruby
+    rows = stars.map { |x,y| x }
+    cols = stars.map { |x,y| y }
+    $emptyrows = (0 .. rows.max).to_a - rows
+    $emptycols = (0 .. cols.max).to_a - cols
+    ```
+
+    With this, a parametrizable expansion becomes:
+
+    ```ruby
+    def expand(stars, factor=2)
+      stars.map do |x,y|
+        [x + (factor-1)*$emptyrows.count { |r| r < x },
+         y + (factor-1)*$emptycols.count { |c| c < y }]
+      end
+    end
+    ```
+
+    Ruby's `Array#combination` and recognizing the Manhattan distance letting me use `(from[0]-to[0]).abs + (from[1]-to[1]).abs` for the pairwise distances wrapped it all up.
+  :replies: []
+- :author: coderhs
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvdzk7/
+  :body: |-
+    Took me a while to google and find this formula called Manhattan distance. Once that was found it was easy. [https://xlinux.nist.gov/dads/HTML/manhattanDistance.html](https://xlinux.nist.gov/dads/HTML/manhattanDistance.html)
+
+    [https://gist.github.com/coderhs/eb4c9ff2aa5c5f71f3a7f1fd104b9bc0](https://gist.github.com/coderhs/eb4c9ff2aa5c5f71f3a7f1fd104b9bc0)
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcve1am/
+  :body: |-
+    ```ruby
+    require 'set'
+
+    POSITIONS = ARGF.readlines(chomp: true).flat_map.with_index { |line, y|
+      line.chars.map.with_index { [_1, _2] }.select { |c, _| c == ?# }.map { [_2, y] }
+    }
+
+    XS, YS = POSITIONS.map { [_1[0], _1[1]] }.transpose.map { _1.to_set }
+
+    WIDTH = XS.max + 1
+    HEIGHT = YS.max + 1
+
+    EMPTY_X = (0...WIDTH).select { !XS.include?(_1) }.to_set
+    EMPTY_Y = (0...HEIGHT).select { !YS.include?(_1) }.to_set
+
+    def dist(a, b)
+      x1, x2, y1, y2 = a[0], b[0], a[1], b[1]
+      x_min, x_max = [x1, x2].minmax
+      y_min, y_max = [y1, y2].minmax
+      ex = (x_min..x_max).count { EMPTY_X.include? _1 }
+      ey = (y_min..y_max).count { EMPTY_Y.include? _1 }
+      dist = (x1 - x2).abs + (y1 - y2).abs
+      [dist + ex + ey, dist + ex * 999_999 + ey * 999_999]
+    end
+
+    puts POSITIONS.combination(2).to_a.map { dist _1, _2 }.transpose.map(&:sum)
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/11/solve.rb))
+
+    Part 2 took a bit to figure out :| But I like when I can combine both parts in the same code.
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvh44q/
+  :body: |-
+    6825 / 6309
+
+    Got a late start on this one, but it was pretty easy. In part 1, I did the expansion of the data array and then just did manhattan distance. But realized I needed something smarter for part 2. So I just created a Set for each empty row and another one for each empty column, then and'ed that with the Set of cols and rows between my galaxies.
+
+    [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/11/solution.rb)
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvj8up/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day11.rb)
+
+    I decided to represent each coördinate as a complex number (_d_ + _si_), where _d_ is the number of dense rows or columns betweeen the origin and a coördinate, and _s_ the number of sparse (_i.e._ no galaxies) rows or columns. The Manhattan distance computation can then be computed simply by multiplying the imaginary component by the length assigned to sparse spaces for each dimension in the coördinates whose interstitial distance to compute.
+
+    On an unrelated note, the frequency of the phrase "shortest path" in Part 1 definitely made me think that I'd need to reach for a pathfinding algorithm in Part 2 — alas, I suppose that'll have to wait for another day.
+  :replies: []

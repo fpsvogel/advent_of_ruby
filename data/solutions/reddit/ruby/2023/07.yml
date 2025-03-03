@@ -1,0 +1,191 @@
+---
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcgpsmc/
+  :body: "[https://github.com/snowe2010/advent-of-code/blob/master/ruby\\_aoc/2023/day07/day07.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day07/day07.rb)"
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kce2h0w/
+  :body: |-
+    Update to my [previous solution](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccvf0a/), applying shannons entropy as suggested by [u/sinsworth](/u/sinsworth) [here](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccov05/)
+
+    The strength value is now calculated by this function, which sums the squares of the counts of every character. Previously my sorting function appended the strength as digit 0-6. The squares are larger so I just use `chr` to convert the number to a single character
+
+    ```ruby
+    order1 = ->(c) { c.chars.tally.values.sum { _1**2 }.chr }
+    ```
+
+    Applying this to my golfed code I can get sub 400 bytes, 395 to be exact
+
+    ```ruby
+    m=->(c){c.chars.tally.values.sum{_1**2}.chr}
+    n=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)})}.max}
+    d,e=$<.map{|c|[c.split[0].gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose
+    w=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{_1[2]*(_2+1)}}
+    p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
+    ```
+
+    What bugs me is that I can't quite fulfill the `5x80` punch card limitation. The best I could get is reordering and format it to `5x81`.
+
+    ```ruby
+    m=->(c){c.chars.tally.values.sum{_1**2}.chr};d,e=$<.map{|c|[c.split[0].gsub(/./){
+    '0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose;n=->(c){c.chars
+    .repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)})}.max}
+    w=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{
+    _1[2]*(_2+1)}};p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc12z0/
+  :body: |-
+    A wordy one today, and a bit big to paste here: [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/07/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/07/solve.rb)
+
+    Not very difficult for an odd day :)
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kccdu28/
+  :body: |-
+    Struggled a bit with base case (all jokers etc) in part b.
+
+    [Link to file in github](https://github.com/jlugner/2023-aoc/blob/master/solutions/day7/solution.rb)
+  :replies: []
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcceb9r/
+  :body: |-
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day7.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day7.rb)
+
+    this one was fun to solve :)
+
+    i didnt think super hard about my part 2 solution, i just kind of assumed that you'll get the best type possible by putting all the jokers in the biggest stack. its very satisfying when an assumption like that turns out correct!
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcckjfy/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    hands = $<.map { h, s = _1.split(' '); [h.chars.map(&:to_sym), s.to_i] }
+
+    COMBOS = %i[five four full_house three two_pair one_pair high_card none]
+    CARDS = %i[A K Q J T 9 8 7 6 5 4 3 2]
+
+    def combo(hand)
+      case hand.tally.values.sort
+      in [5] then :five
+      in [1, 4] then :four
+      in [2, 3] then :full_house
+      in [1, 1, 3] then :three
+      in [1, 2, 2] then :two_pair
+      in [1, 1, 1, 2] then :one_pair
+      in [1, 1, 1, 1, 1] then :high_card
+      else :none
+      end
+    end
+
+    puts hands.sort_by { |(hand, score)|
+      [COMBOS.index(combo(hand)), *(0...5).map { CARDS.index(hand[_1]) }]
+    }.each_with_index.map { |(hand, score), i| score * (hands.size - i) }.sum
+    ```
+
+    Part 2:
+
+    ```ruby
+    hands = $<.map { h, s = _1.split(' '); [h.chars.map(&:to_sym), s.to_i] }
+
+    COMBOS = %i[five four full_house three two_pair one_pair high_card none]
+    CARDS = %i[A K Q T 9 8 7 6 5 4 3 2 J]
+
+    def combo(hand)
+      tally = (hand - [:J]).tally.values.sort
+      if tally.empty?
+        tally = [5]
+      else
+        tally[-1] += hand.count(:J)
+      end
+      case tally
+      in [5] then :five
+      in [1, 4] then :four
+      in [2, 3] then :full_house
+      in [1, 1, 3] then :three
+      in [1, 2, 2] then :two_pair
+      in [1, 1, 1, 2] then :one_pair
+      in [1, 1, 1, 1, 1] then :high_card
+      else :none
+      end
+    end
+
+    puts hands.sort_by { |(hand, score)|
+      [COMBOS.index(combo(hand)), *(0...5).map { CARDS.index(hand[_1]) }]
+    }.each_with_index.map { |(hand, score), i| score * (hands.size - i) }.sum
+    ```
+
+    All solutions: [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kceqv1x/
+  :body: |-
+    [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-07/part_1.rb)
+
+    [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-07/part_2.rb)
+
+    The gist of the solution is just reducing the the hand into a tally of cards and matching against possible sets which indicate the type for each hand:
+
+    Ex, part 2:
+
+    ```ruby
+    class Hand
+      # ...
+      def hand_type
+        @hand_type ||= case
+        when set?([5], [4], [3], [2], [1], []) then :five_of_a_kind
+        when set?([1, 4], [1, 3], [1, 2], [1, 1]) then :four_of_a_kind
+        when set?([2, 3], [2, 2]) then :full_house
+        when set?([1, 1, 3], [1, 1, 2], [1, 1, 1]) then :three_of_a_kind
+        when set?([2, 2], [1, 2, 2]) then :two_pair
+        when set?([1, 1, 1, 2], [1, 1, 1, 1]) then :one_pair
+        when set?([1, 1, 1, 1, 1]) then :high_card
+        end
+      end
+
+      def <=>(other)
+        comparison = PRECEDENCE[other.hand_type] <=> PRECEDENCE[hand_type]
+        return comparison unless comparison.zero?
+
+        card_values.lazy.zip(other.card_values).map { |a, b| b <=> a }.find { |n| !n.zero? }
+      end
+      # ...
+    end
+    ```
+  :replies: []
+- :author: maths222
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcbyumt/
+  :body: |-
+    465/532
+
+    In retrospect my predicate methods were a bit repetitive, but overall it was pretty straightforward. Ruby's `tally` method made doing the frequencies really simple.
+
+    [code](https://gist.github.com/maths22/a723e4576864b244c8dd2d349d817fbb)
+  :replies:
+  - :author: campsight46
+    :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc08l9/
+    :body: link is to day 6? (and the code is not for day6 of this year?)
+    :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc6kmv/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day07.rb)
+
+    This was a fun problem! After solving, I refactored my solution to make it capable of handling both parts with only a one-line change: the fact that Jokers are assigned a relative strength less than 2 made this change somewhat trivial. I'm also somewhat pleased with my encoding of the card type as a sum of powers: that's not a trick you get to use too often!
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kccvf0a/
+  :body: "Took me longer than expected to solve and I spent quite a while to make it as concise as it is right now:\n\n```ruby\ndigx = -> { '0123456789TJQKA'.index(_1).to_s(16) }\nstrength = -> { '11 21 22 31 32 41 5'.index(_1) / 3 }\nsorter = ->(a, b) { a[0].to_s + a[1] <=> b[0].to_s + b[1] }\n\norder1 = -> { strength.(_1.chars.tally.values.sort.reverse.join[0, 2]) }\norder2 = lambda { |c|\n    perms = c.chars.repeated_combination(c.count('0'))\n    perms.map { |p| order1.(p.reduce(c) { _1.sub('0', _2) }) }.max\n}\n\ncards, bids = $<.map { [_1.split[0].gsub(/./, &digx), _1.split[1].to_i] }.transpose\nwinnings = ->(c) { c.zip(cards, bids).sort(&sorter).map.with_index.sum { _1[2] * (_2 + 1) } }\nputs \"Part 1: #{winnings.(cards.map(&order1))}\"\n\ncards.map { _1.gsub!('b', '0') }\nputs \"Part 2: #{winnings.(cards.map(&order2))}\"\n```\n\nIt has golfing potential but its a 426 byte mess you have to be prepared for :D\n\n```ruby\nm=->{'1121223132415'.index(_1.chars.tally.values.sort.reverse.join[0,2])/2}\nn=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)})}.max}\nd,e=$<.map{|c|[c.split[0].gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose\nw=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{_1[2]*(_2+1)}}\np w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))\n```\n\nOpen for golf improvements and other golfing or concise solutions :)  \nThat sub 400 looks just out of reach..."
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcd1435/
+  :body: |-
+    Nice one today!!
+
+    [GitHub](https://github.com/careyi3/aoc_2023/tree/master/solutions/7)
+
+    [Video Walkthrough](https://youtu.be/-styZyl2hIA)
+  :replies: []

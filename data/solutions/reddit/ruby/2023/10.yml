@@ -1,0 +1,372 @@
+---
+- :author: DietNerd
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kvufdp7/
+  :body: |-
+    [Parts 1 and 2](https://topaz.github.io/paste/#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)
+
+    Took me a while, but solved both in ~400 lines of Ruby, the whole thing runs in under 1s.
+
+    Flipping through the other solutions, I think mine is unique. Part 1 is a straightforward walking of the path. Part 2 was tricky. I started with what I guess is a variant of a flood fill - manually mark the outer-most rows and cols as outside, then loop over the whole array in normal order, setting each cell to outer if a neighbor was too. Only a partial success after 1 run, so keep running it until no more cells change. I stick with the strategy for the whole solution of a simple partial solution applied in a loop until it's a full solution. Then I split the remaining candidates in the pile of pipes into singles and groups.
+
+    For all the singles, determine the valid ways away between pipes, then keep going until hitting a dead end, an outer cell, or another candidate, in which case I quit. The real trick was how to determine and track the between-pipe directions. I realized I could use the solution to step 1 for this, with the actual path through the pipe - just access the path array I had built before for part 1, with the step num in each cell instead of pipe, at the same position, and check for a difference of |1| between the 2 cells I wanted to try and go between. If it's |1|, then it's blocked by the pipe path, otherwise I can go through. Then represent the position by going up or down 0.5 in the coordinate.
+
+    For the groups, I did basically the same thing, but had to first gather all of the groups, using a similar algorithm to the flood fill, letting the biggest group take over every time they intersected. Then for each group, gather the directions away between pipes, and iterate each one until it hit something. The main wrinkle is the huge group in the center. I put that off because I figured it would be more complex to handle. When I had a full solution with everything but that group, I printed the output to a file to look at it, and just decided that it was probably outside considering that it was right in the center and all of the singles and small groups around it didn't find a path to the outside. So I submitted that and it was right.
+  :replies: []
+- :author: kateba72
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqkyrx/
+  :body: |-
+    331/66
+
+    For part 1, I found the start node and went along the loop until I found the start again. The distance to the farthest point of the loop is exactly half the loop's length (and because of the 2d-array-nature of the loop, the length is guaranteed to be even)
+
+    For part 2, I replaced the parts of the loop that had a connection to the row above by `!` and the other parts of the loop by `_`. I removed all `_` and counted the remaining parts of each line that had an odd number of `!` before them
+
+    And yay, my first ever global leaderboard!
+
+    [https://github.com/Kateba72/advent\_of\_code/blob/main/aoc/y2023/d10.rb](https://github.com/kateba72/advent_of_code/blob/main/aoc/y2023/d10.rb)
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqw6za/
+  :body: |-
+    Code shared between both parts:
+
+    ```ruby
+    SYM_TO_DIR = {
+      '|' => %i[north south], '-' => %i[west east],
+      'L' => %i[north east], 'J' => %i[north west],
+      '7' => %i[west south], 'F' => %i[east south], '.' => %i[],
+    }
+
+    class Point < Data.define(:x, :y)
+      def west() = with(x: x - 1); def east() = with(x: x + 1)
+      def north() = with(y: y - 1); def south() = with(y: y + 1);
+      def to(dir) = send(dir)
+    end
+
+    class Data2D < Data.define(:array)
+      def [](point) = array[point.y][point.x]
+      def []=(point, value); array[point.y][point.x] = value end
+      def w = array[0].size; def h = array.size
+
+      def west?(point) = point.x > 0; def east?(point) = point.x + 1 < w
+      def north?(point) = point.y > 0; def south?(point) = point.y + 1 < h
+      def to?(dir, point) = send(:"#{dir}?", point)
+
+      def each_position
+        return to_enum( __method__ ) { w * h } unless block_given?
+        (0...h).each { |y| (0...w).each { |x| yield Point.new(x, y) } }
+      end
+    end
+
+    def adj(data, point)
+      return to_enum( __method__ , data, point) unless block_given?
+      SYM_TO_DIR[data[point]].each { yield(point.to(_1)) if data.to?(_1, point) }
+    end
+
+    map = Data2D.new($<.readlines(chomp: true))
+    start = map.each_position.find { |point| map[point] == 'S' }
+    ```
+
+    Part 1, breadth-first search:
+
+    ```ruby
+    queue = %i[north east south west].filter_map { |dir|
+      next unless map.to?(dir, start)
+      point = start.to(dir)
+      [point, start] if adj(map, point).include?(start)
+    }
+    loop do
+      point, prev = queue.shift
+      if dist[point] != -1
+        puts dist[point]
+        exit 0
+      end
+      dist[point] = dist[prev] + 1
+      adj(map, point).each { queue << [_1, point] if _1 != prev }
+    end
+    ```
+
+    Part 2 using [crossing number](https://web.archive.org/web/20130126163405/http://geomalgorithms.com/a03-_inclusion.html) point-in-polygon test:
+
+    ```ruby
+    inside = Data2D.new(Array.new(map.h) { Array.new(map.w, ' ') })
+    inside[start] = 'S'
+
+    stack = %i[north east south west].filter_map { |dir|
+      next unless map.to?(dir, start)
+      point = start.to(dir)
+      [point, start] if adj(map, point).include?(start)
+    }
+    loop do
+      point, prev = stack.pop
+      break if point == start
+      inside[point] = map[point]
+      adj(map, point).each { stack << [_1, point] if _1 != prev }
+    end
+
+    def inside?(point, inside)
+      (point.x + 1...inside.w).count {
+        %w[| J L].include?(inside[point.with(x: _1)])
+      }.odd?
+    end
+
+    inside.each_position { |p|
+      inside[p] = inside?(p, inside) ? 'I' : 'O' if inside[p] == ' '
+    }
+
+    puts inside.each_position.count { inside[_1] == 'I' }
+    ```
+
+    A better part 2 using Shoelace formula and Pick's theorem (idea from [this comment](https://www.reddit.com/r/adventofcode/comments/18evyu9/comment/kcqu687/?utm_source=share&utm_medium=web2x&context=3):
+
+    ```ruby
+    stack = %i[north east south west].filter_map { |dir|
+      next unless map.to?(dir, start)
+      point = start.to(dir)
+      [point, start] if adj(map, point).include?(start)
+    }
+    area = 0
+    path_len = 0
+    loop do
+      point, prev = stack.pop
+      # Shoelace formula:
+      area += prev.x * point.y - prev.y * point.x
+      break if point == start
+      path_len += 1
+      adj(map, point).each { stack << [_1, point] if _1 != prev }
+    end
+
+    # Pick's theorem:
+    puts (area.abs - path_len) / 2 + 1
+    ```
+
+    I used [box-drawing characters](https://en.wikipedia.org/wiki/Box-drawing_character) to help me debug:
+
+    ```ruby
+    def debug_ch(c) = { '-' => '─', '|' => '│', 'L' => '╰', 'J' => '╯',
+      '7' => '╮', 'F' => '╭', 'I' => '█', 'O' => '░' }[c] || c
+    puts inside.array.map { |xs| xs.map { debug_ch(_1) }.join }.join("\n")
+
+    ░░░░░░░░░░░
+    ░S───────╮░
+    ░│╭─────╮│░
+    ░││░░░░░││░
+    ░││░░░░░││░
+    ░│╰─╮░╭─╯│░
+    ░│██│░│██│░
+    ░╰──╯░╰──╯░
+    ░░░░░░░░░░░
+    ```
+
+    [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+  :replies:
+  - :author: PassifloraCaerulea
+    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr41on/
+    :body: |-
+      Interesting. I didn't think of part 1 as "breadth-first search" at all. After you figure out which two directions to go from 'S', you can move both directions simultaneously and stop when they meet at the farthest point(s). After 'S' you don't branch anymore because you can't backtrack while you're traversing the loop/circle/ring/whatever. But, I am not familiar with the ins and outs of graph traversal terminology.
+
+      As for part 2, the only thing I'd heard of that it looked like was the even-odd rule for polygon filling, so I did a quick read-up on that and sorta worked it out on my own. Guess it's more or less the same thing.
+    :replies:
+    - :author: glebm
+      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4qey/
+      :body: |-
+        Going in both directions simultaneously in Part 1 is a special case of flood fill, which itself is a special case of BFS. Since BFS is simple to implement, I went straight for it rather than implementing a custom solution. If we hit a point in BFS that we've already seen, that's the answer.
+
+        For part 2, even-odd rule is exactly the same thing as the crossing number method (look like it's another name for it that I haven't heard before).
+      :replies: []
+    - :author: glebm
+      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr5134/
+      :body: BTW, my favourite solution today is a Shoelace formula + Pick's theorem [https://www.reddit.com/r/adventofcode/comments/18evyu9/comment/kcqu687/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18evyu9/comment/kcqu687/?utm_source=share&utm_medium=web2x&context=3)
+      :replies:
+      - :author: PassifloraCaerulea
+        :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr7kev/
+        :body: "That sounds neat, but is too much math to wrap my head around in a reasonable amount of time \U0001F635"
+        :replies:
+        - :author: glebm
+          :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcruqoe/
+          :body: I've added a solution with Shoelace + Pick to the original comment and the repo. The implementation is super simple!
+          :replies:
+          - :author: PassifloraCaerulea
+            :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcscih3/
+            :body: Wow that's impressive.
+            :replies: []
+- :author: '0x623'
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr3hkx/
+  :body: |-
+    [LANGUAGE: Ruby + [Netpbm](https://en.wikipedia.org/wiki/Netpbm#PBM_example) + GIMP + Sublime]
+
+    (part 2)
+
+    1. Use Ruby to print the main loop and other tiles as a Netpbm image ([src](https://carbon.now.sh/?bg=rgba%280%2C0%2C0%2C0%29&t=a11y-dark&wt=none&l=ruby&width=666&ds=false&dsyoff=20px&dsblur=68px&wc=false&wa=true&pv=0px&ph=0px&ln=true&fl=1&fm=JetBrains+Mono&fs=14px&lh=152%25&si=false&es=1x&wm=false&code=inp%2520%253D%2520DATA.read%250A%2523%2520inp%2520%253D%2520IO.read%2520%27input10%27%250A%250AM%2520%253D%2520inp.each_line%28chomp%253A%2520true%29.map%28%2526%253Achars%29%250AI%252C%2520J%2520%253D%2520M.size%252C%2520M%255B0%255D.size%250A%250AS%2520%253D%2520-%253E%2520%257B%250A%2520%2520%280...I%29.each%2520%257B%2520%257Ci%257C%2520%280...J%29.each%2520%257B%2520%257Cj%257C%2520return%2520%255Bi%252C%2520j%255D%2520if%2520M%255Bi%255D%255Bj%255D%2520%253D%253D%2520%253FS%2520%257D%2520%257D%250A%257D%255B%255D%250A%250Ainrange%2520%253D%2520-%253E%2520i%252C%2520j%2520%257B%2520%280...I%29%2520%253D%253D%253D%2520i%2520and%2520%280...J%29%2520%253D%253D%253D%2520j%2520%257D%250A%250AUok%2520%253D%2520%2525w%255B7%2520%257C%2520F%255D%250ALok%252C%2520Rok%2520%253D%2520%2525w%255BL%2520-%2520F%255D%252C%2520%2525w%255BJ%2520-%25207%255D%250ADok%2520%253D%2520%2525w%255BJ%2520%257C%2520L%255D%250A%250ALoops%2520%253D%2520%255B%255D%250A%250Ato_b%2520%253D%2520-%253E%2520i%252C%2520j%2520%257B%25201%2520%253C%253C%2520%28i*J%2520%252B%2520j%29%2520%257D%250A%250Atodo%2520%253D%2520%255B%255B0%252C%2520*S%255D%255D%250Avisit%2520%253D%2520-%253E%2520v%252C%2520i%252C%2520j%2520%257B%250A%2520%2520b%2520%253D%2520to_b%255Bi%252C%2520j%255D%250A%2520%2520todo%2520%253C%253C%2520%255Bv%257Cb%252C%2520i%252C%2520j%255D%2520if%2520v%2526b%2520%253D%253D%25200%250A%2520%2520v%257Cb%250A%257D%250A%250Auntil%2520todo.empty%253F%250A%2520%2520v%252C%2520i%252C%2520j%2520%253D%2520todo.pop%250A%2520%2520%255B%250A%2520%2520%2520%2520%2520%2520%255Bi-1%252Cj%252CUok%255D%252C%250A%2520%2520%2520%2520%255Bi%252Cj-1%252CLok%255D%252C%255Bi%252Cj%252B1%252CRok%255D%252C%250A%2520%2520%2520%2520%2520%2520%255Bi%252B1%252Cj%252CDok%255D%250A%2520%2520%255D.each%2520%257B%2520%257Ci%252C%2520j%252C%2520ok%257C%250A%2520%2520%2520%2520next%2520unless%2520inrange%255Bi%252C%2520j%255D%2520and%2520ok.include%253F%28x%2520%253D%2520M%255Bi%255D%255Bj%255D%29%2520%257C%257C%2520x%2520%253D%253D%2520%253FS%250A%2520%2520%2520%2520v_%2520%253D%2520visit%255Bv%252C%2520i%252C%2520j%255D%250A%2520%2520%2520%2520Loops%2520%253C%253C%2520v_%2520if%2520x%2520%253D%253D%2520%253FS%250A%2520%2520%257D%250Aend%250A%250Acount_ones%2520%253D%2520-%253E%2520n%2520%257B%2520n.to_s%282%29.count%28%253F1%29%2520%257D%250A%250AV%2520%253D%2520Loops.max_by%28%2526count_ones%29%250A%250Ar1%2520%253D%2520%257B%27S%27%2520%253D%253E%2520%27010%27%252C%2520%27-%27%2520%253D%253E%2520%27000%27%252C%2520%27%257C%27%2520%253D%253E%2520%27010%27%252C%2520%27F%27%2520%253D%253E%2520%27000%27%252C%2520%277%27%2520%253D%253E%2520%27000%27%252C%2520%27L%27%2520%253D%253E%2520%27010%27%252C%2520%27J%27%2520%253D%253E%2520%27010%27%257D%250Ar2%2520%253D%2520%257B%27S%27%2520%253D%253E%2520%27111%27%252C%2520%27-%27%2520%253D%253E%2520%27111%27%252C%2520%27%257C%27%2520%253D%253E%2520%27010%27%252C%2520%27F%27%2520%253D%253E%2520%27011%27%252C%2520%277%27%2520%253D%253E%2520%27110%27%252C%2520%27L%27%2520%253D%253E%2520%27011%27%252C%2520%27J%27%2520%253D%253E%2520%27110%27%257D%250Ar3%2520%253D%2520%257B%27S%27%2520%253D%253E%2520%27010%27%252C%2520%27-%27%2520%253D%253E%2520%27000%27%252C%2520%27%257C%27%2520%253D%253E%2520%27010%27%252C%2520%27F%27%2520%253D%253E%2520%27010%27%252C%2520%277%27%2520%253D%253E%2520%27010%27%252C%2520%27L%27%2520%253D%253E%2520%27000%27%252C%2520%27J%27%2520%253D%253E%2520%27000%27%257D%250A%250Aputs%2520%27P1%27%250Aputs%2520%2522%2523%257BJ*3%257D%2520%2523%257BI*3%257D%2522%250A%250A%280...I%29.each%2520%257B%2520%257Ci%257C%250A%2520%2520puts%2520%280...J%29.map%2520%257B%2520%257Cj%257C%2520V%2520%2526%2520to_b%255Bi%252C%2520j%255D%2520%21%253D%25200%2520%253F%2520r1%255BM%255Bi%255D%255Bj%255D%255D%2520%253A%2520%27000%27%2520%257D.join%250A%2520%2520puts%2520%280...J%29.map%2520%257B%2520%257Cj%257C%2520V%2520%2526%2520to_b%255Bi%252C%2520j%255D%2520%21%253D%25200%2520%253F%2520r2%255BM%255Bi%255D%255Bj%255D%255D%2520%253A%2520%27010%27%2520%257D.join%250A%2520%2520puts%2520%280...J%29.map%2520%257B%2520%257Cj%257C%2520V%2520%2526%2520to_b%255Bi%252C%2520j%255D%2520%21%253D%25200%2520%253F%2520r3%255BM%255Bi%255D%255Bj%255D%255D%2520%253A%2520%27000%27%2520%257D.join%250A%257D%250A%250A __END__ %250AFF7FSF7F7F7F7F7F---7%250AL%257CLJ%257C%257C%257C%257C%257C%257C%257C%257C%257C%257C%257C%257CF--J%250AFL-7LJLJ%257C%257C%257C%257C%257C%257CLJL-77%250AF--JF--7%257C%257CLJLJ7F7FJ-%250AL---JF-JLJ.%257C%257C-FJLJJ7%250A%257CF%257CF-JF---7F7-L7L%257C7%257C%250A%257CFFJF7L7F-JF7%257CJL---7%250A7-L-JL7%257C%257CF7%257CL7F-7F7%257C%250AL.L7LFJ%257C%257C%257C%257C%257CFJL7%257C%257CLJ%250AL7JLJL-JLJLJL--JLJ.L%250A)) 2.
+      1. Open the image in GIMP
+      2. Fill the outer with black color
+      3. Fill the outer with white color
+      4. Save the result as another Netpbm image
+    2. Open the result image in Sublime and find 1's
+
+    [https://i.postimg.cc/ZnwWSfCr/eg.gif](https://i.postimg.cc/ZnwWSfCr/eg.gif)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kct46qo/
+  :body: |-
+    This was a rough one for me today! Point in Polygon for the second part tripped me up for a while on the boundry logic. Also stack depths for recursion in the first part! I had a day of it...
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/10)
+
+    [Video Walkthrough](https://youtu.be/ObIshEUQmVE)
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqp5v3/
+  :body: |-
+    Part 1 was pretty straightforward. I probably could have been faster had I just hard-coded the shape of the piece under the S rather than make my code infer it, but I went for the general solution. The first bit of code I wrote described which cells a piece connects to, and it was useful for both parts:
+
+    ```ruby
+    def enum_connections(tile)
+      case tile
+      when '|' then [[0, -1], [0, 1]]
+      when '-' then [[-1, 0], [1, 0]]
+      when 'F' then [[0, 1], [1, 0]]
+      when '7' then [[-1, 0], [0, 1]]
+      when 'L' then [[0, -1], [1, 0]]
+      when 'J' then [[0, -1], [-1, 0]]
+      else []
+      end
+    end
+    ```
+
+    I just followed both directions from the start, tracking which cells I've already visited to help me avoid backtracking, and stopping when the two searches "collided".
+
+    Part 2 made me scratch my head for a minute. I ended up redrawing the pipe loop (making use of my visited node list from part 1) such that each piece was a 3x3 matrix, then did a flood fill of the outside, and counted untouched cells in the center of each 3x3 piece. It worked beautifully.
+
+    Link: [https://github.com/jstanley0/advent-2023/blob/main/10.rb](https://github.com/jstanley0/advent-2023/blob/main/10.rb)
+
+    Example output:
+
+    ```ruby
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOxxxxxxxxxxxxxxxxxxxxxxxxxOOOO
+    OOOOx xOOOO
+    OOOOx xOOOO
+    OOOOx xxxxxxxxxxxxxxxxxxx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xOOOOOOOOOOOOOOOOOx xOOOO
+    OOOOx xxxxxxxOOOOOxxxxxxx xOOOO
+    OOOOx xOOOOOx xOOOO
+    OOOOx xOOOOOx xOOOO
+    OOOOx * * xOOOOOx * * xOOOO
+    OOOOx xOOOOOx xOOOO
+    OOOOx xOOOOOx xOOOO
+    OOOOxxxxxxxxxxOOOOOxxxxxxxxxxOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+    ```
+  :replies:
+  - :author: DeadlyRedCube
+    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqq8in/
+    :body: "> If the point has exits, it is not outside the loop\n> \n> Look at every point to the left (x \\< currentX) of the current point and count up how many N and S exits there are (tracking them separately)\n\noh I like the \"turn every piece into a 3x3 grid\" solution, that's really clever!"
+    :replies: []
+- :author: PassifloraCaerulea
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4zey/
+  :body: |-
+    [Part 1](https://pastebin.com/cz0W1449)
+
+    [Part 2](https://pastebin.com/e7gipABT)
+
+    I might be doing things a little different than others, so I'll post my solution today. First, I wouldn't call the traversal of the pipe loop a "breadth-first search" because I:
+
+    1. find the two directions to leave 'S'
+    2. do not branch, only make sure I do not backtrack after that
+    3. stop when the two ends meet or cross
+
+    No branching =\> not a tree-like search =\> doesn't deserve that terminology. But maybe that's just me.
+
+    Part 2 reminded me of the even-odd rule for polygon filling, so that's what I based my solution on. Hadn't heard of "point-in-polygon" before, though I see the Wikipedia page on the latter does link to the former. I of course had to try doing a simple flood fill from the outside even though the instructions told us it wouldn't work! :-P
+  :replies: []
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcs6838/
+  :body: |-
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day10.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day10.rb)
+
+    this one was hard!
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcudbrw/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day10.rb)
+
+    Well this puzzle was a bit more difficult: Part 1 was straightforward enough, but I struggled a bit to grasp the sub-unit gaps in the loop for Part 2. I ended up going with the standard line-crossing parity check for determining whether points were inside the polygon formed by the loop, but effectively resorted to trial and error to determine how the bent pipes should be handled.
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu76r9/
+  :body: |-
+    Late to the party, but here is my solution. Pretty compact and I will make a golfed version too as edit.
+
+    Note: It doesnt detect the side automatically - you have to change the side variable to +1 or -1 manually
+
+    ```ruby
+    map = (input = $<.read).lines
+    p = input.index('S').then { [_1 % map[0].size, _1 / map[0].size] }
+    dirs = 'J-7 L|J F-L 7|F'.split # RDLU 0123 i+1
+    # next: URD RDL DLU LUR URDL 3012 i/4+i%4
+
+    m = ->((x, y), v = !1) { map[y][x] = v || map[y][x] }
+    step = ->((x, y), d) { [x + (~d + 2) * (~d % 2), y + (2 - d) * (d % 2)] }
+    stepd = ->(a, d) { [a = step.(a, d), (d + 3 + dirs[d].index(m[a])) % 4] rescue nil }
+
+    v = Set.new
+    vis = -> { v << _1 if m[_1] != '*' }
+
+    dist = (0..3).filter_map { stepd.(p, _1) }.then do |(a, d), _|
+        (2..).find do
+            m[a, '*']
+            side = (d - 1) % 4
+            next 1 unless n = stepd.(a, d)
+
+            vis.(step.(a, side))
+            vis.(step.(n[0], side))
+            !(a, d = n)
+        end
+    end
+
+    fill = lambda { |a|
+        return if m[a] =~ /[\*\#S]/
+        m[a, '#']
+        (0..3).map { fill.(step.(a, _1)) }
+    }
+    v.map(&fill)
+    puts "Part 1: #{dist / 2}"
+    puts "Part 2: #{map.join.count('#')}"
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu88c1/
+  :body: |-
+    As promised, the golfed version of [my solution](https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu76r9). got it to 430 bytes:
+
+    ```ruby
+    b=(l=*$<)[0].size;v=[];p=(l.join=~/S/)
+    m=->((x,y),v=!1){l[y][x]=v||l[y][x]}
+    s=->((x,y),d){[x+~d%2*(1-d),y+d%2*(2-d)]}
+    t=->(a,d){[a=s[a,d],(d+3+%w[J-7 L|J F-L 7|F][d].index(m[a]))%4]rescue !1}
+    f=->(a){m[a]=~/[*#S]/?0:[m[a,?#],(0..3).map{f[s[a,_1]]}]}
+    w=->{v<<_1 if m[_1]!=?*}
+    a,d=(0..3).filter_map{t[[p%b,p/b],_1]}[0]
+    p (2..).find{m[a,?*]
+    next 1 if !(n=t[a,d])
+    w[s[a,e= ~-d%4]];w[s[n[0],e]]
+    !(a,d=n)}/2
+    v.map(&f)
+    p l.join.count(?#)
+    ```
+  :replies: []

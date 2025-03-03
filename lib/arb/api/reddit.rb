@@ -48,14 +48,13 @@ module Arb
       end
 
       def get_comments(year:, day:, language_names:)
-        debugger if day > 25
         thread_id = "t3_#{self.class.megathread_id(year:, day:)}"
         initial_response = nil
         loop do
           initial_response = connection.get(self.class.megathread_path(year:, day:))
 
           if initial_response.body.empty?
-            puts "Throttled by Reddit. Sleeping for 30 seconds..."
+            puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 30 seconds...")
             sleep 30
           else
             puts "Fetching comments for #{year}##{day.to_s.rjust(2, "0")}..."

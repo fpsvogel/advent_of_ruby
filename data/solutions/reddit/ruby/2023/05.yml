@@ -1,0 +1,217 @@
+---
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2h3a5/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day05.rb)
+
+    I went with the optimised solution for today's problem rather than brute force, although the latter probably would have been more efficient in terms of getting to bed sooner :) I found Ruby's `Range` class to be disappointingly Spartan for this problem: it may be worth writing some more extension methods in anticipation of future days. Regardless, taking advantage of the fact that mapping ranges are contiguous made the range maintenance decently reasonable.
+  :replies:
+  - :author: glebm
+    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2ji8h/
+    :body: |-
+      Yeah Ruby should really add at least an `intersection` method for Ranges. Wanna submit a proposal?
+
+      `Range#overlap?` was added just a few months ago without much pushback [https://bugs.ruby-lang.org/issues/19839](https://bugs.ruby-lang.org/issues/19839) [https://github.com/ruby/ruby/blob/8bdd28da74ff1242a82c2003d59fef4de9ffc331/range.c#L2341](https://github.com/ruby/ruby/blob/8bdd28da74ff1242a82c2003d59fef4de9ffc331/range.c#L2341)
+
+      `Range#empty?` was rejected 2 months ago but may be accepted in the future. [https://bugs.ruby-lang.org/issues/13933](https://bugs.ruby-lang.org/issues/13933)
+    :replies:
+    - :author: HAEC_EST_SPARTA
+      :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2k8sb/
+      :body: 'That''s a fair suggestion! It looks like someone already [submitted a proposal](https://bugs.ruby-lang.org/issues/16757) for `Range#intersection` a while back: I may set aside some free time in the coming days to advocate for that issue. Cheers!'
+      :replies:
+      - :author: Symbroson
+        :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2vwdz/
+        :body: |-
+          would love to see this. Ruby has so many useful helper methods. Just found `tally` or `each_cons` recently and was like wtf this is a thing?
+
+          But ranges didn't get much of this love which is why I had to [implement it on my own](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/helper.rb) as well. Why can something so simple not make it into the std lib? Only takes two lines of ruby code for an intersection after all...
+        :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2t49x/
+  :body: |-
+    For part 2 I extended the range class by some [helper methods](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/helper.rb) to make the code more concise and it will probably help in the future :D
+
+    If you're curious how the unoptimized code looked with only an intersect helper check the [previous commit](https://github.com/alex-Symbroson/Advent-of-Code/commit/165340c244aa197f4b8943dd8796992351a20180)
+
+    Part 1
+
+    ```ruby
+    input = File.read('input.txt')
+    seeds, *maps = input.split("\n\n")
+    seeds = seeds.split[1..].map(&:to_i)
+    maps = maps.map { _1.split.map(&:to_i)[2..] }
+
+    conv = seeds.map do |seed|
+        maps.reduce(seed) do |s, ms1|
+            msf = ms1.each_slice(3).find { |(_, a, l)| s >= a && s < a + l }
+            msf ? s - msf[1] + msf[0] : s
+        end
+    end
+
+    print('Part 1: ', conv.min)
+    ```
+
+    Part 2
+
+    ```ruby
+    input = File.read('input.txt')
+    seeds, *maps = input.split("\n\n")
+    seeds = seeds.split[1..].map(&:to_i).each_slice(2).map { _1.._1 + _2 }
+    $maps = maps.map { |m| m.split.map(&:to_i)[2..].each_slice(3).map { [_2.._2 + _3, _1 - _2] } }
+
+    def convSeeds(seeds, i)
+        return [seeds] unless $maps[i]
+
+        conv = $maps[i].find { seeds.intersect?(_1[0]) }
+        newseeds = conv ? [(seeds & conv[0]) + conv[1], *seeds.split(conv[0])] : [seeds]
+        newseeds.flat_map { convSeeds(_1, i + 1) }
+    end
+
+    print('Part 2: ', seeds.flat_map { convSeeds(_1, 0) }.map(&:begin).min)
+    ```
+  :replies: []
+- :author: PassifloraCaerulea
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc31r60/
+  :body: |-
+    [part 1](https://pastebin.com/zYqDRR0J)
+
+    [part 2 - brute](https://pastebin.com/QbEmjxyq)[part 2 - range split/merge work queue](https://pastebin.com/jiiJ0MmB)
+
+    I originally brute-forced the solution, manually splitting it up by seed range, but was unhappy. I went down a blind alley trying to reverse search with recursion, then I was inspired to iterate over a work queue of ranges, splitting and merging as appropriate. The last version is commented and IMO pretty readable, so I'm posting it here in case it helps anyone even though it's not the way I originally solved it.
+  :replies: []
+- :author: Educational_Pie7376
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc3392l/
+  :body: "[https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb](https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb)"
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bwhb/
+  :body: |-
+    Well, that was not fun at all! Got there in the end but nearly broke my brain getting the logic right.
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/5)
+
+    [Video Walkthrough](https://youtu.be/hlmF_LICYTM)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bxgz/
+  :body: |-
+    Well, that was not fun at all! Got there in the end but nearly broke my brain getting the logic right.
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/5)
+
+    [Video Walkthrough](https://youtu.be/hlmF_LICYTM)
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc5b6ay/
+  :body: |-
+    [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_1.rb)
+
+    [LANGUAGE: Crystal] [Part 2 (not optimized ~3ish seconds execution time)](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_2.cr)
+  :replies:
+  - :author: SleepingInsomniac
+    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc6v08s/
+    :body: "[LANGUAGE: Crystal] [Part 2 - Optimized](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_2_optimized.cr)"
+    :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2g7yu/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    MapEntry = Struct.new(:src_begin, :dst_begin, :len)
+
+    def read_map(input)
+      result = []
+      input.next
+      loop do
+        line = input.next.chomp
+        raise StopIteration if line.empty?
+        dst, src, len = line.scan(/\d+/).map(&:to_i)
+        result << MapEntry.new(src, dst, len)
+      end
+      result.sort_by!(&:src_begin)
+      result.reverse!
+      result
+    end
+
+    def apply_map(src, entries)
+      entry = entries.bsearch { |entry| src >= entry.src_begin }
+      return src if entry.nil? || src >= entry.src_begin + entry.len
+      entry.dst_begin + (src - entry.src_begin)
+    end
+
+    input = ARGF.each_line
+    seeds = input.next.scan(/\d+/).map(&:to_i)
+    input.next
+
+    7.times {
+      map = read_map(input)
+      seeds.map! { apply_map(_1, map) }
+    }
+
+    puts seeds.min
+    ```
+
+    Part 2 (runs in 0.2s on my machine):
+
+    ```ruby
+    MapEntry = Struct.new(:src_begin, :dst_begin, :len) do
+      def src_end = src_begin + len
+    end
+
+    def read_map(input)
+      result = []
+      input.next
+      loop do
+        line = input.next.chomp
+        raise StopIteration if line.empty?
+        dst, src, len = line.scan(/\d+/).map(&:to_i)
+        result << MapEntry.new(src, dst, len)
+      end
+      result
+    end
+
+    def map_entry(entry, src) = entry.dst_begin + (src - entry.src_begin)
+
+    def apply_map(src_range, entries)
+      mapped = []
+      matched = false
+      entries.each do |entry|
+        next if entry.src_begin >= src_range.end || src_range.begin >= entry.src_end
+        matched = true
+        mapped << (map_entry(entry, [src_range.begin, entry.src_begin].max)...
+          map_entry(entry, [src_range.end, entry.src_end].min))
+        mapped.concat(apply_map((src_range.begin...entry.src_begin), entries)) if src_range.begin < entry.src_begin
+        mapped.concat(apply_map((entry.src_end...src_range.end), entries)) if entry.src_end < src_range.end
+      end
+      mapped << src_range unless matched
+      mapped
+    end
+
+    input = ARGF.each_line
+    seeds = input.next.scan(/\d+/).map(&:to_i).each_slice(2).map { (_1..._1 + _2) }
+    input.next
+
+    7.times {
+      map = read_map(input)
+      seeds = seeds.flat_map { apply_map(_1, map) }.uniq
+    }
+
+    puts seeds.min_by(&:first).first
+    ```
+
+    All my solutions: [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+  :replies: []
+- :author: lycheejuice225
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2lald/
+  :body: |-
+    Both parts are optimized to be done within couple hundred of millseconds.
+
+    [https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_a.rb](https://github.com/Animeshz/AdventOfCode2023/blob/main/day5_a.rb)
+
+    [https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_b.rb](https://github.com/Animeshz/AdventOfCode2023/blob/main/day5_b.rb)
+  :replies: []
+- :author: KULKING
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc33uyt/
+  :body: 'Part 1 & Part 2: [https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer](https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer)'
+  :replies: []

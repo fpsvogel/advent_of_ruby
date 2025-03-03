@@ -1,0 +1,804 @@
+---
+- :author: apollo701
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kdcicgh/
+  :body: |-
+    Took an OOP approach with tests
+
+    [https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet](https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet)
+  :replies: []
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9npbc/
+  :body: |-
+    Not sure whether to be proud or ashamed of this solution.
+
+    > ruby -e "require 'strscan';d={'one'=\>'1','two'=\>'2','three'=\>'3','four'=\>'4','five'=\>'5','six'=\>'6','seven'=\>'7','eight'=\>'8','nine'=\>'9','1'=\>'1','2'=\>'2','3'=\>'3','4'=\>'4','5'=\>'5','6'=\>'6','7'=\>'7','8'=\>'8','9'=\>'9'};re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);(0..l.length).inject([]){|o,p| ss.pos=p;ss.scan(re)&&o\<<d day01.dat>
+    > </d>
+  :replies:
+  - :author: wdomburg
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kcabi8h/
+    :body: |-
+      It annoyed me I couldn't fit my solution into a tweet, even without the require statement, so I made it a bit smaller
+
+      > require 'strscan';n=(1..9).map{|s|s.to\_s};d=(n+%w{one two three four five six seven eight nine}).zip(n\*2).to\_h;r=Regexp.union(d.keys);p ARGF.each.map{|l|s=StringScanner.new(l);l.size.times.filter\_map{|i|s.pos=i;d[s.scan(r)]}.values\_at(0,-1).join.to\_i}.inject(:+)
+    :replies: []
+  - :author: wdomburg
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9pbre/
+    :body: |-
+      Just realized I could have cut about 259 characters from my solution by populating the hash like this:
+
+      d=Hash[\*%w{one 1 two 2 three 3 four 4 five 5 six 6 seven 7 eight 8 nine 9 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9}]
+    :replies:
+    - :author: wdomburg
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9xecd/
+      :body: |-
+        Okay, down to 267 characters, including the requires.
+
+        ruby -e "require 'strscan';n=(1..9).map{|s|s.to\_s};d=(n+%w{one two three four five six seven eight nine}).zip(n\*2).to\_h;re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);l.size.times.map{|i|ss.pos=i;d[ss.scan(re)]}.compact.values\_at(0,-1).join.to\_i}.inject(:+)" day01.dat
+      :replies:
+      - :author: RichGuk
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kg6rsmn/
+        :body: |-
+          I like a bit of Ruby golf.
+
+          ```ruby
+          d=['one','two','three','four','five','six','seven','eight','nine'];p ARGF.readlines.map{|l|l.scan(/\d|#{d.join('|')}/).values_at(0,-1).map{|v|Integer(v) rescue d.index(v)+1}.join.to_i}.sum
+          ```
+
+          188 :)
+        :replies:
+        - :author: wdomburg
+          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kghmn1r/
+          :body: |-
+            > d=['one','two','three','four','five','six','seven','eight','nine'];p ARGF.readlines.map{|l|l.scan(/\d|#{d.join('|')}/).values\_at(0,-1).map{|v|Integer(v) rescue d.index(v)+1}.join.to\_i}.sum
+
+            That spits out the wrong answer, though. Pretty sure you're not handling when there are overlaps (i.e. "oneight" needs to be expanded to "18") which is why I switched to using strscan.
+
+            I like some of the strategies here, though. Using the position of the words inside the array instead of a hash is definitely space efficient in the code. Even better if you just shove the \d into the array in the first position, which saves having to correct the off-by-one later and simplifies the construction of the regexp:
+
+            d=%w{/\d one two three four five six seven eight nine}
+
+            And then the regex is just /#{d.join('|')}/
+
+            I'd flip the index lookup and take advantage of a nil response instead parsing as an integer; i.e. "d.index(v)||v" rather than "Integer(v) rescue d.index(v)". You can end up with mixed strings and integers in the array, but that's okay because join doesn't care: ["1", 2].join evaluates the same as [1, 2]. (I had actually forgotten Array#join worked like that on arrays with non string elements).
+
+            Also didn't realized they'd the Array#sum method, so that's handy. :)
+
+            Oh, and realized that can just run .map direct on ARGF (or the more compact $\<) so saved some bytes there. Down to 231 (and a bit more readable than my version with the hash:
+
+            > require 'strscan';d=%w{\d one two three four five six seven eight nine};p $\<.map{|l|ss=StringScanner.new(l);(0..l.size).map{|p|ss.pos=p;ss.scan(/#{d.join('|')}/)&&(m=ss.matched;d.index(m)||m)}.compact.values\_at(0,-1).join.to\_i}.sum
+          :replies:
+          - :author: azzal07
+            :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/khzrfrs/
+            :body: |-
+              You can also replace `arr.map{fun}.sum` with just `arr.sum{fun}`
+
+              Down to 164:
+
+              ```ruby
+              d=%w{\d one two three four five six seven eight nine};
+              p$<.sum{|l|(0..l.size).filter_map{d.index(v=l[_1..].scan(/#{d.join('|')}/)[0])||v}.values_at(0,-1).join.to_i}
+              ```
+            :replies:
+            - :author: wdomburg
+              :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/ki4l5o3/
+              :body: Oh! I should have thought to look and see if there was something like that. Thanks!
+              :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiptap/
+  :body: |-
+    Using the lookahead trick to get overlapping matches with regex.
+
+    ```ruby
+    lines = ARGF.read.lines
+
+    puts lines.sum { _1.scan(/\d/).then { |m| [m.first, m.last].join.to_i } }
+
+    re = /(?=(\d|one|two|three|four|five|six|seven|eight|nine))/
+    map = {
+    'one' => 1,
+    'two' => 2,
+    'three' => 3,
+    'four' => 4,
+    'five' => 5,
+    'six' => 6,
+    'seven' => 7,
+    'eight' => 8,
+    'nine' => 9
+    }
+
+    digits = lines.map { _1.scan(re).flatten.map { |d| map[d] || d.to_i } }
+    puts digits.sum { |d| [d.first, d.last].join.to_i }
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/01/solve.rb))
+  :replies:
+  - :author: dznqbit
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqt98/
+    :body: Super clean, nice trick with the lookahead
+    :replies: []
+  - :author: spr00ge
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj5yhs/
+    :body: |-
+      I searched for an overlapping solution for a while and could not find anything. Can you explain your solution a bit more in detail?
+
+      I had:
+
+      ```ruby
+      line.rindex(/one|two|three|four|five|six|seven|eight|nine|[1-9]/)
+      right = Regexp.last_match(0)
+      left = line.match(/one|two|three|four|five|six|seven|eight|nine|[1-9]/)[0]
+      ```
+    :replies:
+    - :author: Sharparam
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjv1t1/
+      :body: |-
+        The lookahead is a bit of a hack but it allows for catching the overlaps since it will check the lookahead part (`(?=(\d|...))`) without consuming the string (since the main part of the regex (outside the lookahead) is empty which matches everything/anything).
+
+        And then we can also put a capture group around the lookahead content to be able to capture and use it.
+
+        Hopefully my explanation is understandable! Positive/negative lookahead/-behind can be really useful so it's a good thing to learn, you can read more about it here: [https://www.regular-expressions.info/lookaround.html](https://www.regular-expressions.info/lookaround.html)
+      :replies:
+      - :author: spr00ge
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboo5if/
+        :body: So the lookahead is not captured, thus does not consume, but you group it, so it does capture, but does not consume?
+        :replies:
+        - :author: Sharparam
+          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbs8pqb/
+          :body: Yep. It's a neat little "trick".
+          :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbivf6n/
+  :body: |-
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayOne2023
+      def self.part_one(lines)
+        lines.sum do |line|
+          digits = line.scan(/\d/)
+          first = digits.first
+          last = digits.last
+          "#{first}#{last}".to_i
+        end
+      end
+
+      def self.part_two(lines)
+        numbers = %w[one two three four five six seven eight nine]
+        lines.sum do |line|
+          digits = line.scan(/(?=(one|two|three|four|five|six|seven|eight|nine|\d))/).flatten
+          first = numbers.index(digits.first)&.next || digits.first
+          last = numbers.index(digits.last)&.next || digits.last
+          "#{first}#{last}".to_i
+        end
+      end
+    end
+    ```
+
+    The first part was easy but the second one was really frustrating until I realised that the regex needs the lookup `?`
+
+    ```ruby
+    irb(main):006> "eightwo".scan(/(two|eight)/)
+    => [["eight"]]
+    irb(main):007> "eightwo".scan(/(?=(two|eight))/)
+    => [["eight"], ["two"]]
+    ```
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboikqz/
+  :body: |-
+    PART 1
+
+    ```ruby
+    r = []
+    File.open('calibration').each do |line|
+      nums = line.scan(/[1-9]/)
+      r.push nums.first.to_i * 10 + nums.last.to_i
+    end
+    p r.sum
+    ```
+
+    PART 2
+
+    ```ruby
+    r = []
+    map = {
+      "one" => 1,
+      "two" => 2,
+      "three" => 3,
+      "four" => 4,
+      "five" => 5,
+      "six" => 6,
+      "seven" => 7,
+      "eight" => 8,
+      "nine" => 9
+    }
+
+    File.open('calibration').each do |line|
+      first = line.scan(Regexp.new("[1-9]|#{map.keys.join('|')}"))[0]
+      first = map[first] || first.to_i
+      last = line.reverse.scan(Regexp.new("[1-9]|#{map.keys.join('|').reverse}"))[0].reverse
+      last = map[last] || last.to_i
+      r.push first * 10 + last
+    end
+    p r.sum
+    ```
+  :replies: []
+- :author: Potential-Series-105
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbovuqu/
+  :body: |-
+    143 bytes solution
+
+    ```ruby
+    s=(?0..?9).to_a+%w[0 one two three four five six seven eight nine];p $<.sum{|l|m=l.scan /(?=(#{s*?|}))/;s.index(m[0][0])%10*10+s.index($+)%10}
+    ```
+  :replies:
+  - :author: eregontp
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbqg6sl/
+    :body: |-
+      Nice! I learned the $\< trick, $\< is ARGF and that's still Enumerable in lines like IO in the old days. Also cute trick to use index + the extra 0. I golfed my solution with these 2 tricks and funny enough it's 143 bytes too:
+
+      ```ruby
+      a=[*?0..?9]+%w[0 one two three four five six seven eight nine]
+      p$<.sum{_1[/(#{a*'|'})(?:.*(#{a*'|'}))?/]&&a.index($1)%10*10+a.index($2||$1)%10}
+      ```
+
+      Without the index trick I got 151 bytes:
+
+      ```ruby
+      a=[*?0..?9,*%w[0 one two three four five six seven eight nine]].zip([*0..9]*2).to_h
+      d=a.keys*'|'
+      p$<.sum{_1[/(#{d})(?:.*(#{d}))?/]&&a[$1]*10+a[$2||$1]}
+      ```
+    :replies:
+    - :author: Potential-Series-105
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzis2a/
+      :body: |-
+        I sat down with a colleague and now we are down to 133 bytes
+
+        ```ruby
+        n=%w{\d one two three four five six seven eight nine};p $<.sum{m=_1.scan(/(?=(#{n*?|}))/).map{|x,|n.index(x)||x.to_i};10*m[0]+m[-1]}
+        ```
+      :replies:
+      - :author: eregontp
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzu2vy/
+        :body: Neat! I was also thinking about using to\_i but that returns 0 for letters, but swapping and doing the index first fixes it nicely.
+        :replies: []
+- :author: vikingly56
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqa9h/
+  :body: |-
+    ```ruby
+    pt 1.
+    File.open('input') do |file|
+        total = 0
+        file.each_line do |line|
+            # strip out all non-number
+            line.gsub!(/[^0-9]/, '')
+            # add (first + last) to total
+            total += (line[0] + line[-1]).to_i
+        end
+        puts "Total: #{total}"
+      end
+    pt 2
+    numbers = {
+        'zero' => 'zero0zero',
+        'one' => 'one1one',
+        'two' => 'two2two',
+        'three' => 'three3three',
+        'four' => 'four4four',
+        'five' => 'five5five',
+        'six' => 'six6six',
+        'seven' => 'seven7seven',
+        'eight' => 'eight8eight',
+        'nine' => 'nine9nine'
+    }
+
+    File.open('input') do |file|
+        total = 0
+        file.each_line do |line|
+            # replace any number words with the number
+            numbers.each do |word, number|
+                line.gsub!(word, number)
+            end
+            # strip out all non-numbers
+            line.gsub!(/[^0-9]/, '')
+            # add (first + last) to total
+            total += (line[0] + line[-1]).to_i
+        end
+        puts "Total: #{total}"
+    end
+    ```
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbnj78f/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day01.rb)
+
+    TIL about [`Array#values_at`](https://docs.ruby-lang.org/en/3.2/Array.html#method-i-values_at), which allows for multiple indices to be extracted from an array with a single function call. Very convenient for writing semi-point-free code!
+  :replies:
+  - :author: Sensanaty
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo2695/
+    :body: |-
+      Could you explain the `_1` you're using, not sure I understand where that's coming from or what exactly it's doing?
+
+      Is it something to do with `Enumerable`, where `_1` accesses the first argument of the block without having to do the usual `{ |arg| arg }` thing? So in this case `arg == _1`? If so could you point me to the docs somewhere where this is outline, can't say I've ever seen it before in Ruby code
+    :replies:
+    - :author: HAEC_EST_SPARTA
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp9nte/
+      :body: Ah, that's a [numbered block argument](https://zverok.space/blog/2023-10-11-syntax-sugar1-numeric-block-args.html), which does indeed work as you've explained. Regrettably, I can't find any actual documentation on this feature, but the linked blog post gives a good summary.
+      :replies: []
+- :author: framsberg
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbil2hi/
+  :body: |-
+    ``` $numarr = ['one','two','three','four','five','six','seven','eight','nine']
+
+    ```ruby
+    $numhash = {}
+
+    $numarr.length.times do |i|
+        $numhash[$numarr[i]] = i + 1
+    end
+
+    $numstring = $numarr.join('|')
+
+    def getval(x)
+        $numhash.has_key?(x) ? $numhash[x] : x.to_i
+    end
+
+    t = 0
+    File.readlines("file.txt").each do |line|
+        if line =~ /(\d|#{$numstring}).*(\d|#{$numstring})/
+            t += 10*getval($1)+getval($2)
+        elsif line =~ /(\d|#{$numstring})/
+            t += 11*getval($1)
+        end
+    end
+
+    puts "Sum is #{t}"
+    ```
+
+    ```
+  :replies: []
+- :author: spr00ge
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj4ple/
+  :body: |-
+    I tripped over the overlapping matches with my regex solution :/
+
+    [paste](https://topaz.github.io/paste/#XQAAAQC1AwAAAAAAAAAQaJUMpn+lCZflRBwxodKX//AEf+EAnsY4VEwo5ziNF87EhpHoNhV4NbzaWwAFuuaAvPWppUim00GJ/4+40YBs0yvm4GWMrVF0S+yDpQo+lpD5OZfomphc+csJ8LH1MnntHzdIZZQBir75b2n/JoVs+eTwu6gqB/aonuAAjLm9qW1XwzGLm8xHOhp4qxWMpYQPb8dXBwjqr2PibvtHsBMcE83XlTNW4Uqr7I5TfDA301epVGCkxwn234pvcVNBHony93+mR0zMYTWVpyfwcODsYDntlS2uDkUdcb9S1j79edg6GpCAe8zPE1g1HrIjo7J6H+7VCcxlXQBZ8ELIBkzO10gJV2WJm4pBJz6mHYf8x2IS4hZO5ha05WYoIXS0yrAjnrfgAo9EfgaDmUgZbKwiaxrQzbGdRmEiVxf/eIVs5EV4MtSwPgoY43bic7cQFSL93ibLGGiXQLqyf09Ip2l+exIOHcHwb3MK+IozDf90BxKJ5e4YwSrcnWYRIlTSHodBTBmpPEdHi3UqIp+GD4jxolnaQiv/Ms+4AA==)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjylt/
+  :body: |-
+    Little bit tricky today for a day 1 puzzle!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/1)
+
+    [Walkthrough Video](https://youtu.be/0LcOCg6YgXQ)
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbk2qvm/
+  :body: |-
+    [Allez Cuisine!]
+
+    ```ruby
+    # Part 1
+    p File.readlines('1.txt').sum { /(\d)(?:.*(\d))?/ =~ _1 and ($1 + ($2 || $1)).to_i }
+    # Part 2
+    digits = (%w[one two three four five six seven eight nine].zip(1..9) + ('0'..'9').zip(0..9)).to_h
+    digit = digits.keys.join '|'
+    p File.readlines('1.txt').sum { /(#{digit})(?:.*(#{digit}))?/o =~ _1 and digits[$1] * 10 + digits[$2 || $1] }
+    ```
+  :replies: []
+- :author: csrcordeiro
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkvci9/
+  :body: |-
+    Part of it was "inspired" by someone in this megathread but I couldn't find the comment to say thanks. So... here it is:
+
+    ```ruby
+
+    # !/usr/bin/env ruby
+
+    # frozen\_string\_literal: true
+
+    SPELLED\_DIGITS = { "one" =\> "1", "two" =\> "2", "three" =\> "3", "four" =\> "4", "five" =\> "5", "six" =\> "6", "seven" =\> "7", "eight" =\> "8", "nine" =\> "9", }.freeze
+
+    def sum\_all\_cases(input\_cases) extract\_regex = Regexp.new "(?=(#{SPELLED\_DIGITS.keys.join('|')}|\d))" input\_cases.sum do |input\_case| input\_case .scan(extract\_regex) # tokenize input .flatten # flatten the inner lists .map { |item| SPELLED\_DIGITS.fetch(item, item).to\_i} # translate spelled numbers .select { |digit| !digit.zero? } # remove items that evaluate to zero .values\_at(0, -1) # get first and last items .map { |item| item.to\_s } # make them a string .reduce(&:concat) # clue them together .to\_i end end
+
+    puts sum\_all\_cases(STDIN.read.split(/\n/))
+
+    ```
+  :replies:
+  - :author: JelloRough
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl89ae/
+    :body: '"(?="'
+    :replies: []
+- :author: 6f937f00-3166-11e4-8
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl79zx/
+  :body: |-
+    ```ruby
+    def part_one(file)
+      File.read(file).strip.split("\n").map do |line|
+        digits = line.gsub(/[^\d]/,"").chars
+        [digits[0], digits[-1]].join.to_i
+      end.sum
+    end
+
+    def part_two(file)
+      values = Hash[(1..9).map { |i| [i.to_s, i] } + %w{one two three four five six seven eight nine}.map.with_index { |w, i| [w, i + 1] }]
+
+      File.read(file).strip.split("\n").map do |line|
+        [
+          values[line[/(\d|one|two|three|four|five|six|seven|eight|nine)/]],
+          values[line.reverse[/(\d|enin|thgie|neves|xis|evif|ruof|eerht|owt|eno)/].reverse]
+        ].join.to_i
+      end.sum
+    end
+    ```
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbld1qf/
+  :body: |-
+    Part 1
+
+    ```ruby
+    sum = 0
+
+    File.open(File.join( __dir__ , 'input.txt'), 'r') do |file|
+      loop do
+        break if file.eof?
+
+        line = file.readline
+        digits = line.gsub(/[^\d]+/, '')
+        first = digits[0]
+        last = digits[-1]
+
+        value = (first + last).to_i
+        sum += value
+      end
+    end
+
+    puts sum
+    ```
+
+    Part 2
+
+    ```ruby
+    sum = 0
+
+    DIGITS = %w[
+      zero
+      one
+      two
+      three
+      four
+      five
+      six
+      seven
+      eight
+      nine
+    ].freeze
+
+    DIGIT_REGEX = /#{DIGITS.join('|')}/i.freeze
+
+    def first_digit(string)
+      if match = string.match(DIGIT_REGEX)
+        index = DIGITS.find_index(match[0].downcase)
+        string = string.gsub(match[0], index.to_s)
+      end
+
+      string.gsub(/[^\d]+/, '')[0]
+    end
+
+    def last_digit(string)
+      match = nil
+      match_offset = 0
+
+      # Find the last occurrance of a match
+      loop do
+        if working_match = string.match(DIGIT_REGEX, match_offset)
+          match = working_match
+          match_offset = match.offset(0).first + 1
+        else
+          break unless match # No matches at all
+
+          # Replace with the last found match and exit loop
+          index = DIGITS.find_index(match[0].downcase)
+          string = string.gsub(match[0], index.to_s)
+
+          break
+        end
+      end
+
+      string.gsub(/[^\d]+/, '')[-1]
+    end
+
+    File.open(File.join( __dir__ , 'input.txt'), 'r') do |file|
+      loop do
+        break if file.eof?
+
+        line = file.readline.chomp
+        next if /^\s*$/.match?(line)
+
+        first = first_digit(line)
+        last = last_digit(line)
+        value = (first + last).to_i
+
+        sum += value
+      end
+    end
+
+    puts sum
+    ```
+  :replies: []
+- :author: Papitz
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kblg77b/
+  :body: |-
+    ```ruby
+    WRITTEN_NUMBERS = {
+      'one' => '1',
+      'two' => '2',
+      'three' => '3',
+      'four' => '4',
+      'five' => '5',
+      'six' => '6',
+      'seven' => '7',
+      'eight' => '8',
+      'nine' => '9'
+    }.freeze
+    DIGIT_EXPRESSION = "(?=(#{WRITTEN_NUMBERS.keys.join('|')}|\\d))".freeze
+
+    sum = File.readlines('input.txt', chomp: true).map do |line|
+      matches = line.scan(Regexp.new(DIGIT_EXPRESSION)).flatten
+      [
+        WRITTEN_NUMBERS[matches.first] || matches.first,
+        WRITTEN_NUMBERS[matches.last] || matches.last
+      ].join.to_i
+    end.sum
+
+    puts "Sum: #{sum}"
+    ```
+  :replies: []
+- :author: cwby_bbop
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmxtpw/
+  :body: |-
+    I cannot get the syntax highlighting to format properly:
+
+    [https://github.com/ealvar3z/aoc-2023/blob/master/day01.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day01.rb)
+  :replies: []
+- :author: TevePinch
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmyafg/
+  :body: |-
+    ```ruby
+    total = 0
+    File.foreach("day1.txt") do |line|
+      line.gsub! "one","o1e"
+      line.gsub! "two","t2o"
+      line.gsub! "three","t3e"
+      line.gsub! "four","f4r"
+      line.gsub! "five","f5e"
+      line.gsub! "six","s6x"
+      line.gsub! "seven","s7n"
+      line.gsub! "eight","e8t"
+      line.gsub! "nine","n9e"
+      new_line = line.delete("^0-9")
+      code = new_line[0] + new_line[-1]
+      total += code.to_i
+    end
+    puts total
+    ```
+  :replies:
+  - :author: chizel999
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbn0d1a/
+    :body: damn thats some compact solution. nice
+    :replies: []
+  - :author: Sensanaty
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboi0x2/
+    :body: Really cool solution
+    :replies: []
+- :author: Sensanaty
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo5p4v/
+  :body: |-
+    [LANGUAGE: Ruby 3.2.1]
+
+    It's been a while since I've worked with Ruby, feeling pretty rusty though I'm pretty happy with my solution. Forgot how damn fun this language is to work with.
+
+    Nothing fancy and probably not super efficient/fast either, might try do some funner stuff and refine down the line when I get back in the groove with it.
+
+    [Github Part 1 & 2](https://github.com/Sensanaty/aoc2023-ruby/blob/master/days/1/main.rb)
+
+    [Raw Text](https://raw.githubusercontent.com/Sensanaty/aoc2023-ruby/master/days/1/main.rb)
+  :replies: []
+- :author: TailorSubstantial863
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzr6nv/
+  :body: |-
+    A bit late to the party, but I like to refactor into something professional looking before submitting. I was able to combine both parts into a single method and pass in the correct regex to make it work like a charm.
+
+    ```ruby
+    NUM_DICT = {
+      "one" => "1",
+      "two" => "2",
+      "three" => "3",
+      "four" => "4",
+      "five" => "5",
+      "six" => "6",
+      "seven" => "7",
+      "eight" => "8",
+      "nine" => "9",
+      "1" => "1",
+      "2" => "2",
+      "3" => "3",
+      "4" => "4",
+      "5" => "5",
+      "6" => "6",
+      "7" => "7",
+      "8" => "8",
+      "9" => "9"
+    }
+
+    def part_1
+      calibrate(/\d/)
+    end
+
+    def part_2
+      calibrate(/(?=(\d|one|two|three|four|five|six|seven|eight|nine))/)
+    end
+
+    def calibrate(regex)
+      data.each.map do |line|
+        digits = line.scan(regex)
+        (NUM_DICT[digits.first[0]] + NUM_DICT[digits.last[0]]).to_i
+      end.sum
+    end
+    ```
+  :replies:
+  - :author: Educational-Sky-1560
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc2w00e/
+    :body: Do you have had input data as csv file or?
+    :replies:
+    - :author: TailorSubstantial863
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc41vix/
+      :body: I just included it as a text file and read it in as is. Nothing fancy.
+      :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbixl2s/
+  :body: |-
+    First time ruby, day 1 solutionMy initial part two solution was way uglier - this is the line optimized version
+
+    saw many frustrated with part two because of intersecting numbers - happened to me as well as I tried to replace the numbers in various orders, filter and sort by index and only replace the first and last occurance - always off.
+
+    You have to keep the names in - either pre- and appending the name during replacement of the digit, or not replace the names at all using regex `(?=)`
+
+    ```ruby
+    digits = input.map { |line| line.scan(/\d/) }
+    print('Part 1: ', digits.sum { |num| (num.first + num.last).to_i }, "\n")
+
+    names = %w[_ one two three four five six seven eight nine]
+    digits = input.map do |line|
+        line.gsub(Regexp.new("(?=(#{names.join('|')}))")) do |_|
+            names.index(Regexp.last_match(1)).to_s
+        end.scan(/\d/)
+    end
+    print('Part 2: ', digits.sum { |num| (num.first + num.last).to_i })
+    ```
+  :replies: []
+- :author: maxforasteiro
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj9wm2/
+  :body: |-
+    I love one-liners:
+
+    part 1:
+
+    `ruby
+    IO.read("path_to_file").split("\n").map{|str| str.tr("^0-9", "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
+    `
+
+    part 2:
+
+    ```ruby substitutions = {"one"=\>"o1e", "two"=\>"t2o", "three"=\>"t3e", "four"=\>"f4r", "five"=\>"f5e", "six"=\>"s6x", "seven"=\>"s7n", "eight"=\>"e8t", "nine"=\>"n9e"}
+
+    IO.read("path\_to\_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup> "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum ```
+  :replies: []
+- :author: PassifloraCaerulea
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjhsq9/
+  :body: |-
+    ```ruby
+    to_digit = %w(one two three four five six seven eight nine).
+      inject({}) {|h, s| h[s] = (h.length + 1).to_s; h}
+
+    pat = /\d|one|two|three|four|five|six|seven|eight|nine/
+
+    sum = 0
+    File.open('input') do |fin|
+      fin.each_line do |line|
+        line =~ pat; a = $~[0]
+        line.length.downto(0).find {|i| line[i..-1] =~ pat}; b = $~[0]
+        num = ((to_digit[a] || a) + (to_digit[b] || b)).to_i
+        puts "#{a} #{b} #{num} #{line}"
+        sum += num
+      end
+    end
+    puts "sum = #{sum}"
+    ```
+  :replies: []
+- :author: ldhmachin
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjvyg/
+  :body: |-
+    Ruby: ```Ruby DIGITS = { '1' =\> '1', 'one' =\> '1', '2' =\> '2', 'two' =\> '2', '3' =\> '3', 'three' =\> '3', '4' =\> '4', 'four' =\> '4', '5' =\> '5', 'five' =\> '5', '6' =\> '6', 'six' =\> '6', '7' =\> '7', 'seven' =\> '7', '8' =\> '8', 'eight' =\> '8', '9' =\> '9', 'nine' =\> '9', }
+
+    def part\_one(data) data.map do |str| d = str.scan(/\d/).join d[0] + d[-1] end.map(&:to\_i).sum end
+
+    def part\_two(data) data.map do |str| DIGITS.map { |k, v| [str.index(k), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] + DIGITS.map { |k, v| [str.reverse.index(k.reverse), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] end.map(&:to\_i).sum end ```
+  :replies: []
+- :author: the_notic
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkldbv/
+  :body: |-
+    ```ruby
+    def get_first_and_last_number(str)
+      %w[one two three four five six seven eight nine].each_with_index { |w, i| str.gsub!(w, "#{w[0]}#{i + 1}#{w[1..]}") }
+       (str.scan(/\d/)[0] + str.scan(/\d/)[-1]).to_i
+    end
+    sum = data.split.sum { |line| get_first_and_last_number(line) }
+    ```
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbksrlj/
+  :body: |-
+    ```ruby
+    p ARGF.read.split.map { |l| l.scan(/\d/).values_at(0, -1).join.to_i }.sum
+    ```
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboj47u/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    puts ARGF.each_line.reduce(0) { |sum, line|
+      line =~ /^[^\d]*(\d)/
+      first_digit = $1
+      line =~ /.*(\d)[^\d]*$/
+      last_digit = $1
+      sum + "#{first_digit}#{last_digit}".to_i
+    }
+    ```
+
+    Part 2:
+
+    ```ruby
+    WORDS = {
+      'one' => 1,
+      'two' => 2,
+      'three' => 3,
+      'four' => 4,
+      'five' => 5,
+      'six' => 6,
+      'seven' => 7,
+      'eight' => 8,
+      'nine' => 9
+    }
+    WORDS_RE = "#{WORDS.keys.join('|')}"
+
+    def parse_digit(d)
+      WORDS[d] || d.to_i
+    end
+
+    puts ARGF.each_line.reduce(0) { |sum, line|
+      line =~ /^.*?(\d|#{WORDS_RE})/
+      first_digit = $1
+      line =~ /.*(\d|#{WORDS_RE}).*$/
+      last_digit = $1
+      sum + "#{parse_digit first_digit}#{parse_digit last_digit}".to_i
+    }
+    ```
+  :replies:
+  - :author: dafarmerz
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbouhpm/
+    :body: Did you get the star for the Part 2 with this code? I am asking because I got the same result with your code that I had running mine.....However, I get no star for Part 2 because the response is incorrect.
+    :replies:
+    - :author: glebm
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboxbzw/
+      :body: Yeah I did, odd that you didn't, perhaps something is wrong with your input file?
+      :replies:
+      - :author: dafarmerz
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp76l5/
+        :body: Well...its the same from Part 1 so it should be good. I just messaged the MODs
+        :replies: []

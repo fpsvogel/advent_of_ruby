@@ -1,0 +1,481 @@
+---
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kcauzex/
+  :body: |-
+    i started teaching myself ruby a few days ago, so i've been doing advent of code in it too.
+
+    today i brute forced first, but then later i found out i could use the quadratic formula.
+
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day6.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day6.rb)
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6z2sf/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day06.rb)
+
+    I did some basic algebra to compute the bounds of the hold times that would result in winning distances, but I'm now seeing from other posts here that I could have just brute-forced the result. Engineers, always making everything more difficult than it needs to be :)
+  :replies:
+  - :author: glebm
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc741f1/
+    :body: |-
+      The algebraic solution also has a bug because it solves for \>= distance but the problem asks for strict inequality. Example input: time = 8, distance = 12, answer = 3.
+
+      Noticed this in my own algebraic solution after seeing [u/maths222](/u/maths222) answer in [https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/)
+    :replies:
+    - :author: HAEC_EST_SPARTA
+      :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc75kx3/
+      :body: |-
+        My solution does give the correct result in this case:
+
+        ```ruby
+        irb(main):001:0> Day06.winning_hold_span(8, 12)
+        3
+        ```
+
+        I tried to account for the strict inequality by adding/subtracting `1` from the root rather than a traditional epsilon value: for the case that the root is non-integral, this has the effect of clamping the result to the nearest integral value for which the inequality holds. For integral roots, this shifts the result to the next integer for which the inequality holds, still enforcing the strict inequality by refusing to admit an integral root at which equality holds.
+
+        Thanks for the shout regardless: this comment made me do some more analysis regarding exactly why the root adjustment scheme works, which was fun to work through!
+      :replies:
+      - :author: glebm
+        :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76e58/
+        :body: |-
+          Ah, got you!
+
+          Best solution I've seen so far without fudging is changing:
+
+          ```ruby
+          floor(r2) - ceil(r1) + 1
+          ```
+
+          To:
+
+          ```ruby
+          ceil(r2) - floor(r1) - 1
+          ```
+
+          by [u/mebeim](/u/mebeim) in [https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm_source=share&utm_medium=web2x&context=3)
+        :replies:
+        - :author: HAEC_EST_SPARTA
+          :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76to8/
+          :body: 'Oh nice! I hadn''t thought about adjusting the roots beyond the range of the inequality: thanks for pointing that out!'
+          :replies: []
+- :author: dhruvasagar
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7c7ag/
+  :body: |-
+    ```ruby
+    def read_input
+      ARGF.readlines
+    end
+
+    def count_wins(time, dist)
+      1 + time - (2 * 0.upto(time).find_index {|t| dist < (t * (time - t))})
+    end
+
+    ts, ds = read_input
+    tline = ts.split(":").last
+    times = tline.split.map(&:to_i)
+    dline = ds.split(":").last
+    dists = dline.split.map(&:to_i)
+
+    s = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
+    # Part 1
+    p times.each_index.reduce(1) {|w, i| w * count_wins(times[i], dists[i])}
+
+    # Part 2
+    p count_wins(tline.gsub(' ', '').to_i, dline.gsub(' ', '').to_i)
+    e = Process.clock_gettime(Process::CLOCK_MONOTONIC, :nanosecond)
+    puts "Time #{(e-s) / 1000000}us"
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7zfqj/
+  :body: |-
+    Quadratic formula for the win!!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/6)
+
+    [Video Walkthrough](https://youtu.be/ILMuzedm4uA)
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc806ei/
+  :body: "Disclaimer: I love short and concise code while keeping it relatively readable, And I love messy golf code as well - so this post concludes my journey to the shortest golf code version for todays puzzle, collecting 5 different solving methods on the way. I applied it in ruby but I am certain that this version can be applied to most other languages as well.\n\nHere are my readable, [short and concise versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06.rb)  \nHere are the [golf code versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06%20golf.rb)  \nsuperior golfed code at the bottom ;)\n\nMy [first version](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc72hkn) was bare brute force with a slight optimization. Not a beauty but [I made it work for the sample input too](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc7p1t2/?utm_source=share&utm_medium=web2x&context=3) and it runs in 2.5 seconds\n\nI knew there is a quadratic equation which of course would be the optimal `O(1)` solution. Unfortunately there were many edge cases to consider that worked on part 2, but mine as well as many other solutions failed miserably on part 1. Fortunately there were many great suggestions posted in [this thread](https://www.reddit.com/r/adventofcode/comments/18c08xh/2023_day_06_stable_math_solution/) that helped to resolve the edge cases and neat ways to work around them\n\nAt last I tried the [binary search approach](https://www.reddit.com/r/adventofcode/comments/18c08xh/comment/kc7t9jv) that would be more optimal than the brute force solution and execute blazing fast. I like this one alot because its the most readable IMO\n\nIn the end I could shorten the solutions doing some extra `fixup maths` that only require one heavy calculation for the range, and then add/subtract one based on parities\n\n== Golf Code ==\n\nPutting all of this together I reached a final size of 170 bytes golfed ruby code. Here is the beauty:\n\n```ruby\nc=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}\ns=$<.readlines.map{_1.split[1..].map(&:to_i)}\np s.reduce(&:zip).map(&c).reduce(&:*)\np c.call(s.map(&:join).map(&:to_i))\n```\n\nThe other golfed solving methods look like this, and are just as beatiful. They are sorted by their length, in order: `math`, `brute force`, `fixup binary search`, `fixup math`\n\n```ruby\nc=->((t,d)){((t+(t*t-4*d)**0.5)/2).ceil-((t-(t*t-4*d)**0.5)/2).floor-1}\nc=->((t,d)){2*(t/2..).take_while{_1*(t-_1)>d}.size-(t.even?? 1:2)}\nc=->((t,d)){b=t/2-(0...t/2).bsearch{_1*(t-_1)>d};2*b+1+t%2}\nc=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}\n```\n\nThanks for reading. If you have ideas for optimizing or want to showcase your own shorties feel free to share :)"
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc88ggj/
+    :body: |-
+      Ooh, I like how you've reused the code and also included multiple approaches. I also golfed it in Ruby but was more just focused on getting the end result so it came out rather differently:
+
+      ```ruby
+      p $<.map{_1.scan(/\d+/).map(&:to_i)}.transpose.map{|t,d|(0..t).count{-_1**2+t*_1>d}}.inject :* # part 1
+      $<.map{_1.scan(/\d+/).join.to_i}.tap{|(t,d)|p (0..t).count{-_1**2+t*_1>d}} # part 2
+      ```
+
+      BTW you should be able to drop the `readlines` from `$<.readlines.map` in your solution to get even tighter.
+
+      Also `reduce(&:*)` can become `reduce :*`
+    :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6wyz0/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    times, distances = ARGF.each_line.map { _1.scan(/\d+/).map(&:to_i) }
+
+    puts times.zip(distances).reduce(1) { |product, (total_time, max_distance)|
+      product * (0...total_time).count { |time_to_hold|
+        speed = time_to_hold
+        remaining_time = total_time - time_to_hold
+        dist = speed * remaining_time
+        dist > max_distance
+      }
+    }
+    ```
+
+    Part 2 (brute force, ~3s):
+
+    ```ruby
+    total_time, max_distance = ARGF.each_line.map { _1.gsub(/[^\d]+/, '').to_i }
+
+    puts (0...total_time).count { |time_to_hold|
+      speed = time_to_hold
+      remaining_time = total_time - time_to_hold
+      dist = speed * remaining_time
+      dist > max_distance
+    }
+    ```
+
+    Part 2 optimized with explanation:
+
+    ```ruby
+    # t = total time, d = max distance
+    t, d = ARGF.each_line.map { _1.gsub(/[^\d]+/, '').to_i }
+
+    # If we hold for x seconds (x ∈ ℕ: x < t), then:
+    # dist(x) = (t - x) * x = -x² + tx
+    # dist(x) > d <=> -x² + tx - d > 0
+    #
+    # `dist` is an inverted parabola, it is positive between
+    # its roots r1 and r2 (r1 < r2).
+    #
+    # Its roots are:
+    # 1. Positive because t is positive.
+    # 2. Less than t because otherwise -x² + tx < 0.
+    #
+    # When the roots are integers (e.g. t = 8, d = 12),
+    # we cannot count them as part of the solution (strict inequality).
+    #
+    # The number of positive integer points < t,
+    # excluding integral roots, is:
+    # ceil(r2) - floor(r1) - 1
+
+    # Check if the roots exist, i.e. b² > 4ac
+    unless t ** 2 > 4 * d
+      puts 0
+      return
+    end
+
+    # Roots of ax² + bx + c are (-b ± sqrt(b² - 4ac)) / 2a
+    r1 = (t - Math.sqrt(t ** 2 - 4 * d)) / 2
+    r2 = (t + Math.sqrt(t ** 2 - 4 * d)) / 2
+    puts r2.ceil - r1.floor - 1
+    ```
+  :replies: []
+- :author: maths222
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6y799/
+  :body: |-
+    3175/1794
+
+    I guess I didn't need to bother with a formula and could have implemented it naively. That's what I get for not even opening the input set until I had the nice generic solution, but on the other hand it was a good opportunity to refresh my basic algebra and quadratic formula muscles.
+
+    [code](https://gist.github.com/maths22/52163cd7b40e149fc35e7784b8032914)
+  :replies: []
+- :author: kwitczak
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc78khj/
+  :body: |-
+    Part 2, attempted the binary search approach. I feel it's overcomplicated and could be simplified/shortened. Execution time is around 0.3 ms, previous brute-force was around 3.5 seconds.
+
+    ```ruby
+    require_relative "../aoc"
+    include AOC
+
+    def parse_input(input)
+      input.map { |line| line.split(':')[1].split.join.to_i }
+    end
+
+    def calculate_distance(max_time, ms)
+      (max_time - ms) * ms
+    end
+
+    def find_winning_edge(min, max, record, max_time, look_left: true)
+      ms = min + (max - min) / 2
+      new_distance = calculate_distance(max_time, ms)
+      below_record = new_distance > record
+
+      left_check = look_left ? calculate_distance(max_time, ms - 1) < record : calculate_distance(max_time, ms + 1) < record
+      return ms if new_distance == record || (below_record && left_check)
+
+      new_min = look_left ? (below_record ? min : ms) : (below_record ? ms : min)
+      new_max = look_left ? (below_record ? ms : max) : (below_record ? max : ms)
+
+      find_winning_edge(new_min, new_max, record, max_time, look_left: look_left)
+    end
+
+    start_time = Time.now
+    races = [parse_input(AOC::load_input(day: '06'))]
+
+    win_possibilities = races.map do |max_time, record|
+      min_edge = find_winning_edge(0, max_time / 2, record, max_time, look_left: true)
+      max_edge = find_winning_edge(max_time / 2, max_time, record, max_time, look_left: false)
+      max_edge - min_edge + 1
+    end.inject(&:*)
+
+    p "Output #{win_possibilities} generated in: #{Time.now - start_time}"
+    ```
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc797he/
+  :body: |-
+    Nothing to be proud of xD.
+
+    ```ruby
+    # frozen_string_literal: true
+
+    class DaySix2023
+      def self.part_one(lines)
+        races = lines.reduce([]) { |acc, line| acc << line.scan(/(?:\d+)/).map(&:to_i) }.transpose
+        races.reduce([]) { |acc, race| acc << play(*race) }.reduce(&:*)
+      end
+
+      def self.part_two(lines)
+        race = lines.reduce([]) { |acc, line| acc << line.scan(/(?:\d+)/).join.to_i }
+        play(*race)
+      end
+
+      class << self
+        def play(time, record)
+          (0..time).count do |millimeters_per_millisecond|
+            movement_time = time - millimeters_per_millisecond
+            distance = movement_time * millimeters_per_millisecond
+            record < distance
+          end
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7ao5c/
+  :body: |-
+    Part 1
+
+    ```ruby
+    ts, ds = ARGF.read.lines.map { |s| s.split(":").last.split.map(&:to_i) }
+    p ts.zip(ds).map { |t, d| (0..t).count { |h| (t - h) * h > d } }.reduce(&:*)
+    ```
+
+    Part 2
+
+    ```ruby
+    t, d = ARGF.read.lines.map { |s| s.gsub(/\s+/, "").split(":").last.to_i }
+    p (0..t).count { |h| (t - h) * h > d }
+    ```
+
+    This one was fun and easy, a nice way to start the morning in Europe :)
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7q8zq/
+  :body: |-
+    My lazy ass 6am brain did not realize you could just like _solve_ the problem like a sane person would using basic maths. `sqrt(t^2 - 4 * d)` is all it requires to solve this problem. **Or so I thought**
+
+    Turns out that it isnt as simple like that. In [this post](https://www.reddit.com/r/adventofcode/comments/18c08xh/2023_day_06_stable_math_solution/) I asked for a stable solution that works for both test and user input as many many posted math solutions failed miserably on the sample input (just like my [first solution](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc72hkn) but that was an easily fixed even/odd input time problem)
+
+    Using the math approach and my [optimized input parsing](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc7p1t2) the code can be golfed in `217` bytes:
+
+    ```ruby
+    s=$<.readlines.map{_1.split[1..].map(&:to_i)}
+    c=->((t,d)){((t+(t*t-4*d)**0.5)/2).ceil-((t-(t*t-4*d)**0.5)/2).floor-1}
+    puts"Part1:#{s.reduce(&:zip).map(&c).reduce(&:*)}"
+    puts"Part2:#{c.call(s.map(&:join).map(&:to_i))}"
+    ```
+
+    My previous brute force approach would be 5 bytes shorter using this solve lambda:
+
+    ```ruby
+    c=->((t,d)){2*(t/2..).take_while{_1*(t-_1)>d}.size-(t.even?? 1:2)}
+    ```
+
+    I have yet to try the binary search approach as this would speed things even more up for the brute force solution
+
+    [Edit] Improved Golf Bytecount
+  :replies: []
+- :author: swhitt
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8uder/
+  :body: |-
+    [day06.rb](https://gist.github.com/swhitt/8b74be95824d43df030887a46e23454d)
+
+    I brute-forced it and squeaked out 52/52, my first time on the part 2 leaderboard.
+
+    I only looked at the input file once completing my initial part 1 solution and was pleasantly surprised.
+  :replies: []
+- :author: tenderlove
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8zdc2/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    input = File.readlines("input.data")
+    times = input.first[/(?<=^Time:).*$/].scan(/\d+/).map(&:to_i)
+    dist = input.last[/(?<=^Distance:).*$/].scan(/\d+/).map(&:to_i)
+
+    def find_h(t, d)
+      h1 = (-t + Math.sqrt(t ** 2 - 4 * -1 * -d)) / -2
+      h2 = (-t - Math.sqrt(t ** 2 - 4 * -1 * -d)) / -2
+      (h2.floor - h1.ceil) + 1
+    end
+
+    races = times.zip(dist)
+    p races.map { |time, dist|
+      find_h(time, dist + 1)
+    }.inject(:*)
+    ```
+
+    Part 2:
+
+    ```ruby
+    input = File.readlines("input.data")
+    time = input.first[/(?<=^Time:).*$/].gsub(/\s+/, '').to_i
+    dist = input.last[/(?<=^Distance:).*$/].gsub(/\s+/, '').to_i
+
+    def find_h(t, d)
+      h1 = (-t + Math.sqrt(t ** 2 - 4 * -1 * -d)) / -2
+      h2 = (-t - Math.sqrt(t ** 2 - 4 * -1 * -d)) / -2
+      (h2.floor - h1.ceil) + 1
+    end
+
+    p find_h(time, dist + 1)
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc98wxt/
+  :body: |-
+    ```ruby
+    # Time: 51 69 98 78
+    # Distance: 377 1171 1224 1505
+
+    #races = [[7, 9], [15, 40], [30, 200]]
+    races = [[51699878, 377117112241505]]
+
+    def calc(time, dist)
+      c = 0
+      time.times do |i|
+        c += 1 if i*(time-i) > dist
+      end
+      c
+    end
+
+    print races.map { |t,d|calc(t,d) }.inject(&:*)
+    ```
+  :replies: []
+- :author: Potential-Series-105
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc9pb1q/
+  :body: |-
+    Part 1 just under a hundred bytes with 99 bytes total:
+
+    ```ruby
+    p $<.map{_1.scan(/\d+/).map(&:to_i)}.transpose.map{|t,d|(1..t).sum{((t-_1)*_1>d)?1:0}}.reduce(&:*)
+    ```
+  :replies: []
+- :author: coderhs
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6yjzm/
+  :body: |-
+    Considering the small size of today's input I just typed it in.
+
+    Part 1
+
+    ```ruby
+    time.each_with_index.map do |x, i|
+      (0..x).to_a.select do |y|
+        y * (x - y) > distance[i]
+      end.length
+    end.reduce(:*)
+    ```
+
+    part 2:
+
+    ```ruby
+    (0..time).to_a.select do |y|
+      y * (time - y) > distance
+    end.length
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc72hkn/
+  :body: |-
+    Part 2 can be optimized by searching from the middle to the first distance that is lower than the record. part 2 still takes 2.5 seconds but managable.
+
+    ```ruby
+    s = $<.readlines
+    m = s.map { |l| l.split[1..].map(&:to_i) }.reduce(&:zip)
+    r = m.map { |(t, d)| (t / 2..).take_while { _1 * (t - _1) > d }.size }
+    puts "Part 1: #{r.map { (_1 * 2) - 1 }.reduce(&:*)}"
+
+    t, d = s.map { |l| l.gsub(' ', '').split(':')[1].to_i }
+    r = (t / 2..).take_while { _1 * (t - _1) > d }.size
+    puts "Part 2: #{(2 * r) - 1}" # even time so -1
+    ```
+
+    golfed its 254 bytes, although it doesn't look too much different from my original solution :D
+
+    ```ruby
+    s=$<.readlines
+    m=s.map{_1.split[1..].map(&:to_i)}.reduce(&:zip)
+    r=m.map{|(t,d)|(t/2..).take_while{_1*(t-_1)>d}.size*2-1}
+    puts"Part1:#{r.reduce(&:*)}"
+    t,d=s.map{_1.delete(' ').split(':')[1].to_i}
+    r=(t/2..).take_while{_1*(t-_1)>d}.size
+    puts"Part2:#{r*2-1}"
+    ```
+
+    You can actually save 1 byte on each part when traversing the time range in full but that wasnt worth it to me
+
+    ```ruby
+    #short: (0..t).map{_1*(t-_1)}.filter{_1>d}.size
+    # fast: (t/2..).take_while{_1*(t-_1)>d}.size*2-1
+    ```
+  :replies:
+  - :author: Symbroson
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7p1t2/
+    :body: |-
+      I noticed that the code didnt work for the test input any more. I fixed this and also shortened the code quite a bit by extracting a function and better parsing:
+
+      ```ruby
+      s = $<.readlines.map { _1.split[1..].map(&:to_i) }
+      solve = lambda { |(t, d)|
+          b = (t / 2..).take_while { _1 * (t - _1) > d }.size
+          t.even? ? (2 * b) - 1 : (2 * b) - 2
+      }
+      puts "Part 1: #{s.reduce(&:zip).map(&solve).reduce(&:*)}"
+      puts "Part 2: #{solve.call(s.map(&:join).map(&:to_i))}"
+      ```
+    :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc758e3/
+  :body: |-
+    ```ruby
+    times, distances = ARGF.readlines.map { _1.scan(/\d+/).map(&:to_i) }
+
+    puts times.zip(distances).reduce(1) { |total, (time, distance)|
+      total * (0..time).count { (time - _1) * _1 > distance }
+    }
+
+    time = times.join.to_i
+    distance = distances.join.to_i
+
+    puts (0..time).count { (time - _1) * _1 > distance }
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/06/solve.rb))
+
+    Not a fast one this time, takes like ≈2.5 seconds to run both parts. A friend hinted me towards a better solution but my brain cannot compute it this early in the morning.
+  :replies: []

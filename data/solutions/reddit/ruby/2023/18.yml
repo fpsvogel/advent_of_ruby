@@ -1,0 +1,75 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxofxy/
+  :body: |-
+    More or less a day 10 repeat!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/18)
+
+    [Video Walkthrough](https://youtu.be/oZDYH-c4_3c)
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxk8y7/
+  :body: |-
+    For part 1, I just did a flood fill. I thought "Ordinarily they'd probably say multiply each dig distance by a billion in part 2, but this time there are colors and they're not used in part 1, so they've gotta be involved in the second part!"
+
+    I did not imagine that those large distances were hiding _in_ the purported colors. Well played, Eric.
+
+    For part 2, I gathered the polygon edges into horizontal and vertical line segments, organized by Y coordinate. I then scanned from top to bottom, covering the Y coordinate of every row that contained a horizontal line, and scanning once for all rows vertically between horizontal lines, multiplying by the number of rows covered.
+
+    Scanning went as follows:
+
+    - for vertical lines crossing this Y coordinate, I enter and exit the polygon on pairs of X coordinates as I scan from left to right, adding up the area covered while inside
+    - for horizontal lines on this Y coordinate (which are sorted by starting X and processed alongside the vertical line intersections), I add the width of the line and consider whether the intersecting vertical lines go in different directions (one up, one down):
+      - if they do, we will cross from interior to exterior or vice versa after processing this line segment
+      - otherwise, we will not
+
+    My code is more complicated than those who knew the Shoelace Formula and Pick's Theorem (which I somehow failed to learn on day 10 but will definitely keep in my quiver for next time around!), but the concept was clear enough in my head that the [code](https://github.com/jstanley0/advent-2023/blob/main/18.rb) worked perfectly on the first run.
+
+    Note that this code processes the part 1 input twice, with the flood fill and the scanning algorithm, as a sanity check.
+  :replies: []
+- :author: GMarshal
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3ktc/
+  :body: |-
+    2681/2823
+
+    Posting because no one seems to be posting ruby anymore! This was a struggle and i had to google a bunch of things about polygons.
+
+    [part 1](https://gist.github.com/thecog19/96f5a59e8780fec77d8d92f232770240)
+
+    [part 2](https://gist.github.com/thecog19/64bd518b3c3c9b525f3b705fd1ca58c6)
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3r5y/
+  :body: |-
+    (Part 2)
+
+    ```ruby
+    input = File.read("2023/18/input2.txt")
+                .split("\n")
+                .map{|l| l.scan(/#(.{5})(.)/).to_a.flatten}
+                .map{|l,d| [l.to_i(16), d]}
+
+    length = input.sum(&:first)
+
+    dir = { "3" => 0-1i, "0" => 1+0i, "1" => 0+1i, "2" => -1+0i}
+
+    pos = 0+0i
+    path = []
+
+    input.each do |l,d|
+      path.unshift pos += dir[d] * l
+    end
+
+    puts path.each_cons(2).sum{ |a,b|
+      (b.real - a.real) * (b.imag + a.imag) >> 1
+    } + (length / 2) + 1
+    ```
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdvvg9u/
+  :body: |-
+    Pretty straightforward. I really thought the colors were going to mean something more doing part 1, so I started thinking about how I might generalize for part 2, lol.
+
+    Parts 1 & 2: [Pastebin](https://pastebin.com/8vHYczGc)
+  :replies: []

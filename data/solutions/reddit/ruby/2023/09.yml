@@ -1,0 +1,577 @@
+---
+- :author: InitiativeRight6576
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcu1j81/
+  :body: "`source = File.readlines('input.txt').map(&:strip)`  \n`next_values = do |line|`  \n`pattern = [line.scan(/\\-?\\d+/).map(&:to_i)]`  \n`until pattern[-1].all?(&:zero?) || pattern[-1].size == 1 do`  \n`last = pattern[-1]`  \n`differences = last.map.with_index do |val, i|`  \n`next if i.zero?`  \n`val - last[i-1]`  \n`end.compact`  \n`pattern << differences`  \n`end`  \n`pattern.reverse.reduce(0) { |val, row| val + row[-1] }`  \n`end`  \n`puts \"Sum of extrapolated values is #{ next_values.reduce(&:+) }\"`"
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclkv7e/
+  :body: |-
+    371/438
+
+    Fun one:
+
+    ```ruby
+    def solve(row)
+      [row].tap do |tri|
+        until tri.last.all? { _1 == 0 }
+          tri << tri.last.each_cons(2).map { _2 - _1 }
+        end
+      end
+    end
+
+    p data.map { |r| solve(r).map(&:last).sum }.sum
+    p data.map { |r| solve(r).map(&:first).reverse.reduce { _2 - _1 } }.sum
+    ```
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmiwxh/
+  :body: |-
+    For my input I could just sum the differences and check for zero, but I realize that for some inputs this might not work.`delta.uniq.size == 1` was my way to go here but I found a silly shortcut for my golf version to detect if I reached the end. Spoiler: `dont.` They will be empty anyways at some point
+
+    ```ruby
+    diffs = lambda { |vals|
+        delta = vals.each_cons(2).map { _2 - _1 }
+        vals.last + (delta.uniq.size == 1 ? 0 : diffs.(delta))
+    }
+    sensors = $<.map { _1.split.map(&:to_i) }
+    puts "Part 1: #{sensors.map(&diffs).sum}"
+    puts "Part 2: #{sensors.map(&:reverse).map(&diffs).sum}"
+    ```
+
+    golfed 137 bytes:
+
+    ```ruby
+    d=->(v){e=v.each_cons(2).map{_2-_1};v.last+(e.empty?? 0:d[e])}
+    s=$<.map{_1.split.map(&:to_i)};p *[s,s.map(&:reverse)].map{_1.map(&d).sum}
+    ```
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmw0n5/
+    :body: |-
+      I'm currently golfing my solution so thought I'd see if anyone else was so neat to see your post! :) I'm currently at 123 bytes:
+
+      ```ruby
+      p $<.map{|a|->l{l<
+      ```
+
+      Going to look at yours now though as you have some different approaches. I also think mine is very brittle, but it's fine on the input.
+    :replies:
+    - :author: tenderlove
+      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnpqjr/
+      :body: |-
+        I am not a very good golfer. Got it to 144:
+
+        ```ruby
+        d=->b,t=b[-1]{b.uniq==[0]?t:t+d[b.each_cons(2).map{_2-_1}]}
+        s=->a{a.map{d[_1]}.sum}
+        z=$<.map{_1.split.map(&:to_i)}
+        p [s[z],s[z.map(&:reverse)]]
+        ```
+      :replies:
+      - :author: eregontp
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnsmky/
+        :body: Nice, that's both parts in one solution
+        :replies: []
+      - :author: petercooper
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcopx9z/
+        :body: |-
+          You might really dig this. Benoit Daloze got it to 95 bytes!
+
+          [https://twitter.com/eregontp/status/1733541643469398397](https://twitter.com/eregontp/status/1733541643469398397)
+
+          (Part one only, so yours is better in terms of solutions per byte ;-))
+        :replies: []
+    - :author: Symbroson
+      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcn0y5d/
+      :body: |-
+        Your parsing seems a bit more compact than mine. The operations have to be done twice on a reversed and unreversed array
+
+        I also thought about smth like `p 2.times.map{d[s.reverse!]}}.reverse` but I havent had the time to experimebt with it yet
+      :replies:
+      - :author: eregontp
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnnwgd/
+        :body: |-
+          I got to 95 bytes:
+
+          ```ruby
+          p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<
+          ```
+
+          The key part was to not append anything but just sum the last element of each row.
+        :replies:
+        - :author: Symbroson
+          :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnrrzp/
+          :body: is that one or both parts?
+          :replies:
+          - :author: eregontp
+            :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcns172/
+            :body: Ah my bad, I should have specified that's only part 1.
+            :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmksf/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day09.rb)
+
+    This was a neat problem! I was expecting for some form of Sierpinski triangle-related optimisation to be required for Part 2, but both parts were trivially simulable.
+
+    _Edit:_ Doh, I meant to reference [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal's_triangle?useskin=vector) instead.
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmu4r/
+  :body: |-
+    Short and sweet today:
+
+    ```ruby
+    def extrapolate(seq)
+      return [0, 0] if seq.all? 0
+      extrapolate(seq.each_cons(2).map { _2 - _1 }).then { [seq[-1] + _1, seq[0] - _2] }
+    end
+
+    puts ARGF.readlines(chomp: true).map { _1.split.map(&:to_i) }.map(&method(:extrapolate)).transpose.map(&:sum)
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/09/solve.rb))
+
+    Confusingly easy for a day 9 that is _also_ on the weekend.
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllzap/
+  :body: |-
+    1736/1266
+
+    Very simple recursion for both parts. Felt like I went really fast on this, but not enough to crack the top 1000. If only I would've skipped the test data... First day my solution worked on first try.
+
+    ```ruby
+    def getNext(arr)
+      if(arr.all?{|a| a==0})
+         return 0
+      else
+        return arr.last + getNext(arr.each_cons(2).to_a.map{ |a,b| b-a })
+      end
+    end
+
+    def part_1
+      data.map(&:split).map { |a| a.map(&:to_i) }.map {|a| getNext(a) }.sum
+    end
+
+    def getPrev(arr)
+      if(arr.all?{|a| a==0})
+         return 0
+      else
+        return arr.first - getPrev(arr.each_cons(2).to_a.map{ |a,b| b-a })
+      end
+    end
+
+    def part_2
+      data.map(&:split).map { |a| a.map(&:to_i) }.map {|a| getPrev(a) }.sum
+    end
+    ```
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclpmil/
+  :body: |-
+    ```ruby
+    class Sequence
+      attr_reader :numbers
+
+      def initialize(numbers) = @numbers = numbers
+      def extrapolate = Sequence.new(@numbers.each_cons(2).map { |a, b| b - a })
+      def zeros? = @numbers.all?(&:zero?)
+      def predict = zeros? ? 0 : @numbers.last + extrapolate.predict
+      def pre_predict = zeros? ? 0 : @numbers.first - extrapolate.pre_predict
+    end
+
+    sequences = File.readlines(File.join( __dir__ , 'input.txt')).map do |l|
+      Sequence.new(l.split.map(&:to_i))
+    end
+
+    puts sequences.map(&:predict).reduce(&:+) # Part 1
+    puts sequences.map(&:pre_predict).reduce(&:+) # Part 2
+    ```
+
+    [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-09/part_1.rb)
+
+    [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-09/part_2.rb)
+  :replies:
+  - :author: coderhs
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclqpp6/
+    :body: This is a beauty. I been trying to do recursion, but this approach makes more sense.
+    :replies: []
+  - :author: yourparadigm
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclulr5/
+    :body: "`#each_cons` is the MVP here. I'd totally forgotten it existed."
+    :replies: []
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmsy4k/
+  :body: |-
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day9.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day9.rb)
+
+    im glad today was easier than yesterday. but im ready for tomorrow to be super hard
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmuc1v/
+  :body: |-
+    To determine if the end condition was met, I first used "line.sum != 0" instead of "line.uniq != [0]". Took a long time to figure out because works fine on the test input and only two lines in the real input eventually reduce to an array that sums to 0 but isn't all zeros. Doh!! Don't do that.
+
+    ```ruby
+    history = File.read('test.txt').split("\n").map{_1.scan(/[-]?[0-9]+/).map(&:to_i)}
+
+        def calculate(line)
+          # only interested in the last value in each reduction
+          newval = line.last
+          while line.uniq != [0]
+            line = line.each_cons(2).map{_2 - _1}
+            newval += line.last
+          end
+          newval
+        end
+
+        # part 1
+        p history.map {|l| calculate(l)}.sum
+        # part 2
+        p history.map {|l| calculate(l.reverse)}.sum
+    ```
+  :replies:
+  - :author: RelativeLead5
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnk4qf/
+    :body: |-
+      or the recursive 1 liner if you prefer:
+
+      ```ruby
+      def calculate(line)
+        line.uniq == [0] ? 0 : line.last + calculate(line.each_cons(2).map{_2 - _1})
+      end
+      ```
+    :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllm00/
+  :body: |-
+    I found today really easy thankfully. Hardest part was remembering the language features haha
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day09/day09.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day09/day09.rb)
+
+    ```ruby
+    def get_subsequent_reading(reading)
+      puts "passed in readings #{reading}"
+      if reading.all?(0)
+        reading << 0
+      else
+        readings = reading.each_cons(2).map do |a, b|
+          b - a
+        end
+        sub_reading = get_subsequent_reading(readings)
+        reading << (reading[-1] + sub_reading[-1])
+        puts "current reading #{reading}"
+        reading
+      end
+    end
+
+    execute(1) do |lines|
+      lines.map do |reading|
+        get_subsequent_reading(reading.split.map(&:to_i))
+      end.map {|arr| arr[-1]}.sum
+    end
+
+    def get_preceeding_readings(reading)
+      puts "passed in readings #{reading}"
+      if reading.all?(0)
+        reading.unshift(0)
+      else
+        readings = reading.each_cons(2).map do |a, b|
+          b - a
+        end
+        sub_reading = get_preceeding_readings(readings)
+        reading.unshift(reading[0] - sub_reading[0])
+        puts "current reading #{readings} #{sub_reading}"
+        reading
+      end
+    end
+
+    execute(2, test_only: false, test_file_suffix: '') do |lines|
+      lines.map do |reading|
+        get_preceeding_readings(reading.split.map(&:to_i))
+      end.map {|arr| arr[0]}.sum
+    end
+    ```
+
+    ## code golf: 114 bytes!
+
+    golfing this one was fun too
+
+    ```ruby
+    a=->r{r.unshift(r.all?(0)?0:(r[0]-a[r.each_cons(2).map{_2-_1}][0]))};l.map{a[_1.split.map(&:to_i)]}.map{_1[0]}.sum
+    ```
+  :replies: []
+- :author: dhruvasagar
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclne6v/
+  :body: |-
+    ```ruby
+    def diffs(sequence)
+      sequence.each_cons(2).map {|a, b| b - a}
+    end
+
+    def predict_next(sequence)
+      next_diffs = diffs(sequence)
+      return sequence.first if next_diffs.all?(&:zero?)
+
+      sequence[-1] + predict_next(next_diffs)
+    end
+
+    def predict_prev(sequence)
+      next_diffs = diffs(sequence)
+      return sequence.first if next_diffs.all?(&:zero?)
+
+      sequence[0] - predict_prev(next_diffs)
+    end
+
+    lines = ARGF.readlines.map {|l| l.split.map(&:to_i)}
+    p lines.map {|l| predict_next(l)}.sum
+    p lines.map {|l| predict_prev(l)}.sum
+    ```
+  :replies:
+  - :author: snowe2010
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclnwfi/
+    :body: each\_cons made this day silly easy, and yet your solution is still somehow so much simpler than mine lol
+    :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclut62/
+  :body: |-
+    [Language: Ruby
+
+    ```ruby
+    def regress(history)
+      [history].tap do |regressions|
+        regressions << regressions.last.each_cons(2).map { |x, y| y - x } until regressions.last.all?(&:zero?)
+      end
+    end
+
+    def extrapolate(regressions, multiplier = 1)
+      regressions.reverse.each_cons(2) { |prev, this| this << this.last + prev.last * multiplier }.last.last
+    end
+
+    oasis_histories = $stdin.readlines.map { |line| line.strip.split(' ').map(&:to_i) }
+    part1 = oasis_histories.sum { |oasis_history| extrapolate(regress(oasis_history)) }
+    puts part1
+    part2 = oasis_histories.sum { |oasis_history| extrapolate(regress(oasis_history).map(&:reverse), -1) }
+    puts part2
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm07xz/
+  :body: |-
+    ```ruby
+    input = File.read("input2.txt").split("\n").map(&:split).map{|l| l.map(&:to_i)}
+
+    def calc(l)
+        diffs, nextList = [l], l
+
+        until nextList.all?(0) do
+            diffs.unshift nextList = nextList.each_cons(2).map{ |a,b| b-a }
+        end
+        diffs.map(&:last).reduce(&:+)
+    end
+
+    puts "Part 1:", input.sum{ |l| calc(l) }
+    puts "Part 2:", input.sum{ |l| calc(l.reverse) }
+    ```
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmaqvk/
+  :body: |-
+    Build a rather large algorithm for 1. Then one for 2. Then I noticed 2 was simply 1 with reversed inputs. And then I noticed 1 was simply a matter of summing differences...
+
+    [Link to github](https://github.com/jlugner/2023-aoc/blob/master/solutions/day9/solution.rb)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmeyu3/
+  :body: |-
+    Nice problem today, almost the exact same code for parts 1 and 2!
+
+    [GitHub](https://github.com/careyi3/aoc_2023/tree/master/solutions/9)
+
+    [Video Walkthrough](https://youtu.be/Yl8J0-gKAEA)
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmg4iz/
+  :body: |-
+    An "easy" day I guess, really happy with the solution.
+
+    ​
+
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayNine2023
+      def self.part_one(lines)
+        lines.sum do |line|
+          digits = line.split.map(&:to_i)
+          calculate_prediction(digits).last
+        end
+      end
+
+      def self.part_two(lines)
+        lines.sum do |line|
+          digits = line.split.map(&:to_i)
+          calculate_prediction(digits).first
+        end
+      end
+
+      class << self
+        def calculate_prediction(digits)
+          matrix = prediction([digits])
+          matrix.reverse.each_cons(2) do |(x, y)|
+            y.unshift(y.first - x.first)
+            y.push(y.last + x.last)
+          end
+          matrix.first
+        end
+
+        def prediction(numbers)
+          return numbers if numbers.last.all?(&:zero?)
+
+          prediction(numbers << numbers.last.each_cons(2).map { |x, y| y - x })
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcno6po/
+  :body: |-
+    Part 1
+
+    ```ruby
+    p $<.sum { |l|
+      series = l.split.map { Integer _1 }
+      rows = [series]
+      until series.all?(0)
+        series = series.each_cons(2).map { _2 - _1 }
+        rows << series
+      end
+
+      rows.last << 0
+      rows.reverse_each.each_cons(2) { _2 << _2[-1] + _1[-1] }
+      rows.first.last
+    }
+    ```
+
+    Part 2:
+
+    ```ruby
+    p $<.sum { |l|
+      series = l.split.map { Integer _1 }
+      rows = [series]
+      until series.all?(0)
+        series = series.each_cons(2).map { _2 - _1 }
+        rows << series
+      end
+
+      rows.last.unshift 0
+      rows.reverse_each.each_cons(2) { _2.unshift(_2[0] - _1[0]) }
+      rows.first.first
+    }
+    ```
+
+    Part 1 golfed to 95 bytes:
+
+    ```ruby
+    p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<
+    ```
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcll05x/
+  :body: |-
+    Doing it explicitly bottom-up:
+
+    Part 1:
+
+    ```ruby
+    lines = $<.map { _1.scan(/\-?\d+/).map(&:to_i) }
+
+    def line_diffs(seq) = seq.each_cons(2).map { |a, b| b - a }
+
+    def all_diffs(seq)
+      result = [seq]
+      loop do
+        seq = line_diffs(seq)
+        result << seq
+        break if seq.all?(&:zero?)
+      end
+      result
+    end
+
+    puts lines.map { |line|
+      diffs = all_diffs(line).reverse
+      diffs[0] << 0
+      (1...diffs.size).each do |i|
+        diffs[i] << diffs[i - 1][-1] + diffs[i][-1]
+      end
+      diffs[-1][-1]
+    }.reduce(:+)
+    ```
+
+    Part 2:
+
+    ```ruby
+    lines = $<.map { _1.scan(/\-?\d+/).map(&:to_i) }
+
+    def line_diffs(seq) = seq.each_cons(2).map { |a, b| b - a }
+
+    def all_diffs(seq)
+      result = [seq]
+      loop do
+        seq = line_diffs(seq)
+        result << seq
+        break if seq.all?(&:zero?)
+      end
+      result
+    end
+
+    puts lines.map { |line|
+      diffs = all_diffs(line).reverse
+      diffs[0].prepend(0)
+      (1...diffs.size).each do |i|
+        diffs[i].prepend(diffs[i][0] - diffs[i - 1][0])
+      end
+      diffs[-1][0]
+    }.reduce(:+)
+    ```
+  :replies: []
+- :author: lycheejuice225
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm01va/
+  :body: |-
+    ```rb ans = 0 while line=gets seq = line.scan(/-?\d+/).map(&:to\_i)
+
+    last = [] while !seq.all? { |e| e == 0 } do last \<\< seq[-1] seq = seq.each\_cons(2).map { |a, b| b-a } end
+
+    ans += last.reverse.reduce { |a, b| a+b } end
+
+    puts ans ```
+
+    It was quite simple today even though I thought it'd be of good level.
+  :replies: []
+- :author: tenderlove
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnisgp/
+  :body: |-
+    Took me a while to realize that rows have negative numbers and the sum can be zero without all numbers being zero \>\_\<
+
+    ```ruby
+    puzzles = ARGF.readlines(chomp: true).map { |x| x.split(" ").map(&:to_i) }
+
+    def solve puzzles
+      puzzles.map { |puzzle|
+        rows = [puzzle]
+        while !puzzle.all?(&:zero?)
+          puzzle = puzzle.each_cons(2).map { |a, b| b - a }
+          rows << puzzle
+        end
+        rows.map(&:last).sum
+      }.sum
+    end
+
+    # part 1
+    p solve(puzzles)
+    # part 2
+    p solve(puzzles.map(&:reverse))
+    ```
+  :replies: []

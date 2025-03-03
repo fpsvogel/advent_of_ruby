@@ -1,0 +1,248 @@
+---
+- :author: Alkyonios
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdjwijt/
+  :body: |-
+    [Solution](https://topaz.github.io/paste/#XQAAAQBVBwAAAAAAAAAxmwhIY/VDibXTN1fVPjOQKOvNhTjhh6MlGoy6ibz1iEMOgACrQ5UT6jZCV2MNYRyRjfcPzt7zUln0NoxniFxfK850joUc7UXz65mcQykbFCHKmeB61AlecR4ZUlQWWWT5eePwbOgiMawUdgPMHezxMAPYChpDRZ/18RsF1kYif2mAW7rsyEgP+UPKjWdJC74VBzSlGDTZDhK1wqGSa6+uCaZApJ8LmfyHImGYOYTxTLpigPYtwUceSRKpR3dDeKUD2wruV9tPiMV5ffbcH/yeV4AvkxgQ9FzG7L5oiyNhyytH8ZdeM0cekBIaR7UYumuD+8L2UPCvNowUppzTrzaVynz+K89qyeBizCH9TuoMFPt1IccNJbe7rQSH848ec8FniInEUdSImWUpuFG5YWaKLq3JMBCUAnclPMOIxWF8M7F1L5V9AOJP1dT6jiEqejOT/gvuwVUM0lbyUntFRgCnRHBYml7uCGQwlu17rGIO+om4mqhWctvmj7132imC8Ks+zbGeGVhVxfJmZLoY+zWT5Bvn+vbHI/GjUPd9anMiMXU33GDBUnPbUBmgMAxmTXqNbIM08uJCXqYgLk4bfQIJEtKgXiG4jW79DRcvHVo+s3e60h0Z8QFpKUxeqsv6xtdAMY5PGfEoGZaOO7m9jP1c1RJVJXlv9lkaYs2gmZMagoG0d+KQ57epRi88OYvkW5P2SPhOXpssz1jyDH5W+mLF9dcNE1hQocbMkQlhQefFxLiWjGhNPZqay9LsUYpwf+4MMgf0vtLaUDkS9l1bAwLLt67egX7s/0g0nQA=)
+
+    It took an embarrasing amount of time to figure out what "relevant box" meant in part 2, otherwise smooth sailing.
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdj3gsa/
+  :body: |-
+    [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-15/part_2.rb)
+
+    ```ruby
+    sequence = File.read(File.join( __dir__ , 'input.txt')).chomp
+      .split(',')
+      .map { |s| s.split(/(=|-)/) }
+      .map { |s| s[2] = s[2].to_i if s[2]; s }
+
+    class Hashmap
+      def initialize = @boxes = Array.new(256) { {} }
+      def hash_value(string) = string.chars.reduce(0) { |v, c| ((v + c.ord) * 17) % 256 }
+
+      def perform(key, op, value = nil)
+        case op
+        when '=' then @boxes[hash_value(key)][key] = value
+        when '-' then @boxes[hash_value(key)].delete(key)
+        end
+      end
+
+      def focusing_power
+        @boxes.map.with_index(1) { |b, i| b.values.map.with_index(1) { |v, bi| v * i * bi } }
+          .flatten.reduce(0) { |total, v| total + v }
+      end
+    end
+
+    h = Hashmap.new
+    sequence.each { |instruction| h.perform(*instruction) }
+
+    puts h.focusing_power
+    ```
+
+    Is it cheating to use a hash map in the hash map implementation? haha.
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfzzzq/
+  :body: |-
+    Already put up a solution, but this one deserves its own comment
+
+    ```ruby
+    def h(s) = s.chars.reduce(0){ |a, x| (a + x.ord) * 17 % 256 }
+    p STDIN.read.chomp.split(?,).tap{ p _1.map{ |s| h s }.sum }
+      .group_by{ h _1[/\w+/] }.map{ |k, v| (k + 1) *
+      (v * ' ').scan(/(\b[a-z]+)=(?=(?:.+\b\1=)?(\d+))(?!.+\b\1-)/)
+      .uniq.each_with_index.map{ _1[1].to_i * (_2 + 1) }.sum }.sum
+    ```
+
+    Who needs data structures when you can `Regexp`!?
+
+    ```ruby
+    /(\b[a-z]+)=(?=(?:.+\b\1=)?(\d+))(?!.+\b\1-)/
+    1(\b[a-z]+)=
+    2 (?=(?:.+\b\1=)?
+    3 (\d+))
+    4 (?!.+\b\1-)
+    ```
+
+    1. Capture the first available lens label that's followed by `=`.
+    2. Positive lookahead: Search as far as possible (`.+` is greedy) for a matching lens label + `=`.
+    3. If (2) exists, capture all consecutive digits following its `=`. If not, just capture the digits after the first `=`.
+    4. Negative lookahead: If there are any instances of the label followed by `-` after the first `=`, the match is invalidated and the regex looks for another label.
+
+    `.scan` finds all matches of the regex. For example, `"aa=1 aa=2 aa- os=4 aa=6 os=5"` becomes `[["os", "5"], ["aa", "6"], ["os", "5"]]`. `.uniq` preserves order of the first instance of each element, deleting the second `["os", "5"]`, but the first one already has the `"5"` due to the positive lookahead. All the `aa`s before the `aa-` get ignored due to the negative lookahead.
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfea3e/
+  :body: |-
+    Part 1 Solution
+
+    ```ruby
+    sequence = File.read(File.join( __dir__ , 'input.txt')).chomp.split(',')
+
+    t = sequence.reduce(0) do |total, string|
+      current_value = 0
+
+      string.chars.each do |char|
+        current_value += char.ord
+        current_value *= 17
+        current_value %= 256
+      end
+
+      total + current_value
+    end
+
+    puts t
+    ```
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfpx7r/
+  :body: |-
+    Easy half-punchcard day again
+
+    ```ruby
+    l = STDIN.read.chomp.split(?,).map{ _1.split(/\b/) }
+    def h(s) = s.chars.reduce(0){ |a, x| (a + x.ord) * 17 % 256 }
+    p l.map{ h _1.join }.sum; p l.group_by{ _2; h _1 }.map{ |k, v|
+      a = {}; v.each{ _3 ? a[_1] = _3 : a.delete(_1) }
+      (k + 1) * a.each_with_index.map{ _1[1].to_i * (_2 + 1) }.sum }.sum
+    ```
+
+    - I'm still a bit disappointed with how long my part 2 code is here. Surely there's a shorter way to do it...
+    - I used a funny trick for parsing the commands. `split(/\b/)` splits on word boundaries, so `"aa=0"` =\> `["aa", "=", "0"]` and `"aa-"` =\> `["aa", "-"]`. This means I can just check for the existence of the third element in the array (`_3 ? ...`) to decide what to do.
+    - Ruby guarantees Hashes stay in order, so no extra ordering code needed for that part of the problem statement.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdg8a2m/
+  :body: |-
+    Mercifully easier than the last few days!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/15)
+
+    [Video Walkthrough](https://youtu.be/cVG4S9MZ_pg)
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgbuzp/
+  :body: |-
+    ```ruby
+    input = $<.read.tr("\r\n", '').split(',')
+    hash = ->(l) { l.bytes.reduce(0) { (_1 + _2) * 17 % 256 } }
+
+    boxes = {}
+    input.map do |l|
+        lbl, op = l.split(/[=-]/)
+        box = boxes[1 + hash[lbl]] ||= []
+        i = box.index { _1[0] == lbl } || box.size
+        op ? box[i] = [lbl, op.to_i] : box.delete_at(i)
+    end
+
+    puts "Part 1: #{input.sum(&hash)}"
+    puts "Part 2: #{boxes.sum { |(i, b)| i * b.map.with_index.sum { |l, j| -~j * l[1] } }}"
+    ```
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgoi4d/
+  :body: |-
+    PARTS 1 & 2
+
+    ```ruby
+    sequence = File.read('input.txt').split(',')
+
+        # part 1
+        def hash(s)
+          s.chars.reduce(0){ (_1 + _2.ord) * 17 % 256 }
+        end
+
+        p sequence.map{hash(_1)}.sum
+
+        # part 2
+        # Fortunately Ruby will keep the ordering of hashes for us
+        #
+        boxes = {}
+        (0..255).each{|i| boxes[i] = {}}
+
+        sequence.each do |step|
+          if step.chars.last == '-'
+            label = step[0..-2]
+            boxes[hash(label)].delete(label)
+          else
+            label, lens = step.split('=')
+            boxes[hash(label)][label] = lens.to_i
+          end
+        end
+
+        p boxes.map{|no, lenses|
+          (no + 1) * lenses.each_with_index.map{|s,i| (i+1) * s[1]}.sum
+        }.sum
+    ```
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfg60v/
+  :body: |-
+    This was straight-up a reading comprehension problem. I probably wasted 2 minutes on part 1 because I couldn't accept how easy it was. And another 10 minutes on part 2 because I had no clue what it was trying to say with the boxes and focal lengths. I eventually got there.
+
+    [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/15/solution.rb)
+  :replies: []
+- :author: Unhappy_Adeptness_93
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk34a/
+  :body: |-
+    [Github solution](https://github.com/andyAtChime/advent_of_code/blob/solutions-2023/2023/code/day_15.rb)
+
+    This was real easy, once I grokked the prompt. Bummed there's no scale problem to solve today, but nbd, off to bed!
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk8om/
+  :body: |-
+    Pretty straightforward IMO. Only took a few minutes and got it right on the first try, which is rare for me. Ruby makes these problems real easy.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDwAQAAAAAAAAAyGUj/TxK9OVMABPZ1+6kdVpmDcy636sJnvuQ9xEHSh/N4El930DvPBYXafRaInATDNw2+ta4UMyG+hWEGO6MiAJhm2q6S+1NEgtkb+fLJFq4o5ckQ4k7+Tx+GYY8nM2FwbmHCyI2LkahpnEkJQjXbe0JAuXfY5374G/77MhHYKWaGolc3iin/X3Juh/aZYZM1yZxV1Cvz2xxtcSq4eKaTmn6DShqcO2cSrBb/xY9sMP1AnEqkGoinghLyKAzAAT1/4vuPQgFy2s27VtuA1Mpv5u26wChELg8o3Ugu47DSK01+fv3cj4JOMMIKECz8IhA9gne+/5VybgP0aLo0pUbtPBeA/+2vhcNVnqqACmP67NCHRChqsN083MIUHf1Nec97XNVTlQy3WkYhwyfgDJqT/uSOF1VVjJAZm53mmWj7tQY0dVCP+0JlpA==)
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdftvfj/
+  :body: |-
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayFifteen2023
+      def self.part_one(lines)
+        lines.sum { |line| line.split(",").sum { |step| calculate_hash(step) } }
+      end
+
+      def self.part_two(lines)
+        boxes = Hash.new { |hash, key| hash[key] = {} }
+        lines.first.split(",").each_with_object(boxes) do |step, acc|
+          label, sign, focus = step.split(/([=|-])/)
+          box = calculate_hash(label)
+          acc[box].delete(label) if sign == "-"
+          acc[box][label] = focus.to_i if sign == "="
+        end
+
+        boxes.sum do |box_id, lens|
+          lens.values.each_with_index.sum do |value, index|
+            ((box_id.next) * (index.next)) * value
+          end
+        end
+      end
+
+      class << self
+        def calculate_hash(label)
+          label.chars.reduce(0) do |acc, digit|
+            acc = ((acc + digit.ord) * 17).remainder(256)
+            acc
+          end
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: stanimirov
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfxje1/
+  :body: |-
+    part 1 (76 characters):
+
+    `p File.read(?i).strip.split(?,).sum{|s|s.chars.inject(0){(_1+_2.ord)*17%256}`
+
+    part 2 (325 characters):
+
+    `p File.read(?i).strip.split(?,).map{|s|[s.scan(/\w+/)[0].chars.inject(0){(_1+_2.ord)*17%256},s.tr(?-,?=)]}.each_with_object(Hash.new{_1[_2]=[]}){|b,h|h[b[0]]<`
+  :replies: []

@@ -1,0 +1,56 @@
+---
+- :author: baseballlover723
+  :url: https://www.reddit.com/r/adventofcode/comments/18oy4pc/2023_day_23_solutions/kgdwvdw/
+  :body: |-
+    : [Github](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/).
+
+    [Language: Crystal]: [Github](https://github.com/baseballlover723/advent-of-code/blob/master/2023/crystal).
+
+    Didn't see any ruby here so I thought I'd share my own.
+
+    # Part [A](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22a.rb)
+
+    [I started](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22d.rb) with just my standard maze navigation (after converting the maze from characters into numbers from 0..5 to do some of the checks all at once) using a queue and a tuple of x,y, distance, and direction, with a minor optimization of setting the end at the first fork from the end (and remembering how long that section was to add afterwards), instead of the actual end (this only saved ~`12 ms`) to get to a runtime of ~`102 ms`. I also realized that the way I did my maze navigation, I didn't actually have to worry about visiting the same places twice, since it turned out that the slopes made it so that you could only go one way.
+
+    Then I realized that I could probably make it faster by [converting the maze to a graph with only a few nodes and just dealing with that instead](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22a.rb). So I did that and then just generated all the paths from the start to the end and found the largest one to get the runtime down to ~`14 ms`. I actually tried with [Dijkstra's algorithm](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22c.rb) (with negative edge values) to see if that was any faster, and it was actually slower by ~`0.5 ms`, which I think makes sense since you still have to generate all the paths anyways.
+
+    # Part [B](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22b.rb)
+
+    For Part B it wasn't too difficult for [my first version](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22e.rb), just do the same thing, but represent the maze using booleans instead of integers, since now there's only 2 possible values (wall and path) and using a set to check what nodes I'd already visited when generating all the paths (I even managed to shave off a copy of seen set by reusing the original seen set for the first copy), and it took ~`54 seconds`, yikes. I entered the answer to confirm it was actually correct (which it was) and then looked here for some inspiration for something faster.
+
+    I found it in [https://www.reddit.com/r/adventofcode/comments/18oy4pc/2023\_day\_23\_solutions/kfyvp2g/](https://www.reddit.com/r/adventofcode/comments/18oy4pc/2023_day_23_solutions/kfyvp2g/), and [trimming down the perimeter nodes to be one way](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22g.rb) got my runtime down to ~`10.9 seconds`. Some further optimization of the cycle detection to use [an array of booleans by node id](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22h.rb) got down to ~`5.7 seconds` and then [using an integer with bit manipulation](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22b.rb) got it down to my final runtime of ~`2.6 seconds`.
+
+    [I tried my original algorithm without the perimeter node stuff but with the more efficient bitwise cycle detection](https://github.com/baseballlover723/advent-of-code/blob/master/2023/ruby/day22f.rb) and it was a decently reasonable ~`15.0 seconds`.
+
+    Overall I was really happy to get down to `2.6 seconds` in ruby, but as per usual I mirrored everything in Crystal lang as well and the relative runtimes matched up pretty similar to ruby, but ~20x faster.
+
+    Ruby runtimes (all times listed averaged over the 25 trials):
+
+    ```ruby
+    times: 25
+
+    day23a (ruby) : 14.193 ms => 2326
+    day23b (ruby) : 2 sec and 600.667 ms => 6574
+    day23c (ruby) : 14.572 ms => 2326
+    day23d (ruby) : 101.483 ms => 2326
+    day23e (ruby) : 53 sec and 886.581 ms => 6574
+    day23f (ruby) : 15 sec and 19.063 ms => 6854
+    day23g (ruby) : 10 sec and 879.43 ms => 6574
+    day23h (ruby) : 5 sec and 709.26 ms => 657
+    ```
+
+    Crystal runtimes (all times listed averaged over the 100 trials):
+
+    ```ruby
+    times: 100
+
+    day23a (release): 0.926 ms => 2326
+    day23b (release): 126.396 ms => 6574
+    day23c (release): 0.797 ms => 2326
+    day23d (release): 6.971 ms => 2326
+    day23e (release): 4.0 sec and 577.198 ms => 6574
+    day23f (release): 686.635 ms => 6854
+    day23g (release): 1.0 sec and 315.651 ms => 6574
+    day23h (release): 301.475 ms => 6574
+    ```
+  :replies: []

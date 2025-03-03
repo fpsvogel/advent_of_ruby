@@ -1,0 +1,367 @@
+---
+- :author: apollo701
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kdci5az/
+  :body: |-
+    ​
+
+    [https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum](https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum)
+
+    Took an OOP approach for part 1/2. Could use some more cleanup, would probably combine my two service classes into a GameMangement object or something that knows how to check valid games and powers
+  :replies: []
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kcikjcf/
+  :body: "I was happy with how little modification there was from part 1:\n\n> r,g,b=ARGV.shift(3).map(&:to\\_i);p ARGF.each.inject(0){|s,l|m=/Game (\\d+): (.\\*)/.match(l);i=m[2].scan(/(?:(\\d+) (r|g|b)?)/).inject(Hash.new(0)){|h,a|a[0].to\\_i\\>h[a[1]]&&h[a[1]]=a[0].to\\_i;h};s+((i['r']\\>r||i['g']\\>g||i['b']\\>b)?0:m[1].to\\_i)}\n\nto part 2:\n\n> p ARGF.each.inject(0){|s,l|m=/Game (\\d+): (.\\*)/.match(l);i=m[2].scan(/(?:(\\d+) (r|g|b)?)/).inject([Hash.new](https://Hash.new)(0)){|h,a|a[0].to\\_i\\>h[a[1]]&&h[a[1]]=a[0].to\\_i;h};s+i.values.inject(:\\*)}\n> \n> It even got smaller!"
+  :replies: []
+- :author: Potential-Series-105
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbzji27/
+  :body: |-
+    turns out part 1 can be really optimized with a perfect hash function. 83 bytes total.
+
+    ```ruby
+    p $<.sum{|l|l.scan(/\d+ \w/).all?{|n|n.to_i<=12+(n[-1].ord*4/3&3)}?l[4..].to_i: 0}
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnfoep/
+  :body: |-
+    ```ruby
+    input = ARGF.read.lines
+
+    games = input.map.with_index do |line, i|
+      sets = line.split(':')[1].split(';').map do |set|
+        Hash[set.split(',').map do |c|
+        c.split.then { |(n, c)| [c[0].to_sym, n.to_i] }
+        end].tap { _1.default = 0 }
+      end
+      { id: i + 1, sets: sets, mins: Hash.new(0) }
+    end
+
+    count = games.sum do |game|
+      valid = true
+      game[:sets].each do |set|
+        set.each do |c, n|
+        valid = false if (c == :r && n > 12) || (c == :g && n > 13) || (c == :b && n > 14)
+        game[:mins][c] = n if n > game[:mins][c]
+        end
+      end
+      game[:power] = game[:mins].values.reduce(:*)
+      valid ? game[:id] : 0
+    end
+
+    puts count
+    puts games.sum { _1[:power] }
+    ```
+
+    ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/02/solve.rb))
+
+    Took longer than day 1 due to not grasping all the text at first.
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnnift/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day02.rb)
+
+    Nothing particularly groundbreaking in today's solution, but I'm pretty pleased with its conciseness: being able to write the parser and solutions to both parts in single expressions is always quite satisfying.
+  :replies: []
+- :author: 6f937f00-3166-11e4-8
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnqt01/
+  :body: |-
+    ```ruby
+    def part_one(lines)
+      lines.map do |line|
+        game_id = line[/\d+/].to_i
+        counts = { "blue" => 0, "green" => 0, "red" => 0 }
+        line.split(": ").last.split(/[;,] /).each do |c|
+          count, color = c.split(" ")
+          counts[color] = count.to_i if counts[color] < count.to_i
+        end
+
+        counts["red"] <= 12 && counts["green"] <= 13 && counts["blue"] <= 14 ? game_id : 0
+      end.sum
+    end
+
+    def part_two(lines)
+      lines.map do |line|
+        counts = { "blue" => 0, "green" => 0, "red" => 0 }
+        line.split(": ").last.split(/[;,] /).each do |c|
+          count, color = c.split(" ")
+          counts[color] = count.to_i if counts[color] < count.to_i
+        end
+
+        counts.values.reduce(1, &:*)
+      end.sum
+    end
+
+    puts "part one test1.txt", part_one(File.read('test1.txt').lines)
+    puts "part one input.txt", part_one(File.read('input.txt').lines)
+    puts "part two test1.txt", part_two(File.read('test1.txt').lines)
+    puts "part two input.txt", part_two(File.read('input.txt').lines)
+    ```
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbqk1tn/
+  :body: |-
+    Part 1 in 96 bytes:
+
+    ```ruby
+    p$<.sum{|l|l.scan(/(\d+) (\w+)/).all?{_1.to_i<%w[red green blue].index(_2)+13}?l[/\d+/].to_i: 0}
+    ```
+  :replies: []
+- :author: cwby_bbop
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbneo94/
+  :body: "[https://github.com/ealvar3z/aoc-2023/blob/master/day02.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day02.rb)"
+  :replies:
+  - :author: snowe2010
+    :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnim17/
+    :body: |-
+      oh yours is really similar to mine. [https://www.reddit.com/r/adventofcode/comments/188w447/2023\_day\_2\_solutions/kbnehwa/](https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa/)
+
+      edit: i made some modifications to your solution and golf it and got it down to 134 characters. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L134-L137](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb#L134-L137)
+
+      I took some of your ideas around scan and implemented them into my golf solution and got 133! Our solutions look super different, but came out to almost the same length. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L108-L112](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb#L108-L112)
+    :replies: []
+- :author: vikingly56
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnmpb7/
+  :body: |-
+    [Part 1](https://topaz.github.io/paste/#XQAAAQBNBAAAAAAAAAAxm8nOkzLf4JvunUP6t9pRtuGOkmJHAufY4vQu0GpflVYEXt/7dXdFCFOTrbpPSYpK17U9tsOfHPM6UlFib6EkLOBdjWaElVZtLK6WFosU3zppJ/41+eDPQ0goFWQDYECR6iWYOfESZbtFUKOZar33scrvWN9/73QtlsiwEQ5suGfX2dHHSlsUUWDC/ZUC+/a2fiw2MvXnwxUQU6Bo6q2oAaeTWQTo14A5r3PrusClLkjkY1OdmJuHR3Yc1GBB/Uzk9qNgWmnKHkdYIH9TXCNLfjLTGQzgJR0QeoMF/aZAJOzZA5GIjlDYTwZu1z95TY/ZV4BFkVB3Z/Jv808+RrNXUOjCR02drI0hhShfGLgujBOE+awebvMMCfh1RijB7Sp6tC+wkeM6QwTLn07YngiGNPLzz4cVEvxvcduESLSV4MNDD0rSBVoDN9If1JugyTTQVxoUiB+hnnLYjMBEIIiHZbVpibgra7Mk3D6fuhXnGdVIzgwdmeRKCtMuRERAZnoxFMXo5VYSuPK2aJUAIOLVuLp5tAo++tJsX+p1CTMf5t8sAbNbIZpTjC4IynZhkrGIWj5+WV4Q0bxKjiOSCHckSyZcrf8y6SUA)
+
+    [Part 2](https://topaz.github.io/paste/#XQAAAQB4AwAAAAAAAAAyGUj/TwpvLe0gsyFT8iZOPN9EedSymx3muo0auG1mGPtkRDoowDfNoD2XUYqR6zwVGLRBG3GC31kGTgZkOc9a8AVtoKhS6c2alQZFy/xwOjfn6C2NmLJlyJTtjXyU9KMBFRHHXapS6HDxqGc1cluKil1HJ2F1ctUIDQVnwZ9WBjNTHuPd3UYdFtbhpMvi4rV8VOxE6QigAMTxRICrrVqUzR6ToWwTpEF9T+TdFbXR1zmtPpWM8yEvdNuMFZSWNqDPEDfIf5Gc7ANiv/cIJ5fsY/oA9dun+TuC13ltdE5YezY8Ce08ZnziMRNTuAjiQmQi443fLd7z0gcjaSFq18WaUnwPNsPG0DuTTw8tcBROkAB+JH+EqpWMomt1ME1XJWGYCFAPGhN1uhsZnX8JzYrvaBAzoZjI9QuVX2daAirHnMvAEgnIDWNZxM5EDqJrmKT+v/dG17uuF/zd9f+ccaAso3fSXxcB8FYGkVxy0WJKKUAMWl//32YMhw==)
+  :replies: []
+- :author: PassifloraCaerulea
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnn5hs/
+  :body: |-
+    [paste](https://topaz.github.io/paste/#XQAAAQBwBQAAAAAAAAAjmEmmZ0F3geH2HS941iDpkRJhWDNw+mFEzIaPDt0a7Lu2lgmr2JUWvBhN/4fVM2VA5i+470PBXuJs0lvlR02ICCg2zvy0c46svch3YBFAfPbMBJ6hX3oIVqA5e/7td2YK+LR7KxNa67+ontMR51shq87rdbVJB3sEWmgTkJd0CaRWKuSdQujZ/nTdRFCmgUJrlskroa9boPf5oxKhfQlZEubf3hdx2zJxhxI4n7aDyg3GiY99VkCvGCMOP1t44OUaaR0Qoe6bQhOAAQZWWXgHpXBQF01eRv3V46X9Z4HNARzs9qceyjFO1CMSPFuo5kpcQXMmwSCM3YKrBZQoUiuV6IUlvmipdCPfn2KHocqmxaDa3s2w82kJ4rLePrJQkRPvycBu+jaN+N+H0hgu6HMi9jZS2alcD4gGM1OCz6j+5s9sfyu2xBCXTlXX6fCtWsIQZHYyishnl2v9wZcaBCj+4NCBxayv7Mfa3VF0WcRp6JvL7P2oi3ZR26oFgBSiXm0H2iY459xzk/FNZ8IEKIAZY3FCwec6FdMQEtclN7x6z5twZqMtAVrXdRTDMghWq8Yx1p4No1nVFJUzRKCSj+8iq+g42oFvujfvUtvCSM9yKh0CPjXx3H1FZ/dTFpH7ktGHYoCh6QmqXveVYhMVcALz6Ynu5XbmVb0gUmax4SS50T/kBzrzC2WVb5P2OeAYGvoUSKvIAf1AgP1KG3OIzhHE4UX0vGYmSeTKynCGrM1fY8j3osvtrlm+b8yp5U+MCEJx6jUss/IfttLXkMxP0hb5ntmQ4y3DAmzW5s6rkQ3Alz52ydPKr/2hVsg=)
+
+    Disappointingly large amount of far too conventionally structured code :-P Easier problem than yesterday even though it took me longer. Y'all are making me want to finally try out Smalltalk to work these problems, but opening up a Pharo image I'm remembering why I haven't before: such a weird interface I have a lot of trouble figuring out :(
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbozeir/
+  :body: 'Pretty straightforward but no one liner this time: [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02)'
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa/
+  :body: |-
+    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb)
+
+    Easier than day 1. I'll be adding code golf solutions to this as well over the next hour or so.
+  :replies: []
+- :author: Annual-Management613
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnoh0a/
+  :body: |-
+    Today it was an easy day, my solution is really simple and nothing to be specially proud of:
+
+    ```ruby
+    # frozen_string_literal: true
+
+    class DayTwo2023
+      def self.part_one(games)
+        games.sum do |game|
+          id = game.scan(/\d+/).first
+          cubes = game.scan(/(\d+) (\w+)/)
+          valid?(cubes) ? id.to_i : 0
+        end
+      end
+
+      def self.part_two(games)
+        games.sum do |game|
+          cubes = game.scan(/(\d+) (\w+)/)
+          calculate_power(cubes)
+        end
+      end
+
+      class << self
+        RULES = { red: 12, green: 13, blue: 14 }.freeze
+
+        def valid?(cubes)
+          cubes.all? { |value, color| value.to_i <= RULES[color.to_sym] }
+        end
+
+        def calculate_power(cubes)
+          score = cubes.each_with_object({}) do |(value, color), acc|
+            current_value = acc[color.to_sym] || 0
+            acc[color.to_sym] = [current_value, value.to_i].max
+            acc
+          end
+
+          score.values.reduce(&:*)
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: the_bengal_lancer
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbntjmf/
+  :body: 'map/filter/reduce boogaloo: [https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3](https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3)'
+  :replies: []
+- :author: brightside_bitch
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo18su/
+  :body: |-
+    [paste](https://github.com/dorianamouroux/advent-of-code/blob/main/2023/day02/day02.rb)
+
+    Learning Ruby. Pretty happy with my solution and the use of .scan / .match to parse
+  :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo61gt/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    LIMITS = {
+      'red' => 12,
+      'green' => 13,
+      'blue' => 14
+    }
+
+    def valid_round(round)
+      round.split(', ').all? do |desc|
+        desc =~ /(\d+) (red|green|blue)/
+        $1.to_i <= LIMITS[$2]
+      end
+    end
+
+    def valid_game(game)
+      game.split('; ').all? { |round| valid_round(round) }
+    end
+
+    puts ARGF.each_line.reduce(0) { |sum, line|
+      line =~ /^Game (\d+): /
+      game_num = $1.to_i
+      valid_game(line[$~.end(0)...]) ? sum + game_num : sum
+    }
+    ```
+
+    Part 2:
+
+    ```ruby
+    def nums(round)
+      h = {}
+      round.split(', ').each do |desc|
+        desc =~ /(\d+) (red|green|blue)/
+        h[$2] = $1.to_i
+      end
+      h
+    end
+
+    def game_power(game)
+      max = {}
+      game.split('; ').each do |round|
+        h = nums(round)
+        h.each do |k, v|
+          max[k] = [max[k] || 0, v].max.to_i
+        end
+      end
+      return 0 if max.size != 3
+      max.values.reduce(1, :*)
+    end
+
+    puts ARGF.each_line.reduce(0) { |sum, line|
+      line =~ /^Game (\d+): /
+      game_num = $1.to_i
+      sum + game_power(line[$~.end(0)...])
+    }
+    ```
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboke1w/
+  :body: |-
+    PART 1
+
+    ```ruby
+    # max is 12 red cubes, 13 green cubes, and 14 blue cubes
+    impossible = []
+    ids = []
+    max = {"red" => 12, "green" => 13, "blue" => 14}
+    File.open('input').each do |line|
+      id, games = line.split(':')
+      id = id[5..].to_i
+      ids.push id
+      games.split(';').each do |game|
+        game.split(',').each do |result|
+          h = Hash[*result.strip.split(' ').reverse]
+          impossible.push id if h.map {|k, v| v.to_i <= max[k]}.include?(false)
+        end
+      end
+    end
+    p (ids - impossible.uniq).sum
+    ```
+
+    PART 2:
+
+    ```ruby
+    pow = []
+
+    File.open('input').each do |line|
+      _, games = line.split(':')
+      max = {}
+      games.split(';').each do |game|
+        game.split(',').each do |result|
+          h = Hash[*result.strip.split(' ').reverse]
+          h.each {|k, v| max[k] = [v.to_i, max[k] || 0].max}
+        end
+      end
+      pow.push max.values.inject(:*)
+    end
+    p pow.sum
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboo1la/
+  :body: |-
+    Easier than yesterday!!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/2)
+
+    [Video Walkthrough](https://youtu.be/WU_OB8X7OWQ)
+  :replies: []
+- :author: Sensanaty
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp3ocg/
+  :body: |-
+    [LANGUAGE: Ruby 3.2.1]
+
+    I found part 2 of this much easier than Part 1. Got quite a bit stuck trying to figure out the best way to deal with the format of each 'round' and evaluate them without quadruple-nested loops, but got there in the end.
+
+    I'm sure it can be approved a lot, but I'm not too mad with the implementation I ended up with
+
+    [Github Part 1 & 2](https://github.com/Sensanaty/aoc2023-ruby/blob/master/days/2/main.rb)
+
+    [Raw Text](https://raw.githubusercontent.com/Sensanaty/aoc2023-ruby/master/days/2/main.rb)
+  :replies: []
+- :author: systemnate
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp7a7s/
+  :body: |-
+    ```ruby
+    data = open("./input.txt").read.split("\n")
+
+    parsed_data = data.each_with_object({}) do |d, hash|
+      game_id = d.match(/Game (\d+):/)&.captures&.first&.to_i
+
+      hash[game_id] = []
+
+      sub_games = d.split("; ")
+
+      sub_games.each do |sub|
+        blue = sub.match(/(\d+) blue/)&.captures&.first.to_i
+        red = sub.match(/(\d+) red/)&.captures&.first.to_i
+        green = sub.match(/(\d+) green/)&.captures&.first.to_i
+
+        hash[game_id] << { blue: blue, red: red, green: green }
+      end
+    end
+
+    possible_games = parsed_data.select do |key, value|
+      value.all? { |sub| sub[:blue] <= 14 && sub[:red] <= 12 && sub[:green] <= 13 }
+    end
+
+    p possible_games.keys.sum
+
+    fewest = parsed_data.map do |key, value|
+      blue = value.map { |h| h[:blue] }.max
+      red = value.map { |h| h[:red] }.max
+      green = value.map { |h| h[:green] }.max
+
+      blue * red * green
+    end
+
+    p fewest.sum
+    ```
+  :replies: []

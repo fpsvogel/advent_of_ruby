@@ -1,0 +1,284 @@
+---
+- :author: carl_omniart
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcpelh9/
+  :body: |-
+    [https://github.com/carl-omniart/advent\_of\_code/tree/main/2023](https://github.com/carl-omniart/advent_of_code/tree/main/2023)
+
+    For part two, I defined a class that, in my head, was a cross of a Set and an Enumerator. This class took the offset (span of steps prior to a repetition), the period (span of repeated steps), and the points (steps that reached a location ending in Z). Knowing the pattern, an instance of this class quickly enumerates all the Z-ending steps between any span of steps.
+
+    Instances of this class can be combined. The new offset is the greater of the two offsets; the new period is the lowest common multiple of the two periods. To get the new set of points, I used one instance to enumerate the points over the span of the new first period and checked to see if the other instance included them. The instance doing the enumerating was always the one in which the points were more spread out. (If you were trying to find a common multiple between 3 and 5167, you'd rather enumerate 5167 three times than three 5167 times.) I combined the various ghost paths and found the first point.
+
+    P.S. I named this class Syzygy, which is a term for an astronomical conjunction and a title of an X-Files episode that features a young Jack Black. Doesn't _exactly_ make sense as a class name here but what the heck.
+  :replies: []
+- :author: HAEC_EST_SPARTA
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgthv7/
+  :body: |-
+    ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day08.rb)
+
+    Today definitely felt like one of the kindest example inputs so far this year: the additional sample for Part 2 made it abundantly clear that the node sequences were periodic, after which the next step of taking the least common multiple of the periods fell into place nicely.
+  :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcic7ki/
+  :body: |-
+    ```ruby
+    ins, map = File.read('input.txt').split("\n\n")
+
+      graph = map.scan(/[A-Z]+/).each_slice(3).map{|label, l, r| [label, l, r]}
+      ins = ins.chars
+
+      def follow(graph, ins, s, e)
+        initial = graph.select{|label, _, _| label =~ s}
+        initial.map do |node|
+          steps = 0
+          while node[0] !~ e do
+            steps += 1
+            direction = ins[steps%ins.length-1] == 'L' ? 1 : 2
+            node = graph.find {|label, _, _| label == node[direction]}
+          end
+          steps
+        end
+      end
+
+      # part 1
+      p follow(graph, ins, /AAA/, /ZZZ/)[0]
+      # part 2
+      p follow(graph, ins, /..A/, /..Z/).reduce(1, :lcm)
+    ```
+  :replies: []
+- :author: maths222
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgs2mm/
+  :body: |-
+    749 / 183
+
+    As soon as my naive part 2 kept running for more than a few seconds I figured I needed to use LCM. Conveniently, ruby's standard library has a LCM function sitting right there for the taking (though if you had asked me that before tonight I wouldn't have known :) ).
+
+    [code](https://gist.github.com/maths22/be1fe3afff5b3d84d91a60b58c8a20c3)
+  :replies:
+  - :author: Alohamori
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgshh9/
+    :body: |-
+      Just sharing my solution to Part 1 so that today is also the day you get to learn about `#cycle`:
+
+      ```ruby
+      STDIN.reopen DATA
+      c = gets.chomp.chars.cycle
+      h = STDIN.map { a, *b = _1.scan /\w+/; [a, b] }.to_h
+
+      n, v = 1, 'AAA'
+      n += 1 until (v = h[v]['LR'.index c.next]) == 'ZZZ'
+      p n
+      __END__
+      ```
+    :replies:
+    - :author: maths222
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgw8hf/
+      :body: Ooh I like that!
+      :replies: []
+    - :author: yourparadigm
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgwv80/
+      :body: |-
+        One problem with `#cycle` is that it allows you to have an incomplete sequence of the instructions, while the rules state:
+
+        > repeat the whole sequence of instructions as necessary
+      :replies: []
+- :author: Any-Razzmatazz-4792
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvug5/
+  :body: |-
+    Didn't consider LCM for a while, once I pieced that together I was able to put together a solution. Here's some golfed code for shits and giggles though
+
+    Part 1:
+
+    ```ruby
+    #!ruby
+    d,*a=$<.map{$i=$.-2if _1=~/^AAA/;_1.scan /\w+/}
+    d=d[0].tr'LR',"12"
+    p (r=0..).find{|s|a[$i=r.find{a[$i][d[s%d.size].to_i]==a[_1][0]}][0]=='ZZZ'}+1[0]=='ZZZ'}+1
+    ```
+
+    Part 2:
+
+    ```ruby
+    #!ruby
+    d,*a=$<.map{_1.scan /\w+/}
+    d=d[0].tr'LR',"12"
+    p a.size.times.select{a[_1][0]=~/A$/}.map{|i|(q=0..).find{|s|a[i=q.find{a[i][d[s%d.size].to_i]==a[_1][0]}][0][2]>?Y}+1}.reduce:lcm
+    ```
+  :replies:
+  - :author: Symbroson
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch0lqy/
+    :body: |-
+      Very cool!In [my implementation](https://www.reddit.com/r/adventofcode/comments/18df7px/comment/kcgzr9h/?utm_source=share&utm_medium=web2x&context=3) I split each line on `/\W+/`, group by `:first` and use `1` and `2` as index. I constructed the command array with `d.tr('LR', "\1\2").bytes`. Maybe this could save some bytes for your code?
+
+      Could you explain how your implementation for calculating the required steps works? I didn't find a suiting function to do it in a single statement but you did it somehow
+    :replies:
+    - :author: Any-Razzmatazz-4792
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3wcq/
+      :body: |-
+        Thanks for the tips, I was able to properly implement them + a few other optimizations to shorten my code!
+
+        As for calculating the steps, I noticed that the pattern is cyclic, so i just calculated the number steps needed to get to the first Z ending node for each of the starting points, and from there i just got the lcm of all the numbers to find where they would eventually all have the same Z ending node. Here's the updated code for pt 2 (updated it in the main post too):
+
+        ```ruby
+        #!ruby
+        d,*a=$<.map{_1.scan /\w+/}
+        d=d[0].tr'LR',"12"
+        p a.size.times.select{a[_1][0]=~/A$/}.map{|i|(q=0..).find{|s|a[i=q.find{a[i][d[s%d.size].to_i]==a[_1][0]}][0][2]>?Y}+1}.reduce:lcm
+        ```
+      :replies:
+      - :author: Symbroson
+        :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch5tsn/
+        :body: |-
+          nice.
+
+          Thanks for the explanation too but I rather wanted to know how your implementation works. I see you do some infinite range find/filter magic and I'm interested to know how this works :)
+        :replies:
+        - :author: Any-Razzmatazz-4792
+          :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch9p5r/
+          :body: |-
+            in my case, the infinite range has 2 use cases. The first case is that i need to iterate from 0 ... a.size to find the connecting index for the given node. Since it's a guarantee that in the array there exists a node that matches that connection, I can use the infinite range syntax 0.. to shorten the code. The second case is that I need to count how many steps it takes to get from from starting point \_\_A to ending point \_\_Z, and by using the infinite range syntax in combination with find, that'll return the number of steps taken once it figures out that we've reached the ending node. Here's what my code looks like "ungolfed" with more readable methods for what I did:
+
+            ```ruby
+            #!ruby
+            d,*a=$<.map{_1.scan /\w+/}
+            dir = d[0].tr'LR',"12"
+            nodes = a.size.times.select{|i| a[i][0]=~/A$/} # select all nodes that end in A
+            nodes_ending_idx = nodes.map do |i|
+                count = 0
+                while a[i].first[-1] != ?Z
+                    i = a.size.times.find{ a[i][dir[ count % dir.size].to_i ] == a[_1][0] } # find connecting index and update i
+                    count += 1
+                end
+                count
+            end
+            puts nodes_ending_idx.reduce(&:lcm)
+            ```
+          :replies: []
+- :author: yourparadigm
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgulb7/
+  :body: |-
+    ```ruby
+    DIRECTIONS = $stdin.readline.strip.chars
+    $stdin.readline # Burn empty line
+    MAP = $stdin.readlines.map do |line|
+      node, left, right = line.match(/(\w+) = \((\w+), (\w+)\)/).captures
+      [node, { 'L' => left, 'R' => right }]
+    end.to_h
+
+    # Part 1
+    node = 'AAA'
+    steps = DIRECTIONS.size * (1..).find do
+      node = DIRECTIONS.inject(node) { MAP[_1][_2] }
+      next true if node == 'ZZZ'
+    end
+    puts steps
+
+    # Part 2
+    # Paths are cyclic and actually navigating them all together takes _way_ too long
+    # Find steps per path and take LCM
+    nodes = MAP.keys.select { |k| k.end_with? 'A' }
+    steps = nodes.map do |node|
+      DIRECTIONS.size * (1..).find do |tries|
+        node = DIRECTIONS.inject(node) { MAP[_1][_2] }
+        next true if node.end_with? 'Z'
+      end
+    end.inject(1, &:lcm)
+    puts steps
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvx6a/
+  :body: |-
+    [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb)
+
+    Like [pointed out in a different post](https://www.reddit.com/r/adventofcode/comments/18dfpub/2023_day_8_part_2_why_is_spoiler_correct/) I was also surprised that this method worked, but I guess I'll take a win.
+  :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgzr9h/
+  :body: |-
+    Can I somehow shorten the move function? Cant think of a useful method that could calculate n in a single statement, looping over the commands and executing the step block all at once..
+
+    ```ruby
+    steps, _, *paths = $<.map { _1.split(/\W+/) }
+    map = paths.group_by(&:first)
+    cmds = steps[0].tr('LR', "\1\2").bytes
+
+    move = lambda do |pos, &cond|
+        i = n = 0
+        until cond[pos]
+            pos = map[pos][0][cmds[i]]
+            i = (i + 1) % cmds.size
+            n += 1
+        end
+        n
+    end
+
+    puts "Part 1: #{move.('AAA') { _1 == 'ZZZ' }}"
+    puts "Part 2: #{map.keys.filter { _1[2] == 'A' }.map { |s| move[s] { _1[2] == 'Z' } }.reduce(&:lcm)}"
+    ```
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3w7g/
+  :body: |-
+    [Link to github](https://github.com/jlugner/2023-aoc/blob/master/solutions/day8/solution.rb)
+
+    Just grabbed LCM on part b out of reflex. Not sure why it even works tbh. Just seems all AoCs have at least one problem where it's the way to go. Really like the way rubys .cycle works for problems like this
+  :replies:
+  - :author: N3m0TheGreat
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch4ase/
+    :body: I took the lcm by instinct as well, got the start and then I was like, wait, this shouldn't work. Turns out the inputs are designed such that a -\> z is the length as z -\> z
+    :replies: []
+- :author: glebm
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcheyyc/
+  :body: |-
+    Part 1:
+
+    ```ruby
+    directions = $<.readline(chomp: true).chars.map { _1 == 'L' ? 0 : 1 }
+    $<.readline
+    children = $<.each.with_object({}) { |line, h|
+      id, left, right = line.scan(/\w+/)
+      h[id] = [left, right]
+    }
+
+    cur = 'AAA'
+    puts directions.cycle.take_while { |dir|
+      (cur = children[cur][dir]) != 'ZZZ'
+    }.count + 1
+    ```
+
+    Part 2:
+
+    ```ruby
+    directions = $<.readline(chomp: true).chars.map { _1 == 'L' ? 0 : 1 }
+    $<.readline
+    children = $<.each.with_object({}) { |line, h|
+      id, left, right = line.scan(/\w+/)
+      h[id] = [left, right]
+    }
+
+    # In the dataset, the distance from initial to terminal happens
+    # to be the same as the distance from that terminal to the next terminal,
+    # which is always itself.
+    puts children.keys.filter_map { |cur|
+      directions.cycle.lazy.take_while { |dir|
+        (cur = children[cur][dir])[-1] != 'Z'
+      }.count + 1 if cur[-1] == 'A'
+    }.reduce(:lcm)
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchkut3/
+  :body: |-
+    This was a fun one, one kind of pattern needed to be identified and then a mental leap to solve in the end, nice puzzle!
+
+    [GitHub](https://github.com/careyi3/aoc_2023/tree/master/solutions/8)
+
+    [Video Walkthrough](https://youtu.be/4C0lC26U6l4)
+  :replies: []
+- :author: comforttiger
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchwj7v/
+  :body: |-
+    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day8.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day8.rb)
+
+    i knew nothing about lcm before today. now i know a lot
+  :replies: []

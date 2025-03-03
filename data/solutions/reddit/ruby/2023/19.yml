@@ -1,0 +1,92 @@
+---
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke5y75c/
+  :body: |-
+    (Part 2)
+
+    ```ruby
+    workflowsInput, _ = File.read("2023/19/input2.txt").split("\n\n")
+
+    @workflows = { "A" => ["A"], "R" => ["R"] }
+
+    workflowsInput.split("\n").map do |w|
+      name, rules = w.scan(/(.+){(.+)}/).flatten
+      @workflows[name] = rules.split(?,)
+    end
+
+    def solve(list, ranges)
+      current, rest = list.first, list[1..]
+
+      return ranges.map(&:size).reduce(&:*) if current == ?A
+      return 0 if current == ?R
+      return solve(@workflows[current], ranges) unless current.include? ?:
+
+      attr, comp, value, target = current.scan(/(.)([<>])(\d+):(.*)/).flatten
+      ix = "xmas".index(attr)
+      value = value.to_i
+      lower = comp == ?<
+
+      r, cr, rr = ranges[ix], ranges.dup, ranges.dup
+      cr[ix] = lower ? r.min..value-1 : value+1..r.max
+      rr[ix] = lower ? value..r.max : r.min..value
+
+      solve(@workflows[target], cr) + solve(rest, rr)
+    end
+
+    print solve(@workflows["in"], [1..4000] * 4)
+    ```
+  :replies:
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ked1kfe/
+    :body: This is what I have been trying to do but couldn't work out how. Good job.
+    :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2pze2/
+  :body: |-
+    Fun one today, similar appraoch to contract large numbers using ranges as was used in a previous solution this year.
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/19)
+
+    [Video Walkthrough](https://youtu.be/ck-owPcU5pA)
+  :replies: []
+- :author: grimlyforming
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2bt2u/
+  :body: |-
+    I know an instruction-set emulation with conjunction/disjunction problem when I see it, but I needed about 2 hours to figure out what to do. The key insight came when I jotted down the constraints, hoping for an inductive epiphany.
+
+    Let R1 denote a hash of 4 ranges, initially { x: (1..4000), m: (1..4000) }
+
+    So f(R1, "A") = R and F(R1, "F") = nil
+
+    Then with a condition: F(R1, "<condition>R,A") =&gt; count(R11) + count(R12)</condition>
+
+    More concretely, F(R1, "a\>1716:R,A") =\> count({a(1717..4000)...}
+
+    and that lnx rule: F(R1, "m\>1548:A,A") =\> count({m:(1549..4000),...}) + count({m(1..1548)...} = count(R1)
+
+    So every step needs to return two lists of ranges: the one that it operates on (either Accept, Reject, or call a further function), and then the complementary list of ranges that don't meet the criteria.
+
+    So now I can get a statement for a rule like qs:
+
+    F(Rx, "s\>3448:A,lnx") =\> count({s:(3449..4000) intersect Rx.s, ...}) + F['lnx']({s(1..3448) intersect Rx.s, ...})
+
+    Evaluate F['in'](R1) and when it finally returns, that's the answer.
+
+    [https://pastebin.com/rn1VWhG4](https://pastebin.com/rn1VWhG4)
+  :replies: []
+- :author: GMarshal
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke06v22/
+  :body: |-
+    1855/1545
+
+    [part1](https://gist.github.com/thecog19/851948b144d945d5b29c05da4d922543)[part2](https://gist.github.com/thecog19/970698333714c3cd7338eb7d2697b83d)
+
+    A pretty neat solution involving range math. Its very verbose but I like that its understandable. Essentially each \> or \< is a split operation that divides the range.
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke0czap/
+  :body: |-
+    I nearly leapt from my chair when my part 2 worked first try (well, after it parsed cleanly). Skimming around here, I worry I might've over-complicated it, but I went with a DP-like solution where I explored every path that got me to an A, trimming down my 'xmas' ranges as I passed through each piece of each rule. And it came out pretty readable for me, so I'm happy with it.
+
+    [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/19/solution.rb)
+  :replies: []

@@ -1,0 +1,90 @@
+---
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke9prw0/
+  :body: |-
+    Parts 1 & 2
+
+    [Pastebin](https://pastebin.com/H1UBvwji)
+
+    Thanks to everyone for the hints on Part 2. I left part 2 running while I was gone for a couple of hours and when it wasn't done when I came back, the head scratching began.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke7jig8/
+  :body: |-
+    Fun one today, lcm for the win (again)!!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/20)
+
+    [Video Walkthrough](https://youtu.be/yjPjLHpHbnk)
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke5i6ni/
+  :body: |-
+    I'm a SystemVerilog RTL designer who works with flip flops all day and I had a hell of a time parsing this description in part 1. For part 2, I just let a (0..).find loop run while I thought about it and deconstructed the circuit on paper. Saw that there was a conjunction on 'rx', so immediately started throwing in debug to see how how often the inputs to that conjunction were toggling. Thank Zeus for Ruby's built-in LCM. In the end, I'm really happy with how simple the code came out for this.
+
+    [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/20/solution.rb)
+  :replies:
+  - :author: PillarsBliz
+    :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke5vdbi/
+    :body: |-
+      I'm a computer engineer, have messed with NAND gates and flipflops through my life / school, and I feel like it made the problem harder for me.
+
+      The two things that really threw me off were 1, you could have 2 mismatched drivers pulsing the same target (unless this was just a bug, which was quite possible). I kept seeing 0 and 1 going to the same flipflop. It didn't help that the examples never had multiple drivers of a flipflop.
+
+      And 2, even if 4 pulses are simultaneously generated for a NAND gate, the output pulses 4 times, NOT once. I was just simulating the entire circuit at once and it took me forever to catch this.
+    :replies:
+    - :author: globalreset
+      :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke6vbm3/
+      :body: I agree that having an understanding of how flops work probably did make this harder. I don’t think I had any multiple driver issues on my flops. But I did have that exact same problem of waiting on the “final” state of each flop after a button push. For part 1, my pulse counter was counting every pulse it processed in one of two buckets. So for part 2, I just modified my pulse counter to keep a record of high/low pulses received at each node, then waited for at least one low pulse on the flops that fed the last conjunction. I still wasn’t sure this was going to result in all the flops being the right state for the conjunction to change (what if the lcm got one of the 4 to an odd state and the rest of the 4 to an even state). I thought I was still going to have work to do, but nope.
+      :replies:
+      - :author: PillarsBliz
+        :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke6zkrq/
+        :body: |-
+          I ended up making an input queue for every gate input, but that felt really dirty.
+
+          I saw someone else made a general FIFO pulse array, just processing one at a time, which was probably a cleaner idea.
+        :replies:
+        - :author: globalreset
+          :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke71sl6/
+          :body: |-
+            The general fifo is what I did. I think the “button push” function could hardly be simpler than this:
+
+            ```ruby
+            def push_button(circuit, pulse_cnt)
+              queue = [[0, :broadcaster, :button] ]
+              until queue.empty?
+                op, dst, src = queue.shift
+                (pulse_cnt[dst] ||= [0,0])[op] += 1
+                next unless (circuit[dst])
+
+                pulse_out = case(circuit[dst][:type])
+                  when :broadcaster then 0
+                  when :%
+                    (circuit[dst][:state] ^= 1) if(op==0)
+                  when :&
+                    circuit[dst][:inputs][src] = op
+                    (circuit[dst][:inputs].values.all?{_1==1}) ? 0 : 1
+                  end
+
+                circuit[dst][:outputs].each { queue << [pulse_out, _1, dst] } if(pulse_out!=nil)
+              end
+              pulse_cnt
+            end
+            ```
+          :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke6jmc1/
+  :body: |-
+    Ugly, [but works](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023%2F20.rb)
+
+    runs in about half a second, and.basically detects the first cycle and calculates the lcm. However the path to that solution was a bit rocky:
+
+    I was confused at first because the first cycle where all of the switches that trigger the node before rx was one lower than the rest of the looping cycles. Thats why I initially tried to use chinese reminder theorem to calculate lcm with offset but that wasn't the answer. Probably just a mistake caused by a wrong start offset so it detects the loop at the third cycle.
+  :replies: []
+- :author: JelloRough
+  :url: https://www.reddit.com/r/adventofcode/comments/18mmfxb/2023_day_20_solutions/ke5jsj9/
+  :body: |-
+    Because I don't see other Ruby solutions here is the [paste]([https://raw.githubusercontent.com/hugomosh/adventura-de-codigo/sandbox/2023/day20.rb](https://raw.githubusercontent.com/hugomosh/adventura-de-codigo/sandbox/2023/day20.rb))
+
+    Was stuck on part 2 but I got a hint to detect patterns and used it.
+  :replies: []

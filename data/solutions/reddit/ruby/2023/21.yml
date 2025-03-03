@@ -1,0 +1,71 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keh3elw/
+  :body: |-
+    Very slow second part, but works, the maths trick for part 2 threw me for a loop!
+
+    [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/21)
+
+    [Video Walkthrough](https://youtu.be/99Mjs1i0JxU)
+  :replies: []
+- :author: kateba72
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebuguk/
+  :body: |-
+    [Source](https://github.com/Kateba72/advent_of_code/blob/main/aoc/y2023/d21.rb)
+
+    For part 2, I noticed that the direct paths from the start point to the edges as well as the edges themselves contain no rocks.
+
+    Furthermore, the input is nice and all gardens within are block that are reachable are also reachable within 260 steps (meaning that if the elf can get from one corner of a block to the opposite corner, then all gardens with the correct parity within that block are reachable)
+
+    So, we get a diamond that looks roughly like this:
+
+    ```ruby
+    ╎ ╎
+              ╌╆━━━╅╌
+               ┃/ \┃
+               ┃ O ┃
+           ╎ /┃ ┃\ ╎
+          ╌╆━━━╋━━━╋━━━╅╌
+           ┃/ ┃ ┃ \┃
+           ┃ O ┃ E ┃ O ┃
+       ╎ /┃ ┃ ┃ ┃\ ╎
+      ╌╆━━━╋━━━╋━━━╋━━━╋━━━╅╌
+       ┃/ ┃ ┃ ┃ ┃ \┃
+       ┃ O ┃ E ┃ S ┃ E ┃ O ┃
+       ┃\ ┃ ┃ O ┃ ┃ /┃
+      ╌╄━━━╋━━━╋━━━╋━━━╋━━━╃╌
+       ╎ \┃ ┃ ┃ ┃/ ╎
+           ┃ O ┃ E ┃ O ┃
+           ┃\ ┃ ┃ /┃
+          ╌╄━━━╋━━━╋━━━╃╌
+           ╎ \┃ ┃/ ╎
+               ┃ O ┃
+               ┃\ /┃
+              ╌╄━━━╃╌
+               ╎ ╎
+    ```
+
+    Then I counted how many odd/even cells are "mostly reachable" (i.e. they are at most missing one or two corners) and how many reachable gardens an odd/even cell has. I subtracted the corner cells that I can't reach and added the extra corners outside of the mostly reachable cells.
+
+    And after ~3 hours, I eliminated the last off-by-one error and got the correct solution
+  :replies:
+  - :author: Draco18s
+    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kec8yj3/
+    :body: I ended up with a very similar diagram in [my own doodly notes](https://github.com/Draco18s/Advent-of-Code-2023/blob/main/Day21.cs#L276).
+    :replies: []
+- :author: Symbroson
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebeey6/
+  :body: |-
+    Executes in ~1.5 seconds. [link to solution](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/21.rb)
+
+    The input is diamond-shaped and thus forms a repetitive pattern that can be expressed as quadratic formula. To get an exact result we calculate three values that would map over to our target amount of steps using modulo.
+
+    Optimized the time by adding a cache, because each step with the same parity can be calculated from the previous step with the same parity, plus the new steps. So we only need to re-calculate the current unvisited positions.
+  :replies:
+  - :author: Symbroson
+    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keboy52/
+    :body: |-
+      I was able to optimize the quadratic formula by solving the quadratic formula equation system for `x = [-1, 0, 1]`, basically walking back in history. Halved execution time to about `650ms`
+
+      [detailed explanation posted here](https://www.reddit.com/r/adventofcode/comments/18nni6t/2023_21_part_2_optimization_hint/)
+    :replies: []

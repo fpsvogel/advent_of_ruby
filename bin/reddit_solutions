@@ -17,28 +17,31 @@ PASTEL = Pastel.new
 # AoC Reddit Solutions Downloader CLI application
 class RedditSolutionsApp < Thor
   desc "download", "Downloads Reddit solutions for the given language (-l), " \
-    "optionally only for the given year (-y) starting on the given day (-d)."
+    "optionally only for the given year (-y) and day (-d), and optionally " \
+    "force (-f) overwriting existing files."
   method_option :language, type: :array, aliases: "-l", default: ["ruby"]
   method_option :year, type: :numeric, aliases: "-y"
   method_option :day, type: :numeric, aliases: "-d"
+  method_option :force, type: :boolean, aliases: "-f", default: false
   def download
-    input_year = options[:year] || 2015
-    input_day = options[:day] || 1
-
-    max_year, max_day = if Date.today.year == input_year && Date.today.month == 12
-      [Date.today.year, Date.today.day]
-    else
-      [Date.today.year - 1, 25]
+    if options[:day] && options[:year].nil?
+      raise InputError, "Year must be specified when day is specified."
     end
-
-    debugger
-
-    unless input_year.between?(2015, Date.today.year)
+    if !options[:year].between?(2015, Date.today.year)
       raise InputError, "Year must be between 2015 and this year."
     end
-    unless input_day.between?(1, max_day)
+    if options[:day] && !options[:day].between?(1, 25) && Date.new(options[:year], 12, options[:day]) > Date.today
       raise InputError, "Day must be between 1 and 25, and <= today."
     end
+
+    force_description = PASTEL.red("FORCE ") if options[:force]
+    year_description = options[:year].nil? ? "all years" : "#{options[:year]}"
+    day_description = options[:day].nil? ? "" : "##{options[:day].to_s.rjust(2, "0")}"
+    time_description = PASTEL.blue("#{year_description}#{day_description}")
+    language_names = PASTEL.blue(options[:language].join(", "))
+
+    puts "#{force_description}Downloading Reddit solutions from #{time_description} for #{language_names}..."
+    puts
 
     reddit_api_keys = %w[CLIENT_ID CLIENT_SECRET USERNAME PASSWORD]
 
@@ -52,20 +55,37 @@ class RedditSolutionsApp < Thor
       password: ENV["PASSWORD"],
     )
 
-    input_year.upto(max_year) do |year|
-      input_day.upto(max_day) do |day|
-        debugger if day > 25
+    max_year, max_day = if Date.today.year == options[:year] && Date.today.month == 12
+      [Date.today.year, Date.today.day]
+    else
+      [Date.today.year - 1, 25]
+    end
+
+    language_directory = File.join("data", "solutions", "reddit", options[:language].join("-"))
+    Dir.mkdir(language_directory) unless Dir.exist?(language_directory)
+
+    (options[:year] || 2015).upto(options[:year] || max_year) do |year|
+      year_directory = File.join("data", "solutions", "reddit", options[:language].join("-"), year.to_s)
+      Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
+
+      (options[:day] || 1).upto(options[:day] || max_day) do |day|
+        path = File.join("data", "solutions", "reddit", options[:language].join("-"), year.to_s, "#{day.to_s.rjust(2, "0")}.yml")
+
+        if File.exist?(path) && !options[:force]
+          puts PASTEL.yellow("Skipping #{year}##{day.to_s.rjust(2, "0")} as it already exists.")
+          puts
+          next
+        end
+
         comments = reddit.get_comments(
           year:,
           day:,
           language_names: options[:language],
         )
 
-        path = File.join("data", "solutions", "reddit", options[:language].join("-"), year.to_s, "#{day.to_s.rjust(2, "0")}.yml")
-
         File.write(path, comments.to_yaml(line_width: -1))
 
-        puts "Saved #{Pastel.new.blue("#{year}##{day.to_s.rjust(2, "0")}")} to #{path}"
+        puts "Saved #{PASTEL.blue("#{year}##{day.to_s.rjust(2, "0")}")} to #{path}"
         puts
       end
     end
