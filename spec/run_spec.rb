@@ -55,7 +55,7 @@ describe Arb::Cli do
                         got: nil
 
                    (compared using ==)
-                 # ./spec/#{year}/#{day}_spec.rb:11:in `block (2 levels) in <top (required)>'
+                 # ./spec/#{year}/#{day}_spec.rb:11:in
           OUT
         ]
 
