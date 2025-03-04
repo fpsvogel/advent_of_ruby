@@ -35,7 +35,7 @@
     end
     ```
 
-    I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force [https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706](https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706)
+    I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force[https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706](https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706)
   :replies: []
 - :author: adherry
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00r8jc/
@@ -113,14 +113,11 @@
     :replies:
     - :author: Maravedis
       :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m006u16/
-      :body: I don't even think you need the `validate(report) ||` in `validate2`,
-        since if a report is valid without mistake, then removing one always makes
-        it a valid report still.
+      :body: I don't even think you need the `validate(report) ||` in `validate2`, since if a report is valid without mistake, then removing one always makes it a valid report still.
       :replies:
       - :author: Sharparam
         :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00blwl/
-        :body: That's probably true, in an already valid report, removing the first
-          or last element will make it still be valid. Good catch!
+        :body: That's probably true, in an already valid report, removing the first or last element will make it still be valid. Good catch!
         :replies: []
 - :author: _tfa
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m010hfe/
@@ -264,14 +261,9 @@
 - :author: Screech-1
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02ns7r/
   :body: |-
-    ``
-
-    puts File.read('input.txt').split(\"\\n\").map { |line| line.split.map(&:to\\_i)
-    }.then { |data| safe = -\\>(r) { (r.each\\_cons(2).all? { |a, b| a \\< b } ||
-    r.each\\_cons(2).all? { |a, b| a \\> b }) && r.each\\_cons(2).all? { |a, b| (1..3).cover?((a
-    - b).abs) } }; \"#{data.count { |r| safe[r] }} #{data.count { |r| safe[r] || (0...r.length).any?
-    { |i| safe[r[0...i] + r[(i+1)..-1]] } }}\"}
-    ``
+    ```ruby
+    puts File.read('input.txt').split("\n").map { |line| line.split.map(&:to\_i) }.then { |data| safe = -\>(r) { (r.each\_cons(2).all? { |a, b| a \< b } || r.each\_cons(2).all? { |a, b| a \> b }) && r.each\_cons(2).all? { |a, b| (1..3).cover?((a - b).abs) } }; "#{data.count { |r| safe[r] }} #{data.count { |r| safe[r] || (0...r.length).any? { |i| safe[r[0...i] + r[(i+1)..-1]] } }}"}
+    ```
   :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00m5vv/

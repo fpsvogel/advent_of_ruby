@@ -2,6 +2,8 @@
 - :author: apollo701
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kdcicgh/
   :body: |-
+    ​
+
     Took an OOP approach with tests
 
     [https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet](https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet)
@@ -329,8 +331,8 @@
 - :author: framsberg
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbil2hi/
   :body: |-
-    ``` $numarr = ['one','two','three','four','five','six','seven','eight','nine']
-
+    ```ruby
+    $numarr = ['one','two','three','four','five','six','seven','eight','nine']
     ```ruby
     $numhash = {}
 
@@ -355,7 +357,6 @@
 
     puts "Sum is #{t}"
     ```
-
     ```
   :replies: []
 - :author: spr00ge
@@ -394,7 +395,6 @@
     Part of it was "inspired" by someone in this megathread but I couldn't find the comment to say thanks. So... here it is:
 
     ```ruby
-
     # !/usr/bin/env ruby
 
     # frozen\_string\_literal: true
@@ -404,7 +404,6 @@
     def sum\_all\_cases(input\_cases) extract\_regex = Regexp.new "(?=(#{SPELLED\_DIGITS.keys.join('|')}|\d))" input\_cases.sum do |input\_case| input\_case .scan(extract\_regex) # tokenize input .flatten # flatten the inner lists .map { |item| SPELLED\_DIGITS.fetch(item, item).to\_i} # translate spelled numbers .select { |digit| !digit.zero? } # remove items that evaluate to zero .values\_at(0, -1) # get first and last items .map { |item| item.to\_s } # make them a string .reduce(&:concat) # clue them together .to\_i end end
 
     puts sum\_all\_cases(STDIN.read.split(/\n/))
-
     ```
   :replies:
   - :author: JelloRough
@@ -693,9 +692,11 @@
 
     part 2:
 
-    ```ruby substitutions = {"one"=\>"o1e", "two"=\>"t2o", "three"=\>"t3e", "four"=\>"f4r", "five"=\>"f5e", "six"=\>"s6x", "seven"=\>"s7n", "eight"=\>"e8t", "nine"=\>"n9e"}
+    ```ruby
+    substitutions = {"one"=>"o1e", "two"=>"t2o", "three"=>"t3e", "four"=>"f4r", "five"=>"f5e", "six"=>"s6x", "seven"=>"s7n", "eight"=>"e8t", "nine"=>"n9e"}
 
-    IO.read("path\_to\_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup> "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum ```
+    IO.read("path\_to\_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup> "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
+    ```
   :replies: []
 - :author: PassifloraCaerulea
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjhsq9/
@@ -722,11 +723,25 @@
 - :author: ldhmachin
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjvyg/
   :body: |-
-    Ruby: ```Ruby DIGITS = { '1' =\> '1', 'one' =\> '1', '2' =\> '2', 'two' =\> '2', '3' =\> '3', 'three' =\> '3', '4' =\> '4', 'four' =\> '4', '5' =\> '5', 'five' =\> '5', '6' =\> '6', 'six' =\> '6', '7' =\> '7', 'seven' =\> '7', '8' =\> '8', 'eight' =\> '8', '9' =\> '9', 'nine' =\> '9', }
+    Ruby:
+
+    ```ruby
+    DIGITS = {
+        '1' => '1', 'one' => '1',
+        '2' => '2', 'two' => '2',
+        '3' => '3', 'three' => '3',
+        '4' => '4', 'four' => '4',
+        '5' => '5', 'five' => '5',
+        '6' => '6', 'six' => '6',
+        '7' => '7', 'seven' => '7',
+        '8' => '8', 'eight' => '8',
+        '9' => '9', 'nine' => '9',
+    }
 
     def part\_one(data) data.map do |str| d = str.scan(/\d/).join d[0] + d[-1] end.map(&:to\_i).sum end
 
-    def part\_two(data) data.map do |str| DIGITS.map { |k, v| [str.index(k), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] + DIGITS.map { |k, v| [str.reverse.index(k.reverse), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] end.map(&:to\_i).sum end ```
+    def part\_two(data) data.map do |str| DIGITS.map { |k, v| [str.index(k), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] + DIGITS.map { |k, v| [str.reverse.index(k.reverse), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] end.map(&:to\_i).sum end
+    ```
   :replies: []
 - :author: the_notic
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkldbv/

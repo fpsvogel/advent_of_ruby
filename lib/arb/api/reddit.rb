@@ -62,7 +62,7 @@ module Arb
           end
         end
 
-        comments = get_comments_for(thread_id:, initial_response:)
+        comments = get_comments_for(thread_id:, initial_response:, language_names:)
 
         # Lists of unfetched replies (children) are kept separate so that those
         # that are replies to a comment that will have been kept in filtering
@@ -81,12 +81,15 @@ module Arb
               comment_body.match?(/\[[[:punct:]]*language:\s*#{language}/i)
             }
           else
-            language_names.any? { |language| comment_body.match?(/(?<!```)#{language}/i) }
+            language_names.any? { |language|
+              # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
+              comment_body.match?(/(?<!```|sh:)#{language}/i)
+            }
           end
         }
 
         filtered_comments.each do |comment|
-          add_missing_replies!(comment, comments, more_childrens, thread_id)
+          add_missing_replies!(comment, comments, more_childrens, thread_id, language_names)
         end
 
         filtered_comments.each do |comment|
@@ -139,13 +142,14 @@ module Arb
         @auth_token = response.body["access_token"]
       end
 
-      def get_comments_for(thread_id:, parent_id: thread_id, initial_response: nil, more_children: nil)
+      def get_comments_for(thread_id:, parent_id: thread_id, initial_response: nil, more_children: nil, language_names:)
         comments = []
 
         loop do
           if initial_response
             comments += simplify_comments(
-              JSON.parse(initial_response.body).dig(-1, "data", "children")
+              JSON.parse(initial_response.body).dig(-1, "data", "children"),
+              language_names,
             )
           else
             response = connection.post(
@@ -159,7 +163,8 @@ module Arb
             return comments if response.body.empty?
 
             comments += simplify_comments(
-              JSON.parse(response.body).dig("jquery", 10, 3, 0)
+              JSON.parse(response.body).dig("jquery", 10, 3, 0),
+              language_names,
             )
           end
 
@@ -180,7 +185,7 @@ module Arb
         comments
       end
 
-      def simplify_comments(raw_comments)
+      def simplify_comments(raw_comments, language_names)
         more_childrens_from_replies = []
 
         comments = raw_comments.filter_map { |raw_comment|
@@ -201,10 +206,10 @@ module Arb
           {
             author: raw_comment["data"]["author"],
             url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
-            body: body_markdown(raw_comment["data"]["body_html"]),
+            body: body_markdown(raw_comment["data"]["body_html"], language_names),
             id: raw_comment["data"]["name"],
             parent_id: raw_comment["data"]["parent_id"],
-            replies: simplify_replies(raw_comment, more_childrens_from_replies),
+            replies: simplify_replies(raw_comment, more_childrens_from_replies, language_names),
           }
         }
 
@@ -213,7 +218,7 @@ module Arb
 
       # Extracts replies that came along with the comment. (Other replies are
       # represented in `more_children` and have yet to be fetched.)
-      def simplify_replies(raw_comment, more_childrens_from_replies)
+      def simplify_replies(raw_comment, more_childrens_from_replies, language_names)
         debugger if raw_comment["data"]["replies"].nil?
         return [] if raw_comment["data"]["replies"].empty?
 
@@ -239,27 +244,33 @@ module Arb
           {
             author: child["data"]["author"],
             url: "https://www.reddit.com#{child["data"]["permalink"]}",
-            body: body_markdown(child["data"]["body_html"]),
+            body: body_markdown(child["data"]["body_html"], language_names),
             id: child["data"]["name"],
             parent_id: child["data"]["parent_id"],
-            replies: simplify_replies(child, more_childrens_from_replies),
+            replies: simplify_replies(child, more_childrens_from_replies, language_names),
           }
         }
       end
 
-      def body_markdown(body_html)
-        body_html
-          .gsub("\u00a0", " ")
+      def body_markdown(raw_body, language_names)
+        raw_body
+          .gsub("\u00a0", " ") # Non-breaking space
+          .gsub("\u200b", " ") # Zero-width space
+          .gsub(/ +\n/, "\n") # Remove trailing spaces before newlines
           .gsub("&amp;", "&")
           .gsub("&lt;", "<")
           .gsub("&gt;", ">")
+          .gsub("&#39;", "'")
           .sub(/\A<div class="md">/, "")
           .sub(/<\/div>\z/, "")
+          .gsub(/```?(?:#{language_names.first})?(.+?)```?/mi, "<pre>\\1</pre>")
+          .gsub(/(?<=<pre>)(.*?)(?=<\/pre>)/m) { |content|
+            content.gsub(/<\/?p>/, "") # Backtick-enclosed code blocks may contain <p> tags
+          }
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
-          .gsub("<pre>", "<pre class=\"brush:ruby;\">")
-          .gsub(/ +\n/, "\n")
-          .then { |cleaned_body_html|
-            ReverseMarkdown.convert(cleaned_body_html, github_flavored: true)
+          .gsub("<pre>", "<pre class=\"brush:#{language_names.first};\">")
+          .then { |cleaned_raw_body|
+            ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
           }
       end
 
@@ -284,10 +295,10 @@ module Arb
         end
       end
 
-      def add_missing_replies!(comment, comments, more_childrens, thread_id)
+      def add_missing_replies!(comment, comments, more_childrens, thread_id, language_names)
         more_children = more_childrens.find { it[:parent_id] == comment[:id] }
         if more_children
-          comments += get_comments_for(thread_id:, parent_id: comment[:id], more_children:)
+          comments += get_comments_for(thread_id:, parent_id: comment[:id], more_children:, language_names:)
         end
 
         children = comments
@@ -298,7 +309,7 @@ module Arb
         comment[:replies] += children
 
         children.each do |child|
-          add_missing_replies!(child, comments, more_childrens, thread_id)
+          add_missing_replies!(child, comments, more_childrens, thread_id, language_names)
         end
 
         comment[:replies].uniq!
