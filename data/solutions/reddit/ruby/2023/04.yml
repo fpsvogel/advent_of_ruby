@@ -123,7 +123,17 @@
     :replies:
     - :author: Symbroson
       :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrntu/
-      :body: "golfing this I can get this down to 202 bytes. Removed the bounds check and w-[0] for pow -1 elimination as well  \nI could change the IO strings or probably read from stdin too but yeah..\n\n```ruby\nw=File.readlines('input.txt').map{_,b,c=_1.split(/:|\\|/);(b.split&c.split).size}\nputs\"Part1:#{(w-[0]).sum{2**(_1-1)}}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```"
+      :body: |-
+        golfing this I can get this down to 202 bytes. Removed the bounds check and w-[0] for pow -1 elimination as well
+
+        I could change the IO strings or probably read from stdin too but yeah..
+
+        ```ruby
+        w=File.readlines('input.txt').map{_,b,c=_1.split(/:|\|/);(b.split&c.split).size}
+        puts"Part1:#{(w-[0]).sum{2**(_1-1)}}"
+        c=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}
+        puts"Part2:#{c.sum}"
+        ```
       :replies:
       - :author: riffraff
         :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbyz4q8/
@@ -450,7 +460,29 @@
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxm0se/
-  :body: "[Allez Cuisine!]\n\n230 bytes both parts and fits on 5x80 punchcard[Edit] removed an unnecessary bounds check\n\n```ruby\nw=File.readlines('input.txt').map{|l|l.split(/\\||:/)[1,2].\nmap{_1.split.map(&:to_i)}.reduce(&:&).size}\nputs\"Part1:#{w.map{_1>0?2.pow(_1-1):0}.sum}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```\n\nan updated 4 line 202 bytes version with some optimizations and applying [u/riffraff](/u/riffraff)'s suggestions  \nyes the first line is _exactly_ 80 bytes. Could be even shorter by changing the IO strings but nah\n\n```ruby\nw=File.readlines('input.txt').map{_,b,c=_1.split(/:|\\|/);(b.split&c.split).size}\nputs\"Part1:#{(w-[0]).sum{2**(_1-1)}}\"\nc=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}\nputs\"Part2:#{c.sum}\"\n```"
+  :body: |-
+    [Allez Cuisine!]
+
+    230 bytes both parts and fits on 5x80 punchcard[Edit] removed an unnecessary bounds check
+
+    ```ruby
+    w=File.readlines('input.txt').map{|l|l.split(/\||:/)[1,2].
+    map{_1.split.map(&:to_i)}.reduce(&:&).size}
+    puts"Part1:#{w.map{_1>0?2.pow(_1-1):0}.sum}"
+    c=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}
+    puts"Part2:#{c.sum}"
+    ```
+
+    an updated 4 line 202 bytes version with some optimizations and applying [u/riffraff](/u/riffraff)'s suggestions
+
+    yes the first line is _exactly_ 80 bytes. Could be even shorter by changing the IO strings but nah
+
+    ```ruby
+    w=File.readlines('input.txt').map{_,b,c=_1.split(/:|\|/);(b.split&c.split).size}
+    puts"Part1:#{(w-[0]).sum{2**(_1-1)}}"
+    c=w.map{1};w.each.with_index{|v,i|(i+1..i+v).each{c[_1]+=c[i]}}
+    puts"Part2:#{c.sum}"
+    ```
   :replies: []
 - :author: Annual-Management613
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxpmum/

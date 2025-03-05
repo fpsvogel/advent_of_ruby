@@ -206,11 +206,14 @@
   :replies:
   - :author: Eilip999
     :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6mgo/
-    :body: "It should not be possible for cycles in input to happen, if it was a case
+    :body: |-
+      It should not be possible for cycles in input to happen, if it was a case
       you wouldn't be able to sort it even with your algorithm which is not based
-      on graph.  \nEdit, Okay it might be possible to have cycle in rules, but then
+      on graph.
+
+      Edit, Okay it might be possible to have cycle in rules, but then
       cycle should not be visible in list of pages, so like, you have the edges, but
-      vertices are missing so these edges should not be included in the graph."
+      vertices are missing so these edges should not be included in the graph.
     :replies:
     - :author: HAEC_EST_SPARTA
       :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i7zul/

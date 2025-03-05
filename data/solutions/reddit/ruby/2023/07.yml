@@ -33,7 +33,149 @@
     w=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{
     _1[2]*(_2+1)}};p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
     ```
-  :replies: []
+  :replies:
+  - :author: Symbroson
+    :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kce8jgl/
+    :body: |-
+      Another update - feel kinda silly because my strength function returned a char (string), and my sorting function would convert it to a string again. I also realized that I could omit the custom sorting function completely by just prepending the strength char to the initial hand.
+
+      I had to use an ugly default parameter in my strength function because otherwise it would use the modified hand, but we want to keep the initial `J`'s where they are!
+
+      `365` bytes.
+
+      ```ruby
+      m=->(c,a=c){c.chars.tally.values.sum{_1**2}.chr+a}
+      n=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)},c)}.max}
+      d,e=$<.map{|c|[c.split[0].gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose
+      w=->(c){c.zip(d,e).sort.map.with_index.sum{_1[2]*(_2+1)}}
+      p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
+      ```
+
+      easily got the `5x80` too
+
+      ```ruby
+      m=->(c,a=c){c.chars.tally.values.sum{_1**2}.chr+a};d,e=$<.map{|c|[c.split[0]
+      .gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose
+      n=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.
+      sub('0',_2)},c)}.max};w=->(c){c.zip(d,e).sort.map.with_index.sum{_1[2]*(_2+1
+      )}};p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
+      ```
+    :replies:
+    - :author: azzal07
+      :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kceusyw/
+      :body: |-
+        Neat!
+
+        I made the hands lexicographically ordered by just replacing few out of place characters. I think you could replace that `.gsub(/./){...}` with `.tr('AKT','SRB')` (those were the chars I happened to choose).
+
+        Then just remember to replace the jacks from `J`, and I guess `tr!` would save a bit there as well.
+
+        Also the `n=->(s){...}` could be inlined to save a few more `d.map(|c|{...})`, if that fits the form factor.
+
+        Edit: 4x70 with a couple more changes
+
+        ```ruby
+        m=->(c,a=c){c.chars.tally.sum{_1[1]**2}.chr+a};d,e=$<.map{_1.tr('AKT',
+        'SRB').split}.transpose;[d.map(&m),d.map{|c|c=c.tr('J',o='0');c.chars.
+        repeated_combination(c.count(o)).map{|p|m.(p.reduce(c){_1.sub(o,_2)},c
+        )}.max}].map{|c|p c.zip(e).sort.map.with_index.sum{(_2+1)*_1[1].to_i}}
+        ```
+      :replies:
+      - :author: Symbroson
+        :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch4ill/
+        :body: |-
+          Very cool. Definitely didnt see how I could optimize the parsing the way you did. Followed you changes by adjusting my code step by step.Did you intentionally use `c=c.tr` instead of `c.tr!` to make it exactly `4x70`?
+
+          Edit: Recently found out about more ways to call lambdas. One more byte can be saved by using `c[...]` instead of `c.(...)`
+        :replies:
+        - :author: azzal07
+          :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch7z3v/
+          :body: |-
+            Yes, that was very much intentional.
+
+            I recall seeing that `c[...]` syntax somewhere, thanks for reminding. There's a lot of ways in ruby to do things.
+
+            I ended up shrinking that quite a bit further by combining [u/Any-Razzmatazz-4792](/u/Any-Razzmatazz-4792)'s solution.
+          :replies:
+          - :author: Symbroson
+            :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch9kkw/
+            :body: yes that one is insane. I asked him to explain what that sum function does at the end because that expression looks just wild
+            :replies: []
+    - :author: Any-Razzmatazz-4792
+      :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcfj1pk/
+      :body: 'I love golfing in ruby, and I was golfing this one too. I got 125 bytes for pt1 and 165 for pt2 (those counts don''t include the shebang line). Here are my solutions: [https://github.com/Nico-Posada/Advent-Of-Code-2023/tree/main/Day-7](https://github.com/Nico-Posada/Advent-Of-Code-2023/tree/main/Day-7)'
+      :replies:
+      - :author: Symbroson
+        :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcgp8r5/
+        :body: |-
+          Yours look wild. Could you explain your solution a bit?
+
+          This part seems to normalize the cards to indices somehow?
+
+          ```ruby
+          :AKQJT98765432=~/#{_1}/
+          ```
+
+          and how does the sum function at the end work?
+        :replies:
+        - :author: Any-Razzmatazz-4792
+          :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcgpyxy/
+          :body: |-
+            in ruby, regex matching returns the index of where the regex matched in the comparison string. Another weird quirk is that it accepts symbols as strings so thats the second optimization. So using those two in combination, I do a regex match of the symbol to return the index of the character in that symbol to determine its importance.
+
+            And sum is just like map, but it adds all the values of the array at the very end and returns that. A simpler way to use sum would be to do [1,2,3].sum which returns 6. Doing [1,2,3].sum{\_1+1} would convert the array to [2,3,4], and then it would sum them together.
+          :replies:
+          - :author: Symbroson
+            :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch6ypg/
+            :body: |-
+              thanks for the explanation
+
+              as for the sum, could you explain this part?
+              `_2.to_i * -~$. -= 1`
+            :replies:
+            - :author: Any-Razzmatazz-4792
+              :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kchaloo/
+              :body: "$. just contains the number of lines read from the stdin. The next thing i had to do to make this work was reverse my sorting method so that the array will sort from best to worst instead of worst to best. From there, it'll start with the best one (for this example lets say the numbers are 700, 600, 500, 400, 300, 200, 100). In the first case, $. will be 7 since in this fake scenario, we have read from the stdin 7 times. We need to keep in mind that we need to decrement $. by one for the next case, but we also need to preserve the value of it for the current case, and a good solution for doing that is using -~. We can decrement $. by doing $.-=1, and -~ is just a shorthand way of saying +1 (use ~- if you want to do -1). I just went with using -~ because both ~ and - have a higher precedence than any other operator, so instead of needing to do (1+$.-=1), i can omit those parenthesis and just do -~$.-=1. With all that in place, I am able to multiply each hand ID by the proper number to get the solution"
+              :replies: []
+      - :author: azzal07
+        :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch7ba8/
+        :body: |-
+          Got it down to 158 (2 x 79, but the line break is sacrificial) for both parts:
+
+          ```ruby
+          d=[*$<];[?J,?!].map{|j|p d.sort_by{|c|c.tr!'JAKT',j+'SRB';g=c[..4].chars.tally;
+          [g.delete(?!).to_i-g.size+(g.values.max||-1),c]}.zip(1..).sum{_2*_1[6..].to_i}}
+          ```
+
+          I prefer bit shorter lines, so here's two variations 4x40 and 3x53 (with one or two extra characters).
+
+          ```ruby
+          d=[*$<];[?J,?!].map{|j|p d.sort_by{|c|c=
+          c.tr'JAKT',j+'SRB';g=c[...5].chars.tally
+          [g.delete(?!).to_i+(g.values.max||-1)-g.
+          size,c]}.zip(1..).sum{_2*_1[5...].to_i}}
+
+          d=[*$<];[?J,?!].map{|j|p d.sort_by{|c|c=c.tr'JAKT',j+
+          'SRB';g=c[..4].chars.tally;[g.delete(?!).to_i-g.size+
+          (g.values.max||-1),c]}.zip(1..).sum{_2*_1[6..].to_i}}
+          ```
+
+          I'm not too familiar with ruby, so there could still be some opportunities left.
+        :replies:
+        - :author: Any-Razzmatazz-4792
+          :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kchb63y/
+          :body: |-
+            I'm gonna be honest, I have no clue how this works, but it works. It's even more crazy that you're "not too familiar with ruby" and still pulled this off! I haven't dug too deep, but an immediate 2 byte save would be doing d=\*$\< instead of d=[\*$\<]
+
+            Edit: And the fact that it prints both answers... wtf
+          :replies:
+          - :author: azzal07
+            :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kchfuix/
+            :body: |-
+              I took the hand type evaluation from your part 2 solution and compacted from there (e.g. I compensate `g.size == 0` with the `g.values.max||-1` to save the intermediate and a ternary). For the original hand, I replace the alphabetically out of place characters, so it sorts properly. For part 1 I replace `J` with `J`, and for part 2 with `!` (anything \< 0, 0 won't work because that could affect the bid).
+
+              That `d=*$<` is nice.
+            :replies: []
 - :author: Sharparam
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc12z0/
   :body: |-
@@ -168,7 +310,11 @@
   - :author: campsight46
     :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc08l9/
     :body: link is to day 6? (and the code is not for day6 of this year?)
-    :replies: []
+    :replies:
+    - :author: maths222
+      :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc36rh/
+      :body: Well bleh. Thanks for letting me know; I've now fixed it
+      :replies: []
 - :author: HAEC_EST_SPARTA
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc6kmv/
   :body: |-
@@ -178,7 +324,41 @@
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kccvf0a/
-  :body: "Took me longer than expected to solve and I spent quite a while to make it as concise as it is right now:\n\n```ruby\ndigx = -> { '0123456789TJQKA'.index(_1).to_s(16) }\nstrength = -> { '11 21 22 31 32 41 5'.index(_1) / 3 }\nsorter = ->(a, b) { a[0].to_s + a[1] <=> b[0].to_s + b[1] }\n\norder1 = -> { strength.(_1.chars.tally.values.sort.reverse.join[0, 2]) }\norder2 = lambda { |c|\n    perms = c.chars.repeated_combination(c.count('0'))\n    perms.map { |p| order1.(p.reduce(c) { _1.sub('0', _2) }) }.max\n}\n\ncards, bids = $<.map { [_1.split[0].gsub(/./, &digx), _1.split[1].to_i] }.transpose\nwinnings = ->(c) { c.zip(cards, bids).sort(&sorter).map.with_index.sum { _1[2] * (_2 + 1) } }\nputs \"Part 1: #{winnings.(cards.map(&order1))}\"\n\ncards.map { _1.gsub!('b', '0') }\nputs \"Part 2: #{winnings.(cards.map(&order2))}\"\n```\n\nIt has golfing potential but its a 426 byte mess you have to be prepared for :D\n\n```ruby\nm=->{'1121223132415'.index(_1.chars.tally.values.sort.reverse.join[0,2])/2}\nn=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)})}.max}\nd,e=$<.map{|c|[c.split[0].gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose\nw=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{_1[2]*(_2+1)}}\np w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))\n```\n\nOpen for golf improvements and other golfing or concise solutions :)  \nThat sub 400 looks just out of reach..."
+  :body: |-
+    Took me longer than expected to solve and I spent quite a while to make it as concise as it is right now:
+
+    ```ruby
+    digx = -> { '0123456789TJQKA'.index(_1).to_s(16) }
+    strength = -> { '11 21 22 31 32 41 5'.index(_1) / 3 }
+    sorter = ->(a, b) { a[0].to_s + a[1] <=> b[0].to_s + b[1] }
+
+    order1 = -> { strength.(_1.chars.tally.values.sort.reverse.join[0, 2]) }
+    order2 = lambda { |c|
+        perms = c.chars.repeated_combination(c.count('0'))
+        perms.map { |p| order1.(p.reduce(c) { _1.sub('0', _2) }) }.max
+    }
+
+    cards, bids = $<.map { [_1.split[0].gsub(/./, &digx), _1.split[1].to_i] }.transpose
+    winnings = ->(c) { c.zip(cards, bids).sort(&sorter).map.with_index.sum { _1[2] * (_2 + 1) } }
+    puts "Part 1: #{winnings.(cards.map(&order1))}"
+
+    cards.map { _1.gsub!('b', '0') }
+    puts "Part 2: #{winnings.(cards.map(&order2))}"
+    ```
+
+    It has golfing potential but its a 426 byte mess you have to be prepared for :D
+
+    ```ruby
+    m=->{'1121223132415'.index(_1.chars.tally.values.sort.reverse.join[0,2])/2}
+    n=->(c){c.chars.repeated_combination(c.count('0')).map{|p|m.(p.reduce(c){_1.sub('0',_2)})}.max}
+    d,e=$<.map{|c|[c.split[0].gsub(/./){'0123456789TJQKA'.index(_1).to_s(16)},c.split[1].to_i]}.transpose
+    w=->(c){c.zip(d,e).sort{|a,b|a[0].to_s+a[1]<=>b[0].to_s+b[1]}.map.with_index.sum{_1[2]*(_2+1)}}
+    p w.(d.map(&m));d.map{_1.gsub!('b','0')};p w.(d.map(&n))
+    ```
+
+    Open for golf improvements and other golfing or concise solutions :)
+
+    That sub 400 looks just out of reach...
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcd1435/
@@ -188,4 +368,169 @@
     [GitHub](https://github.com/careyi3/aoc_2023/tree/master/solutions/7)
 
     [Video Walkthrough](https://youtu.be/-styZyl2hIA)
+  :replies:
+  - :author: manojlds
+    :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcd2nih/
+    :body: I just replaced any occurrence of J with the same character. Why are you checking for J length being 2 etc?
+    :replies:
+    - :author: careyi4
+      :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcdg135/
+      :body: I'm not sure what you mean by replace with the same character. However, in my solution, that check is a janky bit of the code to fix the edge case for two pair where it can be either four of a kind or full house. The edge case caught me out, but it was the only one I could think of as I thought about it so I didn't bother changing the overall approach, just hacked in that edge case.
+      :replies: []
+- :author: RelativeLead5
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcdxdk5/
+  :body: |-
+    PART 1
+
+    ```ruby
+    hands = File.read('input.txt').split("\n").map{|h| h.split(" ")}
+
+    def rank(a)
+      a.chars.tally.values.sort.reverse
+    end
+
+    def value(a)
+      vals = [*(2..9).map{_1.to_s}, 'T', 'J', 'Q', 'K', 'A']
+      a.chars.map{|c| vals.index(c)}
+    end
+
+    hands = hands.sort do |a, b|
+      [rank(a[0]), value(a[0])] <=> [rank(b[0]), value(b[0])]
+    end
+
+    p hands.each_with_index.map{|h, i| (i+1) * h[1].to_i}.sum
+    ```
+
+    PART 2
+
+    ```ruby
+    hands = File.read('input.txt').split("\n").map{|h| h.split(" ")}
+
+    def rank(a)
+      if a.include?('J') and a != 'JJJJJ'
+        highest = a.delete('J').chars.tally.max_by{|k,v| v}[0]
+        a = a.gsub('J', highest)
+      end
+      a.chars.tally.values.sort.reverse
+    end
+
+    def value(a)
+      vals = ['J', *(2..9).map{_1.to_s}, 'T', 'Q', 'K', 'A']
+      a.chars.map{|c| vals.index(c)}
+    end
+
+    hands = hands.sort do |a, b|
+      [rank(a[0]), value(a[0])] <=> [rank(b[0]), value(b[0])]
+    end
+
+    p hands.each_with_index.map{|h, i| (i+1) * h[1].to_i}.sum
+    ```
+  :replies:
+  - :author: tenderlove
+    :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcdz93g/
+    :body: Nice. This is much shorter than my solution. I love it!
+    :replies:
+    - :author: RelativeLead5
+      :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kce0ckh/
+      :body: Thanks! This is the second iteration after I realized that sort could handle arrays in a way that worked.
+      :replies: []
+- :author: tenderlove
+  :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcdxifk/
+  :body: |-
+    Part1
+
+    ```ruby
+    class Hand < Struct.new(:cards, :score, :strength)
+      CARD_STRENGTH = [].tap { |lut|
+        "AKQJT98765432".bytes.reverse.each_with_index { |byte, i| lut[byte] = i }
+      }
+
+      def <=> other
+        if strength == other.strength
+          5.times do |i|
+            me = cards.getbyte(i)
+            them = other.cards.getbyte(i)
+            next if me == them
+
+            return CARD_STRENGTH[me] <=> CARD_STRENGTH[them]
+          end
+          0
+        else
+          strength <=> other.strength
+        end
+      end
+    end
+
+    def strength list
+      list
+      case list
+      in [1, 1, 1, 1, 1] then 0 # high card
+      in [1, 1, 1, 2] then 1 # one pair
+      in [1, 2, 2] then 2 # two pair
+      in [1, 1, 3] then 3 # three of a kind
+      in [2, 3] then 4 # full house
+      in [1, 4] then 5 # Four of a kind
+      in [5] then 6 # Five of a kind
+      else
+        raise
+      end
+    end
+
+    p File.readlines("input.data", chomp: true).map { |line|
+      cards, score = line.split(" ")
+      s = strength cards.bytes.tally.values.sort
+      Hand.new(cards, score.to_i, s)
+    }.sort.map.with_index { |hand, i| hand.score * (i + 1) }.sum
+    ```
+
+    Part 2:
+
+    ```ruby
+    class Hand < Struct.new(:cards, :score, :strength)
+      CARD_STRENGTH = [].tap { |lut|
+        "AKQT98765432J".bytes.reverse.each_with_index { |byte, i| lut[byte] = i }
+      }
+
+      def <=> other
+        if strength == other.strength
+          5.times do |i|
+            me = cards.getbyte(i)
+            them = other.cards.getbyte(i)
+            next if me == them
+
+            return CARD_STRENGTH[me] <=> CARD_STRENGTH[them]
+          end
+          0
+        else
+          strength <=> other.strength
+        end
+      end
+    end
+
+    def strength list
+      list
+      case list
+      in [1, 1, 1, 1, 1] then 0 # high card
+      in [1, 1, 1, 2] then 1 # one pair
+      in [1, 2, 2] then 2 # two pair
+      in [1, 1, 3] then 3 # three of a kind
+      in [2, 3] then 4 # full house
+      in [1, 4] then 5 # Four of a kind
+      in [5] then 6 # Five of a kind
+      else
+        raise
+      end
+    end
+
+    p File.readlines("input.data", chomp: true).map { |line|
+      cards, score = line.split(" ")
+      counts = cards.bytes.tally
+      jokers = counts.delete("J".ord) || 0
+      counts = counts.values.sort
+      counts << 0 if counts.empty?
+      counts[counts.length - 1] += jokers
+      s = strength counts
+      Hand.new(cards, score.to_i, s)
+    }.sort.map.with_index { |hand, i| hand.score * (i + 1) }.sum
+    ```
   :replies: []

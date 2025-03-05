@@ -98,7 +98,44 @@
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc806ei/
-  :body: "Disclaimer: I love short and concise code while keeping it relatively readable, And I love messy golf code as well - so this post concludes my journey to the shortest golf code version for todays puzzle, collecting 5 different solving methods on the way. I applied it in ruby but I am certain that this version can be applied to most other languages as well.\n\nHere are my readable, [short and concise versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06.rb)  \nHere are the [golf code versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06%20golf.rb)  \nsuperior golfed code at the bottom ;)\n\nMy [first version](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc72hkn) was bare brute force with a slight optimization. Not a beauty but [I made it work for the sample input too](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc7p1t2/?utm_source=share&utm_medium=web2x&context=3) and it runs in 2.5 seconds\n\nI knew there is a quadratic equation which of course would be the optimal `O(1)` solution. Unfortunately there were many edge cases to consider that worked on part 2, but mine as well as many other solutions failed miserably on part 1. Fortunately there were many great suggestions posted in [this thread](https://www.reddit.com/r/adventofcode/comments/18c08xh/2023_day_06_stable_math_solution/) that helped to resolve the edge cases and neat ways to work around them\n\nAt last I tried the [binary search approach](https://www.reddit.com/r/adventofcode/comments/18c08xh/comment/kc7t9jv) that would be more optimal than the brute force solution and execute blazing fast. I like this one alot because its the most readable IMO\n\nIn the end I could shorten the solutions doing some extra `fixup maths` that only require one heavy calculation for the range, and then add/subtract one based on parities\n\n== Golf Code ==\n\nPutting all of this together I reached a final size of 170 bytes golfed ruby code. Here is the beauty:\n\n```ruby\nc=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}\ns=$<.readlines.map{_1.split[1..].map(&:to_i)}\np s.reduce(&:zip).map(&c).reduce(&:*)\np c.call(s.map(&:join).map(&:to_i))\n```\n\nThe other golfed solving methods look like this, and are just as beatiful. They are sorted by their length, in order: `math`, `brute force`, `fixup binary search`, `fixup math`\n\n```ruby\nc=->((t,d)){((t+(t*t-4*d)**0.5)/2).ceil-((t-(t*t-4*d)**0.5)/2).floor-1}\nc=->((t,d)){2*(t/2..).take_while{_1*(t-_1)>d}.size-(t.even?? 1:2)}\nc=->((t,d)){b=t/2-(0...t/2).bsearch{_1*(t-_1)>d};2*b+1+t%2}\nc=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}\n```\n\nThanks for reading. If you have ideas for optimizing or want to showcase your own shorties feel free to share :)"
+  :body: |-
+    Disclaimer: I love short and concise code while keeping it relatively readable, And I love messy golf code as well - so this post concludes my journey to the shortest golf code version for todays puzzle, collecting 5 different solving methods on the way. I applied it in ruby but I am certain that this version can be applied to most other languages as well.
+
+    Here are my readable, [short and concise versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06.rb)
+
+    Here are the [golf code versions](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/06%20golf.rb)
+
+    superior golfed code at the bottom ;)
+
+    My [first version](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc72hkn) was bare brute force with a slight optimization. Not a beauty but [I made it work for the sample input too](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc7p1t2/?utm_source=share&utm_medium=web2x&context=3) and it runs in 2.5 seconds
+
+    I knew there is a quadratic equation which of course would be the optimal `O(1)` solution. Unfortunately there were many edge cases to consider that worked on part 2, but mine as well as many other solutions failed miserably on part 1. Fortunately there were many great suggestions posted in [this thread](https://www.reddit.com/r/adventofcode/comments/18c08xh/2023_day_06_stable_math_solution/) that helped to resolve the edge cases and neat ways to work around them
+
+    At last I tried the [binary search approach](https://www.reddit.com/r/adventofcode/comments/18c08xh/comment/kc7t9jv) that would be more optimal than the brute force solution and execute blazing fast. I like this one alot because its the most readable IMO
+
+    In the end I could shorten the solutions doing some extra `fixup maths` that only require one heavy calculation for the range, and then add/subtract one based on parities
+
+    == Golf Code ==
+
+    Putting all of this together I reached a final size of 170 bytes golfed ruby code. Here is the beauty:
+
+    ```ruby
+    c=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}
+    s=$<.readlines.map{_1.split[1..].map(&:to_i)}
+    p s.reduce(&:zip).map(&c).reduce(&:*)
+    p c.call(s.map(&:join).map(&:to_i))
+    ```
+
+    The other golfed solving methods look like this, and are just as beatiful. They are sorted by their length, in order: `math`, `brute force`, `fixup binary search`, `fixup math`
+
+    ```ruby
+    c=->((t,d)){((t+(t*t-4*d)**0.5)/2).ceil-((t-(t*t-4*d)**0.5)/2).floor-1}
+    c=->((t,d)){2*(t/2..).take_while{_1*(t-_1)>d}.size-(t.even?? 1:2)}
+    c=->((t,d)){b=t/2-(0...t/2).bsearch{_1*(t-_1)>d};2*b+1+t%2}
+    c=->((t,d)){b=((t*t-4*d-4)**0.5).to_i;b+(t+b+1)%2}
+    ```
+
+    Thanks for reading. If you have ideas for optimizing or want to showcase your own shorties feel free to share :)
   :replies:
   - :author: petercooper
     :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc88ggj/

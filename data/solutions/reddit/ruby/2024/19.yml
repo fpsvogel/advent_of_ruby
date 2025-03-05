@@ -1,7 +1,12 @@
 ---
 - :author: jafuentest
   :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2x6w5g/
-  :body: "Filtering down the patterns really helped, specially on part 2, ex:  \n`relevant_patterns = patterns.select { |e| target.include?(e) }`\n\n[Part 1](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-1.rb), [Part 2](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-2.rb)"
+  :body: |-
+    Filtering down the patterns really helped, specially on part 2, ex:
+
+    `relevant_patterns = patterns.select { |e| target.include?(e) }`
+
+    [Part 1](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-1.rb), [Part 2](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-2.rb)
   :replies:
   - :author: craigontour
     :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m4qoaf6/
@@ -55,7 +60,18 @@
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sv7i7/
-  :body: "golfed both parts: 143 bytes.\n\nstart\\_with? would be significantly faster but the regex match saves 6 bytes  \nIt also hits that `0` evaluates to a truthy value in ruby. otherwise the final print could've saved the extra `>0` block\n\n```ruby\nt,i=$<.read.split(\"\\n\\n\").map{_1.split(/\\n|, /)}\nm,f={},->(q){m[q]||=q==\"\"?1:t.sum{q=~/^#{_1}/?f[q[_1.size..]]:0}}\np i.count{f[_1]>0},i.sum(&f)\n```"
+  :body: |-
+    golfed both parts: 143 bytes.
+
+    start\_with? would be significantly faster but the regex match saves 6 bytes
+
+    It also hits that `0` evaluates to a truthy value in ruby. otherwise the final print could've saved the extra `>0` block
+
+    ```ruby
+    t,i=$<.read.split("\n\n").map{_1.split(/\n|, /)}
+    m,f={},->(q){m[q]||=q==""?1:t.sum{q=~/^#{_1}/?f[q[_1.size..]]:0}}
+    p i.count{f[_1]>0},i.sum(&f)
+    ```
   :replies: []
 - :author: Mon_Ouie
   :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s3zyk/
@@ -140,6 +156,7 @@
       return 1 if design.empty?
 
       cache[design] ||=
+
         pattern.select { |p| design.start_with?(p) }
                .sum { |p| count_paths(design[p.length..], pattern, cache) }
     end

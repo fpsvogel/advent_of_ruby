@@ -8,7 +8,26 @@
   :replies: []
 - :author: Nnnes
   :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdbokqb/
-  :body: "No half-punchcard-sized solutions for both parts yet? Here's one\n\n```ruby\na = STDIN.readlines.map{ _1.chomp.chars }; def r(a) = a.reverse.transpose\ndef f(a) = a.map{ |r| r.chunk{ _1 == ?# }.map{ _1.last.sort }.flatten }\ndef l(a) = a.map{ |r| r.each_with_index.map{ _1 == ?O ? _2 + 1 : 0 }.sum }.sum\np l f r a; 4.times{ a = f r a } until i = ((c ||= []) << a)[0..-2].index(a)\np l r c[((1_000_000_000 - i) % (c.size - 1 - i) + i)]\n```\n\n`r()` for \"rotate\", `f()` for \"fall\", and `l()` for \"load\".  \nNorth is to the right!  \nTo get the rocks to roll, this program `chunk`s each line into continuous `#` and non-`#` runs, then sorts the contents of each run. This moves the `O`s to the right of the `.`s and keeps the `#`s in place.  \nExecution time on a Snapdragon 865 is 3.2 seconds. Adding `# frozen_string_literal: true` at the top of the file reduces that by ~10%.\n\nHere's a drop-in replacement for `f()` that reduces total runtime to under 0.9 seconds: [paste](https://topaz.github.io/paste/#XQAAAQAsAQAAAAAAAAAyGUj/Tv+WAV3g/Epryrh8/EkGcaOk2Vq/TzdNF3JIxxliAwe73NuADxZL1UqbLlDPlP1BSWDzX265F9rQceiT3VKKrtzFhN9hkWUz4uKRVnQjVjpCKH8tY8Wr/O/SEUYEG8n2FVbUu5kXHqJF8e6AzlrpGOvaPDZw+3Dn7PaKB43Uf1qd6KfmhX6hDA/1Ih8giCPGvQs7UaBiguCuIWFDCkdloSHE5qxaFd1VXAASaq+NmGwf/7WTyQA=) — very straightforward; just remembers where the next rock should roll to as it iterates through each line. `.`s get replaced by `nil`s because it's a little faster that way. Converting all the single-character strings to integers to begin with saves another ~10% on runtime."
+  :body: |-
+    No half-punchcard-sized solutions for both parts yet? Here's one
+
+    ```ruby
+    a = STDIN.readlines.map{ _1.chomp.chars }; def r(a) = a.reverse.transpose
+    def f(a) = a.map{ |r| r.chunk{ _1 == ?# }.map{ _1.last.sort }.flatten }
+    def l(a) = a.map{ |r| r.each_with_index.map{ _1 == ?O ? _2 + 1 : 0 }.sum }.sum
+    p l f r a; 4.times{ a = f r a } until i = ((c ||= []) << a)[0..-2].index(a)
+    p l r c[((1_000_000_000 - i) % (c.size - 1 - i) + i)]
+    ```
+
+    `r()` for "rotate", `f()` for "fall", and `l()` for "load".
+
+    North is to the right!
+
+    To get the rocks to roll, this program `chunk`s each line into continuous `#` and non-`#` runs, then sorts the contents of each run. This moves the `O`s to the right of the `.`s and keeps the `#`s in place.
+
+    Execution time on a Snapdragon 865 is 3.2 seconds. Adding `# frozen_string_literal: true` at the top of the file reduces that by ~10%.
+
+    Here's a drop-in replacement for `f()` that reduces total runtime to under 0.9 seconds: [paste](https://topaz.github.io/paste/#XQAAAQAsAQAAAAAAAAAyGUj/Tv+WAV3g/Epryrh8/EkGcaOk2Vq/TzdNF3JIxxliAwe73NuADxZL1UqbLlDPlP1BSWDzX265F9rQceiT3VKKrtzFhN9hkWUz4uKRVnQjVjpCKH8tY8Wr/O/SEUYEG8n2FVbUu5kXHqJF8e6AzlrpGOvaPDZw+3Dn7PaKB43Uf1qd6KfmhX6hDA/1Ih8giCPGvQs7UaBiguCuIWFDCkdloSHE5qxaFd1VXAASaq+NmGwf/7WTyQA=) — very straightforward; just remembers where the next rock should roll to as it iterates through each line. `.`s get replaced by `nil`s because it's a little faster that way. Converting all the single-character strings to integers to begin with saves another ~10% on runtime.
   :replies: []
 - :author: glebm
   :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdadna3/
@@ -146,5 +165,37 @@
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1uax/
-  :body: "Nothing special from me today I guess  \nclockwise rotations are done with reverse.transpose  \nafter that I can always drop in the same direction by using a quick&dirty regex in a while loop  \nAfter each cycle I check if the load has been seen in the history already, and break the loop when the history repeats the first time\n\nTakes about 3.5s to complete\n\n```ruby\nm = $<.map(&:chars)\ngetload = -> { _1.map.with_index { |b, i| b.count('O') * -~i }.sum }\ndrop = -> { _1.gsub!(/(O+)(\\.+)/, '\\2\\1') while _1.include?('O.'); _1 }\nhist = []\n\nloop do\n    4.times do |i|\n        m = m.reverse.transpose.map { drop[_1.join].chars }\n        puts \"Part1: #{getload[m.transpose]}\" if hist.empty? && i == 0\n    end\n\n    hist << load = getload[m.reverse]\n    si = hist[..-2].rindex(load)\n    len = hist.size - 1\n    next unless si && hist[si..-2] == hist[2 * si - len...si]\n\n    len -= si\n    puts \"Part2: #{hist[si + (1_000_000_000 + ~si) % len]}\"\n    break\nend\n```"
+  :body: |-
+    Nothing special from me today I guess
+
+    clockwise rotations are done with reverse.transpose
+
+    after that I can always drop in the same direction by using a quick&dirty regex in a while loop
+
+    After each cycle I check if the load has been seen in the history already, and break the loop when the history repeats the first time
+
+    Takes about 3.5s to complete
+
+    ```ruby
+    m = $<.map(&:chars)
+    getload = -> { _1.map.with_index { |b, i| b.count('O') * -~i }.sum }
+    drop = -> { _1.gsub!(/(O+)(\.+)/, '\2\1') while _1.include?('O.'); _1 }
+    hist = []
+
+    loop do
+        4.times do |i|
+            m = m.reverse.transpose.map { drop[_1.join].chars }
+            puts "Part1: #{getload[m.transpose]}" if hist.empty? && i == 0
+        end
+
+        hist << load = getload[m.reverse]
+        si = hist[..-2].rindex(load)
+        len = hist.size - 1
+        next unless si && hist[si..-2] == hist[2 * si - len...si]
+
+        len -= si
+        puts "Part2: #{hist[si + (1_000_000_000 + ~si) % len]}"
+        break
+    end
+    ```
   :replies: []
