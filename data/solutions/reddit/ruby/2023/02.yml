@@ -2,8 +2,6 @@
 - :author: apollo701
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kdci5az/
   :body: |-
-    ​
-
     [https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum](https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum)
 
     Took an OOP approach for part 1/2. Could use some more cleanup, would probably combine my two service classes into a GameMangement object or something that knows how to check valid games and powers

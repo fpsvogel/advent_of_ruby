@@ -255,7 +255,6 @@ module Arb
       def body_markdown(raw_body, language_names)
         raw_body
           .gsub("\u00a0", " ") # Non-breaking space
-          .gsub("\u200b", " ") # Zero-width space
           .gsub(/ +\n/, "\n") # Remove trailing spaces before newlines
           .gsub("&amp;", "&")
           .gsub("&lt;", "<")
@@ -272,6 +271,7 @@ module Arb
           .then { |cleaned_raw_body|
             ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
           }
+          .gsub("\u200b\n\n", "") # Zero-width space
       end
 
       def remove_language_tag!(comment, language_names)

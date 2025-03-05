@@ -86,8 +86,6 @@
 
         `card, win, have = line.chomp.match(/^Card\s*(\d+):\s+(.*?)\s+\|\s+(.*)\z/)&.captures`
 
-        ​
-
         That is a better approach to break down the string.
       :replies: []
 - :author: Symbroson
