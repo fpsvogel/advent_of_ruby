@@ -8,7 +8,16 @@
   :replies: []
 - :author: wdomburg
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kcikjcf/
-  :body: "I was happy with how little modification there was from part 1:\n\n> r,g,b=ARGV.shift(3).map(&:to\\_i);p ARGF.each.inject(0){|s,l|m=/Game (\\d+): (.\\*)/.match(l);i=m[2].scan(/(?:(\\d+) (r|g|b)?)/).inject(Hash.new(0)){|h,a|a[0].to\\_i\\>h[a[1]]&&h[a[1]]=a[0].to\\_i;h};s+((i['r']\\>r||i['g']\\>g||i['b']\\>b)?0:m[1].to\\_i)}\n\nto part 2:\n\n> p ARGF.each.inject(0){|s,l|m=/Game (\\d+): (.\\*)/.match(l);i=m[2].scan(/(?:(\\d+) (r|g|b)?)/).inject([Hash.new](https://Hash.new)(0)){|h,a|a[0].to\\_i\\>h[a[1]]&&h[a[1]]=a[0].to\\_i;h};s+i.values.inject(:\\*)}\n> \n> It even got smaller!"
+  :body: |-
+    I was happy with how little modification there was from part 1:
+
+    > r,g,b=ARGV.shift(3).map(&:to\_i);p ARGF.each.inject(0){|s,l|m=/Game (\d+): (.\*)/.match(l);i=m[2].scan(/(?:(\d+) (r|g|b)?)/).inject(Hash.new(0)){|h,a|a[0].to\_i\>h[a[1]]&&h[a[1]]=a[0].to\_i;h};s+((i['r']\>r||i['g']\>g||i['b']\>b)?0:m[1].to\_i)}
+
+    to part 2:
+
+    > p ARGF.each.inject(0){|s,l|m=/Game (\d+): (.\*)/.match(l);i=m[2].scan(/(?:(\d+) (r|g|b)?)/).inject([Hash.new](https://Hash.new)(0)){|h,a|a[0].to\_i\>h[a[1]]&&h[a[1]]=a[0].to\_i;h};s+i.values.inject(:\*)}
+    >
+    > It even got smaller!
   :replies: []
 - :author: Potential-Series-105
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbzji27/

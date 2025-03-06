@@ -263,14 +263,16 @@ module Arb
           .sub(/<\/div>\z/, "")
           .gsub(/```?(?:#{language_names.first})?(.+?)```?/mi, "<pre>\\1</pre>")
           .gsub(/(?<=<pre>)(.*?)(?=<\/pre>)/m) { |content|
-            content.gsub(/<\/?p>/, "") # Backtick-enclosed code blocks may contain <p> tags
+            content.gsub(/<\/?p>/, "") # Remove <p> tags which can occur within backtick-enclosed code blocks
+            content.gsub(/ +\n/, "\n") # Remove trailing spaces
           }
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
           .gsub("<pre>", "<pre class=\"brush:#{language_names.first};\">")
           .then { |cleaned_raw_body|
             ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
           }
-          .gsub(/ +\n/, "\n\n") # Fix partial paragraph breaks
+          .gsub(/(?<!\n>) +\n[^\n]/, "\n\n") # When trailing spaces are a partial paragraph break, strip the spaces and add an extra newline
+          .gsub(/ +\n/, "\n") # Strip all other trailing spaces
           .gsub("\u200b\n\n", "") # Zero-width space
       end
 

@@ -231,8 +231,10 @@
   :replies: []
 - :author: clonewolf
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0e9gr2/
-  :body: "Part 2: Detect all diagonal \"MAS\"s, then find how many \"A\"s overlap
-    \ \n[https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb)"
+  :body: |-
+    Part 2: Detect all diagonal "MAS"s, then find how many "A"s overlap
+
+    [https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb)
   :replies: []
 - :author: The_Jare
   :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ekpzj/
@@ -321,9 +323,7 @@
   :replies:
   - :author: Ill_Information_9522
     :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0eqn1b/
-    :body: Wow nice. I just finished my Ruby solutions and they're way longer. I just
-      started learning Ruby a week or so ago. Would you mind explaining your code
-      here, for educational purposes? Thanks!
+    :body: Wow nice. I just finished my Ruby solutions and they're way longer. I just started learning Ruby a week or so ago. Would you mind explaining your code here, for educational purposes? Thanks!
     :replies:
     - :author: _tfa
       :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0f05g0/
@@ -340,6 +340,5 @@
       :replies:
       - :author: Ill_Information_9522
         :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0p5vuq/
-        :body: Great, thanks for that. I'm going to use complex numbers for other
-          grid problems and see how they work. Nice little trick indeed!
+        :body: Great, thanks for that. I'm going to use complex numbers for other grid problems and see how they work. Nice little trick indeed!
         :replies: []

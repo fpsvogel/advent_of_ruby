@@ -21,7 +21,19 @@
   :replies: []
 - :author: jafuentest
   :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2ns6ah/
-  :body: "Got part 2 to run in ~0.090s\n\nPart 1 doesn't need much explanation. For part 2, I started by brute forcing values of A and noticed a couple things\"\n\n1. The resulting output array, has n positions, where n is log\\_8(A), so any A under 64 will give an output of [x1, x2], any A under 512 will give [x1, x2, x3] and so on. So your A will be lo lower than 8^x, where x is the size of the target array minus 1.\n\n2. The last numbers in the resulting array are pretty consistent. You'll notice that for any A in [512, 1023], all resulting arrays will have the same last element (1 in my case), so they all look like this: [x1, x2, x3, **1**]. 512 in octal is 0o1000, 1023 is 0o1777. \n\nSo basically, when you simulate for any A between [512, 4095], if the last element is not the one you wanted, increase A by 0o1000 (512), if the last one is right, but the previous one is not, then increase only by 64, and so on.\n\n[Here's the code](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-17-2.rb)"
+  :body: |-
+    Got part 2 to run in ~0.090s
+
+    Part 1 doesn't need much explanation. For part 2, I started by brute forcing values of A and noticed a couple things"
+
+    1. The resulting output array, has n positions, where n is log\_8(A), so any A under 64 will give an output of [x1, x2], any A under 512 will give [x1, x2, x3] and so on. So your A will be lo lower than 8^x, where x is the size of the target array minus 1.
+
+    2. The last numbers in the resulting array are pretty consistent. You'll notice that for any A in [512, 1023], all resulting arrays will have the same last element (1 in my case), so they all look like this: [x1, x2, x3, **1**]. 512 in octal is 0o1000, 1023 is 0o1777.
+
+
+    So basically, when you simulate for any A between [512, 4095], if the last element is not the one you wanted, increase A by 0o1000 (512), if the last one is right, but the previous one is not, then increase only by 64, and so on.
+
+    [Here's the code](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-17-2.rb)
   :replies: []
 - :author: yourparadigm
   :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvvae/

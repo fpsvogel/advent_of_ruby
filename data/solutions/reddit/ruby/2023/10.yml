@@ -274,7 +274,12 @@
   :replies:
   - :author: DeadlyRedCube
     :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqq8in/
-    :body: "> If the point has exits, it is not outside the loop\n> \n> Look at every point to the left (x \\< currentX) of the current point and count up how many N and S exits there are (tracking them separately)\n\noh I like the \"turn every piece into a 3x3 grid\" solution, that's really clever!"
+    :body: |-
+      > If the point has exits, it is not outside the loop
+      >
+      > Look at every point to the left (x \\< currentX) of the current point and count up how many N and S exits there are (tracking them separately)
+
+      oh I like the \"turn every piece into a 3x3 grid\" solution, that's really clever!"
     :replies: []
 - :author: PassifloraCaerulea
   :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4zey/

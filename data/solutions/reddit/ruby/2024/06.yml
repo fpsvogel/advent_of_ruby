@@ -19,13 +19,11 @@
   :replies:
   - :author: quokka70
     :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0qlk97/
-    :body: Using a Set for @grid instead of an array will make `grid.include?` faster
-      (unless the hashing overhead is too much).
+    :body: Using a Set for @grid instead of an array will make `grid.include?` faster (unless the hashing overhead is too much).
     :replies:
     - :author: _tfa
       :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0uf1wc/
-      :body: You are right. That was the optimization I did after I sent the code
-        to pastebin (couldn't edit it there)
+      :body: You are right. That was the optimization I did after I sent the code to pastebin (couldn't edit it there)
       :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0q4x8j/
@@ -40,14 +38,14 @@
     :replies: []
 - :author: nothimofc
   :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ny6iz/
-  :body: "While Part 1 (counting distinct positions visited) works relatively fast,
-    Part 2 (finding loop-causing obstacle positions) is extremely slow for large grids.
-    \ \n[github](https://github.com/osu/advent-of-code/blob/main/day6/joe.rb)"
+  :body: |-
+    While Part 1 (counting distinct positions visited) works relatively fast, Part 2 (finding loop-causing obstacle positions) is extremely slow for large grids.
+
+    [github](https://github.com/osu/advent-of-code/blob/main/day6/joe.rb)
   :replies:
   - :author: nothimofc
     :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0nywg2/
-    :body: I would appreciate any advice from fellow ruby enjoyers I could have gotten
-      a much better placement than 70/10 :( if it was faster.
+    :body: I would appreciate any advice from fellow ruby enjoyers I could have gotten a much better placement than 70/10 :( if it was faster.
     :replies:
     - :author: Lucky_Menu3724
       :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o4twa/
@@ -156,21 +154,15 @@
   :replies: []
 - :author: Infinite-Club4374
   :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0podjn/
-  :body: "Hey all! I’m having a bit of trouble locating the last edge cases, anyone
-    have any ideas?\n\nWith my custom input my solution gives 1573 but should be 1686.
-    Would really appreciate any insights or help \U0001F499\n\n[GitHub](https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day6/day6.rb)"
+  :body: "Hey all! I’m having a bit of trouble locating the last edge cases, anyone have any ideas?\n\nWith my custom input my solution gives 1573 but should be 1686. Would really appreciate any insights or help \U0001F499\n\n[GitHub](https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day6/day6.rb)"
   :replies:
   - :author: ash30342
     :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0prpve/
-    :body: I think you missed that when you turn right, you can immediately encounter
-      an obstacle again. You should keep turning until you can move on. That tripped
-      me up :)
+    :body: I think you missed that when you turn right, you can immediately encounter an obstacle again. You should keep turning until you can move on. That tripped me up :)
     :replies:
     - :author: Infinite-Club4374
       :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pse59/
-      :body: "You just saved my life!!\n\nI had a check for that initially but I only
-        turned once instead of looping and you gave me the idea to loop until a direction
-        was good!\n\nTHANK YOU SO MUCH INTERNET FRIEND\U0001F499\U0001F499\U0001F499\U0001F499"
+      :body: "You just saved my life!!\n\nI had a check for that initially but I only turned once instead of looping and you gave me the idea to loop until a direction was good!\n\nTHANK YOU SO MUCH INTERNET FRIEND\U0001F499\U0001F499\U0001F499\U0001F499"
       :replies: []
 - :author: FCBStar-of-the-South
   :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0sbg2g/
