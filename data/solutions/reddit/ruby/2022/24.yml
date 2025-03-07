@@ -35,7 +35,7 @@
       :body: |-
         Wow, it's right! The code is taking about 2 seconds now if I do a simple breadth-first search:
 
-        `ruby
+        ```ruby
         def find_path(time, start, goal)
           frontier = [start]
           while true
@@ -48,7 +48,7 @@
             frontier = new_frontier
           end
         end
-        `
+        ```
       :replies: []
 - :author: sigmazero13
   :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h33hm/

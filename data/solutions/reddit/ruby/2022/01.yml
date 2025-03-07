@@ -415,11 +415,13 @@
 - :author: Piggelinmannen
   :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygretv/
   :body: |-
-    Quick and dirty solution in ruby`
+    Quick and dirty solution in ruby
+
+    ```ruby
     calorie_per_elf = DATA.read.split(/^$/).map { _1.lines.map(&:to_i).sum }
     p "a: #{calorie_per_elf.max}"
     p "b: #{calorie_per_elf.sort.last(3).sum}"
-    `
+    ```
   :replies: []
 - :author: SolarBear
   :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk38p6/

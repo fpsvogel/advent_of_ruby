@@ -297,6 +297,8 @@ module Arb
           .gsub(/(?<!\n>) +\n(?!\n)/, "\n\n") # When trailing spaces are a partial paragraph break, strip the spaces and add an extra newline
           .gsub(/ +\n/, "\n") # Strip all other trailing spaces
           .gsub("\u200b\n\n", "") # Zero-width space
+          .gsub(/`(?:#{language_names.first})?\n(.+?)\n`(?=\n|\z)/m, "\n\n```ruby\n\\1\n```\n")
+          .gsub(/\n{3,}/, "\n\n")
       end
 
       def remove_language_tag!(comment, language_names)

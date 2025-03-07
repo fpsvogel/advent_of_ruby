@@ -24,13 +24,13 @@
     :body: |-
       With a few tweaks, I could get that to 95:
 
-      `
+      ```ruby
       x=1
       c=[]
       `dd`.split.map{c<<((c.size%40-x).abs<2??#:?.)
       x+=_1.to_i}
       c.each_slice(40){puts _1*""}
-      `
+      ```
     :replies: []
 - :author: ffrkAnonymous
   :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izq2ga7/

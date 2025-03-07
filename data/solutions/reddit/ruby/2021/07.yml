@@ -384,11 +384,11 @@
     :body: |-
       I realise now I could replace my brute-force fuel calculation with this:
 
-      `ruby
+      ```ruby
       def part_2
         calc_fuel { |x| x * (x + 1) / 2 }
       end
-      `
+      ```
     :replies: []
 - :author: Archer_Winter
   :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk7o4d/

@@ -124,10 +124,10 @@
   :body: |-
     Quite pleased with my Ruby solution for part 1:
 
-    `
+    ```ruby
         STDIN.readlines.map { |line| line.split(": ") }.each { |name, expr| define_method(name) { eval(expr) } }
         puts root
-    `
+    ```
   :replies: []
 - :author: Elavid
   :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12tsyo/

@@ -194,9 +194,9 @@
     :body: |-
       Just for the sake of anyone who finds it interesting, you can now also do this in Ruby 3.0+:
 
-      `
+      ```ruby
       p input.each_cons(2).count { _2 > _1 }
-      `
+      ```
 
       I imagine some may prefer or not prefer this - definitely a matter of taste!
     :replies: []

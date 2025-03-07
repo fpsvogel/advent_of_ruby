@@ -396,12 +396,34 @@
     # !/usr/bin/env ruby
 
     # frozen\_string\_literal: true
+    SPELLED_DIGITS = {
+      "one" => "1",
+      "two" => "2",
+      "three" => "3",
+      "four" => "4",
+      "five" => "5",
+      "six" => "6",
+      "seven" => "7",
+      "eight" => "8",
+      "nine" => "9",
+    }.freeze
 
-    SPELLED\_DIGITS = { "one" =\> "1", "two" =\> "2", "three" =\> "3", "four" =\> "4", "five" =\> "5", "six" =\> "6", "seven" =\> "7", "eight" =\> "8", "nine" =\> "9", }.freeze
+    def sum_all_cases(input_cases)
+      extract_regex = Regexp.new "(?=(#{SPELLED_DIGITS.keys.join('|')}|\d))"
+      input_cases.sum do |input_case|
+        input_case
+          .scan(extract_regex) # tokenize input
+          .flatten # flatten the inner lists
+          .map { |item| SPELLED_DIGITS.fetch(item, item).to_i} # translate spelled numbers
+          .select { |digit| !digit.zero? } # remove items that evaluate to zero
+          .values_at(0, -1) # get first and last items
+          .map { |item| item.to_s } # make them a string
+          .reduce(&:concat) # clue them together
+          .to_i
+      end
+    end
 
-    def sum\_all\_cases(input\_cases) extract\_regex = Regexp.new "(?=(#{SPELLED\_DIGITS.keys.join('|')}|\d))" input\_cases.sum do |input\_case| input\_case .scan(extract\_regex) # tokenize input .flatten # flatten the inner lists .map { |item| SPELLED\_DIGITS.fetch(item, item).to\_i} # translate spelled numbers .select { |digit| !digit.zero? } # remove items that evaluate to zero .values\_at(0, -1) # get first and last items .map { |item| item.to\_s } # make them a string .reduce(&:concat) # clue them together .to\_i end end
-
-    puts sum\_all\_cases(STDIN.read.split(/\n/))
+    puts sum_all_cases(STDIN.read.split(/\n/))
     ```
   :replies:
   - :author: JelloRough
@@ -684,16 +706,17 @@
 
     part 1:
 
-    `ruby
+    ```ruby
     IO.read("path_to_file").split("\n").map{|str| str.tr("^0-9", "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
-    `
+    ```
+
 
     part 2:
 
     ```ruby
     substitutions = {"one"=>"o1e", "two"=>"t2o", "three"=>"t3e", "four"=>"f4r", "five"=>"f5e", "six"=>"s6x", "seven"=>"s7n", "eight"=>"e8t", "nine"=>"n9e"}
 
-    IO.read("path\_to\_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup> "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
+    IO.read("path_to_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup>"").split("") }.map{ |str| (str.first + str.last).to_i }.sum
     ```
   :replies: []
 - :author: PassifloraCaerulea
@@ -736,9 +759,23 @@
         '9' => '9', 'nine' => '9',
     }
 
-    def part\_one(data) data.map do |str| d = str.scan(/\d/).join d[0] + d[-1] end.map(&:to\_i).sum end
+    def part_one(data)
+        data.map do |str|
+            d = str.scan(/\d/).join
+            d[0] + d[-1]
+        end.map(&:to_i).sum
+    end
 
-    def part\_two(data) data.map do |str| DIGITS.map { |k, v| [str.index(k), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] + DIGITS.map { |k, v| [str.reverse.index(k.reverse), v] } .filter { |a| a[0] } .min { |a, b| a[0] \<=\> b[0] }[1] end.map(&:to\_i).sum end
+    def part_two(data)
+        data.map do |str|
+            DIGITS.map { |k, v| [str.index(k), v] }
+                .filter { |a| a[0] }
+                .min { |a, b| a[0] <=> b[0] }[1] +
+            DIGITS.map { |k, v| [str.reverse.index(k.reverse), v] }
+                .filter { |a| a[0] }
+                .min { |a, b| a[0] <=> b[0] }[1]
+        end.map(&:to_i).sum
+    end
     ```
   :replies: []
 - :author: the_notic
