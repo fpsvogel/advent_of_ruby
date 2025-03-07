@@ -46,7 +46,7 @@
   - :author: feyn
     :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1nsg5s/
     :body: |-
-      > return [vs[...l/2].to\_i, vs[l/2..].to\_i] if l % 2 == 0
+      > return [vs[...l/2].to_i, vs[l/2..].to_i] if l % 2 == 0
 
       Instead of `vs[...l/2]`, I read it as `vs[...1/2]`. I was so surprised that you can use `1/2` in a range to take half of a string. I tried in in IRB and was sadly dissapointed :D
     :replies:
@@ -57,7 +57,7 @@
 - :author: Nnnes
   :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1htopa/
   :body: |-
-    Took a bit of fiddling but here's a half-punchcard-sized full solution I'm happy with. Credit to [/u/AlexTelon](/u/AlexTelon) for the idea of dealing with the numbers as strings most of the time - my solutions with `Math.log10(n).to_i + 1` or `(d = n.digits.reverse).size` could fit (and ran about twice as fast), but the line breaks were awful.
+    Took a bit of fiddling but here's a half-punchcard-sized full solution I'm happy with. Credit to /u/AlexTelon for the idea of dealing with the numbers as strings most of the time - my solutions with `Math.log10(n).to_i + 1` or `(d = n.digits.reverse).size` could fit (and ran about twice as fast), but the line breaks were awful.
 
     ```ruby
     @c = Hash.new{ |h, k| n, s = k; h[k] = s == 0 ? 1 : case n.sub!(/^0*/, '')
@@ -205,7 +205,7 @@
     Since we don't get the fancy @cache annotation that pythonistas can use I had to implement it myself:
 
     ```ruby
-    stones = "".split
+    stones = "<input>".split
     MAP = {}
 
     def tick(x, i)
@@ -244,7 +244,7 @@
   :replies: []
 - :author: eggselent_folk
   :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1jwn7s/
-  :body: "~200ms for part 2\n\nI spent a lot of time finding optimization because simplest solution for part 1 does not work at all for part 2 \U0001F923\n\nAfter a while, finally I got toanalyzing the pattern and found out it can be memoized.\n\n```ruby\ninput = '2701 64945 0 9959979 93 781524 620 1'.split(' ').map { |x| x.to_i }\n\n$memoize = {}\ndef blink(num, i)\n  return $memoize[\"#{num}-#{i}\"] if $memoize[\"#{num}-#{i}\"] != nil\n  return 1 if i > 75\n\n  return $memoize[\"#{num}-#{i}\"] = blink(1, i + 1) if num == 0\n\n  len = num.to_s.length\n  if len % 2 == 0\n    return $memoize[\"#{num}-#{i}\"] = blink(num.to_s[0...(len/2)].to_i, i + 1) +\n                                     blink(num.to_s[(len/2)...len].to_i, i + 1)\n  end\n\n  return $memoize[\"#{num}-#{i}\"] = blink(num * 2024, i + 1)\nend\n\ntotal = 0\ninput.each { |num| total += blink(num, 1) }\nputs total\n```"
+  :body: "~200ms for part 2\n\nI spent a lot of time finding optimization because simplest solution for part 1 does not work at all for part 2 \U0001F923\n\nAfter a while, finally I got to\\>!analyzing the pattern and found out it can be memoized.!\\<\n\n```ruby\ninput = '2701 64945 0 9959979 93 781524 620 1'.split(' ').map { |x| x.to_i }\n\n$memoize = {}\ndef blink(num, i)\n  return $memoize[\"#{num}-#{i}\"] if $memoize[\"#{num}-#{i}\"] != nil\n  return 1 if i > 75\n\n  return $memoize[\"#{num}-#{i}\"] = blink(1, i + 1) if num == 0\n\n  len = num.to_s.length\n  if len % 2 == 0\n    return $memoize[\"#{num}-#{i}\"] = blink(num.to_s[0...(len/2)].to_i, i + 1) +\n                                     blink(num.to_s[(len/2)...len].to_i, i + 1)\n  end\n\n  return $memoize[\"#{num}-#{i}\"] = blink(num * 2024, i + 1)\nend\n\ntotal = 0\ninput.each { |num| total += blink(num, 1) }\nputs total\n```"
   :replies: []
 - :author: JAntaresN
   :url: https://www.reddit.com/r/adventofcode/comments/1hbm0al/2024_day_11_solutions/m1kjzf7/

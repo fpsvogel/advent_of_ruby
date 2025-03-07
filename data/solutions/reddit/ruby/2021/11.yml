@@ -61,7 +61,7 @@
     puts "Answer 11.2: #{st}"
     ```
 
-    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb)
+    https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb
   :replies:
   - :author: ignurant
     :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho48vq5/
@@ -122,7 +122,7 @@
 
     I wish I could have used a prettier way to find neighbours within bounds. I've seen some nice solutions in this thread though.
 
-    [https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb](https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb)
+    https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb
   :replies: []
 - :author: frontpageminus
   :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho34hw7/
@@ -133,7 +133,7 @@
   :replies: []
 - :author: dhruvasagar
   :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3fwjr/
-  :body: Ruby - [https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb](https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb)
+  :body: Ruby - https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb
   :replies: []
 - :author: hrunt
   :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho41e39/

@@ -97,7 +97,7 @@
     Ruby:
 
     ```ruby
-    # ... removed input reading into the array crabs.
+        # ... removed input reading into the array crabs.
         # ... also determined min_val and max_val while reading input
 
         def fuel_cost(delta, memo)
@@ -238,13 +238,9 @@
 
       ```ruby
       # find a minimum by binary search over slope
-
       # numerically find the cost slope by looking at points next to the cursor
-
-      # if we're pointing upwards, alpha \< cursor \< beta, make cursor max and continue
-
-      # if we're pointing downwards, alpha \> cursor \> beta, make cursor min and continue
-
+      # if we're pointing upwards, alpha < cursor < beta, make cursor max and continue
+      # if we're pointing downwards, alpha > cursor > beta, make cursor min and continue
       # if we're in a valley, we're at a minimum (hoping there's no local minima)
       min = input.min
       max = input.max
@@ -252,7 +248,7 @@
         cursor = min + ((max - min) / 2)
         ca, cc, cb = cost[cursor - 1], cost[cursor], cost[cursor + 1]
 
-      case
+        case
         when ca < cc && cc < cb
           max = cursor # slope is positive, move window down
         when ca > cc && cc > cb
@@ -408,7 +404,7 @@
   :body: |-
     Ruby: [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day7/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day7/main.rb)
 
-    Elixir: [https://github.com/sreedevk/advent-of-code/blob/main/elixir/lib/twenty21/day7.ex](https://github.com/sreedevk/advent-of-code/blob/main/elixir/lib/twenty21/day7.ex)
+    Elixir: https://github.com/sreedevk/advent-of-code/blob/main/elixir/lib/twenty21/day7.ex
   :replies: []
 - :author: CodeIsTheEnd
   :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkmx1t/

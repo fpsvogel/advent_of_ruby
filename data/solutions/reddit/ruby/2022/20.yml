@@ -34,7 +34,7 @@
 
     I have multiple ideas to optimize it (linked list or doing arithmetics on indices only) and may try later but the current solution in o(n^2) runs in 6 seconds for problem 2 and is quite simple to understand.
 
-    [https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_20.rb](https://github.com/rbellec/advent%5C_of%5C_code%5C_2022/blob/main/app/daily%5C_problems/day%5C_20.rb)
+    https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_20.rb
   :replies: []
 - :author: jstanley0
   :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xw35j/

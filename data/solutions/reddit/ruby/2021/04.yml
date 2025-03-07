@@ -291,7 +291,7 @@
     The hardest part of this one for me was determining whether a bingo card is a winner - rather than doing anything coordinate-wise, I just recorded each bingo number's x,y in an array and to check, transpose it and see if any of the arrays have 5 of an element:
 
     ```ruby
-    def winner?
+      def winner?
         recorded.transpose.map { _1.tally.values.any?(5) }.any?
       end
     ```
@@ -386,7 +386,7 @@
 
     # Notes
 
-    This was a nice challenge. I directly had a strategy in my mind. It's not beautiful but straight forward. But first I struggled to parse the input. I desperately wanted to find a built-in method to get groups of 5 lines (the boards) and I was sure there is some "groups\_of" but this time I was disappointed as ths is only part of rails. Anyway `each_with_index`, `inject` and a modulo helped here. Once I had this I didn't want to handle all those arrays instead I diveded and conquored: I created a class for each board.
+    This was a nice challenge. I directly had a strategy in my mind. It's not beautiful but straight forward. But first I struggled to parse the input. I desperately wanted to find a built-in method to get groups of 5 lines (the boards) and I was sure there is some "groups_of" but this time I was disappointed as ths is only part of rails. Anyway `each_with\_index`,`inject` and a modulo helped here. Once I had this I didn't want to handle all those arrays instead I diveded and conquored: I created a class for each board.
 
     That helped my mind I could focus on the actual problem dealing with a single board. Here I remembered finallyl the awesomeness of ruby. I can subtract arrays to remove existing elements. I can now simply subtract the drawn numbers from the numbers per row and column and if any of that is empty I have a match. In the same manner I can find the unmarked numbers.
 
@@ -486,7 +486,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb](https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb)
+    https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb
   :replies: []
 - :author: gurgeous
   :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn65fk0/

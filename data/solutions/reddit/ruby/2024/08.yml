@@ -133,7 +133,7 @@
 - :author: fredster231
   :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11jdl1/
   :body: |-
-    Full code: [https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d](https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d)
+    Full code: https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d
 
     Fun little pattern , with the lambda:
 
@@ -183,5 +183,5 @@
   :body: |-
     [Github](https://github.com/rivten/aoc-2024/blob/main/08/rivten/08.rb)Learning Ruby for this year's AoC, I like how I get more comfortable with Ruby and the code is reducing in size while keeping clarity (or so I think !)
 
-    Also thank you to [/u/4HbQ](/u/4HbQ) for mentionning complex numbers a few days ago. Really helped here !
+    Also thank you to /u/4HbQ for mentionning complex numbers a few days ago. Really helped here !
   :replies: []

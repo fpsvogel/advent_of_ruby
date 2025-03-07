@@ -6,7 +6,7 @@
 
     today i brute forced first, but then later i found out i could use the quadratic formula.
 
-    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day6.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day6.rb)
+    https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day6.rb
   :replies: []
 - :author: HAEC_EST_SPARTA
   :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6z2sf/
@@ -20,7 +20,7 @@
     :body: |-
       The algebraic solution also has a bug because it solves for \>= distance but the problem asks for strict inequality. Example input: time = 8, distance = 12, answer = 3.
 
-      Noticed this in my own algebraic solution after seeing [u/maths222](/u/maths222) answer in [https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/)
+      Noticed this in my own algebraic solution after seeing u/maths222 answer in https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/
     :replies:
     - :author: HAEC_EST_SPARTA
       :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc75kx3/
@@ -53,7 +53,7 @@
           ceil(r2) - floor(r1) - 1
           ```
 
-          by [u/mebeim](/u/mebeim) in [https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm_source=share&utm_medium=web2x&context=3)
+          by u/mebeim in https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm_source=share&utm_medium=web2x&context=3
         :replies:
         - :author: HAEC_EST_SPARTA
           :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76to8/

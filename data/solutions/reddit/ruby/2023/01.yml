@@ -4,15 +4,14 @@
   :body: |-
     Took an OOP approach with tests
 
-    [https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet](https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet)
+    https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet
   :replies: []
 - :author: wdomburg
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9npbc/
   :body: |-
     Not sure whether to be proud or ashamed of this solution.
 
-    > ruby -e "require 'strscan';d={'one'=\>'1','two'=\>'2','three'=\>'3','four'=\>'4','five'=\>'5','six'=\>'6','seven'=\>'7','eight'=\>'8','nine'=\>'9','1'=\>'1','2'=\>'2','3'=\>'3','4'=\>'4','5'=\>'5','6'=\>'6','7'=\>'7','8'=\>'8','9'=\>'9'};re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);(0..l.length).inject([]){|o,p| ss.pos=p;ss.scan(re)&&o\<<d day01.dat>
-    > </d>
+    > ruby -e "require 'strscan';d={'one'=\>'1','two'=\>'2','three'=\>'3','four'=\>'4','five'=\>'5','six'=\>'6','seven'=\>'7','eight'=\>'8','nine'=\>'9','1'=\>'1','2'=\>'2','3'=\>'3','4'=\>'4','5'=\>'5','6'=\>'6','7'=\>'7','8'=\>'8','9'=\>'9'};re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);(0..l.length).inject([]){|o,p| ss.pos=p;ss.scan(re)&&o\<\<d[ss.matched];o}.values\_at(0,-1).join.to\_i}.inject(:+)" day01.dat
   :replies:
   - :author: wdomburg
     :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kcabi8h/
@@ -136,7 +135,7 @@
 
         And then we can also put a capture group around the lookahead content to be able to capture and use it.
 
-        Hopefully my explanation is understandable! Positive/negative lookahead/-behind can be really useful so it's a good thing to learn, you can read more about it here: [https://www.regular-expressions.info/lookaround.html](https://www.regular-expressions.info/lookaround.html)
+        Hopefully my explanation is understandable! Positive/negative lookahead/-behind can be really useful so it's a good thing to learn, you can read more about it here: https://www.regular-expressions.info/lookaround.html
       :replies:
       - :author: spr00ge
         :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboo5if/
@@ -330,31 +329,30 @@
   :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbil2hi/
   :body: |-
     ```ruby
-    $numarr = ['one','two','three','four','five','six','seven','eight','nine']
-    ```ruby
-    $numhash = {}
+        $numarr = ['one','two','three','four','five','six','seven','eight','nine']
 
-    $numarr.length.times do |i|
-        $numhash[$numarr[i]] = i + 1
-    end
+        $numhash = {}
 
-    $numstring = $numarr.join('|')
-
-    def getval(x)
-        $numhash.has_key?(x) ? $numhash[x] : x.to_i
-    end
-
-    t = 0
-    File.readlines("file.txt").each do |line|
-        if line =~ /(\d|#{$numstring}).*(\d|#{$numstring})/
-            t += 10*getval($1)+getval($2)
-        elsif line =~ /(\d|#{$numstring})/
-            t += 11*getval($1)
+        $numarr.length.times do |i|
+            $numhash[$numarr[i]] = i + 1
         end
-    end
 
-    puts "Sum is #{t}"
-    ```
+        $numstring = $numarr.join('|')
+
+        def getval(x)
+            $numhash.has_key?(x) ? $numhash[x] : x.to_i
+        end
+
+        t = 0
+        File.readlines("file.txt").each do |line|
+            if line =~ /(\d|#{$numstring}).*(\d|#{$numstring})/
+                t += 10*getval($1)+getval($2)
+            elsif line =~ /(\d|#{$numstring})/
+                t += 11*getval($1)
+            end
+        end
+
+        puts "Sum is #{t}"
     ```
   :replies: []
 - :author: spr00ge
@@ -393,9 +391,9 @@
     Part of it was "inspired" by someone in this megathread but I couldn't find the comment to say thanks. So... here it is:
 
     ```ruby
-    # !/usr/bin/env ruby
+    #!/usr/bin/env ruby
+    # frozen_string_literal: true
 
-    # frozen\_string\_literal: true
     SPELLED_DIGITS = {
       "one" => "1",
       "two" => "2",
@@ -409,7 +407,7 @@
     }.freeze
 
     def sum_all_cases(input_cases)
-      extract_regex = Regexp.new "(?=(#{SPELLED_DIGITS.keys.join('|')}|\d))"
+      extract_regex = Regexp.new "(?=(#{SPELLED_DIGITS.keys.join('|')}|\\d))"
       input_cases.sum do |input_case|
         input_case
           .scan(extract_regex) # tokenize input
@@ -710,13 +708,12 @@
     IO.read("path_to_file").split("\n").map{|str| str.tr("^0-9", "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
     ```
 
-
     part 2:
 
     ```ruby
     substitutions = {"one"=>"o1e", "two"=>"t2o", "three"=>"t3e", "four"=>"f4r", "five"=>"f5e", "six"=>"s6x", "seven"=>"s7n", "eight"=>"e8t", "nine"=>"n9e"}
 
-    IO.read("path_to_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("<sup>0-9",</sup>"").split("") }.map{ |str| (str.first + str.last).to_i }.sum
+    IO.read("path_to_file").split("\n").map{|str| str.gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).gsub(/(one|two|three|four|five|six|seven|eight|nine)/, substitutions).tr("^0-9", "").split("") }.map{ |str| (str.first + str.last).to\_i }.sum
     ```
   :replies: []
 - :author: PassifloraCaerulea

@@ -6,7 +6,7 @@
 
     My original implementation took 1.7 seconds to run my input. That was unacceptable. Got it down to around 200 ms by representing both entire herds as a single huge number each and using bit shifts to check+move the entire herd at once. Much better.
 
-    [https://github.com/petertseng/adventofcode-rb-2021/blob/master/25\_sea\_cucumber.rb](https://github.com/petertseng/adventofcode-rb-2021/blob/master/25_sea_cucumber.rb)
+    https://github.com/petertseng/adventofcode-rb-2021/blob/master/25_sea_cucumber.rb
 
     Core:
 
@@ -18,7 +18,7 @@
     south = south & ~moving_south | shdown[moving_south]
     ```
 
-    Haskell code for the same ([https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/25\_sea\_cucumber.hs](https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/25_sea_cucumber.hs)) runs in about 70 ms.
+    Haskell code for the same (https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/25_sea_cucumber.hs) runs in about 70 ms.
 
     I'd like to thank Eric and the team for a great year. Hope to see you again next year.
   :replies:

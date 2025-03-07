@@ -266,7 +266,7 @@
     ans2 = basins.map(&:size).max(3).reduce(:*)
     ```
 
-    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51)
+    https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51
   :replies: []
 - :author: frontpageminus
   :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntpfx8/

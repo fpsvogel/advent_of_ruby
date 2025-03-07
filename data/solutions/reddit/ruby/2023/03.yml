@@ -6,7 +6,7 @@
 
     Main class snippet: [paste](https://topaz.github.io/paste/#XQAAAQD1BgAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeFow35uS8WMaXd28j7dIXlpM4haerijs2dOkt/K7KK0fb/3NdQ+3JZD4KzQPzVwG5Gf17qq5hDLppRq9z1ZsrV9lsqQ2EuUKfbOajpwEbSFEwvU7a7TFmqZ1MfbQJkTHEUI8iruFGpv+hXRVsIFrv3LmA1HG9ehMDL92o87HoHHwBzezxJ8XfdUIQ8UwAsf5oil2I6cvvIzgXjx7LpQpagZi5GxpbITg+40Ox9KD/QSiuGvDmcjfmbkXWw8w12yQ0fJdVvhwe45Odw3M1LaIajsRNLc3Y/OdDW2ANgcXKlMUXOajPh7GoALLTQMKOkF9PE3Xk4SSbxhZ7O1uj6z26TxliM7bXFwlaA118PHdPhANI9boqP57tYsrxEO3U83hasLlghWZbLXAyElFKqNKG2VYU0cGnfJj3VqKw+ezGzxSVen2bZHcNysAIeeLvFw6wYQnxV78D0hT936AVFi4Qw6xPHz6FsYJFWBi4VpEzpZ99F0d3/8pfUZgKY1xD/rKfbwRuGAypHzHxhJ64Ghzhv5/b2mrMiiEEZfiodUZAIk8Ylrp1q7sPU7Vu9DlE3A64AAAOph/jC/F/c8WA4HTjE/1FhRZR7/YFlqvr+PueNmbZnyNGOSbkxTZURfXczSf+ih4D1hE5GDTAz/FGHBHE9+wRHYbEgipO6mgdSt0xSk9oJnCiUgu4glXC3jmVDtambMdoQwHAUmxf/1/8q67tU=)
 
-    Whole solution with history of refactorings as commits: [https://github.com/takiarek/advent\_of\_code\_2023\_day\_3/tree/day\_3](https://github.com/takiarek/advent_of_code_2023_day_3/tree/day_3)
+    Whole solution with history of refactorings as commits: https://github.com/takiarek/advent_of_code_2023_day_3/tree/day_3
   :replies: []
 - :author: Best_Pirate_69
   :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kc9o9dh/
@@ -501,11 +501,11 @@
 - :author: Sharparam
   :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs8gke/
   :body: |-
-    Too long to paste today: [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb)
+    Too long to paste today: https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb
 
     I need to go back and clean this up, but at least it works. Had a number of bugs that took me too long to notice. Edit: Cleaned it up a bit now, still not ideal but at least there's no ugly code dupe anymore.
 
-    The big one was that I didn't clear my "number buffer" when a symbol happened directly between two numbers on a line, so `123*456` on a line would be parsed as the single number `123456`.
+    The big one was that \>!I didn't clear my "number buffer" when a symbol happened directly between two numbers on a line, so `123*456` on a line would be parsed as the single number `123456`!\<.
   :replies: []
 - :author: PassifloraCaerulea
   :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsdpcp/
@@ -523,14 +523,14 @@
   :body: |-
     really struggled today.
 
-    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day03/day03.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day03/day03.rb)
+    https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day03/day03.rb
   :replies: []
 - :author: vinc686
   :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsq0ib/
   :body: |-
     My code is ugly :(
 
-    [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03)
+    https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03
   :replies: []
 - :author: Chemical-Mixture1942
   :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbt7my5/

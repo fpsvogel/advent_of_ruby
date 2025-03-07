@@ -186,11 +186,11 @@
 - :author: Infinite-Club4374
   :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1chhwm/
   :body: |-
-    (the best duh)
+    (the%20best%20duh)
 
     Decided that this scenario would be perfect for a recursive solution, probably my most elegant lol?
 
     Solution 1 was 27 lines and solution 2 is 22, I’ll take it
 
-    [https://github.com/Leftyxiv/advent\_of\_code/blob/main/2024/day10/day10.rb](https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day10/day10.rb)
+    https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day10/day10.rb
   :replies: []

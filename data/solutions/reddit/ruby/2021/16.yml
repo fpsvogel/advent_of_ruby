@@ -83,7 +83,7 @@
     We begin by parsing the hex input into binary, taking care to use [Kernel#sprintf](https://ruby-doc.org/core-3.0.0/Kernel.html#method-i-sprintf) to pad with leading zeroes.
 
     ```ruby
-    data = open("input").read.chars.map{sprintf('%04b', _1.to_i(16))}.join("")
+        data = open("input").read.chars.map{sprintf('%04b', _1.to_i(16))}.join("")
     ```
 
     Next, three methods to help us parse the input. `parse_packet` is the main function, which calls `parse_literal` if it's a literal value, and `parse_several_packets` if it's an operator.

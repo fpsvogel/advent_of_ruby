@@ -6,7 +6,7 @@
 
     ```ruby
     n=$<.sum{_1.chop.chars.reduce(0){|m,c|m*5+'=-012'.index(c)-2}}
-    s='';while n>0;r=n%5;n=n/5+(r>2?1:0);s=r.to_s.tr('34','=-')+s;end;$><
+    s='';while n>0;r=n%5;n=n/5+(r>2?1:0);s=r.to_s.tr('34','=-')+s;end;$><<s
     ```
   :replies:
   - :author: jstanley0
@@ -37,7 +37,7 @@
           ```ruby
           d='=-012'
           n=$<.sum{|t|t.chop.chars.reduce(0){_1*5+d.index(_2)-2}}
-          s='';while n>0;n+=2;s=d[n%5]+s;n/=5;end;$><
+          s='';while n>0;n+=2;s=d[n%5]+s;n/=5;end;$><<s
           ```
         :replies: []
 - :author: careyi4
@@ -75,5 +75,5 @@
       :replies: []
 - :author: Nnnes
   :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l1d2h/
-  :body: "# Ruby\n\n116/100 I got my first point since day 1 \U0001F389\n\n```ruby\ndef s2d(s) = s.tr('=\\-012', '01234').to_i(5).then{ |x|\n  x - ('2' * x.to_s(5).size).to_i(5) }\ndef d2s(d) = (('2' * d.to_s(5).size).to_i(5) + d).to_s(5).tr('01234', '=\\-012')\n\nputs d2s(STDIN.readlines.map{ |x| s2d(x) }.sum)\n```\n\nDon't need any modulos or iterating over digits with this method. Just some conversion in and out of normal base 5.\n\nmy actual solution was to manually change digits until it matched lol. I wrote this afterwards"
+  :body: "# Ruby\n\n116/100 I got my first point since day 1 \U0001F389\n\n```ruby\ndef s2d(s) = s.tr('=\\-012', '01234').to_i(5).then{ |x|\n  x - ('2' * x.to_s(5).size).to_i(5) }\ndef d2s(d) = (('2' * d.to_s(5).size).to_i(5) + d).to_s(5).tr('01234', '=\\-012')\n\nputs d2s(STDIN.readlines.map{ |x| s2d(x) }.sum)\n```\n\nDon't need any modulos or iterating over digits with this method. Just some conversion in and out of normal base 5.\n\n> !my actual solution was to manually change digits until it matched lol. I wrote this afterwards!\\<"
   :replies: []

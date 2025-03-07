@@ -16,34 +16,33 @@
     [https://github.com/kevinluo201/aoc/blob/main/2022/day7/day7.rb](https://github.com/kevinluo201/aoc/blob/main/2022/day7/day7.rb)Basically, I build a class to handle each directory.
 
     ```ruby
-    class Directory
+        class Directory
           attr_accessor :name, :parent, :subdirectories, :files
-    ```ruby
-    def initialize(name, parent = nil)
-        @name = name
-        @parent = parent
-        @subdirectories = {}
-        @files = {}
-      end
 
-      def read(line)
-        a, b = line.split(' ')
-        if a == 'dir'
-          @subdirectories[b] ||= Directory.new(b, self)
-        else
-          @files[b] = a.to_i
+          def initialize(name, parent = nil)
+            @name = name
+            @parent = parent
+            @subdirectories = {}
+            @files = {}
+          end
+
+          def read(line)
+            a, b = line.split(' ')
+            if a == 'dir'
+              @subdirectories[b] ||= Directory.new(b, self)
+            else
+              @files[b] = a.to_i
+            end
+          end
+
+          def total_size
+            subdirectories.values.map(&:total_size).sum + files.values.sum
+          end
+
+          def traverse
+            [self, subdirectories.values.map(&:traverse)].flatten
+          end
         end
-      end
-
-      def total_size
-        subdirectories.values.map(&:total_size).sum + files.values.sum
-      end
-
-      def traverse
-        [self, subdirectories.values.map(&:traverse)].flatten
-      end
-    end
-    ```
     ```
   :replies: []
 - :author: tobyaw
@@ -51,7 +50,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_07.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_07.rb)
+    https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_07.rb
 
     Felt like a good opportunity to use some pattern matching.
 
@@ -80,7 +79,7 @@
     :replies:
     - :author: tobyaw
       :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9mpql/
-      :body: Pattern matching is a new feature that appeared in recent versions of Ruby. It can match both structure and content of data. A nice explanation is at [https://www.bootrails.com/blog/ruby-pattern-matching/](https://www.bootrails.com/blog/ruby-pattern-matching/)
+      :body: Pattern matching is a new feature that appeared in recent versions of Ruby. It can match both structure and content of data. A nice explanation is at https://www.bootrails.com/blog/ruby-pattern-matching/
       :replies:
       - :author: OwnAttention3370
         :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iza2ch6/
@@ -99,7 +98,7 @@
 
     warning, this `eval`s your input, it could delete your whole computer, etc
 
-    **[aoc\_2022\_07.sh](https://topaz.github.io/paste/#XQAAAQCJAwAAAAAAAAARiEJHiiMzw3cPNEFGz+vWeJ0ULOEYQ3lK9hE+f92PwtZcWJmuAKxTFdLB95WueFXFm4NIbqkUVp3g59T97jAjSliJYi04vn7boxMVUdoBpKelgRv8NX05aoTNf0XZ8V7yJ4xdULLUIJ46giDBU2uKAXDAx9mYDiCKs1e6p9fiog5RWs7D0w6MvaqU7+YhlQR9v3R36elFb11oMYDEKnWIfna+mAGoq4A3t49UWWKXJpPTBcEgb0Ib4ty0s3t/GsQa9Z1883KiFjFolcUlsKOEup8exWX0LJoZC78+xrBVd0sKQt9L940MaqzbIRA2oHe60lf3DDvObZE6DrGYSvqg5YKq52j8kjj3DtaMphbMgdexZv9fC2c4xFnVQsw2DAGiesLjv5LNcvX6X0QuvCBzPnT/xEsoVRbGLLIY0w2A7EGr8wzEnPLlpL+jiKq/wDc16WS4Q6iBRjsBeyFBuX7gGkbxVVAMai8PZZrKrLkDjBqCT+FdN6bnxXq4C+Eedr1UvLeGJIGo9GpnKIt32TFxDgvxeyF3iSNYQW0tRCPc4lNfhYqrZZVOJ8KceMoNxSzNGdHhLDUFXw0PL3oan6/NHsAbUFLrgEGCWRoOexiqqrFXuXEvUmk5PpBPyZ6VEyO22LJtVIj8odH/2v8UYPAA)**
+    **[aoc_2022_07.sh](https://topaz.github.io/paste/#XQAAAQCJAwAAAAAAAAARiEJHiiMzw3cPNEFGz+vWeJ0ULOEYQ3lK9hE+f92PwtZcWJmuAKxTFdLB95WueFXFm4NIbqkUVp3g59T97jAjSliJYi04vn7boxMVUdoBpKelgRv8NX05aoTNf0XZ8V7yJ4xdULLUIJ46giDBU2uKAXDAx9mYDiCKs1e6p9fiog5RWs7D0w6MvaqU7+YhlQR9v3R36elFb11oMYDEKnWIfna+mAGoq4A3t49UWWKXJpPTBcEgb0Ib4ty0s3t/GsQa9Z1883KiFjFolcUlsKOEup8exWX0LJoZC78+xrBVd0sKQt9L940MaqzbIRA2oHe60lf3DDvObZE6DrGYSvqg5YKq52j8kjj3DtaMphbMgdexZv9fC2c4xFnVQsw2DAGiesLjv5LNcvX6X0QuvCBzPnT/xEsoVRbGLLIY0w2A7EGr8wzEnPLlpL+jiKq/wDc16WS4Q6iBRjsBeyFBuX7gGkbxVVAMai8PZZrKrLkDjBqCT+FdN6bnxXq4C+Eedr1UvLeGJIGo9GpnKIt32TFxDgvxeyF3iSNYQW0tRCPc4lNfhYqrZZVOJ8KceMoNxSzNGdHhLDUFXw0PL3oan6/NHsAbUFLrgEGCWRoOexiqqrFXuXEvUmk5PpBPyZ6VEyO22LJtVIj8odH/2v8UYPAA)**
 
     (edit: moved code to topaz/paste url)
   :replies: []
@@ -165,7 +164,7 @@
 
       This is almost exactly the same as I did, only I talled the file sizes while traversing the tree.
 
-      [https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm\_source=reddit&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm_source=reddit&utm_medium=web2x&context=3)
+      https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm_source=reddit&utm_medium=web2x&context=3
     :replies:
     - :author: ignurant
       :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcg6dr/

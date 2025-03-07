@@ -4,7 +4,7 @@
   :body: |-
     # Ruby
 
-    [https://gist.github.com/Clashbuster/96ca00239a92b5cd684c449c514fe56e](https://gist.github.com/Clashbuster/96ca00239a92b5cd684c449c514fe56e)
+    https://gist.github.com/Clashbuster/96ca00239a92b5cd684c449c514fe56e
 
     Reddit code block is acting terribly for me, so it's a gist
   :replies: []
@@ -91,7 +91,7 @@
   :body: |-
     **Ruby 132 bytes**
 
-    While golfing the code down I discovered `Integer#<=>` [https://ruby-doc.org/core-2.5.0/Integer.html#method-i-3C-3D-3E](https://ruby-doc.org/core-2.5.0/Integer.html#method-i-3C-3D-3E)
+    While golfing the code down I discovered `Integer#<=>` https://ruby-doc.org/core-2.5.0/Integer.html#method-i-3C-3D-3E
 
     ```ruby
     q=Hash.new 0
@@ -168,16 +168,15 @@
     [https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/05.rb](https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/05.rb)
 
     ```ruby
-    rb
     SEGMENTS = ARGF.read.lines.map { _1.scan(/\d+/).map &:to_i }
 
     def points s
       x1, y1, x2, y2 = s
 
-    dx = x2 <=> x1
+      dx = x2 <=> x1
       dy = y2 <=> y1
 
-    if dx == 0
+      if dx == 0
         y1.step(y2, dy).map { [x1, _1] }
       elsif dy == 0
         x1.step(x2, dx).map { [_1, y1] }
@@ -206,7 +205,7 @@
 - :author: SnooConfections2453
   :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hndblo6/
   :body: |-
-    My solution in ruby: [https://github.com/ciscou/aoc/blob/master/2021/05.rb](https://github.com/ciscou/aoc/blob/master/2021/05.rb)
+    My solution in ruby: https://github.com/ciscou/aoc/blob/master/2021/05.rb
 
     Kinda looking for minimizing amount of lines of code while keeping a good enough readability
   :replies: []

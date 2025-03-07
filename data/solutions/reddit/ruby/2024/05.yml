@@ -227,7 +227,7 @@
 
     Later realized that you only really need to check one of these, and `Enumerable#partitions` lost a lot of its value. Still a fun experiment.
 
-    [https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day\_05.rb](https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day_05.rb)
+    https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day\_05.rb
   :replies: []
 - :author: Independent_Top_8716
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iy7eq/

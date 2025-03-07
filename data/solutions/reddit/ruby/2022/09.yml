@@ -4,7 +4,7 @@
   :body: |-
     Ruby solution! I'm not TOO ashamed, this time.
 
-    [https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb](https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb)
+    https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkb13t/
@@ -18,7 +18,7 @@
     :body: |-
       Another Ruby solution.
 
-      [https://github.com/JeffreyMPrice/adventofcode/blob/main/day09/day09.rb](https://github.com/JeffreyMPrice/adventofcode/blob/main/day09/day09.rb)
+      https://github.com/JeffreyMPrice/adventofcode/blob/main/day09/day09.rb
     :replies:
     - :author: careyi4
       :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkz1zo/
@@ -27,7 +27,7 @@
     - :author: SolarBear
       :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izlyx66/
       :body: |-
-        Here's mine! [https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb](https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb)
+        Here's mine! https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb
 
         It would need a bit of love: it kind of uses an array of knots, kind of uses knots as a linked list... it should do one or the other, but not both.
       :replies: []

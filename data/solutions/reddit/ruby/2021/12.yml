@@ -12,7 +12,7 @@
   :replies: []
 - :author: SnooConfections2453
   :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho93rd3/
-  :body: 'My solution in 50 lines of ruby: [https://github.com/ciscou/aoc/blob/master/2021/12.rb](https://github.com/ciscou/aoc/blob/master/2021/12.rb)'
+  :body: 'My solution in 50 lines of ruby: https://github.com/ciscou/aoc/blob/master/2021/12.rb'
   :replies: []
 - :author: AMusingMule
   :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hoa347u/
@@ -26,7 +26,7 @@
     :body: |-
       Thanks for sharing. I was having a hard time figuring out how to resolve completed routes in the recursive function. I’m not fluent with building up recursive stuff, but I figured it was something like what you had (building up another argument for completed routes). I tried something similar to that, but ended up having an issue where only one route per top level iteration was returning. I couldn’t figure out the “return completed and this route” at the exit clause, and then also return the completed routes at the bottom. Getting closer!
 
-      Anyway, here was my solution where I mapped in order to resolve that problem, and then had to write a recursive “untangle the mess function” haha: [https://github.com/ttilberg/advent-of-code-2021-rb/blob/main/2021/12/2.rb](https://github.com/ttilberg/advent-of-code-2021-rb/blob/main/2021/12/2.rb)
+      Anyway, here was my solution where I mapped in order to resolve that problem, and then had to write a recursive “untangle the mess function” haha: https://github.com/ttilberg/advent-of-code-2021-rb/blob/main/2021/12/2.rb
     :replies: []
 - :author: frontpageminus
   :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho7pzfq/

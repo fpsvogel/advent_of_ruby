@@ -17,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "faraday", "~> 2.0"
   spec.add_runtime_dependency "faraday-retry", "~> 2.0"
   spec.add_runtime_dependency "pastel", "~> 0.8"
+  spec.add_runtime_dependency "redcarpet", "~> 3.0"
   spec.add_runtime_dependency "reverse_markdown", "~> 2.0"
   spec.add_runtime_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "thor", "~> 1.0"

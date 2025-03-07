@@ -4,16 +4,16 @@
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day05.rb)
 
-    I went with the optimised solution for today's problem rather than brute force, although the latter probably would have been more efficient in terms of getting to bed sooner :) I found Ruby's `Range` class to be disappointingly Spartan for this problem: it may be worth writing some more extension methods in anticipation of future days. Regardless, taking advantage of the fact that mapping ranges are contiguous made the range maintenance decently reasonable.
+    I went with the optimised solution for today's problem rather than brute force, although the latter probably would have been more efficient in terms of getting to bed sooner :) I found Ruby's `Range` class to be disappointingly Spartan for this problem: it may be worth writing some more extension methods in anticipation of future days. Regardless, taking advantage of the fact that \>!mapping ranges are contiguous!\< made the range maintenance decently reasonable.
   :replies:
   - :author: glebm
     :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2ji8h/
     :body: |-
       Yeah Ruby should really add at least an `intersection` method for Ranges. Wanna submit a proposal?
 
-      `Range#overlap?` was added just a few months ago without much pushback [https://bugs.ruby-lang.org/issues/19839](https://bugs.ruby-lang.org/issues/19839) [https://github.com/ruby/ruby/blob/8bdd28da74ff1242a82c2003d59fef4de9ffc331/range.c#L2341](https://github.com/ruby/ruby/blob/8bdd28da74ff1242a82c2003d59fef4de9ffc331/range.c#L2341)
+      `Range#overlap?` was added just a few months ago without much pushback https://bugs.ruby-lang.org/issues/19839 https://github.com/ruby/ruby/blob/8bdd28da74ff1242a82c2003d59fef4de9ffc331/range.c#L2341
 
-      `Range#empty?` was rejected 2 months ago but may be accepted in the future. [https://bugs.ruby-lang.org/issues/13933](https://bugs.ruby-lang.org/issues/13933)
+      `Range#empty?` was rejected 2 months ago but may be accepted in the future. https://bugs.ruby-lang.org/issues/13933
     :replies:
     - :author: HAEC_EST_SPARTA
       :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2k8sb/
@@ -81,7 +81,7 @@
   :replies: []
 - :author: Educational_Pie7376
   :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc3392l/
-  :body: "[https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb](https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb)"
+  :body: https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bwhb/
@@ -200,18 +200,18 @@
     puts seeds.min_by(&:first).first
     ```
 
-    All my solutions: [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+    All my solutions: https://github.com/glebm/advent-of-code
   :replies: []
 - :author: lycheejuice225
   :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2lald/
   :body: |-
     Both parts are optimized to be done within couple hundred of millseconds.
 
-    [https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_a.rb](https://github.com/Animeshz/AdventOfCode2023/blob/main/day5_a.rb)
+    https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_a.rb
 
-    [https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_b.rb](https://github.com/Animeshz/AdventOfCode2023/blob/main/day5_b.rb)
+    https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_b.rb
   :replies: []
 - :author: KULKING
   :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc33uyt/
-  :body: 'Part 1 & Part 2: [https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer](https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer)'
+  :body: 'Part 1 & Part 2: https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer'
   :replies: []

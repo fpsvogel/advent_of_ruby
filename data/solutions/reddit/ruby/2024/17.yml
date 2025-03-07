@@ -4,7 +4,7 @@
   :body: |-
     late to the party, because I didn't think my approach through the end
 
-    After reverse engineering the code I noticed, that each output is based on a few octal input digits of the A register. I first thought it was 3 and I was wondering why 50% of my solutions were off by 1 digit after running my program, until I was given the hint by [u/IsatisCrucifer](/u/IsatisCrucifer) that it was actually 4 digits.
+    After reverse engineering the code I noticed, that each output is based on a few octal input digits of the A register. I first thought it was 3 and I was wondering why 50% of my solutions were off by 1 digit after running my program, until I was given the hint by u/IsatisCrucifer that it was actually 4 digits.
 
     So my actual algorithm for part 2 first builds all possible octal digit tuples for every output digit 0-7. These are used to backtrace the program digits into all possible digit combinations, joined by the predecessors and successors. The minimum of these converted to decimal should be the required value for register A.
 

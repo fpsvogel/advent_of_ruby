@@ -82,14 +82,16 @@
 
     ```ruby
     i=*$<;h,w=i.size,i[0].size
-    c=->(x,y,a,b){"XMAS".chars.all?{y>=0&&y
+    c=->(x,y,a,b){"XMAS".chars.all?{y>=0&&y<h&&i[y][x]==_1&&(x+=a;y+=b)}?1:0}
+    p (h*w*9).times.sum{|i|c[i%h,i/h%w,i/h/w%3-1,i/h/w/3-1]}
     ```
 
     part 2 golfed: 190 bytes
 
     ```ruby
     i=*$<;h,w=i.size,i[0].size
-    c=->(x,y,a,b){"MAS".chars.all?{y>=0&&y
+    c=->(x,y,a,b){"MAS".chars.all?{y>=0&&y<h&&i[y][x]==_1&&(x+=a;y+=b)}?1:0}
+    p (h*w).times.sum{|x|[-1,1].sum{|a|c[x%w-a,x/w-a,a,a]}*[-1,1].sum{|a|c[x%w-a,x/w+a,a,-a]}}
     ```
   :replies:
   - :author: '442401'

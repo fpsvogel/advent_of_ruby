@@ -158,7 +158,7 @@
   :body: |-
     Ruby
 
-    Did everything with Range objects and the "cover?" method.[https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day04/solution.rb](https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day04/solution.rb)
+    Did everything with Range objects and the "cover?" method. https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day04/solution.rb
   :replies: []
 - :author: DanZuko420
   :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywjta7/
@@ -234,7 +234,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_04.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_04.rb)
+    https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_04.rb
 
     ```ruby
     input = File.read('day_04_input.txt')
@@ -513,7 +513,7 @@
   :body: |-
     # Ruby
 
-    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day04/day04.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2022/day04/day04.rb)
+    https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day04/day04.rb
 
     with golfed solutions
 
@@ -602,9 +602,9 @@
   :body: |-
     Ruby
 
-    Code: [https://github.com/careyi3/aoc\_2022/tree/master/solutions/4](https://github.com/careyi3/aoc_2022/tree/master/solutions/4)
+    Code: https://github.com/careyi3/aoc\_2022/tree/master/solutions/4
 
-    Video Walkthrough: [https://youtu.be/ZiPmNii7faU](https://youtu.be/ZiPmNii7faU)
+    Video Walkthrough: https://youtu.be/ZiPmNii7faU
   :replies: []
 - :author: InevitableYak1979
   :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvuc6m/
@@ -621,7 +621,8 @@
     def part2(assignment_pairs)
         assignment_pairs.count { |a, b| !a.to_a.intersection(b.to_a).empty? }
     end
-    # "1-2,3-4" -\> [1..2, 3..4]
+
+    # "1-2,3-4" -> [1..2, 3..4]
     assignment_pairs = input.map { |pair| pair.split(",").map { |range_s| range_s.split("-").map(&:to_i) }.map { |b, e| b..e } }
 
     p part1(assignment_pairs)

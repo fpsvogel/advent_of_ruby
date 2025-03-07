@@ -101,7 +101,7 @@
 
     In part 2, we define `tilt_south/west/east` in terms of `tilt_north`, transposition, and reversal. We then cycle until we find a configuration that we've seen before, indicating a repeating pattern.
 
-    [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+    https://github.com/glebm/advent-of-code
   :replies:
   - :author: globalreset
     :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdafdnz/
@@ -159,9 +159,9 @@
 
     Ruby solution runs in 200 ms, and Haskell in 50 ms. Both implementations represent the grid as a pair of (height\*width)-bit integers (one for the blocks, one for the rocks) and use bit-shifting to determine which rocks can move and move all movable rocks simultaneously. This is the same technique as is used to make the fast 2021 day 25 and 2022 day 23 solutions.
 
-    Ruby: [14\_parabolic\_reflector\_dish.rb](https://github.com/petertseng/adventofcode-rb-2023/blob/master/14_parabolic_reflector_dish.rb)
+    Ruby: [14_parabolic_reflector\_dish.rb](https://github.com/petertseng/adventofcode-rb-2023/blob/master/14_parabolic_reflector_dish.rb)
 
-    Haskell: [14\_parabolic\_reflector\_dish.hs](https://github.com/petertseng/adventofcode-hs-2023/blob/master/bin/14_parabolic_reflector_dish.hs)
+    Haskell: [14_parabolic_reflector\_dish.hs](https://github.com/petertseng/adventofcode-hs-2023/blob/master/bin/14_parabolic_reflector_dish.hs)
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1uax/

@@ -35,7 +35,7 @@
     end
     ```
 
-    I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force [https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706](https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706)
+    I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706
   :replies: []
 - :author: adherry
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00r8jc/
@@ -151,7 +151,7 @@
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQDdAgAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ZrE9yw9d+ctWKcaSkOKfcmYiy2wP4+D4BSgAd5xpef/i0FFExLUzl8+s3srYAeYV5C84s00uBfTf6IfDuMqSYX979rxWt4A6rhyFOEJkGgG4g3u2D3nuHlCc4s73egxXwgJZE6RHkA9KvxGL6FIObMJQqGkPk6bDqCb68JbzfvjIqP9umTLpR2VV6b1DxPue/qU2jPwfg5Fsc9DlODkb5VwGyYzle711NuiKYzpgl2t7/4CFydG4XrOvU+8i7711FRlHOSzn0BcG9YpopQW3yp7oVfhN/ta4+54cBrMTJpArHoMlEKpQlRGA1gBXqLFA4aFI6cDvLimx02ARU51/6pqL5dZqWpZJt0CvjQlpOWQb9EY6h8PuLIzu7xMD3pLAecg0LKFSKIToaUxU5pLZ+h0ELY72iHyiFI9womjv1mif6uvAX/1ossQA=)
 
-    O(n<sup>2)</sup> brute force. Cannot imagine doing this in one pass but two pass is likely possible. That logic will probably be quite involved and I have other things to do.
+    O(n^2) brute force. Cannot imagine doing this in one pass but two pass is likely possible. That logic will probably be quite involved and I have other things to do.
   :replies: []
 - :author: XtremeNolaner
   :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m045adg/

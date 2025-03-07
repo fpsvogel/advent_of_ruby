@@ -74,7 +74,7 @@
 
     First, I am really happy that Ruby allows setting a default value that will be returned, when a key is not known. This really helps keeping a lot of the boilerplate checks (are we still in bounds, etc) out of the code.
 
-    Also this year has tought me that a lot of times it does not make sense to create an Array of Arrays to store a matrix, as this will explode quickly, but instead going with the `Hash` "pattern".
+    Also this year has tought me that a lot of times it does not make sense to create an Array of Arrays to store a matrix, as this will explode quickly, but instead going with the `Hash<Point, Value>` "pattern".
 
     Really happy how it turned out, eventhough it took me a while to find the solution that I need to look at the 0-index item of the "algorithm" to figure out that I need to flip the default value.
 

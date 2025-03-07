@@ -223,7 +223,7 @@
   :body: |-
     simple Ruby solution..
 
-    [https://topaz.github.io/paste/#XQAAAQD/AAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwmQTxpvYqfn/WzgEEWBwIB+mywy2GikxWQ4hPwmjdCcHX1IbJZx2dDAedN9rOh3RcGbDK3JV7hBronMBGj6VS2QHkwELEyBhisBpJmh63t+UIgOPjvVWUdqj6n+VXoSvxc4EshLFWaAoi4O7pSaXXHJYJf8C1pdmYm6VyR8mApbC1gvnlakU/hi35R8wLcYnd5hJcTdY+EVl40jafvwSIEA=](https://topaz.github.io/paste/#XQAAAQD/AAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwmQTxpvYqfn/WzgEEWBwIB+mywy2GikxWQ4hPwmjdCcHX1IbJZx2dDAedN9rOh3RcGbDK3JV7hBronMBGj6VS2QHkwELEyBhisBpJmh63t+UIgOPjvVWUdqj6n+VXoSvxc4EshLFWaAoi4O7pSaXXHJYJf8C1pdmYm6VyR8mApbC1gvnlakU/hi35R8wLcYnd5hJcTdY+EVl40jafvwSIEA=)
+    https://topaz.github.io/paste/#XQAAAQD/AAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwmQTxpvYqfn/WzgEEWBwIB+mywy2GikxWQ4hPwmjdCcHX1IbJZx2dDAedN9rOh3RcGbDK3JV7hBronMBGj6VS2QHkwELEyBhisBpJmh63t+UIgOPjvVWUdqj6n+VXoSvxc4EshLFWaAoi4O7pSaXXHJYJf8C1pdmYm6VyR8mApbC1gvnlakU/hi35R8wLcYnd5hJcTdY+EVl40jafvwSIEA=
   :replies: []
 - :author: BluFoot
   :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfc1ob/
@@ -361,7 +361,7 @@
   :body: |-
     Solution in Ruby. Runs in under 1/10th of a second.
 
-    Spoiler Alert: Use a hash instead of an array.
+    Spoiler Alert: \>!Use a hash instead of an array.!\<
 
     ```ruby
     def lifecycle(ticks = 80)
@@ -400,23 +400,21 @@
       population = File.read('input').strip.split(',').map(&:to_i)
       counter = (0..8).to_a.map{ |item| [item, population.count(item)] }.to_h
 
-    (1..days).each do |day|
-    ```ruby
-    counter = (0..8).to_a.map do |item|
-      case item
-      when 0..5, 7
-        [item, counter[item + 1]]
-      when 6
-        [item, counter[item + 1] + counter[0]]
-      when 8
-        [item, counter[0]]
+      (1..days).each do |day|
+
+        counter = (0..8).to_a.map do |item|
+          case item
+          when 0..5, 7
+            [item, counter[item + 1]]
+          when 6
+            [item, counter[item + 1] + counter[0]]
+          when 8
+            [item, counter[0]]
+          end
+        end.to_h
+
+        puts "Day: #{day} | #{counter.to_a.map(&:last).sum}"
       end
-    end.to_h
-
-    puts "Day: #{day} | #{counter.to_a.map(&:last).sum}"
-    ```
-
-    end
 
     end
     ```
@@ -532,10 +530,10 @@
       return population(GAP, day + 1) + population(COOLDOWN, day + 1) if timer == 0
       return CACHE[timer - 1][day + 1] if CACHE[timer - 1] && CACHE[timer - 1][day + 1]
 
-    CACHE[timer - 1] ||= {}
+      CACHE[timer - 1] ||= {}
       CACHE[timer - 1][day + 1] = population(timer - 1, day + 1)
 
-    return CACHE[timer - 1][day + 1]
+      return CACHE[timer - 1][day + 1]
     end
 
     fishes = File.read('input.txt').split(',').map(&:to_i)

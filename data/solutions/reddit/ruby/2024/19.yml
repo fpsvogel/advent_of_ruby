@@ -226,7 +226,7 @@
     For part 1, a simple recursive function did the trick:
 
     ```ruby
-    def can_make?(towel, patterns)
+        def can_make?(towel, patterns)
           return true if towel.empty?
 
           pats = patterns.select { |pat| towel.start_with?(pat) }
@@ -237,7 +237,7 @@
     For part 2, adding memoization was necessary. Without it, the code will probably never finish. As seen here, the code completes in about 0.7 seconds.
 
     ```ruby
-    def variations(towel, patterns, memo = {})
+        def variations(towel, patterns, memo = {})
           return 1 if towel.empty?
           return memo[towel] if memo.key?(towel)
 

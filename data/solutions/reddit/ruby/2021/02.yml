@@ -10,7 +10,7 @@
         File.readlines('input.txt', chomp: true)
       end
 
-    def getPosition(input)
+      def getPosition(input)
         horizontal_position = 0
         depth_position = 0
         input.each do |x|
@@ -28,7 +28,7 @@
         horizontal_position * depth_position
       end
 
-    def getAccuratePosition(input)
+      def getAccuratePosition(input)
         horizontal_position = 0
         depth_position = 0
         aim = 0
@@ -161,7 +161,7 @@
       dang, that's good. Mine was a few characters longer and I assume I've already got the lines as an array.
 
       ```ruby
-      h,a,d=0,0,0
+        h,a,d=0,0,0
         lines.map(&:split).each{|k,i|v=i.to_i;if k[?f];h+=v;d+=(a*v)end;a+=v if k[?n];a-=v if k[?u]}
         p h*d
       ```
@@ -179,7 +179,7 @@
 
     with both normal and golfed solutions:
 
-    [https://github.com/snowe2010/advent-of-code/blob/8771b40cad30e0cf9bf5f4662351d62bd05e6d5c/ruby\_aoc/2021/day02/day02.rb](https://github.com/snowe2010/advent-of-code/blob/8771b40cad30e0cf9bf5f4662351d62bd05e6d5c/ruby_aoc/2021/day02/day02.rb)
+    https://github.com/snowe2010/advent-of-code/blob/8771b40cad30e0cf9bf5f4662351d62bd05e6d5c/ruby\_aoc/2021/day02/day02.rb
 
     ## p1 ungolfed:
 
@@ -286,11 +286,11 @@
         :body: |-
           It is under Leaderboard -\> Personal Stats, in case someone else can't find it:
 
-          [https://adventofcode.com/2021/leaderboard/self](https://adventofcode.com/2021/leaderboard/self)
+          https://adventofcode.com/2021/leaderboard/self
         :replies:
         - :author: AbdussamiT
           :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc0k7/
-          :body: Found it, thanks! Thanks to you too [u/MasterMedo](/u/MasterMedo)
+          :body: Found it, thanks! Thanks to you too u/MasterMedo
           :replies: []
       - :author: TransdermalHug
         :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwaxlb/
@@ -301,7 +301,7 @@
   :body: |-
     ## Ruby
 
-    [https://github.com/zsarge/advent-of-code-2021/blob/main/solutions/02/solve2.rb](https://github.com/zsarge/advent-of-code-2021/blob/main/solutions/02/solve2.rb)
+    https://github.com/zsarge/advent-of-code-2021/blob/main/solutions/02/solve2.rb
   :replies:
   - :author: '442401'
     :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwcr3x/
@@ -320,7 +320,7 @@
         :replies: []
     - :author: BluFoot
       :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdsa8/
-      :body: This works if you can read it [https://www.reddit.com/r/adventofcode/comments/r6zd93/comment/hmwdm4d/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/r6zd93/comment/hmwdm4d/?utm_source=share&utm_medium=web2x&context=3)
+      :body: This works if you can read it https://www.reddit.com/r/adventofcode/comments/r6zd93/comment/hmwdm4d/?utm_source=share&utm_medium=web2x&context=3
       :replies:
       - :author: '442401'
         :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwkcla/
@@ -474,7 +474,7 @@
 
       The method get\_location does a lot. I implemented mine, with distinct, forward, down, up methods.
 
-      If you want to have a look [https://github.com/RolandStuder/advent\_of\_code/commit/cb9b385e498e484389a0f427eee532fa6869cd89#diff-1d1f139bb117ffdb7a31574ad444cf143b84e2b843b9342644093f8a00210377](https://github.com/RolandStuder/advent_of_code/commit/cb9b385e498e484389a0f427eee532fa6869cd89#diff-1d1f139bb117ffdb7a31574ad444cf143b84e2b843b9342644093f8a00210377)
+      If you want to have a look https://github.com/RolandStuder/advent_of_code/commit/cb9b385e498e484389a0f427eee532fa6869cd89#diff-1d1f139bb117ffdb7a31574ad444cf143b84e2b843b9342644093f8a00210377
 
       Though I kept converting instructions to method calls out of the class.
     :replies:
@@ -490,7 +490,7 @@
         :body: |-
           Sure, so the public API is the the way how you interact with an object from the outside.
 
-          To compare your class has the following public methods: split\_direction\_and\_distance / distance\_to\_i / get\_location and new (I am ignoring the attr\_accessors for the moment. So most of those could probably be private methods. But more importantly the only way to interact with you SubmarineNavigation Object is to initialize set the `instructions`. To be fair this is exactly what the task requires. Give a list of instructions and execute them. But if I would have to interact with such an object in a codebase, I would really prefer to be able to call: `submarine.forward(5)` as opposed to `submarine.instructions << "FORWARD 5"`
+          To compare your class has the following public methods: split_direction_and_distance / distance_to_i / get_location and new (I am ignoring the attr\_accessors for the moment. So most of those could probably be private methods. But more importantly the only way to interact with you SubmarineNavigation Object is to initialize set the `instructions`. To be fair this is exactly what the task requires. Give a list of instructions and execute them. But if I would have to interact with such an object in a codebase, I would really prefer to be able to call: `submarine.forward(5)` as opposed to `submarine.instructions << "FORWARD 5"`
 
           So how you let people interact with your submarine object is the public API. So if you have a public api, with method like :forward, :up, :down it is nicer to interact with.
 
@@ -498,5 +498,5 @@
         :replies: []
 - :author: maattdd
   :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyaqgp/
-  :body: 'Functional Ruby : [https://gist.github.com/maattdd/09ad91d44cf337857ed0d58f6a4d7be7](https://gist.github.com/maattdd/09ad91d44cf337857ed0d58f6a4d7be7)'
+  :body: 'Functional Ruby : https://gist.github.com/maattdd/09ad91d44cf337857ed0d58f6a4d7be7'
   :replies: []

@@ -134,7 +134,7 @@
       :body: |-
         Ooh, I really like that! I seem to be learning about new Enumerable methods every day during AOC. Thanks for sharing that. :)
 
-        Refactored solution: [https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb](https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb)
+        Refactored solution: https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb
       :replies: []
 - :author: HornedKavu
   :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pja6/
@@ -174,7 +174,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/radiales/aoc/blob/master/D6A2.rb](https://github.com/radiales/aoc/blob/master/D6A2.rb)
+    https://github.com/radiales/aoc/blob/master/D6A2.rb
   :replies: []
 - :author: "[deleted]"
   :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3o45q/
@@ -282,7 +282,7 @@
     I also code golfed this one just for fun, and got it down to 88 characters
 
     ```ruby
-    puts File.read('i').split('').reduce([]){|p,c|p.size<4||p[-4,4].uniq.size<4?p<
+    puts File.read('i').split('').reduce([]){|p,c|p.size<4||p[-4,4].uniq.size<4?p<<c:p}.size
     ```
   :replies: []
 - :author: ignurant
@@ -320,7 +320,7 @@
     require 'net/http'
     require 'uri'
 
-    uri = URI.parse('[https://gist.githubusercontent.com/matass/c5d3198e7ca6102894d7c01349ea3e01/raw/9a8a27e19397cfa503ea4c9ea5c866b938972daa/day\_6'](https://gist.githubusercontent.com/matass/c5d3198e7ca6102894d7c01349ea3e01/raw/9a8a27e19397cfa503ea4c9ea5c866b938972daa/day_6'))
+    uri = URI.parse('https://gist.githubusercontent.com/matass/c5d3198e7ca6102894d7c01349ea3e01/raw/9a8a27e19397cfa503ea4c9ea5c866b938972daa/day_6')
 
     request = Net::HTTP::Get.new(uri)
     response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
@@ -401,7 +401,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_06.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_06.rb)
+    https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_06.rb
 
     ```ruby
     input = File.read('day_06_input.txt').chars

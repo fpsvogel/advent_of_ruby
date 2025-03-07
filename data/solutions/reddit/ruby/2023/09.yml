@@ -78,7 +78,7 @@
       I'm currently golfing my solution so thought I'd see if anyone else was so neat to see your post! :) I'm currently at 123 bytes:
 
       ```ruby
-      p $<.map{|a|->l{l<
+      p $<.map{|a|->l{l<<l[-1].each_cons(2).map{_2-_1} until l[-1].uniq.size<2;l.reverse.sum{_1[-1]}}[[a.split.map(&:to_i)]]}.sum
       ```
 
       Going to look at yours now though as you have some different approaches. I also think mine is very brittle, but it's fine on the input.
@@ -104,7 +104,7 @@
         :body: |-
           You might really dig this. Benoit Daloze got it to 95 bytes!
 
-          [https://twitter.com/eregontp/status/1733541643469398397](https://twitter.com/eregontp/status/1733541643469398397)
+          https://twitter.com/eregontp/status/1733541643469398397
 
           (Part one only, so yours is better in terms of solutions per byte ;-))
         :replies: []
@@ -121,7 +121,7 @@
           I got to 95 bytes:
 
           ```ruby
-          p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<
+          p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<<s=s.each_cons(2).map{_2-_1}until s.all?0;r.sum(&:last)}
           ```
 
           The key part was to not append anything but just sum the last element of each row.
@@ -231,7 +231,7 @@
 - :author: comforttiger
   :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmsy4k/
   :body: |-
-    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day9.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day9.rb)
+    https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day9.rb
 
     im glad today was easier than yesterday. but im ready for tomorrow to be super hard
   :replies: []
@@ -241,7 +241,7 @@
     To determine if the end condition was met, I first used "line.sum != 0" instead of "line.uniq != [0]". Took a long time to figure out because works fine on the test input and only two lines in the real input eventually reduce to an array that sums to 0 but isn't all zeros. Doh!! Don't do that.
 
     ```ruby
-    history = File.read('test.txt').split("\n").map{_1.scan(/[-]?[0-9]+/).map(&:to_i)}
+        history = File.read('test.txt').split("\n").map{_1.scan(/[-]?[0-9]+/).map(&:to_i)}
 
         def calculate(line)
           # only interested in the last value in each reduction
@@ -275,7 +275,7 @@
   :body: |-
     I found today really easy thankfully. Hardest part was remembering the language features haha
 
-    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day09/day09.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day09/day09.rb)
+    https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day09/day09.rb
 
     ```ruby
     def get_subsequent_reading(reading)
@@ -500,7 +500,7 @@
     Part 1 golfed to 95 bytes:
 
     ```ruby
-    p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<
+    p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<<s=s.each_cons(2).map{_2-_1}until s.all?0;r.sum(&:last)}
     ```
   :replies: []
 - :author: glebm
@@ -566,18 +566,17 @@
   :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm01va/
   :body: |-
     ```ruby
-    rb
     ans = 0
     while line=gets
       seq = line.scan(/-?\d+/).map(&:to_i)
 
-    last = []
+      last = []
       while !seq.all? { |e| e == 0 } do
         last << seq[-1]
         seq = seq.each_cons(2).map { |a, b| b-a }
       end
 
-    ans += last.reverse.reduce { |a, b| a+b }
+      ans += last.reverse.reduce { |a, b| a+b }
     end
 
     puts ans

@@ -1,12 +1,12 @@
 ---
 - :author: snowe2010
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcgpsmc/
-  :body: "[https://github.com/snowe2010/advent-of-code/blob/master/ruby\\_aoc/2023/day07/day07.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day07/day07.rb)"
+  :body: https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day07/day07.rb
   :replies: []
 - :author: Symbroson
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kce2h0w/
   :body: |-
-    Update to my [previous solution](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccvf0a/), applying shannons entropy as suggested by [u/sinsworth](/u/sinsworth) [here](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccov05/)
+    Update to my [previous solution](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccvf0a/), applying shannons entropy as suggested by u/sinsworth [here](https://www.reddit.com/r/adventofcode/comments/18cnzbm/comment/kccov05/)
 
     The strength value is now calculated by this function, which sums the squares of the counts of every character. Previously my sorting function appended the strength as digit 0-6. The squares are larger so I just use `chr` to convert the number to a single character
 
@@ -95,7 +95,7 @@
 
             I recall seeing that `c[...]` syntax somewhere, thanks for reminding. There's a lot of ways in ruby to do things.
 
-            I ended up shrinking that quite a bit further by combining [u/Any-Razzmatazz-4792](/u/Any-Razzmatazz-4792)'s solution.
+            I ended up shrinking that quite a bit further by combining u/Any-Razzmatazz-4792's solution.
           :replies:
           - :author: Symbroson
             :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kch9kkw/
@@ -103,7 +103,7 @@
             :replies: []
     - :author: Any-Razzmatazz-4792
       :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcfj1pk/
-      :body: 'I love golfing in ruby, and I was golfing this one too. I got 125 bytes for pt1 and 165 for pt2 (those counts don''t include the shebang line). Here are my solutions: [https://github.com/Nico-Posada/Advent-Of-Code-2023/tree/main/Day-7](https://github.com/Nico-Posada/Advent-Of-Code-2023/tree/main/Day-7)'
+      :body: 'I love golfing in ruby, and I was golfing this one too. I got 125 bytes for pt1 and 165 for pt2 (those counts don''t include the shebang line). Here are my solutions: https://github.com/Nico-Posada/Advent-Of-Code-2023/tree/main/Day-7'
       :replies:
       - :author: Symbroson
         :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcgp8r5/
@@ -180,7 +180,7 @@
 - :author: Sharparam
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcc12z0/
   :body: |-
-    A wordy one today, and a bit big to paste here: [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/07/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/07/solve.rb)
+    A wordy one today, and a bit big to paste here: https://github.com/Sharparam/advent-of-code/blob/main/src/2023/07/solve.rb
 
     Not very difficult for an odd day :)
   :replies: []
@@ -194,7 +194,7 @@
 - :author: comforttiger
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kcceb9r/
   :body: |-
-    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day7.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day7.rb)
+    https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day7.rb
 
     this one was fun to solve :)
 
@@ -261,7 +261,7 @@
     }.each_with_index.map { |(hand, score), i| score * (hands.size - i) }.sum
     ```
 
-    All solutions: [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+    All solutions: https://github.com/glebm/advent-of-code
   :replies: []
 - :author: SleepingInsomniac
   :url: https://www.reddit.com/r/adventofcode/comments/18cnzbm/2023_day_7_solutions/kceqv1x/

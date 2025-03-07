@@ -323,16 +323,16 @@
   :body: |-
     Ruby : it would be necessary to refacto a little but it works
 
-    [https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_2](https://gitlab.com/LeChPunk/advent%5C_of%5C_code/-/tree/main/day%5C_2)
+    https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_2
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylys3x/
   :body: |-
     Ruby
 
-    Code: [https://github.com/careyi3/aoc\_2022/tree/master/solutions/2](https://github.com/careyi3/aoc_2022/tree/master/solutions/2)
+    Code: https://github.com/careyi3/aoc\_2022/tree/master/solutions/2
 
-    Walkthrough Video: [https://youtu.be/xOBDPcArRno](https://youtu.be/xOBDPcArRno)
+    Walkthrough Video: https://youtu.be/xOBDPcArRno
   :replies: []
 - :author: ni3t
   :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymwgn0/
@@ -370,7 +370,7 @@
   :body: |-
     My solution using ruby:
 
-    [https://i.4cdn.org/g/1669961230103649.png](https://i.4cdn.org/g/1669961230103649.png)
+    https://i.4cdn.org/g/1669961230103649.png
   :replies: []
 - :author: tom_collier2002
   :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyneq6z/
@@ -398,9 +398,9 @@
     def rps_win(move1, move2)
       return DRAW if move1 == move2
 
-    idx = ORDER.index(move1)
+      idx = ORDER.index(move1)
 
-    return move2 == ORDER[(idx + 1) % ORDER.length] ? WIN : LOSS
+      return move2 == ORDER[(idx + 1) % ORDER.length] ? WIN : LOSS
     end
 
     def score(move1, move2)
@@ -410,7 +410,7 @@
     def winning_move(move1, me)
       idx = ORDER.index(move1)
 
-    case me
+      case me
       when 'X'
         ORDER[idx - 1]
       when 'Y'
@@ -429,7 +429,7 @@
       move1 = ORDER[opponent.ord - 'A'.ord]
       move2 = ORDER[me.ord - 'X'.ord]
 
-    total1 += score(move1, move2)
+      total1 += score(move1, move2)
       total2 += score(move1, winning_move(move1, me))
     end
 

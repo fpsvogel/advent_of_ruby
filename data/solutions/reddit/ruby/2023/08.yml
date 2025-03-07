@@ -68,6 +68,7 @@
       n += 1 until (v = h[v]['LR'.index c.next]) == 'ZZZ'
       p n
       __END__
+      <input>
       ```
     :replies:
     - :author: maths222
@@ -188,7 +189,7 @@
 - :author: Sharparam
   :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvx6a/
   :body: |-
-    [https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb)
+    https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb
 
     Like [pointed out in a different post](https://www.reddit.com/r/adventofcode/comments/18dfpub/2023_day_8_part_2_why_is_spoiler_correct/) I was also surprised that this method worked, but I guess I'll take a win.
   :replies: []
@@ -278,7 +279,7 @@
 - :author: comforttiger
   :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchwj7v/
   :body: |-
-    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day8.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day8.rb)
+    https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day8.rb
 
     i knew nothing about lcm before today. now i know a lot
   :replies: []

@@ -44,14 +44,14 @@
   :body: |-
     Few days late but my Ruby solution. Happy with this one after only starting with Ruby a week or two ago.
 
-    [https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a](https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a)
+    https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a
   :replies: []
 - :author: tobyaw
   :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/ize38wc/
   :body: |-
     Ruby
 
-    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_08.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_08.rb)
+    https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_08.rb
 
     ```ruby
     def process(row)

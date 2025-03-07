@@ -85,7 +85,7 @@
     puts result
     ```
 
-    [https://github.com/glebm/advent-of-code](https://github.com/glebm/advent-of-code)
+    https://github.com/glebm/advent-of-code
   :replies: []
 - :author: Jonathan_Frias
   :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw0fyd/
@@ -232,7 +232,7 @@
 - :author: comforttiger
   :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwjgx8/
   :body: |-
-    [https://github.com/comforttiger/advent\_of\_code/blob/main/2023/ruby/day11.rb](https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day11.rb)
+    https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day11.rb
 
     im glad i found out about #transpose and #combination, they were useful here
   :replies: []

@@ -146,7 +146,7 @@
     PARTS 1 & 2
 
     ```ruby
-    sequence = File.read('input.txt').split(',')
+        sequence = File.read('input.txt').split(',')
 
         # part 1
         def hash(s)
@@ -244,5 +244,5 @@
 
     part 2 (325 characters):
 
-    `p File.read(?i).strip.split(?,).map{|s|[s.scan(/\w+/)[0].chars.inject(0){(_1+_2.ord)*17%256},s.tr(?-,?=)]}.each_with_object(Hash.new{_1[_2]=[]}){|b,h|h[b[0]]<`
+    `p File.read(?i).strip.split(?,).map{|s|[s.scan(/\w+/)[0].chars.inject(0){(_1+_2.ord)*17%256},s.tr(?-,?=)]}.each_with_object(Hash.new{_1[_2]=[]}){|b,h|h[b[0]]<<b[1]}.transform_values{|v|v.map{_1.split(?=)}.each_with_object({}){|(l,f),h|f ? h[l]=f.to_i : h.delete(l)}.values}.map{|i,l|l.map.with_index{(1+i)*(1+_2)*_1}.sum}.sum`
   :replies: []

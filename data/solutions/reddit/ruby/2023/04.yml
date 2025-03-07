@@ -31,7 +31,7 @@
   :replies:
   - :author: Potential-Series-105
     :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzmwg3/
-    :body: Thanks to [/u/erikade](/u/erikade) this can be shortened even further to 57 bytes. look at his comment for the magic.
+    :body: Thanks to /u/erikade this can be shortened even further to 57 bytes. look at his comment for the magic.
     :replies: []
   - :author: erikade
     :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzou5t/
@@ -153,7 +153,7 @@
   :replies: []
 - :author: lycheejuice225
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhg3d/
-  :body: "[https://github.com/Animeshz/AdventOfCode2023](https://github.com/Animeshz/AdventOfCode2023)"
+  :body: https://github.com/Animeshz/AdventOfCode2023
   :replies: []
 - :author: glebm
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhoph/
@@ -473,7 +473,7 @@
     puts"Part2:#{c.sum}"
     ```
 
-    an updated 4 line 202 bytes version with some optimizations and applying [u/riffraff](/u/riffraff)'s suggestions
+    an updated 4 line 202 bytes version with some optimizations and applying u/riffraff's suggestions
 
     yes the first line is _exactly_ 80 bytes. Could be even shorter by changing the IO strings but nah
 
@@ -523,7 +523,7 @@
   :replies: []
 - :author: Tourister6001PR
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrtuk/
-  :body: "[https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb](https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb)"
+  :body: https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb
   :replies: []
 - :author: vinc686
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvodm/
@@ -551,7 +551,7 @@
     p h.values.sum
     ```
 
-    [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04)
+    https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04
   :replies: []
 - :author: RelativeLead5
   :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvtr1/

@@ -10,6 +10,8 @@ module Arb
       # https://www.reddit.com/dev/api/oauth#GET_comments_%7Barticle%7D
       # https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/
 
+      MARKDOWN_PARSER = Redcarpet::Markdown.new(Redcarpet::Render::HTML, fenced_code_blocks: true)
+
       # From https://www.reddit.com/r/adventofcode/wiki/archives/solution_megathreads
       MEGATHREADS = {
         2024 => %w[1h3vp6n 1h4ncyr 1h5frsp 1h689qf 1h71eyz 1h7tovg 1h8l3z5 1h9bdmp 1ha27bo 1hau6hl 1hbm0al 1hcdnk0 1hd4wda 1hdvhvu 1hele8m 1hfboft 1hg38ah 1hguacy 1hhlb8g 1hicdtb 1hj2odw 1hjroap 1hkgj5b 1hl698z 1hlu4ht],
@@ -92,6 +94,10 @@ module Arb
 
         filtered_comments.each do |comment|
           add_missing_replies!(comment, comments, more_childrens, thread_id, language_names)
+        end
+
+        filtered_comments.each do |comment|
+          clean_body!(comment, language_names)
         end
 
         filtered_comments.each do |comment|
@@ -228,7 +234,7 @@ module Arb
           {
             author: raw_comment["data"]["author"],
             url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
-            body: body_markdown(raw_comment["data"]["body_html"], language_names),
+            body: raw_comment["data"]["body"],
             id: raw_comment["data"]["name"],
             parent_id: raw_comment["data"]["parent_id"],
             replies: simplify_replies(raw_comment, more_childrens_from_replies, language_names),
@@ -266,7 +272,7 @@ module Arb
           {
             author: child["data"]["author"],
             url: "https://www.reddit.com#{child["data"]["permalink"]}",
-            body: body_markdown(child["data"]["body_html"], language_names),
+            body: child["data"]["body"],
             id: child["data"]["name"],
             parent_id: child["data"]["parent_id"],
             replies: simplify_replies(child, more_childrens_from_replies, language_names),
@@ -274,31 +280,40 @@ module Arb
         }
       end
 
-      def body_markdown(raw_body, language_names)
-        raw_body
+      def clean_body!(comment, language_names)
+        precleaned_body = comment[:body]
           .gsub("\u00a0", " ") # Non-breaking space
+          .gsub("#x200B;", "") # Zero-width space
           .gsub("&amp;", "&")
+          .gsub("\n\n&\n\n", "\n\n") # Mysterious ampersand, on Reddit an empty paragraph
           .gsub("&lt;", "<")
           .gsub("&gt;", ">")
           .gsub("&#39;", "'")
-          .sub(/\A<div class="md">/, "")
-          .sub(/<\/div>\z/, "")
-          .gsub(/```?(?:#{language_names.first})?(.+?)```?/mi, "<pre>\\1</pre>")
-          .gsub(/(?<=<pre>)(.*?)(?=<\/pre>)/m) { |content|
-            content
-              .gsub(/<\/?p>/, "") # Remove <p> tags which can occur within backtick-enclosed code blocks
-              .gsub(/ +\n/, "\n") # Remove trailing spaces
-          }
+          # Convert one or two backticks on their own line, to three for a code block.
+          .gsub(
+            /\\?`(?:\\?`)?(?:#{language_names.first})?\n(.+?)\n\\?`(?:\\?`)?(?=\n|\z)/m,
+            "\n\n```\n\\1\n```\n"
+          )
+          .gsub(/    ```.*/, "") # Superfluous backticks (already indented)
+          # Add an empty line above code blocks, if missing.
+          .gsub(/\n{0,2}```(?:#{language_names.first})?/, "\n\n```")
+
+        body_html = MARKDOWN_PARSER.render(precleaned_body)
+
+        body_markdown = body_html
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
           .gsub("<pre>", "<pre class=\"brush:#{language_names.first};\">")
+          .gsub(/<pre><code class=([^>]+)>/, "<pre class=\\1><code>")
           .then { |cleaned_raw_body|
             ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
           }
-          .gsub(/(?<!\n>) +\n(?!\n)/, "\n\n") # When trailing spaces are a partial paragraph break, strip the spaces and add an extra newline
-          .gsub(/ +\n/, "\n") # Strip all other trailing spaces
-          .gsub("\u200b\n\n", "") # Zero-width space
-          .gsub(/`(?:#{language_names.first})?\n(.+?)\n`(?=\n|\z)/m, "\n\n```ruby\n\\1\n```\n")
-          .gsub(/\n{3,}/, "\n\n")
+          .gsub(/ +\n/, "\n") # Strip trailing spaces
+
+        comment[:body] = body_markdown
+
+        comment[:replies].each do |reply|
+          clean_body!(reply, language_names)
+        end
       end
 
       def remove_language_tag!(comment, language_names)
@@ -308,7 +323,7 @@ module Arb
 
         comment[:body].strip!
 
-        comment[:replies]&.each do |reply|
+        comment[:replies].each do |reply|
           remove_language_tag!(reply, language_names)
         end
       end

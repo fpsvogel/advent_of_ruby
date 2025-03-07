@@ -11,48 +11,61 @@
         File.readlines('input.txt', chomp: true).map(&:to_str)
       end
 
-    def initialize()
+      def initialize()
         @gamma_rate = ''
         @epsilon_rate = ''
-    ```ruby
-    @oxygen_generator_rating = ''
-    @co2_scrubbing_rating = ''
 
-    @consumption_rate = 0
-    @life_support_rating = 0
-    ```
+        @oxygen_generator_rating = ''
+        @co2_scrubbing_rating = ''
 
+        @consumption_rate = 0
+        @life_support_rating = 0
+      end
+
+      def get_rates(input)
+        z = 0
+        gamma_rate = ''
+        epsilon_rate = ''
+        length = input[0].length
+        while z < length
+          gamma_rate += input.map {|x| x[z]}.group_by(&:itself).values.max_by(&:size).first
+          epsilon_rate += input.map {|x| x[z]}.group_by(&:itself).values.min_by(&:size).first
+          z += 1
+        end
+        @gamma_rate = gamma_rate.to_i(2)
+        @epsilon_rate = epsilon_rate.to_i(2)
+
+        @consumption_rate = @gamma_rate * @epsilon_rate
+      end
+
+      def get_life_support_rating(input)
+        o2_input = input.clone
+        co2_input = input.clone
+        z = 0
+        length = input[0].length
+        oxygen_generator_rating = ''
+        co2_scrubbing_rating = ''
+        while z < length
+          grouping = o2_input.map {|x| x[z]}.group_by(&:itself)
+          oxygen_generator_rating += grouping['0'].length <= grouping['1'].length ? '1' : '0'
+
+          c_grouping = co2_input.map {|x| x[z]}.group_by(&:itself)
+          co2_scrubbing_rating+= if c_grouping['0'] && c_grouping['1']
+                                    c_grouping['1'].length >= c_grouping['0'].length ? '0' : '1'
+                                  elsif c_grouping['0'].nil?
+                                    '1'
+                                  else
+                                    '0'
+                                  end
+          o2_input.select!{ |k| k.start_with? oxygen_generator_rating }
+          co2_input.select! { |k| k.start_with? co2_scrubbing_rating }
+          z += 1
+        end
+        @co2_scrubbing_rating = co2_scrubbing_rating.to_i(2)
+        @oxygen_generator_rating = oxygen_generator_rating.to_i(2)
+        @life_support_rating = @oxygen_generator_rating * @co2_scrubbing_rating
+      end
     end
-
-    def get\_rates(input) z = 0 gamma\_rate = '' epsilon\_rate = '' length = input[0].length while z \< length gamma\_rate += input.map {|x| x[z]}.group\_by(&:itself).values.max\_by(&:size).first epsilon\_rate += input.map {|x| x[z]}.group\_by(&:itself).values.min\_by(&:size).first z += 1 end @gamma\_rate = gamma\_rate.to\_i(2) @epsilon\_rate = epsilon\_rate.to\_i(2)
-
-    ```ruby
-    @consumption_rate = @gamma_rate * @epsilon_rate
-    ```
-
-    end
-
-    def get\_life\_support\_rating(input) o2\_input = input.clone co2\_input = input.clone z = 0 length = input[0].length oxygen\_generator\_rating = '' co2\_scrubbing\_rating = '' while z \< length grouping = o2\_input.map {|x| x[z]}.group\_by(&:itself) oxygen\_generator\_rating += grouping['0'].length \<= grouping['1'].length ? '1' : '0'
-
-    ```ruby
-    c_grouping = co2_input.map {|x| x[z]}.group_by(&:itself)
-      co2_scrubbing_rating+= if c_grouping['0'] && c_grouping['1']
-                                c_grouping['1'].length >= c_grouping['0'].length ? '0' : '1'
-                              elsif c_grouping['0'].nil?
-                                '1'
-                              else
-                                '0'
-                              end
-      o2_input.select!{ |k| k.start_with? oxygen_generator_rating }
-      co2_input.select! { |k| k.start_with? co2_scrubbing_rating }
-      z += 1
-    end
-    @co2_scrubbing_rating = co2_scrubbing_rating.to_i(2)
-    @oxygen_generator_rating = oxygen_generator_rating.to_i(2)
-    @life_support_rating = @oxygen_generator_rating * @co2_scrubbing_rating
-    ```
-
-    end end
     ```
   :replies: []
 - :author: petercooper
@@ -116,7 +129,7 @@
   :body: |-
     # Ruby
 
-    [https://github.com/antoniotto71/Advent\_of\_Code\_2021/blob/master/Day%203/day3.rb](https://github.com/antoniotto71/Advent%5C_of%5C_Code%5C_2021/blob/master/Day%203/day3.rb)
+    https://github.com/antoniotto71/Advent\_of\_Code\_2021/blob/master/Day%203/day3.rb
   :replies: []
 - :author: tom_collier2002
   :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn46c7o/
@@ -124,20 +137,19 @@
     Ruby, part 1 only
 
     ```ruby
-    TWO=2
+                                 TWO=2
                                   .to_s(2).
     to_i ;TEN=eval(
      '0'.+ ?b.+'10');NET=
-     (TEN<sup>TWO</sup>)/TEN/TEN/TEN;INF=
-      (TWO<sup>TEN)-</sup>( TEN<sup>TWO);TWENTY=(+TEN.+(TWO)).times;càll=</sup>open('input.txt').map{|cəll|Integer(cəll,TEN)};cãll=->(cäll,cåll){TEN*
+     (TEN^TWO )/TEN/TEN/TEN;INF=
+      (TWO^TEN)- ( TEN^TWO);TWENTY=(+TEN.+(TWO)).times;càll=
+       open('input.txt').map{|cəll|Integer(cəll,TEN)};cãll=->(cäll,cåll){TEN*
        cäll.map{|cəll|(cəll>>cåll)&NET}.sum>=cäll.count};cáll =->(cåll,cäll){
-      cãll.call(cåll,cäll)?NET<<c>(cåll,cäll){cãll.call(cåll,
-     cäll)?INF: NET &lt;&lt; cäll};puts(TWENTY.map{|cəll|cáll.call(càll,
+      cãll.call(cåll,cäll)?NET<<cäll:INF};câll=->(cåll,cäll){cãll.call(cåll,
+     cäll)?INF: NET << cäll};puts(TWENTY.map{|cəll|cáll.call(càll,
     cəll )} .sum*TWENTY.map{|cəll |câll.
                               call(càll ,cəll)}
                             .sum)
-
-    </c>
     ```
   :replies:
   - :author: '442401'
@@ -146,7 +158,7 @@
       formatted for us old folk on old reddit
 
       ```ruby
-      TWO=2
+                                   TWO=2
                                     .to_s(2).
       to_i ;TEN=eval(
        '0'.+ ?b.+'10');NET=
@@ -154,7 +166,7 @@
         (TWO^TEN)- ( TEN^TWO);TWENTY=(+TEN.+(TWO)).times;càll=
          open('input.txt').map{|cəll|Integer(cəll,TEN)};cãll=->(cäll,cåll){TEN*
          cäll.map{|cəll|(cəll>>cåll)&NET}.sum>=cäll.count};cáll =->(cåll,cäll){
-        cãll.call(cåll,cäll)?NET<(cåll,cäll){cãll.call(cåll,
+        cãll.call(cåll,cäll)?NET<<cäll:INF};câll=->(cåll,cäll){cãll.call(cåll,
        cäll)?INF: NET << cäll};puts(TWENTY.map{|cəll|cáll.call(càll,
       cəll )} .sum*TWENTY.map{|cəll |câll.
                                 call(càll ,cəll)}
@@ -193,7 +205,7 @@
       bits.count('1') >= bits.count('0') ? '1' : '0'
       ```
 
-      EDIT: [u/ni3t](/u/ni3t) and [u/gurgeous](/u/gurgeous) [recommended](https://www.reddit.com/r/adventofcode/comments/r7r0ff/comment/hn1hqag/?utm_source=reddit&utm_medium=web2x&context=3) [`Enumerable#tally`](https://ruby-doc.org/core-2.7.0/Enumerable.html#method-i-tally), which is new in Ruby 2.7.
+      EDIT: u/ni3t and u/gurgeous [recommended](https://www.reddit.com/r/adventofcode/comments/r7r0ff/comment/hn1hqag/?utm_source=reddit&utm_medium=web2x&context=3) [`Enumerable#tally`](https://ruby-doc.org/core-2.7.0/Enumerable.html#method-i-tally), which is new in Ruby 2.7.
     :replies:
     - :author: gurgeous
       :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1evv8/
@@ -409,9 +421,9 @@
   :body: |-
     ## Rust
 
-    [https://github.com/DarthSharkie/advent\_of\_code\_2021/blob/main/day03/src/main.rs](https://github.com/DarthSharkie/advent_of_code_2021/blob/main/day03/src/main.rs)
+    https://github.com/DarthSharkie/advent_of_code\_2021/blob/main/day03/src/main.rs
 
-    Learnings today: \* Trying to mix string and integral representations is a disaster. Pick one and use it. \* Re-implementing [from\_str\_radix](https://doc.rust-lang.org/std/primitive.u32.html#method.from_str_radix) isn't hard, but it's unnecessary. \* Iterators have lots of fun methods. I used partition, while others used retain. \* Bit shifts look nicer than `2u32.pow(bit)`... \* Rust ranges remind me of Ruby ranges, but I like the `..=` version!
+    Learnings today: \* Trying to mix string and integral representations is a disaster. Pick one and use it. \* Re-implementing [from_str_radix](https://doc.rust-lang.org/std/primitive.u32.html#method.from_str_radix) isn't hard, but it's unnecessary. \* Iterators have lots of fun methods. I used partition, while others used retain. \* Bit shifts look nicer than `2u32.pow(bit)`... \* Rust ranges remind me of Ruby ranges, but I like the `..=` version!
   :replies: []
 - :author: roundscribehector5
   :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3bg24/
@@ -442,7 +454,7 @@
     :body: |-
       This is a really cool solution, I hope you don't mind I heavily borrowed yours to help me with stage 1, I was having a nightmare. As thanks let me help you with your stage 2 refactor by sharing a method I wrote to find the oxygen value
 
-      [https://gist.github.com/BertZZ/1993cec70a282c8223c0ed0fc065a004](https://gist.github.com/BertZZ/1993cec70a282c8223c0ed0fc065a004)
+      https://gist.github.com/BertZZ/1993cec70a282c8223c0ed0fc065a004
     :replies:
     - :author: johnboker
       :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5gsh0/
@@ -533,7 +545,7 @@
     very messy part 1 and I'm embarrassed by part 2, but you can view it on [github](https://github.com/snowe2010/advent-of-code/blob/e6bc01b526f41d3e8c9af0e1c21baa6ce43d7953/ruby_aoc/2021/day03/day03.rb):
 
     ```ruby
-    length = lines[0].split('').length
+      length = lines[0].split('').length
       sum = Array.new(length, 0)
       lines.map do |line|
         bits = line.split('')

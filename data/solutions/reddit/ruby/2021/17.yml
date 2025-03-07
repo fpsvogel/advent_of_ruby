@@ -81,7 +81,8 @@
     b+=d
     e-=e<=>0
     d-=1
-    (n+=1;break)if x===a&&y===b)until b
+    (n+=1;break)if x===a&&y===b)until b<v}}
+    p n
     ```
   :replies: []
 - :author: firetech_SE

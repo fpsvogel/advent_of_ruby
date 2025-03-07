@@ -20,7 +20,7 @@
     So, we get a diamond that looks roughly like this:
 
     ```ruby
-    ╎ ╎
+               ╎ ╎
               ╌╆━━━╅╌
                ┃/ \┃
                ┃ O ┃

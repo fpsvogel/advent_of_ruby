@@ -168,7 +168,7 @@
     evals galore! Ruby + Z3
 
     ```ruby
-    def part1(input)
+      def part1(input)
         prog = input.map do |l|
           l.sub(/(\w+):(.*)/, 'def \1(); \2 ; end')
         end
@@ -236,7 +236,7 @@
     end
     ```
 
-    (Full at [https://github.com/petertseng/adventofcode-rb-2022/blob/master/21\_monkey\_math.rb](https://github.com/petertseng/adventofcode-rb-2022/blob/master/21_monkey_math.rb))
+    (Full at https://github.com/petertseng/adventofcode-rb-2022/blob/master/21_monkey_math.rb)
 
     In Haskell, you do this:
 
@@ -248,7 +248,7 @@
             eval (Op a b op) = (cache Map.! a) `op` (cache Map.! b)
     ```
 
-    (Full at [https://github.com/petertseng/adventofcode-hs-2022/blob/master/bin/21\_monkey\_math.hs](https://github.com/petertseng/adventofcode-hs-2022/blob/master/bin/21_monkey_math.hs))
+    (Full at https://github.com/petertseng/adventofcode-hs-2022/blob/master/bin/21_monkey_math.hs)
 
     Oh yeah I managed to just barely sneak into the top 100 for part 2 today, great. I used binary search to do part 2. The difference is that i[n Ruby binary search is built-in](https://www.rubydoc.info/stdlib/core/Array:bsearch) whereas in Haskell you have to write it yourself.
   :replies: []
@@ -265,5 +265,5 @@
 
     I tried it and find it quite elegant, I could find the solution using all problem 1 code and very few more lines.
 
-    [https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_21.rb](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_21.rb)
+    [https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day\_21.rb](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_21.rb)
   :replies: []

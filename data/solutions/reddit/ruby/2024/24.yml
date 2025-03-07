@@ -16,17 +16,17 @@
 
     There are five gates in a full adder. We summarize each of their inputs and outputs recursively.
 
-    Let x_i and y\_i be the input bits, and C_(i-1) be the input carry bit. Then:
+    Let x_i and y_i be the input bits, and C\_(i-1) be the input carry bit. Then:
 
-    x\_i XOR y\_i = S\_i (naive sum)
+    x_i XOR y_i = S\_i (naive sum)
 
-    x\_i AND y\_i = c\_i (naive carry)
+    x_i AND y_i = c\_i (naive carry)
 
     S_i AND C_(i-1) = s\_i (carry sum)
 
-    z_i = S\_i XOR C_(i-1) (output bit)
+    z_i = S_i XOR C\_(i-1) (output bit)
 
-    C\_i = c\_i OR s\_i (output carry).
+    C_i = c_i OR s\_i (output carry).
   :replies: []
 - :author: JAntaresN
   :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3nq8qw/

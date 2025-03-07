@@ -225,7 +225,7 @@
     I save look up tables with sets of characters as key. Then going over the inputs of different lengths - for input lengths 2, 3, 4 and 7 we just save the digit
 
     ```ruby
-    # seed lookup table with the easy digits
+      # seed lookup table with the easy digits
       d[:in].each do |i|
         si = i.chars.to_set
         if si.length == 2
@@ -250,7 +250,7 @@
     Then looking for inputs of size six - from these only digit 9 has all inputs (is a superset) of digit 4 which is known. Digit 6's inputs are the only ones that are not a superset of digit 1. And finally only 0 is left.
 
     ```ruby
-    # seed digits with 6 inputs
+      # seed digits with 6 inputs
       d[:in].each do |i|
         si = i.chars.to_set
         if si.length == 6
@@ -271,7 +271,7 @@
     Finally, distinguishing between the digits with 5 inputs - 5, 3 and 2. The inputs of 5 are the only ones that are a subset of 6, 3's inputs are the only superset of 1's inputs and we are left with 2.
 
     ```ruby
-    # seed digits with 5 inputs
+      # seed digits with 5 inputs
       d[:in].each do |i|
         si = i.chars.to_set
         if si.length == 5
@@ -431,5 +431,5 @@
 
     Solved using intersections and whatnot. Apparently this was not the best way to do it...
 
-    [https://github.com/snowe2010/advent-of-code/blob/a4e51e39ce95df6284be9042791f40da87c2fc55/ruby\_aoc/2021/day08/day08.rb](https://github.com/snowe2010/advent-of-code/blob/a4e51e39ce95df6284be9042791f40da87c2fc55/ruby_aoc/2021/day08/day08.rb)
+    https://github.com/snowe2010/advent-of-code/blob/a4e51e39ce95df6284be9042791f40da87c2fc55/ruby\_aoc/2021/day08/day08.rb
   :replies: []

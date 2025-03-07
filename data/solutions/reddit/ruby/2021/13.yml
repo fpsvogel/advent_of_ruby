@@ -191,7 +191,7 @@
     when ?y; dot.transform_keys! { |x, y| [x, fold[y, along]].freeze }
     ```
 
-    Full code at [https://github.com/petertseng/adventofcode-rb-2021/blob/master/13\_transparent\_origami.rb](https://github.com/petertseng/adventofcode-rb-2021/blob/master/13_transparent_origami.rb)
+    Full code at https://github.com/petertseng/adventofcode-rb-2021/blob/master/13_transparent_origami.rb
 
     There's a weird story about why my part 1 rank is much higher than my part 2 rank. For part 1, I just transformed with `(x - along).abs`, which gives you the correct number of points, but mangles the coordinates too much for them to show up in part 2. So for part 2 I had to slow down a bit and determine the right equation for actually transforming.
 
@@ -206,14 +206,14 @@
     let foldedPoints = scanl foldAlong (Set.fromList (map point points)) (map fold folds)
     ```
 
-    Full code at [https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13\_transparent\_origami.hs](https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13_transparent_origami.hs)
+    Full code at https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13_transparent_origami.hs
   :replies:
   - :author: Sharparam
     :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocn7yo/
     :body: |-
       TIL about `Hash.transform_keys`.
 
-      I was using a hash at first in my Ruby solution then rewrote to use a `Set`: [https://github.com/Sharparam/advent-of-code/blob/main/2021/13/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/2021/13/solve.rb)
+      I was using a hash at first in my Ruby solution then rewrote to use a `Set`: https://github.com/Sharparam/advent-of-code/blob/main/2021/13/solve.rb
 
       (The commit history for that file shows a bit of how it changed since initial solve.)
     :replies: []
@@ -224,7 +224,7 @@
 
     I decided to go with the matrix because it was easier to work with. But I can see a way to do it with just simple math.
 
-    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80)
+    https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80
   :replies: []
 - :author: marshalofthemark
   :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoctwgk/

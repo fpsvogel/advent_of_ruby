@@ -121,11 +121,11 @@
   - :author: snowe2010
     :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnim17/
     :body: |-
-      oh yours is really similar to mine. [https://www.reddit.com/r/adventofcode/comments/188w447/2023\_day\_2\_solutions/kbnehwa/](https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa/)
+      oh yours is really similar to mine. https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2\_solutions/kbnehwa/
 
-      edit: i made some modifications to your solution and golf it and got it down to 134 characters. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L134-L137](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb#L134-L137)
+      edit: i made some modifications to your solution and golf it and got it down to 134 characters. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L134-L137
 
-      I took some of your ideas around scan and implemented them into my golf solution and got 133! Our solutions look super different, but came out to almost the same length. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L108-L112](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb#L108-L112)
+      I took some of your ideas around scan and implemented them into my golf solution and got 133! Our solutions look super different, but came out to almost the same length. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L108-L112
     :replies: []
 - :author: vikingly56
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnmpb7/
@@ -143,12 +143,12 @@
   :replies: []
 - :author: vinc686
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbozeir/
-  :body: 'Pretty straightforward but no one liner this time: [https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02](https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02)'
+  :body: 'Pretty straightforward but no one liner this time: https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02'
   :replies: []
 - :author: snowe2010
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa/
   :body: |-
-    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2023/day02/day02.rb)
+    https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb
 
     Easier than day 1. I'll be adding code golf solutions to this as well over the next hour or so.
   :replies: []
@@ -198,7 +198,7 @@
   :replies: []
 - :author: the_bengal_lancer
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbntjmf/
-  :body: 'map/filter/reduce boogaloo: [https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3](https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3)'
+  :body: 'map/filter/reduce boogaloo: https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3'
   :replies: []
 - :author: brightside_bitch
   :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo18su/

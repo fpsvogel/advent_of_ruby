@@ -20,7 +20,7 @@
   :replies: []
 - :author: '0x8b'
   :url: https://www.reddit.com/r/adventofcode/comments/rjpf7f/2021_day_19_solutions/hpg0mnm/
-  :body: Please check out my simple solution in Ruby ;) [https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/19.rb](https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/19.rb)
+  :body: Please check out my simple solution in Ruby ;) https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/19.rb
   :replies: []
 - :author: akanet
   :url: https://www.reddit.com/r/adventofcode/comments/rjpf7f/2021_day_19_solutions/hp844vn/
@@ -29,5 +29,5 @@
 
     This was very difficult, especially given that I have the unusual constraint of programming these entirely within the CoderPad online environment. Ruby doesn't have especially advanced/accelerated numerics, so in order to get down to a solution that could run in a few seconds, I had to do some fingerprinting of the beacons. My hunch worked out - if you take as a fingerprint for each beacon simply its offset to its closest neighbor, that's enough to quickly find matches between the other scanner sets.
 
-    I also streamed myself doing this one for any masochists who want to watch me fail for three hours: [https://www.twitch.tv/videos/1237510167](https://www.twitch.tv/videos/1237510167)
+    I also streamed myself doing this one for any masochists who want to watch me fail for three hours: https://www.twitch.tv/videos/1237510167
   :replies: []

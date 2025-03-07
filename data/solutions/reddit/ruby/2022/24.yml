@@ -4,7 +4,7 @@
   :body: |-
     [Ruby](https://github.com/jstanley0/advent-2022/blob/main/24.rb) 369/332
 
-    This one was fun! Figuring out a trick that would let me treat this like other A\* searches I've done in the past was very rewarding. Essentially instead of operating on a fixed map, each search state stores a time value and calculates what the map will look like at decision time. Each blizzard's location is computable at any arbitrary time _t_ using modulo math. it helps that there are no vertical blizzards in the entry/exit columns. Maps are memoized for performance. I probably could have saved some memory had I realized the map state starts repeating, but it performs well enough (part 2 takes about 2 seconds in total).
+    This one was fun! Figuring out a trick that would let me treat this like other A\* searches I've done in the past was very rewarding. Essentially instead of operating on a fixed map, each search state stores a time value and calculates what the map will look like at decision time. Each blizzard's location is computable at any arbitrary time _t_ using modulo math. \>!it helps that there are no vertical blizzards in the entry/exit columns.!\< Maps are memoized for performance. I probably could have saved some memory had I realized the map state starts repeating, but it performs well enough (part 2 takes about 2 seconds in total).
   :replies: []
 - :author: Elavid
   :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1gwew0/

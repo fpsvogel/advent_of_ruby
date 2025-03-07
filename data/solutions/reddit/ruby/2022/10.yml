@@ -46,7 +46,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_10.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_10.rb)
+    https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_10.rb
 
     ```ruby
     h = File.readlines('day_10_input.txt', chomp: true)
@@ -85,7 +85,7 @@
 
     That was a fun one!
 
-    [https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb](https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb)
+    https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb
   :replies: []
 - :author: careyi4
   :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoa8oc/

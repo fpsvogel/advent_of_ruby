@@ -40,7 +40,7 @@
   :body: |-
     Spent a lot of time thinking today, but happy to have come up with a solution without using any kinds of hints.
 
-    Started with a BFS-based Flood Fill algorithm, labeling all regions with an ID-number, and merging areas when needed. Then, for each region, find and store which of its plots that border something else (i.e. edge of map or other region). This is stored in one Set<sup>1</sup> per direction (up, down, left, right), and one plot can appear in multiple sets. The number of perimeters (for part 1) is the sum of the sizes of these sets.
+    Started with a BFS-based Flood Fill algorithm, labeling all regions with an ID-number, and merging areas when needed. Then, for each region, find and store which of its plots that border something else (i.e. edge of map or other region). This is stored in one Set^1 per direction (up, down, left, right), and one plot can appear in multiple sets. The number of perimeters (for part 1) is the sum of the sizes of these sets.
 
     For part 2, go through each of the four boundary sets, one plot at a time, and remove (from the set) any plot adjacent to it in any direction perpendicular to the direction its mismatching plot was found in. This leaves only one plot per side in the sets, and the sum of sizes of the sets after this gives the number of sides instead of perimeters.
 
@@ -48,7 +48,7 @@
 
     * * *
 
-    <sup>1)</sup> <sup>Using</sup> <sup>Set</sup> <sup>instead</sup> <sup>of</sup> <sup>Array</sup> <sup>for</sup> <sup>quicker</sup> <sup>deletion</sup> <sup>in</sup> <sup>part</sup> <sup>2.</sup>
+    ^1) ^Using ^Set ^instead ^of ^Array ^for ^quicker ^deletion ^in ^part ^2.
   :replies: []
 - :author: eggselent_folk
   :url: https://www.reddit.com/r/adventofcode/comments/1hcdnk0/2024_day_12_solutions/m1qtvud/

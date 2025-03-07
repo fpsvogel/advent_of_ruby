@@ -12,7 +12,7 @@
 
     # pt 2
 
-    input.each\_cons(3).map(&:sum).each\_cons(2).select { |a,b| a \< b }.count
+    input.each_cons(3).map(&:sum).each_cons(2).select { |a,b| a \< b }.count
   :replies:
   - :author: waitingformsfs2020
     :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hqtops0/
@@ -57,7 +57,7 @@
   :replies: []
 - :author: dtinth
   :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrf5u4/
-  :body: "```ruby\n# Ruby, 1381 / 452\np $<.read.split.map(&:to_i).each_cons(2).count{|a,b|b>a}\np $<.read.split.map(&:to_i).each_cons(3).map(&:sum).each_cons(2).count{|a,b|b>a}\n```\n\nI made 2 silly mistakes (e.g. forgot to convert to int and used the wrong comparison operator). Next time I will remember to test with example data first \U0001F604\n\nEdit: Thanks to the suggestions by [u/gurgeous](/u/gurgeous), [u/BluFoot](/u/BluFoot), [u/442401](/u/442401), the above can be improved like this:\n\n```ruby\np $<.each_cons(2).count{_2.to_i>_1.to_i}\np $<.map(&:to_i).each_cons(3).each_cons(2).count{_2.sum>_1.sum}\n```"
+  :body: "```ruby\n# Ruby, 1381 / 452\np $<.read.split.map(&:to_i).each_cons(2).count{|a,b|b>a}\np $<.read.split.map(&:to_i).each_cons(3).map(&:sum).each_cons(2).count{|a,b|b>a}\n```\n\nI made 2 silly mistakes (e.g. forgot to convert to int and used the wrong comparison operator). Next time I will remember to test with example data first \U0001F604\n\nEdit: Thanks to the suggestions by u/gurgeous, u/BluFoot, u/442401, the above can be improved like this:\n\n```ruby\np $<.each_cons(2).count{_2.to_i>_1.to_i}\np $<.map(&:to_i).each_cons(3).each_cons(2).count{_2.sum>_1.sum}\n```"
   :replies:
   - :author: BluFoot
     :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrgkpw/
@@ -65,7 +65,7 @@
       Nice, I golfed mine down to the same thing with a couple extra simplifications. The `.read.split` isn't necessary
 
       ```ruby
-      p $<.map(&:to_i).each_cons(3).map(&:sum).each_cons(2).count{|a,b|a
+      p $<.map(&:to_i).each_cons(3).map(&:sum).each_cons(2).count{|a,b|a<b}
       ```
     :replies:
     - :author: '442401'
@@ -73,7 +73,7 @@
       :body: |-
         Save a few bytes by not mapping
 
-        `p $<.map(&:to_i).each_cons(3).each_cons(2).count{|a,b|a.sum`
+        `p $<.map(&:to_i).each_cons(3).each_cons(2).count{|a,b|a.sum<b.sum}`
       :replies:
       - :author: BluFoot
         :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlbs0/
@@ -89,7 +89,7 @@
           :body: |-
             edit: **48 bytes**
 
-            Hat-tip to [/u/CodeIsTheEnd](/u/CodeIsTheEnd)
+            Hat-tip to /u/CodeIsTheEnd
 
             This blew my mind when I [saw it on Youtube](https://www.youtube.com/watch?v=gw8aNa8AuyA)
 
@@ -140,7 +140,7 @@
         :body: |-
           Ahhh! Of course!
 
-          The same reason why "track\_11" comes before "track\_2"
+          The same reason why "track_11" comes before "track_2"
 
           I should have known this from my Napster days.
 
@@ -244,7 +244,7 @@
   :body: |-
     Ruby
 
-    [https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day1/main.rb](https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day1/main.rb)
+    https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day1/main.rb
   :replies:
   - :author: '442401'
     :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlox0/
@@ -339,7 +339,7 @@
 
     My day 1 solution of GitHub
 
-    ([https://github.com/mddubey/AoC/blob/main/2021/001/solution.rb](https://github.com/mddubey/AoC/blob/main/2021/001/solution.rb))
+    (https://github.com/mddubey/AoC/blob/main/2021/001/solution.rb)
   :replies: []
 - :author: joeyGibson
   :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmu09qs/
@@ -364,7 +364,7 @@
 
     if __name__ == ' __main__':
         if len(sys.argv) == 1:
-            print('Usage: main.py ')
+            print('Usage: main.py <filename>')
             sys.exit(1)
 
         lines = get_data(sys.argv[1])
@@ -391,7 +391,7 @@
     end
     ```
 
-    [https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/ruby\_aoc/2021/day01/day01.rb](https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/ruby_aoc/2021/day01/day01.rb)
+    https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/ruby\_aoc/2021/day01/day01.rb
 
     Kotlin:
 
@@ -408,7 +408,7 @@
     }
     ```
 
-    [https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/kotlin\_aoc/src/main/kotlin/aoc2021/day01.kt](https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/kotlin_aoc/src/main/kotlin/aoc2021/day01.kt)
+    https://github.com/snowe2010/advent-of-code/blob/81f560f4f84bae2dad08a114606fe22960c07a19/kotlin\_aoc/src/main/kotlin/aoc2021/day01.kt
 
     I've modified the kotlin one quite a number of times using discoveries from this thread.
   :replies: []
@@ -454,22 +454,21 @@
             def part_1(input)
               count_increasing_depths process_input(input)
             end
-        ```ruby
-        def part_2(input)
-          count_increasing_depths process_input(input).each_cons(3).map(&:sum)
+
+            def part_2(input)
+              count_increasing_depths process_input(input).each_cons(3).map(&:sum)
+            end
+
+            private
+              def process_input(input)
+                input.lines.map(&:to_i)
+              end
+
+              def count_increasing_depths(data)
+                data.each_cons(2).count { |a, b| a < b }
+              end
+          end
         end
-
-        private
-          def process_input(input)
-            input.lines.map(&:to_i)
-          end
-
-          def count_increasing_depths(data)
-            data.each_cons(2).count { |a, b| a < b }
-          end
-        ```
-
-        end end
         ```
       :replies: []
 - :author: LyleiLanar
@@ -539,11 +538,11 @@
     :body: |-
       Ruby has `each_cons` which implements the sliding window method
 
-      [https://apidock.com/ruby/Enumerable/each\_cons](https://apidock.com/ruby/Enumerable/each_cons)
+      https://apidock.com/ruby/Enumerable/each\_cons
     :replies: []
 - :author: jeffers0n
   :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmtw0cl/
-  :body: 'Got a late start today but here''s my solution in ruby: [https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day01/solution.rb](https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day01/solution.rb)'
+  :body: 'Got a late start today but here''s my solution in ruby: https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day01/solution.rb'
   :replies: []
 - :author: roundscribehector5
   :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmxrx3s/
@@ -646,7 +645,7 @@
       - you don't need to map to 'increased' or 'decreased', you can simply count using the block option, e.g. `count { x < y }`
       - I'm not sure how your part 2 works, it doesn't seem like you're summing your each\_cons(3), so you're going to be getting the wrong answer there.
 
-      Here's my solution if you care. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2021/day01/day01.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2021/day01/day01.rb)
+      Here's my solution if you care. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2021/day01/day01.rb
     :replies:
     - :author: '442401'
       :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmve0d5/
