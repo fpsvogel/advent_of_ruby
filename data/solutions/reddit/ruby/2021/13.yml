@@ -1,0 +1,260 @@
+---
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hohjrdx/
+  :body: |-
+    **Ruby** : _Unofficial_ 5:07/7:04, which would have been good for 49th and 21st on the leaderboard
+
+    Here's a [recording](https://youtu.be/5S-EO_7IyxM) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec13.rb). I usually stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    I wasn't able to do this one live, but I timed myself when I did it. This would have been my best performance by FAR! Major bummer.
+
+    My biggest time loss was from accidentally deleting a line from my stub file.
+  :replies: []
+- :author: blackbunbun
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hogogq8/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    points, folds = File.read('input.txt').split("\n\n")
+
+    points = points.lines.map {|coords| coords.split(',').map(&:to_i) }
+    folds = folds.lines.map {|fold| fold.match(/(x|y)=(\d+)$/).captures }
+
+    max_x = points.collect(&:first).max
+    max_y = points.collect(&:last).max
+
+    grid = []
+    (max_y + 1).times { grid << Array.new(max_x + 1, 0) }
+
+    points.each {|x,y| grid[y][x] = 1 }
+
+    def fold(grid, dir, index)
+      m = dir == 'x' ? grid.map {|row| row[...index] } : grid[...index]
+      n = dir == 'x' ? grid.map {|row| row[index...].reverse } : grid[index...].reverse
+      m.zip(n).map {|m_row,n_row| m_row.zip(n_row).map(&:max) }
+    end
+
+    dir, index = folds.shift
+    grid = fold(grid, dir, index.to_i)
+
+    puts "Part 1: #{grid.map(&:sum).sum}"
+
+    folds.each do |dir,index|
+      grid = fold(grid, dir, index.to_i)
+    end
+
+    puts "Part 2:"
+    grid.each {|row| row.each {|col| print col == 1 ? '#' : ' ' }; print "\n" }
+    ```
+  :replies: []
+- :author: tom_collier2002
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe3xs1/
+  :body: |-
+    [Ruby solution using complex numbers](https://github.com/tcollier/aoc_solutions/blob/main/2021/13/main.rb)
+
+    Using ruby's built-in `Complex#conjugate` I was able to write a clean folding method
+
+    ```ruby
+    def fold(dots, axis)
+      dots.map do |dot|
+        if axis.real.between?(1, dot.real)
+          2 * axis - dot.conjugate
+        elsif axis.imag.between?(1, dot.imag)
+          2 * axis + dot.conjugate
+        else
+          dot
+        end
+      end.to_set
+    end
+    ```
+
+    Lots of people were struggling reading the output for part 2 when printing with `#` and `.` characters, so I wrote [my own OCR](https://github.com/tcollier/aoc_solutions/blob/main/2021/13/ocr.rb). Granted I made up a few of the characters (`M` and `W` ain't looking too hot), so I can't guarantee it'll work for every input.
+  :replies:
+  - :author: tom_collier2002
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe6461/
+    :body: |-
+      The complex conjugate reflects the point around the real axis (`a + bi` become `a - bi`). The folding `axis` in my code is either purely real or purely imaginary (`a + 0i` or `0 + bi`) and `2 * axis` is effectively the far end of the paper that will be folded over.
+
+      When folding in the `y` direction (`elsif axis.imag.between?(1, dot.imag)`) the real part of `axis` is `0`, so the real result of the expression is simply the real part of `dot`. The imaginary part of the expression is the difference between `2 * axis` (i.e. the opposite edge of the paper) and the imaginary part of `dot` (which is a negative number after taking `Complex#conjugate`). In short we keep the real part of `dot` and find the distance between the far edge of the paper and the `dot` along the imaginary axis.
+
+      The math for folding in the `x` direction (`axis.real.between?(1, dot.real)`) is similar. However, we need to reflect the dot around the _imaginary_ axis. To accomplish this we can rotate the complex conjugate `π` radians. Multiply a complex number by `i` rotates the number by `π/2` radians, we need to do that twice (`i * i`), which is the same as multiplying by `-1`.
+    :replies: []
+  - :author: tom_collier2002
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe7evc/
+    :body: |-
+      I wrote the OCR code after initially printing out the result using `#` and `.` characters. It felt like reading a Captcha (Is that a `U` or a `V`?! I sweat I'm not a bot!). A few coworkers also posted their part 2 results in a similar format, which gave me examples of roughly half the alphabet to "train" my OCR code with. About half of the remaining letters were pretty easy to guess at (though they could still be wrong).
+
+      Finally, since we only have a 4 "pixel" width, characters like `M` and `W` didn't have enough width for all the required detail. Also, vertically symmetric characters like `I`, `T` and `Y` would look better using an odd pixel width so I either had to leave a column unused or make the character asymmetrical around the vertical axis.
+
+      Edit: the OCR fails on the sample input as the `O` character has a width of 5 pixels :(
+    :replies: []
+- :author: kejadlen
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociv59/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    dots, folds = ARGF.read.split("\n\n")
+
+    dots = dots.scan(/(\d+),(\d+)/).map { _1.map(&:to_i) }
+    folds = folds.scan(/(x|y)=(\d+)/).map { [_1, _2.to_i] }
+
+    dirs = { ?x => 0, ?y => 1 }
+    folds.each do |dir, axis|
+      index = dirs.fetch(dir)
+      dots.select { _1[index] > axis }.each do |dot|
+        dot[index] = axis - (dot[index] - axis)
+      end
+      dots.uniq!
+      # p dots.size or exit
+    end
+
+    xx = Range.new(*dots.map(&:first).minmax)
+    yy = Range.new(*dots.map(&:last).minmax)
+    puts yy.map {|y| xx.map {|x| dots.include?([x,y]) ? "█" : " " }.join }.join("\n")
+    ```
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hodvyvn/
+  :body: |-
+    **Ruby** :
+
+    This one went well, which I'm glad for because I found the previous two more difficult.
+
+    ```ruby
+    dots, directions = File.read('input.txt').split("\n\n").map{|section| section.split("\n")}
+
+    dots.map! {|dot| dot.split(',').map(&:to_i)}
+
+    directions.each do |direction|
+      axis, amp = direction[/[xy]=\d+/].split('=')
+      amp = amp.to_i
+
+      p "Folding #{axis} at #{amp}"
+
+      # Create the crease line
+      dots.reject{|x, y| (axis == 'x' ? x : y) == amp }
+
+      # Separate the top/left from the bottom/right
+      a, b = dots.partition{|x, y| (axis == 'x' ? x : y) < amp}
+
+      b.map! do |x, y|
+        case axis
+        when 'x'
+          [x + 2 * (amp - x), y]
+        when 'y'
+          [x, y + 2 * (amp - y)]
+        end
+      end
+
+      dots = (a + b).uniq
+    end
+
+    x_max = dots.max_by{|x, y| x }[0]
+    y_max = dots.max_by{|x, y| y }[0]
+
+    (0..y_max).each do |y|
+      (0..x_max).each do |x|
+        print dots.include?([x, y]) ? '■' : ' '
+      end
+      print $/
+    end
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocf83u/
+  :body: |-
+    Ruby, 46 / 10
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBHAwAAAAAAAAARiAbIwVXFxjAHV4imsypiJuz6/+IEIy7rTsLLfhuNEAxYhyw4F82R76RPshGKTUBSf3YjhjC5Tj9WAOFYiECgvZsopP2yESwt9zJV4XNHRB4n2IcJbCTlae5DqLuAk1IWj/RgAHLIJ0Spk9CbJgiYqtCZgU+Kqg/CuWfJnHx60tK7ZArfEfg+msG5yU2hRFdY8oC7ySROoA9Sj5kzpeQID4UelObSGbw++oCaDTQDhoV4F+2XWJFHbCluVLCocjzrZdcSd0ak8VQitgnyEMi37hO2PxgSkgePCoE2vFq33N2JdkWrLxwKOusx/PP/vh72/maSYE0ARZ+vShuWMm0EbVv9wOIYTrBRanh2QtaYGfijUhE3A4byVx202dAW9L5WdC2zyWPik8cxjENqqlYApYyk1Wuz9JHWj6878nSRu6c25w820eLFfng90zJehpp2irrXzvU4GS0UQvAxaNZD/vy/HK9n3yMOiXnjuERSlMQbUQ0eIM7BCbCjUP/H3RPd)
+
+    - Parsing is done using `String#scan(regex)`. GitHub Copilot helped me write part of the input parsing code. (And helped me avoid typing mistakes when dealing with nested for loops.)
+    - I spent quite some time writing the `plot[]` function while working on part 1. Glad to see it came really handy in part 2.
+  :replies: []
+- :author: dhruvasagar
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociz5m/
+  :body: Yay! [Ruby](https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day13/day13.rb)
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocka3h/
+  :body: |-
+    ### Ruby
+
+    I give you the power of `Hash#transform_keys!` (which will automatically deduplicate any points that overlap!)
+
+    ```ruby
+    fold = ->(v, along) { v <= along ? v : 2 * along - v }
+
+    case dim
+    when ?x; dot.transform_keys! { |x, y| [fold[x, along], y].freeze }
+    when ?y; dot.transform_keys! { |x, y| [x, fold[y, along]].freeze }
+    ```
+
+    Full code at [https://github.com/petertseng/adventofcode-rb-2021/blob/master/13\_transparent\_origami.rb](https://github.com/petertseng/adventofcode-rb-2021/blob/master/13_transparent_origami.rb)
+
+    There's a weird story about why my part 1 rank is much higher than my part 2 rank. For part 1, I just transformed with `(x - along).abs`, which gives you the correct number of points, but mangles the coordinates too much for them to show up in part 2. So for part 2 I had to slow down a bit and determine the right equation for actually transforming.
+
+    ### Haskell
+
+    In a similar vein, I give you the power of `Set.map`.
+
+    ```ruby
+    foldAlong :: Set Point -> (Point -> Point) -> Set Point
+    foldAlong = flip Set.map
+
+    let foldedPoints = scanl foldAlong (Set.fromList (map point points)) (map fold folds)
+    ```
+
+    Full code at [https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13\_transparent\_origami.hs](https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13_transparent_origami.hs)
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocn7yo/
+    :body: |-
+      TIL about `Hash.transform_keys`.
+
+      I was using a hash at first in my Ruby solution then rewrote to use a `Set`: [https://github.com/Sharparam/advent-of-code/blob/main/2021/13/solve.rb](https://github.com/Sharparam/advent-of-code/blob/main/2021/13/solve.rb)
+
+      (The commit history for that file shows a bit of how it changed since initial solve.)
+    :replies: []
+- :author: scarfaceDeb
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocqo2l/
+  :body: |-
+    **Ruby**
+
+    I decided to go with the matrix because it was easier to work with. But I can see a way to do it with just simple math.
+
+    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80)
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoctwgk/
+  :body: |-
+    **Ruby**
+
+    I only realized _after_ solving the problem that there's no need to initialize a 1500x1500 array and loop through it for every fold, just saving a list of the # marked coordinates is good enough. (This version runs in 6 ms compared with 5 seconds for my first version)
+
+    Note: A human is required to parse the output file into an 8-letter string
+
+    ```ruby
+    data = open("input").read.split("\n\n")
+    marked = data[0].split("\n").map{_1.split(",").map(&:to_i)}
+    folds = data[1].split("\n").map{_1.gsub("fold along ", "").split("=")}
+
+    folds.each_with_index do |fold, i|
+      axis, loc = fold
+      if axis == "x"
+        marked = marked.map{_1.first > loc.to_i ? [2 * loc.to_i - _1.first, _1.last] : _1}.uniq
+      else
+        marked = marked.map{_1.last > loc.to_i ? [_1.first, 2 * loc.to_i - _1.last] : _1}.uniq
+      end
+      puts "Part 1: #{marked.count}" if i == 0
+    end
+    output = File.open("output", "w")
+    [*0..marked.map(&:last).max].each do |y|
+      [*0..marked.map(&:first).max].each do |x|
+        output << (marked.include?([x, y]) ? "#" : " ")
+      end
+      output << "\n"
+    end
+    ```
+  :replies: []

@@ -1,0 +1,150 @@
+---
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/hoaazas/
+  :body: My solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/changes/47771b9e-e206-47cc-92c7-79688a38d96b)
+  :replies: []
+- :author: scarfaceDeb
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3f5kw/
+  :body: |-
+    **Ruby**
+
+    My code is becoming more and more procedural. It’s probably some bad influence from colleagues who went with go and rust :D
+
+    ```ruby
+    ADJACENT = [-1, 1, 0].repeated_permutation(2).reject { _1 == [0, 0] }.sort
+
+    octos = read_input
+
+    def step(octos, pos, from = nil)
+      return if pos.any?(&:negative?)
+
+      energy = octos.dig(*pos)
+      return if energy.nil?
+
+      i, j = pos
+
+      octos[i][j] += 1
+
+      ADJACENT.each { step(octos, pos.zip(_1).map(&:sum)) } if energy == 9
+    end
+
+    st = 1
+    total = 0
+    rows, cols = octos.count, octos.first.count
+    octos_count = rows * cols
+
+    loop do
+      rows.times do |i|
+        cols.times do |j|
+          step(octos, [i, j])
+        end
+      end
+
+      flashing = 0
+
+      rows.times do |i|
+        cols.times do |j|
+          next if octos[i][j] < 10
+
+          octos[i][j] = 0
+          flashing += 1
+        end
+      end
+
+      total += flashing if st <= 100
+      break st if flashing == octos_count
+
+      st += 1
+    end
+
+    puts "Answer 11.1: #{total}"
+    puts "Answer 11.2: #{st}"
+    ```
+
+    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb)
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho48vq5/
+    :body: "`repeated_permutation` There we go! I spent like 15 minutes annoyed that I couldn’t Ruby up my directions array. I was trying varieties of `permutation` and `combinations` and zip and such. I had not previously seen _repeated_ permutation. Just what the Dr. ordered!"
+    :replies:
+    - :author: scarfaceDeb
+      :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho4h6pt/
+      :body: "Yeah, I found so many useful tricks and lesser known methods in Ruby stdlib in the last 10 days too \U0001F600"
+      :replies: []
+- :author: madethemcry
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3d5si/
+  :body: |-
+    # RUBY
+
+    [georgiee/advent-of-code-2021/day-11 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-11)
+
+    # Notes
+
+    This was fun and reward. Grids are kind of my nemesis in AoC. Simple enough to understand but also always asking myself for a "beautiful" solution to have the grid under fulll control.
+
+    During Day 09 (also a grid) I saw a [Ruby solution](https://www.reddit.com/r/adventofcode/comments/rca6vp/comment/hnwljmj) which read great. I searched where the "borders" of the grid are put into the equation. Nothing like that, just calculate the coordinates and put your stuff into a hash. When you try to access a "wrong" neighbor it's `nil` and you can easily skip them with `compact` on your list or whatever your use to process.
+
+    I did that today too and it feels great. In addition I used `[-1, 0, 1].repeated_permutation(2).to_a - [[0, 0]]` to created the neighbour map very easily. I created a class `Octopus` to holde the data for each octopus. In addition because it's ruby I can define great sounding words like `can_flash?`, `on?` to ask for a state or change the state with `off!` and such. Really a plelasure to write code with that. I hate the technical appearance in JavaScript where you are forced to wirte `is_` for some boolean question. This just destroys the natural readability which I love with Ruby ❤️
+
+    Anyway. Part 1 took some amount of time. And I wrote a `print` function to output my grid wayyyy to late. Until then I checked the debugger values which costs too much time. The printed grid tells me instantly what's wrong and I shoudl have done this from the beginning. Once I had this I could easily check and compare my steps with the instructions.
+
+    At some point of time I was ready to run the lights for 100 steps and magically as always the number was correct. Part 2 was really easy then. I created a new method on the `Cave`, and let it run until all lights are off. Then pick the index and we are done. This is the single addition for part 2. Nice isn't it?
+
+    ```ruby
+    def run
+        counter = 0
+        until everyone.all?(&:off?)
+          counter += 1
+          step
+        end
+
+        puts "everyone is on at #{counter}"
+    end
+    ```
+
+    I think a custom enumerator would make sense here. Then you could write like so for part 1 `cave.take(100)`and for part 2 `cave.take_while`. Both read fantastic. Time is up for today so I won't refactor that but I liked the day very much!
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3ila0/
+  :body: |-
+    I enjoyed this one quite a bit. Somewhat inspired by the DragonRuby Game Toolkit, I modeled it as a world with mobs, so pretty literally.
+
+    [Ruby pt 2](https://tzarnal.github.io/Opal/#XQAAAQAFCAAAAAAAAAAxmwhIY/VC+lD6cQOd9lyYAPDWpaReqe9sGQ0BG7rP377TcEubHCvPC0CdwEGG2DqBjJUjG9Qcu7O+lL54KYOxOEJM7AcW7Pd8w7FxmoLcR2zO1eCiO0FZqwtNsUbeQ6sWzT6C/RhB2q0AOugEPQy5xCe5GC1oGJxV01hET95B00Lw8Rg6cyqlVXgA++bbrcnY4G0Libb8Eqbxto4/CzYdUgka+xU7+1wCx+wI1mk7f5I2Pfp/7b/VRoGwr7x65ZzNo8uZBWTXrf8t9sqBe7zOcbPr7pqBzX2amlOVi86MBcXc/V8enThbmQV47A0BDbrBAam46e2k5TuYyDAybVJSMQ9Vp1dHTq+ET3W9wdNAVxcbxk6Tb8RyWBUxL0GHNij+ll5Q9vBbL7XUwc9mOewPBCIfrUD0I465DdatsUVIaMnJe1ifC4xeOG/2/mhhmGbrapJA+4tjC/DUMzu8cTyjqv9CnVsQVI4dUmqGEa8TxZczZKglrS/o69sI0hMpXOqt8Zy69NWcVCGswK6uTb4llvmlb0FG2nvfDL6TyMlMktDLIivE3xobs94pj28PvKl+GrKdicGRvG+wmcRqlozp3ps7+gxXcBSfxacDh4BM0WhBp7A1kMPgJnXcdddZ6vjOZbt1XG6FeFPw052rrKi/KJYzXlbzTucPPChFG7+x17fq0tWtlB5/r9z1iKDpzawLFyUCL8PRDGYfltcwuBcMEKQ/+MaRFTNw3cZ8sIkFmkSvGL72MJNZTcM+BnPgNNxUdCM1VW0LaLa+O9DX8SOjXJBUgb/3IO0VtEzkPJVaw5mOU2lWY7Ok8HBls4TJMvL2MQTYphhvSXzeYylc5IZYS7cHfuBxZhB0mVTwlyIwyKaj3QEMwmJA2jHYeITH8AV/WDy9B7/qY/vpr1c3swpp0NmyAw+MIsylAXCEt0wpRwegHOnCLKb2KZ4IRScn0CeY0b/aXYJ6kFEEUkcskVV+hzQ0Fyf+AOAt5ujCiQN/OK4zYsVyOhJFEt6TVVQjY4U0jgJroo5Bbl1eSg+VE66kG7jSv4fzBJtn3ddGDXiefP78KG7S)
+  :replies:
+  - :author: conthomporary
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3j7po/
+    :body: 'All right, I''ll admit it: "throw :MY\_EYES!" got a chuckle out of me'
+    :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3py2s/
+  :body: |-
+    **Ruby**
+
+    I wish I could have used a prettier way to find neighbours within bounds. I've seen some nice solutions in this thread though.
+
+    [https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb](https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb)
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho34hw7/
+  :body: |-
+    Ruby 746/640
+
+    [paste](https://topaz.github.io/paste/#XQAAAQD5AwAAAAAAAAA2mEpiKBEva3oI7tVd9n7D3wNtbmwq32cmfy4Y74dHhdKFKKEoq7i2+I0L99HPs2sbZTY+fHeCVZlf/VgJb0PVyQlFo+sOcvoMcZPwKTjXY2RCOfFIJZQfjmHRYyRfseBHsxipEyQ7snZdsfuICl5bp6Wkck68u4kQcM7qWcHWT1zD2Zgd7IXFshVjwpJQUdbl2HZcJ4DTLJzChhwDbRX2s84FwEx6VQD3L8z9kjLoTTtrZ7V0T8n61Ei6eBb55LAusH0b31KKCMutu37h5D6SN5CkwDMo/sMnECDyB61EI40qDMHAVkIw+xFPuUMt96gi9S69B5jdrc559kEvLTT6Q3MThRK+8XVJi6ZDf03yg/WtoSBUzyKqR3xKQVx/bF3nXdWrHdRuhLOX1iq4JT77Pr5jodum9DPDTlSaM/BmTmYti8j2MGJt/7dIAPeaUBhNVf/fqYxw)
+  :replies: []
+- :author: dhruvasagar
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3fwjr/
+  :body: Ruby - [https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb](https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb)
+  :replies: []
+- :author: hrunt
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho41e39/
+  :body: |-
+    **Python 3**
+
+    [Code](https://topaz.github.io/paste/#XQAAAQB1BgAAAAAAAAAQi8snifLtCATweOodUvHjXHHN4z6+DKrW2PsUJgSuNwg/WPMRCky2h8qXaT/YvgUxZadnlKD3zzMpV8G5jiVui5pHIePPjREctEChAIK1F7uQj2yXtnVyE9wXn2pcyzQ2lrcTIkltEbVFNpBQhf+eGufbDKHLfpCXHR5AFioCCHlnxHpVK6dgahqtN4Ty9Vfee2N/40LZ87h1h9uU9srtltm4PJ9oOQ//pOhCTUTM/m5L8CPka1zsaACnD4/fzodj9I8oGyPgxVdWX6FpA7nHNJMy78ypZxDTjYxTbNTE158GzR4Mi9azmkWCh+IZ0x6eohjesP9IPODhkijTvQdPP7MkmQ4m6I+P47UPLeu+bwn1l12uKqOJElxQl6rKTXM/ESaP+1hZqpnba5UWLWFeQ+q6HW0EltL+sMXSm2PRtCvNVfZErbYnTb3UcrasTABn3pP/VBEas2QIxpS379p9c8RG7bgQ3qrFeSND5GiktvByzsY96wF8p068c68+J4PWH4LuwEvNRpDapERupki7amvdUOOgXqgdMTYJnmfSLP+Gq+YIGzGvjbyZlaQKXuCIiNka9C3U3JTOeYoedC/oCTyleA+3mTYnpI+Z3KtLk98rCMXNAQrX7y0ECFF94xkqv5dEN+AGWvWCf/rJPaR8GhYCvJMwThz4doZL7YCVExeGHwWPmlOtLQwlZVGihPZW+3ORUbyWxJL4zmuOysWhVHdFa9GKuczuxhSxQed8SIciRnlhhVEib2m3ipk9eq4moam6Ugi11ky32Rf5bA0qqEqCMw+AqcQ5cUo5ygy6PlkCwrzujksFc3klJWShihWhTvMhbBc8649DU3iwi9mjaq4a1pYr2hkrj2RFKPG6H5zZXNw1GQ92ulKy0+VQu1OVl5oSyKIRJigRv/NJcv9wfEAA)
+
+    Not a lot to say about this one. For square grids like this, I find using a dictionary of (x, y) coordinates is cleaner than using nested lists. Once I built the step function to serve Part 1, Part 2 was a breeze.
+  :replies:
+  - :author: kupuguy
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho435k7/
+    :body: You don't need the extra parentheses `grid[(x, y)]` is cleaner if you just write `grid[x, y]`. You are right about the dict though; though I started using nested lists then quickly switched to a dict.
+    :replies: []

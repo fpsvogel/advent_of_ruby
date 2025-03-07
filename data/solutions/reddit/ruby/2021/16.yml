@@ -1,0 +1,274 @@
+---
+- :author: weiss_i_net
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/houksni/
+  :body: |-
+    **Ruby**
+
+    Sorta proud that it turned out this concise on the first try. That allowed me to do the second part really quickly.
+
+    ```ruby
+    $version = 0
+
+    def parse_packet(packet)
+      packet_version = packet.shift(3).join.to_i(2)
+      $version += packet_version
+      type_id = packet.shift(3).join.to_i(2)
+
+      if type_id == 4 # literal packet
+        msg = []
+        while packet.shift == "1"
+          msg.append(*packet.shift(4))
+        end
+        msg.append(*packet.shift(4))
+        return [msg.join.to_i(2), packet]
+
+      else # operator
+
+        # length type == bits
+        if packet.shift == "0"
+          packet_len = packet.shift(15).join.to_i(2)
+          sub_packet = packet.shift(packet_len)
+          result = []
+          until sub_packet.empty?
+            sub_result, sub_packet = parse_packet(sub_packet)
+            result << sub_result
+          end
+
+        # length type == packet count
+        else
+          packet_count = packet.shift(11).join.to_i(2)
+          result = []
+          packet_count.times do
+            sub_result, packet = parse_packet(packet)
+            result << sub_result
+          end
+        end
+
+        case type_id
+        when 0; return [result.sum, packet]
+        when 1; return [result.reduce(&:*), packet]
+        when 2; return [result.min, packet]
+        when 3; return [result.max, packet]
+        when 5; return [result.reduce(&:>) ? 1 : 0, packet]
+        when 6; return [result.reduce(&:<) ? 1 : 0, packet]
+        when 7; return [result.reduce(&:==) ? 1 : 0, packet]
+        end
+      end
+    end
+
+    input = ARGF.read.strip.chars.map{|c| c.hex.to_s(2).rjust(4, "0").chars}.flatten
+
+    puts "Part 2: #{parse_packet(input).first}"
+    puts "Part 1: #{$version}"
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor34iu/
+  :body: |-
+    **Ruby** : 16:44/51:50, 37/773
+
+    Here's a [recording](https://youtu.be/A5AqhdjhxNU) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec16.rb). I usually stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    My best leaderboard spot, by far!
+
+    Man, this one was really a test in reading comprehension. Took a while to understand what was going on and figure out what parts I actually needed to do for Part 1 vs Part 2.
+
+    Part 2 was pretty fun! It took me a while I needed to subtract the bits from EVERYTHING in the ancestor stack and then that I might need to pop multiple things off that stack. Great problem with a bunch of separate insights.
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor9ent/
+  :body: |-
+    **Ruby**
+
+    We begin by parsing the hex input into binary, taking care to use [Kernel#sprintf](https://ruby-doc.org/core-3.0.0/Kernel.html#method-i-sprintf) to pad with leading zeroes.
+
+    ```ruby
+    data = open("input").read.chars.map{sprintf('%04b', _1.to_i(16))}.join("")
+    ```
+
+    Next, three methods to help us parse the input. `parse_packet` is the main function, which calls `parse_literal` if it's a literal value, and `parse_several_packets` if it's an operator.
+
+    Each of these returns a `version_sum` (for Part 1), a `value` (for Part 2), and a `remainder` (what's left of the string, which then becomes the argument for the next packet to be parsed).
+
+    ```ruby
+    def parse_literal(str)
+      output = ""
+      counter = 0
+      str.chars.each_slice(5) do |group|
+        output << group[1..4].join("")
+        counter += 1
+        break if group[0] == "0"
+      end
+      return {version_sum: 0, value: output.to_i(2), remainder: str[5 * counter..]}
+    end
+
+    def parse_packet(str)
+      version = str.slice!(0, 3).to_i(2)
+      id = str.slice!(0, 3).to_i(2)
+      if id == 4
+        result = parse_literal(str)
+      else
+        mode = str.slice!(0) == "0" ? "bits" : "subpackets"
+        num_of_bits_or_subpackets = mode == "bits" ? str.slice!(0, 15).to_i(2) : str.slice!(0, 11).to_i(2)
+        result = parse_several_packets(str: str, code: id, count: num_of_bits_or_subpackets, method: mode)
+      end
+      return {version_sum: version + result[:version_sum], value: result[:value], remainder: result[:remainder]}
+    end
+
+    def parse_several_packets(str:, code:, count:, method:)
+      versions = []
+      values = []
+      if method == "subpackets"
+        count.times do
+          result = parse_packet(str)
+          versions << result[:version_sum]
+          values << result[:value]
+          str = result[:remainder]
+        end
+      else # Known number of bits
+        part = str.slice!(0, count)
+        until part.empty? do
+          result = parse_packet(part)
+          versions << result[:version_sum]
+          values << result[:value]
+          part = result[:remainder]
+        end
+      end
+      case code
+      when 0 then value = values.sum
+      when 1 then value = values.reduce(&:*)
+      when 2 then value = values.min
+      when 3 then value = values.max
+      when 5 then value = values[0] > values[1] ? 1 : 0
+      when 6 then value = values[0] < values[1] ? 1 : 0
+      when 7 then value = values[1] == values[0] ? 1 : 0
+      end
+      return {version_sum: versions.sum, value: value, remainder: str}
+    end
+    ```
+
+    Then we just have to call the `parse_packet` method, and use `version_sum` and `value` as solutions for Parts 1 and 2 respectively:
+
+    ```ruby
+    p parse_packet(data)
+    ```
+  :replies: []
+- :author: madethemcry
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosv3us/
+  :body: |-
+    # RUBY
+
+    [georgiee/advent-of-code-2021/day-16 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-16)
+
+    [[Part 1](https://github.com/georgiee/advent-of-code-2021/blob/main/day-16/day-16-part1.rb) |[Part 2](https://github.com/georgiee/advent-of-code-2021/blob/main/day-16/day-16-part2.rb)]
+
+    # Notes
+
+    This was kind of straight forward for someone who participated in AoC 2019 where each day was part of building the famous [intcode computer](https://adventofcode.com/2019/day/2). Ruby also helps a lot in processing data streams and converting forth and back the data in hex, binary & friends. I think that is often extra legwork in many languages, isn't it?
+
+    After two frustrating days I had a great success today. The ruby code just reads beautiful ❤️
+  :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqx7pb/
+  :body: |-
+    [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/16/decode.rb) (114/114)
+
+    Personal best ranking wise today (while my day job is programming, I'm not a professional _competitive_ programmer), just 46 seconds from top 100 on part 1 and 78 seconds on part 2. :D Might be caused by my inexplicable love for parsing... :P
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqy08b/
+  :body: |-
+    Ruby
+
+    ```ruby
+    line = gets.split("\n")[0]
+
+    packet = line.hex.to_s(2).rjust(line.size * 4, '0')
+    i = 0
+
+    read_field = ->(length) { packet[i, length].to_i(2).tap { i += length } }
+
+    parse_packet = -> do
+      version = read_field.call(3)
+      type_id = read_field.call(3)
+
+      if type_id == 4
+        value = ''
+        loop do
+          leading = packet[i]
+          value += packet[i + 1, 4]
+          i += 5
+          break if leading == '0'
+        end
+        return value.to_i(2)
+      end
+
+      length_type_id = read_field.call(1)
+
+      packets = []
+      if length_type_id == 0
+        stop = i + read_field.call(15)
+        packets << parse_packet.call until i >= stop
+      else
+        read_field.call(11).times { packets << parse_packet.call }
+      end
+
+      case type_id
+      when 0
+        packets.sum
+      when 1
+        packets.inject(:*)
+      when 2
+        packets.min
+      when 3
+        packets.max
+      when 5
+        packets[0] > packets[1] ? 1 : 0
+      when 6
+        packets[0] < packets[1] ? 1 : 0
+      when 7
+        packets[0] == packets[1] ? 1 : 0
+      end
+    end
+
+    p parse_packet.call
+    ```
+  :replies: []
+- :author: erikw901
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosd6b5/
+  :body: |-
+    # Ruby
+
+    - [part1.rb](https://github.com/erikw/advent-of-code-solutions/blob/main/2021/16/part1.rb)
+    - [part2.rb](https://github.com/erikw/advent-of-code-solutions/blob/main/2021/16/part2.rb)
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hotgu7a/
+  :body: |-
+    # [Ruby](https://github.com/daniero/code-challenges/blob/master/aoc2021/ruby/16.rb)
+
+    Spent absolutely forever on part 1 today, misinterpreting the text, getting off-by-one errors etc etc. However I'm quite please that I could solve part 2 quite quickly after that:
+
+    ```ruby
+    def calculate_value(packet)
+      case packet.type
+      when 0
+        packet.sub_packets.sum(&method(:calculate_value))
+      when 1
+        packet.sub_packets.map(&method(:calculate_value)).reduce(:*)
+      when 2
+        packet.sub_packets.map(&method(:calculate_value)).min
+      when 4
+        packet.value
+      when 3
+        packet.sub_packets.map(&method(:calculate_value)).max
+      when 5
+        packet.sub_packets.map(&method(:calculate_value)).reduce(:>) ? 1 : 0
+      when 6
+        packet.sub_packets.map(&method(:calculate_value)).reduce(:<) ? 1 : 0
+      when 7
+        packet.sub_packets.map(&method(:calculate_value)).reduce(:==) ? 1 : 0
+      end
+    end
+    ```
+  :replies: []

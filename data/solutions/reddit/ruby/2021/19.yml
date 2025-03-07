@@ -1,0 +1,33 @@
+---
+- :author: prafster
+  :url: https://www.reddit.com/r/adventofcode/comments/rjpf7f/2021_day_19_solutions/hrxvfgt/
+  :body: |-
+    ## Julia
+
+    This is simpler than it appears. The only maths you need is a bit of vectors/matrices and how to rotate a point in 3D. For reference see [here](https://www.euclideanspace.com/maths/algebra/matrix/transforms/examples/index.htm).
+
+    The algorithm is:
+
+    1. For each scanner, find the square distance between each pair of beacons.
+    2. Compare these distances between scanners. That tells you which scanners overlap.
+    3. For each of these overlapping scanners (s1 and s2, say), use a pair of beacons to find the correct rotation of beacons in s2 so that they align to beacons in s1. As part of finding the rotation, the location of the scanner (relative to the first scanner) pops out.
+
+    There are more comments in the code.
+
+    I'm learning Julia for this AoC and really enjoying it. It's especially good for anything vaguely maths-related (as you'd expect). It's a nice short, expressive language but also accessible, like Python and Ruby, and much faster.
+
+    [Solution](https://github.com/Praful/advent_of_code/blob/main/2021/src/day19.jl).
+  :replies: []
+- :author: '0x8b'
+  :url: https://www.reddit.com/r/adventofcode/comments/rjpf7f/2021_day_19_solutions/hpg0mnm/
+  :body: Please check out my simple solution in Ruby ;) [https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/19.rb](https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/19.rb)
+  :replies: []
+- :author: akanet
+  :url: https://www.reddit.com/r/adventofcode/comments/rjpf7f/2021_day_19_solutions/hp844vn/
+  :body: |-
+    [Ruby](https://gist.github.com/vincentwoo/dd1136e151c9035e090dd6401f301dcf)
+
+    This was very difficult, especially given that I have the unusual constraint of programming these entirely within the CoderPad online environment. Ruby doesn't have especially advanced/accelerated numerics, so in order to get down to a solution that could run in a few seconds, I had to do some fingerprinting of the beacons. My hunch worked out - if you take as a fingerprint for each beacon simply its offset to its closest neighbor, that's enough to quickly find matches between the other scanner sets.
+
+    I also streamed myself doing this one for any masochists who want to watch me fail for three hours: [https://www.twitch.tv/videos/1237510167](https://www.twitch.tv/videos/1237510167)
+  :replies: []

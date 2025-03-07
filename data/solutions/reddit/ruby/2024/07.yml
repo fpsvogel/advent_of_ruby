@@ -74,14 +74,11 @@
   :replies:
   - :author: thereal_peasant
     :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uabou/
-    :body: 'What happens when your `runningTotal` is equal to the `total` but there
-      are still numbers left in `parts`? For example, take the input `''100: 10 10
-      3''`. Does this return `true`? Should it?'
+    :body: 'What happens when your `runningTotal` is equal to the `total` but there are still numbers left in `parts`? For example, take the input `''100: 10 10 3''`. Does this return `true`? Should it?'
     :replies:
     - :author: SwagosaurusFlex
       :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ucr4t/
-      :body: Ah that makes sense, can't believe I missed that! Thanks, finally got
-        the star
+      :body: Ah that makes sense, can't believe I missed that! Thanks, finally got the star
       :replies: []
     - :author: ASteelyDan
       :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uf841/
@@ -105,15 +102,11 @@
     :replies:
     - :author: NullT3rminated
       :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuf38/
-      :body: I get about 3 seconds on my laptop. Just slow enough to make me start
-        to worry and start thinking about optimizations before it completed. YJIT
-        speeds it up by about 300ms.
+      :body: I get about 3 seconds on my laptop. Just slow enough to make me start to worry and start thinking about optimizations before it completed. YJIT speeds it up by about 300ms.
       :replies:
       - :author: FCBStar-of-the-South
         :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tv98q/
-        :body: I think the only difference between our implementation is how we do
-          ||. You use string concatenation and I use the logarithm. Will have to benchmark
-          your way tmr
+        :body: I think the only difference between our implementation is how we do ||. You use string concatenation and I use the logarithm. Will have to benchmark your way tmr
         :replies:
         - :author: NullT3rminated
           :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8m8s/
@@ -184,9 +177,7 @@
   :replies:
   - :author: Ill_Information_9522
     :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m1b2e92/
-    :body: This is great... very idiomatic. Still learning-- hadn't though of adding
-      a bar operator to Integer. Love the built-in permutation methods though, quite
-      handy. Not sure if other languages have such powerful stdlibs.
+    :body: This is great... very idiomatic. Still learning-- hadn't though of adding a bar operator to Integer. Love the built-in permutation methods though, quite handy. Not sure if other languages have such powerful stdlibs.
     :replies: []
 - :author: fredster231
   :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vh0np/
@@ -254,9 +245,7 @@
     :replies:
     - :author: FCBStar-of-the-South
       :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0xtael/
-      :body: Eh this morning I just said what if I don’t do any deduplication with
-        sets. Cut it right down to barely over a second and that’s good enough for
-        me
+      :body: Eh this morning I just said what if I don’t do any deduplication with sets. Cut it right down to barely over a second and that’s good enough for me
       :replies: []
 - :author: riffraff
   :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttkxm/
@@ -295,8 +284,7 @@
   :replies:
   - :author: phord
     :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuz30/
-    :body: It never occurred to me to optimize by stopping when I exceed the target.
-      But it ran so fast from the start, I obviously didn't need to.
+    :body: It never occurred to me to optimize by stopping when I exceed the target. But it ran so fast from the start, I obviously didn't need to.
     :replies: []
 - :author: masterarms
   :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0usl5m/

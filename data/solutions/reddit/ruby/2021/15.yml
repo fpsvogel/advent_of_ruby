@@ -1,0 +1,136 @@
+---
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homktk6/
+  :body: |-
+    Ruby Dijkstra solution
+
+    [Part One](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day15/kiril/solve.rb)
+  :replies: []
+- :author: kateba72
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honpqzq/
+  :body: |-
+    **Ruby** (the second time I'm posting this, because the first solution didn't work for all inputs)
+
+    I implemented A\*, but I noticed that manhattan distance isn't a good metric for this problem, because it is 1/5 of the actual cost in most cases. This causes the code to visit almost all nodes either way, so I tried to come up with a better solution.
+
+    My [first solution](https://github.com/Kateba72/advent_of_code/blob/c02e1660be259b78da6d5d6208a28d1aa1deaa69/2021/15.rb#L76) was fast, but overestimated the cost for some inputs, which led to incorrect values for some inputs, so I kept looking for a better distance estimation and found this:
+
+    ```ruby
+    def calculate_distance_estimates(map)
+      @distance_estimates = []
+      last_row = map.size - 1
+      last_column = map[0].size - 1
+      last_diagonal = last_row + last_column
+
+      (0..last_row).each do |row| # initialize the @distance_estimates array
+        @distance_estimates[row] = []
+      end
+      @distance_estimates[last_row][last_column] = map[last_row][last_column]
+
+      (0 .. last_diagonal-1).reverse_each do |diagonal|
+        diagonal_value = Float::INFINITY
+        column_range = [0, diagonal - last_row].max .. [last_column, diagonal].min
+
+        column_range.each do |column|
+          row = diagonal - column
+          this_point_estimate = @distance_estimates[row][column] = [
+            @distance_estimates[row][column + 1] || Float::INFINITY,
+            @distance_estimates[row + 1]&.at(column) || Float::INFINITY,
+            diagonal_value + 2
+          ].min + map[row][column]
+          diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 2 : this_point_estimate
+        end
+
+        diagonal_value = Float::INFINITY
+        column_range.reverse_each do |column|
+          row = diagonal - column
+          this_point_estimate = @distance_estimates[row][column] = [
+            @distance_estimates[row][column],
+            diagonal_value + 2 + map[row][column]
+          ].min
+          diagonal_value = diagonal_value + 2 < this_point_estimate ? diagonal_value + 2 : this_point_estimate
+        end
+      end
+    end
+    ```
+
+    Hints for non-rubyists trying to read the code: - (int..int) is a range that includes the values on both ends - ruby arrays return nil (the equivalent of none/null) when accessing an index out of bounds, so the edge cases are taken care of
+
+    This assigns every point on the map a value that estimates the cost from this node to the end. This value is the cost of the point plus the minimum of - the estimated distance from the point one below - the estimated distance from the point one to the right - the minimum of the estimated costs of all points on the same diagonal plus the manhattan distance to that point
+
+    This function allowed me to cut runtime from 5.2 seconds to .75 seconds and visits less than 1/10 of the points that A\* would visit.
+
+    Full code [here](https://github.com/Kateba72/advent_of_code/blob/main/2021/15.rb) if someone is interested
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honys08/
+  :body: |-
+    [Pretty straightforward A\* in Ruby](https://github.com/daniero/code-challenges/blob/master/aoc2021/ruby/15.rb#L5) using PQueue.
+
+    Started implementing a clever lazy grid thing for part 2 to put into the logic from part 1, but couldn't be bothered in the end, so:
+
+    ```ruby
+    large_grid = 5.times.flat_map { |ny|
+      input.map { |row|
+        5.times.flat_map { |nx|
+          row.map { |risk|
+            new_risk = risk + ny+nx
+            new_risk -= 9 while new_risk > 9
+            new_risk
+          }
+        }
+      }
+    }
+    ```
+  :replies: []
+- :author: groys
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homgp6o/
+  :body: |-
+    [Ruby Solution without Dijsktra](https://github.com/groys/AOC/blob/main/2021/day15.rb)
+
+    General intuition is to start from the bottom right corner and build up the risk matrix
+
+    1. Maintain $d which captures the risk of traversing from i,j to right bottom
+
+    2. Start from the bottom right corner. Maintain queue of vertexes that you encounter
+
+    3. Relax (CLRS concept) each non-diagonal edge you encounter and queue the vertex if its $d changes
+
+    4. mind the 0, 0 vertex to not add its cost
+  :replies:
+  - :author: Tankznor
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homl7qa/
+    :body: I was thinking to start at the end, but does it really matter? Ended up with a dynamic programming solution starting at the top.
+    :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homt4gf/
+  :body: |-
+    [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/15/chitons.rb) (295/399)
+
+    Saw the problem, immediately went to dig up the Dijkstra's implementation (including a [basic priority queue implementation](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/lib/priority_queue.rb)\*) that I made a few weeks ago while solving day 22 from 2018 (I didn't hear about AoC until 2019). The thing that took me the most amount of time today was deciding on a nice algorithm to extend the map for part 2 (and also skimming past the fact that 9 should roll around to 1 and not 0 in that process)...
+
+    \*) Yes, I know that implementation isn't super effective, but it does the job. Not much slower than other implementations I've tried, and it doesn't require any external libraries.
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/hom7063/
+  :body: |-
+    **Ruby** : 14:12/59:50, 703/1949
+
+    Here's a [recording](https://youtu.be/A_PP3rHyLkc) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec15.rb). I usually stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    Ugh. Like many of you, I also initially assumed the path could only go down or right, but I didn't figure that our until ~45 minutes in. DEFINITELY should have been made clearer in the instructions. My Part 1 worked just going right and left!
+
+    Initial dynamic programming for Part 1 went not very well, and then my Djikstra half-implementation went even worse - wasn't really sure how to use a heap in Ruby.
+  :replies:
+  - :author: four_father
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homacx8/
+    :body: recording works but the github is a 404. did you forget to push?
+    :replies:
+    - :author: CodeIsTheEnd
+      :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homhn7l/
+      :body: Oops, thanks, fixed.
+      :replies: []
+  - :author: phord
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homjx56/
+    :body: I noticed the part 1 example was solveable with only right and down, but I assumed that was because of the size and the easing us in. I knew part 2 was going to bring the variety. Actually I was worried they were going to add diagonals.
+    :replies: []

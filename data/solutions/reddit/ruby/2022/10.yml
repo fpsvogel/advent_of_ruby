@@ -1,0 +1,202 @@
+---
+- :author: Zaorhion_
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0yt14w/
+  :body: |-
+    Ruby
+
+    [My Solution](https://github.com/Eric-Philippe/Advent-Of-Code-2022/tree/master/Day10%20%5BRuby%5D%20%F0%9F%A7%A3)
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izqd2az/
+  :body: |-
+    Ruby, golfed to 118 bytes
+
+    ```ruby
+    x=1
+    c=[]
+    $<.flat_map(&:split).map(&:to_i).map{c<<((-1..1)===c.size%40-x ??#:?.)
+    x+=_1}
+    c.each_slice(40){puts _1.join}
+    ```
+  :replies:
+  - :author: ulysse_bn
+    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0i98y7/
+    :body: |-
+      With a few tweaks, I could get that to 95:
+
+      `
+      x=1
+      c=[]
+      `dd`.split.map{c<<((c.size%40-x).abs<2??#:?.)
+      x+=_1.to_i}
+      c.each_slice(40){puts _1*""}
+      `
+    :replies: []
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izq2ga7/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDyDAAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/VYUvuckt47qc849AGx2bqC6Mz07VInqrh3fdXd92YZTCHSzBE8XopyTxka4/oOzZYsQ+KGJ2cLwIzojbME86YAwdrNT8Puftw7LJwH51GadTyGre6JLt9v/reEj5+JHk5MkBl72dNY1Zb0zBfZibFPiyDBF8gHuROlLfvXJbgP8Y1DkSGpHAxVhoLEiJQKQhTejPo9+1qmw9/PtvltU/I6vyt+nvThoCY+fpgeZul0rWRmS7ApN0revGl8fjNMRcpJW/FAtQcL55GucsM86DQVy7eOtx9kUM22X9IlIHMF8QaQ60WDe+6J3CfhNNHLH1tVcRLRuNBhqh6xoliJAtZgsuomZNeGgw4ugoXh/I8HUeCP5V4WXaaHm613b8XfJOPRfj9Q3xDIn12Uz9keFCnd/TuF6HeMhKmT+HC1C788qks8T8ScoUp58/p5gbyvKa/sIMCIk8EI7DiyiVoJjqsvzehAzBqMJOGQRl5S+9pkF9vSgnLBv4TdS4KDAXglhWTCjG/UlOqfWBQ26oWPdzlbI6NAVD20W+uhB+u3nljFbk12Khd6GPMgKgVCPoaJhHRpnc2z2kEvgZrA7Vb4JvVGJh4Z/s9PiCpUBTSETWn6QSGnDbRH8pJyZeZDTBZb2yKzNUENUPOUQVd1wF4Uw0GYV2ZhF7baehxM9SwHq6etxwpDiXBKRHt2lPqoMnkAguVB547jGhNl3oheoK+j1hKC0JkLnj3jN6mOKuWitcq0SCXLa5f96JHFZQJalun3a6LG0O/GTh9tPIWy6jJLHcfZejSE5jLU0YeweOa9clW2Uh6tF1N0iTtGao5ch/nJqrSmiUlybcCz09RLMS+eEZmWGR4K7y1GHx99djzwpMMgRT7x96z+owoUn9MVER85Vs+DKj6MqB3SeClUk/hEIcspAIo1yJoyqDb7olkiDVnDAMv8wjmnP5BfQRUzruW8feZALaYA+NGlf+LbeDgyzTFf7t9ojdyKRxT/3zJndMyxdPoDd2hJidiQvetbsERer6HzhMvd33+o77qtLXEIFm+02W6Ax6bQa+Exce75WdT1DO0YGUsS9Zyx65ZAxDt6B39b5RfYumACwDGDJ2J5OXuua20CdMaZv8kunF+KiDE2nitq14JXDhzQTCq5syVm1PTcHBVmRV27CSu93YttDn200ml73MFke/isevld+JKab/8p87oQ==)
+
+    This one was fun, and straight forward. Didn't know how to do it using TDD though.
+  :replies: []
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/iznvdim/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_10.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_10.rb)
+
+    ```ruby
+    h = File.readlines('day_10_input.txt', chomp: true)
+            .each_with_object([1]) do |i, a|
+      a << a.last
+      a << (a.last + i.split.last.to_i) if i.start_with? 'addx'
+    end
+
+    puts 20.step(by: 40, to: 220)
+           .sum { |i| i * h[i - 1] }
+
+    240.times
+       .map { |i| (h[i] - (i % 40)).abs < 2 ? '#' : '.' }
+       .each_slice(40) { |i| puts i.join }
+    ```
+  :replies:
+  - :author: f4780y
+    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izomns8/
+    :body: Very nice!
+    :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izn73dg/
+  :body: |-
+    **Ruby Solution**
+
+    You can generalise the logic to adjust the value of x and the current cycle, then use a lambda to encapsulate the needed steps for part 1 and part 2.
+
+    Using the "full block" character █ instead of # makes for much more readable output:
+
+    Full Solution: [https://gist.github.com/seanhandley/0f3b78a7c17a459485913692a9296cb1](https://gist.github.com/seanhandley/0f3b78a7c17a459485913692a9296cb1)
+  :replies: []
+- :author: SolarBear
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izo3w5h/
+  :body: |-
+    **Ruby**
+
+    That was a fun one!
+
+    [https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb](https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoa8oc/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/10)
+
+    Video Walkthrough: [YouTube](https://youtu.be/_4BCotKM01U)
+  :replies: []
+- :author: SnooConfections2453
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoqvu7/
+  :body: |-
+    I'm having a lot of fun doing ruby one liners. Today's solution is great IMO:
+
+    ```ruby
+    x,c,s=1,0,0;File.readlines('10.txt').each{_,a=_1.split;2.times{print (c%40-x).abs<2?"#":" ";c+=1;s+=c*x if(c-20)%40==0;puts if c%40==0;!a&&break};x+=a.to_i};p s
+    ```
+  :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmnv6i/
+  :body: |-
+    Ruby 3638/2800: [Code](https://github.com/jzhang113/adventofcode/blob/6e9fa80f9d96d88d5e9faa8867812e886c10e036/2022/solutions/10.rb)
+
+    Spent a bit too long in part 1 wondering if clock edges would matter, but got rewarded in part 2 for just dumping stuff to instance variables lol
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmrrwj/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    instructions = DATA.each_line.map(&:chomp).reject(&:empty?)
+
+    regx = 1
+    buffer = []
+    readings = []
+
+    A = 6.times.map { 40.times.map { "." } }
+    A[0][0] = "#"
+
+    def draw
+      A.map(&:join).join("\n")
+    end
+
+    def mark(regx,row,col)
+      if (col - regx).abs <= 1
+        A[row][col] = "#"
+      end
+    end
+
+    (0..).each do |i|
+      row = i / 40
+      col = (i % 40)
+
+      readings << regx * i if (i+20) % 40 == 0
+      break if instructions.empty? && buffer.empty?
+      break if i > 240
+
+      if buffer.any?
+        regx += buffer.shift
+        next
+      end
+
+      mark(regx,row,col)
+
+      case instructions.shift.split
+      in ["noop"]; nil
+      in ["addx", c]; buffer << c.to_i
+    end
+
+    puts readings.sum
+    puts draw
+
+    __END__...
+    ```
+  :replies: []
+- :author: RedWingedJerBear
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmww0q/
+  :body: |-
+    [ruby](https://github.com/jwhite-bh/advent-of-code/blob/main/2022/advent_day_10.rb)
+
+    Feel okay about this code
+  :replies: []
+- :author: kwitczak
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmwxv0/
+  :body: |-
+    **Ruby**
+
+    Too many loops, it can be further optimized.
+
+    ```ruby
+    instr_cycles = { 'addx' => 2, 'noop' => 1 }
+    x = [1]
+
+    File.readlines('day10.txt').each do |l|
+      instr, value = l.strip.split
+      cycles = instr_cycles[instr]
+      1.upto(cycles) do |c|
+        x << (c == cycles ? x.last + value.to_i : x.last)
+      end
+    end
+
+    signals = [20, 60, 100, 140, 180, 220].map { |i| x[i - 1] * i }
+    p "Part 1: #{signals.sum}"
+
+    p "Part 2:"
+    x.each_with_index do |s, i|
+      position = i % 40
+      print ((s - 1..s + 1).to_a.include?(position) ? '#' : '.')
+      print "\n" if position == 39
+    end
+    ```
+  :replies: []

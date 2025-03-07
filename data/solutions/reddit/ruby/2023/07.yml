@@ -131,6 +131,7 @@
               thanks for the explanation
 
               as for the sum, could you explain this part?
+
               `_2.to_i * -~$. -= 1`
             :replies:
             - :author: Any-Razzmatazz-4792

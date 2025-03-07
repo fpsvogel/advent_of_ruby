@@ -1,0 +1,98 @@
+---
+- :author: ywgdana
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j059jee/
+  :body: |-
+    **F#**
+
+    I opened the input file and grumbled in jealously at the Python and Ruby kids with their fancy-pants eval() function and it never once crossed my mind that I could use a json parser... So, hand-rolled recursive parser for me, which had me scratching my head a bit with F#'s type system to have a discriminated union that could be either an Int or a list of Ints and/or Lists.
+
+    For part 2, I just wrote what is probably charitably described as a parody of an Insertion Sort...
+
+    [The code at github!](https://github.com/DanaL/AdventOfCode/blob/main/2022/Day13.fsx)
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00xujm/
+  :body: |-
+    # Ruby (feat. monkey patching)
+
+    ```ruby
+    (a = [Integer, Array]).each{ |cl| cl.tap{_1.alias_method(:I_LOVE_RUBY, :<=>)}.define_method(:<=>) { |other| (a - [cl])[0] === other ? [self].flatten(1) <=> [other].flatten(1) : self.I_LOVE_RUBY(other) } }
+    STDIN.each_slice(3).map{ |x| x.map{eval(_1)} }.tap{ |x| p x.map{(_1 <=> _2) < 0}.unshift(nil).each_with_index.select(&:first).map(&:last).sum }.then{ |x| p (D = [[[2]], [[6]]]).map{ |d| (x.flatten(1).compact + D).sort.index(d) + 1 }.reduce(:*) }
+    ```
+
+    I have created something hideous.
+
+    Goal was to use Ruby's built-in `<=>`/`sort` with as few modifications as possible. Secondary goal was ~~a mistake~~ to minimize line count without semicolons. Unfortunately, there are some `tap` and `then` that feel a bit too much like using semicolons; anyone have ideas on how to get rid of those without adding more lines?
+  :replies: []
+- :author: _liquidlemon
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00nrhb/
+  :body: |-
+    [Ruby](https://github.com/LiquidLemon/advent-of-code/blob/master/2022/13.rb) (759/701)
+
+    A little cleaned up over my initial solution but nothing crazy. Just made it more idiomatic.
+
+    Really happy I made a function that can be passed to `Array#sort` straight away. Also that part pretty much worked first try, I just had the semantics flipped.
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00qap2/
+    :body: Nice, I like the use of `<=>`
+    :replies:
+    - :author: _liquidlemon
+      :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00reu1/
+      :body: I had an if with 3 clauses but then I realized there's literally a built in operator for this thing, so why not just use it.
+      :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00puac/
+  :body: |-
+    **Ruby** 1936/1742
+
+    Using `eval` feels like cheating, parsing was very easy. I lost 10 minutes because I originally misread the sorting instructions and had to read it over several times to realize my mistake.
+
+    ```ruby
+    pairs = input.split("\n\n")
+
+    def ordered(a, b)
+      if a.class == Integer && b.class == Integer
+        return a > b ? 0 : b > a ? 1 : nil
+      else
+        a = [a] if a.class != Array
+        b = [b] if b.class != Array
+        l = [a.length, b.length].min
+        (0...l).each{|i| return ordered(a[i], b[i]) if ordered(a[i], b[i])}
+        return a.length > b.length ? 0 : b.length > a.length ? 1 : nil
+      end
+    end
+
+    good_indices = pairs.each_with_index.map do |pair, index|
+      x, y = pair.split("\n").map{eval(_1)}
+      ordered(x, y) * (index + 1)
+    end
+
+    sorted_pairs = pairs.map{_1.split("\n").map{|l| eval(l)}}.reduce(&:+).concat([[[2]], [[6]]]).sort{|a, b| ordered(b, a)*2 - 1}
+    puts "Part 1: #{good_indices.reduce(&:+)}"
+    puts "Part 2: #{(sorted_pairs.find_index([[2]]) + 1) * (sorted_pairs.find_index([[6]]) + 1)}"
+    ```
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00pxcv/
+  :body: |-
+    [Ruby](https://github.com/acornellier/adventofcode/blob/master/2022/13.rb)
+
+    Nice use-case for pattern matching
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j01wtnt/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/13)
+
+    Video Walkthrough: [YouTube](https://youtu.be/hpd8cxPfjbY)
+  :replies: []
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j02o38q/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_13.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_13.rb)
+  :replies: []

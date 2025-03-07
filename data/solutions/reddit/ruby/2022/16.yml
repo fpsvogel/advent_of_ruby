@@ -1,0 +1,49 @@
+---
+- :author: akanet
+  :url: https://www.reddit.com/r/adventofcode/comments/zn6k1l/2022_day_16_solutions/j0tmzbw/
+  :body: |-
+    After long thought, I've got my [Ruby solution](https://gist.github.com/vincentwoo/db6cf426bc3f5f6a23ad21e89315c383) running in a few seconds. I tried lots of different tricks, like running each search independently of the other on different subsets of nodes, but eventually got a full search working with both agents. A few things that were important were conceiving of each valve opening of having a total upfront value based on the current time, modelling the whole graph as just direct pairs between all valves, building in the opening time into those edges, and most importantly, having a good estimation function for being able to early terminate subtree searches. For example, if you have [20m, 10m] left for your agents, you can calculate an upper bound of pressure that can be released by looking at the minimum edge lengths remaining for each unvisited valve, and multiplying each of those valve values by the highest of your agent times, while decrementing that time by that minimum edge length.
+
+    I got 48th on part one, and 1935th on part two, lmao.
+  :replies: []
+- :author: ingOmar
+  :url: https://www.reddit.com/r/adventofcode/comments/zn6k1l/2022_day_16_solutions/j0ns731/
+  :body: |-
+    I was stumped on this until I reread Prof. O'Neil's comment a few more times along with his Perl code. And then I finally got it, and solved part 1 using a straightforward BFS in an iterative loop.
+
+    I couldn't figure out how to sync both players in part 2, and then moved to reducing the search space with Floyd-Warshall. Now because the graph is a clique of positive-valued nodes, with a few reachable from "AA" (but none of them pointing back to it), there's no point traversing from one node to another without opening its valve, so I can include the time to open a valve in the distance graph.
+
+    Then I realized that the part 1 solution can reduce to a straightforward recursive function, covered here:
+
+    [Ruby code](https://pastebin.com/hCYXAwD1)
+
+    There's no need to save any state -- it's all carried in the childNode array A, and by building a graph where the cost of going to a node includes opening its valve. Other people have said this as well.
+
+    Part 1 took under 0.500 sec on an 8-year-old macbook, so I didn't bother looking for an optimization.
+
+    For part 2, I ended up partitioning the post-Floyd-Warshall graph using `Array#combination(n)` where `n` was between 1/3 and 1/2 the size of the positive-flow nodes. Pre-calculation showed that (15!/5!) + (15!/6!) + (15!/7!) =\> 8437. Worst case this would take `0.500 * 8437 msec` =\> ~70 minutes, but it was all done in 20 minutes (and the solution was found in the most evenly balanced partition of 7 and 8 nodes).
+
+    Am I doomed to spend retirement doing programming puzzles (not that I'm anywhere near there yet)? If so, I know I'll be coming back to part2 to work out a faster solution. Please don't delete this thread for another 30 years.
+  :replies: []
+- :author: damyvv
+  :url: https://www.reddit.com/r/adventofcode/comments/zn6k1l/2022_day_16_solutions/j0gkcxc/
+  :body: |-
+    Ruby Part 1 and 2 have a combined runtime of **278ms**.
+
+    The [code](https://github.com/damyvv/advent-of-code-2022/blob/master/solutions/day16.rb) is horrible, but performance is great.The basic idea of the algorithm is to consider all the valves we can move to. We compute how long it will take to move to a valve, and we also precompute how much pressure will be released in total by this valve using the remaining time. Then, if there are paths that have an equal distance, we only have to consider the path that has the highest potential pressure release. This drastically reduces the iterations needed, hence the low runtime. Also, the distances are not precomputed, but they are cached. This is more efficient, since we don't need all paths (for example we can skip all paths that have 0 flow rate, as we will never move to them, only pass them).
+  :replies:
+  - :author: Laugarhraun
+    :url: https://www.reddit.com/r/adventofcode/comments/zn6k1l/2022_day_16_solutions/j0goxqz/
+    :body: |-
+      Your solution does not look correct.
+
+      > if there are paths that have an equal distance, we only have to consider the path that has the highest potential pressure release.
+
+      Highest potential _only for this valve_, right? But moving to the other location might have led you to more close-by high-pressure valves and would have been better.
+
+      Your solution happens to work for your specific input, but it's not a correct solution.
+    :replies: []
+  - :author: Healthy-Chemistry664
+    :url: https://www.reddit.com/r/adventofcode/comments/zn6k1l/2022_day_16_solutions/j0gmv8g/
+    :body: I tried your code and it didn't produce the right answer for me?
+    :replies: []

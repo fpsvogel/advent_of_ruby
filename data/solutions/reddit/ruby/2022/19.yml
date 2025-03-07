@@ -1,0 +1,24 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zpihwi/2022_day_19_solutions/j142h8c/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/19)
+
+    Video Walkthrough: [YouTube](https://youtu.be/FdZ_vpf-VEU)
+  :replies: []
+- :author: akanet
+  :url: https://www.reddit.com/r/adventofcode/comments/zpihwi/2022_day_19_solutions/j0tkaz7/
+  :body: |-
+    [Ruby](https://topaz.github.io/paste/#XQAAAQCBBAAAAAAAAAAlkUd1JxEvDhwoUT5C66Qze8FtdpxEzJYhvPke6qNjV4PA2OeOLQPreA1+6lfcYrgKm8Gq8wrgh9XN9tGh8PMAOkjwJbmMaPbeGa2JFbYbiQ9McQIo3cw3qvh1Ji/22fPb0wr9vMpep2wgEA1+U4iQ3Crqe3cPNymc83HiUEohFqNv8Xg552dPBw4BR0Zse85imqqc402jEEOFD+9eBeF78t17Gb7iPGWpbsLJMkhOmVDskfeJauN0Klgg92Ii31gLjD8SzUCMtf7r8k+cqVxs3JWlHxj77Ym79mEJ3EElGn7vHRaEAyCvRMW2+zv2JmPLdTAUbxpncHZRgO3sfqfgks74ao6TpJCHN0uvp5ZZQ5nK2S5xWa8tjet0lpE1TSzA6hZI6xWrY1c35XuBQjaAKus+VJb/2T9CpbzT/n8Eb3FtjdpAbaXrHJs/30B8y7ZlyebOsE4Nxe3q/z6Bd7Wa4N3csq8aljVrp3ZJgqMTKxW6pyPMmfdE2fQ/gGoIR5RDh7/br3yFbpubCzFSR1k0WbW8j/t37lS/O4qw2/xwwEqaAt3tyMz82sWehuuJWPY5WF9YyZ4WXTY9Tl0l+vEo3VcZ1xv1isgwwJarX/XUEalpLaT+Mv8LH614rIMpIGB9NlLS0zM32BNKpt7/+fl6OA==), 777/485.
+
+    Here's a very elegant and terse Ruby solution that runs quickly with only one, incredibly hacky optimization: do BFS search but rank each successor generation by their resources and robots, from geodes down to ore, and just keep the 5000 best ones. This is sufficient and sort of a marvel to behold.
+  :replies: []
+- :author: globalreset
+  :url: https://www.reddit.com/r/adventofcode/comments/zpihwi/2022_day_19_solutions/j0v1i6m/
+  :body: |-
+    [Ruby](https://github.com/globalreset/advent_of_code_2022/blob/main/day19/dayNineteen.rb)
+
+    Don't see a lot of Ruby posts popping up in here, so thought I'd toss mine in. Tried to format it in a readable fashion with lots of comments. Looks like most folks, I did a BFS of the possible states. I spent a while trying to get some caching working, but couldn't figure out what I was doing wrong. So my main speedups are mainly limiting when we build bots and when we hoard. Lots of trial and error to see what optimizations sped it up and what constraints led me to wrong answers. Final result runs in about 30s for both parts.
+  :replies: []

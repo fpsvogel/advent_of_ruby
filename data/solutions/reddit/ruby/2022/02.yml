@@ -1,0 +1,440 @@
+---
+- :author: David_tabnine
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyzy5t0/
+  :body: |-
+    Here some [ruby](https://github.com/David06110/AdventOfCode2022)
+
+    require 'csv'
+
+    def shape\_score(round)
+
+    round.map do |shape|
+
+    case shape
+
+    when 'A', 'X' # Rock
+
+    1
+
+    when 'B', 'Y' # paper
+
+    2
+
+    when 'C', 'Z' # scissor
+
+    3
+
+    end
+
+    end
+
+    end
+
+    rounds = []
+
+    CSV.foreach('plan.csv') do |row|
+
+    rounds \<\< shape\_score(row.first.split)
+
+    end
+
+    results = []
+
+    rounds.each do |hand|
+
+    result = hand.last
+
+    (result += 3) if hand.first == hand.last
+
+    (result += 6) if hand.last == 1 && hand.first == 3
+
+    (result += 6) if hand.last == 2 && hand.first == 1
+
+    (result += 6) if hand.last == 3 && hand.first == 2
+
+    results \<\< result
+
+    end
+
+    p 'first interpreted'
+
+    p results.sum
+
+    # ----------------------------------------------------------------
+
+    results = []
+
+    rounds.each do |hand|
+
+    if hand.last == 1
+
+    result = hand.first - 1
+
+    result = 3 if hand.first == 1
+
+    end
+
+    (result = hand.first + 3) if hand.last == 2
+
+    if hand.last == 3
+
+    result = hand.first + 7
+
+    result = 7 if hand.first == 3
+
+    end
+
+    results \<\< result
+
+    end
+
+    p 'second interpreted'
+
+    p results.sum
+  :replies: []
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iytck23/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCrBwAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/VYUvuckt47qc849AGx2bqC6Mz07VInqtLuH07jAJ7qFetRQcuutZgSSCLUK3YJEE5oZaX/Fwdhu4fMaFGW8ygkrgiIljbHh4QGDY1nYsrFP6B0QhS437JjO8kAY3U2C363RPsgbGIGro7F4pndFgJlqwvhJeg68gT5bgKSKHMv6OfXkl594m6Vet3C+1eqyVEayJXfmlHEQNmPYxFTII7Li6dYomlL6j6Kf3GBLWryrYyg9I/mS+P+JzCviqW6zqrOGA38cAlyjz/RvwsCkK+IZyENvtEiaysyfG26GbjfZZ7IHEfbVtVd1en22hR3ws8FRSEdX8xoO2WVjYdQDlufQbcXAe6hIpl0lNYUqiV9dpLunWYGob08yd9lz+VR/CoZmog1KvZRFnechWv5IDhhZ4dukexBzmXu0hW7pnpLm9fadpdUxzCvCgwHQlPnocKkkFzQ6qCt4mZpkzvSLoZNJ0Ghu/FeJitpv08CRG+/50n+SXtFDPn/+4gyBqxGjlltJMvcOMxyq5kc3H7IWUz9EO38TFCX4bW+nWbPalERen8HcE9y3FU9vgvYmQcTKUVR5GaBXBpHjz1Wxl1XuZmxSUD6XXjhe/V2TWQncN9PfYtbtiMo229bnsS0x+U/Eul/VobO/pe2M2Z7avYloQ/jUlRY0ePjwzSpcYyrMJp4sJhQHtKlX0+Wz9VCInywjQvzb34B2a7V1sByNdyuYFcKebLklgZQTbmQtCsrV170AOSs/2aCgRgJDcd0gWi7Yh90NO/H8VWmS4OckFa6TQPQdFelAGQ2je2bvVzW1RoretKa22N//IrIG8)
+
+    Second day of learning Ruby. Used precomputed hashes instead of solving each step.
+  :replies: []
+- :author: DanZuko420
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypxni9/
+  :body: |-
+    Ruby, already learning a lot from doing this and seeing other peoples' solutions!
+
+    ```ruby
+    score = 0
+    shapes = {'X' => 1, 'Y' => 2, 'Z' => 3}
+    win_regex = 'A Y|B Z|C X'
+    draw_regex = 'A X|B Y|C Z'
+
+    input_file = File.readlines('./input')
+
+    shapes.each {|key,val| score += input_file.count {|i| i.match(key) } * val }
+    score += input_file.count {|i| i.match(win_regex) } * 6
+    score += input_file.count {|i| i.match(draw_regex) } * 3
+
+    puts score
+
+    pt2_score = 0
+    game_state = {'X' => 0, 'Y' => 3, 'Z' => 6}
+    rock_regex = 'A Y|B X|C Z'
+    paper_regex = 'A Z|B Y|C X'
+    scissors_regex = 'A X|B Z|C Y'
+
+    game_state.each {|key,val| pt2_score += input_file.count {|i| i.match(key) } * val }
+    pt2_score += input_file.count {|i| i.match(rock_regex) }
+    pt2_score += input_file.count {|i| i.match(paper_regex) } * 2
+    pt2_score += input_file.count {|i| i.match(scissors_regex) } * 3
+
+    puts pt2_score
+    ```
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynv99i/
+  :body: |-
+    **Ruby, 78 bytes**
+
+    ```ruby
+    p($<.map(&:split).sum{x=_1.ord
+    _2==?Y?3+x-64:
+    _2==?X?(x-66)%3+1:6+(x-67)%3+1})
+    ```
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyo3lse/
+    :body: |-
+      I knew there was a way to solve this without layers of hashes, but I couldn't quite figure it out. Your golfing solution appears to get at that, so I started unpacking it. Not so different from a hash afterall, but choosing the left side is neat. Was A,B,C point values obvious to you as a golfer, or did you have to think about it a while?
+
+      Something that stood out to me: Is there anything particular to `?@.ord`? It looks like a deliberate choice, but wouldn't it be replaceable by the literal `64`?
+
+      Additionally, I'd love to hear your flow of thought getting here in the first place. Nice solve!
+    :replies:
+    - :author: BluFoot
+      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyoxrm4/
+      :body: |-
+        I realized that I forgot to replace `?@.ord` with `64`, and edited right before y our comment :P
+
+        It was a bunch of iterating from my original solution. Originally I had a hash solution where each type of move had a different score. I also had 2 separate variables for the score from the match result and from the type of move played.
+
+        I quickly realized that I could easily calculate the move score by looking at its ordinal distance from `?X`. Then I handled the three cases - tie, win, lose. Tie was simple since it's just play the same move. I then realized I could calculate the score from the opponent's move instead of mine.
+
+        For handling win and lose, I started by using `Array.rotate`, to handle the rock paper scissors logic. After implementing that, I thought there must be a simpler solution, so I simply wrote down the opponent move and our resulting move score in each case, which yielded for win
+
+        A (rock) -\> Y (paper) -\> 2, so A = 2
+
+        B (paper) -\> Z (scissors) -\> 3, so B = 3
+
+        C (scissors) -\> X (rock) -\> 1, so C = 1
+
+        Then I found an equation that solves that... which is `(x.ord - 'C'.ord) % 3 + 1`. Similar for lose.
+
+        Fun stuff :) I'm sure there's lots more to golf down tbh.
+      :replies:
+      - :author: ignurant
+        :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyq1pj3/
+        :body: |-
+          > I then realized I could calculate the score from the opponent's move instead of mine.
+
+          This is some Art of War or Matrix stuff here haha ;)
+
+          Thanks for replying with such a thoughtful response!
+        :replies: []
+- :author: OlivarTheLagomorph
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylipw4/
+  :body: |-
+    **Ruby**
+
+    Simple mapping lookup :3
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDqAwAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX3bYBQaQw4Yq24fnRbvIuY5xAO/buG72ZT/Ps3xh7zPw4djDxAWY1s9gzYsEBGualT5UQ4o1OeUvVSxmS1zj5dRrps5XIfNcEzOis5CE6cDPw/XFzCkpo2Q/YZe0Sjz+jUchVqiF5WzA2s++HxFW9wOqnyp+J71KKx2iti2Si/M/Bf6QQzuOqEDVEcxDDZUEPP0scEwIRle/Yf9qbABqxYogm4hwvuN5Iutdg+Fe7uSgPNdivjYAGdz1/JfZRHwqitJ80nWm3+EwUS47t3bseF0luNM7uDl1YlMJ9pzxFHUBtnk9YV1tM1NA7kBFX0t9nM1bGY+gClQpyeDc24HjUf+DGet8SuSEe+8bR3NvVDzb9+uyOzxYk1enA/m+mNW8bQuvYijk8hkie3BhrG5PUc3T+d9m+NsXl/Gwzu3SUbgY3StSMf/1d35bhNpHOCUJ7iQPttXnU0fKYU5heDgCxZQyfK1+QbT4cBV/f/ZvbCX6w4qEL9iQmJ)
+  :replies: []
+- :author: MeckiSpaghetti
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyltbxr/
+  :body: |-
+    **Ruby** (Part I)
+
+    ```ruby
+    rows = File
+         .read("input.txt")
+         .split("\n")
+         .map(&:split)
+         .map{ |a, b| [(a.ord-65) % 3+1, (b.ord-88) % 3+1] }
+         .map{ |a, b| a%3+1 == b ? b+6 : a == b%3+1 ? b : b+3 }
+         .sum
+
+    p rows
+    ```
+  :replies: []
+- :author: antoniotto
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym061y/
+  :body: |-
+    Ruby
+
+    ```ruby
+    input = File.readlines('inputs/day02.txt', chomp: true)
+
+    scores = { 'A X' => 4, 'A Y' => 8, 'A Z' => 3, 'B X' => 1, 'B Y' => 5, 'B Z' => 9, 'C X' => 7, 'C Y' => 2, 'C Z' => 6 }
+
+    solution1 = input.map(&scores).sum
+
+    scores2 = { 'A X' => 3, 'A Y' => 4, 'A Z' => 8, 'B X' => 1, 'B Y' => 5, 'B Z' => 9, 'C X' => 2, 'C Y' => 6, 'C Z' => 7 }
+
+    solution2 = input.map(&scores2).sum
+
+    puts solution1, solution2
+    ```
+  :replies:
+  - :author: radiales
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym81jg/
+    :body: That's genius
+    :replies:
+    - :author: antoniotto
+      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymcesh/
+      :body: "Too kind of you. I am just a beginner. \U0001F60A"
+      :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym0inf/
+  :body: |-
+    Ruby
+
+    Part 1:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/2/1.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/2/1.rb)
+
+    Part 2:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/2/2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/2/2.rb)
+  :replies: []
+- :author: nithinbekal
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylkffy/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    ABC_TO_RPS = { "A" => :rock, "B" => :paper, "C" => :scissors }
+    XYZ_TO_RPS = { "X" => :rock, "Y" => :paper, "Z" => :scissors }
+
+    XYZ_TO_RESULT = { "X" => :lose, "Y" => :draw, "Z" => :win }
+
+    POINTS_FOR_MOVE = { rock: 1, paper: 2, scissors: 3 }
+
+    STATES = POINTS_FOR_MOVE.keys
+
+    def part_1
+      file.lines
+        .map { parse_game(_1) }
+        .then { points_total(_1) }
+    end
+
+    def part_2
+      file.lines
+        .map { parse_game_2(_1) }
+        .then { transform_results_to_games(_1) }
+        .then { points_total(_1) }
+    end
+
+    private
+
+    def file = @file ||= File.read("input/02.txt")
+
+    def parse_game(line) = line.split.map { parse_move(_1) }
+
+    def parse_move(move) = ABC_TO_RPS[move] || XYZ_TO_RPS[move]
+
+    def points_for_move(move) = POINTS_FOR_MOVE[move]
+
+    def points_for_result(theirs, mine)
+      case mine
+      when winning_move_against(theirs) then 6
+      when losing_move_against(theirs) then 0
+      when theirs then 3
+      end
+    end
+
+    def winning_move_against(move) = STATES[STATES.index(move) - 2]
+    def losing_move_against(move) = STATES[STATES.index(move) - 1]
+
+    def points_total(games)
+      games.reduce(0) do |total, (theirs, mine)|
+        total + points_for_move(mine) + points_for_result(theirs, mine)
+      end
+    end
+
+    def parse_game_2(line) = line.split.map { ABC_TO_RPS[_1] || XYZ_TO_RESULT[_1] }
+
+    def transform_results_to_games(games)
+      games.map do |theirs, result|
+        case result
+        when :win then [theirs, winning_move_against(theirs)]
+        when :lose then [theirs, losing_move_against(theirs)]
+        when :draw then [theirs, theirs]
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: Helk16
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylquuh/
+  :body: |-
+    Ruby : it would be necessary to refacto a little but it works
+
+    [https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_2](https://gitlab.com/LeChPunk/advent%5C_of%5C_code/-/tree/main/day%5C_2)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylys3x/
+  :body: |-
+    Ruby
+
+    Code: [https://github.com/careyi3/aoc\_2022/tree/master/solutions/2](https://github.com/careyi3/aoc_2022/tree/master/solutions/2)
+
+    Walkthrough Video: [https://youtu.be/xOBDPcArRno](https://youtu.be/xOBDPcArRno)
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymwgn0/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    T = %w[A B C]
+    M = %w[X Y Z]
+
+    def play((t,m))
+      mine = M.index(m)
+      theirs = T.index(t)
+
+      outcome = [3,6,0][mine - theirs]
+      shape = [1,2,3][mine]
+      part1 = outcome + shape
+
+      outcome = [0,3,6][mine]
+      shape = [1,2,3].cycle(2).to_a[theirs + mine - 1]
+      part2 = outcome + shape
+
+      [part1, part2]
+    end
+
+    pp input.map(&:split).map(&method(:play)).transpose.map(&:sum)
+    ```
+  :replies:
+  - :author: maxverse
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynviyv/
+    :body: I'm using AOC to better my Ruby, and I learned a few things from your solution. Thanks!
+    :replies: []
+- :author: MammothFlow
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyn6v0h/
+  :body: |-
+    My solution using ruby:
+
+    [https://i.4cdn.org/g/1669961230103649.png](https://i.4cdn.org/g/1669961230103649.png)
+  :replies: []
+- :author: tom_collier2002
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyneq6z/
+  :body: |-
+    [Ruby](https://github.com/tcollier/aoc_solutions/blob/main/2022/02/main.rb), using complex numbers
+
+    ```ruby
+    puts $<.map { [[4+3i,1+1i,7+2i],[8+4i,5+5i,2+6i],[3+8i,9+9i,6+7i]][_1[-2].ord & 3][(_1[0].ord & 3) -1] }.reduce(:+)
+    ```
+  :replies: []
+- :author: SolarBear
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypgbo9/
+  :body: |-
+    Ruby solution! Not pretty but I'm tired.
+
+    ```ruby
+    LOSS = 0
+    DRAW = 3
+    WIN = 6
+
+    MOVE_POINTS = { rock: 1, paper: 2, scissors: 3 }
+
+    ORDER = %i[rock paper scissors]
+
+    def rps_win(move1, move2)
+      return DRAW if move1 == move2
+
+    idx = ORDER.index(move1)
+
+    return move2 == ORDER[(idx + 1) % ORDER.length] ? WIN : LOSS
+    end
+
+    def score(move1, move2)
+      MOVE_POINTS[move2] + rps_win(move1, move2)
+    end
+
+    def winning_move(move1, me)
+      idx = ORDER.index(move1)
+
+    case me
+      when 'X'
+        ORDER[idx - 1]
+      when 'Y'
+        move1
+      when 'Z'
+        ORDER[(idx + 1) % ORDER.length]
+      end
+    end
+
+    file = File.open('input2.txt')
+    total1 = 0
+    total2 = 0
+
+    file.readlines.each do |line|
+      opponent, me = line.split(' ')
+      move1 = ORDER[opponent.ord - 'A'.ord]
+      move2 = ORDER[me.ord - 'X'.ord]
+
+    total1 += score(move1, move2)
+      total2 += score(move1, winning_move(move1, me))
+    end
+
+    file.close
+    puts total1
+    puts total2
+    ```
+  :replies: []

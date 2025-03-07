@@ -1,0 +1,315 @@
+---
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/ho9vhch/
+  :body: My solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day09/kiril/solve.rb)
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntirld/
+  :body: |-
+    **Ruby** : 4:44/10:20, 248/94!
+
+    Here's a [recording](https://youtu.be/MCabDS_Rduw) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec09.rb). I usually stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    Barely snuck on the leaderboard!
+
+    I fumbled around for 10 seconds at the start trying to view my input. That was bad.
+
+    In Part 1 I missed the "risk level = 1 plus its height" (as I'm sure did many others), then lost 10 seconds waiting to be un-timed out. I gotta learn how to scan the instructions better!
+
+    Part 2 was fun. Good, quick, easy to understand solution, and I was able to debug pretty quickly. I treated points outside of the cave as having a height of 10 and that worked well!
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnu6cc0/
+  :body: |-
+    Ruby
+
+    [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day9/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day9/main.rb)
+
+    `Benchmark 1: ruby main.rb data.txt`
+
+    `Time (mean ± σ): 447.9 ms ± 51.6 ms [User: 446.4 ms, System: 50.6 ms]`
+
+    `Range (min … max): 396.0 ms … 579.9 ms 10 runs`
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnwljmj/
+  :body: |-
+    **Ruby** Pt 2:
+
+    I quickly hooked up to the idea that "basins are anything that's not a 9". I see other solutions using `scipy.ndimage.measurements.label`... That's crazy. That's what I was going for in theory, but I still had to do the work of detecting the barriers. Pretty cool, you Python folks! Looking forward to seeing the more interesting ways of parsing room groups out there. Cheers!
+
+    ```ruby
+    class Room
+      attr_reader :x, :y
+
+      def initialize(x:, y:)
+        @x, @y = x, y
+      end
+
+      def location() = [x, y]
+      def up() = [x, y - 1]
+      def down() = [x, y + 1]
+      def left() = [x - 1, y]
+      def right() = [x + 1, y]
+      def neighbors() = [up, left, down, right]
+    end
+
+    class World
+      attr_reader :rooms
+      attr_reader :big_beefy_basins
+
+      # Parse the input board, essentially delimiting rooms by '9'.
+      # A "basin" is anything that isn't a 9.
+      # If we build a hash of "things not 9" we can explore it.
+      # We can also delete rooms in realtime so they don't get
+      # "re-explored" which is kind of neat.
+      #
+      # For easy exploration, we'll use the `[x,y]` coords as hash keys.
+      #
+      def initialize(board)
+        @rooms = {}
+
+        board.split("\n").each.with_index do |line, y|
+          line.chars.each.with_index do |val, x|
+            rooms[[x, y]] = Room.new(x: x, y: y) if val != '9'
+          end
+        end
+
+        @big_beefy_basins = Array.new(3) { 0 }
+      end
+
+      def solve!
+        rooms.each do |(x, y), room|
+          basin = explore(room).uniq.size
+
+          if big_beefy_basins.first < basin
+            big_beefy_basins.shift
+            big_beefy_basins.push(basin).sort!
+          end
+        end
+
+        big_beefy_basins.reduce(&:*)
+      end
+
+      private
+
+      def explore(room, basin=[])
+        return basin if room.nil?
+
+        basin << rooms.delete(room.location)
+
+        room.neighbors.map do |x, y|
+          explore(rooms[[x, y]], basin)
+        end.flatten
+      end
+    end
+
+    pp World.new(File.read('input.txt')).solve!
+    ```
+
+    Edit:
+
+    **Ruby** Pt 1:
+
+    I had to go back to my Pt 1 after being further informed on pt 2. It had a world-wrapping bug that didn't affect the answer (but could have), and I just didn't like it. After a little more experience in Pt 2, I much rather liked iterating the world as a hash rather than a 2d array.
+
+    ```ruby
+    UPPY_DOWNY_LEFTY_RIGHTY = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+
+    board = File.read('input.txt').split("\n").flat_map.with_index do |line, y|
+      line.chars.map.with_index do |char, x|
+        {[x, y] => char.to_i}
+      end
+    end.reduce(&:merge)
+
+    board.default = 10 # A number higher than 9. (For the borders.)
+
+    risk_level = 0
+
+    board.each do |(x, y), val|
+      next if val == 9
+      next if UPPY_DOWNY_LEFTY_RIGHTY.any? {|⇦⇨, ⇧⇩| board[[x + ⇦⇨, y + ⇧⇩]] < val }
+      risk_level += val + 1
+    end
+
+    puts risk_level
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntgbwa/
+  :body: |-
+    Ruby, 67 / 55
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDJAwAAAAAAAAARiAbIwVXFxjAJKCgB3XuvqFqcG1u2nFyKfOqMPC6IRbYYVooBadbDR3bGudRj1E5Kj3A0Gh2/dz49GQbP40Bk/9/bqTdiPLYoyr3Goio85AfDrPub7eZWCQP2mnut8d97tN7rClR4honQkOh6WPDi+RnfSgYuVjAcWiWiA7llRgzZ0WhB2AHEgjZmvSWlTJLOppbeTMP4INxS/YTokgH3RLVSgnJF3KNdrZEqAtzln0w5H9LNI9dqKCCkowW9ikwyHimp4CFxLIaOemtzuM5iSyW18G/mKNALSCdlvaXmYs06ErZLhBlZAJLFYHgKwDFKYDIjB/HJmOgBRhIjdgkAu/ivq9z3mOWmj5Qj/lKD5NjlRuESyypwDH4rW43hz3YV/hB0d6s9jkN6yYQWd7o3kRMJtY61VW4zanowgbbbafu1vgAQS48VGZcDw06yvnbhvoJKatE9QOUsUFLfo17AsDWPZw2EgZEYOLG/t5iRqSCxlVyytU4gIhTJCCMwtQzDq03BMDJl3gGep+AP5ofWRA0yhEGYRiEL8ddrRQf9l0Y9)
+
+    I was in a hurry and wasn’t able to think of `h.times.to_a.product(w.times.to_a)` so I just write two-level for loops `(0...h).each do |i| (0...w).each j |i| …; end end`. GitHub Copilot helped a lot in preventing silly mistakes (I usually use the wrong variables when writing for loops).
+  :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntiico/
+  :body: |-
+    [Ruby 906/854](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/09/basins.rb)
+
+    I felt I was unusually slow today, but still ended up in top 1000 for both parts (only second time that has happened this year). I guess having implemented BFS umpteen times (not complaining, I like BFS) for all the previous years has made me well prepared. :D
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntkb9y/
+  :body: |-
+    ### Ruby
+
+    Extremely not fast tonight.
+
+    ```ruby
+    @data = DATA.each_line.map { _1.chomp.chars.map(&:to_i)}
+
+    XY = Struct.new(:x, :y, :val) do
+    end
+
+    xys = []
+
+    @data.each.with_index do |r, i|
+      r.each.with_index { |c, j| xys << XY.new(j, i, c) }
+    end
+
+    basins = [[]]
+    checked = []
+    risks = []
+    xys.each do |xy|
+      x, y = xy.to_a
+      surrounding = [
+        xys.find { _1.x == x - 1 && _1.y == y },
+        xys.find { _1.x == x && _1.y == y - 1 },
+        xys.find { _1.x == x + 1 && _1.y == y },
+        xys.find { _1.x == x && _1.y == y + 1 }
+      ].compact
+      risks << if surrounding.all? { _1.val > xy.val }
+                 xy.val + 1
+               else
+                 0
+               end
+
+      next if xy.val == 9 || checked.include?(xy)
+
+      to_check = [xy]
+      until to_check.empty?
+        to_check -= checked
+        next if to_check.empty?
+
+        checking = to_check.shift
+        x, y = checking.to_a
+        surrounding = [
+          xys.find { _1.x == x - 1 && _1.y == y },
+          xys.find { _1.x == x && _1.y == y - 1 },
+          xys.find { _1.x == x + 1 && _1.y == y },
+          xys.find { _1.x == x && _1.y == y + 1 }
+        ].compact
+
+        basins[-1] << checking.val
+        checked << checking
+        to_check << (surrounding - checked).filter { _1.val < 9 }
+        to_check = to_check.flatten.uniq
+      end
+      basins << []
+    end
+
+    pp risks.compact.sum
+    pp basins.map(&:count).sort.reverse.first(3).reduce(&:*)
+
+    __END__
+    ```
+  :replies:
+  - :author: scarfaceDeb
+    :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntoxi6/
+    :body: Interesting.. you did it without using any recursion
+    :replies: []
+- :author: scarfaceDeb
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnto9ze/
+  :body: |-
+    **Ruby**
+
+    That was one of the best puzzles so far. I had a lot of fun solving it.
+
+    ```ruby
+    points =
+      hmap.map.with_index do |row, i|
+        row.map.with_index do |col, j|
+          adjacent = [
+            (hmap[i - 1][j] if i > 0),
+            (row[j + 1] if j < last_col),
+            (hmap[i + 1][j] if i < last_row),
+            (row[j - 1] if j > 0)
+          ]
+
+          [adjacent, [i, j], col]
+        end
+      end
+
+    lowest = points.flatten(1).select { |adj, _, col| adj.compact.min > col }
+    ans = lowest.map(&:last).sum { _1 + 1 }
+
+    puts "Answer 9.1: #{ans}"
+
+    def flows(points, basin, i, j)
+      return basin if basin.include?([i, j])
+
+      adj, _pos, num = points[i][j]
+      t, r, b, l = adj
+
+      basin << [i, j]
+      basin = flows(points, basin, i - 1, j) if t && t != 9
+      basin = flows(points, basin, i, j + 1) if r && r != 9
+      basin = flows(points, basin, i + 1, j) if b && b != 9
+      basin = flows(points, basin, i, j - 1) if l && l != 9
+      basin
+    end
+
+    basins = lowest.map { |_, pos, _| flows(points, Set.new, *pos) }
+    ans2 = basins.map(&:size).max(3).reduce(:*)
+    ```
+
+    [https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51](https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51)
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntpfx8/
+  :body: |-
+    Ruby 1178/7093
+
+    Really struggled with this one. For some reason, I got it in my head that all points in a basin had to be less than all their neighbors (except the ones already visited). I don't know, it worked on the sample but not the real data.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCEAwAAAAAAAAA5GUqKNoFH6SMqoVC09YUYkw2S+mIMHB1CSWV0VTWnX51e2y38yPqPFYGVMviZ8FB5y/cUcsDLuOHhkKbbmFYqG9sheuX5AEAeDEPRiP+Nw37hH8iTmGu5oHBy41LsFOIs+tUoQBongxBHkrf8yx5NtMifXoJotBBCd49DRK8jPUyZSriOjwAEWapdv/aLvzjCn4M1CDQKnzUBAVp138+jc3ruOfGlrPNYgWFzac/8RWzP30ilKn+FFIYamX/hgZvIn9IYRuXwhrVgxzjYMXaAkKSl/Lg8ST3V0UesQYF8crHoOhvToAVXR1mxfsrJVEw1GZxiQDpcmpX2qwy5q/A0aLyopQBc+WmhiVSPOPrI9OjpkzETcdPH03Dffq35kr2VxpjxxTmC7JfVTHZXunkTfDt5dlPtfqJG1tGXoRW/RYJoCpmUQrIUx+UkWl4wgr2pvG/gHq1DeWJcuKBl4BILH4eIpc9kZ5/9+hvz1mJk76TT33kx/lwdW0/c+ajTuOfZ8lBI58MDQaTtfsHwnOClghazEe+AaHwqRW3/UZJ8RXUlSF9OKEFNS6AVPMoQJ5yZERcUy166GDeuUEDpWtuxByxFKuglawdbIIOu1bbiurkSOBbXLJM4DSDIbqf5OVdC3MX/9pM9mg==)
+  :replies: []
+- :author: weiss_i_net
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnuj3ye/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    grid = ARGF.readlines.map{|x| x.strip.chars.map(&:to_i)}
+
+    basin = Hash.new(0)
+
+    grid.each_with_index do |row, x_start|
+      row.each_with_index do |cell, y_start|
+        next if cell == 9
+
+        nextp = [x_start, y_start]
+        while nextp
+          x, y = nextp
+          nextp = [[1, 0], [0, 1], [-1, 0], [0, -1]]
+            .map{|dx, dy| [x+dx, y+dy]}
+            .filter{|nx, ny| nx.between?(0, grid.size-1) && ny.between?(0, grid[0].size-1)}
+            .filter{|nx, ny| grid[nx][ny] < grid[x][y]}
+            .first
+        end
+
+        basin[[x, y]] += 1
+      end
+    end
+
+    puts "Part 1: #{basin.keys.map{|x, y| grid[x][y] + 1}.sum}"
+    puts "Part 2: #{basin.values.sort[-3..].reduce(:*)}"
+    ```
+
+    The idea is to walk down the slope for every point. This takes constant time, since you need to take at most 9 steps.
+
+    Since I'm new to ruby, please feel free to point out any ruby-idiomatic improvements.
+  :replies: []

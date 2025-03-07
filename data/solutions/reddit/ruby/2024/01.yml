@@ -196,4 +196,8 @@
     left, right = File.open("input").read.split("\n").map { |x| x.split.reject(&:empty?).map &:to_i }.transpose
     p left.map { |x| x * right.count(x) }.sum
     ```
-  :replies: []
+  :replies:
+  - :author: vmaskmovps
+    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzxkt83/
+    :body: Check your post, right now everything is a code block, including the Language header
+    :replies: []

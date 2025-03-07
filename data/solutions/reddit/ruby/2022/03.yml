@@ -1,0 +1,733 @@
+---
+- :author: matas__
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyv9awf/
+  :body: |-
+    Ruby solution
+
+    First:
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://gist.githubusercontent.com/matass/bd5bfb245be9e1af1ef8343fe22f8824/raw/12a3580425be63226c4b0ca92ef279ab1e3aed5b/day\_4'](https://gist.githubusercontent.com/matass/bd5bfb245be9e1af1ef8343fe22f8824/raw/12a3580425be63226c4b0ca92ef279ab1e3aed5b/day_4'))
+
+    request = Net::HTTP::Get.new(uri)
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    result = response.body.split.each_with_object([]) do |item, memo|
+        x, y = item.split(',').map { |item| (item.split('-').first.to_i..item.split('-').last.to_i)}
+    ```ruby
+    memo << true if y.cover?(x.first) && y.cover?(x.last) || x.cover?(y.first) && x.cover?(y.last)
+    ```
+
+    end
+
+    pp result.count
+    ```
+
+    Second:
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://gist.githubusercontent.com/matass/bd5bfb245be9e1af1ef8343fe22f8824/raw/12a3580425be63226c4b0ca92ef279ab1e3aed5b/day\_4'](https://gist.githubusercontent.com/matass/bd5bfb245be9e1af1ef8343fe22f8824/raw/12a3580425be63226c4b0ca92ef279ab1e3aed5b/day_4'))
+
+    request = Net::HTTP::Get.new(uri)
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    result = response.body.split.each_with_object([]) do |item, memo|
+        x, y = item.split(',').map { |item| (item.split('-').first.to_i..item.split('-').last.to_i)}
+    ```ruby
+    memo << true if (x.first <= y.last) and (y.first <= x.last)
+    ```
+
+    end
+
+    pp result.count
+    ```
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypur9z/
+  :body: |-
+    **Ruby, golfed to 76 bytes**
+
+    ```ruby
+    p$<.each_slice(3).sum{|l|x=(65..).find{|c|l.all?{_1[c.chr]}}
+    x>96?x-96:x-38}
+    ```
+  :replies:
+  - :author: jstanley0
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypwkpc/
+    :body: |-
+      clever! my solution was just a bit longer
+
+      _Ruby_, golfed to 81 bytes
+
+      ```ruby
+      r=->c{c.ord-(c[?38:96)};p$<.each_slice(3).sum{r[_1.map(&:chars).inject(:&)[0]]}
+      ```
+    :replies:
+    - :author: jstanley0
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypx5ll/
+      :body: |-
+        after reading your solution I realized writing a lambda was totally pointless.
+
+        **Ruby** , golfed to 73 bytes
+
+        ```ruby
+        p$<.each_slice(3).sum{c=_1.map(&:chars).inject(:&)[0];c.ord-(c[?38:96)}
+        ```
+      :replies: []
+  - :author: damagednoob
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqkjdg/
+    :body: |-
+      You can reduce this further using the `(x-96)%58` trick I've seen in other solutions
+
+      e.g.:
+
+      `p$<.each_slice(3).sum{|l|x=(65..).find{|c|l.all?{_1[c.chr]}};(x-96)%58}`
+    :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypuw49/
+  :body: |-
+    ruby. I think there's a smarter way to get the number (other than conditionals), but I couldn't think of it
+
+    ```ruby
+    def solve_easy(lines)
+      pairs = lines.map {|chars| [chars[0..(chars.size/2-1)], chars[chars.size/2..-1]] }
+      pairs.sum do |a,b|
+        intersect=(a&b)
+        intersect.sum do |char|
+          (?`..?z).to_a.concat((?A..?Z).to_a).index(char)
+        end
+      end
+    end
+
+    def solve_hard(lines)
+      triples = lines.each_slice(3)
+      triples.sum do |triple|
+        char = triple.inject(:&).first
+           [*?`..?z, *?A..?Z].index(char)
+      end
+    end
+    ```
+
+    EDIT:, ah, I found it, I can do
+
+    ```ruby
+    [*?`..?z, *?A..?Z].index(char)
+    ```
+
+    vs
+
+    ```ruby
+    (?`..?z).to_a.concat((?A..?Z).to_a).index(char)
+    ```
+  :replies:
+  - :author: ride7q
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw062/
+    :body: |-
+      ```ruby
+      #!/usr/bin/ruby
+      alphabet = ('a'..'z').to_a
+      alphabet = alphabet.concat(('A'..'Z').to_a)
+      total = 0
+      File.open ("input") do |fh|
+        fh.each_line do | line |
+          line1 = line.chomp.split("")
+          line2 = fh.gets.chomp.split("")
+          line3 = fh.gets.chomp.split("")
+          common = line1 & line2 & line3
+          common.each do |item|
+            index = alphabet.find_index(item)
+            total +=index+1
+          end
+        end
+      end
+      puts total
+      ```
+    :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw5wb/
+  :body: Ruby [code](https://github.com/jzhang113/adventofcode/blob/73b5e3a18ab204815b0a97e2852d5d7b311dd084/2022/solutions/03.rb), map-reduce ftw
+  :replies: []
+- :author: Arakiyda
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5t0v/
+  :body: |-
+    **Ruby:**
+
+    ```ruby
+    letter_index = ('a'..'z').to_a + ('A'..'Z').to_a
+
+    puts File.open('input.txt').each_line.map{ |line|
+      line.chomp.chars
+    }.each_slice(3).map{ |group|
+      common_letter = (group[0] & group[1] & group[2]).first
+      letter_index.find_index(common_letter) + 1
+    }.inject(&:+)
+    ```
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrt9dm/
+  :body: |-
+    # Kotlin
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/kotlin\_aoc/src/main/kotlin/aoc2022/day3.kt](https://github.com/snowe2010/advent-of-code/blob/master/kotlin_aoc/src/main/kotlin/aoc2022/day3.kt)
+
+    ```ruby
+    private fun p1(lines: List): Int {
+        return lines.map {
+            it.substring(0..it.length / 2) to it.substring(it.length / 2 until it.length)
+        }.map { (left, right) ->
+            left.toList().intersect(right.toList()).first()
+        }.map {
+            if (it.isUpperCase()) it - 38 else it - 96
+        }.sumOf { it.code }
+    }
+
+    private fun p2(lines: List): Int {
+        return lines.windowed(3, 3) { (a, b, c) ->
+            a.toList().intersect(b.toList()).intersect(c.toList()).first()
+        }.map {
+            if (it.isUpperCase()) it - 38 else it - 96
+        }.sumOf { it.code }
+    }
+    ```
+
+    # Ruby
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day03/day03.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2022/day03/day03.rb)
+
+    ```ruby
+    execute(1) do |lines|
+      lines.map do |line|
+        a, b = line.partition(/.{#{line.size / 2}}/)[1, 2]
+        v = (a.chars.intersection b.chars).first
+        v.ord > 96 ? v.ord - 96 : v.ord - 38
+      end.sum
+    end
+
+    execute(2) do |lines|
+      lines.each_slice(3)
+           .map { |a, b, c| a.chars.intersection(b.chars).intersection(c.chars).first }
+           .map { |v| v.ord > 96 ? v.ord - 96 : v.ord - 38 }
+           .sum
+    end
+    ```
+  :replies:
+  - :author: DanZuko420
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyuc6w1/
+    :body: I hadn't seen the ord method used before I started looking at answers in these threads, very clever! I'll have to try this
+    :replies: []
+- :author: InevitableYak1979
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytgbl1/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    input = File.read('2022/day3input.txt').split("\n")
+
+    @alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    def part1(rucksacks)
+        rucksacks.reduce(0) do |sum, rucksack|
+            comp1, comp2 = rucksack.chars.each_slice(rucksack.size / 2).map(&:join)
+            duplicate = comp1.chars.intersection(comp2.chars).first
+            sum += @alpha.index(duplicate) + 1
+        end
+    end
+
+    def part2(rucksacks)
+        rucksacks.each_slice(3).reduce(0) do |sum, elf_group|
+            badge = elf_group[0].chars.intersection(elf_group[1].chars, elf_group[2].chars).first
+            sum += @alpha.index(badge) + 1
+        end
+    end
+
+    p part1(input)
+    p part2(input)
+    ```
+  :replies:
+  - :author: OwnAttention3370
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytldaq/
+    :body: Interesting approach. I'm using Ruby also as I'm learning the language and noted your use of reduce. It is similar to inject correct?
+    :replies:
+    - :author: InevitableYak1979
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytwlst/
+      :body: Yep, in Ruby, reduce is an alias for inject.
+      :replies: []
+- :author: nithinbekal
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypz2l2/
+  :body: |-
+    [**Ruby solution**](https://github.com/nithinbekal/advent-of-code/blob/22b2299cefaeb6c5005ef5f7d5efd0343c9f1055/lib/03.rb)
+
+    ```ruby
+    def part1
+      lines.sum { priority(common_item(_1)) }
+    end
+
+    def part2
+      lines.each_slice(3).sum { group_priorities(_1) }
+    end
+
+    private
+
+    def lines = File.readlines("input/03.txt", chomp: true)
+
+    def priority(c)
+      case c
+      when 'a'..'z' then c.ord - 96
+      when 'A'..'Z' then c.ord - 64 + 26
+      end
+    end
+
+    def common_item(r) = rucksack_h1(r).chars.intersection(rucksack_h2(r).chars).first
+
+    def rucksack_h1(r) = r[0..(r.size/2 - 1)]
+    def rucksack_h2(r) = r[(r.size/2)..]
+
+    def group_priorities(rucksacks)
+      first, *rest = rucksacks.map(&:chars)
+      priority(first.intersection(*rest).first)
+    end
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypzskz/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    def get_value char
+      ord = char.ord
+      if ord >= 97
+        ord - 96
+      else
+        ord - 38
+      end
+    end
+
+    input = DATA.each_line.map(&:chomp).reject(&:empty?)
+
+    r1 = input.sum do |line|
+      get_value(line.chars.each_slice(line.length/2).reduce(&:&)[0])
+    end
+
+    r2 = input.each_slice(3).sum do |trip|
+      get_value(trip.map(&:chars).reduce(&:&)[0])
+    end
+
+    puts r1
+    puts r2
+
+    __END__
+    lflZfgnSnlmmlgGfjGthQPtLNsQhvbHLLpSS
+    ...
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq440y/
+  :body: "# [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day3/main.rb)"
+  :replies:
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqcfow/
+    :body: You do everything with classes then? Very clean.
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrtguj/
+      :body: I started using this style only last year. I noticed that its way easier to memoize functions this way. Thank you!
+      :replies:
+      - :author: craigontour
+        :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyusbds/
+        :body: I have tried classes myself and understand the concept, but struggle with their construction.
+        :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5krd/
+  :body: |-
+    **GitHub Copilot + Ruby** (4 / 25)
+
+    I usually don’t expect GitHub Copilot to generate the whole solution, and even if it did I manually check it, as there’s penalty for submitting an incorrect answer. However for today’s part 1 GitHub Copilot generated the correct solution.
+
+    ```ruby
+    # Part 1
+    p $stdin.readlines.map { |l|
+      l[0...l.size/2].chars.uniq & l[l.size/2..-1].chars.uniq
+    }.flatten.map { |c|
+      c.ord < 97 ? c.ord - 65 + 27 : c.ord - 97 + 1
+    }.sum
+    ```
+
+    For part 2 it did not generate a good solution, so I had to manually debug it (i.e. refactor them into multiple statements and adding variables). Still, it helped to save a lot of time.
+
+    ```ruby
+    # Part 2
+    groups = $stdin.read.split.each_slice(3).map { |l|
+      l[0].chars.uniq & l[1].chars.uniq & l[2].chars.uniq
+    }
+    p groups.map { |g|
+      g[0].ord < 97 ? g[0].ord - 65 + 27 : g[0].ord - 97 + 1
+    }.sum
+    ```
+
+    I will need to adjust my prompt to make Copilot generate more readable code so it’s easier for me to debug tomorrow. I refactored the 1st part like this:
+
+    ```ruby
+    input = $stdin.readlines.map(&:chomp)
+    items = input.map { |l| l[0...l.size/2].chars.uniq & l[l.size/2..-1].chars.uniq }.flatten
+    priorities = items.map { |i| i.ord < 97 ? i.ord - 65 + 27 : i.ord - 97 + 1 }
+    p priorities.sum
+    ```
+
+    The 2nd part, this time Copilot generates the correct code on first try:
+
+    ```ruby
+    items = input.each_slice(3).map { |l| l[0].chars & l[1].chars & l[2].chars }.flatten
+    ```
+
+    So making code readable does not only help me, but helps Copilot too.
+  :replies: []
+- :author: Helk16
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqh2ng/
+  :body: |-
+    One of **Ruby** solution (need to refactor the second part to use recursivity maybe)
+
+    [https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_3](https://gitlab.com/LeChPunk/advent_of_code/-/tree/main/day_3)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqhyuy/
+  :body: |-
+    Ruby
+
+    Code: [https://github.com/careyi3/aoc\_2022/tree/master/solutions/3](https://github.com/careyi3/aoc_2022/tree/master/solutions/3)
+
+    Video Walkthrough: [https://youtu.be/jeZu8oe2Uy4](https://youtu.be/jeZu8oe2Uy4)
+  :replies: []
+- :author: ScaredOfMyRawr
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqizx4/
+  :body: "[My solution in Ruby](https://medium.com/@ashley-peacock/advent-of-code-2022-day-3-solution-rucksack-reorganization-bd2615247bef), I think it's pretty solid, but probably a clever way to do it without looping as much!"
+  :replies:
+  - :author: matas__
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqo6vb/
+    :body: |-
+      this is solid :D day\_2:
+
+      ```ruby
+      require 'net/http'
+      require 'uri'
+      uri = URI.parse('https://adventofcode.com/2022/day/2/input')
+
+      request = Net::HTTP::Get.new(uri)
+      request['Cookie'] = 'session= __SESSION_KEY__'
+      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+      items = response.body.gsub(/\nn/, '').split(/\n/)
+
+      VALUES = {
+      "A X" => [4, 4], "B X" => [8, 1], "C X" => [3, 7],
+      "A Y" => [1, 8], "B Y" => [5, 5], "C Y" => [9, 2],
+      "A Z" => [4, 3], "B Z" => [2, 9], "C Z" => [6, 6],
+      }
+
+      result = items.each_with_object([]) { |item, memo| memo << VALUES[item].last }.sum
+
+      pp result
+      ```
+
+      Day 3:
+
+      ```ruby
+      require 'net/http'
+      require 'uri'
+      uri = URI.parse('https://adventofcode.com/2022/day/3/input')
+
+      request = Net::HTTP::Get.new(uri)
+      request['Cookie'] = 'session= __SESSION__'
+      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+      ABC = [
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+      ]
+
+      result = response.body.split.each_with_object ([]) do |item, memo|
+        first, second = [item[0, item.size/2], item[item.size/2..-1]]
+        memo << ABC.index((first.split('') & second.split('')).first) + 1
+      end.sum
+
+      pp result
+      ```
+    :replies: []
+- :author: matas__
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqnuw7/
+  :body: |-
+    Ruby code, simple
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://adventofcode.com/2022/day/3/input'](https://adventofcode.com/2022/day/3/input'))
+
+    request = Net::HTTP::Get.new(uri)
+    request['Cookie'] = 'session= **SESSION**'
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    ABC = [
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+    ]
+
+    result = response.body.split.each_with_object ([]) do |item, memo|
+      first, second = [item[0, item.size/2], item[item.size/2..-1]]
+
+    memo << ABC.index((first.split('') & second.split('')).first) + 1
+    end.sum
+
+    pp result
+    ```
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://adventofcode.com/2022/day/3/input'](https://adventofcode.com/2022/day/3/input'))
+
+    request = Net::HTTP::Get.new(uri)
+    request['Cookie'] = 'session= **SESSION**'
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    ABC = [
+      'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+      'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+    ]
+
+    group = []
+
+    result = response.body.split.each_with_object([]).with_index do |(item, memo), index|
+      group << item
+
+    if (index + 1) % 3 == 0
+        memo << ABC.index((group[0].split('') & group[1].split('') & group[2].split('')).first) + 1
+    ```ruby
+    group.clear
+    ```
+
+    end end
+
+    pp result.sum
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqudc9/
+    :body: |-
+      Hi [/u/matas\_\_](/u/matas__) . Thanks for sharing your solution, it's great to see how others approach the problems.
+
+      Please consider caching the puzzle input so that the Advent of Code server doesn't get overloaded. If you're not sure how to do that, please feel free to ask, we're here to help.
+
+      See [https://www.reddit.com/r/adventofcode/wiki/faqs/automation](https://www.reddit.com/r/adventofcode/wiki/faqs/automation)
+    :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrexpj/
+  :body: |-
+    Ruby
+
+    [https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day03/solution.rb](https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day03/solution.rb)
+
+    I used regex to find character sequences instead of counting them in a hash.
+  :replies: []
+- :author: MartinSch64
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iys7y56/
+  :body: |-
+    My solution in Ruby, with focus on readability as it should be
+
+    ```ruby
+    def part1
+      input_lines.sum do |line|
+        line
+          .chars
+          .each_slice(line.length / 2)
+          .reduce(&:intersection)
+          .map { item_to_priority(_1) }
+          .sum
+      end
+    end
+
+    def part2
+      input_lines.each_slice(3).sum do |group|
+        group
+          .map(&:chars)
+          .reduce(&:intersection)
+          .first
+          .yield_self { item_to_priority(_1) }
+      end
+    end
+
+    private
+
+    def item_to_priority(item)
+      case item
+      when ('a'..'z')
+        item.ord - 'a'.ord + 1
+      when ('A'..'Z')
+        item.ord - 'A'.ord + 27
+      end
+    end
+
+    def input_lines
+      File.open('input.txt').readlines
+    end
+    ```
+  :replies:
+  - :author: petepete
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iysmgb4/
+    :body: |-
+      I also enjoy making mine (somewhat) readable.
+
+      [https://github.com/peteryates/advent-of-code-2022/blob/main/03/rucksack.rb](https://github.com/peteryates/advent-of-code-2022/blob/main/03/rucksack.rb)
+    :replies: []
+- :author: CSEcon
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyspp95/
+  :body: |-
+    **ruby**
+
+    [gist](https://gist.github.com/mehryar-m/5674fe850f83c6e3e09fe97c31eebac9)
+  :replies: []
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytd56k/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAsCwAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/VYUvuckt47qc849AGx2bqC6Mz07VInqrh4NUpewqZxnfiy+9QJJs49bGdJSIPU8yOCo/mSbbdZjf18gO3g0XTNnJ3zuKpUsiBBkXbbxWdIofaY4Sw/vyfKrccSFAJig5ThRedamvcfSrpYCWoMrW9q/70cWBVY9I1+2MIwxB54hnGQT9uGuKTTtGahrluwT8zABaMOWZP/tvsLiU2XVdlTo2LSFLwLGwlwF84qSsZVwUmpB4npadoDm3Ah47xFfAqUrnHuWs0O+TvSL7dGLvMJIY3ZpxfFBrKgBXe18wEjp3W+F//hHXoxnbv57QlEcZrRA1O/geTVuMDZ8ZY0UnlqPlto774HgDSBTjrhqfaDsf9PdVEmglzXYw0YmbTBi+E9HF/QZaxphAqvHgvq6xmVSqJ0NVhvd18vvjgFuEnFDgr8jTf7DLLcVA7fPfuZazrfkC0XP7nRXt7m+/e9GEweB+psL2dbOgV6bEizFajpkfR1DOjchXlOLEXHhFBZamuioCZrIcO3UZGwhy2KY5h+9029ne+nj4/5ZjlTr1+LJguQXkPVpNVOsVSEup/XvFQKzaW6xHb9cXVmlSXMD1GjfkW8tuuAHvxi8lFlLY9KuyOOdEtC3P47RdGUGQ6u9M/FKmQFmhLA/3iH+eyL2KppG1CCzNrPruNIKwJbMBSWLw8/YJzIO2tgCPVyG7r7p8Qcss1eqLPgfQOnJga715/xiehQZ6q5rkWLgxzBrX1F48oXP9EnIrFMm14NaKMa9O7OwRJGwqXawG69xJrYKqP+TgxeV7mrd9+9/F6LzVlw37/2O3X7gL+fNptk83yoG3bN/UQTx/NXc4Qr8dDSKFeIMvO1sPGdUlYx5GsVOXEfDwQvtheDffN62BbyL1VdKw1ZM9Yx57UgkvvG1wtlTQdTrc9buzzGW+Eq30SHNtvF5tqBuu3Mfolbs9t9DJYSKOHQZ4lJBmUJPfYKx9YRY9i3do2fD9b5DG98lpn0VO7PP0Y+tecO01FAj7tWQpOe78tVYdKsT8ZKj3XFjz1Ywa9+MX8XP5vNCy6pmQ8RXhHUKlN7rMQCJpCfgZLmptF1MoOmAYXqWFObHxnjLaJzh3W9hCOcuglVzgy1cHjRGqAy856pYCgx/GFxfrJUzZIEoaZAwIVi0V1QZirNxpRa4TtM5JA6QXAkiAwb1A69DBsRUJrZ4tExbgT9Xu2Dn4aYcHupK5jOx3RzU2RIS3m5hcyeeEvJjC679qaFJ7kTSJWP3L8CC406K8GJHkLO3DDIIUfN/5qSOQHGO1/qwp6g==)
+
+    Third day of learning Ruby.
+
+    Part 1 was learning how to traverse the strings one character at a time. Part 2 was learning how to convert the string into an array and use the built-in intersection method.
+  :replies: []
+- :author: naturaln0va
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq0y34/
+  :body: |-
+    **Ruby**
+
+    [GitHub - day3.rb](https://github.com/naturaln0va/aoc2022/blob/main/day3.rb)
+
+    ```ruby
+    def solve_first(input)
+      priorities = ('a'..'z').to_a + ('A'..'Z').to_a
+
+      input.lines
+        .map(&:strip)
+        .map { |line| line.chars.each_slice(line.length / 2).to_a }
+        .map { |comps| (comps.first & comps.last).first }
+        .map { |common| priorities.index(common) + 1 }
+        .sum
+    end
+
+    def solve_second(input)
+      priorities = ('a'..'z').to_a + ('A'..'Z').to_a
+
+      input.lines
+        .map(&:strip)
+        .each_slice(3)
+        .map { |group| group.map(&:chars).inject(:&).first }
+        .map { |common| priorities.index(common) + 1 }
+        .sum
+    end
+    ```
+  :replies: []
+- :author: '0x14f'
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqgjeh/
+  :body: |-
+    ### Ruby
+
+    (At time of solution, no further updates)
+
+    ```ruby
+    #!/usr/bin/ruby
+    # encoding: UTF-8
+
+    def priority(item)
+        return (item.ord - 96) if ('a'..'z').to_a.include?(item)
+        return (item.ord - 65 + 27) if ('A'..'Z').to_a.include?(item)
+        raise "priority(#{item})"
+    end
+
+    filename = "input.txt"
+    lines = IO.read(filename).lines.map{|line| line.strip }
+    groups = []
+    loop {
+        l1 = lines.shift
+        l2 = lines.shift
+        l3 = lines.shift
+        groups << [l1, l2, l3]
+        break if lines.empty?
+    }
+    total = 0
+    groups.each{|group|
+        l1, l2, l3 = group
+        item = (l1.split('') & l2.split('') & l3.split('')).first
+        total = total + priority(item)
+    }
+    puts total
+    ```
+  :replies: []
+- :author: radiales
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyr45cz/
+  :body: |-
+    Ruby
+
+    D3A1
+
+    arr = Array.new
+
+    priohash = Hash.new priohash = {"a"=\>1,"b"=\>2,"c"=\>3,"d"=\>4,"e"=\>5,"f"=\>6,"g"=\>7,"h"=\>8,"i"=\>9,"j"=\>10,"k"=\>11,"l"=\>12,"m"=\>13,"n"=\>14,"o"=\>15,"p"=\>16,"q"=\>17,"r"=\>18,"s"=\>19,"t"=\>20,"u"=\>21,"v"=\>22,"w"=\>23,"x"=\>24,"y"=\>25,"z"=\>26, "A"=\>27,"B"=\>28,"C"=\>29,"D"=\>30,"E"=\>31,"F"=\>32,"G"=\>33,"H"=\>34,"I"=\>35,"J"=\>36,"K"=\>37,"L"=\>38,"M"=\>39,"N"=\>40,"O"=\>41,"P"=\>42,"Q"=\>43,"R"=\>44,"S"=\>45,"T"=\>46,"U"=\>47,"V"=\>48,"W"=\>49,"X"=\>50,"Y"=\>51,"Z"=\>52}
+
+    File.readlines('input3.txt').each do |line|
+
+    first, second = line.chars.each\_slice(line.length / 2).map(&:join)
+
+    first.each\_char do |n| if second.chars.include? n.to\_s puts "#{second} contains #{n}" arr.append(priohash[n.to\_s]) break # why does it need a break? end end end
+
+    puts arr.sum
+
+    D3A2
+
+    arr = Array.new
+
+    priohash = Hash.new priohash = {"a"=\>1,"b"=\>2,"c"=\>3,"d"=\>4,"e"=\>5,"f"=\>6,"g"=\>7,"h"=\>8,"i"=\>9,"j"=\>10,"k"=\>11,"l"=\>12,"m"=\>13,"n"=\>14,"o"=\>15,"p"=\>16,"q"=\>17,"r"=\>18,"s"=\>19,"t"=\>20,"u"=\>21,"v"=\>22,"w"=\>23,"x"=\>24,"y"=\>25,"z"=\>26, "A"=\>27,"B"=\>28,"C"=\>29,"D"=\>30,"E"=\>31,"F"=\>32,"G"=\>33,"H"=\>34,"I"=\>35,"J"=\>36,"K"=\>37,"L"=\>38,"M"=\>39,"N"=\>40,"O"=\>41,"P"=\>42,"Q"=\>43,"R"=\>44,"S"=\>45,"T"=\>46,"U"=\>47,"V"=\>48,"W"=\>49,"X"=\>50,"Y"=\>51,"Z"=\>52}
+
+    elve1 = "" elve2 = "" elve3 = "" i = 0
+
+    File.readlines('input3.txt').each do |line| if i == 0 elve1 = line.to\_s end
+
+    ```ruby
+    if i == 1
+        elve2 = line.to_s
+    end
+
+    if i == 2
+        elve3 = line.to_s
+
+        puts elve1 + elve2 + elve3
+
+        elve1.each_char do |n|
+            if elve2.chars.include? n.to_s
+
+                if elve3.chars.include? n.to_s
+                    #puts "ture"
+                    arr.append(priohash[n.to_s])
+                    break
+                end
+            end
+        end
+
+        i = -1
+    end
+    i += 1
+    ```
+
+    end
+
+    puts arr.sum
+  :replies: []

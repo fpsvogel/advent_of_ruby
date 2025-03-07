@@ -1,0 +1,269 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j1czuwm/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/21)
+
+    Video Walkthrough: [YouTube](https://youtu.be/8_LvF2C4myo)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j16ddx9/
+  :body: |-
+    Ruby, part 2. The code is horrible, but I am kind of proud of myself, seeing how others used binary search, o some online equation solvers.
+
+    The idea is starting from root build two chains of operations - one which ends in 'humn' and the other, where it ends in value node. Then at the root we know the final value of one chain, and need to go through the human chain reversing each operation so we end up with the initial value 'humn' should return.
+
+    ```ruby
+    # frozen_string_literal: true
+
+    require 'set'
+
+    file_path = File.expand_path('input.txt', __dir__ )
+
+    file = File.open(file_path)
+    $monkeys = Set.new
+
+    file.readlines.map(&:chomp).each do |line|
+      name, rest = line.split ':'
+      parts = rest.split ' '
+      if parts.size == 1
+        $monkeys.add({ name: name, value: parts.first.to_i })
+      else
+        $monkeys.add({ name: name, left: parts.first, op: parts[1].to_sym, right: parts.last, value: nil })
+      end
+    end
+
+    human_chain = []
+    target = 'humn'
+    loop do
+      monkey = $monkeys.find { _1[:left] == target || _1[:right] == target }
+      human_chain << monkey
+      break if monkey[:name] == 'root'
+
+      target = monkey[:name]
+    end
+
+    $human_chain_names = human_chain.map { _1[:name] }
+    monkey = $monkeys.find { _1[:name] == 'root' }
+    other_chain = []
+    loop do
+      target = [monkey[:left], monkey[:right]].reject { $human_chain_names.include? _1 }.first
+      break unless monkey[:value].nil?
+
+      other_chain << monkey
+      monkey = $monkeys.find { _1[:name] == target }
+    end
+
+    def value(node)
+      node = $monkeys.find { _1[:name] == node }
+      return node[:value] unless node[:value].nil?
+
+      left = value(node[:left])
+      right = value(node[:right])
+      left.send(node[:op], right)
+    end
+
+    def perform(target, known_value, op, side)
+      return (target - known_value) if op == :+
+      return (target / known_value) if op == :*
+
+      if op == :-
+        return (target + known_value) if side == :left
+        return (known_value - target) if side == :right
+      end
+      return (target * known_value) if side == :left
+      return (known_value / target) if side == :right
+    end
+
+    def reverse(chain, target)
+      chain = chain.drop(1)
+      monkey = chain.first
+      loop do
+        left = monkey[:left]
+        right = monkey[:right]
+        op = monkey[:op]
+
+        if left == 'humn'
+          known_value = value(right)
+          return perform(target, known_value, op, :left)
+        elsif right == 'humn'
+          known_value = value(left)
+          return perform(target, known_value, op, :right)
+        end
+
+        known_node = [left, right].reject { $human_chain_names.include? _1 }.first
+        next_node = [left, right].select { $human_chain_names.include? _1 }.first
+        known_value = value(known_node)
+        side = ($human_chain_names.include? left) ? :left : :right
+        target = perform(target, known_value, op, side)
+        monkey = $monkeys.find { _1[:name] == next_node }
+      end
+    end
+
+    root = $monkeys.find { _1[:name] == 'root' }
+    target = value([root[:left], root[:right]].reject { $human_chain_names.include? _1 }.first)
+
+    print reverse(human_chain.reverse, target)
+    ```
+  :replies: []
+- :author: tgoesh
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j163fyh/
+  :body: |-
+    # [Ruby](https://topaz.github.io/paste/#XQAAAQCfBQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kt1xH5HTAZ5BobIVaNmvr5uBT8lIWMVDPZEFxdcpn3Nj9lGXzliPRlIkeaE/uxw0eRYNQ0wHIgpqPDGvjVfR4EKOziEs6xQZ45nkYjc9RLRFCQt6D781H8E6UUKqPEZDvik3xRVWko1Oy0Ub+/OXUWd6N4CU6dt57vEYuOkjUl+8Br7Fqb6iNscVaYLIVFAQnOBCNq58vf9S7JAMlPRPLpvMuviy3kcQA/4McodaSdOMSfK3INWV1Jn8n1kI4FAN3O0ONmLb+Qz8sMiEkcIH5qA7tU4V/Q1BQynqWFGrAvGjWTigKhdwrgdLEqtlPNXjKas/he+1UL4NDu2g2C8HznNtS4U7tr5H8TSf7SwySjWiXKvlhyqnT4MZ2hRuOwQckAmUgQYXIY1fCZyi+bZE0lcZ72p9ZnBTPnnWd7ztLjvhpNT9uvJ56pUzEMks7b/y7GtQN8do7nxva1zvKNydtg2vEkQ3JTMRi5MudW7vUzUuOObK6bPblyvnCT7rWcCTxFh/dZOS3yGTzJJvFGBYLMNme26xv923It0J8sg6+loG7WsHOnF+XJ1hNyfISyBHIxm3+DVSs4eUSVSx9Uvt4s8Hg9FmKwIVSQoN1W0U0dVOPInwIHeR4RfckEAJZfbdIsxS3tTaHP4sq4NuHF7velg9GPBjEqxU8R7EL0iXUX4EkxG/Ch5FpMGk+x+VGOOX5tNgTvLRorC9z+TduRZlbeagxryvyOawx6+YB81wA8cG38f5u5e3IxVmMKwT8vQkVdbeeG1RHagPjlSvrt+BUTtU9gvaMoyTslaNzWbamfgTLyJD9pNbRSlPu7JHB449pTr0F+wQSr7h+XgopbP8CyBOpzYq4GN8Om5021qgHC0kDHv/fWVUJ)
+
+    Built a simple traverser to parse the tree for step one, so instead of rebuilding for step two I started returning a chain of nested lambdas of inverted operations from humn which was then called from root. Added maybe a dozen lines, because of the three different cases for the inverse functions.
+
+    Has some horrible practices, including monkey patching the traverser into the tree hash.
+
+    Works great, though.
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j15orhb/
+  :body: |-
+    Quite pleased with my Ruby solution for part 1:
+
+    `
+        STDIN.readlines.map { |line| line.split(": ") }.each { |name, expr| define_method(name) { eval(expr) } }
+        puts root
+    `
+  :replies: []
+- :author: Elavid
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12tsyo/
+  :body: |-
+    ## Bit-based binary search!
+
+    Here is my [Ruby code](https://gist.github.com/DavidEGrayson/5094af019366700029eff76246fc1391) solving part 2 using a bit-based binary search.
+
+    I've never seen anyone talk about bit-based binary searches except for [here](https://twitter.com/DavidEGrayson/status/1595900172692660224), but to me they are incredibly easy to understand and code, so I want to tell people about them. Each iteration determines exactly one bit in the answer. There is no need to keep track of a range or update midpoints. The core of the algorithm is:
+
+    ```ruby
+    guess = 0
+    let i iterate from 63 down to 0: # or use a higher starting point
+      mask = 1 << i
+      if (guess | mask) is not higher than the number we are looking for:
+        guess = (guess | mask)
+    ```
+
+    Here is my Ruby implementation of that idea to elegantly solve part 2:
+
+    ```ruby
+    # try_humn(0) is a large positive number.
+    # try_humn(1 << 64) is a large negative nubmer.
+    # Given the observations above, let's do a bit-based binary search to find the
+    # largest humn value where try_humn is positive, then just add 1 to it to get
+    # the lowest value where where try_humn is 0.
+    guess = 0
+    63.downto(0) do |i|
+      mask = 1 << i
+      guess |= mask if try_humn(guess | mask) > 0
+    end
+    puts guess + 1
+    ```
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12v3v6/
+  :body: |-
+    evals galore! Ruby + Z3
+
+    ```ruby
+    def part1(input)
+        prog = input.map do |l|
+          l.sub(/(\w+):(.*)/, 'def \1(); \2 ; end')
+        end
+
+        eval(prog.join)
+        root
+      end
+
+      require "z3"
+
+      def part2(input)
+        env = Hash.new { |h, k| h[k] = Z3.Int(k) }
+        prog = input.map do |l|
+          l = l.sub(/root: (.*) \+ (.*)\n/, 'solver.assert env["\1"] == env["\2"]' + "\n")
+          l = l.sub(/humn: (.*)\n/, 'env["humn"]' + "\n")
+          l = l.sub(/(\w+): (\d+)\n/, 'solver.assert(env["\1"] == \2)' + "\n")
+          l = l.sub(/(\w+): (\w+) (.) (\w+)\n/, 'solver.assert(env["\1"] == (env["\2"] \3 env["\4"]))' + "\n")
+          l
+        end
+
+        solver = Z3::Solver.new
+        eval(prog.join)
+        solver.satisfiable?
+        solver.model.to_h[env["humn"]].to_i
+      end
+    ```
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rghz/
+  :body: |-
+    ## [Ruby](https://github.com/jstanley0/advent-2022/blob/main/21.rb) 540/1917
+
+    Part 1 is a simple recursive function.
+
+    For part 2 I first turned the equation into a string and tried to paste it into Wolfram Alpha, but it complained it was too long. Other sites I googled choked on it as well, including sites listed elsewhere in this thread. Oh well.
+
+    I decided to solve it for real. I essentially built a binary tree for the side of the equation containing `humn` and I simplified it one step at a time. For instance if I had 3 - (...) = 5150 I turned that into (...) = -5147 and then repeated until the left side contained only `humn`
+  :replies:
+  - :author: mynt
+    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rmnr/
+    :body: |-
+      Similar approach except wolfram Alpha worked!
+
+      Might have to go back latter and make something that actually works by itself as well.
+
+      My string was:
+
+      ((((92540050790154-(9\*(((((280+(((((((2\*(264+((516+(((660+(2\*((2\*(530+((((313+(((((3\*(615+(((8\*(915+((((246+(4\*(((483+(((((((80+(((((8\*((((3\*(789+((107+((x-745)/3))\*11)))-695)/4)-486))+570)/5)-757)/3))\*5)+411)\*2)-885)+552)+802))/2)-686)))/5)-175)/3)))-66)/2)))-319)\*2)+133)+570))/2)-955)/2)))-768)))/3)-223))/5)))-933)/5)+765)\*9)-193)\*2))/2)+689)/6)-230)))\*2)+138)/12)=5697586809113
+    :replies: []
+  - :author: Pakosh
+    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12sq66/
+    :body: Natural language complains for me as well but once I switch to the math input, its ok.
+    :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12szc6/
+  :body: |-
+    In both Ruby and Haskell, you can define a map that's defined in terms of itself! This allows you to resolve the "monkeys might need to wait for other monkeys to compute their values" situation, without worrying about the code taking forever by repeatedly recomputing values that you've already computed in the past. In Ruby, you do this:
+
+    ```ruby
+    def monkey_math(monkeys)
+      Hash.new { |h, k|
+        v = monkeys.fetch(k)
+        h[k] = v.is_a?(Integer) ? v : h[v[0]].send(v[1], h[v[2]])
+      }
+    end
+    ```
+
+    (Full at [https://github.com/petertseng/adventofcode-rb-2022/blob/master/21\_monkey\_math.rb](https://github.com/petertseng/adventofcode-rb-2022/blob/master/21_monkey_math.rb))
+
+    In Haskell, you do this:
+
+    ```ruby
+    math :: Map String Monkey -> Map String Int
+    math monkeys = cache
+      where cache = Map.map eval monkeys
+            eval (Const n) = n
+            eval (Op a b op) = (cache Map.! a) `op` (cache Map.! b)
+    ```
+
+    (Full at [https://github.com/petertseng/adventofcode-hs-2022/blob/master/bin/21\_monkey\_math.hs](https://github.com/petertseng/adventofcode-hs-2022/blob/master/bin/21_monkey_math.hs))
+
+    Oh yeah I managed to just barely sneak into the top 100 for part 2 today, great. I used binary search to do part 2. The difference is that i[n Ruby binary search is built-in](https://www.rubydoc.info/stdlib/core/Array:bsearch) whereas in Haskell you have to write it yourself.
+  :replies: []
+- :author: whezya
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j14dptm/
+  :body: |-
+    [**Ruby solution**](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_21.rb)
+
+    I started by trying to write a treetop parser (again) to explain how this works to some friends... And skipped to problem as soon as I saw my time limit approaching.
+
+    First part was easy, I was scared of cycle in data or tricks that would need monkey number starting with 1... But nothing of this.
+
+    For second part, after having a function writing the final equation, I thought about an object that could act both way : evaluating a result if both side are values or solving values of 1 side with the other side value and the operator then propagate solve but... I heard the trick about complex number before finishing this and once you see it it's too late (first time I speak about solution before finishing my attempt).
+
+    I tried it and find it quite elegant, I could find the solution using all problem 1 code and very few more lines.
+
+    [https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_21.rb](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_21.rb)
+  :replies: []

@@ -1,0 +1,199 @@
+---
+- :author: Jomy10
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hy8o0n7/
+  :body: |-
+    ## Ruby
+
+    Had a lot of fun with this one!
+
+    [Ruby solution](https://github.com/Jomy10/Advent-Of-Code-2021/blob/master/day14/main.rb)
+
+    [Script for calculating both parts](https://github.com/Jomy10/Advent-Of-Code-2021/blob/master/day14/main.sh)
+  :replies: []
+- :author: tom_collier2002
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoky675/
+  :body: |-
+    [Ruby solution](https://github.com/tcollier/aoc_solutions/blob/main/2021/14/main.rb) optimized (~8ms to print both parts) by precomputing 41,000 values
+
+    The number 41k comes from the number of iterations (40) plus one (to add in the base case) times the number of possible 2 character pairings (there are 10 distinct characters in my rules, resulting in 100 possible pairings) times the number of characters.
+
+    I allocate a 41k element array for integers (each representing the count of a given character for a number of steps and a starting pair of 2 characters). To help visualize how this array is structured, imaging an input that only has the characters `A` and `B` in the template/rules. The array values are in the bottom `count` row in the comment below. The top three rows map the given array index to the step number, pair, and specific character that is counted.
+
+    ```ruby
+    # ╓───────────────────────────────╥─────────────────────────────
+    # step: ║ 0 ║ 1 ...
+    # ╟───────┬───────┬───────┬───────╫───────┬───────┬───────┬─────
+    # pair: ║ AA │ AB │ BA │ BB ║ AA │ AB │ BA │ ...
+    # ╟───┬───┼───┬───┼───┬───┼───┬───╫───┬───┼───┬───┼───┬───┼───┬─
+    # character: ║ A │ B │ A │ B │ A │ B │ A │ B ║ A │ B │ A │ B │ A │ B │ ...
+    # ╠═══╪═══╪═══╪═══╪═══╪═══╪═══╪═══╬═══╪═══╪═══╪═══╪═══╪═══╪═══╪═
+    # count: ║ 2 │ 0 │ 1 │ 1 │ 1 │ 1 │ 0 │ 2 ║ 3 │ 0 │ 2 │ 1 │ 2 │ 1 │ ...
+    # ╙───┴───┴───┴───┴───┴───┴───┴───╨───┴───┴───┴───┴───┴───┴───┴─
+    ```
+
+    Filling in the array for step 0 is straightforward (each value is the count of times the corresponding character appears in the pair).
+
+    Filling in the array for step 1+ requires applying the rules once for each pair, splitting the now 3-character string into 2 pairs (the inserted character will appear in both pairs), adding the per-character counts for these 2 pairs from step - 1, then subtracting 1 from inserted characters count (as it was counted twice, once for each pair)
+
+    Once this array is filled in, it can be used to compute the value of any template. Generate a set of pairs from the template (similar to has we split the 3-character string into 2 pairs above we'll get _N - 1_ pairs, where _N_ is the length of the template). Sum up the per-character counts for each pair for the given number of steps (10 for part 1, 40 for part 2) and subtract 1 from each character count that was used for 2 pairs (i.e. every character in the template except for the first and the last).
+
+    With these counts, it's trivial to find the difference between the highest and lowest character counts.
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hokk7yj/
+  :body: |-
+    A little late to the party, but when I read today's part 1 I just _knew_ what was comming in part 2. I'm usually not too quick at spotting a fast solution for these kinda problems, but I'm pleased that this one struck me pretty quickly. It's this year's least aesthetically pleasing code so far, though.
+
+    # Ruby
+
+    ```ruby
+    f = File.open('../input/14.txt')
+    template = f.gets.chomp
+    insertion_rules = f.read.scan(/(..)(?: -> )(.)/).to_h
+
+    pairs = template.chars.each_cons(2).tally
+    pairs.default = 0
+
+    40.times do
+      next_pairs = {}
+      next_pairs.default = 0
+
+      pairs.each { |(a,b),tally|
+        i = insertion_rules[a+b]
+
+        next_pairs[[a,i]] += tally
+        next_pairs[[i,b]] += tally
+      }
+      pairs = next_pairs
+    end
+
+    totals = {}
+    totals.default = 0
+    pairs.each { |(a,b),tally| totals[a] += tally }
+    totals[template.chars.last] += 1
+
+    min,max = totals.values.minmax
+    puts max - min
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoh5uwe/
+  :body: |-
+    Ruby, 45 / 60
+
+    [paste](https://topaz.github.io/paste/#XQAAAQByAwAAAAAAAAARiAbIwVXFxjAHVuSY6fgD5zCgKkZ/UXunA8B1izlqB3srX05rXADItUakgqB1w+YzQuhYXk5VHW2jIG6VXmV0b+BVv3hVC4gLI07hiAzlV5OxGCLWOW7+oqVnSqkUKnfSgLBM4R5KiS9X5+WHy6vEnnt+zCkKwd9rXiRUDGvohge68kEVi80Txeb9Ie1Bd2nxubyjj6cWGQxaT90QzqUx+LXsUuUUVFM1M0699qLMFczHe+nHmd399ZIRYpbM4Vqmty+NO008S+j/mIQ72G8bDzCrfP2FTonUQwpOZe6kuJiMPV+VQN0Pu6r3SrcIqJKlI1n5ffP+uBej7Tl94Q/GghUPBMYGT944dNhzfCMXVBVa3O7qxuWqx64Zl4Da9DPGelrIVP8EHZRdGN7iKhvfHfLXpMbz3y4cOgUe856el2DeiEmx2ZzvymWYmvSU7I4LDEc8cG7DFBC2ogjx09MOmvoDh0S+u8YLTlGv2XwVZEJOVsmGa8TnXDFurDxdV+amskaMOE8GnXxC39nSuBD/spqFTA==)
+
+    `each_cons(2)` helps quite a lot in solving this.
+  :replies: []
+- :author: mxBug
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohnxwl/
+  :body: "[ruby but OOPy](https://topaz.github.io/paste/#XQAAAQAWBAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdLcr8czW9TZUkh6Ogb11apudi2OZNyqfLGru4I+laPGJe60A1OZ+sy5KmHgPZo3L2nOHKh4zJrxOfv4igKmXz4gkuPfTPs/CmNtvCUbrYio0YiHj7G8qoywgl/zc+Kw4khjnTUe6SEHFCmNmp/R6MOtkRguw9rAScmnMqk7iSFwSr0D9ywr3M3Dhp6XInreVSl6Q2od3zq1Q3iCLPXbKY5mikOYvdUvp3QPA8YGMxy3jIFTf+Li1spvwRWj9pCEHYfzs1Y52bUzm32mL1VQXXXSmKGUbToGXRlEcByeDYdz3J5GeT+r9Npd+8ItLs/XVo68N8IQkT1mcUZN9RXfphWV/C00K4oyNkReR2+zflDyMT1FW1AvoxtlxJHlSpt9n+EaCQzWU/8s9rciVDkkMqOQXcKVN/nvs/sYnS/iVrUL1UL4WDN1EtItA6UNeNr1SuDn2XT1Tv20kq0jPLSE+5HP184vFic7FVjYyNVIXAuVCWeuhJOdi64f4YjxIKJecOtm7P2LG79zwqjswgFXAOlaEP6/5fGdgssK7M0+j/lPv98nzYA)"
+  :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohtwll/
+  :body: |-
+    [**Ruby**](https://topaz.github.io/paste/#XQAAAQDHAwAAAAAAAAA4G8nPaRVx/o1ZZYKycGL0SspRCXDQTQUVmHvXfVLEqraSWb0elNeZvnSclxpoFwVtzGktWmOe/XRTtEUmBAOBYzfSLnqEuShWc7DJrSu/wnPgm5XHzf4ctTUjOJhE1iC3FndYgzu3V2InBzTUhniHJP7rQreNtZQB5QWeHZ31bmzByLve13RoeaZt5XSmXhW9Pb/IE1pIlwmTIrQQSKCY0BgD+vhhAtmITSlv3PocxzxYS2LC55RCSGutN6OXlsCCDP/kZ3pIP79XYyqfnmZMgXD7W/6TXztLcx3Dup5qlr8zQxhIJ7C/D1n4o6rQSEDUS5wuY30dvfirzIjzf4pMjifsLJYeaZAyulqxCJBaIZYWP/YFfdWM4JlBKlN+RWgDJYVHvMAyMKsQ34L2HMk8vdB5U9yeFaHJwuCs9qNhumZ1SkclHblRBmB0kFBdWx/Sj/0k5+tGMKPE4+z195Mhn/p1RV9ZJt6wRcFJPo552hzd8IywsjWu+3E1iasGYKOfqHFo3mcjGyTS9IjHisWwqxbTivh6ii//tZt3Pg==)
+
+    Wasted far too much time assuming that each pair only occurs once in the input polymer.
+
+    Thanks to [/u/Divritenis](/u/Divritenis) for the [hint](https://www.reddit.com/r/adventofcode/comments/rg23lu/2021_day_14_part_2_awk_spoilers_part_2_working/hohm0kb/).
+  :replies: []
+- :author: weiss_i_net
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoikmis/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    input = ARGF.each_line.map(&:strip).to_a
+
+    pairs = Hash.new(0)
+    input[0].chars.each_cons(2){|a,b| pairs[[a, b]] += 1}
+    rules = input[2..].map{_1.split(' -> ').map(&:chars).flatten}
+
+    40.times do
+      new_pairs = pairs.clone
+      rules.each do |a, b, n|
+        new_pairs[[a, n]] += pairs[[a, b]]
+        new_pairs[[n, b]] += pairs[[a, b]]
+        new_pairs[[a, b]] -= pairs[[a, b]]
+      end
+      pairs = new_pairs
+    end
+
+    count = Hash.new(0)
+    count[input[0][-1]] = 1
+    pairs.each{|k, v| count[k[0]] += v}
+
+    puts count.values.minmax.reduce(&:-).abs
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohjjhw/
+  :body: |-
+    **Ruby** : 4:25/18:50, 63/293
+
+    Here's a [recording](https://youtu.be/ZmUvza2G0Og) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec14.rb). I usually stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    First one I was able to do live in a while, and I was able to make the leaderboard for Part 1!
+
+    I felt pretty good about Part 2, but then I reused a variable name from Part 1 and so everything was broken for a while and I got pretty mixed up trying to fix that. Oh well.
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hojriug/
+  :body: |-
+    Ruby
+
+    [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day14/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day14/main.rb)
+
+    Benchmark 1: ruby main.rb data.txt
+
+     Time (mean ± σ): 225.7 ms ± 32.5 ms [User: 230.3 ms, System: 54.4 ms]
+
+     Range (min … max): 151.7 ms … 291.2 ms 13 runs
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohc55j/
+  :body: |-
+    ### Ruby
+
+    ```ruby
+    @data = DATA.each_line.map(&:chomp)
+
+    template = nil
+    instructions = {}
+
+    @data.each do |line|
+      next if line == ''
+
+      if template.nil?
+        template ||= line.strip.chars
+      else
+        two, third = line.split(' -> ').map(&:strip)
+        first, second = two.split('')
+        instructions[[first, second]] = third
+      end
+    end
+
+    def ans(c, tm)
+      t = Hash.new(0)
+      c.each { t[_1.first] += _2 }
+      t[tm[-1]] += 1
+      p t.values.max - t.values.min
+    end
+
+    counts = Hash.new(0)
+    template.each_cons(2) { counts[[_1, _2]] += 1 }
+    40.times.each do |i|
+      old = counts.dup
+      counts = Hash.new(0)
+      old.each do |(a, b), v|
+        found = instructions[[a, b]]
+        counts[[a, found]] += v
+        counts[[found, b]] += v
+      end
+      ans(counts, template) if i + 1 == 10 || i + 1 == 40
+    end
+
+    __END__
+    ```
+  :replies: []

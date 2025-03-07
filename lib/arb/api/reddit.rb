@@ -1,6 +1,8 @@
 module Arb
   module Api
     class Reddit
+      MaxSleepCountReached = Class.new(StandardError)
+
       # TODO WIP
       # https://www.reddit.com/r/redditdev/comments/12f885c/getting_all_the_comments_in_a_post/
       # https://gist.github.com/davestevens/4257bbfc82b1e59eeec7085e66314215#get-all-comments
@@ -54,8 +56,8 @@ module Arb
           initial_response = connection.get(self.class.megathread_path(year:, day:))
 
           if initial_response.body.empty?
-            puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 30 seconds...")
-            sleep 30
+            puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 60 seconds...")
+            sleep 60
           else
             puts "Fetching comments for #{year}##{day.to_s.rjust(2, "0")}..."
             break
@@ -118,6 +120,12 @@ module Arb
           }
         ) do |f|
           f.request :authorization, "Bearer", -> { auth_token }
+          f.request :retry, {
+            max: 5,
+            interval: 0.5,
+            interval_randomness: 0.5,
+            backoff_factor: 2,
+          }
         end
       end
 
@@ -152,15 +160,29 @@ module Arb
               language_names,
             )
           else
-            response = connection.post(
-              "/api/morechildren.json",
-              "link_id=#{thread_id}" \
-                "&children=#{more_children[:children].join(",")}",
-            )
+            response = nil
+            sleep_count = 0
+            max_sleep_count = 10
+            loop do
+              response = connection.post(
+                "/api/morechildren.json",
+                "link_id=#{thread_id}" \
+                  "&children=#{more_children[:children].join(",")}",
+              )
 
-            # Occasionally there is an empty set of more children, e.g. below
-            # zaniwoop near the bottom of the 2024 day 1 solutions megathread.
-            return comments if response.body.empty?
+              if response.body.empty?
+                if sleep_count < max_sleep_count
+                  puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 60 seconds...")
+                  sleep_count += 1
+                  sleep 60
+                else
+                  raise MaxSleepCountReached
+                end
+              else
+                puts "Continuing to fetch comments..." if sleep_count > 1
+                break
+              end
+            end
 
             comments += simplify_comments(
               JSON.parse(response.body).dig("jquery", 10, 3, 0),
@@ -263,15 +285,16 @@ module Arb
           .sub(/<\/div>\z/, "")
           .gsub(/```?(?:#{language_names.first})?(.+?)```?/mi, "<pre>\\1</pre>")
           .gsub(/(?<=<pre>)(.*?)(?=<\/pre>)/m) { |content|
-            content.gsub(/<\/?p>/, "") # Remove <p> tags which can occur within backtick-enclosed code blocks
-            content.gsub(/ +\n/, "\n") # Remove trailing spaces
+            content
+              .gsub(/<\/?p>/, "") # Remove <p> tags which can occur within backtick-enclosed code blocks
+              .gsub(/ +\n/, "\n") # Remove trailing spaces
           }
           # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
           .gsub("<pre>", "<pre class=\"brush:#{language_names.first};\">")
           .then { |cleaned_raw_body|
             ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
           }
-          .gsub(/(?<!\n>) +\n[^\n]/, "\n\n") # When trailing spaces are a partial paragraph break, strip the spaces and add an extra newline
+          .gsub(/(?<!\n>) +\n(?!\n)/, "\n\n") # When trailing spaces are a partial paragraph break, strip the spaces and add an extra newline
           .gsub(/ +\n/, "\n") # Strip all other trailing spaces
           .gsub("\u200b\n\n", "") # Zero-width space
       end
@@ -299,6 +322,7 @@ module Arb
 
       def add_missing_replies!(comment, comments, more_childrens, thread_id, language_names)
         more_children = more_childrens.find { it[:parent_id] == comment[:id] }
+        debugger if more_childrens.count { it[:parent_id] == comment[:id] } > 1
         if more_children
           comments += get_comments_for(thread_id:, parent_id: comment[:id], more_children:, language_names:)
         end

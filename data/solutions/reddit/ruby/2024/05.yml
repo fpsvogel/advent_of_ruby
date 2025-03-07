@@ -50,8 +50,7 @@
   :replies:
   - :author: musifter
     :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iepv5/
-    :body: Don't worry about not using a topological sort. The input is not a DAG,
-      it has loops. There is no complete sort of the pages, only subsets of them.
+    :body: Don't worry about not using a topological sort. The input is not a DAG, it has loops. There is no complete sort of the pages, only subsets of them.
     :replies: []
 - :author: el_daniero
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kiv0k/
@@ -134,8 +133,7 @@
   :replies:
   - :author: Ill_Information_9522
     :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0lng6f/
-    :body: Enjoying following along with your solutions after solving them myself
-      with my beginner's grasp of Ruby. Thanks for sharing.
+    :body: Enjoying following along with your solutions after solving them myself with my beginner's grasp of Ruby. Thanks for sharing.
     :replies: []
 - :author: FCBStar-of-the-South
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k2hny/
@@ -207,19 +205,13 @@
   - :author: Eilip999
     :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6mgo/
     :body: |-
-      It should not be possible for cycles in input to happen, if it was a case
-      you wouldn't be able to sort it even with your algorithm which is not based
-      on graph.
+      It should not be possible for cycles in input to happen, if it was a case you wouldn't be able to sort it even with your algorithm which is not based on graph.
 
-      Edit, Okay it might be possible to have cycle in rules, but then
-      cycle should not be visible in list of pages, so like, you have the edges, but
-      vertices are missing so these edges should not be included in the graph.
+      Edit, Okay it might be possible to have cycle in rules, but then cycle should not be visible in list of pages, so like, you have the edges, but vertices are missing so these edges should not be included in the graph.
     :replies:
     - :author: HAEC_EST_SPARTA
       :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i7zul/
-      :body: Right, the global set of ordering constraints does contain cycles, although
-        if you pare it down to only the pages contained in each update, then that
-        is no longer the case. I realised that a bit too late, but _c'est la vie_.
+      :body: Right, the global set of ordering constraints does contain cycles, although if you pare it down to only the pages contained in each update, then that is no longer the case. I realised that a bit too late, but _c'est la vie_.
       :replies: []
 - :author: globalreset
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6xkn/
@@ -308,20 +300,15 @@
   :replies:
   - :author: FCBStar-of-the-South
     :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jtl71/
-    :body: I did not want to implement sorting because there is not any guarantee
-      that the | relation is transitive but apparently it is
+    :body: I did not want to implement sorting because there is not any guarantee that the | relation is transitive but apparently it is
     :replies:
     - :author: careyi4
       :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k1hjd/
-      :body: Yeah, same, it didn't feel like it should work, but when I tried it and
-        it did work I was surprised. I felt like there surely should be multiple orders
-        that satisified the rules, apparently not per the rules.
+      :body: Yeah, same, it didn't feel like it should work, but when I tried it and it did work I was surprised. I felt like there surely should be multiple orders that satisified the rules, apparently not per the rules.
       :replies:
       - :author: FCBStar-of-the-South
         :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k23ww/
-        :body: I was probably reading between the lines too closely haha. The example
-          explicitly checked the ordering between every pair instead of just the adjacent
-          pairs and I thought that's a sign the relation might not be transitive
+        :body: I was probably reading between the lines too closely haha. The example explicitly checked the ordering between every pair instead of just the adjacent pairs and I thought that's a sign the relation might not be transitive
         :replies: []
 - :author: Stronbold
   :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j9e9o/
@@ -422,7 +409,6 @@
       I did the same thing in Python. No idea about efficiency but it makes for really tidy code and a simple idea
 
       ```ruby
-      ```
       def page_sort(page1, page2, rules):
           if [page1, page2] in rules:
               return -1
@@ -430,6 +416,5 @@
               return 1
           else:
               return 0
-      ```
       ```
     :replies: []

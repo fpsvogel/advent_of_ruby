@@ -1,0 +1,127 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j18nj2y/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/20)Video Walkthrough: [YouTube](https://youtu.be/szXQTRybPAI)
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j12cr45/
+  :body: |-
+    **Ruby** , with rotating arrays:
+
+    ```ruby
+    $decryption_key = 1; $times_to_repeat = 1 # Part 1
+    $decryption_key = 811589153; $times_to_repeat = 10 # Part 2
+    data = $stdin.read.lines.map(&:to_i).each_with_index.map { |n, i| [n * $decryption_key, i] }
+    (data.dup * $times_to_repeat).each do |n, i|
+      data.rotate! data.find_index { |_, j| j == i }
+      value, _ = data.shift
+      data.rotate! value
+      data.unshift [value, i]
+    end
+    data.rotate! data.find_index { |n, i| n == 0 }
+    p data[1000 % data.length][0] + data[2000 % data.length][0] + data[3000 % data.length][0]
+    ```
+  :replies: []
+- :author: whezya
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j10t1i9/
+  :body: |-
+    **Ruby**
+
+    After deciding yesterday "_Hey, this is the perfect problem to write a "parsing with treetop" tutorial_" and finally not even touch the problem (yep, I make theses kind of choices). I decided to do an "Asap solution" for today problem.
+
+    I have multiple ideas to optimize it (linked list or doing arithmetics on indices only) and may try later but the current solution in o(n^2) runs in 6 seconds for problem 2 and is quite simple to understand.
+
+    [https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_20.rb](https://github.com/rbellec/advent%5C_of%5C_code%5C_2022/blob/main/app/daily%5C_problems/day%5C_20.rb)
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xw35j/
+  :body: |-
+    # Ruby, 437/334
+
+    for part 1 I implemented a lazy inefficient method of keeping track of which number to move next: I just stored it in an array alongside its original index, and found the number by index before moving it.
+
+    I was shocked that this laziness still worked in part 2 with minimal code changes.
+
+    ```ruby
+    data = ARGF.readlines.map(&:to_i)
+    data = data.each_with_index.map { |n, i| [n * 811589153, i] }
+
+    10.times do
+      data.size.times do |n|
+        i = data.find_index {_2 == n}
+        v = data.delete_at(i)
+        data.insert((i + v[0]) % data.size, v)
+      end
+    end
+
+    i = data.find_index { _1[0] == 0 }
+    x = data[(i + 1000) % data.size][0]
+    y = data[(i + 2000) % data.size][0]
+    z = data[(i + 3000) % data.size][0]
+    p x, y, z, x+y+z
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yin0g/
+    :body: |-
+      Exactly the same idea to use the number + original position.
+
+      There is a guy who uses Python and often uses complex numbers to store information. I wonder if he used them today, seems to fit well :)
+    :replies:
+    - :author: 4HbQ
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yxzqw/
+      :body: |-
+        [Maybe](https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyug6hl/)[I](https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhzxb6/)[am](https://www.reddit.com/r/adventofcode/comments/zjnruc/2022_day_12_solutions/izw63we/)[that](https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j061f6z/)[guy](https://www.reddit.com/r/adventofcode/comments/znykq2/2022_day_17_solutions/j0kdnnj/)?
+
+        I did consider it, but plain tuples were nicer today. The complex numbers really shine when you can do mathematical operations on them, like adding coordinates etc.
+
+        In case you're interested, it does work and looks like [this](https://topaz.github.io/paste/#XQAAAQADAQAAAAAAAAA8HMAC0B10JGvJxk1ICqx0YTnnfz/f4KkcTEpfucim8ULWQSRYZBfXObTE2OdlMYGbQsY7+p1vB9dTESMHaog9kTvMa09i7wJBCx3J5GHdmWv98l/yxeHO65EExHVDflnmMdr0EygoA80iMjB2s7L6j8Tyo0WuMGummilYRJx1sJT+ptMYHKLSDQP/6DLmiXSNjNvx4HBrHWGB5W7K/8MkepJ8LYJK0gRTKP/Q5KxSJWG5b0+gBdrhpx/EqiylybH/+LazgA==).
+      :replies:
+      - :author: "[deleted]"
+        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0z6eiz/
+        :body: |-
+          That guy: [https://www.youtube.com/watch?v=w9Sk7lvyGZI](https://www.youtube.com/watch?v=w9Sk7lvyGZI) :)
+
+          No complex numbers today, a linked list :(
+        :replies: []
+    - :author: jstanley0
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j114qpe/
+      :body: ooh, putting the original index in an imaginary part is delightfully perverse. I love it
+      :replies: []
+  - :author: Elavid
+    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xyhwz/
+    :body: |-
+      I used Ruby too! I used a doubly-linked list where each node is a hash that contains the value, and links to the previous and next nodes. Each node also contains an extra pointer to the node that was originally after it in the input ~~(I didn't realize the input numbers would be unique, like you did)~~.
+
+      Your code runs in 7.0 s on my machine, and my code is only slightly faster at 6.4 s.
+
+      I thought my approach should be faster than the simple array style because it requires very little writing of data, but I guess I'm getting slowed down by having a big data structure that I have to read a whole lot. I have to traverse through nodes one at a time to find my insert positions every time I move a node.
+    :replies:
+    - :author: jstanley0
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xzk4s/
+      :body: My solution doesn’t depend on the numbers being unique. Are they? I just paired each number with its original position and searched for that to find which number to move. I’m sure it could have been done more efficiently but I was up very late doing the previous problem…
+      :replies:
+      - :author: Elavid
+        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y1df3/
+        :body: Oh yeah, you're right.
+        :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y2lsg/
+  :body: |-
+    # Ruby
+
+    Managed to fit my code into a half punchcard without making it completely unreadable (maybe only 60% unreadable [`n % 71` hehe])
+
+    ```ruby
+    [1, 811589153].each{|n|
+      a = File.readlines('20.in').each_with_index.map{[_1.to_i * n, _2]}
+      (n % 71).times{a.size.times{|i| a.insert(
+        ((j = a.index{_1[1] == i}) + a[j][0]) % (a.size - 1), a.delete_at(j))}}
+      p [1, 2, 3].map{|x| a[(a.index{_1[0] == 0} + x * 1000) % a.size]}.sum{_1[0]}}
+    ```
+
+    It's slow, takes 5 to 6 seconds on my machine.
+  :replies: []

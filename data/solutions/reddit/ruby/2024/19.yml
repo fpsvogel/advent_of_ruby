@@ -156,7 +156,6 @@
       return 1 if design.empty?
 
       cache[design] ||=
-
         pattern.select { |p| design.start_with?(p) }
                .sum { |p| count_paths(design[p.length..], pattern, cache) }
     end

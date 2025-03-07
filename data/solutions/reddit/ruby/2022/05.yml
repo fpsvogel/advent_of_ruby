@@ -1,0 +1,521 @@
+---
+- :author: chipotlecoyote
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/izl0kpf/
+  :body: |-
+    **PHP**
+
+    I'm trying to brush up on more "modern" PHP skills. While I can definitely see its flaws compared to other languages I've been poking at recently (mostly Ruby and Elixir), I don't hate PHP as much as I'm apparently supposed to. :)
+
+    [https://github.com/chipotle/Advent\_of\_Code\_2022/blob/main/advent-code-5.php](https://github.com/chipotle/Advent_of_Code_2022/blob/main/advent-code-5.php)
+  :replies: []
+- :author: OwnAttention3370
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz4rknd/
+  :body: |-
+    My answer for Day 5 in Ruby. Kinda cheated a bit by not parsing the stacks but used regular expressions to parse the instructions of moving to and from.
+
+    ```ruby
+    input = File.open('./data/day5.txt')
+
+    stack = [%w[J H P M S F N V],
+             %w[S R L M J D Q],
+             %w[N Q D H C S W B],
+             %w[R S C L],
+             %w[M V T P F B],
+             %w[T R Q N C],
+             %w[G V R],
+             %w[C Z S P D L R],
+             %w[D S J V G P B F]
+    ]
+
+    input.each_line do |line|
+      processed = line.chomp.gsub(" ","")
+      move = processed.match(/\d*(?=from)/).to_s.to_i
+      from = processed.match(/\d*(?=to)/).to_s.to_i
+      to = processed.match(/(?<=to)\d*/).to_s.to_i
+
+      # -1 needs to be added because Ruby's 0 index
+      stack[to-1].push(stack[from-1].pop(move).reverse).flatten!
+
+    end
+
+    message = []
+    stack.each{|container| message.push(container.last)}
+    p message.join("")
+
+    # For part two just remove the reverse method.
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz3cbi0/
+  :body: |-
+    clean ruby
+
+    # [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day5/main.rb)
+  :replies: []
+- :author: sezvar
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxcv0/
+  :body: |-
+    Ruby, 3/2. Best rank I've gotten on a star before :)
+
+    [https://github.com/bcc32/advent-of-code/tree/main/2022/05](https://github.com/bcc32/advent-of-code/tree/main/2022/05)
+  :replies:
+  - :author: DmitryShvetsov
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/jf1f2or/
+    :body: cleverly devised, to skip parsing the stacks part of the input lol
+    :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzaym2/
+  :body: |-
+    Ruby solution.
+
+    **Array#transpose** is doing the hard work. The input properly pads each row with spaces, so transposing the contents means you only need to extract the rows containing letters/numbers.
+
+    Now we have a hash with keys matching the number of the stack, and values being a sorted array we can treat as a stack with shift/unshift to move creates onto/off each stack.
+
+    [https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63](https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63)
+  :replies:
+  - :author: f4780y
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz173a4/
+    :body: |-
+      > [https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63](https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63)
+
+      This gives an incorrect answer for part 2 for both the example file and my input file. (Part 1 is correct in both cases) ???
+    :replies:
+    - :author: shandley256
+      :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1hjc2/
+      :body: |-
+        Aha - you're right.
+
+        My actual solution is here: [https://github.com/seanhandley/adventofcode2022/tree/main/ruby/day\_5](https://github.com/seanhandley/adventofcode2022/tree/main/ruby/day_5)
+
+        I rewrote as a single example but didn't actually test it - my bad.
+
+        The problem is that it's running the second time around using the final stack state from the first time (instead of the initial state).
+
+        I fixed the gist - line 30 now correctly clones the initiate state hash.
+      :replies:
+      - :author: f4780y
+        :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ynpy/
+        :body: |-
+          > [https://github.com/seanhandley/adventofcode2022/tree/main/ruby/day\_5](https://github.com/seanhandley/adventofcode2022/tree/main/ruby/day%5C_5)
+
+          Nice one.
+        :replies: []
+- :author: antoniotto
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1oucq/
+  :body: |-
+    Ruby part 1
+
+    ```ruby
+    input = File.read('inputs/day05.txt')
+
+    stacks_of_crates = input.split("\n\n")[0]
+                            .split("\n")
+                            .map { _1.gsub(' ', ' xy ') }
+                            .map { _1.scan(/\w+/) }[0..-2]
+                            .transpose
+                            .map(&:reverse)
+                            .each { _1.delete('xy') }
+                            .unshift('*')
+
+    instructions = input.split("\n\n")[1]
+                        .scan(/\d+/)
+                        .map(&:to_i)
+
+    class Depot
+      attr_reader :stacks_of_crates
+
+      def initialize(stacks_of_crates)
+        @stacks_of_crates = stacks_of_crates
+      end
+
+      def move_crates_9000(qty, from, to)
+        qty.times do
+          crate = stacks_of_crates[from].pop
+          stacks_of_crates[to] << crate
+        end
+      end
+
+    dpt = Depot.new(stacks_of_crates)
+
+    instructions.each_slice(3) { dpt.move_crates_9000(*_1) }
+
+    puts solution1 = stacks_of_crates[1..].map { _1.last }.join
+    ```
+
+    for part 2 substitute move\_crates\_9000 with following:
+
+    ```ruby
+    def move_crates_9001(qty, from, to)
+      crates = stacks_of_crates[from].pop(qty)
+      stacks_of_crates[to] += crates
+    end
+    ```
+  :replies:
+  - :author: DanZuko420
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1wn5y/
+    :body: "I didn't know about the transpose method until I saw your answer \U0001F629 That's great to know in the future!"
+    :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz269tn/
+  :body: "**Ruby** playing with pattern matching and yielding to implicit blocks.\n\nHat-tip to [/u/shandley256](/u/shandley256) for the input parsing. \U0001F44D\n\n[https://gist.github.com/fig/78ffd51065d49c3d2ca8ada407fc1baf](https://gist.github.com/fig/78ffd51065d49c3d2ca8ada407fc1baf)"
+  :replies:
+  - :author: shandley256
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iztq2m9/
+    :body: "You’re welcome \U0001F44C"
+    :replies: []
+- :author: Arakiyda
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxsbz/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    crate_stacks = [
+      %w(J F C N D B W),
+      %w(T S L Q V Z P),
+      %w(T J G B Z P),
+      %w(C H B Z J L T D),
+      %w(S J B V G),
+      %w(Q S P),
+      %w(N P M L F D V B),
+      %w(R L D B F M S P),
+      %w(R T D V)
+    ]
+
+    File.open('input.txt').each_line do |line|
+      parsed_line = line.split(' ')
+      crates_to_move = parsed_line[1].to_i
+      start_stack = parsed_line[3].to_i - 1
+      end_stack = parsed_line[5].to_i - 1
+      crate_stacks[end_stack].unshift(*crate_stacks[start_stack].shift(crates_to_move))
+    end
+
+    puts crate_stacks.map(&:first).join
+    ```
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyze7x2/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    stacks, instructions = input.split("\n\n").map{_1.split("\n").select{|l| l.strip.length > 0}}
+
+    # Begin by modelling each stack of boxes as an array, with the bottom box first so we can easily push/pop the top boxes
+    stacks = stacks[0..-2].reverse # Remove the last line which is the "1 2 3 ..."
+    stack_array = Array.new(10){[]}
+    stacks.each do |line|
+      (1..9).each do |n|
+        char = line[n*4-3]
+        stack_array[n] << char if char && char != " "
+      end
+    end
+    stack_array2 = Marshal.load(Marshal.dump(stack_array)) # Creates a deep copy
+
+    # Extract the numbers from the "move X from Y to Z" instructions
+    def parse(inst)
+      numeric = inst.gsub(/move|from|to/, "").split(" ").map(&:to_i)
+      {boxes_to_move: numeric[0], from: numeric[1], to: numeric[2]}
+    end
+
+    def execute_instruction(inst:, arr:, part:)
+      boxes_being_moved = arr[inst[:from]].pop(inst[:boxes_to_move])
+      boxes_being_moved = boxes_being_moved.reverse if part == 1
+      arr[inst[:to]].push(*boxes_being_moved)
+    end
+
+    instructions.each {execute_instruction(inst: parse(_1), arr: stack_array, part: 1)}
+    puts "Part 1: #{stack_array[1..9].map(&:last).join}"
+    instructions.each {execute_instruction(inst: parse(_1), arr: stack_array2, part: 2)}
+    puts "Part 2: #{stack_array2[1..9].map(&:last).join}"
+    ```
+  :replies:
+  - :author: OlivarTheLagomorph
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzep9h/
+    :body: |-
+      Love the approach, came up with a very similar solution :)
+
+      [paste](https://topaz.github.io/paste/#XQAAAQB/CAAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/WmpTT6eRM7PEGmie6k7shMYRNnIpaCPq15zhC62YtqwKnkVCZYxJ5qQEUp27YPtffh0GuXBdC+tA93DIYfstvw+MplpZr4nLJdajs3X0U+3HZLNPy61iJiH64Tm/Vm2Bi1TXSNCPjDpShzrw5hZYyfnM2LNaGoqN6WtvfTub00/W8V2gGhsChOJHrRHOJjLLixhzyICGn3dr6ZFJsvdxr1dxO5dwGrzhwqghj1rapabcPEaUIPdIoYwtaz/kKQQ6TVjP6j7W/wbml27CtAgl+0x1RqgQTIrRaDhRSYCllx7Z75WTbFZchkzRUZnUxLL5GN7oPDnOcqrF5QIwf9iABx7rhgAbTdGsKniCc79Ga0kZ4WKkBnqDzyFc16e5gvVaegtwCstjzJZuMyC/OLujdILwO/1abOPeBF4eZVFsSOGvqJpN0oVp64IyxppXKD5d+eKQ4CAW3DfhnyoP92kbZr2g4/m3dVv26izSH9u652DDwQtPRcqT+13cSpD2HYCyY4CGW73Ima7Ymj5ckxgBXsfOcBkJK11h8yzwd4DDrmbV27LVSW/UdjPuLAqsoPeZSAa/xOt4kymFSZzuUVWFuC9Jsf5XBetmSH4BMeBA7+z3OGwjMwrPn1byvKbX3LzA4tOxJxwvy0LJC7VccMNRM7bwWoERnvK48sxUuHsBgu/R4mlX6jqfAh4awFB8/mBXj0CJUAL2/50Gjb0+exxCbrwwJMjtLwiZ+5o/wK3DD2Zn4xppwdV3JdEbBVPD3f19oxRFOn5wEeKTHQzRzMU+OSnnCAbZxkGRQ/6eDtUYGi7J/uml8lAKwK8SPsgHPPuRApb7Jj32q1EJgTmULIqirEe3iU/z/5ASbJ8vvNFsJKagvLLsqJ1JYjk9ClrrJSgWEPUFKoLEFzi1h8UVi6P9WHm/vQlmImltfxyCk+TrMftSeA7DjssVLeBKFRbol78PmW0kTHqhmoidWnXoym4ht0T7Gs0ojIpvWkSCo0jVoTL3EBQnJ7pg1fF+nmpmEsQBDGZs3GRLwucb9eIBOeWLx8ZPpAv0UBj3YmreyZu/PZK8fWNNJaFtv3m0aX6/1dMo2U4wD4qZqrVgzK7N5T7XPasBsZjMa3ZlyWp+flyiJHMairGGE5wFqumWcv+9ymLDVNRneP+WI07Cm58b7ik4NB2JbjK8x4c0N6q65RvS0+emeKfyGH2cX2dThPyHQ3OI5xjsE+nU//cJBRA=)
+
+      Love you how resulted in a single loop in your solution and basically tracked the phase you're going through.
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzf81r/
+  :body: |-
+    I'm doing different language each day, all solutions [here](https://github.com/d12bb/AdventOfCode/tree/main/2022).
+
+    Today's Ruby:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    stacks1 = [[], [], [], [], [], [], [], [], []]
+    stacks2 = [[], [], [], [], [], [], [], [], []]
+
+    File.foreach("input.txt") do |line|
+        if line.lstrip.start_with? "["
+            for i in (1..33).step(4) do
+                stacks1[(i-1)/4].prepend(line[i]) unless line[i] == " "
+                stacks2[(i-1)/4].prepend(line[i]) unless line[i] == " "
+            end
+        elsif line.start_with? "move"
+            ins = line.scan(/\d+/).map(&:to_i)
+
+            ins[0].times do
+                stacks1[ins[2]-1].push(stacks1[ins[1]-1].pop)
+            end
+            stacks2[ins[2]-1].push(*stacks2[ins[1]-1].pop(ins[0]))
+        # else next
+        end
+    end
+
+    stacks1.each { |stack| print stack[-1] }; puts
+    stacks2.each { |stack| print stack[-1] }; puts
+    ```
+  :replies: []
+- :author: ScaredOfMyRawr
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzl81k/
+  :body: |-
+    Here's my [Ruby solution](https://medium.com/@ashley-peacock/advent-of-code-2022-day-5-solution-ordering-crates-f77db1ca8e58), with a full explanation of approach!
+
+    I love it when it's array manipulation! Today was my new favourite day so far, and handy that my two solutions were basically identical (I accidentally did problem 2 the first time as I forgot the reverse!)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyznh6r/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/5)
+
+    Walkthrough Video: [YouTube](https://youtu.be/z3IOkA6inE0)
+  :replies: []
+- :author: craigontour
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz01ui4/
+  :body: |-
+    # Ruby
+
+    I made hard work of parsing the stack of crates. This was 3rd approach:-
+
+    ```ruby
+    start, moves = File.read("#{ARGV[0]}.txt").split("\n\n").map { |l| l.chomp.split("\n") }
+
+    crates = start.map(&:chars).transpose.select { |x| x[-1].to_i > 0 }.map { |l| l[0..-2] }.map { |y| y.join("") }.map(&:strip)
+    ```
+
+    # Part 1.
+
+    ```ruby
+    def part1(part1, moves)
+    moves.each do |move|
+        qty, from, to = move.split(' ').select.with_index { |x, i| i.odd? }.map(&:to_i)
+        (0...qty).each { |q|
+            part1[to-1].insert(0, part1[from-1][0]) part1[from-1].slice!(0) }
+        end
+        part1.each { |c| pp c[0] }
+    end
+    ```
+
+    # Part 2.
+
+    ```ruby
+    def part2(part2, moves)
+        moves.each do |move|
+            qty, from, to = move.split(' ').select.with_index { |x, i| i.odd? }.map(&:to_i)
+            part2[to-1].insert(0, part2[from-1][0..(qty-1)])
+            part2[from-1].slice!(0..(qty-1))
+        end
+        p2 = ''
+        part2.each { |c| p2 += c[0] }
+        pp p2
+    end
+    ```
+
+    To Rubyists, I could not work out how to output a single string of characters from my array of strings. For Part 1 I typed them in 1 by 1 and for Part 2 I created new string. Any tips on answer please?
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ektw/
+    :body: |-
+      ```ruby
+      # Instead of:
+      part1.each { |c| pp c[0] }
+
+      # Use:
+      pp part1.map{|c| c[0]}.join
+
+      # Map lets you transform one list of things, into another.
+      # So we transform our list of long strings, into
+      # just the first letter.
+      # Finally, .join to put it back to a single string.
+      ```
+    :replies: []
+- :author: radiales
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz14op6/
+  :body: |-
+    Ruby
+
+    [https://github.com/radiales/aoc](https://github.com/radiales/aoc)
+
+    This one was really fun. It's a great problem for Prolog
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1da2q/
+  :body: |-
+    Ruby, annotated.
+
+    Part 1:
+
+    ```ruby
+    stacks, instructions = File.read('input.txt').split("\n\n")
+
+    # This wouldn't work as directly if the input had more than 9 piles.
+
+    # Flip the input upside down and on it's side:
+    stacks = stacks.split("\n").map(&:chars).reverse.transpose
+    # We now have `1ZN `, `2MCD`, `3P ` and a bunch of garbage lines
+    #
+    # [[" ", "[", "[", " "],
+    # ["1", "Z", "N", " "],
+    # [" ", "]", "]", " "],
+    # [" ", " ", " ", " "],
+    # [" ", "[", "[", "["],
+    # ["2", "M", "C", "D"],
+    # [" ", "]", "]", "]"],
+    # [" ", " ", " ", " "],
+    # [" ", "[", " ", " "],
+    # ["3", "P", " ", " "],
+    # [" ", "]", " ", " "] ]
+
+    stacks = stacks.select{|first, *rest| first.match?(/\d+/) }
+    # We no longer have garbage lines.
+
+    # But we still have " " at the end of the lists.
+    stacks.map{|list| list.delete(" ")}
+
+    # Now we turn it into a hash for easy operation management:
+    stacks = stacks.map{|first, *rest| [first, rest]}.to_h
+
+    instructions.split("\n").each do |instruction|
+      move, from, to = instruction.scan(/\d+/)
+      move.to_i.times do
+        stacks[to] << stacks[from].pop
+      end
+
+    end
+
+    puts stacks.values.map(&:last).join
+    ```
+
+    Part 2:
+
+    ```ruby
+    instructions.split("\n").each do |instruction|
+      move, from, to = instruction.scan(/\d+/)
+
+      # The only change is using `pop(n) rather than `n.times`
+      new_and_improved_crate_mover_9001 = stacks[from].pop(move.to_i)
+
+      stacks[to] += new_and_improved_crate_mover_9001
+    end
+    ```
+  :replies: []
+- :author: DanZuko420
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1xb85/
+  :body: |-
+    Ruby solutions for day 5, [part 1](https://github.com/mhashizume/advent-of-code-2022/blob/main/05/crane.rb) and [part 2](https://github.com/mhashizume/advent-of-code-2022/blob/main/05/crane_9001.rb).
+
+    Wrote a parser for the crates/stacks that I'm pretty happy with, though I didn't know about the Ruby `transpose` method and probably would have approached it differently had I known.
+
+    Oh well! Good to know for next time.
+  :replies: []
+- :author: chooosen2019
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz2maf2/
+  :body: |-
+    **Ruby**
+
+    first:
+
+    ```ruby
+    $<.to_a in[*s,_,"\n",*m];x=s.map{_1.chomp.chars.each_slice(4).map{|c|c[1]}}.transpose.map{_1.reverse-[' ']};m.each{i,s,d=_1.scan(/\d+/);x[~-d.to_i].push(*x[~-s.to_i].pop(i.to_i).reverse)};p x.map{_1[-1]}.join
+    ```
+
+    second:
+
+    > $\<.to\_a in[\*s,\_,"\n",\*m];x=s.map{\_1.chomp.chars.each\_slice(4).map{|c|c[1]}}.transpose.map{\_1.reverse-[' ']};m.each{i,s,d=\_1.scan(/\d+/);x[~-d.to\_i].push(\*x[~-s.to\_i].pop(i.to\_i))};p x.map{\_1[-1]}.join!\<
+
+    ```ruby
+    $<.to_a in[*s,_,"\n",*m];x=s.map{_1.chomp.chars.each_slice(4).map{|c|c[1]}}.transpose.map{_1.reverse-[' ']};m.each{i,s,d=_1.scan(/\d+/);x[~-d.to_i].push(*x[~-s.to_i].pop(i.to_i))};p x.map{_1[-1]}.join
+    ```
+  :replies: []
+- :author: matas__
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz010yc/
+  :body: |-
+    ruby code with parser:
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://gist.githubusercontent.com/matass/82a9650befe14104f2bb5766cbbcf848/raw/12b86f119502585c88daa5fc2b2e87d3f4424b40/day\_5'](https://gist.githubusercontent.com/matass/82a9650befe14104f2bb5766cbbcf848/raw/12b86f119502585c88daa5fc2b2e87d3f4424b40/day_5'))
+
+    request = Net::HTTP::Get.new(uri)
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    mapped_data = response.body.each_line.take(8).each_with_object({}) do |item, memo|
+        arrays = item.chars.each_slice(4).map(&:join)
+    ```ruby
+    (1..9).each do |counter|
+      memo[counter] ||= []
+      memo[counter].unshift(arrays[counter - 1][1]) unless arrays[counter - 1][1] == ' '
+    end
+    ```
+
+    end
+
+    mapped\_movers = response.body.each\_line.drop(10).each\_with\_object([]) do |item, memo| memo \<\< item.split.map(&:to\_i).delete\_if(&:zero?) end
+
+    mapped\_movers.each do |mover| move, from, to = mover
+
+    ```ruby
+    mapped_data[from].pop(move).reverse.each { |item| mapped_data[to] << item }
+    # for second part remove `reverse`
+    ```
+
+    end
+
+    result = (1..9).each\_with\_object([]) { |item, memo| memo \<\< mapped\_data[item].last }.join
+
+    pp result
+    ```
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyywx3i/
+  :body: |-
+    Ruby, 287/305
+
+    [https://github.com/acornellier/adventofcode/blob/master/2022/5.rb](https://github.com/acornellier/adventofcode/blob/master/2022/5.rb)
+
+    Too tired to golf up this one, I'll give it a shot tomorrow
+
+    Ended up staying up anyway... It's still very long but it's something. It could be shorter if I assume there's always 9 stacks.
+
+    Golfed to 199 bytes
+
+    ```ruby
+    s,_,x=$<.map.chunk{_1==?\n}.map &:last
+    y=[[]]+s.map(&:chars).transpose.each_slice(4).map{_1[1].reject{|l|l==' '}.reverse}
+    x.map{a,b,c=_1.scan(/\d+/).map &:to_i
+    y[c]+=y[b].pop(a)}
+    p y.map(&:last).join
+    ```
+  :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz0jc2/
+  :body: |-
+    Ruby 2535/2975: [Code](https://github.com/jzhang113/adventofcode/blob/c6883bb964a95e7520e3d345854fe79631f23eac/2022/solutions/05.rb)
+
+    Checking the megathread made me feel better that I was too lazy to figure out how to parse the crates from the input
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz5t9w/
+  :body: "# Ruby\n\n[https://github.com/snowe2010/advent-of-code/blob/master/ruby\\_aoc/2022/day05/day05.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2022/day05/day05.rb)\n\nI really struggled with this one. Second part took 10 seconds though \U0001F605"
+  :replies: []

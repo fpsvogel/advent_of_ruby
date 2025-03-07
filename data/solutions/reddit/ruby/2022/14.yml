@@ -1,0 +1,32 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j06mkyf/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/14)
+
+    Video Walkthrough: [YouTube](https://youtu.be/PTmSGQnGoXM)
+  :replies:
+  - :author: mizunomi
+    :url: https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j06qhj0/
+    :body: Well done with the solution, but please, as suggested, do not upload your inputs to public repositories.
+    :replies:
+    - :author: skagedal
+      :url: https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j06zveq/
+      :body: Where is this suggested? I've read through the posting rules but probably missed something. Or is it suggested somewhere on the AoC site itself..?
+      :replies:
+      - :author: mizunomi
+        :url: https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j075a64/
+        :body: |-
+          This is visible in the subreddit wiki. Usually, the moderator reminds posters about this.
+
+          [Link](https://www.reddit.com/r/adventofcode/wiki/troubleshooting/no_asking_for_inputs/)
+        :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j05q56v/
+  :body: |-
+    [Ruby](https://github.com/jzhang113/adventofcode/blob/01b815bbd93a405f590095393867beed301cd3db/2022/solutions/14.rb) 2010 / 3400
+
+    I spent 15 or so minutes on part 2 wondering why my answer was wrong, only to realize I made the map too small.
+  :replies: []

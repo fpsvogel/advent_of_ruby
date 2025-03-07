@@ -1,0 +1,154 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/htakj5o/
+  :body: |-
+    # Ruby
+
+    [https://gist.github.com/Clashbuster/d2f7dc3246f109b987a278d98197c6f0](https://gist.github.com/Clashbuster/d2f7dc3246f109b987a278d98197c6f0)
+  :replies: []
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/ho9vo1a/
+  :body: Stack solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day10/kiril/partone.rb)
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyezvj/
+  :body: |-
+    **Ruby** 181 bytes
+
+    I can't find a way to shorten the mapping in the first line...
+
+    ```ruby
+    t={?(=>?),?[=>?],?{=>?},?<=>?>}
+    x=$<.filter_map{|l|
+    s=[]
+    c=1
+    l.chop.chars{t[_1]?s<<_1:t[s[-1]]==_1 ?s.pop: c=nil}
+    f=0
+    s.reverse.map{f=5*f+' ([{<'.index(_1)}
+    c&&f}
+    p x.sort[x.size/2]
+    ```
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyaxxl/
+  :body: |-
+    **Ruby**
+
+    Didn't want to deal with matching special characters, so `String#tr` to the rescue so I could use uppercase/lowercase letters instead.
+
+    ```ruby
+    data = open("input").each_line.map{_1.strip.tr("()[]{}<>", "AaBbCcDd")}
+
+    def score(line, part2)
+      stack = []
+      part1_scores = {"a" => 3, "b" => 57, "c" => 1197, "d" => 25137}
+      part2_scores = {"a" => 1, "b" => 2, "c" => 3, "d" => 4}
+      line.chars.each do |char|
+        if char == char.upcase
+          stack << char.downcase
+        elsif char == stack.last
+          stack.pop
+        else
+          return part2 ? 0 : part1_scores[char]
+        end
+      end
+      return part2 ? stack.reverse.reduce(0){|acc, val| acc * 5 + part2_scores[val]} : 0
+    end
+
+    puts data.map{score(_1, false)}.sum
+    part2_arr = data.map{score(_1, true)}.filter{_1 > 0}
+    puts part2_arr.sort[part2_arr.count / 2]
+    # Yes, this works because integer division rounds down, so for a 5-number array this will find index 2 (the 3rd element)
+    ```
+  :replies: []
+- :author: scarfaceDeb
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnye6zt/
+  :body: |-
+    **Ruby**
+
+    I smelled a stack pattern from a mile away after I saw the input :D
+
+    ```ruby
+    lines = read_input
+
+    invalid = []
+    opening = "([{<".chars
+    closing = ")]}>".chars
+    pairs = closing.zip(opening).to_h
+    prices = closing.zip([3, 57, 1197, 25137]).to_h
+    values = opening.zip([1, 2, 3, 4]).to_h
+
+    scores =
+      lines.map { |line|
+        stack = []
+
+        line.each_char do |ch|
+          case ch
+          when *opening
+            stack << ch
+          when *closing
+            next if stack.pop == pairs[ch]
+            invalid << ch
+            stack << :invalid
+            break
+          end
+        end
+
+        next if stack.last == :invalid
+
+        stack.reverse.reduce(0) { |sum, ch|
+          sum * 5 + values.fetch(ch)
+        }
+      }.compact
+
+    ans = invalid.map { prices[_1] }.sum
+    ans2 = scores.sort[scores.size / 2]
+    ```
+  :replies: []
+- :author: Spock_42
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnywep4/
+  :body: |-
+    This is my Ruby solution to Part 2. Part 1 is similar, just a different scoring pattern. Just learning Ruby for the first time via AoC, so any C&C is appreciated.
+
+    ```ruby
+    def find_incomplete(line)
+      brackets = { '(' => ')', '[' => ']', '{' => '}', '<' => '>' }
+      stack = []
+      line.each_char do |c|
+        stack.append(c) if brackets.keys.include?(c)
+        (c == brackets[stack.last] ? stack.pop : (return [])) if brackets.values.include?(c)
+      end
+      stack.map { |c| brackets[c] }.reverse
+    end
+
+    def autocomplete_score(file)
+      scores = { ')' => 1, ']' => 2, '}' => 3, '>' => 4 }
+      lines_to_score = File.readlines(file).map { |l| find_incomplete(l) }.select(&:any?)
+      all_scores = lines_to_score.map { |line| line.inject(0) { |score, char| (5 * score) + scores[char] } }
+      all_scores.sort[(all_scores.length - 1) / 2]
+    end
+    ```
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzgtbl/
+  :body: |-
+    I've found the last two days to be a bit of a slog, so I felt recharged that this one was straightforward (at least for my skillset). I rather enjoyed the decoy sample answer in Pt. 1 -- My thought was "oohhhohooo!! You're bringin' it now!!!!"
+
+    [Ruby Pt. 1](https://tzarnal.github.io/Opal/#XQAAAQCdAQAAAAAAAAAoE8VAZTehaYnyuwTEaiO9AUDb7/ag2JLRSAd+7vIQ9W0fVJObjAbKNtBfBOvfYp/6xzM2fkqGxqyc6jO/F/PNxIHgnbb2ujIjP/S2/pFvCRSIPCh/bXducVnth7ubK9uI+TmdWCpwdPhjd0TwvmXTE7ODxlC8njyvAGFkHmVzfmnjkpbJYPEkPbwQMY4ZJ++5wJy8BGKLklFWmcdZ1zytUh88jFkec1+0yfxBqXtjWorHIau2R97juOhDLQ4k1ZWAG4tGZ5m7jDv2BaGvpRuI00oVyJTexyY+GRRfTZoxiY+O3fF1ntccDFXAkAH9gJ0Z)
+
+    [Ruby Pt. 2](https://tzarnal.github.io/Opal/#XQAAAQA3AgAAAAAAAAAoE8VAZTehaYnyuwTEaiO9AUDb7/afhxrRSAd9icyTM7XPlxTtju/5+jsKCkzkv04DoByTRxGROD4qLI5UATpNcGmondUpNWtajrRddQxTip90X2bBWlszn2h/fNUPz2qXseqes5e7KHuniHH80b/Yc9AHgpmyg50G2/yUDzH4jETOs7I/PnrJCAC34SApsl/bIrNjpJcVrOXnCuuY+Ef5QcevxBZiLYiMVE3RXSG5ckZ9527ttVO1A811aIiqHq2ueJ2IwC+PAzO3IXQDmChIoD9lsrShdx7yqRDstYqFlaGjb8RcHkhXyqvuRvhCmiaraAyQaU5yFHMWxBZB1rX6zscUgaTNiUOYFr7i4gksOBD2Lfu9N922uzpzC3jnG6qhIereIv6th4ihmORZ2buUV5L/8DjY3Q==)
+  :replies: []
+- :author: ndnenkov
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzwb46/
+  :body: |-
+    **Regex (Ruby)**
+
+    [https://gist.github.com/ndnenkov/3e003f0ea8b91b91d8e6c8351bdfefe8](https://gist.github.com/ndnenkov/3e003f0ea8b91b91d8e6c8351bdfefe8)
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyad2r/
+  :body: |-
+    Ruby 1094/951
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB3BQAAAAAAAAARiAqGkkN7pOxE/4M3sJZUrRlm2vbNF2CzIuf8FMADnFAgSDD1IQ95887rsT6Jozm9DFRxiVUP64wIO2vYTZ8hNH6zqsq/NA6A8z1XFuOIEaAU+UeKgm7dfiYFKtr9VIvWKm6oxgvHme1AD2LVXNKDZFsBY43n5I6+Ok1vWi64ehhtkJWtEL2sfhxixfO9SazHel/3KZyCLmYsYIejNp8vfar9E8VphsQX/WL9cghqEl2bf4X407HcdRR4rhxzVGrBBoz1oDCdl06gBWj80I9XQcDuyyXVJV7P4nbRmyhmazOOg+A1TKess8lqI2/Z3MBNSChgA2KjgcIll2rEfCcQQm7RxNKVwvz04TOnhQj/Maea+0ASL4DiPsn9g0n7IqkwO6JLjWkqXKS3scYOXmFqxmGB4sQUenfmJz4/LPn3xrEcLXpZ77bakqQsstX5HGTabvPfEEJSP0sTl5am/47MKK8P2sXJxIxIkTevg1NhPkQBG0BlNcp9i5PMV56IBUd1DpuhnjAsMMhCm9AI8cvlSJR4In1afruIgl5rjP6Mv26BGHaRRLaa0hs0kXi9+Clpj/n+b0gE)
+  :replies: []

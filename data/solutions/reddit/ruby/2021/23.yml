@@ -1,0 +1,39 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnimr1/
+  :body: |-
+    Ruby, 613 / 24
+
+    The code for Part 1 works for Part 2 almost unchanged. It is using the A\* algorithm, with the heuristics function calculated by using the energy required if moving through other amphipods is possible. Using OOP (classes) allowed me to think in higher levels and helps me avoid silly mistakes.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCVDQAAAAAAAAARiAbIwVXFxjAJJHIZV+wBHEZFeC3GZ4Ka+BhTFElBsHSTqIHYjGdGmAgAx34U7qbprjAArkbhNA4RwfhdWIWgbhzrjvP0U+CNMAq9615LgkDJKZkBtXDZ9wjkYS/Ozhnun4JZ218tnYALzAs4dUlmQaGj9FNfjL5zYTOVEBSjBkf6SXebMNod9Ff+pAm5zYqH41osDGHdQv4zZwwCjpda32zs9WbZhl0j2OMZ6ERxgyt5hfNinBY6Qg8JgFJVDCrZv8oDcO6CTsB69Zfju6DcoZebFjrHucSMr2bLASJPDcoZUrmXIfGTf7Fkycic4tUX++lHD5il82COmUxz1sSJG5VUc/9U/oDYctfE1rUHQwQHZix6DOc8yQCQUR4hXU8Eofo6S2CIYbRDgZIcLtY7Jqo4vX5gGHNEgJWgJUywghg4rsE2STbunDGdLBBQWidtD0jsQerIQHhE8AMlDGgsapwzjy8KUtC7GAvRXS/ouB7cd48NBOc1BNvz/uSDM3OAAGwuKOoKOBj0ErYzMThOJ7ABWyu3q9fKoW5QDESh4gNn86jB037AEFYgl2ezMq/K2eIYdmLC779bmFNLokPnYxypJMAJArmHlILpd+vNccIRsuQQtCpvLpQ67fDLaSXIZHZmPsGJDX1SUL9tp3viPep8WrMvKBV2Z7deXUBnM9SsY8XNJea7b7Nuo8NaBiWo72kUoj/aVLXK3Jfyk1NSPUhg6JHTF7/QTjRopqJv2IP3vvg0hiTxJeNOtqlP9qCyudDeFj5DvoAdFxXiMMIIH7vulwIF1pb06dnk6YNlItbRtSvJPSFdnnWvHSi2rXp6++vWp3itONil1il+8F21t1GdQSmP8jNxFKyKJ2DsCsuqFImVWNicUCZPAlecz/NqV99YUJZsVuzUzIu2NROEfigOdtX2QxmOzl48mDkFG2VFCQrH0JOoQFy+xXNZQPrZ5Dw1dVo3wBV0QoivDMEkDEYRRXBVjW7oSDKou92lK6KGkdCRVvqlXW/KfEp225MAZBQLT/Mb2JTFIcfe+IPo/iTEqfmXgIAAxsJDxVlbXfVRt5AUP03PWB7xDwMBWg9jiqcsXAY0fdtIkIhPkhdu4antj1gqAl0qX3F3PknSN/RS1XgG5Y+8/XWroXMgHMMQ7H87La5/7KCCHfKTls5fiEqgkpUqu8hT568A73rcH3CNQWk2npQCwcOeVd2tcttxRt11rNJLEEBPzb7gyxC85sJxYSJ+4MkJs/do4uOvOA1A9qvWC/Wer+p2nXWcYpNmb49AmzTFQvKQWVJXhscM3D8Om+YeGBIgE/4ekFKR9GEAgSGbidTT/ra816NUFM5246DWZHhT+zyDK+jdCSZCDDu3T3l2MV+6RoeKZY5KTsOyLlZ2BPuYS9z0c4tDKOd7sK5e+qC7LnexD3b8xNNh7LqMGzc3gE6q/Z/kH5SB2WroCvwh5n30fInRPaFF/3BKaQA=)
+
+    I’m not sure if there is some kind of shortcut that people are solving Part 1 so quickly, but I was quite glad I didn’t take it, otherwise I would lose more time in Part 2.
+  :replies:
+  - :author: PendragonDaGreat
+    :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpniv5a/
+    :body: A lot of people (myself included) solved part 1 by hand knowing it would bite us later all the same.
+    :replies:
+    - :author: NecessaryWolfie
+      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnkj1p/
+      :body: Part 2 was doable by hand too! At least, solving part 1 by hand did not come back to bite me.
+      :replies:
+      - :author: dan_144
+        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnr2ir/
+        :body: I did them both by hand knowing as I did part 1 that it was a gamble on being able to do part 2 the same way. After a few misfires on part 2 I considered switching to write code, but ended up sticking with it and even improved my standing a bit.
+        :replies:
+        - :author: M1ngXU
+          :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hppgnmw/
+          :body: |-
+            > but ended up sticking with it and even improved my standing a bit.
+
+            same, but gave up after 3 hours. should've read ALL the rules though (didn't saw rule 3)
+          :replies: []
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpntj8k/
+      :body: "[deleted]"
+      :replies:
+      - :author: PendragonDaGreat
+        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnuatj/
+        :body: Yeah, I did some arts and crafts to make a board that I then slide little paper tiles around till I got the right answer. Worked way better than I was hoping tbh, and saves me from trying to figure out how to code a solution.
+        :replies: []

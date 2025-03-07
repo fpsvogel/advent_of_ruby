@@ -1,0 +1,105 @@
+---
+- :author: Frakols
+  :url: https://www.reddit.com/r/adventofcode/comments/rizw2c/2021_day_18_solutions/hp3jadg/
+  :body: |-
+    # Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAqDwAAAAAAAAA0m4poOBNUDQxDypsC1yr/AYVeQd2XqWHx/Up5/oq2huy31nQ1N2BX0gZ2cccVPEP7L+8wgvKwF7usZRog96EPl6p5hIisI3S+Wnvl0Zt/uWiwWAK7Aqodvozelii07/icWlG2GDtMUcPvnt55MviV12D9ACEO51IdlfNvOiZminvCfFqHG5HfCC2y+Iap0ReWj8Kuzte2hbOa2fsTtVUFFb/W+tQIXFXyie9Sl2N+6ch6C/Fc7I45rEuYVSp4y1uOrPTxx/kE/iGQiraTO6PfkqYrrVj/9h8HMNojy78k87skKdEXdu/ZWe/iOqnyOJX7dQ158yF3G17RnoGtGsAqe0dJjAFqlllkgq+0OSwtddmb2311VEkS27m5nXK5bzrM/lDhrZ3rmtzR4d36L5RT/9RiTBnfF6vUTuB+C2vSmhFy13Mkub/KhFw2IuQzoVmG2h01ygfFc7lNN+4q9VCIR7gtqcT9mSXY9W+fVheRU1tEvvstIQoglWd2104Yn1VOGiA84SmxY+dlLT156CU4gqX8t1ZSq/IyVpcz3YP8fI1lHY4zxVHWAvMMMM+fFMG7OirQwoeLXAwGajUqg45VlypOYvU3L8Ed51Moy2m7e5g4aN3nsf7GsCwkBNRh4pRr+mpcyIclWTiwPX+EWnHYjMw6z5MmHbnb9UtYpPf8soe6MTU00iJlq4e7ylap5mIhD3vGb8IVJaZN9nNG7QFaQWQ4kJVgTzalcPIW202FvgAq5Z+yGU++UoX5jou+h8EXwWbwCgSvz0wFy3/shq/6tXQ3nHh73QW+wtv3mhQtvm5BUEWWrjXZXaYn+06omDKuCW5en+Ym2Lns2qHWAgGyvrjKi2W2ZJsof9XAsRjOJSBWxADjU6T4YZW99CtP2YVjjw6N510b8mu6O0Q51/9AIyqG6UubPLk6//uYTCi3fLn0VXeYCfZ6s3rAz1kW6da8WiygH1LYTKxAwzh007gjz6nvuCUXgT9zSIbyOoOAG8Z80k/m83SOHi3pP7M9F2WrvfQkTfljvnsWrCrPp1bUJUhpjzR3XXLJCsnQ3K6FjO3QKj40crIWY9jDkFB6/r6CYp7KpOcK7AUSO03fK7IfbNqYXkILg/tuPXXxyOfNbX951dHjkuD596arOPGm2Fq1m1qTj9XeSme6hPYL6HHPMbDoq50+Rv3gQ9zHFXJwy+aI83sZWkzAn6CTuWI0ZnWE2oa6gqG2rIgFzGJVxqgcNUEUnxNKzH9Fqs9tN1olcMFUpq/br+J34NLAMyN448Q2Cx5iL2KKvI6GQ6I/1L16To7Ib13SEpARpzwgIe0JW2+rPKd+de3YXIEu/AbQ/wPtHBK7BY7anQ6sOCX2Wh+NiHsazkAfx+B4zNQ6UOuSwyTS5Tx1sS8bHeUJrJ9LAJJTvjUjRBEFz+gp/vvSLIY=)
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rizw2c/2021_day_18_solutions/hp18eju/
+  :body: |-
+    **Ruby**
+
+    My basic idea was to turn each snailfish number into an array of complex numbers _a+bi_, where _a_ is the number and _b_ is the depth (number of brackets the number is enclosed by). For example: `[[[1, 2], 3], 4]` would be encoded as `[1+3i, 2+3i, 3+2i, 4+i]`
+
+    ```ruby
+    def snail_parse(str)
+      counter = 0
+      output = []
+      str.chars.each do |char|
+        if char.match?(/\d/)
+          output << char.to_i + counter.i
+        elsif char == "["
+          counter += 1
+        elsif char == "]"
+          counter -= 1
+        end
+      end
+      output
+    end
+    ```
+
+    Then, I know we have to explode any number where `b >= 5` and split any number where `a >= 10`. So we can write methods to explode and split at a given index, and get the magnitude of a snailfish number:
+
+    ```ruby
+    def explode(arr, ind)
+      first, second = arr.slice(ind, 2)
+      arr[ind - 1] += first.real if ind != 0
+      arr[ind + 2] += second.real if arr[ind + 2]
+      arr.delete_at(ind)
+      arr[ind] = 0 + (first.imaginary - 1).i
+    end
+
+    def split(arr, ind)
+      arr.insert(ind + 1, (arr[ind].real / 2.0).round + (arr[ind].imaginary + 1).i)
+      arr[ind] = arr[ind].real / 2 + (arr[ind].imaginary + 1).i
+    end
+
+    def get_magnitude(arr)
+      loop do
+        max_depth = arr.map(&:imaginary).max
+        break if max_depth == 0
+        ind = arr.index{ _1.imaginary == max_depth}
+        arr[ind] = 3 * arr[ind].real + 2 * arr[ind + 1].real + (arr[ind].imaginary - 1).i
+        arr.delete_at(ind + 1)
+      end
+      arr.first.real
+    end
+    ```
+
+    Then we can add two snailfish numbers and loop until it's reduced:
+
+    ```ruby
+    def snail_add(a, b)
+      joined = a.dup.concat(b).map{_1 + 1.i}
+      loop do
+        index_to_explode = joined.index{_1.imaginary >= 5}
+        if index_to_explode
+          explode(joined, index_to_explode) and next
+        end
+        index_to_split = joined.index{_1.real >= 10}
+        if index_to_split
+          split(joined, index_to_split) and next
+        end
+        break
+      end
+      joined
+    end
+    ```
+
+    Now we can solve the problem with:
+
+    ```ruby
+    data = open("input").each_line.map{snail_parse(_1)}
+    puts get_magnitude(data.reduce{snail_add(_1, _2)}) # Part 1
+    p data.permutation(2).map{|a, b| get_magnitude(snail_add(a, b))}.max # Part 2
+    ```
+  :replies:
+  - :author: fcd12
+    :url: https://www.reddit.com/r/adventofcode/comments/rizw2c/2021_day_18_solutions/hp19caa/
+    :body: that is actually such a cool way of solving this problem :)
+    :replies: []
+  - :author: shandley256
+    :url: https://www.reddit.com/r/adventofcode/comments/rizw2c/2021_day_18_solutions/hp2e3az/
+    :body: Never would have thought of doing it this way - super creative!
+    :replies: []
+- :author: BaseSlow3701
+  :url: https://www.reddit.com/r/adventofcode/comments/rizw2c/2021_day_18_solutions/hp0w9e4/
+  :body: |-
+    Ruby
+
+    One of my favorite so far! I wasn't particularly fast, but it was a fun one.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQD8DAAAAAAAAAAzGknWt5Bv2qwBBozphszPdvu77G/FdUXkM9u9Z7DgTBBQoSfvgvujXFLU1IslSNaoKbUy+LA1IzpsDY3QteDetE0jXYAExKKqAwQSUVj8tGFKkXxKp+aH9rskgAzi3RarQ9WefYCjoUaT0UHFR/GFihvcl9ApiKD3O5HqnJ9VLkjPPXVzUhlCT2fKISfDS5HoGthcSxu62xMm3Kl78gyft3SdI5jlBkUIdVzL8awhMbMQnbRYb7AGi6p3a4jGOmM2td9uKXuijb4B99PQuZ1AXJBEb8TTVa+zbHZNd4iUbXHsqTQxE+3MBwhaq2AWycRagvgmEc7XiPJbEBPJD6ZasXGLbrXuXfAvmuMvyOG2eUwE/OiRmy0ZPzAg+OAsqUXnFHFcmzy1cy/rGlgRLKGaFbxG/yxeKiZKfux1/Y/CW/U+NzGSiYxQEbvyRw3C1AsMuq5ZM1i3MJFZvbDieV5qX6D5ERGIWESIteYKtKyyS2JKSqzBMlo67HaBoaXppQJaGetuYPCJ1bdcZu2GhEfsw8CsLwB1Txigd14scihE1pWSWkggRKek9xtD+nn1PMqf6TPE3ivwfZ68hnT1vynJSEVUo0VO8qY2ktwKEc4tvimgA2e2x+TlaKHQiYM5xNZmAphWkaGwa2gfi3Xx/wWH3bbo597yKFLEs5NMQyZYvbAyCdNrkSPU0wFbaLxXsxMngMfKvipHsfQ/1vb5D1fvJ5JKdjytNFGbSMh4ESWjept7ULurZHMIOVpNTni7UyQFpif44snbpqAQYi1RbiiKvnR3UCBzvHxIjNLRy80PWNqOeiDX//hcXshVUqfOob1MiwdxQs1quLaIPEddDK8CCGY1UkHREoYEGjdnehvuRjZhhA+otvzlJHYZf2BG2e/C+teXeB8QPT9Ih0OIRTkfLWyG3O5p3W7bn9sywvnTRN3Zkkx93eQNUkbi+CDiBzEnuVGp2xkB20iMS0FpF+WRKbTve1pB+Yn7VU2wJoHsZU7zLKR9jgfpP18HO+VPY5Mrk52kzNE+Zsj0gr9IYg3cWirGTZK2XGWlA2qQ7xDxPPTKvEK53U+uqfI++WWRedS6qcP3P0Az59iwy6ja1kivYyukhqbW+nt7HwZDnmbq0wFp3z9JhDwJ3uuxIlZsE0acLgruda5QX1PrrUSWyKNt60eof/C5rXqNh7e2xAqsWVwMjXUH2x2dh0+JCPO8ygv6fwflKs1ciS8IFw1mhDNCwu9sWnT+qEQjFl2Ozow6fQVb2VVdXvqhWZFfDGKCDTFTgtATSsLXhoi+xJo3ZpKJhwThlPLllZqvkbqlyUMhQiZx77tg2GPv2SC6WVnsyo44cPhscqIyfGLIdtK3tTtu79PbPKcVxa4TriTiNmsxFdCuFdc5/om2+rEIu7/+vmJRPMH/XBjHAA==)
+  :replies: []

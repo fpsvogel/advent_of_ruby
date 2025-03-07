@@ -1,0 +1,290 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hpa1tzv/
+  :body: |-
+    # Ruby
+
+    [https://gist.github.com/Clashbuster/96ca00239a92b5cd684c449c514fe56e](https://gist.github.com/Clashbuster/96ca00239a92b5cd684c449c514fe56e)
+
+    Reddit code block is acting terribly for me, so it's a gist
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnvyn4b/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    input = File
+      .read(ARGV[0] || '../input/05.txt')
+      .scan(/\d+/)
+      .map(&:to_i)
+      .each_slice(4)
+      .map { |x| x.each_slice(2).to_a }
+
+    def vector2coords(((x1, y1), (x2, y2)))
+      xs = x1 > x2 ? x1.downto(x2) : x1.upto(x2)
+      ys = y1 > y2 ? y1.downto(y2) : y1.upto(y2)
+
+      if x1 == x2 || y1 == y2
+        [*xs].product([*ys])
+      else
+        [*xs].zip([*ys])
+      end
+    end
+
+    straight, diagonal = input.partition { |(x1,y1),(x2,y2)| x1 == x2 || y1 == y2 }
+
+    # Part 1
+
+    part1 = straight
+      .flat_map(&method(:vector2coords))
+      .tally
+
+    puts part1.values.count { |x| x > 1 }
+
+    # Part 2
+
+    part2 = diagonal
+      .flat_map(&method(:vector2coords))
+      .tally
+
+    both = part2.merge(part1) { |_,a,b| a+b }
+
+    pp both.values.count { |x| x > 1 }
+    ```
+  :replies: []
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnikn2s/
+  :body: |-
+    My solution in Ruby - [Part One](https://getsturdy.com/uoeIDQk/browse/day05/kiril/partone.rb) and [Part Two](https://getsturdy.com/uoeIDQk/browse/day05/kiril/parttwo.rb)
+
+    This is how I did the diagonal part:
+
+    ```ruby
+    xd = x1 > x2 ? -1 : 1
+    yd = y1 > y2 ? -1 : 1
+    xx = x1
+    yy = y1
+    while xx != x2
+      mark(coords, xx, yy)
+      xx += xd
+      yy += yd
+    end
+    # one extra
+    mark(coords, xx, yy)
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnagdcv/
+  :body: |-
+    Ruby, 43 / 66
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAOAwAAAAAAAAAyGEruliPhN7cj9yuKEDGacbECpQZ3TLPwAJNcm6a++f9eIkFxzMY1Xeh7CP7udy+WkGwiHrZi/wD6UrMgCr/kPzgg4TLCEWvGbLU1jiCgKnMuCqkuBk3cgj4oaMgzl4J+y8kFHURTWk6J5KiiyrWVTBvs71jClEMrci5XnOAocF1GDqTIccODMfbJmYCUNU4fztmy5Wb3Jua4dQlMRLl/x8oKmVrBPjdt/M1Im6Y0KK9+iyO0JSnG/B3JVNNFjNRXaZZ3ArhXWoVhZYypAwjmcpxmRqkuCqyUSjQ3S/uCECvx/Ql4SgV/dQjAZhtnes6OXpePOYAvPy7dPi8p8NTZoqtr0WWEgwy6BcTZcm+qhbqGdWD6PCIyvL0fqnwzdg52ytJLkf+fALmXMvAPqYH2olMjUnanBlaCuLmN5opk/oB5uDD9LxmMOo+peQfgk08aL9ezq8Juqhn7ZtnnJVnjPipvsp+RdO3UfCi4Xf/ufvMH)
+
+    What I love about Ruby hashes:
+
+    - You can set default value for nonexistent keys: `o = Hash.new(0)` (making this similar to Python’s Counter)
+    - You can use Array (and other objects) as hash keys: `o[[x, y]] += 1` (Arrays are ‘hashable’ by its contents)
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnaltum/
+  :body: |-
+    **Ruby 132 bytes**
+
+    While golfing the code down I discovered `Integer#<=>` [https://ruby-doc.org/core-2.5.0/Integer.html#method-i-3C-3D-3E](https://ruby-doc.org/core-2.5.0/Integer.html#method-i-3C-3D-3E)
+
+    ```ruby
+    q=Hash.new 0
+    $<.map{a,b,c,d=_1.scan(/\d+/).map &:to_i
+    e=c<=>a
+    f=d<=>b
+    (q[[a,b]]+=1
+    a+=e
+    b+=f)until [a,b]==[c+e,d+f]}
+    p q.count{_2>1}
+    ```
+  :replies:
+  - :author: madethemcry
+    :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnat1ud/
+    :body: "Thank you for the operator link, this will get handy again a moment of \"of course\" Ruby handles this for us \U0001F64F"
+    :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnai52y/
+  :body: |-
+    Ruby 774/1351
+
+    meh, would've been a lot faster if I had used a hash instead of nested arrays & if ranges in ruby could go backwards.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCbAwAAAAAAAAAznIlVuhcHbK2J37EK0D01waEli+PuxxfOQUp6oLHODnHI1hs7oWmAsckx4ZmoAMFRkgJmIaQq4SuFx07Kx+M/rBNLtwAr3ATDsd5MeLP9tbYow1GpaCFosRYt2f6Jl3rr5t4UaQJx7G9PmHkC+GH0iki6pgy78aiFQXRtDCX4QEUkundfBjHDGGjiJAyabFJoP9ObwbRfjvtzfrjCkGvBGIywYf3V5R8mi76aObLKHQaJ6wVaji7oqXcmKFDBGASKMG13/k0vpHBFyrV6i1k6qhWdvZ2jrfIKGX0Oe4dmX4pmZGQK46xpHz8RqWO9MSo85M79RQ8HEYVswayvRtmXMY2dZWY8eqTKz6uFbxq4lSO6awKSrw9F69KHnfq66ATWFaTOGbixDDrSWJ8h1yc2wkKd1I2IWPXFhu+q9gWCWJSYI1jbUTaxVQEpb/FKb++97z62efNuRCZ/bjdvLPC0dzx0340sNKqHp1SVQZcslgvLEs+rm7Cz0Bn4ng9qb3ZO795Pb9nnhtxlb02K+RgZ4K13b5bFsq0/2GFfjOE+vrUm1YblENLrtdNgWspCsDyvSh+IH0IsKOfgkAurugkzLf/DfVAA)
+  :replies:
+  - :author: ni3t
+    :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnajzv1/
+    :body: Wasted a good couple of minutes racking my brain on why `(1..2).reverse` wouldn't work... ugh
+    :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnajrlp/
+  :body: |-
+    ### Ruby
+
+    Ugh, i hate diagonals.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDMAwAAAAAAAAAgGQgnd2NHcXqsLrzGg/rDxe5Fqk5x9trgKScUsvrki1/OtnkEelxbNGjAJZo6FhY3SaHjRx8SNvMPTAvvlT7jPn9vvvirbzognRYBUlnDWwpFR9QJt2/v7nEG2Vgoy6kOwtgiMc2DlgB25P5/6YP66M9tYGZmNvxJeINY4DtuoolHd9B6GyRIqgmw5j9wxzkbz+QN+HJVoeleX4bDXmaPLjfN+7AtSnQ2mTfjoItP85I0PioQyZGEqbvFd1cHB7djmM+vqWjIfzuaQ20KhX0QhOuWZcs9mQOl2Q3p9o3orG9y3+PepqUbRA845YPVBUOlHui7sIPs1Fmh9J7TdZZZ5EREQ6Z/qCR31yGHQKgPgoJ4O/hP8ARXWMmDk6U/bBaw/TxUZhGGLK4JPPcPSByS2MjILOHx5juaUBDl2p1WYi7cO7E9m+WwLXek+Ddd3l9SxKpXqlpG/z097/KWBmiOvtqhPBFEXS1bKC7yYylTrT97kxg07mAHaCoKuf3c7ps=)
+
+    Just used a simple hash map with coordinates as keys.
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnal7vo/
+  :body: |-
+    **Ruby**
+
+    Finally got into the top 1000 on both parts, which was one of my goals this year. BTW the magic number "1000" to initialize the array with is because I looked at the puzzle input and didn't see any 4-digit numbers.
+
+    ```ruby
+    data = File.open(file).each_line.map{_1.strip.split(" -> ")}
+    sea = Array.new(1000){Array.new(1000){0}}
+    data.each do |vent_line|
+      x1, y1 = vent_line[0].split(",").map(&:to_i)
+      x2, y2 = vent_line[1].split(",").map(&:to_i)
+      x_coord, y_coord = [x1, y1]
+      x_increment = x2 > x1 ? 1 : x1 > x2 ? -1 : 0
+      y_increment = y2 > y1 ? 1 : y1 > y2 ? -1 : 0
+      next if x_increment * y_increment != 0 # Comment out this line for Part 2
+      loop do
+        sea[x_coord][y_coord] += 1
+        break if x_coord == x2 && y_coord == y2
+        x_coord += x_increment
+        y_coord += y_increment
+      end
+    end
+
+    puts sea.flatten.filter{_1 >= 2}.length
+    ```
+  :replies: []
+- :author: '0x8b'
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnazp4e/
+  :body: |-
+    # Ruby
+
+    [https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/05.rb](https://github.com/0x8b/advent.of.code.each/blob/main/src/2021/05.rb)
+
+    ```ruby
+    rb
+    SEGMENTS = ARGF.read.lines.map { _1.scan(/\d+/).map &:to_i }
+
+    def points s
+      x1, y1, x2, y2 = s
+
+    dx = x2 <=> x1
+      dy = y2 <=> y1
+
+    if dx == 0
+        y1.step(y2, dy).map { [x1, _1] }
+      elsif dy == 0
+        x1.step(x2, dx).map { [_1, y1] }
+      else
+        x1.step(x2, dx).zip(y1.step(y2, dy))
+      end
+    end
+
+    def count_overlapping_points segments
+      segments.flat_map { |s| points(s) }.tally.values.count { _1 > 1 }
+    end
+
+    p count_overlapping_points SEGMENTS.select { |x1, y1, x2, y2| x1 == x2 or y1 == y2 }
+    p count_overlapping_points SEGMENTS
+    ```
+  :replies: []
+- :author: johnboker
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnc8yfb/
+  :body: |-
+    Still learning ruby, comments welcome.
+
+    [https://github.com/johnboker/AoC2021/blob/master/Solutions/day\_05.rb](https://github.com/johnboker/AoC2021/blob/master/Solutions/day_05.rb)
+
+    - edit: fixed link
+  :replies: []
+- :author: SnooConfections2453
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hndblo6/
+  :body: |-
+    My solution in ruby: [https://github.com/ciscou/aoc/blob/master/2021/05.rb](https://github.com/ciscou/aoc/blob/master/2021/05.rb)
+
+    Kinda looking for minimizing amount of lines of code while keeping a good enough readability
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hndirfq/
+  :body: |-
+    Got a late start on this one. Here's a ruby solution:
+
+    ```ruby
+    class Day5
+
+      def initialize
+        @data = File.readlines("data.txt").map(&:chomp)
+      end
+
+      def normalize_data
+        @data.map! { |d| d.split(" -> ") }.flatten
+        @data.map { |d| d.map { |d| d.split(",").map(&:to_i) }}.flatten
+      end
+
+      def populate_grid
+        grid = []
+        1000.times do |row_index|
+          row=[]
+          1000.times { |column_index| row << 0 }
+          grid << row
+        end
+        grid
+      end
+
+      def calculate_line(d, grid, diag)
+        x = d[0]
+        y = d[1]
+
+        x_len = d[2] - d[0]
+        y_len = d[3] - d[1]
+        return if !diag && x_len != 0 && y_len != 0
+        len = [x_len.abs + 1, y_len.abs + 1].max
+
+        x_delta = x_len == 0 ? 0 : x_len.positive? ? 1 : -1
+        y_delta = y_len == 0 ? 0 : y_len.positive? ? 1 : -1
+
+        len.times do
+          grid[x][y] += 1
+          x += x_delta
+          y += y_delta
+        end
+      end
+    end
+
+    def challenges
+      day5 = Day5.new()
+      data = day5.normalize_data
+
+      [false, true].each do |bool|
+        grid = day5.populate_grid
+        data.each_slice(4) do |d|
+          day5.calculate_line(d, grid, bool)
+        end
+        answer = 0
+        grid.each { |row| answer += row.count { |n| n > 1 } }
+        puts "Challenge Diagonals: #{bool} answer: #{answer}"
+      end
+    end
+
+    challenges
+    ```
+  :replies: []
+- :author: madethemcry
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnaq38q/
+  :body: "# RUBY\n\n[georgiee/advent-of-code-2021/day-05 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-05)\n\n# Notes\n\nReading coordinates and intersections I wanted to use linear algebra because I like the aesthetics of math but I realized pretty quickly that this won't help here because of parallel lines. I ditched it but in retorspective I would have still helped me because I could have prettier iterations. This is a mess now, because it's super, super naive as I had no time to research of think about prettier methods hidden in the ruby toolset (my daughter waking up any time is like a Damocles sword while coding the challenge \U0001F601)\n\nWell, what strategy did I follow without linear algebra? Filling the grid by calculating all the coordinates between the points and then I could stick to the ruby elegance of handling arrays. I could basically count the amount of intersections by finding the count of coordinates that are the same (with `array#tally`) and then I used `array#count` to count those with a value (in the hash given by tally) greater or equal 2.\n\nI had this beauty very quickly `coords.map(&:spread).compact.flatten(1).tally.values.count{ _1 >= 2 }` where `spread` is my custom grid filling method. I learned about the shortcut `_1` on a previous day in someone else's challenge and found the awesome tally in the docs during the first 1-2 days.\n\nI struggled a lot more with the loop building. I wanted to use ranges but they are useless for negative values and so it got super naive. Anyway, part 1 & 2 done ✅\U0001F64C\n\n# CODE (part 2 only)\n\n```ruby\nrequire 'ostruct'\n\npath = File.join( __dir__ , 'input.txt')\ninput = File.read(path)\n\nclass Vector\n  attr_accessor :p1, :p2\n\n  def initialize(p1, p2)\n    @p1 = p1\n    @p2 = p2\n  end\n\n  def dy\n    @p2.y - @p1.y\n  end\n\n  def dx\n    @p2.x - @p1.x\n  end\n\n  def dir_y\n    if dy.zero?\n      0\n    else\n      dy.positive? ? 1 : -1\n    end\n  end\n\n  def dir_x\n    if dx.zero?\n      0\n    else\n      dx.positive? ? 1 : -1\n    end\n  end\n\n  def diagonal?\n    !(@p1.x == @p2.x || @p1.y == @p2.y)\n  end\n\n  # get all coordinate covered by this vector (diagonals are empty)\n  def spread\n    items = []\n\n    ([dx.abs, dy.abs].max + 1).times do |index|\n      items << [@p1.x + dir_x * index, @p1.y + dir_y * index]\n    end\n\n    items\n  end\nend\n\nCOORD_FORMAT = /((\\d+),(\\d+)) -> ((\\d+),(\\d+))/.freeze\n\ncoords = input.split(\"\\n\").map { _1.match(COORD_FORMAT) }.map {\n  Vector.new(\n    OpenStruct.new(x: _1[2].to_i, y: _1[3].to_i),\n    OpenStruct.new(x: _1[5].to_i, y: _1[6].to_i)\n  )\n}\n\n# fill the grid and count the duplicate coordinates (intersections)\ncoverage = coords.map(&:spread).compact.flatten(1).tally\nresult = coverage.values.count{ _1 >= 2 }\n\nputs result\n```"
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/r9824c/2021_day_5_solutions/hnasnx2/
+  :body: |-
+    Ruby (PART 1 & PART 2)
+
+    [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day5/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day5/main.rb)
+
+    `ruby main.rb data.txt 0.43s user 0.05s system 109% cpu 0.431 total`
+  :replies: []

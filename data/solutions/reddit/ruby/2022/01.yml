@@ -1,0 +1,447 @@
+---
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq5dnc/
+  :body: |-
+    # Ruby
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day01/day01.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2022/day01/day01.rb)
+
+    ```ruby
+    def prioritize(lines)
+      lines.map(&:to_i).slice_when { |i| i == 0 }.to_a.map { |arr| arr.sum }
+    end
+
+    execute(1) do |lines|
+      prioritize(lines).max
+    end
+
+    execute(2) do |lines|
+      prioritize(lines).sort![-3..-1].sum
+    end
+    ```
+
+    # Kotlin
+
+    [https://github.com/snowe2010/advent-of-code/blob/master/kotlin\_aoc/src/main/kotlin/aoc2022/day1.kt](https://github.com/snowe2010/advent-of-code/blob/master/kotlin_aoc/src/main/kotlin/aoc2022/day1.kt)
+
+    ```ruby
+    private fun day01() {
+        day(2022, 1) {
+            execute(1) { day01p1(it) }
+            execute(2) { day01p2(it) }
+        }
+    }
+
+    private fun day01p1(lines: List): Int {
+        val indexes = listOf(-1) + lines.indexesOf("") + listOf(lines.size)
+        return indexes
+            .windowed(2)
+            .maxOf { (a, b) -> lines.subList(a + 1, b).sumOf { it.toInt() } }
+    }
+
+    private fun day01p2(lines: List): Int {
+        val indexes = listOf(-1) + lines.indexesOf("") + listOf(lines.size)
+        return indexes
+            .windowed(2)
+            .map { (a, b) -> lines.subList(a + 1, b).sumOf { it.toInt() } }
+            .sortedDescending()
+            .subList(0, 3)
+            .sum()
+    }
+
+    private fun Iterable.indexesOf(e: E) = mapIndexedNotNull { index, elem -> index.takeIf { elem == e } }
+    ```
+  :replies: []
+- :author: MuumiJumala
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygtai7/
+  :body: |-
+    54 byte golf solution in Ruby (reads input from stdin):
+
+    ```ruby
+    $/*=2
+    x=$<.map{_1.split.sum &:to_i}.max 3
+    p x[0],x.sum
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygyaku/
+    :body: |-
+      I got 43 and 52 separately
+
+      1
+
+      ```ruby
+      p $<.chunk{_1!=?\n}.map{_2.sum(&:to_i)}.max
+      ```
+
+      2
+
+      ```ruby
+      p $<.map(&:to_i).chunk{_1!=0}.map{_2.sum}.max(3).sum
+      ```
+    :replies:
+    - :author: MuumiJumala
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygznkm/
+      :body: |-
+        You can save a few more:
+
+        Part 1 (39 bytes)
+
+        ```ruby
+        p$<.chunk{_10}.map{_2.sum &:to_i}.max
+        ```
+
+        Part 2 (50 bytes)
+
+        ```ruby
+        p$<.map(&:to_i).chunk{_1>0}.map{_2.sum}.max(3).sum
+        ```
+      :replies:
+      - :author: riffraff
+        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhahfc/
+        :body: brilliant, thanks!
+        :replies: []
+      - :author: jstanley0
+        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykmmuq/
+        :body: |-
+          Here's Part 2 in 49 bytes:
+
+          ```ruby
+          p$<.slice_after(?\n).map{_1.sum &:to_i}.max(3).sum
+          ```
+        :replies:
+        - :author: jstanley0
+          :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykn57v/
+          :body: |-
+            I am failing to learn all the lessons in the examples above. 46 bytes:
+
+            ```ruby
+            p$<.chunk{_10}.map{_2.sum &:to_i}.max(3).sum
+            ```
+          :replies: []
+- :author: Vanerac
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyio3gx/
+  :body: |-
+    Ruby minimal characters:
+
+    `i = File.open("input1.txt").read`
+
+    `e = i.split("\n\n").map{ |l| l.split("\n").map(&:to_i).sum }.sort`
+
+    `[e[-1],e[-3..-1].sum]`
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjw7pk/
+    :body: Don't forget you can reduce `"\n"` to `$/`! And `$/*2 => "\n\n"`
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygjmnl/
+  :body: |-
+    Ruby:
+
+    [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day1/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day1/main.rb)
+
+    ```ruby
+    class CalorieCounting
+      def initialize(data)
+        @data = data
+      end
+
+      def solve1
+        @data
+          .strip
+          .split("\n\n")
+          .map { |elf| elf.split("\n").map(&:strip).map(&:to_i).sum }
+          .max
+      end
+
+      def solve2
+        @data
+          .strip
+          .split("\n\n")
+          .map { |elf| elf.split("\n").map(&:strip).map(&:to_i).sum }
+          .sort
+          .reverse
+          .take(3)
+          .sum
+      end
+    end
+
+    solver = CalorieCounting.new(ARGF.read)
+    pp "PART1: #{solver.solve1}"
+    pp "PART2: #{solver.solve2}"
+    ```
+  :replies: []
+- :author: FeerMonger
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhchgs/
+  :body: |-
+    Ruby guy who started learning Rust a week ago. If anybody with some Rust experience is pushing their solutions to github, I would be very interested in following along and comparing my solutions.
+
+    ```ruby
+    use std::fs;
+    use std::str::FromStr;
+
+    fn parse_input(path: &str) -> Vec>{
+        let input: String = fs::read_to_string(path).expect("should read file");
+        let mut elves: Vec> = vec![];
+        let raw_elves: Vec<&str> = input.split("\n\n").collect();
+        for elf in raw_elves {
+            let mut new_vec = vec![];
+            for load in elf.split("\n") {
+                let n: i32 = FromStr::from_str(load).unwrap();
+                new_vec.push(n)
+            }
+            elves.push(new_vec);
+        }
+        elves
+    }
+
+    fn part_1(elves: Vec>) -> i32 {
+        let mut max_sum = 0;
+        for elf in elves {
+            let sum = elf.iter().sum();
+            if sum > max_sum {
+                max_sum = sum;
+            }
+        }
+        max_sum
+    }
+
+    fn part_2(elves: Vec>) -> i32 {
+        let mut sums: Vec = elves.iter().map(|x| x.iter().sum()).collect();
+        sums.sort();
+        sums.as_slice()[sums.len()-3..].to_vec().iter().sum()
+    }
+
+    fn main() {
+        let elves = parse_input("data/input.txt");
+        println!("Part 1: {}",part_1(elves.clone()));
+        println!("Part 2: {}",part_2(elves.clone()));
+    }
+    ```
+  :replies:
+  - :author: mkeeter
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhkgs4/
+    :body: |-
+      I've done several years worth of AoC in Rust, and plan to use it again this year!
+
+      Here's my code for this problem (reading from `stdin` instead of a file):
+
+      ```ruby
+      use anyhow::Result;
+      use std::io::BufRead;
+
+      fn main() -> Result<()> {
+          let nums = std::io::stdin()
+              .lock()
+              .lines()
+              .collect::, _>>()?;
+
+          let mut elves = nums
+              .split(String::is_empty)
+              .map(|lines| lines.iter().map(|s| s.parse::()).sum())
+              .collect::, _>>()?;
+          elves.sort_unstable();
+
+          println!("Part 1: {}", elves.last().unwrap());
+          println!("Part 2: {}", elves.iter().rev().take(3).sum::());
+
+          Ok(())
+      }
+      ```
+
+      (and the repository: [https://github.com/mkeeter/advent-of-code/](https://github.com/mkeeter/advent-of-code/))
+    :replies: []
+  - :author: Leading_Frosting9655
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhrkz9/
+    :body: |-
+      > `[sums.len()-3..].to_vec().iter().sum()`
+
+      Maybe `.iter().rev().take(3).sum()`?
+    :replies: []
+  - :author: R4yRayR4yy
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhhp2d/
+    :body: |-
+      I did whole AoC last year in Rust and Im going to do the same this year, here you go: [https://github.com/DevRayy/AdventOfCode2022](https://github.com/DevRayy/AdventOfCode2022)
+
+      Im no rust professional tho
+    :replies:
+    - :author: FeerMonger
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhjid1/
+      :body: I appreciate it, thank you!
+      :replies: []
+- :author: MartinSch64
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjzlv2/
+  :body: |-
+    My solution in Ruby:
+
+    ```ruby
+    input_lines = File.readlines("input/day_01.txt")
+    calories_per_elf = input_lines.map(&:to_i).slice_before(&:zero?).map(&:sum)
+
+    # part 1
+    puts calories_per_elf.max
+
+    # part 2
+    calories_per_elf.sort.last(3).sum
+    ```
+  :replies:
+  - :author: SolarBear
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk21bw/
+    :body: |-
+      Using Ruby is cheating.
+
+      I did the same.
+    :replies: []
+- :author: nithinbekal
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygje2d/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    calories = File.read("input/01.txt")
+      .split("\n\n") .map { |line| line.split("\n").map(&:to_i).sum }
+      .sort
+
+    part_1 = calories.last
+    part_2 = calories.last(3).sum
+    ```
+
+    [Link to solution](https://github.com/nithinbekal/advent-of-code/blob/bf9e78ef8cec95d5a8c9b6a3d655e8c1b77a2c20/lib/01.rb)
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyggemo/
+  :body: |-
+    Ruby, 44 / 26. I love Ruby, it allows me to express so much in so little code.
+
+    ```ruby
+    # Part 1
+    p $stdin.read.split(/\n\s*\n/).map{_1.split.map(&:to_i).sum}.max
+    # Part 2
+    p $stdin.read.split(/\n\s*\n/).map{_1.split.map(&:to_i).sum}.sort.reverse[0...3].sum
+    # Part 2 (improved)
+    p $stdin.read.split(/\n\s*\n/).map{_1.split.sum(&:to_i)}.max(3).sum
+    ```
+  :replies: []
+- :author: naturaln0va
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyglg0j/
+  :body: |-
+    **Ruby** 4k/5k
+
+    [https://github.com/naturaln0va/aoc2022/blob/main/day1.rb](https://github.com/naturaln0va/aoc2022/blob/main/day1.rb)
+
+    I've recently begun learning Rails. So, this year I'm going to attempt to solve each day in a new language. I've already seen a lot of useful Ruby-isms like `take` and I'm looking forward to learning even more! I hope by the end I'm able to solve a problem in an elegant way, not in a brute force way like this:
+
+    ```ruby
+    def solve_second(input)
+      numbers = input.split("\n").map { |s| s.chomp.to_i }
+
+      totals = []
+      current = 0
+
+      for num in numbers
+        if num == 0
+          totals.append(current)
+          current = 0
+        else
+          current += num
+        end
+      end
+
+      totals.append(current) if current > 0
+      top_three = totals.sort.reverse.slice(0, 3)
+
+      top_three.sum
+    end
+    ```
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyh7vgw/
+  :body: |-
+    **Ruby:**
+
+    Part 1:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/1/1.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/1/1.rb)
+
+    Part 2:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/1/2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/1/2.rb)
+  :replies: []
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykbd6u/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCKBQAAAAAAAAARiASoOj4/ciRIj+NxYWCy6lQf9mPnDK5CAX/5LUSjaGRoCwOECagD4pdhfOjag+mHd7J0GfD5/RzMs8t7nVVO02uGuqGxqjfNOIQxL04tT4uxyvOjdQWdAbjH/fsDLJwl8TFhodObdtpZid5F65e2dgzy0RfKvUyW4eTq6ysNblm64U8h1zwV3L3N/uqzCTKqLqkn5VyiphYa7Q1z+SBRl8oa18qY63RsYN+pqw3DdfXNjqkGE2+mFRCgpVlRnjqAJux1UHZuDvs4FOqoaNUVA6e4SoGC1m7ZGaWq6YxJDBELmlH3tJ/nj8D42QIANvauT41ybCETf2hzybGRZiCvcZFMWYmAD49BLnm7aDqnLvGVmno0RmWYLs+EdJCOEoQd2d4Zusp4byx09juLQa7VdvsbxHH/+Mzhzlvtt2bLVddp5pZXuSdYdRfR+PL315MQHE9J6c+hIvwb9h2ZoJrt6imETcaIE53ZO8rcNTTL3TkdYyFW8Co2EM/1GXeoFMaHXi5pr5ic+WNUoVIR+8eWP0amhEeFQeHQiUwsKFTWrXhqGx3ls35mAqmRO85HpmpEvwt71sI1BWPEjaK83/ylIAy0GDNd0P9sh9Ell60eNSKBNC9ShCAnSW0pwGS8ad0f7d55OXwJEncJLhQny7rqdoC4GgwukBp/Q7ZhzF+T8ZOcBgGMWV33I+O07FYg7JanqnbW5P/X3vy0)
+
+    First time with Ruby. Also learning TDD. The tests are extra code practice. Everything is more complicated than it needs to be.
+  :replies: []
+- :author: thedjotaku
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykeihg/
+  :body: |-
+    Ruby
+
+    [https://github.com/djotaku/adventofcode/blob/ac1bdb2c3549e214875d3387afcf897a24ea909b/2022/Day\_01/Ruby/solution.rb](https://github.com/djotaku/adventofcode/blob/ac1bdb2c3549e214875d3387afcf897a24ea909b/2022/Day_01/Ruby/solution.rb)
+
+    I tried to be as idiomatic as I could given my knowledge of Ruby. (Python is my primary language)
+  :replies:
+  - :author: snowe2010
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq4rtz/
+    :body: You can map + sum to be a bit more idiomatic. Here is my solution. I'm quite late to the party, I know. [https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day01/day01.rb](https://github.com/snowe2010/advent-of-code/blob/master/ruby_aoc/2022/day01/day01.rb)
+    :replies:
+    - :author: thedjotaku
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iywszjr/
+      :body: Thanks! I'll take a look at that!
+      :replies: []
+- :author: CSEcon
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykxscx/
+  :body: |-
+    **ruby**
+
+    learning the language through this, so this is going to get nasty :D
+
+    [gist](https://gist.github.com/mehryar-m/305fe8ee79a8fe94a5a6859c105bc14f)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iylvtwj/
+  :body: |-
+    Ruby
+
+    Code: [https://github.com/careyi3/aoc\_2022/tree/master/solutions/1](https://github.com/careyi3/aoc_2022/tree/master/solutions/1)
+
+    Walkthrough Video: [https://youtu.be/mMbvnYTfleQ](https://youtu.be/mMbvnYTfleQ)
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygretv/
+  :body: |-
+    Quick and dirty solution in ruby`
+    calorie_per_elf = DATA.read.split(/^$/).map { _1.lines.map(&:to_i).sum }
+    p "a: #{calorie_per_elf.max}"
+    p "b: #{calorie_per_elf.sort.last(3).sum}"
+    `
+  :replies: []
+- :author: SolarBear
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk38p6/
+  :body: |-
+    **Ruby solution**
+
+    Applying the KISS principle: using `slice_before` makes for much shorter code but kills readability, at least to this Ruby noob.
+
+    ```ruby
+    file = File.open('input1.txt')
+    sums = [0]
+
+    file.readlines.map(&:strip).each do |line|
+      if line == ''
+        sums.prepend(0)
+      else
+        sums[0] += line.to_i
+      end
+    end
+
+    file.close
+    puts sums.max
+    puts sums.max(3).sum
+    ```
+  :replies: []

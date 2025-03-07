@@ -3,6 +3,7 @@
 require "debug"
 require "dotenv"
 require "faraday"
+require "faraday/retry"
 require "pastel"
 require "reverse_markdown"
 require "thor"

@@ -1,0 +1,44 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/ro2uav/2021_day_25_solutions/hpwmry6/
+  :body: |-
+    ## Ruby
+
+    My original implementation took 1.7 seconds to run my input. That was unacceptable. Got it down to around 200 ms by representing both entire herds as a single huge number each and using bit shifts to check+move the entire herd at once. Much better.
+
+    [https://github.com/petertseng/adventofcode-rb-2021/blob/master/25\_sea\_cucumber.rb](https://github.com/petertseng/adventofcode-rb-2021/blob/master/25_sea_cucumber.rb)
+
+    Core:
+
+    ```ruby
+    moving_east = east & ~shleft[east | south]
+    east = east & ~moving_east | shright[moving_east]
+
+    moving_south = south & ~shup[east | south]
+    south = south & ~moving_south | shdown[moving_south]
+    ```
+
+    Haskell code for the same ([https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/25\_sea\_cucumber.hs](https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/25_sea_cucumber.hs)) runs in about 70 ms.
+
+    I'd like to thank Eric and the team for a great year. Hope to see you again next year.
+  :replies:
+  - :author: oantolin
+    :url: https://www.reddit.com/r/adventofcode/comments/ro2uav/2021_day_25_solutions/hq19xtj/
+    :body: Very cool idea!
+    :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/ro2uav/2021_day_25_solutions/hpwb7dt/
+  :body: |-
+    Ruby
+
+    Like last year, Day 25 was pretty simple and a brute force without optimizations will do the job (my code found the solution in 11 seconds)
+
+    [Paste](https://topaz.github.io/paste/#XQAAAQA7BAAAAAAAAAAyGEruliPhN/2VjNRwSh95yTuZN04pQWoN9g7bR/xYBHqIn30bXxNvltGCkq9colyBYz2lxQ5Kix+Qg8BmQRBU0nNIndpQjcjuiBTLW4aWb+cL9wOOwik7VkEgaq+RoiT4k0gLd+3bU4K0MiS/J23x1ZAjE6LZG6QIj1DjZX9zp2zhqnwZJAUEPF8M8g2gL+VDzKYPfo4/dAsUR5KUhKGZoCBOSoGfGjuTOMT1ILFNtOucv4HWHzQ9AAzJhE8smW/uRXChP+l0EXjtS1YfYbTi7VxymggFVnOcaw6cmR7nzvnJhmtENbFotynSxbvRs6SVcUHjgBpSqO4EBK2Gtloxzkz1NjWtZ4j1hY/yC/mqVGfRk7yv6TGRe5UR+m9ilrGuOhWynVxqJqx9nyNkuMO+CBCRB+y7gjOoY6/XC7fD8u7Xp8BZjqK/rfs2XBLsuvEgxA5Cuf0n4+aKENArnrMvQs6GnqUqZU0V7X/d14YrLNLnubRdOJoY24Fj3BOMQAY7F4zhW9eVR+7X6vW6J1/MApuZkdBxs2JKLywjUc77EyTJAyXtuMawM1HJac1kI+YA5Mb3M4hOrR8lrxJjBtrUywJt4SjelYkU1VDmGch0GN4+Or2MVaADHEzCMn4aNU41//cO3lE=)
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/ro2uav/2021_day_25_solutions/hpw071h/
+  :body: |-
+    Ruby, 46 / 48 [part 1](https://topaz.github.io/paste/#XQAAAQA+AwAAAAAAAAAxnUmZz3Bbg2Zrn8i5KN1LZO/GzeJFKsxXfmp6B4TL2X6q0SLGloC1tIU4BGykpxqN/HiB2eUZFeL6O+G3OwWsleA/eUqdw4KEwwFvAEhEddGCwRYrZiQeEE1zN9xmhraZuZchC0JOJrbeR2H3XfZ8jF9+pUhRjkMnykuE9G2k4yDwz3prPgp9a0tQkvZpXtVL9ZYDNw5eG2Id9hxBzO23mcyvr4cgHIeYw81xysx3zH0YwJDU7Rfh4KKZR+plHNO3pNHq6Y71Xb4W2lqL61Psa2bmjG5xFFei/P6YTHomuAN8g3O4wylk1ZSeeGJUYAOViPWEmWaaQA27lacDUYWv0AOqjodMQb6ynSXHJyb5wlV+0mB8S2e3euBNoJ7hSNlZlCewMo1Kdn+mxsCwr/QS67p9NfVD8p36p1vcCkERYAe4TMMgNxvmZvABWji9gX03LpvqGlktEvxtYK3MajMTWEBrMBk1sg1uIW+GJvthZVh6qdT2fFZQF98bOrUafdqhspPY20H1HHaatRxvEmbfMUXWZ2UCvQ9F0wsF3yf/+vv+jA==), [part 2](https://github.com/dtinth/advent-of-code-2021#solutions) (1366 points total)
+
+    That was fun, and it is the first year I got all 50 stars! Previous years I gave up when there is a very very hard puzzle. Enjoyed it very much, thanks Eric for running this!
+  :replies: []

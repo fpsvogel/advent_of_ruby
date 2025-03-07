@@ -1,0 +1,110 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0ed50d/
+  :body: |-
+    Ruby, Part 2.
+
+    This is a variation of the intersecting lines approach.Its looks for "sensor diamonds" which are separated by a single space. This assumes there are only four such sensors (so it will not work with test input, as it needs more filtering).One pair forms a "forward" gap, and another one a "backward". Intersection of the gaps gives as the required position. Just a one sensor from the pair is enough to derive the coefficients of the line equations and solve for coordinates.
+
+    ```ruby
+    # frozen_string_literal: true
+
+    file = File.open('input.txt')
+    lines = file.readlines.map(&:chomp)
+
+    sensors = {}
+
+    lines.each do |line|
+      sensor, beacon = line.split ':'
+      sensor_coords = sensor.split('at').last.split(',').map { |c| c.split('=').last.to_i }
+      closest_beacon_coords = beacon.split('at').last.split(',').map { |c| c.split('=').last.to_i }
+      sx, sy = sensor_coords
+      bx, by = closest_beacon_coords
+      d = (bx - sx).abs + (by - sy).abs
+      sensors[sensor_coords] = d
+    end
+
+    sensors_coords = sensors.map { _1.first }
+
+    forward = []
+    backward = []
+
+    sensors_coords.combination(2).each do |a, b|
+      ax, ay = a
+      bx, by = b
+      da = sensors[a]
+      db = sensors[b]
+      if (ax - bx).abs + (ay - by).abs == da + db + 2
+        if (ax < bx && by > ay) || (ax > bx && by < ay)
+          forward << a
+        else
+          backward << a
+        end
+      end
+    end
+
+    a = forward.first
+    ax, ay = a
+    d = sensors[a]
+    cf = ax + ay - d - 1
+
+    b = backward.first
+    bx, by = b
+    d = sensors[b]
+    cb = bx - by + d + 1
+
+    x = (cf + cb) / 2
+    y = (cf - cb) / 2
+
+    puts x * 4_000_000 + y
+    ```
+  :replies: []
+- :author: kateba72
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0atlef/
+  :body: |-
+    ## Ruby ~13 ms
+
+    ```ruby
+    Day 15
+                       user system total real
+    Setup 0.000008 0.000004 0.000012 ( 0.000007)
+    Input parsing 0.000103 0.000042 0.000145 ( 0.000145)
+    Part 1 0.000090 0.000037 0.000127 ( 0.000128)
+    Part 2 0.012714 0.000296 0.013010 ( 0.013050)
+    ```
+
+    I looked at the numbers for part 2 and decided that I had to do a lot of optimizing, so I optimized the algorithm, maybe a bit too much. Looking back at the time for Part 1, the naive brute force solution would have taken ~10 minutes, so if I wanted to optimize for quickest solution, that would have been the better way.
+
+    For Part 2, I used a diagonal coordinate system to turn the sensor diamonds into squares. Then I only checked the lines where a diamond started or ended.
+
+    [https://github.com/Kateba72/advent\_of\_code/blob/main/2022/day15.rb](https://github.com/Kateba72/advent_of_code/blob/main/2022/day15.rb)
+  :replies:
+  - :author: captainAwesomePants
+    :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0audhv/
+    :body: Love the diagonal coordinates!
+    :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0alfzg/
+  :body: |-
+    [Ruby](https://github.com/jzhang113/adventofcode/blob/d95083d71d99277c0cac5b4ba2b07d6cb58df892/2022/solutions/15.rb) 953/408
+
+    For part 2, I abused the fact that the problem only has one unique solution, meaning:
+
+    1. If we check a line and find it is covered by a single range, we can assume the whole line is covered and it isn't the right row
+    2. If we find a line covered by 2 disjoint ranges, there is a gap, which must be the point we are looking for
+
+    This mean we can work entirely with ranges, which is much faster than enumerating all the possible points. (Technically, the point could be on the edges, which would result in one range not covering the whole row, but I didn't run into that in my input)
+  :replies: []
+- :author: akanet
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0bexon/
+  :body: 'I spent some time trying to think of a very elegant, simple, and fast algorithm in Ruby. I''m very pleased with this result: [https://twitter.com/fulligin/status/1603369386085036032/photo/1](https://twitter.com/fulligin/status/1603369386085036032/photo/1), which basically finds the y-intercepts for all lines drawn on the map as if they were infinitely long, and then simply checks each of the rows for the missing beacon.'
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0cral9/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/15)
+
+    Video Walkthrough: [YouTube](https://youtu.be/EWLwgLgRFjc)
+  :replies: []

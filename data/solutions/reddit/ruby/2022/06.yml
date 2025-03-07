@@ -1,0 +1,443 @@
+---
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/izpec29/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB9BgAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/VYUvuckt47qc849AGx2bqC6Mz07VInqrh45HRFXyrI4CfGTNzODpbOh2z3d9p2fOTEp1wuzhTnZwAGd29sTA05KUdkBShuRLQuWJK3Xt8dkvAYe1ndyIi32WgqaHVlF4hJOF0qHcFMUo3353DxLZ3tqm563xXE20y8WmVj3RSdQCxD1k9AH8UpJtH60MlWWvG4YaN0LPAdCYXceVtFZbAf7A6oEpcaQu9cFo1u6XPPnvFWDNFhFSHmKSB50594urfJsaWbDMN13ocfuzrY8Kj5xSSAb3z+YsCsaHsJkaC85vXUq6phGtevNfoRShYsNeDpLXLLMiuDzroi5n21C6i6+cB7X5PDWoEod6xfadCN1vB1ZVhI7xKiP3j4/0MuQ7u6U+bPjn/N7o3Y4knmjt7iPiWo/s7ASSkbwA8gsmhfPfH1LHhTYEtuIrp81nQTQt/rth3lDWemWWeOczmullpSHjhPwJkp5RpjWibCvIuMBVlkpMOzcf4bMpeOuHCNVwGRf2oI+phuHIvv/gGeyO7YWAL2K2C7diKohm2xUjqhBym7PEhdD/APnqlm+IQ8PaQ3WaE+mWmCBfp7A+EmGtVF8WtwD0XY/7cfiIRU2Wyht/3LBxNVdFKrxBVPYHBM/vf/74c83pNnVGVmYzwQfm9fNsasaK8HQ7qad9V6lW5WD8Fci0qdzXMojd9TVfi8vwWTrYYE/KN+GRP8W6P+nvu4xlHkL/DUAZ4f55ZCBCZNU6/Vs2HXP+3d556BTLVOEpT8FgpSJW1sib+pFO+uuEqHsC/4TAiVVOdIX5FYQvdh1reQeMj44dRxClu9simeBO9GmF5hZLUdpOqqnrGve8FgQjmMNmg2eYBaZYxZNzl4S5/8cmRLQ=)
+
+    Glad I didn't need to write loops
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3laxy/
+  :body: |-
+    Today is Ruby’s one-liner day.
+
+    ```ruby
+    # Part 1
+    p gets.chars.each_cons(4).find_index { |c| c.uniq.size == 4 } + 4
+
+    # Part 2
+    p gets.chars.each_cons(14).find_index { |c| c.uniq.size == 14 } + 14
+    ```
+  :replies:
+  - :author: jstanley0
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mmzh/
+    :body: I was going to post my solution but it is this, verbatim. I knew I'd seen `each_cons` before but I didn't remember what it was called and had to look it up
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3r0vl/
+      :body: same. it's funny how Ruby encourages us to all create roughly the same solution :)
+      :replies: []
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lqnl/
+    :body: oh, find\_index! I did it with `map.with_index.find` and indeed I felt it was a mess :)
+    :replies: []
+- :author: naturaln0va
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mnxg/
+  :body: |-
+    **Ruby** 5645/4803
+
+    [day6.rb on GitHub](https://github.com/naturaln0va/aoc2022/blob/main/day6.rb)
+
+    ```ruby
+    def find_unique_marker(input, target)
+      chars = input.chars
+      answer = 0
+
+      chars.length.times do |i|
+        part = chars.slice(i, target)
+
+        if part.uniq.length == target
+          answer = i + target
+          break
+        end
+      end
+
+      answer
+    end
+    ```
+  :replies:
+  - :author: Thirty_Seventh
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5jdqg/
+    :body: |-
+      you can also iterate over `part` with length `target` from `chars` with a built-in!
+
+      ```ruby
+      input.chars.each_cons(target).each do |part|
+      ```
+    :replies:
+    - :author: naturaln0va
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5ojsa/
+      :body: |-
+        Thanks, I'm new to Ruby and this is so much cleaner!
+
+        ```ruby
+        input.chars.each_cons(target).each_with_index do |part, index|
+          if part.uniq.length == target
+            answer = index + target
+            break
+          end
+        end
+        ```
+      :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6rzwb/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    input = ARGF.read
+    input.chars.each_cons(4).find_index { |a| a.uniq.count == 4 } + 4
+    input.chars.each_cons(14).find_index { |a| a.uniq.count == 14 } + 14
+    ```
+
+    I should have woke up early for this one instead of waiting until late in the evening to have a look!
+  :replies:
+  - :author: SolarBear
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6vyo4/
+    :body: Whaaaaat? I wasn't aware of `each_cons`! Here I was, using `slice` like a bloody peasant...
+    :replies:
+    - :author: DanZuko420
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz7i20i/
+      :body: Saaame. Every time I finish an AoC challenge and look at the solutions thread, I find out about a Ruby method that could have saved me several lines of code
+      :replies: []
+- :author: nithinbekal
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lasf/
+  :body: |-
+    ## Ruby
+
+    ```ruby
+    def part1 = find_unique_string(4)
+    def part2 = find_unique_string(14)
+
+    private
+
+    def find_unique_string(length)
+      batches = file.chars.each_cons(length).to_a
+      seq = batches.find { |chars| chars.uniq.length == length }
+      batches.index(seq) + length
+    end
+
+    def file = File.read("input/06.txt")
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3ql4q/
+    :body: |-
+      Nice!
+
+      If you care about performance, you might consider using [find\_index](https://apidock.com/ruby/Array/find_index) instead of calling looping twice in both `find` and `index`. If you choose to do that, you might also want to leave batches as an enumerable, rather than converting it to an array.
+    :replies:
+    - :author: nithinbekal
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3rjqv/
+      :body: |-
+        Ooh, I really like that! I seem to be learning about new Enumerable methods every day during AOC. Thanks for sharing that. :)
+
+        Refactored solution: [https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb](https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb)
+      :replies: []
+- :author: HornedKavu
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pja6/
+  :body: |-
+    **Ruby**
+
+    7949/6459
+
+    ```ruby
+    line.split('').each_cons(length).to_a.index { |a| a.uniq.size == length } + length
+    ```
+
+    I bet it can be optimized though.
+  :replies:
+  - :author: HornedKavu
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pw8x/
+    :body: |-
+      Some improvements for my solution above:
+
+      ```ruby
+      line.chars.each_cons(length).find_index { |a| a.uniq.size == length } + length
+      ```
+    :replies: []
+- :author: OlivarTheLagomorph
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz44o2a/
+  :body: |-
+    Because I'm not seeing enough Ruby code xD
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB2BQAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1epsD2KgeM1sgjH2ytyf0NV4riAQ6oTUxVUMgoWpyCpcoNFo7GqJD0S2Sphx9rhqGhCFVjdXO4ACvt6ap1PJSVn2Rrd2GDVIDDLGmST1F2HR9a2FW1XRUP6S6qY7xOW0EPrv1ESGx/Vtp12+EnwZktm/P/7pTYmm1em+hYXtbSiKKZ2LDd7n37mNFDrTEfb+81/VfdQPrpIsllmiUUE2qtJXG7AXMFPkFr8wDBnx/yRNNUvtQ5R6V5DdoXPlgjKXxm7g3wI2x5stLwsOg6J7UTsfKg5pPQoDi5NLp/xnRMRCVQAZziwdQCtuutG9LGIHoP6vTd9bR6qMYykIAFH/WSrLLj6o4aWaG7zeaxz/rbD745k+T6FzPxKAW1pcOrgrMcZG3S0+K+q8VU3ZoEFNtLEppiHJB+Hu2lH60hHcEN/AFkneZO0se6RTw4RNPxLsoFtrzb3r9cn1x7Ts7iV6H7P0KV7JxM+p5yzVm9GIWxStnusdAZmUwQHpPbeiWslkEX9G1rLgIzuGRX8hjXxPMvYAQtDXiGhvcqcQf+BtOiwSmZ30saz/F9sLJ8FWCEljFYGjw2Tx23vmPoCe/u5oiQsPHcoK/1bLCxf2M6MF7iwmDiMr9Dz9Jpf8BGorrzRLwXWCPK6/TVruxF9elYfLX4w6BUcGpz46Q8/rEMvFUiz7MFQ5w7Nm5xybSt0TGYf+zjk1PmrcPOxzBTH8Lp31IbcH0U1hIpPaM3JXgwmoSZ2igmgdS0kZ6YNCVkhZl2HRH7vN76bizBV3Q39TJ3zI59cMgZtQdxE64foE+/Aw3PTOXWB+9r6X/tF1+k2pX4sL/+P0ANQ==)
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5nmkv/
+  :body: "Recursive Ruby\n\n```ruby\ndef \U0001F9D0 size, input, start=0\n  return start + size if input.slice(start, size).uniq.count == size\n  \U0001F9D0 size, input, start += 1\nend\n\ninput = File.read(\"input.txt\").bytes\np \U0001F9D0 4, input\np \U0001F9D0 14, input\n```"
+  :replies: []
+- :author: radiales
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5x8v3/
+  :body: |-
+    Ruby
+
+    [https://github.com/radiales/aoc/blob/master/D6A2.rb](https://github.com/radiales/aoc/blob/master/D6A2.rb)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3o45q/
+  :body: "# [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day6/main.rb)"
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3sg31/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    input = DATA.each_line.first.chomp
+
+    i = 3
+    input.chars.each_cons(4) do |q|
+      i += 1
+      break if q.uniq.count == q.count
+    end
+
+    j = 13
+    input.chars.each_cons(14) do |q|
+      j += 1
+      break if q.uniq.count == q.count
+    end
+
+    pp i
+    pp j
+
+    __END__
+    mvwvrwv...
+    ```
+  :replies: []
+- :author: craigontour
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz457c6/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    def part1(stream, sz)
+      (0..(stream.length-sz)).each do |i|
+        chunk = stream[i..(i+(sz-1))]
+        return i+sz if chunk.chars.group_by{ |x| x }.count == sz
+      end
+    end
+
+    File.read("#{ARGV[0]}.txt").split("\n").each do |line|
+      pp "Part 1: #{part1(line.chomp, 4)}"
+      pp "Part 2: #{part1(line.chomp, 14)}"
+    end
+    ```
+  :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz46z3s/
+  :body: |-
+    **Ruby** golf 104 bytes
+
+    ```ruby
+    [4,14].each_with_object($<.read.chars){|i,s|s.each_cons(i).with_index(i){break p _2 if _1.uniq.size==i}}
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz499s2/
+    :body: |-
+      91 bytes
+
+      ```ruby
+      [4,14].each_with_object($<.read.chars){|i,s|p i+s.each_cons(i).find_index{_1.uniq.size==i}}
+      ```
+    :replies:
+    - :author: '442401'
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4gchq/
+      :body: |-
+        86 bytes
+
+        ```ruby
+        [4,14].each_with_object($<.read.chars){|i,s|p i+s.each_cons(i).find_index{_1.uniq==_1}}
+        ```
+      :replies:
+      - :author: ignurant
+        :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5k2k1/
+        :body: "Here was my golf, though it only does one part at a time unlike you cool lads. 84.\n\n```ruby\n(\U0001F3CC=->s,b,i=0{exit(p i+s) if b.slice(i,s).uniq.size==s;\U0001F3CC[s,b,i+1]})[14,$<.read.bytes]\n```\n\nEdit: Fixed. Had wrong answer, needed to add the len to the goal."
+        :replies:
+        - :author: '442401'
+          :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5xqua/
+          :body: "Recursive\U0001F3CC! Love it."
+          :replies:
+          - :author: ignurant
+            :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6736w/
+            :body: It's kinda fun thinking of it like you're taking a swing every time the function runs lol. I can hear a lovely _thwack_.
+            :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5fdo9/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    queue = []
+    puts (File.read('./input-6-1.txt').split('').find_index do |char|
+      queue.push char
+      queue.shift if queue.size > 4
+      queue.uniq.size == 4
+    end + 1)
+    ```
+
+    I also code golfed this one just for fun, and got it down to 88 characters
+
+    ```ruby
+    puts File.read('i').split('').reduce([]){|p,c|p.size<4||p[-4,4].uniq.size<4?p<
+    ```
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5mui4/
+  :body: |-
+    Ruby dooby doo
+
+    ```ruby
+    input = File.read('input.txt')
+
+    [4, 14].each do |pt|
+      input.chars.each_cons(pt).with_index do |chars, i|
+        next if chars.uniq.size < pt
+        puts i + pt
+        break
+      end
+    end
+    ```
+  :replies: []
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6gcok/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQB9BgAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX/VYUvuckt47qc849AGx2bqC6Mz07VInqrh45HRFXyrI4CfGTNzODpbOh2z3d9p2fOTEp1wuzhTnZwAGd29sTA05KUdkBShuRLQuWJK3Xt8dkvAYe1ndyIi32WgqaHVlF4hJOF0qHcFMUo3353DxLZ3tqm563xXE20y8WmVj3RSdQCxD1k9AH8UpJtH60MlWWvG4YaN0LPAdCYXceVtFZbAf7A6oEpcaQu9cFo1u6XPPnvFWDNFhFSHmKSB50594urfJsaWbDMN13ocfuzrY8Kj5xSSAb3z+YsCsaHsJkaC85vXUq6phGtevNfoRShYsNeDpLXLLMiuDzroi5n21C6i6+cB7X5PDWoEod6xfadCN1vB1ZVhI7xKiP3j4/0MuQ7u6U+bPjn/N7o3Y4knmjt7iPiWo/s7ASSkbwA8gsmhfPfH1LHhTYEtuIrp81nQTQt/rth3lDWemWWeOczmullpSHjhPwJkp5RpjWibCvIuMBVlkpMOzcf4bMpeOuHCNVwGRf2oI+phuHIvv/gGeyO7YWAL2K2C7diKohm2xUjqhBym7PEhdD/APnqlm+IQ8PaQ3WaE+mWmCBfp7A+EmGtVF8WtwD0XY/7cfiIRU2Wyht/3LBxNVdFKrxBVPYHBM/vf/74c83pNnVGVmYzwQfm9fNsasaK8HQ7qad9V6lW5WD8Fci0qdzXMojd9TVfi8vwWTrYYE/KN+GRP8W6P+nvu4xlHkL/DUAZ4f55ZCBCZNU6/Vs2HXP+3d556BTLVOEpT8FgpSJW1sib+pFO+uuEqHsC/4TAiVVOdIX5FYQvdh1reQeMj44dRxClu9simeBO9GmF5hZLUdpOqqnrGve8FgQjmMNmg2eYBaZYxZNzl4S5/8cmRLQ=)
+
+    basic sliding window. found the .uniq() method instead of looping my own checker.
+  :replies: []
+- :author: matas__
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz42fv2/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    require 'net/http'
+    require 'uri'
+
+    uri = URI.parse('[https://gist.githubusercontent.com/matass/c5d3198e7ca6102894d7c01349ea3e01/raw/9a8a27e19397cfa503ea4c9ea5c866b938972daa/day\_6'](https://gist.githubusercontent.com/matass/c5d3198e7ca6102894d7c01349ea3e01/raw/9a8a27e19397cfa503ea4c9ea5c866b938972daa/day_6'))
+
+    request = Net::HTTP::Get.new(uri)
+    response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: uri.scheme == 'https' }) { |http| http.request(request) }
+
+    SIZE = 4 # for second part 14
+
+    response.body.split('').each_with_object(Array.new(SIZE)).with_index do |(item, memo), index|
+        memo.shift; memo << item; pp index + 1 and return if memo.compact.uniq.count == SIZE
+    end
+    ```
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47eaz/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/6)
+
+    Video Walkthrough: [YouTube](https://youtu.be/q_OpWtu8Xes)
+  :replies: []
+- :author: antoniotto
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47hv4/
+  :body: |-
+    Ruby
+
+    ```ruby
+    require 'set'
+
+    string = File.read("/uploads/input06.txt")
+
+    _4chars = string.chars.each_cons(4).select { Set[_1, _2, _3, _4].length == 4}[0]
+
+    p solution1 = string.index(_4chars.join) + 4
+
+    _14chars = string.chars.each_cons(14).select {Set[*_1].length == 14}[0]
+
+    p solution2 = string.index(_14chars.join) + 14
+    ```
+  :replies: []
+- :author: ScaredOfMyRawr
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48lcj/
+  :body: |-
+    [My solution](https://medium.com/@ashley-peacock/advent-of-code-2022-day-6-solution-tuning-trouble-5500951d6e59) for today's problems in Ruby.
+
+    I'm sure lots of other people did a sliding window, so I did too! I'm rusty on these algorithms, so I probably could have done it more efficiently. I also think you can do it without storing perhaps the current string, but then I think it becomes less efficient...
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48oe8/
+  :body: |-
+    Ruby
+
+    Part 1:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/6/1.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/6/1.rb)
+
+    ```ruby
+    input = File.read(File.join( __dir__ , 'input.txt')).chars
+
+    result = input.find_index.with_index do |char, index| input[index..(index+3)].length == input[index..(index+3)].uniq.length end + 4
+
+    pp result
+    ```
+
+    Part 2:
+
+    [https://github.com/hdf1986/advent-of-code/blob/master/2022/6/2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/6/2.rb)
+
+    ```ruby
+    input = File.read(File.join( __dir__ , 'input.txt')).chars
+
+    result = input.find_index.with_index do |char, index| input[index..(index+13)].length == input[index..(index+13)].uniq.length end + 14
+
+    pp result
+    ```
+  :replies: []
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4d7oj/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_06.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_06.rb)
+
+    ```ruby
+    input = File.read('day_06_input.txt').chars
+    puts [4, 14].map { |i| i + input.each_cons(i).find_index { |j| j.eql? j.uniq } }
+    ```
+  :replies: []
+- :author: maxverse
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz55o5s/
+  :body: |-
+    # Ruby
+
+    I split the string into an array and compare it to the same array `.uniq`. Run recursively, and _voila!_ I'm using AOC to get better at Ruby (I mostly write JS), so open to any suggestions, and I look forward to seeing your solutions!
+
+    ```ruby
+    class Communicator
+      def initialize(file_name)
+        @string = File.read(file_name)
+      end
+
+      def find_start_marker(length, i=length)
+        substring = @string[i-(length-1)..i].split("")
+        if substring == substring.uniq
+          # instruction strings start at 1, ours at 0
+          "the marker of length #{length} is at #{i+1}: #{substring.join()}"
+        else
+          if i == @string.length - 1
+            puts "no marker found"
+          else
+            find_start_marker(length, i+1)
+            end
+        end
+      end
+    end
+
+    communicator = Communicator.new('input.txt')
+    communicator.find_start_marker(4)
+    communicator.find_start_marker(14)
+    ```
+  :replies: []

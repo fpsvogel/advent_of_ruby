@@ -1,0 +1,179 @@
+---
+- :author: antoniotto
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izrvz8i/
+  :body: |-
+    Part 1 in Ruby
+
+    ```ruby
+    grid = File.readlines('inputs/day08.txt', chomp: true)
+               .map { |line| line.split('').map(&:to_i) }
+
+    width = grid[0].length
+
+    count = 0
+
+    grid.each_with_index do |row, y|
+      next if [0, width - 1].include?(y)
+
+      row.each_with_index do |cell, x|
+        next if [0, width - 1].include?(x)
+
+        right_arm = grid[y][(x + 1)..width]
+        left_arm = grid[y][0..(x - 1)]
+        down_arm = grid.transpose[x][(y + 1)..width]
+        up_arm = grid.transpose[x][0..(y - 1)]
+
+        right = right_arm.all? {_1 < cell}
+        left = left_arm.all? {_1 < cell}
+        up = up_arm.all? {_1 < cell}
+        down = down_arm.all? {_1 < cell}
+
+        if right || left || up || down
+          count += 1
+        end
+      end
+    end
+
+    puts solution1 = count + 4 * width - 4
+    ```
+
+    I realize it's really slow. Any suggestions wellcome.
+  :replies: []
+- :author: Milo33
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izp0p5p/
+  :body: |-
+    Few days late but my Ruby solution. Happy with this one after only starting with Ruby a week or two ago.
+
+    [https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a](https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a)
+  :replies: []
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/ize38wc/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_08.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_08.rb)
+
+    ```ruby
+    def process(row)
+      row.reduce([-1]) do |memo, cell|
+        cell[:visible] = true if cell[:height] > memo.max
+        cell[:scores] << ((memo.index { |i| i >= cell[:height] } || (memo.size - 2)) + 1)
+        [cell[:height]] + memo
+      end
+    end
+
+    input = File.readlines('day_08_input.txt', chomp: true)
+                .map { |i| i.chars.map { |j| { height: j.to_i, visible: false, scores: [] } } }
+
+    [input, input.transpose].each { |i| i.each { |j| [j, j.reverse].each { |k| process k } } }
+
+    puts input.flatten.select { |i| i[:visible].eql? true }.count
+    puts input.flatten.map { |i| i[:scores].reduce(:*) }.max
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/iziubo0/
+    :body: Super elegant.
+    :replies: []
+- :author: kevinluo201
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd5hij/
+  :body: "My [Ruby version](https://github.com/kevinluo201/aoc/blob/main/2022/day8/day8.rb)\n\nI use `transpose` for easier fetching `up` and `down` values \U0001F603\n\n```ruby\ngrid = []\n    File.readlines('input').each do |line|\n      break if line == \"\\n\"\n      grid << line.chomp.split('').map(&:to_i)\n    end\n    grid_t = grid.transpose\n\n    # part1\n    ans = grid.length * 4 - 4\n    (1..grid.length - 2).each do |i|\n      (1..grid.length - 2).each do |j|\n        left = grid[i][0..j - 1].all? { |t| t < grid[i][j] }\n        right = grid[i][j + 1..-1].all? { |t| t < grid[i][j] }\n        up = grid_t[j][0..i - 1].all? { |t| t < grid[i][j] }\n        down = grid_t[j][i + 1..-1].all? { |t| t < grid[i][j] }\n        ans += 1 if left || right || up || down\n      end\n    end\n    puts ans\n\n    # part2\n    ans = 1\n    (1..grid.length - 2).each do |i|\n      (1..grid.length - 2).each do |j|\n        left = grid[i][0..j - 1].reverse.find_index { |t| t >= grid[i][j] }\n        left = left ? left + 1 : grid[i][0..j - 1].length\n        right = grid[i][j + 1..-1].find_index { |t| t >= grid[i][j] }\n        right = right ? right + 1 : grid[i][j + 1..-1].length\n        up = grid_t[j][0..i - 1].reverse.find_index { |t| t >= grid[i][j] }\n        up = up ? up + 1 : grid_t[j][0..i - 1].length\n        down = grid_t[j][i + 1..-1].find_index { |t| t >= grid[i][j] }\n        down = down ? down + 1 : grid_t[j][i + 1..-1].length\n\n        tmp = left * right * up * down\n        ans = tmp if tmp > ans\n      end\n    end\n    puts ans\n```"
+  :replies:
+  - :author: upboats_around
+    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd89y2/
+    :body: Nice. `[].max < grid[i][j]` can replace your `.all?` usage in part 1, and `...` excludes the right value of a range so you can do `0...j` instead of `0..j-1`
+    :replies: []
+- :author: ScaredOfMyRawr
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izehf8e/
+  :body: "[Today's solution in Ruby](https://medium.com/@ashley-peacock/advent-of-code-2022-day-8-solution-treetop-tree-house-55717f6635bf), made a silly mistake, but glad I got there in the end! I did wonder whether depth-first or breadth-first search would be a nice way to do it, especially for the second one..."
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izei6x0/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/8)Walkthrough Video: [YouTube](https://youtu.be/WDir-ZdMcK0)
+  :replies: []
+- :author: arifba
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izdbphp/
+  :body: |-
+    **Ruby**
+
+    [code](https://github.com/arifb/advent-of-code/blob/master/solutions/aoc2022_8.rb)
+
+    ```ruby
+    def solve_pt1(heights)
+      heights.map.with_index do |row, ri|
+        row.chars.map.with_index do |c, ci|
+          # take care of first and last row
+          if ri == 0 || ri == heights.length - 1
+            "v"
+          # take care of first and last height along vertical sides
+          elsif ci == 0 || ci == row.length - 1
+            "v"
+          # look left / right
+          elsif c.to_i > row[0..ci - 1].chars.map(&:to_i).max ||
+              c.to_i > row[ci + 1..].chars.map(&:to_i).max
+            "v"
+          # look up / down
+          elsif c.to_i > heights[0..ri - 1].map { |h| h[ci].to_i }.max ||
+              c.to_i > heights[ri + 1..].map { |h| h[ci].to_i }.max
+            "v"
+          end
+        end
+      end.reduce(0) do |acc, row|
+        acc += row.count("v")
+        acc
+      end
+    end
+
+    def solve_pt2(heights)
+      heights.map.with_index do |row, ri|
+        row.chars.map.with_index do |c, ci|
+          lt, rt, up, down = 0, 0, 0, 0
+          if ri == 0 || ri == heights.length - 1
+            0
+          elsif ci == 0 || ci == row.length - 1
+            0
+          else
+            (ci - 1).downto(0) do |lookleft|
+              lt += 1
+              break if row[lookleft].to_i >= c.to_i
+            end
+            (ci + 1).upto(row.length - 1) do |lookright|
+              rt += 1
+              break if row[lookright].to_i >= c.to_i
+            end
+            (ri - 1).downto(0) do |lookup|
+              up += 1
+              break if heights[lookup][ci].to_i >= c.to_i
+            end
+            (ri + 1).upto(heights.length - 1) do |lookdown|
+              down += 1
+              break if heights[lookdown][ci].to_i >= c.to_i
+            end
+            lt * rt * up * down
+          end
+        end
+      end.map { |row| row.max }.max
+    end
+
+    def strip_newlines(strs)
+      strs.map { |str| str.delete_suffix("\n") }
+    end
+
+    def get_input_str_arr(filename)
+      true_input = strip_newlines(File.readlines(filename)) if File.exist?(filename)
+
+      puts "input not read" if true_input.empty?
+      true_input
+    end
+
+    def parse(filepath)
+      get_input_str_arr(filepath)
+    end
+
+    p solve_pt1(parse("./input/aoc2022-8-1.txt"))
+    p solve_pt2(parse("./input/aoc2022-8-1.txt"))
+    ```
+  :replies: []

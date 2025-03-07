@@ -1,0 +1,82 @@
+---
+- :author: oantolin
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpd67g2/
+  :body: Another nice and easy one. I represented the infinite image as a pair of the background pixel state and a 2D-array of bits for the pixels. Here's a Common Lisp [program](https://topaz.github.io/paste/#XQAAgAD//////////wAUGQimgx+p6PZhRh7uIO5BVNPIdKEN9R6L6scYP/cAtBpttmBcgWreKz63ht/gJSzjtvO4chAn6ZfcoR0DXWrYkvC8H/QG01B9a4HC8MoJR96YoTr9mETWtJrmJyK0h4tDxxZfRzcOJkqt2/lSGETvOMlvKy/yR95Gw/NQqsA8paa+UNcnqTz8QiQm3Cu0xpJsLZW39bm3IYbrY1pPW0qnEraIm7E3evFhjoQZ4/NzDUNrnfUs+5WWCYsXiHMA55NVYziJt58pcFueeeVD1VUE6EPHEdsft4pobxD/RBl9HHzrROUIWDIVzZ6EUSsygIqIVGEhC5FBIV0spVYtE9nS4qpGxeMoM9l1GfjPawkGrvtrubYnbgJag6laI2/OD4thVrIKNvAZpkEKATVBQiS/+ObhMFrOoL9QOZTkoDjJi/vqgHgS3VvI1DxD6RrRv0riTy//iFV057ir47bomGG2/LZoC13BEetVMfd8UogwunoXYIuc47m4flV/tnlvDVigafmjdgGxnTDwgWe7YPORfvMfuP81Mn9pid4WwsecPagk4GI8M3Th9VMXQF7KseVO7M2PPQtBnBjZtCsN8YJZAiGaZ+z0IiApVeN/t5JA+KqVZvh+9GlqEnOVNB8T35szNHZAfBr++DNqInj/NvxaAjjz8atmdgO5xuOVbDOGwRqnsCKx5oCPbK3bn2U4ZgeirbmS2+YQA/7+j0trTVtZwLBtfEGAPCbL+W4grzL6LS9ze99DarpORC8ueB99ckBWe0OJUnCMux/ivj/YHM62f7wLtoxynLVabMeFEBnPq0eGAExuZAM7T43BcXK596ANAbLkCSXzU9fQqMvNhqcwHO/Be0knOF45ywmwk3NiwvzRdSo=).
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9gnx3/
+  :body: |-
+    Ruby, 27 / 48
+
+    This code takes about 1 minute to run.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBABAAAAAAAAAAwmwkaZkNyucjRo5PEOiSLn/5zr9kB/QThE8vgTmi6oyT3+aXlhUW0ABt1nAPo6i/3sWbYF3R2eNo/qYKrAqTKXlgwUw7K8V+VHzxODyW853Ng1JXJ0T1s3UJNhF8KIYkcmBg+uHC4jW/+NvwmBL1NCTpY8aDLI79EU/So+Idud4uR+V/FucK4MgVoGt6CRyqCTd2Y92QjiX1C9PLKguDKRHgyp+KwXFpYvOLMvDmTBUXR/+P8+UaiBRi/gjAPiZCx8LC5xIi4ByLrgLf4ydgDhEXelaGw93JlaAI7eklEzyUO6trKA7Xq7+ccUygH0/Vuf1yNXmaCWtq0YwT/4WzLrtW8ECbaC8RXvAFMlpEzOB83CF9g/ktgtJ5WJZYDn9u6KrwzyTk5yHxsXbGHQJ3ldWF4BiUdiEUWUlsoChfizRcBiCNo+waWRWMvMLknVHE6zmDEL8+yzIbIIlSicZvfFlskvPTfAPN4vhszYDSP/e3xZOvhWk1ripjwtIKw8gN/y6ExJBmNqxWi49b72HLA3PodioYT56o3SpTq3aEYLVMdpVIPWKkA+A5OY7vxytL3t5mbhSHsMxZPZgWaRJHvaHVse2LzhGLBLiObW6GB/S2gE29ycigcf265hyziY/7+t57/zqPBJ7eZZR9LAusQxeyehczK8f74BRAm)
+
+    I saw that the first character in the real input is `#`. My approach to solving this:
+
+    - Known rate of growth: Every enhancement increases the image bounds by only 1.
+      - So the bounds used to count the lights in the final image is hardcoded.
+    - Use a lazily-computed, memoized, infinitely-sized sparse grid.
+      - The input image uses a Hash using `[i,j]` tuple as a key/argument.
+      - The enhanced layers implemented using a Proc with `[i,j]` tuple an argument.
+      - Both Hash and Proc has a common interface: `image[coord]`. On the Hash it looks up the value, on the Proc it invokes associated code. I love Ruby’s polymorphism.
+      - This means `50.times { image = enhance[image] }` finishes instantly because the enhancement is lazy and each pixel is calculated only when the pixel data is accessed.
+      - Using `cache[key] ||= begin … end`, the pixel’s result in each layer is cached, which speeds up the calculation by a lot.
+  :replies:
+  - :author: Floozutter
+    :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9qaw8/
+    :body: Kudos! I tried to do the exact same thing in Python, but I was much slower even with the help of the standard library's `functools.cache`. ([Python](https://github.com/Floozutter/aoc-2021-python/blob/9d9800c94bf66890a0123a744352bf2fd8d7105f/day20/main.py), 1680/1482)
+    :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9hlzi/
+  :body: |-
+    Ruby, 330/250
+
+    I did the thing I normally do with 2D grids, just put everything into a Hash with complex number keys (real part = row number, imaginary part = column number), because Ruby doesn't have tuples like Python. Then the only trick is to remember to flip the default value of the Hash from 0 to 1 or vice versa each iteration.
+
+    It takes about 10 seconds on my laptop to run Part 2, plenty quick enough so didn't bother searching for a more efficient way.
+
+    ```ruby
+    alg, data = open("input").read.split("\n\n").map{_1.gsub(".", "0").gsub("#", "1").split("\n")}
+    alg = alg.join("")
+    rows = data.count
+    input_image = Hash.new(0)
+    data.each_with_index do |row, i|
+      row.chars.each_with_index do |col, j|
+        input_image[i + j.i] = col.to_i
+      end
+    end
+
+    def read_neighbours(c)
+      return [c - 1 - 1.i, c - 1, c + 1.i - 1, c - 1.i, c, c + 1.i, c + 1 - 1.i, c + 1, c + 1 + 1.i]
+    end
+
+    def transform(input, alg, rows, step)
+      orig_default = input[20000 + 1.i]
+      output = Hash.new(1 - orig_default)
+      [*0 - step...rows + step].each do |row|
+        [*0 - step...rows + step].each do |col|
+          lookup = read_neighbours(row + col.i).map{input[_1].to_s}.join("").to_i(2)
+          output[row + col.i] = alg[lookup]
+        end
+      end
+      output
+    end
+
+    (1..50).each{|n| input_image = transform(input_image, alg, rows, n)}
+    p input_image.values.tally
+    ```
+  :replies: []
+- :author: klaustopher
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpa1nm8/
+  :body: |-
+    [Ruby](https://github.com/klaustopher/advent-of-code/commit/c26699666014342b17a93d5c8fc332ce4fa6d07a)
+
+    First, I am really happy that Ruby allows setting a default value that will be returned, when a key is not known. This really helps keeping a lot of the boilerplate checks (are we still in bounds, etc) out of the code.
+
+    Also this year has tought me that a lot of times it does not make sense to create an Array of Arrays to store a matrix, as this will explode quickly, but instead going with the `Hash` "pattern".
+
+    Really happy how it turned out, eventhough it took me a while to find the solution that I need to look at the 0-index item of the "algorithm" to figure out that I need to flip the default value.
+
+    Cool task all in all
+  :replies: []

@@ -1,0 +1,207 @@
+---
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izsmy5e/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_11.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_11.rb)
+
+    ```ruby
+    [{ rounds: 20, div: 3 }, { rounds: 10_000, div: 1 }].each do |part|
+      monkeys = File.read('day_11_input.txt').split("\n\n").map do |i|
+        i = i.split("\n")
+
+        {
+          items: i[1].scan(/\d+/).map(&:to_i),
+          oper: i[2].scan(/[+*]/).first.to_sym,
+          param: i[2].scan(/\d+$/).map(&:to_i).first,
+          test: i[3].scan(/\d+$/).first.to_i,
+          pass: i[4].scan(/\d+$/).first.to_i,
+          fail: i[5].scan(/\d+$/).first.to_i,
+          inspections: 0
+        }
+      end
+
+      lcm = monkeys.map { |i| i[:test] }.reduce(:lcm)
+
+      part[:rounds].times.each do
+        monkeys.each do |monkey|
+          monkey[:inspections] += monkey[:items].size
+
+          while (i = monkey[:items].shift)
+            param = monkey[:param] || i
+            i = (i.method(monkey[:oper]).call(param) / part[:div]) % lcm
+
+            target = (i % monkey[:test]).zero? ? monkey[:pass] : monkey[:fail]
+            monkeys[target][:items] << i
+          end
+        end
+      end
+
+      puts monkeys.map { |i| i[:inspections] }.max(2).reduce(:*)
+    end
+    ```
+  :replies: []
+- :author: SnooConfections2453
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrxt9y/
+  :body: |-
+    Golfed ruby (using eval)
+
+    Part1:
+
+    ```ruby
+    m=File.readlines('11.txt').chunk{_1=="\n"&&nil}.map{|_,c|_,s,o,*t=c;[s.split(": ").last.split(", ").map(&:to_i),o.split.last(3).join,t.map{_1.split.last.to_i},0]}
+    20.times{m.each{|k|until k[0].empty?do w,o,t=k;old=w.shift;l=eval(o)/3;m[l%t[0]==0?t[1]:t[2]][0]<
+    ```
+
+    Part2:
+
+    ```ruby
+    m=File.readlines('11.txt').chunk{_1=="\n"&&nil}.map{|_,c|_,s,o,*t=c;[s.split(": ").last.split(", ").map(&:to_i),o.split.last(3).join,t.map{_1.split.last.to_i},0]}
+    z=m.map{_1[2][0]}.reduce(:*)
+    10000.times{m.each{|k|until k[0].empty?do w,o,t=k;old=w.shift;l=eval(o)%z;m[l%t[0]==0?t[1]:t[2]][0]<
+    ```
+  :replies:
+  - :author: '442401'
+    :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/j0n45gv/
+    :body: |-
+      Very nice.
+
+      `while k[0].any?`saves 2 bytes over`until k[0].empty?`
+    :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrf5b5/
+  :body: |-
+    over engineered OO solution in ruby
+
+    ```ruby
+    Worry = Struct.new(:value) do
+      def update(op, normalizer)
+        tmp = op.call(value)
+        tmp = normalizer.call(tmp)
+        self.value = tmp
+      end
+    end
+
+    Monkey = Struct.new(:name, :items, :operation, :test_divisor, :next_monkey, :_count) do
+      def process_all_items(monkeys, normalizer)
+        while items.any?
+          self._count ||= 0
+          self._count += 1
+
+          next_item = items.shift
+          next_item.update(operation, normalizer)
+
+          test_condition = next_item.value % test_divisor == 0
+          pass_to = next_monkey.call(test_condition)
+
+          monkeys[pass_to].items << next_item
+        end
+      end
+    end
+
+    def solve(monkeys, normalizer, iterations)
+      iterations.times do |round|
+        monkeys.each do |name, monkey|
+          monkey.process_all_items(monkeys, normalizer)
+        end
+      end
+      a, b = monkeys.values.max_by(2) { |k| k._count }
+      a._count * b._count
+    end
+
+    def solve_easy(input)
+      solve(input, ->(v) { v / 3 }, 20)
+    end
+
+    def solve_hard(input)
+      solve(input, ->(v) { v % (2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23 * 29) }, 10_000)
+    end
+    ```
+
+    I got stuck trying to keep track of all the factors in an array for a long time...
+  :replies: []
+- :author: 6f937f00-3166-11e4-8
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrp9w3/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    def parse(path)
+     File.read(path).strip.split("\n\n").map do |monkey_desc|
+        lines = monkey_desc.split("\n")
+        {
+          id: lines[0].sub('Monkey ', '').sub(':', '').to_i,
+          items: lines[1].sub(' Starting items: ', '').split(', ').map(&:to_i),
+          operation: lines[2].sub(' Operation: new = old ', '').then do |op|
+            next [:pow, 2] if op == '* old'
+            (cmd, val) = op.split(' ')
+            [cmd.to_sym, val.to_i]
+          end,
+          test_divisor: lines[3].sub(' Test: divisible by ', '').strip.to_i,
+          if_true: lines[4].sub(' If true: throw to monkey ', '').to_i,
+          if_false: lines[5].sub(' If false: throw to monkey ', '').to_i,
+          inspections: 0
+        }
+      end
+    end
+
+    def part_one(monkeys)
+      20.times do
+        monkeys.each do |monkey|
+          monkey[:inspections] += monkey[:items].length
+          monkey[:items].each do |initial_level|
+            level = initial_level.send(*monkey[:operation]) / 3
+            throw_to = (level % monkey[:test_divisor]) == 0 ? monkey[:if_true] : monkey[:if_false]
+            monkeys[throw_to][:items].push(level)
+          end
+          monkey[:items] = []
+        end
+      end
+      monkeys.map { |m| m[:inspections] }.sort.reverse.take(2).inject(&:*)
+    end
+
+    def part_two(monkeys)
+      common_divisor = monkeys.map { |m| m[:test_divisor] }.inject(&:*)
+
+      10000.times do
+        monkeys.each do |monkey|
+          monkey[:inspections] += monkey[:items].length
+          monkey[:items].each do |initial_level|
+            level = initial_level.send(*monkey[:operation]) % common_divisor
+            throw_to = (level % monkey[:test_divisor]) == 0 ? monkey[:if_true] : monkey[:if_false]
+            monkeys[throw_to][:items].push(level)
+          end
+          monkey[:items] = []
+        end
+      end
+
+      monkeys.map { |m| m[:inspections] }.sort.reverse.take(2).inject(&:*)
+    end
+
+    puts "part one test.txt", part_one(parse('test.txt'))
+    puts "part one input.txt", part_one(parse('input.txt'))
+    puts "part two test.txt", part_two(parse('test.txt'))
+    puts "part two input.txt", part_two(parse('input.txt'))
+    ```
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izryg6k/
+  :body: |-
+    **Solution in Ruby**
+
+    [https://gist.github.com/seanhandley/9babceb01ed2890a3b390b80e0b2d046](https://gist.github.com/seanhandley/9babceb01ed2890a3b390b80e0b2d046)
+
+    The key to getting reasonable performance in part 2 is here:
+
+    [https://gist.github.com/seanhandley/9babceb01ed2890a3b390b80e0b2d046#file-advent11-2-rb-L90-L95](https://gist.github.com/seanhandley/9babceb01ed2890a3b390b80e0b2d046#file-advent11-2-rb-L90-L95)
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izs7yis/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/11)
+
+    Video Walkthrough: [YouTube](https://youtu.be/k-c_TJ0j0W8)
+  :replies: []

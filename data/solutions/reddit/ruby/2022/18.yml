@@ -1,0 +1,111 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0uweyj/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/19)
+
+    Video Walkthrough: [YouTube](https://youtu.be/2L8gHiNnZ9w)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0s1vh0/
+  :body: |-
+    Ruby, part 2. But it is annoyingly slow–takes about 12 minutes on my machine. Is it possible to speed it up without changing the approach?
+
+    ```ruby
+    # frozen_string_literal: true
+
+    require 'set'
+
+    file = File.open('input.txt')
+
+    @cubes = file.readlines.map(&:chomp).map { _1.split(',').map(&:to_i) }
+
+    @min_x, @max_x = @cubes.map { _1.first }.minmax
+    @min_y, @max_y = @cubes.map { _1[1] }.minmax
+    @min_z, @max_z = @cubes.map { _1.last }.minmax
+
+    @offsets = [[0, -1, 0], [0, 1, 0], [1, 0, 0], [-1, 0, 0], [0, 0, 1], [0, 0, -1]]
+
+    def outside(cube)
+      cx, cy, cz = cube
+      !(cx.between?(@min_x, @max_x) && cy.between?(@min_y, @max_y) && cz.between?(@min_z, @max_z))
+    end
+
+    def adjacent(cube)
+      x, y, z = cube
+      @offsets.each.map { [x + _1.first, y + _1[1], z + _1.last] }
+    end
+
+    def exposed(cube)
+      seen = Set.new
+      search_queue = Queue.new
+      search_queue.enq(cube)
+
+      until search_queue.empty?
+        current_node = search_queue.deq
+        next if seen.include?(current_node)
+
+        seen.add(current_node)
+        next if @cubes.include? current_node
+
+        return true if outside(current_node)
+
+        adjacent(current_node).each do |neighbour|
+          search_queue.enq(neighbour)
+        end
+      end
+      false
+    end
+
+    result = 0
+    @cubes.each do |cube|
+      x, y, z = cube
+      @offsets.each do |offset|
+        ox, oy, oz = offset
+        result += 1 if exposed([x + ox, y + oy, z + oz])
+      end
+    end
+
+    print("#{result}\n")
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ti4hn/
+    :body: 'Ok, to speed up 100 times: use a set to store cubes instead of an array.'
+    :replies: []
+- :author: whezya
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ryg57/
+  :body: |-
+    **Ruby**
+
+    [https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_18.rb](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_18.rb)
+
+    I did not found any Ruby solution yet in thread, so here is mine.
+
+    I never used a flood algorithm before, so this is my first attempt, benchmark gave me 2 sec on my computer. [Readme](https://github.com/rbellec/advent_of_code_2022/blob/main/README.md) explain how to use it. Would be happy to discuss about it.
+  :replies: []
+- :author: SwampThingTom
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0qht6f/
+  :body: |-
+    I'm solving each of this year's problems in a different language, roughly in the order in which I learned them.
+
+    Today's solution is in Ruby.
+
+    [https://github.com/SwampThingTom/AoC2022/tree/main/18-BoilingBoulders](https://github.com/SwampThingTom/AoC2022/tree/main/18-BoilingBoulders)
+  :replies: []
+- :author: jstanley0
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0op0zl/
+  :body: |-
+    _Ruby_
+
+    my part 1 solution is pretty compact:
+
+    ```ruby
+    cubes = ARGF.map { _1.split(',').map(&:to_i) }
+    puts 6 * cubes.size - 2 * cubes.combination(2).count{ |a, b| a.zip(b).sum{(_2-_1).abs} == 1 }
+    ```
+
+    for part 2 I plotted the thing in 3D ASCII art, did a flood fill from outside the corner, collected all the cubes that weren't filled, and subtracted their surface area (using my solution from part 1) from the total
+  :replies: []

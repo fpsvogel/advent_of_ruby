@@ -6,6 +6,7 @@ PATH
       debug (~> 1.0)
       dotenv (~> 3.0)
       faraday (~> 2.0)
+      faraday-retry (~> 2.0)
       pastel (~> 0.8)
       reverse_markdown (~> 2.0)
       rspec (~> 3.0)
@@ -28,6 +29,8 @@ GEM
       logger
     faraday-net_http (3.3.0)
       net-http
+    faraday-retry (2.2.1)
+      faraday (~> 2.0)
     io-console (0.7.2)
     irb (1.14.1)
       rdoc (>= 4.0.0)

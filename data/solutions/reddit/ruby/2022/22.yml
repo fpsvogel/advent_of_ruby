@@ -1,0 +1,54 @@
+---
+- :author: Elavid
+  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17o4by/
+  :body: |-
+    ## Ruby, 546/476
+
+    [https://gist.github.com/DavidEGrayson/7750e1c2abdc41d57ae397b7227086dd](https://gist.github.com/DavidEGrayson/7750e1c2abdc41d57ae397b7227086dd)
+
+    I didn't do anything particularly special, except surrounding my map with extra space characters on all sides so I didn't have to do bounds checks and could avoid off-by-one errors at the end. I spent most of my time developing 14 ~~special cases~~ edge cases that look like this:
+
+    ```ruby
+    elsif (1..50).include?(new_x) && new_y == 100 # E to C
+      new_x, new_y = 51, transform(1, 50, 51, 100, new_x)
+      new_face = 0
+    ```
+
+    I only wrote those edge cases whenever my program wrote the "Unknown space" message telling me it was confused about where to go. I really should have made it so my code generated the correct `elsif` clause that I needed to my code to match the unknown case it encountered; that would have saved me probably 10 minutes of thinking. I'm kind of a fan of computers helping humans to write code.
+
+    When I didn't get the right answer for part 2, I added a **sanity check** : after doing one of these special cases I made sure that I could turn around and get back to the location where I was previously (and be facing the opposite direction). The sanity check revealed two or three bugs and allowed me to get the right answer. This one was the longest one yet, I think! Took me 110 minutes to finish and it was very repetitive.
+  :replies:
+  - :author: silxikys
+    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17os2m/
+    :body: I tried this and it helped me debug my part2! I had a `x` where I should have put a `y`...
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17l4fq/
+  :body: |-
+    **Ruby** (16/50)
+
+    - [Part 1](https://topaz.github.io/paste/#XQAAAQBqCAAAAAAAAAARiAaHkimM1L0GOHPHCZqDbEUyv/VFgsoWjJHla1Ou6vy4S39kofbg3JpXhFkqVxIs0PHBJ3M3EvC8gTJYpxXngia+mnZC7Y68EBrbdF6z4ElhpEHOMJ9h4nni6Ytv4lPgg/v68MFbOa/p3V1A2ABvEkg3pq7th/2XW9Aq/RMXuhppV71FtqFVRUH0BHRobozAK2yFdwwskYjU5E4MoCN7PeYyojjUi3A7tS6dFcnoLuNpJNfwjNYUD3eISG6bUWMVtB7gEJT2nSFFfc6p6Vicc3tw/NpbVlrOj0hI9cm1kIZdBvMrc8TD/qDipCMAkhdaxTwhWjkYUZMDCHLiF+a2/s62iQG3QPC1uwjmhdVKN3CyoUzj80WfacgFtaEztQ67p1GGKLREILaEVBQPbIAX6yeB2NCt2kVvKO4Q6kgTxUQ6OtZFdbmqejGpx0XXnf3R4Ch0jkl6VGnjIIW/oQ8NAYPpIXeB7keFU6q6tIhVZjwRVeLWFo3vIR35l8/+pmMCH6GhdE7zO5tgl1+y4Hb3bMqfCZNF9HDqknkOgU6sAVppvTYllxRtlI/4kzRLIxP2wJdZNCT/+12k/Y1wAM8RsxVUxK558ni30Qun4FKpwdirIB10BaP8PR7P8n7qF9+n2njoVhhjtfB/i2oZPxNF8qFo0wETAHuv3feszlaLpK87Vv8YSdClH/RQMcffbGyBBCJuXDITTuoXPq3OgmSHLI9Qik/5yQ5etnaniQL9MgSIMp2RvVCUMCdxxZ3EwNp0mKe9xGCAsyE89+W0/M4beJysMwYP1lc+iZAUd2koOMEW+b5RkgTnOvfI/x4rkr3DlBrs5q2m2Sw0UJ85/5bExZ+VBJYUUor/vj+gyupP9Swxth8ob1bcxyz98dCNWLDueOruo2Ka+yjmRHSq837uTjW9YXzKcLikBWILYIw88hCeRdjkeWpziurRQa1HC8JOF0dCefJMBOBQLsWezo8oSsWE4A//jy2LAA==) was pretty straightforward. I used a `Hash` to store the map data using `[x, y]` as an index. I struggled with some bugs around rotation, so I had to spend some time on a drawing routine and put `draw[]; sleep 0.1` after each move to visually debug it.
+
+    - [Part 2](https://topaz.github.io/paste/#XQAAAQAbEAAAAAAAAAARiAaHkimM1L5fBlrZwtMomYxm3RfC2XjBzZjy1WeNyou4a1WzITxO+y/4QAdmGDeIF6WX83M04eOQUbLLDdqJWf/kz5AYg9cFWXX3jtjJwp0vwEln644JPgLdfbWJF8iw9ckz4UoOICarIkVDg4/0Bk/Veg1pBPyseVQdCUteM+rst3Qsu5+zghuVcfjlVn349t1JSmPcQtnIAZkIJA51d33LXEH+Og+XjVebnJGrLDQcAa4RQbK9sOlwPuBxrpBFbe8NTXQsDaNb0n8twlgWFP+WXOxa98obN4YelbJYKO4YMl3OS80jMf+tU6uFNZy0S9cf7EkqIctihGS3FsLOmkQCB/m2Z9iFkrOa/9ixMWyMm+sGuJUJ7LL4z2RwPxcZh8QZPmfiBsRBOezBG+MMC6OCQPJF8u2xoYNwEE6C+SrodXhQXKETVrpb4PoaDT2KRJKpKtMxe7Vg30ohzbfkBEaL5uOy4qVTiDfjX/0b50qzYMFOgva46ArC2AevOsLAe94RB2Q1YEHC9TvKdtVDBKK/WOjho/8PBHdNSvqQQU2qu3MIOrhQgqfd0scteYp/hx0+FZGLPf/AXgSMp9cRoPGXPhRAoFpQRSQ1nDtThE+vxShWct4VEPoo31G5aN9cxHepIga4rQ5Pw+oIb6ELD52Bf6iutU08Azvhuk3WwtBt38ARv2vxhNISz0yDhVtit1HutilqKN/VSn1nIFR1F8+IwNmKQFwUuRkEIae8kwDtVuYyihAYlG1//OVJOk0a0qQse1Bl06XpQrR5auvkVQAO4CN1zJgMEjXW6CuXN4jQEKh6kCK0VjSi39JFqyGirMNcECPolE9sM628WPW0uDCCCGswthJ1zrsdg9zO7I9iLnzkjOMVGwSRLWuT7eWM8X4FT4kxSRbb6DWtj5ALr/hJhEBp2u037vwqh6IeNAfhMp9GW28vfBKSjfVOqLi39LKWgQI7+JCxLRG1B6Rf7minoiC9sDAF946YDOogTTSapxiflgZi8j7uT0msFW3YHXs4pU6v2sy1PO+XaAUPnNgTOyXxZoJcLGFvlCKFgG915IwuvGd9GZGIeTCFGHQyUvvcOnvTlH+CYB3DrzzhE98l6FCR43vdKNQFit/jxIUswt+OmhwWktq35CQLRFUY8peI21WkXMmjh64OKGjfwzsp/Axz3br3J0cyNgMJvZJH91OA8UeWE5GTfF0kp0jN/n59VqDq1s1k57yKKh/HkqvfxX19diN6jknzsTt+cXjF0Jp0wcEyp2d2HXd1kHzFideRFdgQdSPGWIzIyLTyXejB0i0wgZGDqH3LVgAcuw0oLx5ZCEfCH/0SbbnO68iUwNzu/bAGzKdR9tcmInXvTEc7WjRmF17gf8n+iUJid5D9HoU+8WThGNoMnJn3+flmO3qI+ECIVm8YtF9sJag7Mr6rM1i8JwzyCqP3u/7XKr2u8TZN2CF5lPH4jEpmESqU8TR+HpxmNWA6zHtLds4C4jqE6bqQp/kxBMeciW868lupI4ErInBxYmIEE2bLHIDZlQNWzmcywez7WR1fYcHfeZSRaygzhHPo91EMiBMpdsurAHB7mseQJb0Nost9WZ64HyMLCOmTxt5wn/XlxhhYVKuaPIeJI+7/eH3jb1Nph3iIjBsuS8LrdPDA1uRzH7KPNT2IHUJkYKDvdsP3CuTloSrLNYa9j964LjS1aOWJLqewkF7UtrkgcJc1g5y9Av5uv5xIrojslAv3y71h8eVF7EXBmiBsXCtfcl4hhHSd+eLSyD81Y4sGf/zLbzI=) I [created a physical box](https://www.reddit.com/r/adventofcode/comments/zseeth/2022_day_22_part_2_my_workspace_after_solving/) and created a mapping for each side of the cube, which is then used to calculate the wrapping. Part 2 does not handle example input (because creating that map was tedious).
+
+    Here’s how the map looks like
+
+    ```ruby
+    # origin: the top left corner of unfolded coordinates (divided by 50)
+    # up/down/left/right:
+    # [0]: which side to appear on when going through that edge
+    # [1]: how many 90deg clockwise rotations to perform
+    $cube_data = {
+      A: { origin: [1, 0], up: [:F, 1], down: [:C, 0], left: [:E, 2], right: [:B, 0] },
+      B: { origin: [2, 0], up: [:F, 0], down: [:C, 1], left: [:A, 0], right: [:D, 2] },
+      C: { origin: [1, 1], up: [:A, 0], down: [:D, 0], left: [:E, 3], right: [:B, 3] },
+      D: { origin: [1, 2], up: [:C, 0], down: [:F, 1], left: [:E, 0], right: [:B, 2] },
+      E: { origin: [0, 2], up: [:C, 1], down: [:F, 0], left: [:A, 2], right: [:D, 0] },
+      F: { origin: [0, 3], up: [:E, 0], down: [:B, 0], left: [:A, 3], right: [:D, 3] }
+    }
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17ng8x/
+    :body: oh, incrementing both in one go is clever, I wish I had thought of that.
+    :replies: []

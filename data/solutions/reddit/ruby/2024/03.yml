@@ -49,8 +49,7 @@
     :replies: []
   - :author: ArmlessJohn404
     :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0cj7oo/
-    :body: Yeah same! I just added a single line flag to the don't/do regex and it
-      worked
+    :body: Yeah same! I just added a single line flag to the don't/do regex and it worked
     :replies: []
 - :author: '442401'
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m0ba4fc/
@@ -162,13 +161,11 @@
   :replies:
   - :author: makingthematrix
     :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06ggka/
-    :body: Ha, that's a clever use of regex for finding "mul" only between "don't"
-      and "do". Nice :)
+    :body: Ha, that's a clever use of regex for finding "mul" only between "don't" and "do". Nice :)
     :replies:
     - :author: vinc686
       :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06tzzb/
-      :body: The regex also has to handle one or more `don't` at the end of the input,
-        I lost some time before realizing that!
+      :body: The regex also has to handle one or more `don't` at the end of the input, I lost some time before realizing that!
       :replies: []
 - :author: im_sofi
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m07fpvu/
@@ -221,11 +218,7 @@
     :replies:
     - :author: FCBStar-of-the-South
       :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m089ueq/
-      :body: Looks like this solution I have posted would fail to consider the don't
-        to the end edge case. I stole some part 2 ideas from another solution in this
-        thread. My [original solution](https://topaz.github.io/paste/#XQAAAQBoAgAAAAAAAAAzGknWt5Bv2qwBBozyqeTA6pRzO8rm9LH3DWozdnfDy8iyMhig1p93ahHDb6Hm4YVLsyVTtbP+9ckmHojS4mzp3HLAe+v06SXohVCYGeu8cdGUmjA2txmHMW5U6j70xhvSVl5zeh5BruZ6IgjU38ID2nAFBU/jxFH2p36G3s/GBe8jNfnKCbSe4yyMfJNzWhNa1bwgRUtbY2Ql2+egDdi79rizLCYkeb1zSvRLU2EQUBeHZrIy48O8R4n04RRB2xaOMp/LpwO4k5xlFkx/cLdipx5naZ40SbDahQnaPfLVsbNXwsJ9PKQllitGsJF+m2ll/ZT9WCuxHP7ND6qizsR9uJHz8rQVMPTOwPdn4FBdNmthq7XBFHTpjhI0gBIUsSSqrrWLNnzUhFGWI2YJViLEwgYMtHg4Kf/vv/Ku)
-        captured everything of interest separately and kept track of a boolean, which
-        should work more generally.
+      :body: Looks like this solution I have posted would fail to consider the don't to the end edge case. I stole some part 2 ideas from another solution in this thread. My [original solution](https://topaz.github.io/paste/#XQAAAQBoAgAAAAAAAAAzGknWt5Bv2qwBBozyqeTA6pRzO8rm9LH3DWozdnfDy8iyMhig1p93ahHDb6Hm4YVLsyVTtbP+9ckmHojS4mzp3HLAe+v06SXohVCYGeu8cdGUmjA2txmHMW5U6j70xhvSVl5zeh5BruZ6IgjU38ID2nAFBU/jxFH2p36G3s/GBe8jNfnKCbSe4yyMfJNzWhNa1bwgRUtbY2Ql2+egDdi79rizLCYkeb1zSvRLU2EQUBeHZrIy48O8R4n04RRB2xaOMp/LpwO4k5xlFkx/cLdipx5naZ40SbDahQnaPfLVsbNXwsJ9PKQllitGsJF+m2ll/ZT9WCuxHP7ND6qizsR9uJHz8rQVMPTOwPdn4FBdNmthq7XBFHTpjhI0gBIUsSSqrrWLNnzUhFGWI2YJViLEwgYMtHg4Kf/vv/Ku) captured everything of interest separately and kept track of a boolean, which should work more generally.
       :replies: []
 - :author: keidax
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09i56j/
@@ -419,16 +412,13 @@
     r2 = 0
     doing = true
     DATA.each_line.map do |line|
-      line.chomp.scan(/(mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\))/)
-    end.flatten.each
-    do |inst|
-      next doing = false if inst == \"don't()\"
-      next doing = true if
-    inst == \"do()\"
-      val = inst.scan(/\\d+/).map(&:to_i).reduce(:*)
+      line.chomp.scan(/(mul\(\d+,\d+\)|do\(\)|don't\(\))/)
+    end.flatten.each do |inst|
+      next doing = false if inst == "don't()"
+      next doing = true if inst == "do()"
+      val = inst.scan(/\d+/).map(&:to_i).reduce(:*)
       r1 += val
-
-    \ r2 += val if doing
+      r2 += val if doing
     end
     puts r1
     puts r2
@@ -605,9 +595,7 @@
   :replies: []
 - :author: adherry
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m06rlpk/
-  :body: I was prepared for a trick and them using a 4 digit number to make the mul
-    invalid, but they did not, so i could have replaced the \d{1,3} with a simple
-    \d+. [paste](https://topaz.github.io/paste/#XQAAAQCEAgAAAAAAAAA0m4poOBLJ+DFPUO+aZQGPHZhaFUucypWoKq40s+q2fAw1o4NFfhSc0+/30SigzZyPEQKlu39h3xDuaHCLSdtd9DyAnZaPiVmFJbFweKI+8NxsykPRnrndEmrMMvTx0OgDdn8pAurca1R4h2kYFyf4XITN0P5phES9Ez0PBxTrN8VW78XAVR1cB+Klhfan3gBSRcZEDe/eRKpiuC7WEvTxi9zEvIK0B4lH1VB4WosHOyOu9C63wJmWs7h8uR1hmiqInG1+Q20RiduwP4DXgn5/XK2uP3agGQFYPxDLGFqusKS3a0Rirx66y7NwKT5Mwr12jGX1kKgex7PClha47L8pv49EgCJGuwWURLk62pRdq7aS2A5LDhTbRJLE+ftkhRgHEclR+cGw71fRRXTnQ6PfIFgPNJAdoXHon2tnyHo/hzqWD+lw2O0ELzRiho+H8FHN0nVv2k3bT6FlX+mfmwUTh3JWWf/s4hYG)
+  :body: I was prepared for a trick and them using a 4 digit number to make the mul invalid, but they did not, so i could have replaced the \d{1,3} with a simple \d+. [paste](https://topaz.github.io/paste/#XQAAAQCEAgAAAAAAAAA0m4poOBLJ+DFPUO+aZQGPHZhaFUucypWoKq40s+q2fAw1o4NFfhSc0+/30SigzZyPEQKlu39h3xDuaHCLSdtd9DyAnZaPiVmFJbFweKI+8NxsykPRnrndEmrMMvTx0OgDdn8pAurca1R4h2kYFyf4XITN0P5phES9Ez0PBxTrN8VW78XAVR1cB+Klhfan3gBSRcZEDe/eRKpiuC7WEvTxi9zEvIK0B4lH1VB4WosHOyOu9C63wJmWs7h8uR1hmiqInG1+Q20RiduwP4DXgn5/XK2uP3agGQFYPxDLGFqusKS3a0Rirx66y7NwKT5Mwr12jGX1kKgex7PClha47L8pv49EgCJGuwWURLk62pRdq7aS2A5LDhTbRJLE+ftkhRgHEclR+cGw71fRRXTnQ6PfIFgPNJAdoXHon2tnyHo/hzqWD+lw2O0ELzRiho+H8FHN0nVv2k3bT6FlX+mfmwUTh3JWWf/s4hYG)
   :replies: []
 - :author: Utsav-2
   :url: https://www.reddit.com/r/adventofcode/comments/1h5frsp/2024_day_3_solutions/m09orf8/

@@ -1,0 +1,87 @@
+---
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq1lrig/
+  :body: |-
+    My first time commenting but just came here to say how much I enjoyed this puzzle. I went down loads of the rabbitholes here gradually getting more and more complex in my analysis of the code but as I started optimizing at every step (being aware that the "mod 26" at any step would always correspond to a specific digit because the offset was never greater than 15 = 26-9) it eventually became apparent that the digits are effectively paired with each other and the algorithm could be reduced to just:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    w = ARGV[0]&.split('')&.map(&:to_i) or fail "Please supply serial"
+
+    if (w[3] == w[2]-7) &&
+       (w[7] == w[6]-4) &&
+       (w[9] == w[8]-2) &&
+       (w[10] == w[5]-8) &&
+       (w[11] == w[4]+3) &&
+       (w[12] == w[1]+7) &&
+       (w[13] == w[0]+4)
+      puts "PASS"
+    else
+      puts "FAIL"
+    end
+    ```
+  :replies:
+  - :author: Fjodleik
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq4lwp5/
+    :body: I also enjoyed this one a lot, but I can understand some people did not like having to “solve for the input”. Once you notice the pairing, though, it becomes so simple. I kind of brute forced the search for section pairs by trying all input values with all subsequent pairs. The ones that left z at zero I removed and repeated until there were no sections left.
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsvnvp/
+  :body: Ruby, 2504/2383. I took a 5-hour break after the leaderboard capped. Converting assembly code into Excel helps me to understand the code more easily. [Here’s the writeup.](https://notes.dt.in.th/20211224T121217Z7595)
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hptf9hd/
+    :body: THANK YOU, this really helped me when I was stuck!
+    :replies: []
+- :author: '0x623'
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps8zzq/
+  :body: |-
+    [Spreadsheet](https://p.sda1.dev/3/8ec8161a31bce96c098e0bb848979b85/image.png) 437/524 (w/ Ruby to convert input into cells)
+
+    I think the essence of today's challenge is a stack of 26-based ints;
+
+    the goal is to feed register `w` with int value `1..9` to make the stack empty at the end.
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps5dit/
+  :body: |-
+    Ruby / Solving by hand
+
+    100 billion is too many entries to brute force. But when I made it print out the values of [w, x, y, z] after each instruction, I noticed a striking pattern.
+
+    Once I realized there was a pattern, I looked through the puzzle input line by line - it's divided into 14 equal portions, each of which:
+
+    - begins by taking an input into `w`
+
+    - copying the value of `z` over to `x`
+
+    - incrementing or decrementing by a number, and then comparing the resulting `x` to `w`.
+
+    - if the numbers are equal, x ends up getting set to 0, otherwise x is set to 1.
+
+    - then, a few instructions that will roughly multiply the number z by 26. But if x = 0, there will be an adding 0 or multiplying by 0 somewhere along the way that prevents this.
+
+    The key insight is that as long as `x = w` every time that equality is tested, a bunch of instructions will zero out and leave you with a zero or a very small value in `z` (it's a zero on the last step), but if not, `z` will grow astronomically large.
+
+    (I'm not sure how different other people's inputs are, but I assume the principle should be similar)
+
+    EDIT: Looks like everyone's input works the same way. There are seven portions of instructions which cause z to multiply by 26 (roughly) i.e. add a digit if z is represented in base 26, and seven other portions that give you the opportunity to divide by 26 i.e. remove a digit if z is represented in base 26. There were only seven opportunities out of the 14 portions of instructions where x could equal w, so you have to take all seven of them to cancel out the other seven portions where z will increase no matter what, and leave you with z = 0 at the end.
+
+    Eventually, I discovered that any number `ABCDEFGHIJKLMN`, where each letter is a digit between 1 to 9, will result in z = 0 provided seven specific criteria, or relations between seven pairs of digits. (For example, one of them for my puzzle input was K = N, so I set both K and N to 9 for Part 1, and both to 1 for Part 2)
+
+    [Paste](https://topaz.github.io/paste/#XQAAAQBnAwAAAAAAAAA0m4rOIJ/Vs98O8bk0HwBwC8CGP7GAHnowSbHmnjBGuFEw3moG4b3uTDNNGuQ8NldxbVfto+7W2Tao22AB/fFKHY802kKbeuLgR4F1jN47PXuJnmKNsr6+N3K+5zgaNC/uYi/VpcJKZRlJcnbMFk4/K8bSezUy/cVzgulNb6XlVq/pcNkdXi0Ejgo3FWsYIIfL6LCJ4fUYPJl5oSAy4PvBRwh6UJw0LjCtmQuBJBCipjQEHG97ZKPNUvDwFseUXxcG9zg2dvOHvq/BAoaiXKgFdEdB+tw1wm7vVVQQaA6LdjKGJllEUImFP/3FUGoHXnp6pvlwQdcChDQj5mG5chZdHE7p37hjsjdnEv3z5YvdDv1ErANPDYzQlusG1hwzSvsQjZOFMwohpSOvtpbzIGR8z4AeXLfLs/xqn4cjc40pEVpnVfSoS5ugdWvqeW+mVtj9QsD1VR9q1FGIUWHaa1oKI69EmoiMhi3w6wfHaeXBFXg/GX5jvTUAo0mE22nxl63aYTJZn3+Swf+POpGg) of my code - but I only used this to verify an answer I derived with pen and paper.
+  :replies:
+  - :author: TheZigerionScammer
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsg1kv/
+    :body: I'm surprised you had a relation where two digits were equal to each other. All of mine were offset by a number. K = N + 6 or K = N-3 for example.
+    :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsnckl/
+  :body: |-
+    [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/24/monad.rb) (1566/1482)
+
+    This one hurt my head for quite some time, trying to keep track of all the possible states while going through the code manually, reverse engineering it. In the end I realized that keeping track of all the possible states where the formula stored in `z` just continued to grow was a silly idea, [giving me a lot of parentheses back](https://xkcd.com/297/).
+
+    Now my generalized solution extracts the relevant values from the input code (after verifying that the input follows the expected format), constructs the max and min valid inputs and, (since I had already implemented code for running the input) verifies that they actually output 0 before showing them.
+  :replies: []

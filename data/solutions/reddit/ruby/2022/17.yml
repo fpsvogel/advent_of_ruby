@@ -1,0 +1,17 @@
+---
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/znykq2/2022_day_17_solutions/j0p56hx/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/17)
+
+    Video Walkthrough: [YouTube](https://youtu.be/uwQoa2xkbfA)
+  :replies: []
+- :author: SnooConfections2453
+  :url: https://www.reddit.com/r/adventofcode/comments/znykq2/2022_day_17_solutions/j0maq3b/
+  :body: |-
+    140 lines of readable ruby code. Runs in a bit over half a second.
+
+    [https://github.com/ciscou/aoc/blob/master/2022/17.rb](https://github.com/ciscou/aoc/blob/master/2022/17.rb)
+  :replies: []

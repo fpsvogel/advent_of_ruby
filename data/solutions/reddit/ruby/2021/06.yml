@@ -1,0 +1,544 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hphvchn/
+  :body: |-
+    # RUBY
+
+    [https://gist.github.com/Clashbuster/ff7ef7c5bb72b156bc9ed30d89e68525](https://gist.github.com/Clashbuster/ff7ef7c5bb72b156bc9ed30d89e68525)
+  :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnx8b4i/
+  :body: |-
+    # inovative solution (Ruby)
+
+    has anyone found this
+
+    ```ruby
+    def f(t)
+      t<=0 ? 1 : f(t-7)+f(t-9)
+    end
+
+    data = [1,1,1,... ,3,1] # data array
+    p data.sum { |c| f(80-c)} # part 1
+    p data.sum { |c| f(256-c)} # part 2
+    ```
+
+    which can be speed up radically by little caching on f
+
+    ```ruby
+    $f = []
+    def f(t)
+      t<=0 ? 1 : $f[t] || $f[t]=f(t-7)+f(t-9)
+    end
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnsddpo/
+  :body: |-
+    **Ruby**
+
+    Not the most efficient solution but because I like to get them very compact..
+
+    ```ruby
+    p (0..8).map { |d| File.read('6.txt').count(d.to_s) }
+            .tap { |f|
+              256.times { f.rotate!
+                          f[6] += f[8] }
+            }.sum
+    ```
+  :replies: []
+- :author: bobtom8482
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnle3yw/
+  :body: |-
+    Trying to learn Ruby for my first job (!) so this is my attempt - no help for the first time which is fun
+
+    ```ruby
+    class Day6
+      def initialize
+        @data = File.readlines('real.txt')[0]
+        normalise_data
+      end
+
+      def normalise_data
+        @data = @data.split(',').map(&:to_i)
+        @map = Hash.new(0)
+        @data.each { |d| @map[d] += 1 }
+      end
+
+      def simulate_n_days2(n)
+        n.times do
+          tmp = @map[0]
+
+          # map[8] purely affected by map[0] (saved as tmp)
+          (0..7).each { |i| @map[i] = @map[i + 1] }
+          @map[6] += tmp
+          @map[8] = tmp
+        end
+
+        @map.values.sum
+      end
+
+    def main
+      day6 = Day6.new
+      ans= day6.simulate_n_days2(256)
+      puts ans
+    end
+
+    main
+    ```
+  :replies:
+  - :author: jtgorn
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnwwma9/
+    :body: |-
+      `
+      (0..7).each { |i| @map[i] = @map[i + 1] }
+      @map[8] = tmp
+      `
+
+      can be written as `@map.rotate`
+    :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnffzni/
+  :body: |-
+    I first solved with a typical "simulate each fish" like a lot of other folks I'm reading about. Overcoming the exponential growth issue was exhilarating. I was demoralized for a few minutes, assuming there was some hidden super easy math trick that can spit the answer out with a simple function. After a minute of stepping away, I realized that I just need the number of fishes in each stage and can promote the whole crew each tick. It was a rollercoaster, and I felt awesome thinking about all of the wasted compute power and ram being used to essentially perform the same lifecycle on all those individual fish.
+
+    It looks like there's a few other Ruby submissions that look a lot like mine, but using arrays instead of hashes. I was going to use arrays, but it was easier for me to grok a fish resetting it's cycle with a hash. I figured I'd submit mine because of that difference.
+
+    **Ruby**
+
+    ```ruby
+    fish = File.read('input.txt')
+      .split(',')
+      .map(&:to_i)
+      .tally
+
+    fish.default = 0
+
+    256.times do
+      fish.transform_keys! {|days| days - 1 }
+      fish[8] = fish[-1]
+      fish[6] += fish[-1]
+      fish[-1] = nil
+    end
+    puts fish.values.compact.sum
+    ```
+  :replies:
+  - :author: runforfun721
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfglxy/
+    :body: 'TIL #tally and #transform\_keys! Thanks for sharing!'
+    :replies: []
+  - :author: madethemcry
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfihi5/
+    :body: |-
+      I love to check other results after submission, it's the zen time after the intense coding time. There is always a tiny thing to learn. Your hash building is great with the use of `group_by` & `transform_values(&:count)`. Also the way you work on the keys with `transform_keys` is much more elegant than my naive solution using `hash.each do |key, value|` and so on.
+
+      I learned that from you today and I will put that knowledge into my AoC bag for the rest of the days. Thank you!
+    :replies:
+    - :author: ignurant
+      :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfk2cx/
+      :body: |-
+        Nice! Immediately after posting it I realized “doh! group and count is the same as newer tally” and snuck a tiny edit in. I figured I should spill the beans since you referenced my original note first ;)
+
+        I’m enjoying reading the solutions. Did you see the Rockstar post? Omg search for it. Rofl.
+      :replies:
+      - :author: madethemcry
+        :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnflb8r/
+        :body: I used `tally` myself for day 5 and I did not realize that I just referenced it on your code :D I think it's a great change, thanks for noting it. I have seen the rockstar solution. Everytime someone post a rockstar solution I can't believe how naturally it reads.
+        :replies: []
+  - :author: flwyd
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfqfkg/
+    :body: |-
+      > I was going to use arrays, but it was easier for me to grok a fish resetting it's cycle with a hash.
+
+      If you don't care about iteration order, an array is really just a hash with more limitations.
+    :replies: []
+  - :author: snowe2010
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnoklbr/
+    :body: nice. you can also get rid of the compact by using `.delete(-1)` instead of `fish[-1] = nil`.
+    :replies:
+    - :author: ignurant
+      :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnrdxso/
+      :body: Ugh! I know it! Haha. It was a point of personal contention while writing actually. Because without that, there’s a teeny tiny memory leak. I felt unwell that for every tick, we were accumulating an extra key for literally no good reason. But for some reason, I had I ssues trying to delete that key. I might have had slight differences in my versions before I arrived at this solution that was causing an error… I don’t know. Sigh! Good catch, it was later bothering me that I submitted such negligence but I’d since moved on. I was hoping only a few clever folks would notice!!!
+      :replies:
+      - :author: snowe2010
+        :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnsfj4m/
+        :body: Nah, I'm in no way clever. I had too much trouble with this problem and literally had to read over your solution several times and then my solution ended up just being yours with `.delete` instead of the nil/compact. I was just bothered by the nil because I was printing out the full array on each step and so when I was trying to debug through your code to understand it it got in the way. Thanks for the awesome solution! Wish I could have figured it out myself. :(
+        :replies: []
+- :author: MuumiJumala
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfdhsi/
+  :body: |-
+    Ruby (77 bytes)
+
+    ```ruby
+    f=[0]*9
+    gets.scan(/\d/){f[_1.hex]+=1}
+    256.times{f[(_1+7)%9]+=f[_1%9]}
+    p f.sum
+    ```
+  :replies:
+  - :author: madethemcry
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfj0td/
+    :body: "I expected to read some artificially code golfed solution. It's quote the opposite. That's so good using modulo. Even though it's small you can perfectly follow it. Great solution \U0001F44D"
+    :replies: []
+- :author: kyletbyrne
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hniff5d/
+  :body: |-
+    A very ruby'ish **Ruby** solution
+
+    ```ruby
+    def fish_after(number_of_days)
+      starting_state = File.read('inputs/day_six.txt').split(",").map(&:to_i)
+      fish_at_each_stage = (0..8).map { |days| starting_state.count(days) || 0 }
+
+      number_of_days.times do
+        fish_at_each_stage.rotate!
+        fish_at_each_stage[6] += fish_at_each_stage.last
+      end
+
+      fish_at_each_stage.sum
+    end
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfju54/
+  :body: |-
+    ### Ruby
+
+    This is the part of the competition where I start to feel like a CS impostor again... (heavily golfed)
+
+    ```ruby
+    @data = DATA.each_line.map(&:chomp).first.split(',').map(&:to_i)
+
+    h = ((0..8).zip([0].cycle).to_h).merge(@data.tally)
+
+    [80, 256].each do |n|
+      a = h.dup.values.rotate
+      n.times { a = a.rotate.tap { _1[6] += _1[8] } }
+      puts a.first(8).sum
+    end
+    ```
+  :replies: []
+- :author: rlafranchi
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnhbckm/
+  :body: |-
+    simple Ruby solution..
+
+    [https://topaz.github.io/paste/#XQAAAQD/AAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwmQTxpvYqfn/WzgEEWBwIB+mywy2GikxWQ4hPwmjdCcHX1IbJZx2dDAedN9rOh3RcGbDK3JV7hBronMBGj6VS2QHkwELEyBhisBpJmh63t+UIgOPjvVWUdqj6n+VXoSvxc4EshLFWaAoi4O7pSaXXHJYJf8C1pdmYm6VyR8mApbC1gvnlakU/hi35R8wLcYnd5hJcTdY+EVl40jafvwSIEA=](https://topaz.github.io/paste/#XQAAAQD/AAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwmQTxpvYqfn/WzgEEWBwIB+mywy2GikxWQ4hPwmjdCcHX1IbJZx2dDAedN9rOh3RcGbDK3JV7hBronMBGj6VS2QHkwELEyBhisBpJmh63t+UIgOPjvVWUdqj6n+VXoSvxc4EshLFWaAoi4O7pSaXXHJYJf8C1pdmYm6VyR8mApbC1gvnlakU/hi35R8wLcYnd5hJcTdY+EVl40jafvwSIEA=)
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfc1ob/
+  :body: |-
+    **Ruby 81 bytes**
+
+    ```ruby
+    h=[0]*9
+    gets.split(?,).map{h[_1.to_i]+=1}
+    256.times{h.rotate!
+    h[6]+=h[8]}
+    p h.sum
+    ```
+  :replies:
+  - :author: k_duder
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfe0hc/
+    :body: h=eval"[#{$\<.read}].tally"
+    :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfeksm/
+  :body: |-
+    **Ruby**
+
+    Nice and simple one, this one comes in at 263 bytes not counting the comment, and I'm using normal variable names, not even trying to golf.
+
+    ```ruby
+    $cache = Array.new(256)
+    def solve(days, initial_age = 0)
+      if initial_age >= days
+        1
+      else # Look up an already-calculated result in the cache if possible; otherwise calculate it
+        $cache[days] ||= solve(days - initial_age - 7) + solve(days - initial_age - 9)
+      end
+    end
+    p File.open("./input").read.split(",").map{solve(256, _1.to_i)}.reduce(&:+)
+    ```
+  :replies: []
+- :author: eyelligator
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfhxfg/
+  :body: |-
+    Ended up reworking my naive solution for #1, as most seem to have (I took a heinous detour in attempting to find the solution via determining the exponential formula.. Let's not talk about it)
+
+    Ruby Solution:
+
+    ```ruby
+    def fish(days, timers)
+        groups = (0..8).map{|x| 0}
+        timers.each{|t| groups[t] +=1 }
+        (0...days).each do |d|
+            newFish = groups.shift
+            groups[6] += newFish
+            groups.push(newFish)
+        end
+        groups.reduce(:+)
+    end
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfahie/
+  :body: |-
+    Ruby 131/165
+
+    [brute force part 1](https://topaz.github.io/paste/#XQAAAQD8AAAAAAAAAAAzGkrNHuERfven8B/aqzB5SIWVDrLiAASfmwKeZvprGXBHQtH/g/XpcWYyluoetI8Cvvd0aZ0YXOOCp9E2JaBOXv03tYe4Bqa+i/7kDETgX/JOdkC3y20lYAJH7L0rmL9M+byPoEVKL+xokx/HROhRlOOxR0a9WkksIhMUohgrUukMS88UQCnEy0fIQuFM39QZYQsc1Ol4zuroAUZ//6exhQA=)
+
+    [much faster part 2](https://topaz.github.io/paste/#XQAAAQBnAQAAAAAAAAA4GUqqcrz6bt9iIGDOK/hD3S64xog4ceY/1Rc5ZPlx7rhfLTkxZEAdpPXH1UHUQfx+egiNd7bquQzL6rB8Npd2bIF44LQr36hhhoHSmllvHtA76gTdpWEKXcAW6Cd7m/EINSlU/huxuPXtZWMUsqqoIoFSpb9YSuoi7JqZzW3EpcqMxwSTAwAdR8wCUR6d2Q5kTlmjiGZ7QQjDj14u7Yn0y3XN5t/WlY8L/iClL4fKnBCTirZpbIMS0HaBjcWBW8M9BwhyRj/9gfKu)
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfbywy/
+  :body: |-
+    Ruby, after some code golf
+
+    ```ruby
+    data = ([0] * 9).tap do |nxt|
+      data.split(',').map(&:to_i).each { nxt[_1] += 1 }
+    end
+    1.upto(256).each do |days|
+      data = data[1,8].tap do |nxt|
+        nxt[6] += data[0]
+        nxt[8] = data[0]
+      end
+      puts "#{days}: #{data} => #{data.sum}"
+    end
+    ```
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfc7id/
+    :body: |-
+      you can do `256.times` instead of `1.upto(256)` ~~and for reading the input you can do data = data.split(',').map(&:to\_i).tally~~
+
+      edit: nvm your data parsing is different from mine
+    :replies:
+    - :author: gurgeous
+      :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfgrqa/
+      :body: I had a tally version (hash) but eventually switched to an array so I could grab a slice later. There are many nice Ruby solutions I think :)
+      :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfffvr/
+  :body: |-
+    ### Ruby
+
+    Hello friends yes here is my solution, very exciting.
+
+    ```ruby
+    fish = (ARGV[0]&.include?(?,) ? ARGV[0] : ARGF.read).split(?,).map(&method(:Integer)).tally.tap { |h| h.default = 0 }.freeze
+    raise "bad fish #{fish.keys.reject { |k| (0..8).cover?(k) }}" if fish.keys.max > 8 || fish.keys.min < 0
+
+    puts 1421 * fish[0] + 1401 * fish[1] + 1191 * fish[2] + 1154 * fish[3] + 1034 * fish[4] + 950 * fish[5] + 905 * fish[6] + 779 * fish[7] + 768 * fish[8]
+    puts 6703087164 * fish[0] + 6206821033 * fish[1] + 5617089148 * fish[2] + 5217223242 * fish[3] + 4726100874 * fish[4] + 4368232009 * fish[5] + 3989468462 * fish[6] + 3649885552 * fish[7] + 3369186778 * fish[8]
+    ```
+
+    Oh sorry what... you wanted to know how those numbers are arrived at... oh very well then...
+
+    ```ruby
+    def coeff(n, t)
+      t.times.with_object(Array.new(9) { |i| i == n ? 1 : 0 }) { |i, fish|
+        fish[(i + 7) % 9] += fish[i % 9]
+      }.sum
+    end
+
+    if ARGV.delete('-g')
+      [80, 256].each { |t|
+        terms = (0..8).map { |i| "#{coeff(i, t)} * fish[#{i}]" }
+        puts "puts #{terms.join(' + ')}"
+      }
+      exit(0)
+    end
+    ```
+  :replies: []
+- :author: madethemcry
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfg9it/
+  :body: "# RUBY\n\n[georgiee/advent-of-code-2021/day-06 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-06)\n\n# Notes\n\nI completed part 1 in under 20min. I had directly the idea to use an `Enumerator` which internally uses `inject` to grow the array of numbers. That worked flawless and I almost wondered, that's too easy. Then came part 2 around the corner and my solution did not scale well \U0001F605 I could have expected this seeing so high numbers. Because in my solution this means growing an array beyond the capabilities of my laptop. That was a great trap!\n\nLuckily I directly had another solution in mind: A hash to act as the dictionary for the amount of fish being alive with a specific life count. I struggled a little bit twisting my logic now but after another 30min I was done. The awesome thing is how fast it runs now. Where it hung before I have now the following benchmark results:\n\n`\n  0.003253 0.000116 0.003369 ( 0.003424)\n`\n\nThis means my script runs in ~3.5 ms in realtime for part 2 \U0001F918\n\nIn addition the enumerator interface works so well for this in terms of readability. I can specify a day and then I get the result. The only thing I have to do is to take the last hash and the sum the values.\n\n```ruby\nfishlife.take(256).last.values.sum\n```\n\nDone ✅\n\n# CODE (part 2 only)\n\n```ruby\nrequire 'benchmark'\n\npath = File.join( __dir__ , 'input.txt')\ninput = File.read(path).split(',').map(&:to_i)\n\ninitial_state = input.clone\ninitial_life = initial_state.inject(Hash.new(0)) { |hash, value| hash[value] += 1; hash }\n\n# This was growing an array for part 1 which is super inefficient.\n# I could have expected this for day 6 \U0001F605\n# Hash is super performant\nfishlife = Enumerator.new do |yielder|\n  last_day = initial_life.clone\n\n  loop do\n    next_life = Hash.new(0)\n    last_day.each do |remaining_life, fish_count|\n      if remaining_life == 0\n        next_life[8] += fish_count # spawn\n        next_life[6] += fish_count # reset\n      else\n        next_life[remaining_life - 1] += fish_count\n      end\n    end\n\n    last_day = next_life\n    yielder << next_life\n  end\nend\n\n# 0.003041 0.000074 0.003115 ( 0.003129)\nputs Benchmark.measure {\n  puts \"Result it #{fishlife.take(256).last.values.sum}\"\n}\n```"
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnfpr50/
+  :body: |-
+    Solution in Ruby. Runs in under 1/10th of a second.
+
+    Spoiler Alert: Use a hash instead of an array.
+
+    ```ruby
+    def lifecycle(ticks = 80)
+      fish = STDIN.read.
+               split(",").
+               map(&:to_i).
+               group_by { |e| e }.map { |k, v| [k, v.count] }.to_h
+
+      ticks.times do
+        new_fish = Hash.new(0)
+        fish.each do |age, count|
+          if age == 0
+            new_fish[6] += count
+            new_fish[8] += count
+          else
+            new_fish[age - 1] += count
+          end
+        end
+        fish = new_fish
+      end
+      fish.values.sum
+    end
+
+    puts lifecycle(256)
+    ```
+  :replies: []
+- :author: cionescu
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hng18cd/
+  :body: |-
+    # Ruby solution
+
+    _`ruby solution.rb` 0.12s user 0.06s system 92% cpu 0.184 total_
+
+    ```ruby
+    def solution days: 256
+      population = File.read('input').strip.split(',').map(&:to_i)
+      counter = (0..8).to_a.map{ |item| [item, population.count(item)] }.to_h
+
+    (1..days).each do |day|
+    ```ruby
+    counter = (0..8).to_a.map do |item|
+      case item
+      when 0..5, 7
+        [item, counter[item + 1]]
+      when 6
+        [item, counter[item + 1] + counter[0]]
+      when 8
+        [item, counter[0]]
+      end
+    end.to_h
+
+    puts "Day: #{day} | #{counter.to_a.map(&:last).sum}"
+    ```
+
+    end
+
+    end
+    ```
+  :replies: []
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hng1xts/
+  :body: |-
+    I made a bucket solution in Ruby ([full code](https://getsturdy.com/advent-of-code-2021-uoeIDQk/changes)):
+
+    ```ruby
+    gens = { 0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0 }
+    input.each do |x|
+      gens[x] = gens[x] + 1
+    end
+    def sim(gens)
+      {
+        0 => gens[1],
+        1 => gens[2],
+        2 => gens[3],
+        3 => gens[4],
+        4 => gens[5],
+        5 => gens[6],
+        6 => gens[0] + gens[7],
+        7 => gens[8],
+        8 => gens[0]
+      }
+    end
+    256.times do
+      gens = sim(gens)
+    end
+
+    pp gens.sum { |_, v| v }
+    ```
+  :replies: []
+- :author: damyvv
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hng3w2f/
+  :body: |-
+    # Ruby
+
+    Haven't seen any ruby solutions using the rotate function, so here is mine.
+
+    ```ruby
+    input = File.read('day06_input.txt').scan(/\d+/).map(&:to_i)
+    [80, 256].each do |days|
+        count = Array.new(9,0)
+        input.each {|i| count[i] += 1 }
+        days.times do
+            count[7] += count[0]
+            count = count.rotate(1)
+        end
+        p count.sum
+    end
+    ```
+  :replies: []
+- :author: BramboraSK
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnh3osl/
+  :body: |-
+    Pretty satisfied with my **Ruby** solution today (I started learning it like a week ago)
+
+    ```ruby
+    $input = File.read("6.txt").strip.split(',').map(&:to_i)
+
+    $fish = Hash.new(0)
+    $input.each { |num| $fish[num] += 1 }
+
+    def simulate(days)
+        days.times {
+            $fish.clone.each { |num, count|
+                if count > 0
+                    if num == 0
+                        $fish[num] -= count
+                        $fish[6] += count
+                        $fish[8] += count
+                    else
+                        $fish[num - 1] += count
+                        $fish[num] -= count
+                    end
+                end
+            }
+        }
+
+        return $fish.values.reduce(:+)
+    end
+
+    # Part 1
+    def p1
+        return simulate(80)
+    end
+
+    puts p1
+
+    # Part 2
+    def p2
+        return simulate(176)
+    end
+
+    puts p2
+    ```
+  :replies: []
+- :author: 404_denied
+  :url: https://www.reddit.com/r/adventofcode/comments/r9z49j/2021_day_6_solutions/hnhbh5c/
+  :body: |-
+    A straightforward Ruby solution with using recursion & memoization for the second part of the puzzle:
+
+    ```ruby
+    DAYS_TO_GO = 256.freeze
+    COOLDOWN = 8.freeze
+    GAP = 6.freeze
+    CACHE = {}
+
+    def population(timer, day)
+      return 1 if day > DAYS_TO_GO
+      return population(GAP, day + 1) + population(COOLDOWN, day + 1) if timer == 0
+      return CACHE[timer - 1][day + 1] if CACHE[timer - 1] && CACHE[timer - 1][day + 1]
+
+    CACHE[timer - 1] ||= {}
+      CACHE[timer - 1][day + 1] = population(timer - 1, day + 1)
+
+    return CACHE[timer - 1][day + 1]
+    end
+
+    fishes = File.read('input.txt').split(',').map(&:to_i)
+    puts fishes.map { |f| population(f, 1) }.sum
+    ```
+  :replies: []

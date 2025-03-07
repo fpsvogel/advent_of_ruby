@@ -1,0 +1,435 @@
+---
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnudsbi/
+  :body: |-
+    Wow. I think I spent like 12 hours on this. I can't even remember the paths I've travelled, but each of them included "If you use bit masking, I bet there's a way you can just cycle through things and eliminate candidates and it eventually just cycles into place". Messing with bits is something I think can be very powerful, but I'm not great at thinking through. I definitely spent a fair amount of time over-planning for what my solution eventually became.
+
+    After spending an eternity trying to make a programatic solution, I started giving up and just went through with paper, detailing a specific solve order instead of hoping it could just fall into place. Given 1, 4, 7, 8, solve for 3 next, then 2 and 5, 6, 0, 9.
+
+    In the end, that actually looks kind of similar to a lot of other solutions, though they made it so much cleaner!
+
+    **Ruby** Pt. 1:
+
+    ```ruby
+    NUM_TO_LETTERS = {
+      0 => 'abcefg',
+      1 => 'cf',
+      2 => 'acdeg',
+      3 => 'acdfg',
+      4 => 'bcdf',
+      5 => 'abdfg',
+      6 => 'abdefg',
+      7 => 'acf',
+      8 => 'abcdefg',
+      9 => 'abcdfg'
+    }
+
+    THE_GOODS = [1,4,7,8].map{|good| NUM_TO_LETTERS[good].size}
+
+    puts File.read('input.txt').split("\n").map{|line|
+      line
+        .split('|')
+        .last
+        .split
+        .map(&:size)
+        .select{|word| THE_GOODS.include? word}
+        .count
+    }.sum
+    ```
+
+    **Ruby** Pt. 2: [Link for size](https://tzarnal.github.io/Opal/#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)
+
+    Edit: Some extra commentary notes:
+
+    - `Set`s would have provided a much easier to understand api than bit masks, but I really wanted to bitmap. And using sets wouldn’t have saved me _that_ much time anyway.
+    - I wasted like an hour trying to figure out why my notion of bitmasking wasn't working at all until I realized I was using hex instead of binary: `0h1000000`... `0b1000000`
+    - I wasted time setting up for trying to decode the front-end wires to the back-end wires, but thankfully not too much time, because I wasted a _ton_ of time splashing in the water in other places. I was just about to get to that point when I had to come up for air.
+    - I wasted a _ridiculous_ amount of time and had to go back and paper-pencil everything when I got to `0,9`, but found my assumptions wouldn't work. It turned out I was using `sort` rather than `sort_by` in:
+
+    This flipped my 2 and 5, which ruined me when comparing 5 to 6 but it took like 3 hours to work out what was going on.
+
+    ```ruby
+    # bad:
+    two, five = five_char_vals.sort{|val| (four.mask & val.mask).to_s(2).count('1')}
+    #good:
+    two, five = five_char_vals.sort_by{|val| (four.mask & val.mask).to_s(2).count('1')}
+    ```
+  :replies: []
+- :author: SnooConfections2453
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrjfze/
+  :body: |-
+    My solution in ruby: [https://github.com/ciscou/aoc/blob/master/2021/08.rb](https://github.com/ciscou/aoc/blob/master/2021/08.rb)
+
+    As always, trying to make the solution both compact and readable.
+  :replies: []
+- :author: zxywx
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrs3ax/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    module Year2021
+      class Day08 < Solution
+        def part_1
+          data.sum { |entry| entry[1].count { |s| [2, 3, 4, 7].include?(s.size) } }
+        end
+
+        def part_2
+          data.map do |input, output|
+            mapping = deduce_mapping(input)
+            output.map { |digit| mapping.key digit }.join.to_i
+          end.sum
+        end
+
+        private
+          def deduce_mapping(input)
+            mapping = {}
+
+            mapping[1] = input.find { |p| p.size == 2 }
+            mapping[4] = input.find { |p| p.size == 4 }
+            mapping[7] = input.find { |p| p.size == 3 }
+            mapping[8] = input.find { |p| p.size == 7 }
+            mapping[6] = input.find { |p| p.size == 6 && (p - mapping[1]).size == 5 }
+            mapping[9] = input.find { |p| p.size == 6 && (p - mapping[4]).size == 2 }
+            mapping[0] = input.find { |p| p.size == 6 && p != mapping[6] && p != mapping[9] }
+            mapping[3] = input.find { |p| p.size == 5 && (p - mapping[1]).size == 3 }
+            mapping[2] = input.find { |p| p.size == 5 && (p - mapping[9]).size == 1 }
+            mapping[5] = input.find { |p| p.size == 5 && p != mapping[2] && p != mapping[3] }
+
+            mapping
+          end
+
+          def process_input(line)
+            line.split(" | ").map { |x| x.split(" ").map { |c| c.chars.sort } }
+          end
+      end
+    end
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoonjl/
+  :body: |-
+    ```ruby
+    # Ruby, 307 / 38
+    segments = ['abcefg', 'cf', 'acdeg', 'acdfg', 'bcdf', 'abdfg', 'abdefg', 'acf', 'abcdefg', 'abcdfg']
+    data = [*$<].join.gsub(/\|\s+/, "| ").lines
+
+    # Part 1
+    p data.flat_map { _1.split('|').last.split }.map { _1.chars.sort.join }.count { [1, 4, 7, 8].map { |x| segments[x].length }.include?(_1.length) }
+
+    # Part 2
+    sum = 0
+    data.each do |x|
+        input, output = x.split('|').map(&:split)
+        correct = 'abcdefg'.chars.permutation.find { |c|
+            v = c.join
+            input.map { |x| x.tr(v, 'abcdefg').chars.sort.join }.sort == segments.sort
+        }.join
+        mapping = segments.map { _1.tr('abcdefg', correct).chars.sort.join }
+        result = output.map { mapping.index(_1.chars.sort.join) }.join.to_i
+        sum += result
+    end
+    p sum
+    ```
+
+    [`Array#permutation`](https://ruby-doc.org/core-2.7.0/Array.html#method-i-permutation) and [`String#tr`](https://ruby-doc.org/core-2.7.0/String.html#method-i-tr) saved the day for me. Part 2 takes about 30 seconds to run. I tripped up because of the line breaks in the example that was not present in the actual input. (The code is slightly cleaned up.)
+  :replies: []
+- :author: weiss_i_net
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrbszu/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    lines = ARGF.readlines.map{|l| l.split(" | ").map{|s| s.split(" ").map(&:chars)}}
+
+    # digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+    # uniq: 2, 4, 3, 7
+    # rest: 6, 5, 5, 5, 6, 6
+
+    uniq_lens = [2, 4, 3, 7]
+
+    puts "Part 1: #{lines.map{|x| x[1]}.flatten(1).count{|x| uniq_lens.include? x.size}}"
+
+    lines.each do |l|
+      t = {}
+
+      tal = l[0].flatten.tally
+      t["b"] = tal.key(6)
+      t["e"] = tal.key(4)
+      t["f"] = tal.key(9)
+
+      one = l[0].filter{|x| x.size == 2}.first
+      four = l[0].filter{|x| x.size == 4}.first
+      seven = l[0].filter{|x| x.size == 3}.first
+      eight = l[0].filter{|x| x.size == 7}.first
+
+      # a == 7/1
+      t["a"] = seven.difference(one).first
+
+      # c == 1/{f}
+      t["c"] = one.difference([t["f"]]).first
+
+      # d = 4/{b,c,f}
+      t["d"] = four.difference(t.fetch_values("b", "c", "f")).first
+
+      # g = 8/{a, b, c, d, e, f}
+      t["g"] = eight.difference(t.fetch_values(*"a".."f")).first
+
+      l[1].map!{|x| t.invert.fetch_values(*x).sort}
+    end
+
+    digits = { "abcefg" => "0", "cf" => "1", "acdeg" => "2", "acdfg" => "3", "bcdf" => "4",
+               "abdfg" => "5", "abdefg" => "6","acf" => "7","abcdefg" => "8","abcdfg" => "9" }
+
+    puts "Part 2: #{lines.map{ |l| l[1].map{|x| digits[x.join]}.join.to_i }.sum}"
+    ```
+  :replies: []
+- :author: ri7chy
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnotqnq/
+  :body: |-
+    [Python](https://topaz.github.io/paste/#XQAAAQArBgAAAAAAAAA0m0pnuFI8c/sCZpj3cAYdf1rmsJFkgD8wKleJtNqyXMCOhQ13+lVFP2dZxMw8i3ZaKeFIM0NkVCdUIOlsL0xIzvycUZp06Mz0PYAtpRlU/ZWO7b7Iau/lEl8G6nUyw7iV+USWzPGR1Wum/8B3cfzRJ9pTOaER/KtcDECKDJVYQmFQSNzwD19lzYl1lQW/Fr0qAC0KlBP5WrUby14MudUPXEjw/Txm11dMX7K4F+KduflJ8pGMWn7zB12WTiMLL/n7klA1uYdoOzS+dVu6o/lg+cOgdKPFlUmWxDKC8vTgQ3tjtYU3S1HwAVNxntRWhTWluOifQagXl2WRCK2gMLBzOofYi7c8djpLTB5hqIjKcqtOITqZRrXxTaXYl//2noggxvOy9cttyVM1XzbU2Y0zcF8qYC6FAyAPNifaWgO55Hk2BnYWkJ1WkHk/M63JyOdzETo5RAjUtNODRrNPeIJx350FC6dzRgmLF+9XOQ5DR/eGpRQRjndJVT9lObQLT8t40zeu3FaT9jnlr8C5QnYpT+AjLCm3PAOtbscBSDN8ryzHS8QSd45Hxu3F9JkOjeH3HgobZSPxcen2UxQRuunFlDDCtZFvn4YZmuWAcwQrECxWhr5tHO3aTH3ZAIYB6j/7hfPw7yIiD/yQH8eltqQ8uYTkzAEU1PZ18odH29hHsT969jLc4j6ishCl/77rVcA=)
+
+    p2 was tricky, but it helped looking at the input exactly ...
+
+    used counter for checking the common letters.
+  :replies:
+  - :author: jdyarrington
+    :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoyz7p/
+    :body: I stared at the problem, mostly the numbers showing the segments displayed for about 40 minutes. Then I saw the same pattern that you do in your code and came to almost the same exact methodology as you. Neat!
+    :replies:
+    - :author: ri7chy
+      :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnpnsor/
+      :body: |-
+        runs in a good time as well.
+
+        your code?
+      :replies:
+      - :author: jdyarrington
+        :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnqbgwb/
+        :body: |-
+          Python
+
+          [https://pastebin.com/kDMBYqz](https://pastebin.com/kDMBYqz)
+
+          I think the biggest difference is mostly just how we check for matching characters, I'm not familiar with Counter myself, so I instead used a join. Also, my part1 is here since I had part1/2 together. I'll have to look more into Counter since it seems like it could be useful in the future. I haven't timed mine, but I would imagine that using sets/intersections would probably be faster than using a Counter, but when I have time away from work today I can time mine to see how long it takes.
+
+          Also, ignore my comments. I spent a long time troubleshooting why I was getting off by one for the sample input before realizing I was reading in my input file incorrectly. Took me a lot longer than I'd like to admit to figure that out.
+
+          Edit: I have no clue how to format code on reddit so replaced it with a pastebin. Also adding additional thoughts/comments.
+        :replies: []
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnps70y/
+  :body: |-
+    Tricky one, at least until it clicked that it's about sets. Here is the full working solution in [Ruby](https://getsturdy.com/uoeIDQk/changes/495e69ca-c17e-4956-a0e6-0ec3c3961f7a)
+
+    I save look up tables with sets of characters as key. Then going over the inputs of different lengths - for input lengths 2, 3, 4 and 7 we just save the digit
+
+    ```ruby
+    # seed lookup table with the easy digits
+      d[:in].each do |i|
+        si = i.chars.to_set
+        if si.length == 2
+          lut[si] = 1
+          lut_num_key[1] = si
+        end
+        if si.length == 3
+          lut[si] = 7
+          lut_num_key[7] = si
+        end
+        if si.length == 4
+          lut[si] = 4
+          lut_num_key[4] = si
+        end
+        if si.length == 7
+          lut[si] = 8
+          lut_num_key[8] = si
+        end
+      end
+    ```
+
+    Then looking for inputs of size six - from these only digit 9 has all inputs (is a superset) of digit 4 which is known. Digit 6's inputs are the only ones that are not a superset of digit 1. And finally only 0 is left.
+
+    ```ruby
+    # seed digits with 6 inputs
+      d[:in].each do |i|
+        si = i.chars.to_set
+        if si.length == 6
+          if si.superset?(lut_num_key[4])
+            lut[si] = 9
+            lut_num_key[9] = si
+          elsif !si.superset?(lut_num_key[1])
+            lut[si] = 6
+            lut_num_key[6] = si
+          else
+           lut[si] = 0
+            lut_num_key[0] = si
+          end
+        end
+      end
+    ```
+
+    Finally, distinguishing between the digits with 5 inputs - 5, 3 and 2. The inputs of 5 are the only ones that are a subset of 6, 3's inputs are the only superset of 1's inputs and we are left with 2.
+
+    ```ruby
+    # seed digits with 5 inputs
+      d[:in].each do |i|
+        si = i.chars.to_set
+        if si.length == 5
+          if si.subset?(lut_num_key[6])
+            lut[si] = 5
+            lut_num_key[5] = si
+          elsif si.superset?(lut_num_key[1])
+            lut[si] = 3
+            lut_num_key[3] = si
+          else
+            lut[si] = 2
+            lut_num_key[2] = si
+          end
+        end
+      end
+    ```
+
+    It's important to populate the lookup tables in this order. [Full code here](https://getsturdy.com/uoeIDQk/changes/495e69ca-c17e-4956-a0e6-0ec3c3961f7a)
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoqj6s/
+  :body: |-
+    Ruby 205/816
+
+    guess I should've brute forced it for the second part, but I had fun puzzling out the segments
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAPBwAAAAAAAAARiAqGkkN7pOxE/jDIaqDrFWcgz0npJEVu8JMye3H5Wr2Siem6T/HmXnye4iMQFreC88u4FwGGtRFQHFKYvr8DfgV4/GqZtINLzjxBN/vu3b+rz6QkckCBnspFqIvXW0CKUc4vrq8DKK8U4l67J5sSl2yrqu9a7Vg2pIugY2dX+nwErW3pO9cCrmjtrafemkIGkl8Vg6gNadXOn7cywBXKhHL+b3Fda63ZClGlQdqSKcGlT8zX4D6QDrNDWQ+YRiS+HO46Zx+y8lk5Dqe8U4pFYQSmjPfoFtCVpDESnx8Z/R4ZBcw/eTVnAFIgUFvucYjE3B9lDeKXMb9ucQJpAuxRWDQueuogMBxBexqv2IsV8j0S15Vw4Hbbl7RVys89908Lr6KUjEHHt61qzWPnBR0/7TcNXpMgAgqcNZRKwSWmNpSWJFzWzt/0wVUu1YPcPF/Nxs/QCwiylpSaQcxZg6p+hCbf4tCBJV4M44+hqEogLX321W2YBLohUKGv2Tnbj8IxHvSDlqQ9jV1OrIHmFLg5JsYMBtO3cWRH/JWxZpWjaY7GSHL+GCaqpQjz8oUvRE0HTlPgvBBIUsoBa+TXL0+2T2otfYEIF4ro6GSDR5OMufGKZHoS7W955lMSV+m2LZD1oPryhNdPWgH2Fn7iAnyTLosHFtKmaPKA3yGIuRfzUEyVXmHPFtMW4xIgqqD2aAfjg6l/Pohe1F5yVSxbTmY78TUdbBM8M6fvggbKBS5t5n6F4aP+fSHu)
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorgs4/
+  :body: |-
+    ### Ruby
+
+    Totally didn't read the whole thing, assumed part 2 was what part 1 wanted. Fun, easy bit of logical thinking today.
+
+    ```ruby
+    @data = DATA.each_line.map(&:chomp)
+
+    @data.map do |line|
+      unique_digits, output = line.split('|').map(&:strip).map { _1.split(' ').map(&:chars) }
+      counts = unique_digits.flatten.tally
+      one = unique_digits.find { _1.length == 2 }
+      four = unique_digits.find { _1.length == 4 }
+      seven = unique_digits.find { _1.length == 3 }
+      eight = unique_digits.find { _1.length == 7 }
+      six = unique_digits.filter { _1.length == 6 }.find { (one - _1).any? }
+      a = (seven - one).first
+      b = counts.find { _2 == 6 }.first
+      c = (one - six).first
+      e = counts.find { _2 == 4 }.first
+      f = counts.find { _2 == 9 }.first
+      g = ((eight - [a, b, c, e, f]) - four).first
+      d = (counts.keys - [a, b, c, e, f, g]).first
+      two = [a, c, d, e, g]
+      three = [a, c, d, f, g]
+      five = [a, b, d, f, g]
+      nine = [a, b, c, d, f, g]
+      zero = [a, b, c, e, f, g]
+      order = [zero, one, two, three, four, five, six, seven, eight, nine].map(&:sort)
+      digits = output.map { order.index(_1.sort) }
+      [
+        output.filter { [2, 3, 4, 7].include?(_1.count) }.count,
+        digits.join.to_i
+      ]
+    end.transpose.map(&:sum).tap(&method(:puts))
+    ```
+
+    **END**
+  :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorr06/
+  :body: |-
+    **Ruby** - second top 1000 of the year
+
+    Deductively solved it, only to realize brute forcing was probably faster.
+
+    There was probably also a way to shortcut the decoding, I didn't need to identify all 7 segments to interpret the 10 numerals.
+
+    Part 1 - simply counted how many times segments of length 2, 3, 4, and 7 showed up
+
+    Part 2 - The `decode_segments` method uses a process of elimination to create a key (implemented as a Hash) for which letter corresponds to which segment. Next, the `translate` method translates each string of letters into a numeral using the key.
+
+    ```ruby
+    data = open("input").each_line.map{_1.split("|")}
+
+    # Part 1
+    p data.map {|line| line[1].strip.split(" ").count{[2, 3, 4, 7].include? _1.length}}.sum
+
+    # Part 2
+    def translate(key, numeral)
+      case numeral.length
+      when 2
+        "1"
+      when 3
+        "7"
+      when 4
+        "4"
+      when 5
+        return "3" if numeral.include?(key[:top_right]) && numeral.include?(key[:bot_right])
+        return "2" if numeral.include?(key[:top_right]) && numeral.include?(key[:bot_left])
+        return "5" if numeral.include?(key[:bot_right]) && numeral.include?(key[:top_left])
+      when 6
+        return "0" if !numeral.include?(key[:middle])
+        return "6" if !numeral.include?(key[:top_right])
+        return "9" if !numeral.include?(key[:bot_left])
+      else
+        "8"
+      end
+    end
+
+    def decode_segments(line)
+      tencodes = line[0].split(" ").sort{_1.length <=> _2.length}
+      numerals = line[1].strip.split(" ")
+      # Creates words of the following lenghts: 2, 3, 4, 5, 5, 5, 6, 6, 6, 7
+      letters = %w(a b c d e f g)
+      key = Hash.new
+      key[:top] = letters.delete(letters.filter{tencodes[1].include?(_1) && !tencodes[0].include?(_1)}.first)
+      key[:top_left] = letters.delete(letters.filter{tencodes[2].include?(_1) && !tencodes[0].include?(_1) && tencodes[7].include?(_1) && tencodes[8].include?(_1) && tencodes[6].include?(_1)}.first)
+      key[:middle] = letters.delete(letters.filter{tencodes[2].include?(_1) && !tencodes[0].include?(_1)}.first)
+      key[:bot_right] = letters.delete(letters.filter{tencodes[0].include?(_1) && tencodes[6].include?(_1) && tencodes[7].include?(_1) && tencodes[8].include?(_1)}.first)
+      key[:top_right] = letters.delete(letters.filter{tencodes[0].include?(_1)}.first)
+      key[:bottom] = letters.delete(letters.filter{tencodes[3].include?(_1) && tencodes[4].include?(_1) && tencodes[5].include?(_1)}.first)
+      key[:bot_left] = letters.first
+      numerals.map{translate(key, _1)}.join("").to_i
+    end
+
+    p data.sum{decode_segments(_1)}
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnosop0/
+  :body: |-
+    **Ruby** : 5:22/25:53, 338/271
+
+    Here's a [recording](https://youtu.be/CPhmXu8ZIFs) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2021/dec08.rb). I stream myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend)!
+
+    This was a fun one. Lost some time on Part 1 due to a misnamed variable, but I don't think enough to make the leaderboard.
+
+    Definitely not the fastest approach for Part 2 either, but it got the job done:
+
+    I did: '7' segments - '1' segments to get 'Top' segment '4' segments - '1' segments to get ('Top Left' and 'Middle') segments Intersection of 2/3/5 (the numbers with 5 segments) gives ('Top', 'Middle' and 'Bottom') segments
+
+    ('Top', 'Middle' and 'Bottom') - 'Top' to get ('Middle' and 'Bottom') segments
+
+    Intersect ('Top Left' and 'Middle') with ('Middle' and 'Bottom') to get 'Middle' segment Subtract 'Middle' from those to get 'Top Left' and 'Bottom'
+
+    Find '6' segments by finding the 6-segment number that leaves 4 segments after removing '7' segments Get ('Bottom Left' and 'Bottom Right') by subtracting 'Top', 'Middle', 'Bottom' and 'Top Left' from '6' segments 'Bottom Right' is ('Bottom Left' and 'Bottom Right') intersected with '1' segments 'Bottom Left' is ('Bottom Left' and 'Bottom Right') minus '1' segments
+
+    Find 'Top Right' by subtracting everything else from '8' segments.
+
+    Okay, maybe too complicated...
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoynl0/
+  :body: |-
+    Ruby
+
+    Solved using intersections and whatnot. Apparently this was not the best way to do it...
+
+    [https://github.com/snowe2010/advent-of-code/blob/a4e51e39ce95df6284be9042791f40da87c2fc55/ruby\_aoc/2021/day08/day08.rb](https://github.com/snowe2010/advent-of-code/blob/a4e51e39ce95df6284be9042791f40da87c2fc55/ruby_aoc/2021/day08/day08.rb)
+  :replies: []

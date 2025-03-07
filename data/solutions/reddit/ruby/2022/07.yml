@@ -1,0 +1,494 @@
+---
+- :author: ffrkAnonymous
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izpf1ub/
+  :body: |-
+    Ruby
+
+    [paste](https://topaz.github.io/paste/#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)
+
+    OMG, I thought this was going to be easy. I guess it wasn't _that_ hard in idea, but I was going down the wrong path implementing.
+  :replies: []
+- :author: kevinluo201
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izek30g/
+  :body: |-
+    ## Ruby version
+
+    [https://github.com/kevinluo201/aoc/blob/main/2022/day7/day7.rb](https://github.com/kevinluo201/aoc/blob/main/2022/day7/day7.rb)Basically, I build a class to handle each directory.
+
+    ```ruby
+    class Directory
+          attr_accessor :name, :parent, :subdirectories, :files
+    ```ruby
+    def initialize(name, parent = nil)
+        @name = name
+        @parent = parent
+        @subdirectories = {}
+        @files = {}
+      end
+
+      def read(line)
+        a, b = line.split(' ')
+        if a == 'dir'
+          @subdirectories[b] ||= Directory.new(b, self)
+        else
+          @files[b] = a.to_i
+        end
+      end
+
+      def total_size
+        subdirectories.values.map(&:total_size).sum + files.values.sum
+      end
+
+      def traverse
+        [self, subdirectories.values.map(&:traverse)].flatten
+      end
+    end
+    ```
+    ```
+  :replies: []
+- :author: tobyaw
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz95oxy/
+  :body: |-
+    Ruby
+
+    [https://github.com/tobyaw/advent-of-code-2022/blob/master/day\_07.rb](https://github.com/tobyaw/advent-of-code-2022/blob/master/day_07.rb)
+
+    Felt like a good opportunity to use some pattern matching.
+
+    ```ruby
+    folder_sizes = Hash.new(0)
+
+    File.readlines('day_07_input.txt', chomp: true).map(&:split).each_with_object([]) do |line, stack|
+      case line
+      in ['$', 'cd', '..']
+        stack.pop
+      in ['$', 'cd', folder]
+        stack.push folder
+      in [size, file] if size.match?(/^\d+$/)
+        stack.reduce('') { |j, i| folder_sizes[j += i] += size.to_i; j }
+      else
+      end
+    end
+
+    puts folder_sizes.values.reject { |i| i > 100_000 }.sum
+    puts folder_sizes.values.reject { |i| i < folder_sizes['/'] - 40_000_000 }.min
+    ```
+  :replies:
+  - :author: OwnAttention3370
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9lik9/
+    :body: 'Nice implementation. Was wondering about the in operator inside the case statement, I''ve recently started to learn Ruby and haven''t seen it used? I take from the code that is a type of #include? operation on "line"?'
+    :replies:
+    - :author: tobyaw
+      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9mpql/
+      :body: Pattern matching is a new feature that appeared in recent versions of Ruby. It can match both structure and content of data. A nice explanation is at [https://www.bootrails.com/blog/ruby-pattern-matching/](https://www.bootrails.com/blog/ruby-pattern-matching/)
+      :replies:
+      - :author: OwnAttention3370
+        :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iza2ch6/
+        :body: Thank you very much!
+        :replies: []
+  - :author: antoniotto
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izacxi9/
+    :body: Thank you, with your solution you finally introduced me this really awesome feature of pattern matching. Is the first time I can understand it.
+    :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8pk82/
+  :body: |-
+    # Bash
+
+    Already [solved in Ruby (nothing special)](https://topaz.github.io/paste/#XQAAAQDRAwAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ZrE9yu+DoOtoq/8dv7tjSln6BmRwdfrTdWN7w0iyXORn4eIeWp/dfFp7juhpMenJwf0tn09Qk+o2spp6phbxcA6n8adg1tiBLu/gHDlX+yIEdx3E26WaYBvAdzm+xBQkqoQ/OwulgwDxlwT8V7XJpgaJkgLPs57Mi/gUyuLPJYyprtQVGWkpkQFTYWW+oSUqd+eJxkKThF5DgqcbX2cukoNp4pxBYSs7c0nLQwKpzKarufhgC/xODx6xnNCAJ4QQ747KvgVNdzoZcMJIyxc057zjAs3eTqnvYaNHH1HVS5rehlKW7AahvpZS+6IQQNypqh7+MtMkcFrcuPH8VFl85yR0O8kk3sWZqmrtal94QwXqwqX7f9caJEQZEonUce7bMOJI/o1oKk6ZpU92h0XJ73k/bXFSyGBQr/oQwNxjLrKpXZoGPTxoZwIa6zZ6niDD+FHWAVW+tL3s/hIbtd+wZh9vW674QYrDUUTulrQyPXAAQHgqSbLoupCs+/XR4WnFAghkYneiOkUj2kMQ6iOdZgwaSz/mNX0J6jwdIlPlgHcvjAyPDskiy5ISdRXkdy+K1IkhP7feEyAVRR/y9axjelXI0XJfRkedZBJW2PZ0CHZqgoyxHYqtHEL9W45+87TUxeHOZJ/08Sl1x4JCLehN9barQsS7/5yUmvQ==) but I thought it'd be fun to do it by using Bash to recreate the filesystem on my own hard drive. I don't know much about Bash scripting so \>90% of the code here is stuff I've learned in the past hour or so. It's very slow; it takes ~8.2s to create the directories and files and ~4.5s to calculate the answers in WSL on my machine. If anyone knows how to speed it up a bit I'd be interested to hear.
+
+    warning, this `eval`s your input, it could delete your whole computer, etc
+
+    **[aoc\_2022\_07.sh](https://topaz.github.io/paste/#XQAAAQCJAwAAAAAAAAARiEJHiiMzw3cPNEFGz+vWeJ0ULOEYQ3lK9hE+f92PwtZcWJmuAKxTFdLB95WueFXFm4NIbqkUVp3g59T97jAjSliJYi04vn7boxMVUdoBpKelgRv8NX05aoTNf0XZ8V7yJ4xdULLUIJ46giDBU2uKAXDAx9mYDiCKs1e6p9fiog5RWs7D0w6MvaqU7+YhlQR9v3R36elFb11oMYDEKnWIfna+mAGoq4A3t49UWWKXJpPTBcEgb0Ib4ty0s3t/GsQa9Z1883KiFjFolcUlsKOEup8exWX0LJoZC78+xrBVd0sKQt9L940MaqzbIRA2oHe60lf3DDvObZE6DrGYSvqg5YKq52j8kjj3DtaMphbMgdexZv9fC2c4xFnVQsw2DAGiesLjv5LNcvX6X0QuvCBzPnT/xEsoVRbGLLIY0w2A7EGr8wzEnPLlpL+jiKq/wDc16WS4Q6iBRjsBeyFBuX7gGkbxVVAMai8PZZrKrLkDjBqCT+FdN6bnxXq4C+Eedr1UvLeGJIGo9GpnKIt32TFxDgvxeyF3iSNYQW0tRCPc4lNfhYqrZZVOJ8KceMoNxSzNGdHhLDUFXw0PL3oan6/NHsAbUFLrgEGCWRoOexiqqrFXuXEvUmk5PpBPyZ6VEyO22LJtVIj8odH/2v8UYPAA)**
+
+    (edit: moved code to topaz/paste url)
+  :replies: []
+- :author: philtr
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izad6e2/
+  :body: |-
+    **Golf in Ruby** (207 Bytes) ([GitHub](https://github.com/philtr/advent/blob/9e577ee74f97cd80032e4ac6bdf7aeef96e99702/2022/07/golf.rb))
+
+    ```ruby
+    f=Hash.new 0
+    d=($<.reduce([]){|c,l|l[".."]&&(c.pop)||l[/cd ([^\/]+)/]&&(c.push([*c,$1]*?/))||l[/\d+/]&&(z=$&.to_i;f[?/]+=z;c.map{f[_1]+=z});c};f)
+    p d.sum{_2<1e5?_2:0},d.values.reject{_1<(3e7-7e7+d[?/])}.min
+    ```
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc45xv/
+  :body: |-
+    Ruby
+
+    ```ruby
+    current_directory = []
+    files = {}
+
+    File.read('input.txt').lines.each do |line|
+      case line.split
+      in ["$", "cd", dir]
+        current_directory << dir
+      in ["$", "cd", ".."]
+        current_directory.pop
+      in [/\d+/ => size, file]
+        files[current_directory + [file]] = size.to_i
+      else
+        # no-op
+      end
+    end
+
+    directories = Hash.new(0)
+    files.each do |(*path, file), size|
+      while(path.any?)
+        directories[path.dup] += size
+        path.pop
+      end
+    end
+
+    DISK_SIZE = 70000000
+    NEED_FREE = 30000000
+
+    current_free = DISK_SIZE - directories[["/"]]
+    to_delete = NEED_FREE - current_free
+
+    puts part_1 = directories.select{|path, size| size <= 100_000}.values.sum
+
+    puts part_2 = directories
+      .values
+      .select{|size| size > to_delete}
+      .min
+    ```
+  :replies:
+  - :author: Steinrikur
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcb2af/
+    :body: |-
+      Dude...
+
+      This is almost exactly the same as I did, only I talled the file sizes while traversing the tree.
+
+      [https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm\_source=reddit&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm_source=reddit&utm_medium=web2x&context=3)
+    :replies:
+    - :author: ignurant
+      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcg6dr/
+      :body: Haha. My eyes bulged a bit when my mind transitioned from "I did the same as you, but put the guts all in the same!" to "Okay! We're looking at a bash script! And it ain't an easy one!" haha. I was able to figure it out though with your comment about the same strategy!
+      :replies: []
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8hrxf/
+  :body: |-
+    **Ruby**
+
+    Used a Folder class to keep track of each directory, its subdirectories, and the size of its files. The end-less method definitions only work in Ruby 3.0 and above
+
+    ```ruby
+    $directories = {}
+
+    class Folder
+      attr_accessor :total_size, :file_size
+      def initialize(path:)
+        @path = path
+        @files = []
+        @subdirectories = []
+        $directories[path] = self
+        @file_size = 0
+      end
+
+      def add_directory(name:) = @subdirectories.push(Folder.new(path: @path.dup.push(name)))
+      def total_size = @subdirectories.map(&:total_size).sum + file_size
+    end
+
+    raw_input = input[1..-1].split("\n$") # Divides up the input into a list of cd and ls instructions
+    current_path = []
+    Folder.new(path: [])
+    raw_input.each do |part|
+      if part[0..2] == " cd"
+        case rel_path = part.gsub(" cd ", "")
+        when ".."
+          current_path.pop
+        when "/"
+          current_path = []
+        else
+          current_path.push(rel_path)
+        end
+      else # so it's ls
+        nodes = part.split("\n")[1..-1]
+        nodes.each do |node|
+          if node[0..2] == "dir"
+            name = node.gsub("dir ", "")
+            $directories[current_path].add_directory(name:name)
+          else
+            size = node.split(" ")[0]
+            $directories[current_path].file_size += size.to_i
+          end
+        end
+      end
+    end
+
+    puts "Part 1: #{$directories.values.select{_1.total_size < 100000}.map(&:total_size).sum}"
+    memory_to_delete = $directories[[]].total_size - 40000000
+    puts "Part 2: #{$directories.values.map(&:total_size).sort.find{_1 >= memory_to_delete}}"
+    ```
+  :replies: []
+- :author: shakdnkashmsna
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i7sj/
+  :body: "My solution in [ruby](https://github.com/TessHuelskamp/advent-of-code/commit/2247fd35f99b2143df0bad7cab3d242b77b4ded8)\n\nDespite my commit message, \U0001F605, I’m happy with how this turned out and that I was able to build a fake filesystem in under an hour.\n\nThe global variables were sus \U0001F937\U0001F3FC‍♀️ but I was a fan of being able to get the “current directory” with `file_system.dig(*path)`"
+  :replies:
+  - :author: epic_gamer_4268
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i8d8/
+    :body: when the imposter is sus!
+    :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaqirb/
+  :body: |-
+    **Ruby**
+
+    Getting the hang of pattern matching now. I even contemplated installing 3.2 for the new `Data` class but made do with `Struct` for now. Next time, maybe.
+
+    [Pastie](https://topaz.github.io/paste/#XQAAAQAnBwAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8KxVUKFt2uqWUgrHtviwBEUiCS7kbflCMR6/T17AvBTiCX+UyuSRq93hpk42lxPpKAQsU2IlR4Is3M2E5ontnL76Utv1Ik7F0giELf22oX9AuC+wxokodO6K7a2YF9Zs9r57IQI2TBqOOdSTL6wWNXuV7lpG9pb7I46eBCxDvMcsQzHUT/3v2ccF6alCW27qJkiohN06K39mwEizGG1NNsP/yqlWU88spK4URNAGjfxUu/JZZ+YhTM24Vaal0p87p4jQL3gzErnUtl3I/2E/pUKiZoGyF90zscMe4Acdl2ZZr0lZw7ETrJLxsxutXGMiPeRpgZkThky2i5l4K0Nh2Ow9ogALnRz9u/AFaxJplYzzes0V7lY3PgJdLvKiF0d5pGuyB/o8xDla6ZSUXTuSx0Dgf61K4xJigrWIgNpzISntREtpOTh6GYtSbYgy0rV1Zi4I4SyFBWY0f4Do6Y4lX4W129W6lhPCkbLhE49KDXNSFsfFn6jbXci66RZfgpTjtpjh6UvWlyCT1KDLLTxWZJebRxMcxKnuLfRkXwH4EDzCujhqqlr/LIc33iWsGGYZ/uMIUAOtOfEKUaYP6SSlLh/MQDuqfou1lJpIFIuqT8GCXGI2CcXbOd4pHsaGGBsBxRLuLhCd8MLUbthxVj5ic0UCpwIKPTvdm4Eq7q5qzADaUjCrV7umOzQJKaO0du3/DRakBFs6UxXo6ImOCL5aaFZK3rn8M/xR7GkRXnFt9Krm3T0oAY62YM3P/K2VqFtqIgKUTSL9eNDUZUOVrLxk6IVtOCYd+VA+/j7YTln/jaw43Otx2e2fMrsxlhKuJeblwQ2v8fIJpRX4pPzLorQdKJO24tuS6JCyXOWV4II6alwZ6nN12kuoXZef3h/kBcyl/ju3bFGeabshXr5wHxeOalxFxA8/EPjVPeaUJzyIb/4o/BYKS1E4vtYv/ghNdGRAYE//ZdedGkNekAbgnPmP9E705Vag7F+LTCNY5f/4IL/Fo=)
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc4dcx/
+    :body: |-
+      I had the same idea of pattern matching on this one! `.split` was just the right move.
+
+      ```ruby
+      File.read('input.txt').lines.each do |line|
+        case line.split
+        in ["$", "cd", dir]
+          current_directory << dir
+        in ["$", "cd", ".."]
+          current_directory.pop
+        in [/\d+/ => size, file]
+          files[current_directory + [file]] = size.to_i
+        else
+          # no-op
+        end
+      end
+      ```
+    :replies: []
+- :author: Psilolouben
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaui2g/
+  :body: |-
+    Handling the paths via strings, not a very elegant but it works
+
+    [Ruby](https://github.com/Psilolouben/advent_of_code_2022/blob/master/Day7/aoc7_1.rb)
+  :replies: []
+- :author: SolarBear
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcbkj5/
+  :body: |-
+    Ruby solution.
+
+    First use of OOP for this AoC. Feels a bit verbose but, hey, I'm learning.
+
+    [Source](https://github.com/SolarBear/AdventOfCode2022/blob/main/day7.rb)
+  :replies: []
+- :author: rsthau
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8d5r3/
+  :body: |-
+    Ruby. 188/197.
+
+    Did some quick greps to determine which commands were actually present in the input, which let me leave a few cases un-covered in the parsing (no / in pathnames after the initial `cd /`, which I just ignored).
+
+    ```ruby
+    dirstack = [[]]
+    dirsz = {}
+
+    STDIN.each_line do |l|
+      case l
+      when /cd \.\./ then dirstack.pop
+      when /cd ([a-z]+)/ then
+        dirname = l.split.last
+        lastpath = dirstack.last
+        dirstack.push(lastpath + [dirname])
+      when /^[0-9]+/ then
+        size = l.split.first.to_i
+        dirstack.each do |path|
+          dirsz[path] ||= 0
+          dirsz[path] += size
+        end
+      end
+    end
+
+    # part 1
+
+    puts dirsz.values.select{|v| v <= 100000}.sum
+
+    # part 2
+
+    totspace = 70000000
+    req_free = 30000000
+
+    tot_used = dirsz[[]]
+    cur_free = totspace - tot_used
+    needed = req_free - cur_free
+
+    puts dirsz.values.select{|v| v > needed}.min
+    ```
+  :replies: []
+- :author: MuumiJumala
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8h2ru/
+  :body: |-
+    **Ruby** , pattern matching works wonders on this problem:
+
+    ```ruby
+    def solve(inputfilename)
+      commands = File.read(inputfilename)
+                     .split('$ ')
+                     .reject(&:empty?)
+                     .map{ _1.split("\n").map(&:split) }
+
+      dirs = Hash.new(0)
+      cwd = []
+      commands.each do |cmd, *args|
+        case cmd
+        in ['ls']
+          total_contents_size = args.sum{ |sz, _fname| sz.to_i }
+          (0..cwd.size).each do |i|
+            dirs[cwd[0, i]] += total_contents_size
+          end
+        in ['cd','..'] then cwd.pop
+        in ['cd', '/'] then cwd = []
+        in ['cd', dir] then cwd.push(dir)
+        else warn "unknown command #{cmd}"
+        end
+      end
+
+      # Part 1
+      puts dirs.values.reject{_1 > 100000}.sum
+
+      # Part 2
+      total = 70000000
+      required = 30000000
+      free = total - dirs[[]]
+      required -= free
+      puts dirs.values.select{|size| size >= required}.min
+    end
+    ```
+  :replies: []
+- :author: mathem17
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8kqd1/
+  :body: |-
+    [Ruby 4028/3734](https://github.com/jzhang113/adventofcode/blob/9f57d71a62baf450abd249eb128087851c1d7d17/2022/solutions/07.rb)
+
+    Cleaned up the logic significantly by making the file system an Enumerable, so that we can filter across nodes to collect the ones we want.
+  :replies: []
+- :author: OlivarTheLagomorph
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz91blt/
+  :body: |-
+    **Ruby**
+
+    solution (GitHub): [https://github.com/coding-bunny/advent-of-code-2022/blob/main/day\_7.rb](https://github.com/coding-bunny/advent-of-code-2022/blob/main/day_7.rb)
+
+    Had to get creative with structs and actually build an entire tree of "Directory" and "File" objects. The logic makes total sense to me, but I'm getting a harder time to understand the questions.
+  :replies: []
+- :author: careyi4
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9uoaf/
+  :body: |-
+    Ruby
+
+    Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/7)
+
+    Video Walkthrough: [YouTube](https://youtu.be/nVGMu44W0XM)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izbbnqa/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    class Directory
+      attr_reader :name, :directories
+
+      ElfFile = Struct.new(:name, :size)
+
+      def initialize(name)
+        @name = name
+        @files = []
+        @directories = []
+      end
+
+      def add_child_dir(dir)
+        @directories.push(dir) unless @directories.any? { |d| d.name == dir.name }
+      end
+
+      def add_file(name, size)
+        file = ElfFile.new(name, size)
+        @files.push(file) unless @files.any? { |f| f == file }
+      end
+
+      def size
+        @files.map(&:size).sum + @directories.map(&:size).sum
+      end
+
+      def find_dirs(&block)
+        result = []
+
+        result << self if block.call self
+        @directories.each do |d|
+          result += d.find_dirs(&block)
+        end
+
+        result
+      end
+    end
+
+    class OutputParser
+      attr_reader :root_dir
+      def initialize
+        @root_dir = Directory.new("/")
+        @directory_stack = [@root_dir]
+      end
+
+      def stack_top
+        @directory_stack.last
+      end
+
+      def ingest_command(line)
+        if line[0,6] == "$ cd /"
+          @directory_stack = [@root_dir]
+        elsif line[0,7] == "$ cd .."
+          @directory_stack.pop
+        elsif line[0,4] == "$ cd"
+          dir = Directory.new(line[5..])
+          stack_top.add_child_dir(dir)
+          @directory_stack.push(dir)
+        end
+      end
+
+      def ingest_file(line)
+        size, name = line.strip.split(" ")
+        stack_top.add_file(name, size.to_i)
+      end
+
+      def ingest(line)
+        if (line[0] == "$")
+          ingest_command(line)
+        elsif (line[0] =~ /\d/)
+          ingest_file(line)
+        end
+      end
+    end
+
+    parser = OutputParser.new
+    File.open('input-7-1.txt').each do |line|
+      parser.ingest(line)
+    end
+
+    small_dirs = parser.root_dir.find_dirs do |dir|
+      dir.size <= 100_000
+    end
+
+    puts small_dirs.map(&:size).sum
+    ```
+
+    This turned out to be a good approach, because then for part 2 all I had to do is add this at the end
+
+    ```ruby
+    unused_space = 70_000_000 - parser.root_dir.size
+    to_delete = 30_000_000 - unused_space
+
+    large_dirs = parser.root_dir.find_dirs do |dir|
+      dir.size >= to_delete
+    end
+
+    puts large_dirs.map(&:size).min
+    ```
+  :replies: []

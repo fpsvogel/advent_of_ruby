@@ -1,0 +1,25 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/rlxhmg/2021_day_22_solutions/hpix5qp/
+  :body: |-
+    Ruby, 145 / 45 ([Part 1](https://topaz.github.io/paste/#XQAAAQAVAwAAAAAAAAAyGEruliPhN7cj9y4sPOl/eSs4uSkd5mZOCSu8uBmXEkoNkgiNtw8yNqy281DF4KLR1oO9DUYIGNjSuOdzoZcTAVrDKG3xJhkRhzxhbpPRNzcTb9s6dc2vWNGToQR0qwGEoOdG9MdPQ0pfIYd5QRU9qaKEoKaHLCepEdH5rFR7Lc4zX1tN/5bXESYuudEm16AplawF91xrWX/ZCbIrfRGcLtDDV6HkLkybcvSErDKo1D2Nmnm3OGcuNyscGJv10AdB4R4vFNUvrEpRY6H6+bAxT/9VmRy4e3wekDEOuldZkT7UBgWCwfqyodKqgUX5Dfc7FaMntMhSms7mDvUyIZoZMZ0HiulPVlJqQ2AoDnUnU/GqAmwdBuGFFbTjBlTTInBfv9rbs0wKAbPtlSUKOXKvqnAf//Y4JaQ=), [Part 2](https://topaz.github.io/paste/#XQAAAQByBgAAAAAAAAAhnUhGbrHQXPsQ7Mdo7ZkPpEmH6VBEqcrPU555F7dPhTDZyB3YHrPiTHCDGPZS3zQLgj+SuYga60UYXUu3Pr4KKA5lZ+ah+f6sOZAYO5tsCTg2gEeV5+Bb3+lEdnL7bH/OGqF2jkd8ohf3LpdA4IaqbMKbMEduoIw1+IcV8c98Uo95NWGuUpZt6C37i8OptMuPPlep4DREPfksBh+92S6sQxFF1OSIntiYn8ete9cOtsSTSJP7NIQOTosYEjP/KVHI1x6G8yL9Lo526nRgTXUj52BST9M+4FDcjlbSImYsG1fu3z2iN5t3oMuqCOEZ1ajKiYouBndPUapg7xVV2C4x3h3boFZJNVgJmXR/4uKoTcakKMGj377A3hUCZ3+rLEZ01ZqgAv9xPpkQufxd9u5rvB7xTYOTuaUI0GPSFlYgb88ZXsXwOA69i37l4n3iuY5r01UeGEW+Ko6OrokcJehFZEh/mTKZMXvoR0NlgKvkzQYXbslJZ3pyImvPezUw3H1P/qLA8HTnpEZJ7mle0k2+Ya3YcMcfI2J2lFOuG0gYkGFQmul4livkzwav71+Zb5mCW6eY5UCA2u4RTsBKxNSw9q+IsfDB0ABlt6q6TW8PhHCi+0OJYxsnmJAbd1QqK7KTEMwUTgCoBULCzzUq6Isy2SVe9lc5UgBHxLLVqxNvA3dProx92Q31jWIW9LssWHNoeHGJ7DX8NPM4rHNnp2NXljR5APn0VR9atOFBm9olBZknp9a0Fplg/YpM5OJf/Mz8XJb14F9z7PCV3qkZYyHnKRrEXvfB0XxRDxaCm2fR24qIowEbWj67h1FA2bxI+///uqv2OA==))
+
+    My part 1 uses naive algorithm. For part 2, if a new cuboid intersects any existing cuboid, they are broken down into 27 parts, and the parts that intersects the new cuboid is deleted.
+
+    Here’s a diagram showing how the above approach was implemented: [https://imgur.com/WHPsnch](https://imgur.com/WHPsnch)
+  :replies: []
+- :author: '0x623'
+  :url: https://www.reddit.com/r/adventofcode/comments/rlxhmg/2021_day_22_solutions/hpk0e3o/
+  :body: "[Ruby3](https://carbon.now.sh/?bg=rgba%2874%2C144%2C226%2C1%29&t=material&wt=none&l=ruby&ds=false&dsyoff=20px&dsblur=68px&wc=false&wa=true&pv=56px&ph=56px&ln=true&fl=1&fm=JetBrains+Mono&fs=14px&lh=152%25&si=false&es=1x&wm=false&code=class%2520Cube%250A%2520%2520%2520%2520attr_reader%2520%253Ax%252C%2520%253Ay%252C%2520%253Az%250A%2520%2520%2520%2520def%2520initialize%28x%252C%2520y%252C%2520z%29%250A%2520%2520%2520%2520%2520%2520%2520%2520%2540x%252C%2520%2540y%252C%2520%2540z%2520%253D%2520x%252C%2520y%252C%2520z%250A%2520%2520%2520%2520end%250A%250A%2520%2520%2520%2520def%2520and%28c%29%250A%2520%2520%2520%2520%2520%2520%2520%2520x%2520%253D%2520%2540x%2520.and%2520c.x%250A%2520%2520%2520%2520%2520%2520%2520%2520y%2520%253D%2520%2540y%2520.and%2520c.y%250A%2520%2520%2520%2520%2520%2520%2520%2520z%2520%253D%2520%2540z%2520.and%2520c.z%250A%2520%2520%2520%2520%2520%2520%2520%2520Cube.new%28x%252C%2520y%252C%2520z%29%2520unless%2520x.empty%253F%2520or%2520y.empty%253F%2520or%2520z.empty%253F%250A%2520%2520%2520%2520end%250A%250A%2520%2520%2520%2520def%2520vol%2520%253D%2520%2540x.size%2520*%2520%2540y.size%2520*%2520%2540z.size%250Aend%250A%250Aclass%2520Range%250A%2520%2520%2520%2520def%2520and%28r%29%250A%2520%2520%2520%2520%2520%2520%2520%2520l1%252C%2520r1%2520%253D%2520minmax%250A%2520%2520%2520%2520%2520%2520%2520%2520l2%252C%2520r2%2520%253D%2520r.minmax%250A%2520%2520%2520%2520%2520%2520%2520%2520%255Bl1%252C%2520l2%255D.max%2520..%2520%255Br1%252C%2520r2%255D.min%250A%2520%2520%2520%2520end%250A%250A%2520%2520%2520%2520def%2520empty%253F%2520%253D%2520size.zero%253F%250Aend%250A%250Apos%252C%2520neg%2520%253D%2520%255B%255D%252C%2520%255B%255D%250AINPUT.each_line%2520%257B%2520%257Cln%257C%250A%2520%2520%2520%2520%252F%28%255Cw%252B%29%2520x%253D%28.%252B%29%252Cy%253D%28.%252B%29%252Cz%253D%28.%252B%29%2524%252F%2520%253D%7E%2520ln%250A%2520%2520%2520%2520c%2520%253D%2520Cube.new%2520*%255B%25242%252C%2520%25243%252C%2520%25244%255D.map%2520%257B%2520eval%2520_1%2520%257D%250A%2520%2520%2520%2520p%2520%253D%2520neg.map%2520%257B%2520_1%2520.and%2520c%2520%257D.compact%250A%2520%2520%2520%2520n%2520%253D%2520pos.map%2520%257B%2520_1%2520.and%2520c%2520%257D.compact%250A%2520%2520%2520%2520pos.concat%28p%29%250A%2520%2520%2520%2520neg.concat%28n%29%250A%2520%2520%2520%2520pos%2520%253C%253C%2520c%2520if%2520%25241%2520%253D%253D%2520%27on%27%250A%257D%250A%250Avp%2520%253D%2520pos.sum%2520%2526%253Avol%250Avn%2520%253D%2520neg.sum%2520%2526%253Avol%250Ap%2520vp-vn), algebra of sets."
+  :replies:
+  - :author: veydar_
+    :url: https://www.reddit.com/r/adventofcode/comments/rlxhmg/2021_day_22_solutions/hpk37xp/
+    :body: Your code block doesn't display correctly on [https://old.reddit.com/r/adventofcode/comments/rlxhmg/2021\_day\_22\_solutions/](https://old.reddit.com/r/adventofcode/comments/rlxhmg/2021_day_22_solutions/) since it doesn't work with backticks.
+    :replies:
+    - :author: '0x623'
+      :url: https://www.reddit.com/r/adventofcode/comments/rlxhmg/2021_day_22_solutions/hpmwb99/
+      :body: |-
+        Thanks for noticing.
+
+        Just woke up in my timezone.
+      :replies: []

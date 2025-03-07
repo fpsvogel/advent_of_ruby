@@ -1,0 +1,130 @@
+---
+- :author: marshalofthemark
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howcwik/
+  :body: |-
+    **Ruby** (runtime: 40 us / 90 ms)
+
+    Happily, the syntax used in the input is identical to Ruby's range syntax\*, so we can use `eval` to parse the ranges literally:
+
+    ```ruby
+    xrange, yrange = open("input").read.split(",").map{eval(_1.split("=").last)}
+    ```
+
+    First a couple math formulas which will really help us:\*\*
+
+    ```ruby
+    def triangular(n) = n * (n + 1) / 2
+    def loc(init_velocity, steps) = steps * ((init_velocity + (init_velocity - steps + 1)) / 2.0)
+    ```
+
+    _Triangular_ gives us the n-th triangular number, which is useful because for an initial x-velocity _n_, the projectile will start falling vertically when it reaches x = _n_-th triangular number.
+
+    _Loc_ gives us the position of an object launched at an initial velocity after _steps_ units of time. We can use this for both the x- and y-coordinates of the projectile.
+
+    Next, a method that returns an array of all the possible initial x-velocities which will allow the projectile to enter the target area.
+
+    ```ruby
+    def possible_x(xrange)
+      [*1..xrange.max].filter{|init_x| [*1..init_x].any?{xrange === loc(init_x, _1)}}
+    end
+    ```
+
+    Then, a method that lets us know, given an initial x- and y-velocity, whether the projectile will hit the target area:
+
+    ```ruby
+    def target_hit?(init_x, init_y, xrange, yrange)
+      (0..999).each do |steps|
+        x = steps >= init_x ? triangular(init_x) : loc(init_x, steps)
+        y = loc(init_y, steps)
+        return true if xrange === x && yrange === y
+        return false if xrange.last < x || yrange.first > y # We're past the target - stop checking!
+      end
+      false
+    end
+    ```
+
+    Now we're ready to solve. A few other comments have already gone into the details on why that shortcut works for Part 1. I added code to account for an edge case when it doesn't.
+
+    ```ruby
+    if [*1..xrange.min].any?{xrange === triangular(_1)} # I suspect everyone's puzzle input satisfies this, so use the shortcut
+      puts triangular(yrange.min)
+    else
+      max_init_y = possible_x(xrange).map{|init_x| [*yrange.min..yrange.min.abs].filter{|init_y| target_hit?(init_x, init_y, xrange, yrange)}.max}.max
+      puts triangular(max_init_y)
+    end
+    ```
+
+    For Part 2, we take the array of possible initial x-velocities, loop over all possible y-velocities, and tally up the number of unique velocity values.
+
+    ```ruby
+    puts possible_x(xrange).sum{|init_x| [*yrange.min..yrange.min.abs]
+      .filter{|init_y| target_hit?(init_x, init_y, xrange, yrange)}.count}
+    ```
+
+    \* IIRC, AoC is written in Perl, so Eric probably just used the Perl range syntax - just so happens that Ruby copied Perl's syntax for ranges
+
+    \*\* Written as end-less methods, which only work in Ruby 3.0+. Earlier versions required you to end a method declaration with `end`.
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovte54/
+  :body: |-
+    **Ruby** 164 bytes
+
+    ```ruby
+    x=y=n=0
+    gets[13..].split(', ').map{eval _1}
+    u=x.max
+    v=y.min
+    1.upto(u){|c|v.upto(u){|d|e=c
+    a=b=0
+    (a+=e
+    b+=d
+    e-=e<=>0
+    d-=1
+    (n+=1;break)if x===a&&y===b)until b
+    ```
+  :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how2kzp/
+  :body: |-
+    [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb) (1598/1502)
+
+    Was a bit slow today, but did some math to minimize the search space after getting my answers right. All my math is (or at least should be) explained in comments in my code:
+
+    - x velocity outside [[round(sqrt(x\_min\*2))](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L40-L43), [x\_max](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L44-L46)] will never be in range.
+    - y velocity outside [[y\_min](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L48-L50), [-y\_min-1](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L14-L18)] will never be in range.
+
+    Curiously ended up submitting the answer for some other input in part 2 at one point when my search space was too small...
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovpzcn/
+  :body: |-
+    Today is easier than the past 2 days... done by crude simulation + brute force.
+
+    ```ruby
+    # Ruby, 82 / 31
+    target = gets.scan(/target area: x=([^,]+), y=([^,]+)/)[0].map { eval _1 }
+    p target
+
+    simulate = -> dx, dy {
+        hit, x, y, y_max = false, 0, 0, 0
+        loop do
+            x += dx
+            y += dy
+            dx -= dx > 0 ? 1 : dx < 0 ? -1 : 0
+            dy -= 1
+            y_max = y if y > y_max
+            if target[0].include?(x) && target[1].include?(y)
+                hit = true
+                break
+            end
+            break if y < target[1].min
+        end
+        [hit, x, y, y_max]
+    }
+
+    all_possibilities = (-100..400).to_a.product((-100..100).to_a).map { |dx, dy| simulate[dx, dy] }.filter { _1[0] }
+    p all_possibilities.map { _1.last }.max
+    p all_possibilities.count
+    ```
+  :replies: []

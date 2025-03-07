@@ -1,0 +1,541 @@
+---
+- :author: LyleiLanar
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnuv4a2/
+  :body: |-
+    My Ruby solution
+
+    I have two files:
+
+    [day\_4.rb](https://github.com/LyleiLanar/advent-of-code/blob/main/2021/day4/day_4.rb) for the Game class. It has some methods and etc. for the game. Run this file for the result!
+
+    [board.rb](https://github.com/LyleiLanar/advent-of-code/blob/main/2021/day4/board.rb) for the Board class. It's for handling a board.
+
+    (I love unnecessary long code in Ruby :D)
+  :replies: []
+- :author: icyFur
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnr64nw/
+  :body: |-
+    Day 4 in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day04/kiril/day4.rb)
+
+    ```ruby
+    draws = CSV.parse(data[0]).first.map(&:to_i)
+    boards = data.drop(2).each_slice(6).to_a.map(
+      &->(x) { x.delete_if(&:empty?).map(&->(r) { r.split.map(&->(c) { {d: c.to_i, m: false} }) }) }
+    )
+
+    def runBingo(draws, boards)
+      results = []
+      draws.each do |x|
+        boards.each_with_index do |b, bi|
+          b.each do |r|
+            r.each_with_index do |c, i|
+              if x == c[:d]
+                c[:m] = true
+                if b.map(&->(rr) { rr[i] }).all? { |cc| cc[:m] == true } || r.all? { |rr| rr[:m] == true }
+                  sum = 0
+                  boards[bi].each do |r|
+                    r.each do |c|
+                      if c[:m] == false
+                        sum += c[:d]
+                      end
+                    end
+                  end
+                  results.push({board_idx: bi, draw: x, unmarked_sum: sum})
+                end
+              end
+            end
+          end
+        end
+      end
+      results
+    end
+
+    board_firsts = []
+    seen = Set[]
+
+    runBingo(draws, boards).each do |r|
+      if !seen.include?(r[:board_idx])
+        seen.add(r[:board_idx])
+        board_firsts.push(r)
+      end
+    end
+
+    # part one
+    pp board_firsts.first[:draw] * board_firsts.first[:unmarked_sum]
+    # part one
+    pp board_firsts.last[:draw] * board_firsts.last[:unmarked_sum]
+    ```
+  :replies: []
+- :author: snowe2010
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hna4l0i/
+  :body: |-
+    # Ruby
+
+    I feel like this could have been much simpler, but had enough trouble with bugs for part 2 that as soon as solving it I pretty much gave up.
+
+    [github](https://github.com/snowe2010/advent-of-code/blob/38947885d99c18a4d38a33265921198282279ec1/ruby_aoc/2021/day04/day04.rb)
+
+    ```ruby
+    def create_boards(lines)
+      boards = [[]]
+      current_board = 0
+      lines.drop(2).map do |line|
+        if line == ''
+          current_board += 1
+          boards[current_board] = []
+          next
+        end
+        boards[current_board] << line.split
+      end
+      boards
+    end
+
+    def check_board_win(board)
+      row_true = board.any? do |row|
+        row.all? { |i| i == true }
+      end
+      column_true = board.transpose.any? do |column|
+        column.all? { |i| i == true }
+      end
+      row_true || column_true
+    end
+
+    def play_bingo(inputs, boards)
+      found = false
+      winning_boards = []
+      inputs.each do |bingo_option|
+        break if found
+
+        indexes_to_delete = []
+        (0...boards.size).each do |board_index|
+          boards[board_index].each do |row|
+            row.each_with_index do |elem, i|
+              row[i] = true if elem == bingo_option
+            end
+          end
+          next unless check_board_win(boards[board_index])
+
+          sum = boards[board_index].flatten.reject { |i| i == true }.map(&:to_i).sum
+          winning_boards << [sum * bingo_option.to_i, boards[board_index]]
+          indexes_to_delete << board_index
+        end
+        indexes_to_delete.sort.reverse.each do |i|
+          boards.delete_at(i)
+        end
+        found = true if boards.empty?
+      end
+      winning_boards
+    end
+
+    execute(1) do |lines|
+      input = lines[0].split(',')
+      boards = create_boards lines
+      play_bingo(input, boards)[0][0]
+    end
+
+    execute(2) do |lines|
+      input = lines[0].split(',')
+      boards = create_boards lines
+      play_bingo(input, boards)[-1][0]
+    end
+    ```
+  :replies: []
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5wr4x/
+  :body: |-
+    [Ruby 165/328](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/04/bingo.rb)
+
+    I never thought I'd come _that_ close to actual points (I'm mainly playing on a private leaderboard from the company I work at). Considering I was going quite slow and steady, I was quite surprised by the 165 rank for part 1.
+
+    Just when I was considering how to (somewhat cleanly) implement a check of the board diagonals, I read "(Diagonals don't count.)" in the corner of my eye, making the check a one-liner:
+
+    ```ruby
+    (board + board.transpose).any? { |line| line.all? { |n| drawn.include?(n) } }
+    ```
+
+    :)
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xg2l/
+    :body: |-
+      I came up with the same win check :D
+
+      [My Ruby solution](https://github.com/Sharparam/advent-of-code/blob/main/2021/04/solve.rb)
+
+      448/1336 on leaderboard. I had a bug for part 2 that took me forever to find and delayed that massively (I wasn't saving the marked numbers at the time board won, so each board got multiplied with the final state of marked numbers instead).
+    :replies:
+    - :author: firetech_SE
+      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xxa3/
+      :body: I had a similar bug for part 2, making me submit one wrong answer (because I didn't test the example first). I was multiplying the unmarked numbers of the last board with the number that caused the penultimate board to win... Obviously not the right answer in hindsight. :P
+      :replies: []
+- :author: MuumiJumala
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5vakq/
+  :body: |-
+    Ruby 31/169
+
+    I think getting excited about getting my first leaderboard points ever slowed me down for the second part but I'll take it!
+
+    ```ruby
+    input = File.open("input.txt").readlines
+    nums = input[0].split(",").map(&:to_i)
+
+    def board_has_won(board)
+        board.any?{_1.all?{|v| v == -1}} || board.transpose.any?{_1.all?{|v| v == -1}}
+    end
+
+    # Part 1
+    boardnums = input[2..].join.split.map(&:to_i)
+    nums.each do |n|
+        boardnums.map!{|x| x == n ? -1 : x}
+        boards = boardnums.each_slice(5).each_slice(5).to_a
+        if win = boards.find{|b| board_has_won(b) }
+            puts win.flatten.select{|x| x >= 0}.sum * n
+            break
+        end
+    end
+
+    # Part 2
+    boardnums = input[2..].join.split.map(&:to_i)
+    last_won = nil
+    won_boards = {}
+    nums.each do |n|
+        boardnums.map!{|x| x == n ? -1 : x}
+        boards = boardnums.each_slice(5).each_slice(5).to_a
+        boards.each_with_index{|b,i|
+            next if won_boards[i]
+            won_boards[i] = true if wins = board_has_won(b)
+            last_won = b
+        }
+        if won_boards.size == boards.size
+            puts last_won.flatten.select{|x| x >= 0}.sum * n
+            break
+        end
+    end
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xnb6/
+  :body: |-
+    Ruby (1663/1458)
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBkBQAAAAAAAAA5GUqKNoFH6SMqoVC09YUYnzPWhqlH2+Hr8Fo0LWObqf/7A64y1PK3tmghdoGJvrywmmWmMpIWX+juaXZ1wcHhaQoyKpYomldzUsxTPEnSopgCgcPve52gApoUelT97axtHQbkCEsHVjaIw2W8ChFDAmNgS241pm8hq4ZuzHRMtK7DHvlLoKsFaBLZgwCdDPmmePzD4IuKDuSGoEwsjfrT6rUfMPKaIrs6/9XJLtCl+dEoHJrIZ0B5lS5FcnnQDWi0vh9FKkwV88xeArrK+LdLY9Kq/WRNL5vAzH7DzPQgu4zONrrPRfRYZEL4OPu33lYRj+drw2mDNZ2nBtXN5k/5GYfhL7p5eiy3E8i4vxJ5MkhgqY+jy0IAWkFWfqOqvv6K/STNPpIxSxdIIZhSMw/CAG1GPuNXq+RNmmgM7GPhMxoNREtUglZfZy+t4OZy4C2mcBaS8hl/LI5YTQMR/qdQHDqK4Ki9XraY3JIK+CwwBHWm2QAsOl/uClF/RmFhA/swZDR1kvG/tLuqkQXmcpWQPQys4CNZJdAzN0kOYLQ9BjUTGgGqGYHTPbqau7UMq4hTfnaFpFILB0uQ7fP1jjbPTBSwfZUWf6/jfEH6MG2YLPKRcsHTPhwDDDrozvv9P5rZw/bi0vsYR66oXoCN7mSgREw72LILWdaCBVQtD12oGY4QQc/2iKYU8O/RK7Nhc9CvoNaSRc/U3vXzxOKj0F17jSjf28A4Lq8U2dXTEszULufziZXE42ZtvFIxAoJhyyf+EWr+)
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5ynqb/
+  :body: |-
+    **Ruby 234 bytes** (331/181)
+
+    I would have hit leaderboard but I wasted several minutes implementing diagonal checking, and then debugging why I was getting the wrong solution.
+
+    ```ruby
+    g=$<.read.split("\n\n")
+    a=g[1..].map{_1.split("\n").map{|l|l.split.map(&:to_i)}}
+    g[0].split(?,).map{|n|
+    n=n.to_i
+    a.reject!{|b|
+    b.map{_1.map!{|m|n==m ?0:m}}
+    w=[b,b.transpose].any?{|c|c.any?{_1.sum==0}}
+    p n*b.flatten.sum if !a[1]&&w
+    w}}
+    ```
+  :replies: []
+- :author: prafster
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn9w2v5/
+  :body: |-
+    ## Julia
+
+    I'm impressed with Julia after having used it for four days for this year's AoC. The code reads well, syntax is terse and legible (like Python and Ruby) and matrices are built in, which has been handy so far. It's also fast without any optimisations by me. Today, part 1 took 0.003s and part 2 took 0.01s on a six year old CPU (6700K).
+
+    This was one of those instances when the solution to part 1 could be mostly reused for part 2. I just had to delay returning the result until the list of winners so far matched the number of boards. So I'll show part 2 only but both solutions are on [GitHub](https://github.com/Praful/advent_of_code/blob/main/2021/src/day04.jl).
+
+    ```ruby
+    winner(board) = any(all(==(-1), board, dims = 1)) || any(all(==(-1), board, dims = 2))
+    score(board, last_draw) = sum(board[board.!==-1]) * last_draw
+
+    function part2(input_file)
+      (draw, boards) = read_input(input_file)
+
+      board_count = size(boards, 3)
+      winners = []
+
+      for n in draw
+        for board_index = 1:board_count
+          board = view(boards, :, :, board_index)
+          board[board.==n] .= -1
+          if !(board_index in winners) && winner(board)
+            append!(winners, board_index)
+            if length(winners) == board_count
+              return score(board, n)
+            end
+          end
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5uk84/
+  :body: "Ruby, 103/78\n\n[paste](https://topaz.github.io/paste/#XQAAAQDKAgAAAAAAAAA3HUndk+qmj5/Fy3M/zxYA0ZSRDHVvs77FAAYy3AgE7aazPBVUel9aQhsWVG6vSOGPTWnkKEODU0AvjN6HssBAnxKHYOLUnt/hXpcGJta6dQiazS5yzvrz/GNvpXoV/zQXWnJDKsMS0C2UwMjJ4dHDE8Zta9A2BCVJOwfd+axMf+jIz9H5og04A5p7sMc3VCZjI2eZ7vNvUQoydExKAqKydz9SxjasJHKzq+5qh8QGEG/JyL2qHwglp4iQ0Oy+Eal36iZgLPlT07DLBUzpxBpN+TwhSvZtnpaL/PAccWQIPGazYXxuUHVOjUtLkklcTZdvScInNkQ90N5Hvv72Vks4BPq5Huk55S6KyvVGILVrhssIQLSzq5P9VzUSVfKaDvuyzZ4BQxvPwT9tHtFLdl03f+pJuro4I9snxe4nt2GGeoI/Mg4GAqTfyiIotxq0j7YswiOxh/gkxolo+M4EzUN8X3yWrGIptoHqlbcwQsR5v9SX+ieA617tx6v5RD/giwmnPIV/LHyp5f/AZCA+)\n\nWhen the board is received, I generated a set of numbers that, if were all called, would resulted in a winning board, which is `data + data.transpose`.\n\nWhen it comes to simulation sometimes using OOP helps me think more clearly. I tripped up because I recently learned about `_1` `_2` in Ruby, but don’t know how to nest them. \U0001F602 (Edit: [Nesting numbered parameters is not allowed](https://bugs.ruby-lang.org/issues/17167))"
+  :replies:
+  - :author: ni3t
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62qel/
+    :body: sorry for tripping you up like that!!
+    :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62c6r/
+  :body: |-
+    ### Ruby
+
+    [paste](https://topaz.github.io/paste/#XQAAAQChBAAAAAAAAAAxmwhIY/U8uCvV3MIgYJUIeFf5UnvTVvpVJ4G6Pbuyxi2kTccEtr2KPaC+opjdKqG9Hh3+acurLje28dbdYGzXoypbz8Bq7Dy6zgpRjliXnNaSn4r16trzB8uvGtYmoLutdY6TDxYRyQL5bjm8QWBAFSVBNCCUXqG/75mdXeRIOIKKy/jcseBkSFbsPTyPoRVp5iYhzr8hsZTk35z3mM0TB5l7SBBvCk01msEWPVC+z4EB1XeDtfsG9kBF2hH3eSylRoXyUwobc7H1J6CxP8X0K11WIRRQTQvHHvmZgQ84C5oRGXBRVBPulIXIEgba0MUYT09BJCkYqMQpszP4XRJi+AytvC09gKNwdzptekJnQPBLzjw0V1pgTOb2gf14O9ijpW0mGlgVlTCc5A7gl5wfenYkF/bWN9QWofJ9jAOaihyfh4WSgZYJQa8xiC+fpCXhPNZfs3/qb2ru9IHRg5d5JQNJ1v2cZAFSc78g7bqSYbP9M51G0lEWLArAW3wRB2qEY8KF7/NPM/w55n3t2Ni0ebivqHicTh9zToHnCBsHSdCY07OC4/esHPeyREPYn8Vtbkp4+XpDlg8zPI2YJ79CxO3yHprm/UfHjX9Bxho7E92vEcOF4ajUNLL5YxHODSC/dBQ0uD1nnRLyzSXw2fSSCksUs1TEvHLzI1gCv+uzLVDxfNhFpp+TWqhLuTuzHKenaqqcZCNdGOlHi/rvhWqW1Ob7W06c9/+n/VUY)
+
+    The hardest part of this one for me was determining whether a bingo card is a winner - rather than doing anything coordinate-wise, I just recorded each bingo number's x,y in an array and to check, transpose it and see if any of the arrays have 5 of an element:
+
+    ```ruby
+    def winner?
+        recorded.transpose.map { _1.tally.values.any?(5) }.any?
+      end
+    ```
+
+    _edit_
+
+    (board + board.transpose) opens up a whole new approach of just checking inputs, never even thought of it.
+  :replies: []
+- :author: ignurant
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64f25/
+  :body: |-
+    **Ruby**
+
+    [Very straightforward boring implementation](https://tzarnal.github.io/Opal/#XQAAAQA9BQAAAAAAAAAxmwhIY/U8uCvV3MBTRcLmg+3/UZp6nzdBmHqJnigx6N8zdlE0Prd9rod6fg6O45LH2CEcTIce6Q7nzm9yIQ6Dg8/gJ45Eevtmo9v2hPx2fDjUxXAADuAr8DCXLyxRSSni9mA3GQXzpaj38zpREqz5jAdOQHXh+j02p2yYlfHhMgkweg7uZxALALEI4kRnod64/N5b/pOApEau6Plvx99C72UNH3aazlUtQGzUqUQa7Ulfm1oFpiRHQ1Bv5sROoqVYd95guiNh5/zIzE9EUqbVs+hUhFkLkgyytHBK2AZukUY6y7p7oRcSttM9Y2qYL8BzyFw9Y+k2qYoboQlHZocHer/7zqYR1UD4tDy96G2Ou/zXt9C+wLzSvp7LRBg7qM/6p4DuWfoOOoqTjFgYcS3SLHizrVLABkZMnBedFsZ9nO8DXo+xGNPsxEyqFzddnYQMsv6fwLKWUxktUMaQXKfWjgvBSTgqOCft5FQLKNly5GNrpFp6vOyEHeZOKEXO3LsYErj9u3OfnfCquUu9X2gyjCQo62Hm6MLLLikb046ttVFXdTyR56DkiEF2phIX/SpZyC/0mXMBeI2N4Oxooko2RFawgEXdQq+NKmsensxJvkjhqZ6UeuJBAzY1ceHJDP+FEBbuYkUEqADf197EaSeLHC8LEQmKHjP/0V0CJQ==) class-based kinda game thing
+  :replies:
+  - :author: madethemcry
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64wf9/
+    :body: |-
+      Very nice, very elegant. I went the same road with `transpose` and `any` but less elegant. You seem to be pretty fluent in Ruby, I'm not that fluent. I enjoy your result very much and I learned a few bits. Thank you!
+
+      For the context, here my [solution](https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62yi9/)
+
+      Edit: Your source has a wrong variable copied, find `called_number` which should be `number` in `dobb`
+    :replies:
+    - :author: ignurant
+      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7886b/
+      :body: |-
+        Thank you for the nice note! You must have grabbed that right after I posted it -- I caught that var and edited it before I saw your reply -- I thought I could sneak it through! :doh:.
+
+        This is my first time participating in this kind of thing, and it's really interesting (and humbling) to look at other solutions. Often times my main take-away (particularly yesterday!) has been: I overthink things way too much.
+      :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8hz4i/
+  :body: |-
+    [Ruby Solution](https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day04/solution.rb)
+
+    Part 2 was pretty easy after I finished part 1.
+  :replies: []
+- :author: masterarms
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8i7bw/
+  :body: |-
+    Ruby
+
+    I like the approach to track the drawn numbers and have unmarked as `board.flatten - drawn`.
+
+    ```ruby
+    blocks = File.read("./input/4.txt").split("\n\n")
+    # blocks = test.split("\n\n")
+    draws = blocks[0].split(",").map(&:to_i)
+
+    boards = blocks[1..].map { | bt | bt.split("\n").map { |r | r.split().map(&:to_i) }}.freeze
+
+    def bingo?(board, draw)
+        [board, board.transpose()].each do | b |
+            b.each do | r |
+                return true if r.intersection(draw).size() == r.size()
+            end
+        end
+        return false
+    end
+
+    win = (0..draws.size-1).each do | n |
+         played = draws[0..n]
+        won = boards.select { | b | bingo?(b,played) }
+        break [won,played] if won.size == 1
+    end
+    wplayed = win[1]
+    wboard = win[0]
+    bnums = wboard.flatten
+    p (bnums - wplayed).sum() * wplayed[-1]
+
+    candidates = boards
+    last = (0..draws.size-1).each do | n |
+        played = draws[0..n]
+        possible = candidates[0]
+        candidates = candidates.reject { | b | bingo?(b,played) }
+        break [possible,played] if candidates.size() == 0
+    end
+
+    wplayed = last[1]
+    wboard = last[0]
+    bnums = wboard.flatten
+    p (bnums - wplayed).sum() * wplayed[-1]
+    ```
+  :replies: []
+- :author: madethemcry
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62yi9/
+  :body: |-
+    # RUBY
+
+    [georgiee/advent-of-code-2021/day-04 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-04)
+
+    # Notes
+
+    This was a nice challenge. I directly had a strategy in my mind. It's not beautiful but straight forward. But first I struggled to parse the input. I desperately wanted to find a built-in method to get groups of 5 lines (the boards) and I was sure there is some "groups\_of" but this time I was disappointed as ths is only part of rails. Anyway `each_with_index`, `inject` and a modulo helped here. Once I had this I didn't want to handle all those arrays instead I diveded and conquored: I created a class for each board.
+
+    That helped my mind I could focus on the actual problem dealing with a single board. Here I remembered finallyl the awesomeness of ruby. I can subtract arrays to remove existing elements. I can now simply subtract the drawn numbers from the numbers per row and column and if any of that is empty I have a match. In the same manner I can find the unmarked numbers.
+
+    The only thing I had to do was to store the numbers in a transposed way to access distinct columns besides the rows. And then I got the result as I can simply go through the drawn numbers in increasing windows and check that windows towards all boards
+
+    ```ruby
+    def wins?(draw)
+        @rows.any? { |row| (row - draw).empty? } || @columns.any? { |columns| (columns - draw).empty? }
+    end
+    ```
+
+    I used `detect` on my boards array to find the first winner and calculating the result. In part 2 it was basically an exercise of letting my algorithm run and store the winning boards. Once all boards where winnerns I checked the current numbers and so on.
+
+    One problem here was the usage of `detect` which will not work if multiple boards win within a round. I debugged for some frustrating minutes and then got the idea to use `select`. Phew!
+
+    Nice day! Here the code
+
+    # CODE
+
+    ```ruby
+    path = File.join( __dir__ , 'input.txt')
+    input = File.read(path)
+
+    class Board
+      attr_accessor :rows, :columns
+      def initialize(numbers, index)
+        @index = index
+        @rows = numbers
+        @columns = numbers.transpose
+      end
+
+      def wins?(draw)
+        @rows.any? { |row| (row - draw).empty? } || @columns.any? { |columns| (columns - draw).empty? }
+      end
+
+      def unmarked(draws)
+        @rows.flatten - draws
+      end
+    end
+
+    draws = input.lines[0].split(',').map(&:to_i)
+    boards = (input.lines[1..-1].to_a).each_with_index.inject([]) do |memo, value|
+      line, index = *value
+      line.chomp!
+
+      if index%6 == 0
+        # add a new board and skip the empty line
+        memo.push([])
+      else
+        memo.last << line.scan(/\d+/).map(&:to_i)
+      end
+
+      memo
+    end.each_with_index.map { Board.new(_1, _2)}
+
+    # day 1
+    draws.size.times.each do |round|
+      numbers = draws[0..round].to_a
+      if board = boards.detect {|board| board.wins?(numbers)}
+        result = board.unmarked(numbers).sum * numbers[round]
+        puts result
+        break
+      end
+    end
+
+    # day 2
+    winner_boards =[]
+    draws.size.times.each do |round|
+      numbers = draws[0..round].to_a
+      current_number = numbers[round]
+
+      winners = boards.select {|board| board.wins?(numbers)}
+      if winners.size > 0
+        winners.each { winner_boards << boards.delete(_1) }
+      end
+
+      if boards.empty?
+        unmarked_sum = winner_boards.last.unmarked(numbers).sum
+        result = unmarked_sum * current_number
+        puts result
+        break
+      end
+    end
+    ```
+  :replies:
+  - :author: ignurant
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7af5j/
+    :body: |-
+      I like your project layout, and I think I'm going to do that from now on. The retrospective readme per problem is a nice touch!
+
+      I like your usage of array subtraction, I hadn't considered that while I was running through my own solution, even though I usually find it clever.
+
+      Thanks for sharing your notes -- I find it inspiring!
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64g7t/
+  :body: |-
+    Ruby
+
+    [https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb](https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb)
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn65fk0/
+  :body: |-
+    Ruby
+
+    Started late, but still worth posting. Real simple in Ruby:
+
+    ```ruby
+    data = data.split("\n")
+    draws = data.shift.split(',').map(&:to_i)
+    boards = data.each_slice(6).map do |b|
+      b[1,5].map { _1.strip.split.map(&:to_i) }
+    end
+
+    draws.each do |draw|
+      boards.dup.each do |board|
+        (0...5).each do |row|
+          (0...5).each do |col|
+            board[row][col] = -1 if board[row][col] == draw
+          end
+        end
+
+        tp = board.transpose
+        won = (0...5).any? { board[_1].all?(&:negative?) || tp[_1].all?(&:negative?) }
+        if won
+          puts board.flatten.select(&:positive?).sum * draw
+          boards.delete(board)
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: l_ugray
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn6uuot/
+  :body: |-
+    Ruby. The full code is at [https://github.com/lugray/advent\_of\_code/blob/main/2021/day04.rb](https://github.com/lugray/advent_of_code/blob/main/2021/day04.rb), but I'm particularly prod of how this looks:
+
+    ```ruby
+    def part_1
+      play_until { @boards.count(&:won?) == 1 }
+      @boards.find(&:won?).unmarked_sum * @last_called
+    end
+
+    def part_2
+      play_until { @boards.count(&:playing?) == 1 }
+      big_looser = @boards.find(&:playing?)
+      play_until { @boards.count(&:playing?) == 0 }
+      big_looser.unmarked_sum * @last_called
+    end
+    ```
+  :replies: []
