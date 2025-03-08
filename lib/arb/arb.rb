@@ -10,9 +10,8 @@ require "rspec/core"
 
 module Arb
   InputError = Class.new(StandardError)
+  PASTEL = Pastel.new
 end
-
-PASTEL = Pastel.new
 
 Dir[File.join(__dir__, "**", "*.rb")].each do |file|
   require file

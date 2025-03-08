@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require_relative "../lib/download_solutions/download_solutions"
+
+# AoC solutions downloader CLI application
+class DownloadSolutionsApp < Thor
+  desc "reddit", "Downloads Reddit solutions for Ruby or other languages (-l), " \
+    "optionally only for the given year (-y) and day (-d), and optionally " \
+    "force (-f) overwriting existing files."
+  method_option :year, type: :numeric, aliases: "-y"
+  method_option :day, type: :numeric, aliases: "-d"
+  method_option :languages, type: :array, aliases: "-l", default: ["ruby"]
+  method_option :force, type: :boolean, aliases: "-f", default: false
+  def reddit
+    DownloadSolutions::Cli.reddit(**options.slice(:year, :day, :languages, :force).transform_keys(&:to_sym))
+  end
+end
+
+DownloadSolutionsApp.start
