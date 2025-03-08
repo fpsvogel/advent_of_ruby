@@ -630,7 +630,7 @@
     A bit late to the party, but I like to refactor into something professional looking before submitting. I was able to combine both parts into a single method and pass in the correct regex to make it work like a charm.
 
     ```ruby
-    NUM_DICT = {
+        NUM_DICT = {
       "one" => "1",
       "two" => "2",
       "three" => "3",
