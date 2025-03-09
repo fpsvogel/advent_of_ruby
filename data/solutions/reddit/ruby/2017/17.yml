@@ -1,0 +1,143 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd5y54/
+  :body: |-
+    [How I did part 2](#s "zero is ALWAYS at the start of the buffer, so the only time a value after it changes is if the spinlock lands on zero"). Edit: Okay, looks like most people figured this same thing out, figures.
+
+    Ruby
+
+    ```ruby
+    input = ARGV[0]&.to_i || 354
+
+    buffer = [0]
+    pos = 0
+
+    (1..2017).each { |n|
+      pos = (pos + input) % buffer.size
+      buffer.insert(pos + 1, n)
+      pos += 1
+    }
+    puts buffer[pos + 1]
+
+    value_after_zero = nil
+
+    pos = 0
+
+    (1..50_000_000).each { |n|
+      pos = (pos + input) % n
+      value_after_zero = n if pos == 0
+      pos += 1
+    }
+
+    puts value_after_zero
+    ```
+
+    However, this takes about four seconds to run on my computer, that's too slow. ~~Does anyone know a way to make this faster?~~
+
+    Edit: [figured it out](https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd8b1n/)
+  :replies:
+  - :author: p_tseng
+    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd8b1n/
+    :body: |-
+      > Does anyone know a way to make this faster?
+
+      Figured it out. Do multiple iterations of part 2 at a time, because not all iterations result in having to take a remainer modulo buffer length. Now runs in insiginificant time (0.07 seconds for the entire thing on my computer).
+
+      ```ruby
+      NAIVE = ARGV.delete('--naive')
+
+      step_size = ARGV[0]&.to_i || 354
+
+      buffer = [0]
+      pos = 0
+
+      (1..2017).each { |n|
+        pos = (pos + step_size) % buffer.size
+        buffer.insert(pos + 1, n)
+        pos += 1
+      }
+      puts buffer[pos + 1]
+
+      value_after_zero = nil
+      pos = 0
+      LIMIT = 50_000_000
+
+      if NAIVE
+        (1..LIMIT).each { |n|
+          pos = (pos + step_size) % n
+          value_after_zero = n if pos == 0
+          pos += 1
+        }
+        puts value_after_zero
+        exit 0
+      end
+
+      # Instead, do multiple iterations in one go,
+      # so that we do fewer modulo operations.
+      n = 0
+      while n < LIMIT
+        value_after_zero = n if pos == 1
+        # How many steps fit between `pos` and the next n to wrap?
+        # Call this `fits`.
+        # Each time we add step_size + 1 steps, so:
+        # pos + step_size * fits + fits >= n + fits
+        # pos + step_size * fits >= n
+        fits = (n - pos) / step_size
+        # We advance `fits` times (right before we wrap) and one more (wrap).
+        # As noted above, we add (step_size + 1) each time,
+        # but we only add the very last step after wrapping + writing.
+        n += fits + 1
+        pos = (pos + (fits + 1) * (step_size + 1) - 1) % n + 1
+      end
+      puts value_after_zero
+      ```
+
+      So, correct answer for my input, but a little suspicious it may have an off-by-one error somewhere. Need to verify.
+    :replies:
+    - :author: if0nz
+      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drdulxd/
+      :body: |-
+        I've just implemented your p2's algorithm in Java and the avg execution time is 150 **microseconds**! Kudos (:
+
+        ```ruby
+        public static int part2v2(int input) {
+            int currPos = 0;
+            int result = 0;
+            int limit = 50000000;
+            int n = 0;
+            while (n < limit) {
+                if (currPos == 1)
+                    result = n;
+                int fits = (n-currPos)/input;
+                n+=(fits+1);
+                currPos = (currPos + (fits+1)*(input+1) -1) % n +1;
+            }
+            return result;
+        }
+        ```
+      :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd600h/
+  :body: |-
+    Ruby, part 1
+
+    ```ruby
+    v=gets.to_i
+    #v=3
+    w=[y=0]
+    2017.times{w.rotate!(v)
+    w+=[y+=1]
+    }
+    p w[0]
+    ```
+
+    Part 2 did not run in time, I'm tempted to think optimizations are needed, but I barely understand the problem to do anything. Going to let it run for a few hours to check it works before posting it.
+  :replies:
+  - :author: theyangmaster
+    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd62jc/
+    :body: Try observing what the first element in the list is.
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd9yx4/
+      :body: https://cdn.discordapp.com/attachments/293355384436162560/391855738282311681/unknown.png
+      :replies: []

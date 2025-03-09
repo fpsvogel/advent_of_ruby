@@ -1,0 +1,60 @@
+---
+- :author: erlog
+  :url: https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/cy4cx82/
+  :body: |-
+    Fairly unoptimized solution in Ruby.
+
+    ```ruby
+    input = open("Day019-input.txt").readlines.map!(&:split)
+
+    replacements = Hash.new(Array.new)
+    mirrorreplacements = Hash.new(Array.new)
+
+    compound = input[-1][0]
+    input = input[0..-3]
+
+    input.each do |line|
+        replacements[line[0]] = (replacements[line[0]] + [line[2]])
+        mirrorreplacements[line[2]] = (mirrorreplacements[line[2]] + [line[0]])
+    end
+
+    compounds = []
+
+    replacements.each do |key, value|
+        count = compound.scan(key).length
+        pieces = compound.split(key)
+
+        value.each do |replacement|
+            fillers = Array.new(count){key}
+            count.times do |index|
+                subs = fillers.dup
+                subs[index] = replacement
+                compounds << pieces.zip(subs).flatten.join
+            end
+        end
+    end
+
+    puts "Part 1:"
+    puts compounds.uniq.length
+
+    subcount = 0
+    while compound.length > 1
+        max, bestcount, bestkey, bestreplacement = 0, 0, "", ""
+
+        mirrorreplacements.keys.each do |key|
+            count = compound.scan(key).length
+            difference = (count * key.length) - (count * mirrorreplacements[key].length)
+            if (count != 0) and ((difference/count) > max)
+                max, bestcount, bestkey = difference, count, key
+                bestreplacement = mirrorreplacements[key][0]
+            end
+        end
+
+        subcount += bestcount
+        compound = compound.gsub(bestkey, bestreplacement)
+    end
+
+    puts "Part 2"
+    puts subcount
+    ```
+  :replies: []

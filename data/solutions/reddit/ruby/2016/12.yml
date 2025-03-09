@@ -1,0 +1,115 @@
+---
+- :author: yjerem
+  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36vjr/
+  :body: |-
+    This was really fun! Here's a compiler in Ruby that outputs C.
+
+    ```ruby
+    C_VALUE = 1
+
+    puts "#include <stdio.h>"
+    puts
+    puts "int a = 0, b = 0, c = #{C_VALUE}, d = 0;"
+    puts
+    puts "int main() {"
+
+    DATA.each.with_index do |line, n|
+      puts "line#{n}:"
+      if line =~ /^cpy ([abcd]|-?\d+) ([abcd])$/
+        puts " #$2 = #$1;"
+      elsif line =~ /^cpy (-?\d+) ([abcd])$/
+        puts " #$2 = #$1;"
+      elsif line =~ /^inc ([abcd])$/
+        puts " #$1++;"
+      elsif line =~ /^dec ([abcd])$/
+        puts " #$1--;"
+      elsif line =~ /^jnz ([abcd]|-?\d+) (-?\d+)$/
+        puts " if (#$1) goto line#{n + $2.to_i};"
+      else
+        puts "!!! PARSE ERROR: #{line}"
+        exit
+      end
+    end
+
+    puts
+    puts " printf(\"%d\\n\", a);"
+    puts " return 0;"
+    puts "}"
+    puts
+
+    __END__...insert asm input here...
+    ```
+  :replies:
+  - :author: willkill07
+    :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36zjn/
+    :body: heh, I [did mine in awk](https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36od6/). Almost identical
+    :replies: []
+- :author: brantyr
+  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db37axs/
+  :body: |-
+    Ruby assembunny parser. Scraped into the top 100, but have done some heavy refactoring since that
+
+    ```ruby
+    file = File.new("ainput12.txt","r")
+    lines = []
+    while (line=file.gets)
+        lines << line.split(' ')
+    end
+
+    i=0
+    @a = @b = @d = 0
+    @c = 1 # Part 1/2
+
+    def get(var)
+        out = 0
+        case var
+        when "a"
+            out = @a
+        when "b"
+            out = @b
+        when "c"
+            out = @c
+        when "d"
+            out = @d
+        else
+            out = var.to_i
+        end
+        return out
+    end
+
+    def set(var,val)
+        case var
+        when "a"
+            @a = val
+        when "b"
+            @b = val
+        when "c"
+            @c = val
+        when "d"
+            @d = val
+        end
+    end
+
+    while (i<lines.length and i>-1)
+        jumped=false
+        case lines[i][0]
+        when "cpy"
+            set(lines[i][2],get(lines[i][1]))
+        when "inc"
+            set(lines[i][1],get(lines[i][1])+1)
+        when "dec"
+            set(lines[i][1],get(lines[i][1])-1)
+        when "jnz"
+            val = get(lines[i][1])
+            if val!=0 then
+                jumped=true
+                i+=lines[i][2].to_i
+            end
+        end
+        if !jumped then
+            i+=1
+        end
+    end
+    puts @a
+    ```
+  :replies: []

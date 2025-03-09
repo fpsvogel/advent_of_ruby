@@ -1,0 +1,204 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10wbf/
+  :body: |-
+    Part 1 went well. Thanks to language I chose (Ruby), it is easy to code the "reverse these N elements" without error. Since I didn't want to deal with the wrap-around, I just always rotate the array so that I'm reversing the **first** N elements, and then rotate the array back when I'm done. This can be done in the various languages that allow assigning an array A1 into a subarray of another array A2, modifying multiple elements of A2 at once. For another example language, Python will do this too with `l[0:5] = reversed(l[0:5])`
+
+    Part 2 was good but less good simply because of confusion about converting to a hash and about interpreting the input. If I had to give myself advice retroactively, it would be to check that an answer is a plausible answer (for the type of answer the problem statement is asking for) before submitting it.
+
+    ```ruby
+    def twist(lengths, n)
+      pos = 0
+      skip_size = 0
+
+      n.times.with_object((0..255).to_a) { |_, l|
+        lengths.each { |len|
+          l.rotate!(pos)
+          l[0, len] = l[0, len].reverse
+          l.rotate!(-pos)
+          pos += len + skip_size
+          skip_size += 1
+        }
+      }
+    end
+
+    input = (ARGV.empty? ? DATA : ARGF).read.chomp
+
+    puts twist(input.split(?,).map(&:to_i), 1).take(2).reduce(:*)
+
+    puts twist(input.bytes + [17, 31, 73, 47, 23], 64).each_slice(16).map { |byte|
+      byte.reduce(0, :^).to_s(16).rjust(2, ?0)
+    }.join
+
+    __END__
+    147,37,249,1,31,2,226,0,161,71,254,243,183,255,30,70
+    ```
+  :replies:
+  - :author: KnorbenKnutsen
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1bld9/
+    :body: Did the same thing in Python, kept the list in a deque that I rotated `-(current_position + skip_steps) % len(my_deque)` every time. Kinda neat IMO.
+    :replies: []
+  - :author: hpzr24w
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1f30q/
+    :body: Yes, I like that idea of doing the rotation. Ended up rolling my own C++ `reverse()` rather than being able to use the Standard Library.
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr108bt/
+  :body: |-
+    # irb (Ruby REPL) (41st, 16th)
+
+    The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
+
+    ```ruby
+    # Part 1
+    -> n, a { d = (0...n).to_a; r = 0; skip = 0; a.each { |c| d[0...c] = d[0...c].reverse; d = d.rotate(c + skip); r += c + skip; skip += 1; p d.rotate(n - (r % n)) }; r = d.rotate(n - (r % n)); r[0] * r[1] }[256, `pbpaste`.split(',').map(&:to_i)]
+
+    # Part 2
+    -> n, a { d = (0...n).to_a; r = 0; skip = 0; 64.times { a.each { |c| d[0...c] = d[0...c].reverse; d = d.rotate(c + skip); r += c + skip; skip += 1; }; }; r = d.rotate(n - (r % n)); r.each_slice(16).map { |s| "%02x" % s.reduce(&:^) }.join }[256, [*`pbpaste`.strip.bytes, 17, 31, 73, 47, 23]]
+    ```
+  :replies:
+  - :author: Unihedron
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10yki/
+    :body: Ah, .each_slice! that was the library method I was missing... I've been trying to use `(0...256).group_by{|x|x/16}.map{|x,y|l[x,16].inject &:^}` and it was not giving me the right thing.
+    :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr113ne/
+  :body: |-
+    Ruby; Trigger warning: state approaching unsalvageable, not even I know what's happening here. I spent way too much time debugging because I used the wrong method to chop up the length-16 blocks.
+
+    ```ruby
+    #v=gets.split(?,).map &:to_i
+    v=(gets&.chomp&.chars&.map(&:ord)||[])+[17, 31, 73, 47, 23]
+    #p v - commented out for day 14
+    #v=[3, 4, 1, 5, 17, 31, 73, 47, 23]
+    g=0
+    t=256
+    l=Array.new(t){|x|x}
+    c=0
+    64.times {
+    v.each{|x|l[0,x]=l[0,x].reverse
+    l=l.rotate(x+c)#drop((x+c)%t)+l.take((x+c)%t)
+    g+=x+c
+    c+=1}
+    }
+    #q=Array.new(16){0}
+    #vv=(t-(g%t))%t
+    #vv=(t-((g)%t))%t
+    vv=g%t
+    l=l.rotate(-vv)
+    p l.each_slice(16).map{|x|x.reduce(&:^).to_s(16).rjust(2,?0)}.join
+    #q=(0...t).group_by{|x|x/16}.map{|x,y|l[x,16].inject &:^}
+    #p q,g,l
+    #p q.map{|x|x.to_s(16).rjust(2,?0)}.join
+    #p l,g,l[(t-(g%t))%t]
+    #p l,g,l[(t-(g%t))%t],l[(t-((g-1)%t))%t],l[(t-(g%t))%t]*l[(t-((g-1)%t))%t],c
+    ```
+  :replies: []
+- :author: mrstickman
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr12r55/
+  :body: |-
+    Ruby 406/677: https://pastebin.com/qPtLqvzB
+
+    - I cleaned it up a little after I got the answer in. For example, the whole problem statement at the top was added after I "finished."
+    - Framework.rb is just a tiny unit testing framework.
+    - According to my stats page, this was some of my slowest work (counting only time spent actually working on the problem and not, say, sleeping or having a life outside of this), but I ranked higher than I ever have. This one's gonna be a weed-out problem for the masses.
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr18nn4/
+  :body: |-
+    ruby! this is the first time i've had problems with understanding the task that weren't due to reading the task too quickly. i had to stare at the part 2 task description for around 30 minutes before i could work out what was actually expected
+
+    ```ruby
+    input = File.read("input").chomp.split(",").map(&:to_i)
+
+    def pinch_and_stuff arr, position, length
+      return if length < 2
+      slice = arr.slice(position, length)
+      slice.concat(arr.slice(0, (position + length) % arr.size))
+      slice.reverse!
+
+      length.times do |i|
+        index = (position + i) % arr.size
+        arr[index] =slice[i]
+      end
+    end
+
+    def round list, input, current_position=0, skip_size=0
+      input.each do |l|
+        pinch_and_stuff list, current_position, l
+
+        current_position += l + skip_size
+        current_position = current_position % list.size
+        skip_size += 1
+      end
+
+      [current_position, skip_size]
+    end
+
+    list = (0..255).to_a
+    round list, input
+
+    puts list[0] * list[1]
+
+    ## part2
+    part2_input = File.read("input").chomp.bytes
+    list = (0..255).to_a
+
+    def get_hash input
+      input.concat [17, 31, 73, 47, 23]
+      list = (0..255).to_a
+
+      64.times.inject([0,0]) { |o| round list, input, *o }
+      dense_hash = list.each_slice(16).map{ |sl| sl.reduce(&:^) }
+      dense_hash.map{|c| c.to_s(16).rjust(2,"0")}.join
+    end
+
+    puts get_hash(part2_input)
+    ```
+  :replies: []
+- :author: skarlso
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr202kk/
+  :body: |-
+    I'm actually happy with this _Ruby_ solution.
+
+    Part 1:
+
+    ```ruby
+    lengths = [187,254,0,81,169,219,1,190,19,102,255,56,46,32,2,216]
+    sequence = (0..255).to_a
+
+    current_position = 0
+    skip_size = 0
+    lengths.each do |l|
+      sequence = sequence.rotate(current_position)
+      sequence[0...l] = sequence[0...l].reverse
+      sequence = sequence.rotate(sequence.size - current_position)
+      current_position = (current_position + l + skip_size) % sequence.size
+      skip_size += 1
+    end
+
+    puts "Result of first two numbers: #{sequence[0]*sequence[1]}"
+    ```
+
+    Part 2:
+
+    ```ruby
+    lengths = '187,254,0,81,169,219,1,190,19,102,255,56,46,32,2,216'.bytes
+    lengths += [17,31,73,47,23]
+    sequence = (0..255).to_a
+
+    current_position = 0
+    skip_size = 0
+    64.times {
+      lengths.each do |l|
+        sequence = sequence.rotate(current_position)
+        sequence[0...l] = sequence[0...l].reverse
+        sequence = sequence.rotate(sequence.size - current_position)
+        current_position = (current_position + l + skip_size) % sequence.size
+        skip_size += 1
+      end
+    }
+
+    p sequence.each_slice(16).map { |c| "%02x" % c.reduce(&:^) }.join
+    ```
+  :replies: []

@@ -1,0 +1,277 @@
+---
+- :author: SomebodyTookMyHandle
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxx8buz/
+  :body: 'Brute forced it in Ruby, very similar to how I solved #9 (construct graph, find permutations with built-in method, profit). Basically the only difference is that this graph is directed whereas day #9 was undirected. Missed the leaderboard by a minute due to a variety of comedic errors and misreading the submission instructions for Part Two.'
+  :replies:
+  - :author: ThereOnceWasAMan
+    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyqpfn/
+    :body: 'This is undirected too, since relationships are always reciprocal. Just save "A''s change sitting next to B + B''s change sitting next to A", and consider that "distance from A to B". Then it''s equivalent to #9 -- the only difference is that it''s a true TSP, since you end up back where you started, whereas #9 you never complete the last leg of the TSP.'
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxbvmo/
+  :body: |-
+    Brute force Ruby solution:
+
+    ```ruby
+    happiness_map = {}
+    people = []
+
+    File.foreach("advent13input.txt"){|line|
+        # Tokenize
+        line = line.strip! || line
+        line = line.slice(0,line.length-1)
+        tokens = line.lines(" ").to_a
+        for t in tokens do
+            t = t.strip! || t
+        end
+
+        # Extract values
+        person = tokens[0]
+        happinesschange = tokens[3].to_i
+        if tokens[2] == "lose" then
+            happinesschange = -happinesschange
+        end
+        person_to_left_or_right = tokens[10]
+
+        # Add to people array and happiness map
+        if(!people.include?(person)) then
+            people.push(person)
+        end
+        happiness_map[person + person_to_left_or_right] = happinesschange
+    }
+
+    # Add this for part 2 of the puzzle
+    #for p in people do
+    # happiness_map["Myself" + p] = 0
+    # happiness_map[p + "Myself"] = 0
+    #end
+    #people.push("Myself")
+
+    #Brute force search across all permutations of "people" array
+
+    permutations = people.permutation.to_a
+
+    maximum = -99999999
+    best_arrangement = nil
+
+    for p in permutations do
+        happiness = 0
+        for i in 0..p.length-1 do
+            happiness = happiness + happiness_map[p[i] + p[(i+1)%p.length]]
+            happiness = happiness + happiness_map[p[(i+1)%p.length] + p[i]]
+        end
+        if happiness > maximum then
+            maximum = happiness
+            best_arrangement = p
+        end
+    end
+
+    puts maximum.to_s
+    puts best_arrangement.to_s
+    ```
+  :replies:
+  - :author: Herathe
+    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxdt68/
+    :body: 'Hey just a quick pointer: You can use the constant -Float::INFINITY instead of -9999999. That way any value is guaranteed to be larger than maximum'
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxlwks/
+      :body: Thanks for the tip!!! :) I've just started with Ruby and was doing this quick and dirty, and didn't take the time to find out what the Math.MAX\_INT equivalent was....
+      :replies: []
+    - :author: SomebodyTookMyHandle
+      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyejbd/
+      :body: |-
+        By the way, there's a quick and dirty way to write this:
+
+        1.0/0.0 for Infinity -1.0/0.0 for Negative Infinity
+
+        Sacrifices a bit of clarity though.
+      :replies: []
+- :author: phpaoc
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxd775/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    require 'set'
+
+    $edges = Hash.new { |h,k| h[k] = {} }
+    $signs = {"gain" => 1, "lose" => -1}
+
+    STDIN.each_line.map do |line|
+      m = /([^]*) would ([^]*) ([^]*) happiness units by sitting next to ([^]*)\./.match(line)
+      from, dist, to = [m[1], $signs[m[2]] * m[3].to_i, m[4]]
+      $edges[from][to] = dist
+    end
+
+    p $edges.keys.permutation.map { |l|
+      l.push(l[0]).each_cons(2).reduce(0) { |memo, pair|
+        a, b = pair
+        memo + $edges[a][b].to_i + $edges[b][a].to_i
+      }
+    }.max
+    ```
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxe2wk/
+  :body: |-
+    ruby, again v similar to #9
+
+    ```ruby
+    input = File.read "input"
+
+    scores = {}
+    input.each_line do |line|
+      parts = line.split " "
+      name, impact, score, name2 = parts[0], parts[2], parts[3].to_i, parts.last.chop
+      score = -score if impact == "lose"
+
+      scores[name]||={}
+      scores[name][name2] = score
+    end
+
+    def max_happiness scores
+      arrangements = scores.keys.permutation.to_a
+      happiness = arrangements.map do |seating|
+        seating.each_with_index.reduce(0) do |memo, (person,i)|
+          next_index = i+1
+          next_index = 0 if next_index >= seating.length
+          memo+scores[person][seating[i-1]]+scores[person][seating[next_index]]
+        end
+      end
+      happiness.max
+    end
+
+    puts max_happiness scores
+
+    scores.each { |k,v| v["CoolDude"] = 0}
+    scores["CoolDude"] = Hash.new(0)
+
+    puts max_happiness scores
+    ```
+
+    whenever i come here i always feel like everyone else has already managed to solve this both faster, and with only 0.2 lines of code
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxgndr/
+  :body: |-
+    Ruby
+
+    ```ruby
+    class Person
+
+        attr_reader :influences, :name
+
+        def initialize(name)
+            @influences = {}
+            @name = name
+        end
+
+        def add_influence(source, value)
+            @influences[source] = value
+        end
+
+        def get_influence(person)
+            @influences[person]
+        end
+
+         def hash
+            @name.hash
+        end
+
+        def eql?(other)
+            self == other
+        end
+
+        def ==(other)
+            @name == other.name
+        end
+
+        def to_s
+            @name
+        end
+    end
+
+    class TableArrangement
+
+        def initialize(persons)
+            @persons = persons
+        end
+
+        def happiness
+            value = 0
+            count = @persons.count
+            for i in 0...count
+                left = @persons[(i-1)%count]
+                right = @persons[(i+1)%count]
+                person = @persons[i]
+                value += person.get_influence(left)
+                value += person.get_influence(right)
+            end
+            value
+        end
+
+        def to_s
+            "#{@persons.map{|p|p.name}.join(", ")} => #{happiness}"
+        end
+
+    end
+    class Processor
+
+        def initialize
+            @persons = {}
+            @arrangements = []
+        end
+
+        def parse(line)
+            match = line.match(/(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)/)
+            all, target, modifier, count, source = match.to_a
+
+            influence = (modifier == "gain"? count.to_i : 0- count.to_i)
+            target_person = get_person(target)
+            source_person = get_person(source)
+
+            target_person.add_influence(source_person, influence)
+        end
+
+        def add_self
+            you = get_person("yourself")
+            @persons.values.each do |p|
+                p.add_influence(you, 0)
+                you.add_influence(p, 0)
+            end
+        end
+
+        def process
+            #generate all possible arrangements
+            @persons.values.permutation.each do |t| #wow, dat is makkelijk zo!
+                @arrangements << TableArrangement.new(t)
+            end
+            sorted = @arrangements.sort_by{|a|a.happiness}
+            puts sorted.last
+
+        end
+
+        def get_person(name)
+            person = @persons[name]
+            if (!person)
+                person = Person.new(name)
+                @persons[name] = person
+            end
+            person
+        end
+    end
+
+    puts "Day 13 part 1"
+    input = File.new("input13.txt").readlines.map{|l|l.strip}
+    p = Processor.new
+    input.each {|l|p.parse(l)}
+    p.process
+
+    puts "Day 13 part 2"
+    p = Processor.new
+    input.each {|l|p.parse(l)}
+    p.add_self
+    p.process
+    ```
+  :replies: []

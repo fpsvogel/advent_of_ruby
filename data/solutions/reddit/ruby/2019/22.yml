@@ -1,0 +1,90 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnm5sc/
+  :body: |-
+    Part 1 was not too bad, especially since Ruby has `rotate` function on arrays.
+
+    Part 2 was a wild ride. I spent ages exploring irrelevant and useless paths:
+
+    - Let's try it for 10007 instead of 119315717514047. Does the card at position 2020 repeat after a certain time? Well, if it did, it's a long time. Even if it did, how am I supposed to shuffle 119315717514047 cards to find that repeat anyway?
+    - I obviously can't compute a permutation matrix since it's too big.
+    - I wrote code to compute "card at position i is at position j at time t - 1" (undo all shuffle steps). I used modular inverse implementation from 2016 day 15 for this. But I can't apply this inverse function 101741582076661 times. Even a simple loop that does _nothing at all_ `101741582076661.times { }` does not finish in reasonable time on my computer. So how do you even do this?
+
+    I started playing around with the last example given in part 1. I tried seeing what happens if the shuffle is applied twice. The result was... `6 5 4 3 2 1 0 9 8 7
+    ` **Then the light bulb turned on**. That made me see that you can simplify sequences of transformations. I played around to see how to properly simplify the transformations. For example, it's obvious that adjacent cuts can simply be added. Adjacent deal with increment just multiply together (the example has a handy pair of 9 and 3 together to help verify that it's the same as if you'd dealt with increment 7). But to really simplify it into a manageable state, I have to figure out how to transpose any two different transforms so that I could get the same ones next to each other, so had to play around with the examples some more. I used the example and my answer on part 1 to help ensure that my simplified transformations were still the same as the original. When the simplification process is complete, the input contains only one of each type of technique. Once it looked like simplification was working 100%, then I used exponentiation to construct the correct transforms for 101741582076661, simplified that, ran it in reverse (so that "undo shuffle" I wrote wasn't a waste after all!!!), and crossed my fingers hoping that the answer produced was correct. And let out a huge sigh of relief when it was.
+
+    I think I was not mathematically strong enough to see this faster like some people in this thread apparently did, so it looks like I still have some work to do...
+
+    Ruby: [22_slam_shuffle.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/22_slam_shuffle.rb)
+
+    Haskell: [22_slam_shuffle.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/bin/22_slam_shuffle.hs)
+  :replies:
+  - :author: Fyvaproldje
+    :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbqp1xv/
+    :body: |-
+      In my input, there are no 2 adjacent shuffles of the same type. Are there in yours?
+
+      At first, I also tried the repetitions route...
+    :replies: []
+- :author: tckmn
+  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnilun/
+  :body: |-
+    ruby (plus some mathematica) 91/18
+
+    i had a silly bug in my part 1 that cost way too much time, but part 2 was cool! here's my code and an explanation:
+
+    ```ruby
+    nc = 119315717514047
+    a,b = 1,0
+    read.lines.reverse.each do |line|
+        case line.chomp
+        when /new/ then a,b = -a, -b + nc-1
+        when /cut (.*)/ then b += $1.to_i
+        when /increment (.*)/ then a *= m=invmod $1.to_i, nc; b *= m
+        end
+    end
+    p a%nc,b%nc
+    ```
+
+    i then stuck the constants into mathematica (because i had the foresight to prepare a modular inverse in ruby, but somehow not a powermod) and solved the problem with this expression:
+
+    ```ruby
+    Mod[2020 PowerMod[a, n, nc] + b (1 - PowerMod[a, n, nc]) ModularInverse[1 - a, nc], nc]
+    ```
+
+    the basic idea is that all the shuffles can be described as operations modulo the card count.
+
+    - the reversal maps position _p_ to _-p + nc-1_ (where _nc_ is the number of cards)
+    - the cut by _n_ maps position _p_ to _p - n_ (which generalizes to negative _n_)
+    - the deal by _n_ maps position _p_ to _pn_
+
+    therefore, we can fully describe the entire shuffle transformation as _ap+b_ for some constants _a_ and _b_. specifically, they start out as _1_ and _0_ respectively, and each line in the shuffle procedure modifies them as follows:
+
+    - reversal: _(a, b)_ → _(-a, -b + nc-1)_
+    - cut: _(a, b)_ → _(a, b-n)_
+    - deal: _(a, b)_ → _(an, bn)_
+
+    we actually want to invert these, though, because we're asked for the card that ends up at 2020, not where 2020 ends up. the inverses are simple, because reversal is its own inverse, cut by _n_ just becomes cut by _-n_, and for the deal we take the modular inverse (the number of cards is prime). we also need to make sure to apply the steps in reverse order.
+
+    after that (which is what the ruby code does), we have to apply the function _x → ax+b_ a large number of times. taking a look at the expanded version of the first few applications gives a clue:
+
+    x
+
+    ax + b
+
+    a^(2)x + ab + b
+
+    a^(3)x + a^(2)b + ab + b
+
+    a^(4)x + a^(3)b + a^(1)b + ab + b
+
+    in general, the _n_th term looks like
+
+    a^n x + a^n-1 b + a^n-2 b + ... + a^2 b + a b + b
+
+    which can be factored into
+
+    a^n x + b(1-a^(n))/(1-a)
+
+    the mathematica does this all mod number of cards, which gives the solution.
+  :replies: []

@@ -1,0 +1,163 @@
+---
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j0jt5/
+  :body: |-
+    360/417 Ruby
+
+    https://github.com/ni3t/advent-2019/blob/master/3_crossed_wires.rb
+
+    Got tripped up by summing positions with negative values (not using absolute values) on part 1
+
+    Part 2 I was sorting by the closest single coordinate instead of the closest manhattan distance.
+  :replies: []
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j1apy/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_03
+  :replies: []
+- :author: Gck2702
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9jv0zh/
+  :body: |-
+    Ruby solution. Didn't make a global leaderboard since it's at 6AM local time :P
+
+    https://topaz.github.io/paste/#XQAAAQBJBAAAAAAAAAAQaJiMp0UZLyWlQpSWTlWUUSuzd7lhK3T+nEg+s2o+JfblImA+wf+fiDqUH1dwUyaQC9WW8/W70fdGCfP6h46ywG5XkSS0DY/5CxtJInAfAVUrPqB0jNCr+QLfaQu24hqfpovY6dB76eLJqbmciCeJDr2083SG3YQskfomMRU/tGsiCNVxQiyWw2JIp9/V8tUrBGDzq5H1eyjShFgHAf+WWB8Th+IQ+cyHC/pPyn4B4fhgF82PGebB8ovLLRKuakA37SHDDKPJi08fjr0GHuSQFbv5AKwaZnAHrfXOsCdmn9tpPpAiyarlp47OeYlR3pI8F6S1DH3GQQRxRSan9yajVjPa+oIKiBKr2IohWazPA+/rv6fiJjNdgytxIS/xTBbk+ve1QUx2jOMUoM91owqTxmpu81uozPTSR5xQfmsjQvWAuSzQKMORhWozCRb5wMnD4gAG6E0z+WcUstm05gLhpzRNsZRryHm14OurB61IxYlBdNSak3yibkTT7oR00Z4RvJBUa4TX35UKO2NruaYHsZECQNfBw+pK6amCXt+yDZi2wb7fQO9YfXx9eH2lCW1ZBV9UF8EBnoExWftaf4P/7Nlo+g==
+
+    Edit: Code was a bit too long for comment as per the rules, made a Topaz link.
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9lc2po/
+    :body: This is really clean! Have definitely taken a few things away from your solution.
+    :replies: []
+- :author: judofyr
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9izjj2/
+  :body: |-
+    15/45. Ruby.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQD6AgAAAAAAAAARiAiHwcJlXK8fjPChEJL1+xwkvfukGlOLvmbXfJqC//3EXi0ij0i8MFt788CFBTrOgUFI38vUQSdifWlfhk230CThMNuPdhYBX30gGW42TlTURcQRPg50VungEpgPISRkkR1jlnkIy8ojasAhIihGCU/iAnPcuo1dS8OHmiRDvm4x4Y94HfVqqjnkL8NPDsN+Z/7HmqPnUrj6OvoErg6+vi26mpkGrJ/kZjRCAEipz07Ywg/c9OPKd+8BRdHjJ0m8h9LNpun3v+jiw2+hK0HVYW5cjOIW9OAzMQ9ZTK6x5A56mMk/1xx55MMYVbjaF5e0ib73adf/moxkHnSI1Xae+5TnlD9dCtexSdTa2kDWO5zWUgtaEyw/4NDjqdK+8elMgqKRMC8BM39Bf6/Y1kx+bkKLu7RCYcxauUb3d3gU9tF4zuOtRgZy3/9xVrMA)
+  :replies:
+  - :author: ni3t
+    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j09gx/
+    :body: |-
+      https://ruby-doc.org/core-2.5.1/IO.html#method-i-lines
+
+      `IO#lines` is being deprecated in favor of `IO#each_line`
+    :replies: []
+- :author: forlivesavingveggies
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j8upm/
+  :body: |-
+    Who wants to talk about Ruby!!?
+
+    ```ruby
+    # example third_wire = Wire.new(steps: "R75,D30,R83,U83,L12,D49,R71,U7,L72".split(','))
+    class Wire
+      attr_accessor :x_axis, :y_axis, :store, :counter
+
+      ORIGIN = [0, 0].freeze
+
+      def initialize(steps:, existing_points: nil)
+        @steps = steps
+        @existing_points = existing_points
+        wire_reset
+      end
+
+      def wire_reset
+        @x_axis = 0
+        @y_axis = 0
+        @counter = 0
+        @store = {}
+      end
+
+      def closest
+        @store.delete(ORIGIN)
+        @store.min_by { |_k, v| v }
+      end
+
+      def process
+        @steps.each do |step|
+          record(step)
+        end
+      end
+
+      def input(point)
+        @counter += 1
+        p "counter: #{@counter}"
+        p "point #{point}"
+
+        return if @store[point]
+
+        @store[point] = @counter
+      end
+
+      def record(step)
+        p "x_axis #{@x_axis}"
+        p "y_axis #{@y_axis}"
+        direction = step.first
+        p "direction: #{direction}"
+
+        amount = step[1..-1].to_i
+        p "amount : #{amount}"
+
+        case direction
+        when 'L'
+          left_axis = @x_axis - amount
+
+          p "left_axis: #{left_axis}"
+
+          (@x_axis - 1).downto(left_axis) do |n|
+            point = [n, @y_axis]
+            input(point)
+          end
+
+          @x_axis = left_axis
+        when 'D'
+          down_axis = @y_axis - amount
+
+          p "down_axis #{down_axis}"
+
+          (@y_axis - 1).downto(down_axis) do |n|
+            point = [@x_axis, n]
+            input(point)
+          end
+
+          @y_axis = down_axis
+        when 'U'
+          up_axis = @y_axis + amount
+
+          p "up_axis: #{up_axis}"
+
+          (@y_axis + 1).upto(up_axis) do |n|
+            point = [@x_axis, n]
+            input(point)
+          end
+
+          @y_axis = up_axis
+        when 'R'
+          right_axis = @x_axis + amount
+          p "right_axis #{right_axis}"
+
+          (@x_axis + 1).upto(right_axis) do |n|
+            point = [n, @y_axis]
+            input(point)
+          end
+
+          @x_axis = right_axis
+        end
+      end
+    end
+
+    # example: fourth_wire = SecondWire.new(steps: "U62,R66,U55,R34,D71,R55,D58,R83".split(','), existing_points: third_wire.store)
+    class SecondWire < Wire
+      attr_accessor :existing_points
+
+      def input(point)
+        @counter += 1
+        return if @store[point]
+        return unless @existing_points[point]
+
+        @store[point] = @counter + @existing_points[point]
+      end
+    end
+    ```
+  :replies: []

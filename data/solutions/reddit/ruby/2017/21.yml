@@ -1,0 +1,189 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4sfe/
+  :body: |-
+    # irb (26th, 23rd)
+
+    I am solving this problem interatively in the Ruby’s REPL.
+
+    A pattern is represented as an array of string: ['.#.', '..#', '###']
+
+    Loading the rulebook:
+
+    ```ruby
+    IN = `pbpaste`
+    rules = {}; IN.scan(/(\S+) => (\S+)/).map { |a, b| [a.split('/'), b.split('/')] }.each { |a, b| rules[a] = b }; rules
+    ```
+
+    Set up the initial state and flipping/rotating logic:
+
+    ```ruby
+    data = ['.#.', '..#', '###']
+    flip = -> m { m.reverse }
+    flip2 = -> m { m.map(&:reverse) }
+    flip3 = -> m { m.reverse.map(&:reverse) }
+    flip4 = -> m { m.map(&:chars).transpose.map(&:join) }
+    flip5 = -> m { m.map(&:chars).transpose.map(&:join).reverse }
+    flip6 = -> m { m.map(&:chars).transpose.map(&:join).map(&:reverse) }
+    flip7 = -> m { m.map(&:chars).transpose.map(&:join).map(&:reverse).reverse }
+    ```
+
+    Pattern enhancement algorithm:
+
+    ```ruby
+    nx = -> m { pz = m.length.even? ? 2 : 3; l = m.length / pz; (0...l).map { |i| (0...l).map { |j| inp = (0...pz).map { |k| (0...pz).map { |l| m[k+i*pz][l+j*pz] }.join }; rules[inp] || rules[flip[inp]] || rules[flip2[inp]] || rules[flip3[inp]] || rules[flip4[inp]] || rules[flip5[inp]] || rules[flip6[inp]] || rules[flip7[inp]] }.transpose.map(&:join) }.flatten(1) }
+    ```
+
+    In Ruby, you can use an Array as Hash key, so it’s trivial to match the pattern against the rulebook: `rules[inp] || rules[flip[inp]] || rules[flip2[inp]] || ...`.
+
+    To combine them, I look at an array containing patterns: `[['##.', '#..', '...'], ['##.', '#..', '...']]`:
+
+    - To put them side by side: `_.transpose.map(&:join)` → `["##.##.", "#..#..", "......"]`
+    - To stack them vertically: `_.flatten(1)` → ["##.", "#..", "...", "##.", "#..", "..."]
+
+    Part 1:
+
+    ```ruby
+    puts nx[nx[nx[nx[nx[data]]]]].join.count('#')
+    ```
+
+    Part 2:
+
+    ```ruby
+    puts nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[nx[data]]]]]]]]]]]]]]]]]].join.count('#')
+    ```
+  :replies:
+  - :author: BumpitySnook
+    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5bmx/
+    :body: |-
+      > I am solving this problem interatively in the Ruby’s REPL.
+
+      I would be terrified of accidentally exiting the interpreter. Do you not ever make mistakes?
+
+      > In Ruby, you can use an Array as Hash key
+
+      Coming from Python: Grrrr :-(.
+    :replies:
+    - :author: dtinth
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5w2a/
+      :body: |-
+        I actually wrote the code in the text editor, and I setup a hotkey (Cmd+Enter) to send the current line into the Terminal. Like what Lisp people like to do ;).
+
+        If I accidentally exited the REPL, I would just reopen it and send each line from the editor to it.
+      :replies:
+      - :author: BumpitySnook
+        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6515/
+        :body: That sounds a lot less stressful :-).
+        :replies: []
+    - :author: znuxor
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk695e/
+      :body: |-
+        > Coming from Python: Grrrr :-(.
+
+        I had this problem too, I decided to transform my blocks into tuples (so, immutable -\> hashing ok) prior to insertion into a dictionary, using this method (works with lists of lists or numpy 2D matrices):
+
+        > old_pattern_key2 = tuple(map(tuple, old\_pattern2))
+      :replies:
+      - :author: BumpitySnook
+        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk7p9y/
+        :body: Yes, I used the same trick. Still, I'd rather not have to :-).
+        :replies:
+        - :author: dtinth
+          :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drm9ov7/
+          :body: |-
+            When you use an array (or any other object) as a hash key, you must make sure not to mutate the key. Otherwise, really weird things happen. **The hash code of the key changes** causing lookups to fail.
+
+            I got hit by this caveat on day 22:
+
+            ```ruby
+            map[pos] = …; pos[0] += direction[0]; pos[1] += direction[1]
+            ```
+
+            This corrupts the map since the key has been mutated. To fix, I have to do this instead:
+
+            ```ruby
+            map[pos] = …; pos = [pos[0] + direction[0], pos[1] + direction[1]]
+            ```
+
+            I think it is very reasonable for Python to disallow this. :)
+          :replies:
+          - :author: BumpitySnook
+            :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drn4jl1/
+            :body: |-
+              I understand that, but Python could reasonably handle this in a number of less obnoxious ways:
+
+              1. Freeze hash keys (make them immutable)
+              2. CoW hash key objects
+              3. Automatically deepcopy / intern mutable hash keys
+            :replies: []
+  - :author: Unihedron
+    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5cq9/
+    :body: "`5.times{data=nx[data]}` might be easier to write than that, by the way."
+    :replies:
+    - :author: dtinth
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6dm0/
+      :body: |-
+        I avoided mutating `data`, that’s why I didn’t overwrite the `data` variable. I also did it manually to avoid off-by-one errors (e.g. it ran 4 times or 6 times instead due to logic error).
+
+        If I was in a less hurry, I would have written `5.times.reduce(data) { |c, _| nx[c] }` instead :).
+      :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4r6h/
+  :body: |-
+    Ruby; 25/21. I think I got a headache from this, but I managed to get back on the board after a streak of fails, so I'm happy. Functional programming was being a helpful friend day.
+
+    ```ruby
+    p g='.#.
+    ..#
+    ###'.split
+    h={}
+    r=$<.map{|x|x=~/([#.\/]+) => ([#.\/]+)/
+    p $1,h[$1]=$2.split(?/)}
+    # part 1: 5
+    18.times{v=g.size
+    v.even? ? (#div 2
+    g=g.each_slice(2).map{|x|x.map{|x|[*x.chars.each_slice(2)]}.transpose}.map{|x|
+    x.map{|x|u=x.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.reverse.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.reverse.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.transpose.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.transpose.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.transpose.reverse.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.transpose.reverse.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    warn 'not found'}.transpose.map(&:join)
+    }.flatten(1)
+    ) : (
+    g=g.each_slice(3).map{|x|x.map{|x|[*x.chars.each_slice(3)]}.transpose}.map{|x|
+    x.map{|x|u=x.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.reverse.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.reverse.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.transpose.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.transpose.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    u=x.transpose.reverse.map(&:join)*'/'
+    next h[u] if h[u]
+    u=x.transpose.reverse.map{|x|x.reverse.join}*'/'
+    next h[u] if h[u]
+    warn('not found')
+    }.transpose.map(&:join)
+    }.flatten(1)
+    )
+    }
+    p g.join.count ?#
+    ```
+  :replies: []

@@ -1,14 +1,16 @@
 module DownloadSolutions
   module Cli
     def self.reddit(year: nil, day: nil, languages: ["ruby"], force: false)
-      if day && year.nil?
-        raise InputError, "Year must be specified when day is specified."
+      if day
+        if year.nil?
+          raise InputError, "Year must be specified when day is specified."
+        end
+        if !day.between?(1, 25) && Date.new(year, 12, day) > Date.today
+          raise InputError, "Day must be between 1 and 25, and <= today."
+        end
       end
-      if !year.between?(2015, Date.today.year)
+      if year && !year.between?(2015, Date.today.year)
         raise InputError, "Year must be between 2015 and this year."
-      end
-      if day && !day.between?(1, 25) && Date.new(year, 12, day) > Date.today
-        raise InputError, "Day must be between 1 and 25, and <= today."
       end
 
       force_description = PASTEL.red("FORCE ") if force

@@ -1,0 +1,185 @@
+---
+- :author: KeyboardFire
+  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci5rgz/
+  :body: |-
+    ruby, 10/58:
+
+    ```ruby
+    cons = []
+    File.readlines('f').map do |line|
+        x,y,z,w = line.split(',').map(&:to_i)
+        joined = []
+        cons.each.with_index do |a,i|
+            if a.map{|xx,yy,zz,ww| (x-xx).abs + (y-yy).abs + (z-zz).abs + (w-ww).abs <= 3}.any?
+                a.push [x,y,z,w]
+                joined.push i
+            end
+        end
+        if joined.empty?
+            cons.push [[x,y,z,w]]
+        else
+            newcons = joined.sort.reverse.flat_map{|i|cons.delete_at i}
+            cons.push newcons + [[x,y,z,w]]
+        end
+    end
+    p cons.size
+    ```
+
+    simple algorithm that makes a single pass over the input array, joining constellations as it goes.
+
+    i'm a little disappointed by the last non-puzzle (unless it's always like this? i haven't done aoc before). the difference of 48 was due to the time it took me to copy/paste a solution for day 23 part 2, which i feel like was not the spirit of the event...
+
+    well, i really shouldn't be complaining, because i had tons of fun doing the puzzles, which i'm sure consumed lots of free time to make. thanks so much /u/topaz2078 for all the work it took to organize this! :)
+  :replies:
+  - :author: Porky623
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci69yp/
+    :body: I feel for you, last year I missed exactly one star and I didn't want to copy paste a solution so I just went to sleep and got the last two stars the next day. This year, though, I was prepared, as you will be next year should you decide to participate again!
+    :replies: []
+  - :author: dan_144
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci6pf9/
+    :body: Day 23 Part 2 was the only solution that took me over 24 hours as well. I finished it up this afternoon in anticipation of Part 2 since I'd been forewarned that it required all 49 other stars.
+    :replies: []
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/ecicggk/
+    :body: |-
+      Hi. Well done on AoC. I'm new to it too, but only managed handful of stars. I have learned lots, but far more still to learn.
+
+      I've been using Ruby for some and so was interested in your solution and use of map, which I still have to fully grasp. To understand how your codes works, I 'puts' joined after cons loop and cons at end of File line read.
+
+      Is cons.push same as cons \<\<?
+
+      Also, in
+
+      cons.push newscons + [[x,y,z,w]]
+
+      is the + [x,y,z,ew]] superfluous?
+    :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci7dju/
+  :body: |-
+    I admit I took a cheap shot on this problem. I already had Union-Find written for last year's day 14, so I just imported it and most of my time was spent reminding myself how I was supposed to use it.
+
+    Ruby:
+
+    ```ruby
+    require_relative 'lib/union_find'
+
+    input = (ARGV.empty? ? DATA : ARGF).each_line.map { |l| l.scan(/-?\d+/).map(&:to_i) }
+
+    uf = UnionFind.new(input)
+
+    input.combination(2) { |a, b|
+      uf.union(a, b) if a.zip(b).sum { |x, y| (x - y).abs } <= 3
+    }
+
+    puts input.count { |a| uf.find(a) == a }
+
+    __END__
+    0,6,-4,7
+    5,4,0,-8
+    0,1,1,-2
+    omitted
+    ```
+
+    Here's the contents of union\_find:
+
+    ```ruby
+    class UnionFind
+      def initialize(things)
+        @parent = things.map { |x| [x, x] }.to_h
+        @rank = things.map { |x| [x, 0] }.to_h
+      end
+
+      def union(x, y)
+        xp = find(x)
+        yp = find(y)
+
+        return if xp == yp
+
+        if @rank[xp] < @rank[yp]
+          @parent[xp] = yp
+        elsif @rank[xp] > @rank[yp]
+          @parent[yp] = xp
+        else
+          @parent[yp] = xp
+          @rank[xp] += 1
+        end
+      end
+
+      def find(x)
+        @parent[x] = find(@parent[x]) if @parent[x] != x
+        @parent[x]
+      end
+    end
+    ```
+
+    Thanks for a great month!
+  :replies:
+  - :author: koordinate
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/edwqqtn/
+    :body: |-
+      Thank you. For kicks, here is a Swift translation of your code:
+
+      ```ruby
+      class UnionFind {
+          var parent: [Int]
+          var rank: [Int]
+
+          init(n: Int) {
+              parent = Array(repeating: 0, count: n)
+              rank = Array(repeating: 0, count: n)
+              for i in 0..<n {
+                  parent[i] = i
+                  rank[i] = 0
+              }
+          }
+
+          func union(_ x: Int, _ y: Int) {
+              let (px, py) = (find(x), find(y))
+
+              if px == py {
+                  return
+              }
+
+              if rank[px] < rank[py] {
+                  parent[px] = py
+              } else if rank[px] > rank[py] {
+                  parent[py] = px
+              } else {
+                  parent[py] = px
+                  rank[px] += 1
+              }
+          }
+
+          func find(_ x: Int) -> Int {
+              if parent[x] != x {
+                  parent[x] = find(parent[x])
+              }
+              return parent[x]
+          }
+
+          func rootCount() -> Int {
+              let n = parent.count
+              return (0..<n).filter({ find($0) == $0 }).count
+          }
+      }
+
+      var points = [[Int]]()
+      while let line = readLine() {
+          points.append(line.split(whereSeparator: { !"-0123456789".contains($0) }).compactMap({ Int($0) }))
+      }
+
+      let uf = UnionFind(n: points.count)
+
+      for (i, p) in points.enumerated() {
+          for (j, q) in points.enumerated() {
+              let d = Int(abs(p[0] - q[0])) + Int(abs(p[1] - q[1])) + Int(abs(p[2] - q[2])) + Int(abs(p[3] - q[3]))
+              if i != j, d <= 3 {
+                  uf.union(i, j)
+              }
+          }
+      }
+
+      print(uf.rootCount())
+      ```
+    :replies: []

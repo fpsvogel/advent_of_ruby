@@ -1,0 +1,91 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/ggir6ki/
+  :body: |-
+    **Ruby**
+
+    Computes part 2 in ~40 seconds
+
+    also has a logger and a timer.
+
+    [https://gist.github.com/Clashbuster/722338797dc16958652f7c3980accb4d](https://gist.github.com/Clashbuster/722338797dc16958652f7c3980accb4d)
+  :replies: []
+- :author: a_a-a_a-a_a-a_a-a_a
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gg01f77/
+  :body: |-
+    Ruby
+
+    part one: [https://github.com/ahoglund/adventofcode/commit/c6f95d81f985809d3d95c16a502c00379618a2b2](https://github.com/ahoglund/adventofcode/commit/c6f95d81f985809d3d95c16a502c00379618a2b2)
+
+    part two:
+
+    [https://github.com/ahoglund/adventofcode/commit/3afe5abf72c32ad5cf62f9f71b19767ac775a92f](https://github.com/ahoglund/adventofcode/commit/3afe5abf72c32ad5cf62f9f71b19767ac775a92f)
+
+    Should prob have extracted the logic into a single method and passed the constant number in, but didn't get around to it yet. Still working on day 12/13 part two so no time for clean up.
+  :replies: []
+- :author: billiamthesecond
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfymal1/
+  :body: |-
+    [Ruby](https://www.billiam.org/advent-of-code/15.html)
+
+    My first pass took some number of minutes to complete for part 2, but poked around with performance a bit afterward. Down to ~6 seconds, mostly by making the lookup hash and key local to the loop.
+  :replies: []
+- :author: skawid
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfyf8iw/
+  :body: "[Ruby!](https://github.com/simonbrahan/aoc2020/blob/master/day15/main.rb) Completes in eight seconds; it did this well first time, now I have to go back over it and figure out which bullet I accidentally dodged today..."
+  :replies: []
+- :author: odlp
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfwxfs9/
+  :body: |-
+    [Ruby solution](https://github.com/odlp/advent-of-code-2020/blob/main/day-15/solution.rb):
+
+    ```ruby
+    spoken = Hash.new { |hash, key| hash[key] = [] }
+
+    ARGV.first.split(",").each.with_index(1) do |value, round|
+      spoken[value.to_i] << round
+    end
+
+    max_rounds = ARGV.last.to_i
+    last_spoken = spoken.keys.last
+
+    (spoken.size + 1).upto(max_rounds) do |round|
+      first_time = spoken[last_spoken].size == 1
+      last_spoken = first_time ? 0 : (spoken[last_spoken][-1] - spoken[last_spoken][-2])
+      spoken[last_spoken] << round
+    end
+
+    puts last_spoken
+    ```
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfw85v5/
+  :body: |-
+    Ruby, 528/291
+
+    As usual, understanding the problem was the hardest part. I accumulated all numbers since perf wasn't an issue. After cleanup -
+
+    https://gist.github.com/gurgeous/5636fd2e267bc7ae1ecf9224be20bbf2
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfwjtu5/
+  :body: |-
+    # Ruby
+
+    Just keeping track of all the last turns a number was spoken. I also had a way with doing a circular queue of only two items as a separate hash within this big has but it was about 3-4 times slower than just doing it this way.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQA5BAAAAAAAAAAnFUW8WzF1WEoJx9V0hOKfg4NcZ7Zk7SRGQT3OQ36ywk0b08L95+2OES2ZqZtizraLudliFIMNvbVWpu4eDd9rzrUL+J/wZrn7LhHMNeiNqmsLCdXKt8JUUG7FeOB187Wsq17adijbYQbNj5riEPzV9JGbyFJcEhr6pwsBVJDwCad8B+Ss9dpFLh+Y8Gbuu5f4M7Xn4ZA92rzErIdR9NEZhWeoeLetfmk2cw0stsCS7AK4JHuN2JFCczsmBTe6ca6JMngpGcRqoeoCCPxDmwniojEEiZqVSxNFYwmbg+GfP5Vht3Gx2qzALrJ/cjmOEyGiJ3KxgqohCY7OoFw6sNYS0E20dtjAJng5tyANJOFbIRN5uLeR2BJJ2WjrMFqpZLP+8o0gr7OttvxHUAJQpi+wwSg3T2uTrt+b4mdcI6Fr4wwhIlZC5pNIQMf0dYFVp/Odga++r9Qq5Jpb/Xh+rQBPvkHemisxG3Dgr16vrzwqRtwUzVZcxkt818hqW87j7UkKdYD6WZ94+6Y5XqW6lhhQQiGaqSD/BtV9AA==)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfw80xr/
+  :body: 'Ruby: [http://ix.io/2I7f](http://ix.io/2I7f)'
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kdf85p/2020_day_15_solutions/gfwcejk/
+  :body: |-
+    **Ruby:** 13:11/14:11, 927/351
+
+    Here's a [recording](https://youtu.be/Jnj1qdn2Bh4) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/7f52554f4bb9b2ce2f038b90b8e20505b2a53e35/2020/dec15.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Uh, did not do well on Part 1. Just confusing and arbitrary enough to really knock me off balance. Oh well, I was able to just plugin 29,999,999 for Part 2 and finish in a minute, so you win some, you lose some. The difference between the Part 1 and Part 2 cutoffs for the leaderboard was over three and a half minutes!
+  :replies: []

@@ -1,0 +1,72 @@
+---
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmmh2t/
+  :body: |-
+    Day 4 of the non-programmer's solution.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'openssl'
+
+    for i in 1..10000000 do
+      md5 = OpenSSL::Digest::MD5.hexdigest('ckczppom' + i.to_s)
+      if md5 =~ /^000000/
+        p i
+        p md5
+        break
+      end
+    end
+    ```
+  :replies:
+  - :author: Aneurysm9
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmml28/
+    :body: You keep calling yourself a non-programmer and your solutions keep looking a lot like mine. I don't know whether that says something about you or about me!
+    :replies: []
+  - :author: Geambanu
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxnceun/
+    :body: what language is this?
+    :replies:
+    - :author: joeyrobert
+      :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxndra5/
+      :body: Ruby.
+      :replies: []
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxpy3d0/
+    :body: |-
+      Nice! I wasn't aware of the =~ operator. These challenges are showing me I have A LOT I still need to learn about Ruby!
+
+      My solution was basically the same except I used the regex
+
+      ```ruby
+      /^0{6}.*$/
+      ```
+    :replies: []
+  - :author: karatedog
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cyik9rc/
+    :body: The 4th day task asks for **at least 5 leading zeros** , not 6.
+    :replies: []
+- :author: baritoneCoder
+  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxn5awm/
+  :body: |-
+    Simple Ruby solution. Definitely not fast but gets the job done.
+
+    ```ruby
+    require 'digest/md5'
+
+    def hashify(string)
+        Digest::MD5.hexdigest(string)
+    end
+
+    base = 'ckczppom'
+    answer = '0'
+    hash = hashify(base)
+
+    until hash.slice(0,5) == '00000' do
+        hash = hashify(base + answer)
+        answer = (answer.to_i + 1).to_s
+    end
+
+    puts "The answer is: #{answer.to_i - 1}"
+    ```
+  :replies: []

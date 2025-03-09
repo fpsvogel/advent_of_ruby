@@ -1,0 +1,210 @@
+---
+- :author: _jonah
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1xweb/
+  :body: |-
+    ruby:
+
+    ```ruby
+    cs = [50, 44, 11, 49, 42, 46, 18, 32, 26, 40, 21, 7, 18, 43, 10, 47, 36, 24, 22, 40]
+
+    solns = (1..cs.size).reduce([]) do |m, i|
+      m.concat(cs.combination(i).select {|x| x.inject(:+) == 150})
+    end
+
+    min = solns.map(&:size).min
+    p solns.count {|x| x.size == min}
+    ```
+  :replies: []
+- :author: inuyasha555
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1y0ii/
+  :body: |-
+    Opened Eclipse ready to Java then found combinations which of course Java doesn't do nicely and would take too long to write up manually so I had to move on to Ruby instead and write something quickly but wasn't fast enough.
+
+    ```ruby
+    array = [50, 44, 11, 49, 42, 46, 18, 32, 26, 40, 21, 7, 18, 43, 10, 47, 36, 24, 22, 40]
+    q = 0
+    2.upto(20).flat_map { #change index for part 2, 4.upto(4)
+        |n|
+        d = array.combination(n).to_a
+            d.each {|x|
+                if x.inject(:+) == 150
+                    q+=1
+                end
+            }
+        }
+    puts q
+    ```
+  :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1yt8v/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    containers = ARGF.readlines.map(&:to_i)
+
+    # Part 1
+    p (2..9).reduce(0){|sum, i| sum + containers.combination(i).find_all{|c| c.reduce(:+) == 150 }.length }
+
+    # Part 2
+    p containers.sort.combination(4).find_all{|c| c.reduce(:+) == 150 }.length
+    ```
+  :replies:
+  - :author: _jonah
+    :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1zsos/
+    :body: part 1 you can use "count" instead of "find\_all" + ".length"
+    :replies:
+    - :author: jchook
+      :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy28gxv/
+      :body: wow count _does_ take a block. thanks!
+      :replies: []
+- :author: Phakx
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy21fwd/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    #!/usr/bin/ruby
+    File.open("#{File.dirname( __FILE__ )}/input") do |file|
+      string = file.readlines
+      containers = []
+      string.each do |container|
+        containers << container.to_i
+      end
+      egg_nog = 150
+      combinations= []
+      (1..containers.size).each do |i|
+        combinations << containers.combination(i).select{|array|array.inject(:+) == egg_nog}
+      end
+      combinations.each{|comb|
+        unless comb.size ==0
+          puts "Part 2: size=#{comb[0].size} count=#{comb.size}"
+          break;
+        end
+      }
+      combinations_flatten = combinations.flatten(1)
+      puts "Part 1: #{combinations_flatten.size}"
+    end
+    ```
+  :replies: []
+- :author: HorizonShadow
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy26hii/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    def find(arr, size, amt)
+      arr.combination(size).select { |a| a.inject(:+) == amt }
+    end
+
+    def combinations_of(arr)
+      arr.size.times.with_object([]) do |i, o|
+        tmp = find(arr, i, 150)
+        o << tmp unless tmp.empty?
+      end
+    end
+
+    combinations = combinations_of File.read('input').lines.map { |n| n.to_i }
+    p "The number of different combinations is #{combinations.flatten(1).size}"
+    p "The number of different ways you can fill the smallest number of containers is #{combinations.first.size}"
+    ```
+
+    All solutions here: https://github.com/HorizonShadow/Advent-of-Code
+  :replies: []
+- :author: Herathe
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b06x/
+  :body: |-
+    ## Ruby part1 https://github.com/herathe/advent-of-code/blob/master/17-1.rb
+
+    ```ruby
+    containers = DATA.readlines.map(&:chomp).map(&:to_i)
+    puts (0..containers.size).inject{ |total, i|
+        total + containers.combination(i).select{ |com|
+            com.inject(:+) == 150
+        }.size
+    }
+    ```
+
+    ## Ruby part 2 https://github.com/herathe/advent-of-code/blob/master/17-2.rb
+
+    ```ruby
+    containers = DATA.readlines.map(&:chomp).map(&:to_i)
+    combinations = (0..containers.size).map{ |i|
+        containers.combination(i).select{ |com|
+            com.inject(:+) == 150
+        }.size
+    }
+    puts (combinations - [0]).first
+    ```
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b6pj/
+  :body: |-
+    Ruby
+
+    ```ruby
+    class Container
+
+    attr_reader :size
+
+        def initialize(size)
+            @size = size
+        end
+
+    end
+
+    class Combination
+
+        attr_reader :containers
+
+        def initialize(containers)
+            @containers = containers
+        end
+
+        def total_size
+            @containers.map{|c|c.size}.inject(:+)
+        end
+    end
+
+    class Processor
+
+        def initialize()
+            @available = File.new("input17.txt").readlines.map{|l|Container.new(l.strip.to_i)}
+        end
+
+        def combinations
+        combinations = []
+            for i in 1..@available.size
+                combinations << @available.combination(i).map{|c|Combination.new(c)}.select{|c|c.total_size == 150}
+            end
+        combinations.flatten(1)
+        end
+
+        def part1
+            puts combinations.size
+        end
+
+        def part2
+            puts combinations.group_by{|c|c.containers.length}.map{|length, combinations|combinations.length}.first
+        end
+
+    end
+
+    p = Processor.new
+    puts p.part1
+    puts p.part2
+    ```
+  :replies: []
+- :author: gareve
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2tzgg/
+  :body: |-
+    Ruby with bitmasks instead of combination. It ended up being messier than using combination.
+
+    ```ruby
+    vc = $stdin.readlines.map(&:to_i)
+    ans = (1 << vc.size).times.map { |mask|
+        vc.size.times.map {|x| (mask & (1 << x)) > 0 ? vc[x] : 0}.reduce(&:+) == 150 ? mask.to_s(2).count("1") : 999 # 1: 0
+    }.sort
+    p ans.take_while {|x| x == ans[0]}.size #.reduce(&:+)
+    ```
+  :replies: []

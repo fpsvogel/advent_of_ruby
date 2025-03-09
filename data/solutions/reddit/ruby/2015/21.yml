@@ -1,0 +1,502 @@
+---
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6c2ec/
+  :body: |-
+    **Ruby (#93)** Started 10 minutes late due to lunch going over, then tried guess-and-check for 20 minutes before giving that up and using a half-code, half-mental-math solution. I manually figured out the cheapest cost for each of damage and armor (4-9 for damage, 0-5 for armor), then brute-forced from there. It's an ugly solution, but only took about 10 minutes of mental math and coding once.
+
+    For part 2, just replace .min with .max, and the if on line 19 with unless, and re-mental math the top part to be the highest costs rather than the lowest. Took another 2 minutes to make those changes.
+
+    ```ruby
+    damage = [[4, 8], [5, 10], [6, 25], [7, 40], [8, 65], [9, 90]]
+    defense = [[0, 0], [1, 13], [2, 31], [3, 51], [4, 71], [5, 93]]
+
+    costs = []
+
+    damage.each do |a|
+      defense.each do |d|
+        hp = 100
+        dmg = a.first
+        arm = d.first
+        b_hp = 109
+        b_dmg = 8
+        b_arm = 2
+        until hp <= 0 || b_hp <= 0 do
+          b_hp -= (dmg - b_arm)
+          break if b_hp <= 0
+          hp -= (b_dmg - arm)
+        end
+        costs << (d.last + a.last) if b_hp <= 0
+      end
+    end
+
+    p costs.min
+    ```
+  :replies: []
+- :author: Axsuul
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6cm0u/
+  :body: |-
+    Ruby with OOP approach
+
+    ```ruby
+    store = {
+      weapons: [],
+      armor: [],
+      rings: []
+    }
+
+    type = nil
+
+    File.open('day21store.txt').readlines.each do |line|
+      line.strip!
+
+      if match = line.match(/(\w+)\:.*/)
+        type =
+          case match[1]
+          when "Weapons" then :weapons
+          when "Armor" then :armor
+          when "Rings" then :rings
+          end
+      elsif match = line.match(/([A-Za-z0-9\+]+) .+ (\d+) .+ (\d+) .+ (\d+)/)
+        name, cost, damage, armor = match.captures
+
+        store[type] << {
+          name: name,
+          cost: cost.to_i,
+          damage: damage.to_i,
+          armor: armor.to_i
+        }
+      end
+    end
+
+    class Player
+      attr_accessor :equipment, :damage, :armor, :hp
+
+      def initialize(hp, armor, damage)
+        self.hp = hp
+        self.armor = armor
+        self.damage = damage
+      end
+
+      def equip!(equipment)
+        begin
+        self.armor += equipment[:armor]
+        self.damage += equipment[:damage]
+      rescue TypeError
+        binding.pry
+      end
+      end
+
+      def attack(defender)
+        diff = damage - defender.armor
+        diff = 1 if diff <= 0
+
+        defender.hp -= diff
+      end
+
+      def fight!(player)
+        attacker = self
+        defender = player
+
+        loop do
+          attacker.attack(defender)
+
+          break if defender.hp <= 0
+
+          if attacker == self
+            attacker = player
+            defender = self
+          else
+            attacker = self
+            defender = player
+          end
+        end
+
+        true
+      end
+
+      def wins?(player)
+        fight!(player)
+
+        alive?
+      end
+
+      def alive?
+        hp > 0
+      end
+
+      def dead?
+        !alive?
+      end
+    end
+
+    costs_to_win = []
+    costs_to_lose = []
+    weapon_combos = store[:weapons]
+    armor_combos = (store[:armor] + [nil])
+    ring_combos = store[:rings].combination(1).to_a + store[:rings].combination(2).to_a + [[nil]]
+
+    weapon_combos.each do |weapon|
+      armor_combos.each do |armor|
+        ring_combos.each do |rings|
+          boss = Player.new(100, 2, 8)
+          player = Player.new(100, 0, 0)
+          player.equip!(weapon)
+          player.equip!(armor) if armor
+
+          rings.each do |ring|
+            player.equip!(ring) if ring
+          end
+
+          costs = [weapon, armor, rings].flatten.compact.map { |e| e[:cost] }.reduce(&:+)
+
+          if player.wins?(boss)
+            costs_to_win << costs
+          else
+            costs_to_lose << costs
+          end
+        end
+      end
+    end
+
+    # Part 1
+    puts "Least amount of gold to win: #{costs_to_win.min}"
+
+    # Part 2
+    puts "Most amount of gold to lose: #{costs_to_lose.max}"
+    ```
+  :replies: []
+- :author: SomebodyTookMyHandle
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6s8k0/
+  :body: |-
+    Oh man, very fun challenge today! (They're always fun, but this is the first time I've gotten to program something like this.) Object-oriented Ruby using an iffy version of #cycle to simulate the battle, because it's fun to do so despite not being mathematically necessary. Comments and advice welcome...
+
+    ```ruby
+    class Item
+      attr_reader :name, :cost, :damage, :defense
+
+      def initialize(name, cost, damage, defense)
+        @name = name
+        @cost = cost
+        @damage = damage
+        @defense = defense
+      end
+
+    end
+
+    class Weapon < Item
+      def initialize(name, cost, damage, defense)
+        super
+      end
+    end
+
+    class Armor < Item
+      def initialize(name, cost, damage, defense)
+        super
+      end
+    end
+
+    class Ring < Item
+      def initialize(name, cost, damage, defense)
+        super
+      end
+    end
+
+    class Character
+      attr_accessor :name, :hit_points, :damage, :defense, :equipment
+
+      def initialize(name, hit_points, options = {})
+        @name = name
+        @hit_points = hit_points
+        @equipment = options[:equipment] || []
+        @damage = options[:damage] || calculate_attack
+        @defense = options[:defense] || calculate_absorb
+      end
+
+      def attack(target)
+        result = self.damage - target.defense
+        result = 1 if result < 1
+        target.hit_points -= result
+      end
+
+      def duel_to_the_death!(enemy, hero = self)
+        antagonists = [hero, enemy]
+        antagonists.cycle do |character|
+          # for the hero, target is equal to arr[-1], i.e. the enemy
+          # for the boss, target is equal to arr[0] , i.e. the hero
+          target = antagonists[antagonists.index(character) - 1]
+          return character if character.attack(target) <= 0
+        end
+      end
+
+      private
+
+        def calculate_attack
+          equipment.inject(0) { |total, thing| total += thing.damage }
+        end
+
+        def calculate_absorb
+          equipment.inject(0) { |total, thing| total += thing.defense }
+        end
+    end
+
+    weapons = [
+      Weapon.new("Dagger", 8, 4, 0),
+      Weapon.new("Shortsword", 10, 5, 0),
+      Weapon.new("Warhammer", 25, 6, 0),
+      Weapon.new("Longsword", 40, 7, 0),
+      Weapon.new("Greataxe", 74, 8, 0)
+    ]
+
+    armor = [
+      Armor.new("Bare", 0, 0, 0),
+      Armor.new("Leather", 13, 0, 1),
+      Armor.new("Chainmail", 31, 0, 2),
+      Armor.new("Splintmail", 53, 0, 3),
+      Armor.new("Bandedmail", 75, 0, 4),
+      Armor.new("Platemail", 102, 0, 5)
+    ]
+
+    rings = [
+      Ring.new("Empty R", 0, 0, 0),
+      Ring.new("Empty L", 0, 0, 0),
+      Ring.new("Damage +1", 25, 1, 0),
+      Ring.new("Damage +2", 50, 2, 0),
+      Ring.new("Damage +3", 100, 3, 0),
+      Ring.new("Defense +1", 20, 0, 1),
+      Ring.new("Defense +2", 40, 0, 2),
+      Ring.new("Defense +3", 80, 0, 3)
+    ]
+
+    # Part One
+    def find_cheapest_win(weapons, armor, rings)
+      winning_sets = []
+
+      weapons.each do |w|
+        armor.each do |a|
+          rings.combination(2).to_a.each do |r|
+            arms = [w, a, r].flatten
+            hero = Character.new("Knowledge", 100, { equipment: arms })
+            villain = Character.new("Ignorance", 103, { damage: 9, defense: 2})
+            if hero.duel_to_the_death!(villain) == hero
+              winning_sets << arms
+            end
+          end
+        end
+      end
+
+      cheapest = winning_sets.min_by { |set| set.inject(0) { |total, item| total += item.cost } }
+      cheapest_cost = cheapest.inject(0) { |total, item| total += item.cost }
+      [cheapest_cost, cheapest]
+    end
+
+    # Part Two
+    def find_most_expensive_loss(weapons, armor, rings)
+      losing_sets = []
+
+      weapons.each do |w|
+        armor.each do |a|
+          rings.combination(2).to_a.each do |r|
+            arms = [w, a, r].flatten
+            hero = Character.new("Knowledge", 100, { equipment: arms })
+            villain = Character.new("Ignorance", 103, { damage: 9, defense: 2})
+            if hero.duel_to_the_death!(villain) == villain
+              losing_sets << arms
+            end
+          end
+        end
+      end
+
+      costliest = losing_sets.max_by { |set| set.inject(0) { |total, item| total += item.cost } }
+      costliest_cost = costliest.inject(0) { |total, item| total += item.cost }
+      [costliest_cost, costliest]
+    end
+
+    p find_cheapest_win(weapons, armor, rings)
+    p find_most_expensive_loss(weapons, armor, rings)
+    ```
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cye7r83/
+  :body: |-
+    Very verbose Ruby code
+
+    ```ruby
+    class Item
+
+        attr_reader :type, :name, :cost, :damage, :armor
+
+        def initialize(type, name, cost, damage, armor)
+            @name = name
+            @cost = cost
+            @damage = damage
+            @armor = armor
+            @type = type
+        end
+
+        def to_s
+            "#{@type}: #{@name}\t#{@cost}\t#{@damage}\t#{@armor}"
+        end
+    end
+
+    class Warrior
+
+        attr_accessor :items, :hitpoints
+
+        def initialize(hitpoints)
+            @items = []
+            @hitpoints = hitpoints
+        end
+
+        def add_item(item)
+            @items << item
+        end
+
+        def cost
+            @items.map{|i|i.cost}.inject(:+)
+        end
+
+        def damage
+            @items.map{|i|i.damage}.inject(:+)
+        end
+
+        def armor
+            @items.map{|i|i.armor}.inject(:+)
+        end
+
+        def valid
+            weapons = @items.find_all{|i|i.type=="Weapons"}
+            armor = @items.find_all{|i|i.type=="Armor"}
+            rings = @items.find_all{|i|i.type=="Rings"}
+            return (weapons.size == 1 && (armor.size == 0 || armor.size == 1) && (rings.size >=0 && rings.size <= 2))
+        end
+
+        def clone
+            w = super
+            w.items = []
+            @items.each do |i|
+                w.items << i
+            end
+            w
+        end
+
+    end
+
+    class Player
+
+        attr_reader :name, :damage, :armor, :cost
+        attr_accessor :hitpoints
+
+        def initialize(name, hitpoints, damage, armor, cost)
+            @name = name
+            @hitpoints = hitpoints
+            @damage = damage
+            @armor = armor
+            @cost = cost
+        end
+
+        def deal_damage(enemy)
+            damage = @damage - enemy.armor
+            damage = 1 if (damage <= 0)
+            enemy.hitpoints -= damage
+        end
+
+        def to_s
+            "#{@name}: hitpoints #{@hitpoints}, damage #{@damage}, armor #{@armor}, cost #{@cost}"
+        end
+
+    end
+
+    class Fight
+
+        attr_reader :boss, :player
+
+        def initialize(boss, player)
+            @boss = boss
+            @player = player
+        end
+
+        def winner
+            while (@boss.hitpoints >= 0 && @player.hitpoints >= 0)
+                round
+            end
+            [@boss, @player].find{|p|p.hitpoints > 0}
+        end
+
+        def round
+            @player.deal_damage(@boss)
+            if (@boss.hitpoints >= 0)
+                @boss.deal_damage(@player)
+            end
+        end
+
+    end
+
+    shop_input = File.new("day21_shop.txt").readlines
+    @shop = []
+
+    type = nil
+    shop_input.each do |l|
+        match = l.match(/([a-zA-Z0-9+]+)\s+(\d+)\s+(\d+)\s+(\d+)/)
+        if (match)
+            all, name, cost, damage, armor = match.to_a
+            @shop << Item.new(type, name, cost.to_i,damage.to_i,armor.to_i)
+        else
+            match = l.match(/(\w+):/)
+            if (match)
+                type = match.to_a[1]
+            end
+        end
+    end
+
+    def create_combinations(items, min, max)
+        perms = []
+        for i in (min..max)
+            perms << items.combination(i).to_a
+        end
+        perms.flatten!(1)
+
+    end
+
+    def create_warrior_combinations(warriors, items, min, max)
+        new_warriors= []
+        new_items = create_combinations(items,min,max)
+        new_items.each do |ni|
+            warriors.each do |w|
+                new_w = w.clone
+                ni.each do |i|
+                    new_w.add_item(i)
+                end
+                new_warriors << new_w
+            end
+        end
+        new_warriors
+    end
+    def create_players
+        weapons = @shop.find_all{|i|i.type == "Weapons"}
+        armor = @shop.find_all{|i|i.type == "Armor"}
+        rings = @shop.find_all{|i|i.type == "Rings"}
+
+        warriors = [Warrior.new(100)]
+        warriors = create_warrior_combinations(warriors, weapons, 1, 1)
+        warriors = create_warrior_combinations(warriors, armor, 0, 1)
+        warriors = create_warrior_combinations(warriors, rings,0, 2)
+        players = []
+        puts "Warriors: #{warriors.size}"
+        puts "Valid warriors: #{warriors.find_all{|w|w.valid}.size}"
+        warriors.each do |w|
+            players << Player.new("player", w.hitpoints, w.damage, w.armor, w.cost)
+        end
+        players
+
+    end
+    boss = Player.new("boss", 109, 8, 2, 0)
+
+    players = create_players
+    costs = players.find_all{|p|Fight.new(boss.clone, p).winner == p}.sort_by{|p|p.cost}
+    puts costs[0]
+
+    players = create_players
+    costs = players.find_all{|p|Fight.new(boss.clone, p).winner != p}.sort_by{|p|p.cost}
+    puts costs.last
+    ```
+  :replies: []

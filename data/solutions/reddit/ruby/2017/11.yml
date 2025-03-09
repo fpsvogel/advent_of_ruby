@@ -1,0 +1,18 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7izym2/2017_day_11_solutions/dr2p7w6/
+  :body: |-
+    # Ruby single-statement
+
+    I made a lot of mistake today and didn’t get into the leaderboard, so I challenged myself to solve this without using a statement terminator (newline or `;`).
+
+    ```ruby
+    # Part 1
+    -> a { -> ((x, y)) { x.abs + [0, (y.abs - x.abs) / 2].max }[a.map { |c| { 'ne' => [1, 1], 'nw' => [-1, 1], 'se' => [1, -1], 'sw' => [-1, -1], 's' => [0, -2], 'n' => [0, 2] }[c] }.transpose.map { |v| v.reduce(&:+) }] }[`pbpaste`.strip.split(',')]
+
+    # Part 2
+    -> a { a.map { |c| { 'ne' => [1, 1], 'nw' => [-1, 1], 'se' => [1, -1], 'sw' => [-1, -1], 's' => [0, -2], 'n' => [0, 2] }[c] }.reduce ([[0, 0]]) { |a, (x, y)| a << [a.last[0] + x, a.last[1] + y] } }[`pbpaste`.strip.split(',')].map { |x, y| x.abs + [0, (y.abs - x.abs) / 2].max }.max
+    ```
+
+    I guess I need to learn more about non-square/cube grids.
+  :replies: []

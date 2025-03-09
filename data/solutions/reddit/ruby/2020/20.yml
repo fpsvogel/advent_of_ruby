@@ -1,0 +1,55 @@
+---
+- :author: rundmsef
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/giln2a5/
+  :body: |-
+    # Ruby
+
+    Although Day 20 took me a long time to implement, I'm fairly happy with the solution.
+
+    My solution delayed rotating/flipping the contents of the tile until the final orientation was known. I found corner tiles and correct tile orientations by inspecting _only_ the tile edges. I applied the correct number of flips and rotations to each tile at the very end once the correct number of flips/rotations was known.
+
+    I prioritized code readability over performance but was happy with my solution to both parts executed in around 100 ms on my 2017 laptop. Seems good enough to me :)
+
+    I wrote up a more [detailed walkthrough of my solution](https://seththomas.github.io/advent-of-code-2020) that discusses my approach. Full code and unit tests in [github](https://github.com/SethThomas/AOC/tree/master/day20).
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggggp78/
+  :body: |-
+    **Ruby:** 11:17/2:32:56, 32/668
+
+    Here's a [recording](https://youtu.be/Iiim5_-vfWc) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/6a12ca035e9593c79d0bf083dd3965e00c521dc7/2020/dec20.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Leaderboard for Part 1!!! I realized pretty quickly that I could just look for tiles where only two of the four edges had pairs, but then was stumped for a bit because both the edge and its flipped version actually have a pair, so actually there are four edges that have pairs, not two.
+
+    And then Part 2... I started with a corner, then filled out my grid from there, which I did in layers: Assuming I had already place a square of tiles (e.g., (0, 0) through (l, l)), I would then fill in new tiles on the right edge, on the bottom edge, then finally the bottom right corner.
+
+    Then I had to orient all the tiles. I couldn't figure out how to determine the orientation of that first corner so that everything else would be at points with positive x and y, and not negative values. I just printed out the first tile and its neighbors and manually hardcoded the rotation for that top-left tile.
+
+    To figure out how to orient each tile I just tried all possible rotations and found the one where the edges lined up with a previously oriented tile. This was much easier than trying to figure out which edge matched up and remembering how that adjacent tile had been rotated and figuring out how to rotate the current tile to match it.
+
+    I manually oriented the top left corner, then oriented the top row by looking to the left, then filled all the remaining rows by looking at the tile above.
+
+    Once all that was done I just searched for all possible rotations of the sea monster, which, relatively speaking, was a piece of cake.
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggg8ecn/
+  :body: |-
+    Ruby, 947/131
+
+    Yikes. This is cleaned up, of course. At least I sped up on part 2. So much typing...
+
+    part 1: https://gist.github.com/gurgeous/e53ab8bfde12b84e026578eb41c27fe7 part 2: https://gist.github.com/gurgeous/9a515a3cf36ddffcda5db5a98b1a4468
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/gggkf8c/
+  :body: |-
+    ### Ruby
+
+    https://github.com/Sharparam/advent-of-code/blob/master/2020/day20/solution.rb
+
+    I didn't think about the trick for part 1 unlike some others and implemented the whole grid thing from the start, which I guess helped me get part 2 done, but it still took me ages compared to previous days.
+
+    For part 2 I reuse my `Tile` class and basically construct one giant tile for the map by successively combining (shaved) tiles and then I can use the existing manipulation functions on the `Tile` class to rotate it.
+
+    I quite like the name `shave` for the method to remove edges in part 2 :)
+  :replies: []

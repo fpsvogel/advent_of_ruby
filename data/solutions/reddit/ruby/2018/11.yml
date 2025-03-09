@@ -1,0 +1,283 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjsc3u/
+  :body: |-
+    Hello. Ruby, runs in 1 second, using https://en.wikipedia.org/wiki/Summed-area\_table, that would make it O(n^3 )
+
+    Not on the part 2 leaderboard. I originally wrote the O(n^5 ) algorithm, decided that wasn't going to fly, then tried to write an O(n^4 ) by only adding the edges and corner of the new square being built. That was hugely bug-prune and hard to write, so by the time I had finished, leaderboard spots were gone. It also took 2 minutes to run!
+
+    I noticed that commonly-used strategies for getting on the part 2 leaderboard were to either artificially bound the max square size at an arbitrary value, or to print out the maximum square for increasing square sizes until it starts decreasing as square size increases; looks like both of these were capable of finding the answer in seconds. Interesting strategies. I honestly didn't think of them and didn't think to even **look** for them because I (wrongly!) assumed everyone else would have still been in the O(n^4 ) camp at best. Maybe I will remember these strategies for future days, eh?
+
+    ```ruby
+    SIZE = 300
+
+    serial = ARGV.first&.to_i || 7803
+
+    power = (0..SIZE).map { |y|
+      (0..SIZE).map { |x|
+        rack = x + 10
+        my_power = (rack * y + serial) * rack
+        my_power = (my_power / 100) % 10
+        my_power - 5
+      }.freeze
+    }.freeze
+
+    valid3 = (1..(SIZE - 2)).to_a
+
+    puts valid3.product(valid3).max_by { |x, y|
+      power[y, 3].sum { |row| row[x, 3].sum }
+    }.join(?,)
+
+    # https://en.wikipedia.org/wiki/Summed-area_table
+    # sum[y][x] reports the sum of all points above and to the left of (y, x).
+    sum = Array.new(SIZE) { Array.new(SIZE).unshift(0) }
+    sum.unshift([0] * (SIZE + 1))
+
+    (1..SIZE).each { |y|
+      (1..SIZE).each { |x|
+        sum[y][x] = power[y][x] + sum[y - 1][x] + sum[y][x - 1] - sum[y - 1][x - 1]
+      }
+    }
+
+    maxp = 0
+    maxc = []
+
+    (1..SIZE).each { |sidelen|
+      valid = (1..(SIZE + 1 - sidelen))
+      valid.each { |ymin|
+        ymax = ymin + sidelen - 1
+        ymins = sum[ymin - 1]
+        ymaxes = sum[ymax]
+        valid.each { |xmin|
+          xmax = xmin + sidelen - 1
+
+          power_here = ymaxes[xmax] - ymins[xmax] - ymaxes[xmin - 1] + ymins[xmin - 1]
+          if power_here > maxp
+            maxp = power_here
+            maxc = [xmin, ymin, sidelen]
+          end
+        }
+      }
+    }
+
+    puts maxc.join(?,)
+    ```
+  :replies:
+  - :author: beached
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebll01x/
+    :body: In C++ using summed area tables is \<8ms. One of the few times storing data vs a simple calculation is faster
+    :replies: []
+  - :author: WikiTextBot
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjscbq/
+    :body: |-
+      **Summed-area table**
+
+      A summed-area table is a data structure and algorithm for quickly and efficiently generating the sum of values in a rectangular subset of a grid. In the image processing domain, it is also known as an integral image. It was introduced to computer graphics in 1984 by Frank Crow for use with mipmaps. In computer vision it was popularized by Lewis and then given the name "integral image" and prominently used within the Viola–Jones object detection framework in 2001.
+
+      * * *
+
+      ^[[^PM](https://www.reddit.com/message/compose?to=kittens_from_space) ^| [^Exclude ^me](https://reddit.com/message/compose?to=WikiTextBot&message=Excludeme&subject=Excludeme) ^| [^Exclude ^from ^subreddit](https://np.reddit.com/r/adventofcode/about/banned) ^| [^FAQ ^/ ^Information](https://np.reddit.com/r/WikiTextBot/wiki/index) ^| [^Source](https://github.com/kittenswolf/WikiTextBot) ^] ^Downvote ^to ^remove ^| ^v0.28
+    :replies: []
+- :author: ChronJob
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjppk9/
+  :body: |-
+    Ruby
+
+    ```ruby
+    serial = 5791
+
+    def power_level(x, y, serial)
+      rack_id = x + 10
+      level = ((rack_id * y) + serial) * rack_id
+      level = (level / 100) % 10
+      level - 5
+    end
+
+    def grid(serial)
+      (1..300).map do |y|
+        (1..300).map { |x| power_level(x, y, serial) }
+      end
+    end
+
+    def biggest_square(width, grid)
+      last_idx = 300 - (width - 1)
+      squares = (1..last_idx).map do |y|
+        (1..last_idx).map do |x|
+          sum = grid[(y - 1)...(y - 1 + width)].
+            map {|column| column[(x - 1)...(x - 1 + width)]}.
+            flatten.
+            sum
+          [x, y, sum]
+        end
+      end
+
+      squares.flatten(1).max_by {|s| s[2]}
+    end
+
+    grid = grid(serial)
+    puts biggest_square(3, grid)
+    puts (2..20).map { |n| biggest_square(n, grid) + [n] }.max_by {|s| s[2]}
+    ```
+  :replies:
+  - :author: d4be4st
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebleudd/
+    :body: Is there a reason you only took 20 points for the width of the biggest square?
+    :replies:
+    - :author: ChronJob
+      :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebllv6c/
+      :body: Nope. It was an arbitrary cut-off based on how long I was willing to spend searching at that time :P.
+      :replies: []
+- :author: oezi13
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbnj/
+  :body: |-
+    Based on my puzzle input - Largest square at 231, 135 with gridsize 8:
+
+    [https://imgur.com/a/x3ABXYQ](https://imgur.com/a/x3ABXYQ)
+
+    Ruby:
+
+    ```ruby
+    require 'set'
+    require "imageruby"
+    include ImageRuby
+
+    input = 5177
+
+    max = 0
+
+    levels = [0] * (300 * 300)
+
+    (1..300).each { |x|
+      (1..300).each { |y|
+
+        rackId = ( x) + 10
+        powerLevel = rackId * ( y)
+        powerLevel += input
+        powerLevel *= rackId
+        powerLevel /= 100
+        powerLevel -= powerLevel / 10 * 10
+        powerLevel -= 5
+
+        levels[y * 300 + x] = powerLevel
+      }
+    }
+
+    (1..300).each { |gridsize|
+
+      img = ImageRuby::Image.new(300, 300, Color.black)
+
+      puts gridsize
+      (1..300-gridsize).each { |x|
+        (1..300-gridsize).each { |y|
+
+          sum = 0
+
+          (0..gridsize-1).each { |dx|
+            (0..gridsize-1).each { |dy|
+
+              sum += levels[(dy + y) * 300 + dx + x]
+            }
+          }
+
+          if sum > max
+            puts "#{x}, #{y}, #{gridsize}: #{sum}"
+            max = sum
+          end
+
+          sum += 80
+          sum = [sum, 0].max
+
+          r = [16 * (sum / 16), 255].min
+
+          img[x,y] = Color.from_rgb(r, ((sum % 16) * 16), 255)
+
+        }
+      }
+
+      img.save("grid#{gridsize}.bmp", :bmp)
+
+    }
+    ```
+  :replies:
+  - :author: imguralbumbot
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbx4/
+    :body: |-
+      ^(Hi, I'm a bot for linking direct images of albums with only 1 image)
+
+      **https://i.imgur.com/e2ENVRF.png**
+
+      ^^[Source](https://github.com/AUTplayed/imguralbumbot) ^^| ^^[Why?](https://github.com/AUTplayed/imguralbumbot/blob/master/README.md) ^^| ^^[Creator](https://np.reddit.com/user/AUTplayed/) ^^| ^^[ignoreme](https://np.reddit.com/message/compose/?to=imguralbumbot&subject=ignoreme&message=ignoreme) ^^| ^^[deletthis](https://np.reddit.com/message/compose/?to=imguralbumbot&subject=delet%20this&message=delet%20this%20ebjrbx4)
+    :replies: []
+- :author: HeyItsBATMANagain
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebk9m8w/
+  :body: |-
+    # Crystal
+
+    I'm still only learning Crystal by doing, so if anyone with Ruby or Crystal experience has any tips, go ahead
+
+    Pretty happy with the initialization of the array
+
+    The max fails in part 2 of the solution assumes that once the highest sum isn't growing for a few grid sizes that we've reached the highest already
+
+    ```ruby
+    class Solution
+        @coords : Array(Array(Int32))
+
+        def initialize(@input : Int32)
+            @coords = Array.new(301) { |y| Array.new(301) { |x| calcPowerLevel(x, y) } }
+            self.run
+        end
+
+        def calcPowerLevel(x, y)
+            rackid = x + 11
+            powerlevel = rackid * (y + 1)
+            powerlevel += @input
+            powerlevel *= rackid
+            powerlevel = ((powerlevel / 100) % 10).floor
+            powerlevel -= 5
+            return powerlevel
+        end
+
+        def highestSumOfGridSize(gridsize)
+            hx, hy, hv = [0, 0, 0]
+            Range.new(0, @coords.size - gridsize, true).each do |y|
+                Range.new(0, @coords.size - gridsize, true).each do |x|
+                    sum = 0
+                    Range.new(0, gridsize, true).each do |gy|
+                        Range.new(0, gridsize, true).each do |gx|
+                            sum += @coords[gy + y][gx + x]
+                        end
+                    end
+                    if sum > hv
+                        hx, hy, hv = [x, y, sum]
+                    end
+                end
+            end
+            hx, hy = [hx + 1, hy + 1]
+            return [hx, hy, hv, gridsize]
+        end
+
+        def part1
+            return highestSumOfGridSize(3)
+        end
+
+        def part2
+            highest = [0, 0, 0, 0]
+            failed = 0
+            maxfails = 3
+            Range.new(1, 300).each do |size|
+                newhighest = highestSumOfGridSize(size)
+                if newhighest[2] > highest[2]
+                    failed = 0
+                    highest = newhighest
+                else
+                    failed += 1
+                    if failed == maxfails
+                        return highest
+                    end
+                end
+            end
+        end
+    end
+    ```
+  :replies: []

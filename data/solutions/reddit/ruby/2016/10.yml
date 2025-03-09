@@ -1,0 +1,230 @@
+---
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0v9jb/
+  :body: |-
+    Ruby.
+
+    I first set up a `Bot` class with some simple methods `receives(value)`, `gives_low(bot)`, `gives_high(bot)`. Each method checks if all the necessary info is given, and then calls `receives` on the appropriate receivers, so that the values cascades nicely through the graph.
+
+    Then the main thing goes like this:
+
+    ```ruby
+    VALUES = [17, 61]
+
+    bots = Hash.new { |hash, key| hash[key] = Bot.new(key) }
+    input = File.open('10_input.txt')
+
+    input.each_line do |line|
+      case line
+      when /(bot \d+) gives low to ((?:bot|output) \d+) and high to ((?:bot|output) \d+)/
+        gives, to_low, to_high = bots.values_at($1, $2, $3)
+
+        gives.gives_low(to_low)
+        gives.gives_high(to_high)
+      when /value (\d+) goes to (bot \d+)/
+        value, bot = $1.to_i, bots[$2]
+
+        bot.receives(value)
+      else
+        puts "huh?"
+      end
+    end
+
+    # Part 1
+    puts bots.values.find { |bot| bot.input.sort == VALUES }.name
+
+    # Part 2
+    outputs = bots.values.select { |bot| bot.name =~ /output [012]$/ }
+    puts outputs.flat_map(&:input).reduce(:*)
+    ```
+
+    The whole thing can be found [here](https://github.com/daniero/code-challenges/blob/master/aoc2016/10.rb)
+  :replies: []
+- :author: blanketandtea
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0p8im/
+  :body: |-
+    **Ruby** for both steps
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    ##
+    # Base class for entities in the factory
+    class InputProcessor
+      def initialize(id)
+        @id = id
+        @chips = []
+      end
+      attr_accessor :id, :chips
+
+      def add_chip(chip)
+        @chips << chip
+        act_on_new_chip
+      end
+
+      def act_on_new_chip
+        raise "#{self.class}: Method not implemented"
+      end
+    end
+
+    ##
+    # Outputs take do nothing special with chips, they just store them.
+    class Output < InputProcessor
+      def act_on_new_chip
+        # Outputs just store the new values
+      end
+    end
+
+    ##
+    # Bots wait till they have two chips and then hand them
+    # over to the next bot based on the set behaviour.
+    class Bot < InputProcessor
+      def initialize(id, specials, notify_on_specials)
+        super(id)
+        @specials = specials
+        @notify_on_specials = notify_on_specials
+      end
+
+      def set_behaviour(low_to: nil, high_to: nil)
+        @low_to = low_to
+        @high_to = high_to
+      end
+
+      def act_on_new_chip
+        return unless @chips.size > 1
+        @low_to.add_chip(@chips.min) if @low_to
+        @high_to.add_chip(@chips.max) if @high_to
+        check_for_special_vals
+        @chips.clear
+      end
+
+      def check_for_special_vals
+        @notify_on_specials.got_specials(bot: self) if @chips.sort == @specials
+      end
+    end
+
+    ##
+    # A Factory represents a collection of bots and outputs that are connected
+    # to each other and can process input.
+    class Factory
+      INPUT_INSTR = /^value (?<val>\d+) goes to bot (?<bot>\d+)$/
+      BEHAV_INSTR = /^^bot (?<id>\d+) gives low to (?<low_type>bot|output) (?<low_id>\d+) and high to (?<high_type>bot|output) (?<high_id>\d+)$$/
+
+      def initialize(setup)
+        @bots = []
+        @outputs = []
+        @specials = [17, 61]
+        create_entities(setup)
+        create_connections(setup)
+      end
+      attr_accessor :bots, :outputs
+
+      def create_entities(setup)
+        setup.each do |instr|
+          instr.match(BEHAV_INSTR) do |m|
+            add_entity('bot', m[:id].to_i)
+            add_entity(m[:low_type], m[:low_id].to_i)
+            add_entity(m[:high_type], m[:high_id].to_i)
+          end
+        end
+      end
+
+      def create_connections(setup)
+        setup.each do |instr|
+          instr.match(BEHAV_INSTR) do |m|
+            low_to = get_entity(m[:low_type], m[:low_id].to_i)
+            high_to = get_entity(m[:high_type], m[:high_id].to_i)
+            @bots[m[:id].to_i].set_behaviour(low_to: low_to, high_to: high_to)
+          end
+        end
+      end
+
+      def process(inputs)
+        inputs.each do |input|
+          input.match(INPUT_INSTR) do |m|
+            @bots[m[:bot].to_i].add_chip(m[:val].to_i)
+          end
+        end
+      end
+
+      def add_entity(type, id)
+        if type == 'bot' && @bots[id].nil?
+          @bots[id] = Bot.new(id, @specials, self)
+        elsif @outputs[id].nil?
+          @outputs[id] = Output.new(id)
+        end
+      end
+
+      def got_specials(bot:)
+        @special_bots ||= []
+        @special_bots << bot
+      end
+      attr_accessor :special_bots
+
+      private def get_entity(type, id)
+        type == 'bot' ? @bots[id] : @outputs[id]
+      end
+    end
+
+    input = open(ARGV[0]).readlines.map(&:strip)
+    factory = Factory.new(input)
+    factory.process(input)
+
+    puts "Step1: #{factory.special_bots[0].id}"
+    puts "Step2: #{factory.outputs[0].chips[0] \
+                   * factory.outputs[1].chips[0] \
+                   * factory.outputs[2].chips[0]}"
+    ```
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db122wz/
+  :body: |-
+    Ruby, with a coroutine (Fiber) per bot:
+
+    ```ruby
+    lines = File.readlines("10.txt").map(&:chomp)
+    inputs, moves = lines.partition { |line| line.start_with? 'value ' }
+
+    class Fiber
+      alias call resume
+      alias :[] :instance_variable_get
+      alias :[]= :instance_variable_set
+    end
+
+    outputs = Hash.new { |h,k| h[k] = [] }
+    actions = {}
+    bots = Hash.new { |h,k|
+      h[k] = f = Fiber.new { |in1|
+        in2 = Fiber.yield
+        min, max = [in1, in2].minmax
+        if min == 17 and max == 61
+          p [:bot, k]
+        end
+        min_to, max_to = f[:@action]
+        min_to.call(min)
+        max_to.call(max)
+      }
+    }
+
+    moves.each { |move|
+      move =~ /bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)$/
+      raise move unless $~
+      bot, low, high = Integer($1), Integer($3), Integer($5)
+      bot = bots[bot]
+      raise if bot[:@action]
+      bot[:@action] = [
+        $2 == "output" ? outputs[low].method(:<<) : bots[low],
+        $4 == "output" ? outputs[high].method(:<<) : bots[high]
+      ]
+    }
+
+    inputs.each { |input|
+      raise input unless input =~ /^value (\d+) goes to bot (\d+)$/
+      value, bot = Integer($1), Integer($2)
+      bots[bot].call(value)
+    }
+
+    p outputs
+    p (0..2).map { |i| outputs[i].first }.reduce(:*)
+    ```
+  :replies: []

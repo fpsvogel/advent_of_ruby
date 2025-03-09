@@ -1,0 +1,68 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fbdyaia/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_13
+  :replies: []
+- :author: Yardboy
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fb5loqa/
+  :body: |-
+    # Ruby
+
+    It just plays the game, not trying (or able) to break any speed records. :)
+
+    [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle13b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle13b/solution.rb)
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fapgw34/
+  :body: |-
+    **Ruby**
+
+    I thought about making a small AI to play or cheating, but i didn't have enought concentration today, so i prefered to make a simple savegame system and restore the game every time i lose to a good checkopoint and just play
+
+    I wanted to upload it to asciinema but my savegame play was bigger than their file size limit . :(
+
+    Anyways, you can run part2 and it will autoload the savegame as a replay (it's a savegame really near to the win point!), you play with:
+
+    - a: left
+    - s: stay in place
+    - d: right
+    - g: save game (it's stored on savegame.txt, you can clean it if you want to start from scratch)
+
+    Also, i didn't test this too much and it's the first time i work with stdin in ruby, so maybe there are a lot of things wrong there
+
+    [https://github.com/hdf1986/advent-of-code/tree/master/day13](https://github.com/hdf1986/advent-of-code/tree/master/day13)
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan7f6r/
+  :body: |-
+    [Ruby](https://github.com/vinc/adventofcode/blob/master/ruby/2019/13/)[Screenshot](https://github.com/vinc/adventofcode/blob/master/ruby/2019/13/screenshot.png)
+
+    My favorite day so far, very fun! I naively tried to win the game by hand for about a minute before giving up. I also had to hack my `Computer#run` method to get the input from a block and I lost some time there because the last screen after winning the game in autoplay was not printed.
+  :replies:
+  - :author: ColonelMcColonel
+    :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan82qb/
+    :body: |-
+      Hahaha I did the same too!
+
+      I also watched it auto play, I knew I could run it much faster if I just executed the auto-player without rendering at 60FPS, but hey - it was so satisfying!
+    :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan6cjr/
+  :body: |-
+    Just for fun... of course I solved the problem the regular way at first, but that takes my poor Ruby code _an entire second_ to run, and that's just too slow.
+
+    If you've disassembled the code, you know that there is a function that I'll name block\_broken(x, y) that is called when a block is broken, and given the coordinates of the block. It updates the score and displays it. It calls another function to index into an array to determine the correct score increment to be used for the specific block broken. It might take a bit too much time to figure out how the function maps from (x, y) to index.
+
+    So let's just call block\_broken directly and let the computer do all the work. Here we go.
+
+    [13\_breakout.rb#L33-L59](https://github.com/petertseng/adventofcode-rb-2019/blob/master/13_breakout.rb#L33-L59)
+
+    Hooray, much faster now!!! (About 33ms, but Ruby startup also adds about another 100ms to that)
+
+    Erm, the author of the above comment does not endorse cheating in any games...?
+
+    The interesting part about these Intcode problems compared to previous years is that they allow some level of interactivity. Since we have the entire computer available to us, this opens up the way to creativity as well. I've seen a lot of great ways to solve the problem in this thread already (make your paddle cover the entire screen width, add walls to the bottom of the screen, override "ball fell off the screen" detection to instead allow the ball to bounce back...) so here is mine.
+  :replies: []

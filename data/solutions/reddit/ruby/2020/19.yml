@@ -1,0 +1,302 @@
+---
+- :author: RewrittenCodeA
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gi7u5ad/
+  :body: |-
+    # Ruby - 1.40 s for part 2
+
+    [https://github.com/rewritten/aoc-2020-ruby-3.0.0/blob/main/lib/aoc/2020/19/solution.rb](https://github.com/rewritten/aoc-2020-ruby-3.0.0/blob/main/lib/aoc/2020/19/solution.rb)
+
+    I am quite proud of it. It only uses Set from stdlib and \*no regular expression\*. And part two is achieved just by pushing the modified rules and heating the cache to just under boiling temperature.
+
+    The solution preheats a cache of words for each rule (`Hash[Integer => Set[String]]`), up to one or more given targets (by default 0, for the second embedded example and the actual problem input up to 42 and 31).
+
+    Then the cache is frozen, and strings are checked. If the rule is in cache, the code just checks whether the string is part of the cached values. If the rule is not in cache, it is split at each point and each of the two parts is checked against the possible combinations.
+
+    The check is done using two mutually recursive methods:
+
+    ```ruby
+    # tries to match parts of the string to the corresponding indices
+    # if only one index is given, goes back to the sibling method
+    # if more than one index is given, tries to match a prefix with the sibling
+    # method and the rest of indices with this method
+    def check_sequence(string, indices)
+      case indices
+        in [index]
+          check_rule(string, index)
+        in [first, *rest]
+          (1...string.length).any? do |position|
+            check_rule(string[1...position], first) &&
+              check_sequence(string[position..], rest)
+      end
+    end
+
+    def check_rule(string, rule)
+      return @cache[rule].include?(string) if @cache[rule]
+
+      # off cache, start recursion
+      @rules[rule].any? { check_sequence(string, _1) }
+    end
+    ```
+
+    The rules are stored as an array where the values are
+
+    - for atoms, the singleton array of the atom: `[…, ["a"], …]`.
+    - for non-atoms, the alternatives as lists of indices: `[…, [[42], [42, 8]], …, [[42, 31], [42, 11, 31]], …]`.
+  :replies:
+  - :author: zxywx
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihahxf/
+    :body: |-
+      It's a really neat solution, and you should definitely be proud of it.
+
+      But ... I'm going to be \*that guy\* ...
+
+      You said:
+
+      > and \*no regular expression\*
+
+      Except for the regular expression you use on line 30:
+
+      ```ruby
+      @input.lines.grep(/\A#{build_re(0)}\Z/).count
+      ```
+
+      And line 36:
+
+      ```ruby
+      .grep(/\A(#{build_re(42)}+)(#{build_re(31)}+)\Z/) { Regexp.last_match.captures }
+      ```
+
+      And line 43 in the function named `build_re`:
+
+      ```ruby
+      "(?:#{@strings_cache[n]&.join('|') ...
+      ```
+
+      And line 53:
+
+      ```ruby
+      definition.split(' | ').map { _1.scan(/\d+/).map(&:to_i) }
+      ```
+
+      Otherwise, you're golden!
+    :replies:
+    - :author: RewrittenCodeA
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlyej/
+      :body: Scanning the input data for numbers cannot really be counted though, it’s just for the initial building and not once per “real” input line....
+      :replies: []
+    - :author: RewrittenCodeA
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlqzy/
+      :body: Yeah. I linked to master, and after posting that comment I got a solution using a bit of regexp that was 20x faster... I should have linked to the specific commit
+      :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeajnr/
+  :body: |-
+    # Ruby
+
+    Went the regex route
+
+    ```ruby
+    r, messages = File
+      .read(ARGV[0] || '../input/19.txt')
+      .split("\n\n")
+      .map { |chunk| chunk.lines.map(&:chomp) }
+
+    rules =
+      r.map { |line|
+        line
+          .gsub(': ', '=>[[').then { _1 + ']]' }
+          .gsub(' | ', '],[')
+          .gsub(' ', ',')
+      }
+      .join(',')
+      .then { ?{ + _1 + ?} }
+      .then { eval _1 }
+
+    def create_solver(rules)
+      Hash.new do |h,k|
+        rule = rules[k].map { |subrule|
+          subrule.map { |subsubrule|
+            String === subsubrule ? subsubrule : h[subsubrule]
+          }.join
+        }.then { |res| res.length == 1 ? res.first : "(#{res.join('|')})" }
+
+        h[k] = rule
+      end
+    end
+
+    # Part 1
+    solver = create_solver(rules)
+    inital_rule = Regexp.new(?^+solver[0]+?$)
+
+    p messages.grep(inital_rule).count
+
+    # Part 2
+    solver = create_solver(rules)
+    solver[8] = "(#{solver[42]})+"
+    solver[11] = "(?<r>#{solver[42]}\\g<r>?#{solver[31]})"
+    inital_rule = Regexp.new(?^+solver[0]+?$)
+
+    p messages.grep(inital_rule).count
+    ```
+  :replies:
+  - :author: blitznep
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeq1x2/
+    :body: |-
+      Mind blown. This is fast compared to my method recursion method and is also idiomatic ruby. TIL a lot. Thank you for sharing.
+
+      edit: Could you explain or point me to the documentation/links for this part of regex `\\g<r>?`
+    :replies:
+    - :author: el_daniero
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggji4s9/
+      :body: |-
+        Thanks, glad to be of service :)
+
+        As mentioned by petercooper, this is a recursive regex, or a _subexpression call\*_. I had actually not used recursive regex before, I just knew Ruby supported it. I searched the API and found [this](https://ruby-doc.org/core-2.7.2/Regexp.html#class-Regexp-label-Subexpression+Calls), which explains it pretty well.
+
+        The first backslash is there just to escape the second one inside the string, so in a regex literal it's just `\g<r>`. `<r>` references the named group `r` from the start of the expression, `(?<r> ...)`.
+
+        If you google recursive regex it's worth noting that some other languages, for instance Perl I think, use a different syntax.
+
+        Also, If you're interested, I could mention that by having recursive capabilities, the Ruby regular expressions are by formal definition no longer regular, as they can in fact handle content free grammars too, of which the new rule 11 from part 2 of the problem is an example.
+
+        \*) edit: A subexpression call doen't have to be recursive. It could also just reference a different group/subexpression. When it references itself it is recursive. With recursive subexpression calls, to stop infinite loops, `\g<r>` has to be optional; it could be suffixed with `?` or `*`, or be on one side of a `|`.
+      :replies:
+      - :author: blitznep
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkli3/
+        :body: "Thank you \U0001F64F"
+        :replies: []
+    - :author: petercooper
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggim43k/
+      :body: |-
+        Look up recursive regex.
+
+        This is a weak, super elementary example of how it works:
+
+        ```ruby
+        a = "a1b2c3d4-test"
+        a[/(?<r>\D\d\g<r>?)/] # => "a1b2c3d4"
+        ```
+
+        The regex basically refers back to itself recursively. `(?<r>...)` gives that capture group a 'name' of 'r'. And then `\g<r>` means to recursively use the 'r' regex in that position. Thereby, a regex referring back to itself!
+
+        You can use `\g` with numbered captures, but that wouldn't work in this solution due to all the captures in the built-up regexes.
+      :replies:
+      - :author: blitznep
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkyoe/
+        :body: Thank you for the explanation.
+        :replies: []
+      - :author: el_daniero
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggjl31y/
+        :body: |-
+          `a1b2c3d4` can also be matched with a simple repetition though, `/([a-z][0-9])+/`. But if you for example wanted to match a number of non-digits followed by the exact equal amount of digits, you will need something more powerful, such as recursion
+
+          ```ruby
+          "abc123456"[/(?<r>\D\g<r>?\d)/] #=> "abc123"
+          "abcdef123"[/(?<r>\D\g<r>?\d)/] #=> "def123"
+
+          "Xabc123"[/^(?<r>\D\g<r>?\d)$/] #=> nil
+          "abc12"[/^(?<r>\D\g<r>?\d)$/] #=> nil
+          ```
+
+          edit: correction
+        :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggcshz2/
+  :body: |-
+    # Ruby
+
+    This uses the \g recursive regex matcher for rule 11 in a pretty straightforward way.
+
+    ```ruby
+    rule_lines, input = open('inputs/19.txt').read.split(/\n\n/).map { |blob| blob.split /\n/ }
+    rules = {}
+
+    rule_lines.each do |line|
+      idx, rule = line.split /: /
+      rules[idx] = rule
+    end
+
+    rules['8'] = "42+"
+    rules['11'] = "(?<e>42 \\g<e>* 31)+"
+
+    re = "^#{rules['0']}$"
+    while true
+      nums = re.scan /\d+/
+      break if nums.length.zero?
+
+      nums.each { |num| re.gsub!(/\b#{num}\b/, "(#{rules[num]})") }
+    end
+
+    re.gsub! /["]/, ''
+    puts input.count { |line| line.match? /#{re}/ }
+    ```
+  :replies:
+  - :author: firetech_SE
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggd40gz/
+    :body: |-
+      I had no idea that `\g` was a thing. Spent an hour or two rewriting [my code](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2020/19/rules.rb) (also ruby) to match and traverse "by hand", which took a few seconds to run afterwards.
+
+      After seeing this, I went back and updated my Regexp based code to use `\g`, and it now finishes in milliseconds :)
+    :replies: []
+  - :author: cloudcyrex
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggegvlt/
+    :body: |-
+      This may not work in certain situations.
+
+      Given, for example, a message with 6 'chunks' of 8 characters, if the
+
+      - first three chunks are from the rule 42 set
+
+      - next two chunks are from the rule 31 set
+
+      - last chunk is from neither.
+
+      Example:
+
+      abaaabbabababbbabbbbaaaaabbaabaabaabbaaaaaabbaba
+
+      Having said that, I'm likely wrong given our different inputs.
+    :replies: []
+  - :author: zxywx
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihozz9/
+    :body: |-
+      I've been playing around with this solution. As it stands, whilst it may work for your input, it returns the wrong answer for mine.
+
+      To correct it, change your override for rule 11 like so:
+
+      ```ruby
+      rules['11'] = '?<e>42 \g<e>? 31'
+      ```
+
+      - Switching to single quotes means you don't need to escape the slash
+      - Remove the trailing + from the pattern ... that would incorrectly match 42 31 42 31 rather than 42 42 31 31
+      - Change the asterisk to a question mark after the subexpression. asterisk incorrectly matches 42 42 42 31 31 rather than matching an equal set of pairs of 42 and 31
+      - Remove the parentheses ... you don't need them
+    :replies: []
+- :author: rsthau
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc3wtl/
+  :body: |-
+    Ruby -- full CFG parser. Guess I'm too groggy to figure out the easy way.
+
+    'each\_match' takes a token number, string, and starting position as an argument, and yields the position _after_ each possible match to the token beginning with the given starting position. each\_match\_s is the same, except with a sequence of tokens as an argument. For each line we're trying to check, try\_match just sees if there are any matches to token 0, starting at position 0, which take up the entire string.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDCBAAAAAAAAAA5GUqKNoFH6SMqoVC09YUYqTc3VgNgRsmA+kQ54tbkCJFH5qw6Ng5zgPQpU/pqVsXFKSruGOUtLTYF86cuAkswmrflCnL4KaxOUJ28FE9DgZ2Q9EVlMQIaQgNcUPw1bwToR7YFflS61Mhzo3mZb5WeQKWJI/56drE7mSHcDVs7Ct4JyE7uF12SfFqXgLOW3G1qLQYCsyCXh7sgZ4VTzus79AlWE7BByzMVYsdVxECEwLlDLRAcRbDZ7p26PbUe1Zp4S+WDvc+l3QjrpSsoKSbM+uJJavBlY+DI65OwZ4ecSX8oger7lI/dH9/tUFJaxaArT1eURDVux/lCy/8nbhnDk/LV9WxiTTmnj3kDeXT5B47l1MinI2CIRlgNjIlPk3Ch0e+V+h82UyutmRv4dFbefRYGeNuiBeiyNKIAq+AShP0zAI9z/KGMBpfy8bDOoQ9dPjOEurC4s7P/dGBQ+Bi+ddvO1G9drhjsAIthWRYnex+R0AiDv1yVbWqWVjTpfg/2ejnzDLJr9LkWOBtp3ClImDC2jg2I3GQVmpfULoxTbCy2F5Tlu/gcGZ/BpqLep7kmeXUpxcYnF74hsciCL2Gtq2iwAlvMqh1aaAOTucAzMcIDNrKnhl/j0wnGFYiqC6onwbWb8OCN+rThftYb9p18l1oW/8kBHrw=)
+  :replies: []
+- :author: billiamthesecond
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc5xu6/
+  :body: |-
+    # [Ruby](https://www.billiam.org/advent-of-code/19.html)
+
+    Really struggled with part 2 but this worked, I guess? (big regex with non-capturing groups to bypass capture limit).
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggca0qy/
+  :body: |-
+    **Ruby:** 50:21/57:43, 1436/616
+
+    Here's a [recording](https://youtu.be/qfZPtx4Kc_k) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/a5d87b70bbc662e3ddc72f24c2e4423c0e87fb8f/2020/dec19.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    This one was lots of fun! I didn't use regexes; I just expanded rule 0 into all possible strings. This obviously was too slow, so the key improvement was checking the prefix of what I had generated so far and bailing early if it wasn't a prefix of any of the messages. Using this approach also allows solving Part 2 without any code changes!
+
+    There were a lot of wrongs paths along the way though, including trying to simply the rule map by propagating the literals up, but that barely made it any smaller. I tried memo-izing my expand function, but that didn't do anything (obviously in retrospect because it would never get called with the same arguments twice...). The final code was definitely messy, but with just a bit of cleanup I made it solve both Part 1 & 2 in ~3 seconds.
+  :replies: []

@@ -1,0 +1,375 @@
+---
+- :author: _jonah
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtsqy/
+  :body: |-
+    # Vim + Ruby
+
+    The key here was to recognize it as thinly disguised ruby code, and use vim to make it real ruby code.
+
+    First we do:
+
+    ```ruby
+    %s/inc/+/g
+    %s/dec/-/
+    ```
+
+    Now our code looks like:
+
+    ```ruby
+    j + -19 if jhb >= 10
+    es + -432 if gbu <= -5
+    es + 278 if ib > -9
+    es + -835 if ib >= -6
+    q - 420 if buw == -2
+    ...
+    ```
+
+    Now we select it all, copy it above, and create the initializing code:
+
+    ```ruby
+    '<,'>s/\(\w\+\).*/\1=0/
+    ```
+
+    Now we've got:
+
+    ```ruby
+    j=0
+    es=0
+    es=0
+    es=0
+    q=0
+    ...
+    ```
+
+    And finally copy the initializers to the bottom and do one more substitution to create an array:
+
+    ```ruby
+    '<,'>s/=0/,/
+    ```
+
+    Manually surround it with brackets and add `.max`:
+
+    ```ruby
+    p [j, es, es, es, q...].max
+    ```
+
+    Now run it.
+
+    Part 2 is similar
+  :replies:
+  - :author: fwilson42
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxu6f5/
+    :body: I wonder if you could've defined a `method_missing` or something similar to get rid of the initializers. Either way, vim-based solutions are always impressive... nice!
+    :replies: []
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy6qde/
+    :body: I like these vim solutions a lot, and I really enjoy the work you put into describing them :) cool!
+    :replies: []
+  - :author: ramendik
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz9xmm/
+    :body: Looks nice, but what if the if clause contains a register that is never modified and thus, in your solution, apparently never initialized?
+    :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1qbs/
+  :body: |-
+    Ruby does this thing like SmallTalk where you send objects messages, and the objects respond. It so happens that I can give an object a message saying `>, 4` and it will tell me whether it is greater than 4. And so it goes for the other operators used as well.
+
+    ```ruby
+    input = (ARGV.empty? ? DATA : ARGF).readlines.map(&:split)
+
+    regs = Hash.new(0)
+    max = 0
+
+    input.each { |target, inc_or_dec, delta, _if, source, cmp_op, cmp_val|
+      next unless regs[source].send(cmp_op, Integer(cmp_val))
+      new_val = regs[target] += Integer(delta) * (inc_or_dec == 'dec' ? -1 : 1)
+      max = [max, new_val].max
+    }
+
+    puts regs.values.max
+    puts max
+
+    __END__
+    (my input omitted)
+    ```
+  :replies:
+  - :author: hxka
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy85h0/
+    :body: Um, doesn't `send` simply call an object's method by its name and what you do is possible because in Ruby `a op b` is sugar for `a.op(b)`?
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyiv5q/
+      :body: Yes, exactly! As you explained, send has broader consequences than I managed to impart with my explanation.
+      :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtdjy/
+  :body: |-
+    Ruby. I missed the alarm and woke up exactly 2 minutes before this day opens.
+
+    Note that the input format is already very similar to executable Ruby code (In ruby, “(exit # or really any commands) if condition” (based on the perl construct) is actually a valid instruction, so `a += b if c > d` will be executable as desired), but I couldn't make the trick work unlike /u/dtinth :) so I just rewrote it
+
+    ```ruby
+    h=Hash.new{"0"}
+    l=[]
+    o=$<.map{|x|x.chomp=~/(\S+) (i)?\S+ (-?\d+) if ((\S+).+)/
+    l<<$1
+    p [$1,$2,$3.to_i,$4,$5]}
+    l.each{|x|h[x]=0}
+    q=[] # added in part 2 (also q<<
+    o.each{|a,b,c,e,d|next if !eval(e.sub(d,h[d].to_s))
+    b ? q<<(h[a]+=c) : h[a]-=c}
+    p h.max_by{|x,y|y}[1] # part 1
+    p [h.max_by{|x,y|y}[1],q.max].max # part 2
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz1rkb/
+    :body: |-
+      Same idea here, a bit more readable:
+
+      ```ruby
+      # Create a hash to store registers, default value of new element is 0.
+      registers = Hash.new(0)
+      largest = 0
+
+      while line = gets
+        # The line is almost a valid instruction in Ruby. We just need to
+        # change the variables into register references, and inc/dec to += and -=.
+        instruction = line.gsub(/(\w+) (inc|dec)/, "registers['\\1'] \\2")
+                          .gsub(/if (\w+)/, "if registers['\\1']")
+                          .gsub(/ inc /, " += ").gsub(/ dec /, " -= ")
+
+        # Evaluate the instruction and store largest, if a new value.
+        result = eval(instruction) || largest
+        largest = result if result > largest
+      end
+
+      puts "Highest at the end: %s" % registers.values.max
+      puts "Highest ever: %s" % largest
+      ```
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxt964/
+  :body: |-
+    # Ruby
+
+    ## I Heard You Like eval
+
+    The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
+
+    ```ruby
+    # Part 1 (13th rank)
+    -> x { d = Hash.new(0); eval x.gsub(/(\w+) (inc|dec) (-?\d+) if (\w+) (\S+) (\S+)/) { "d['#{$1}'] #{$2 == 'inc' ? '+=' : '-='} #{$3} if d['#{$4}'] #{$5} #{$6}" }; d.values.max }[`pbpaste`]
+
+    # Part 2 (26th rank)
+    -> x { d = Hash.new(0); m = 0; eval x.gsub(/(\w+) (inc|dec) (-?\d+) if (\w+) (\S+) (\S+)/) { "d['#{$1}'] #{$2 == 'inc' ? '+=' : '-='} #{$3} if d['#{$4}'] #{$5} #{$6}; m = [m, d.values.max || 0].max" }; m }[`pbpaste`]
+    ```
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy41zl/
+  :body: |-
+    Metaprogramming is the better eval! Looks like this one is made for Ruby as operators match nicely:
+
+    ```ruby
+    input = File.read("8.txt")
+    registers = Hash.new(0)
+    code = input.strip.lines.map { |line|
+      /^(?<reg>\w+) (?<dir>inc|dec) (?<by>-?\d+) if (?<r>\w+) (?<cmp>[>=<!]+) (?<n>-?\d+)$/ =~ line
+      by = by.to_i * (dir == "dec" ? -1 : 1)
+      if registers[r].send(cmp, n.to_i)
+        registers[reg] += by
+      end
+    }
+    p registers.values.max
+    ```
+  :replies: []
+- :author: reacher
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtd8p/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    def expr(op1, op, op2)
+      case op
+      when '<'
+        return op1 < op2
+      when '>'
+        return op1 > op2
+      when '<='
+        return op1 <= op2
+      when '>='
+        return op1 >= op2
+      when '=='
+        return op1 == op2
+      when '!='
+        return op1 != op2
+      else
+        puts "bad op #{op}"
+      end
+    end
+
+    r = {}
+    max = 0
+
+    IO.readlines('ad8inp').each do |line|
+      a = line.chomp.split
+      r[a[0]] ||= 0
+      r[a[4]] ||= 0
+      if expr(r[a[4]], a[5], a[6].to_i)
+        r[a[0]] = a[1] == 'inc' ? r[a[0]] += a[2].to_i : r[a[0]] -= a[2].to_i
+      end
+      m = r.values.minmax[1]
+      if m > max
+        max = m
+      end
+    end
+
+    puts r.values.minmax[1]
+    puts max
+    ```
+  :replies: []
+- :author: arachnist
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxx4d3/
+  :body: |-
+    I couldn't get instance\_variable\_(get|set) to work as i wanted, so I couldn't feed input directly into ruby.
+
+    ```ruby
+    reg = Hash.new(0)
+    max = 0
+
+    file = ARGV[0] || "input.txt"
+
+    open(file).each_line do |line|
+      code_line = line
+        .gsub(/(inc|dec)/, "inc" => "+=", "dec" => "-=")
+        .gsub(/^([^]+)/, 'reg[\'\1\']')
+        .gsub(/if ([^]+)/, 'if reg[\'\1\']')
+      eval(code_line)
+      max = reg.values.max if not reg.values.max.nil? and reg.values.max > max
+    end
+
+    puts reg.values.max
+    puts max
+    ```
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy19o0/
+  :body: |-
+    ruby! 9 lines!
+
+    i need to execute some code to work this out? so lets execute some code to work this out. luckily the postfix condition is perfectly valid ruby already! lets just eval all these registers into the binding and execute our perfectly valid input (after some massaging..)
+
+    ```ruby
+    input = File.read("input").lines
+    parsed = input.map {|l| l.scan(/(\w+)\s(\w+)\s(-?\d+)(.*)/).flatten}
+    registers = parsed.map {|p| p.first}.uniq
+    max = 0
+    b = Kernel.binding
+    registers.each {|r| b.eval "#{r} = 0"}
+    parsed.each {|p| b.eval "#{p[0]} #{p[1] == "inc" ? "+" : "-"}= #{p[2]} #{p[3]}; max = [max, #{p[0]}].max" }
+    puts registers.map{|r| b.local_variable_get(r.to_sym)}.max
+    puts b.local_variable_get(:max)
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1dvf/
+  :body: |-
+    # Ruby: String substitution and eval
+
+    Seems I wasn't the only one; It was practically screaming for it.
+
+    ```ruby
+    registers = Hash.new { |h,k| h[k] = 0 }
+
+    File.read('input08.txt')
+        .gsub(/^\w+|(?<=if )\w+/) { "registers['#{$&}']" }
+        .gsub(/inc/, '+=')
+        .gsub(/dec/, '-=')
+        .each_line { |line| eval(line) }
+
+    puts registers.values.max
+    ```
+
+    For part two I overloaded `registers[key]=value` to catch the highest value ever assigned to any key:
+
+    ```ruby
+    class << registers
+      attr_accessor :highest_ever
+
+      def []=(key, value)
+        @highest_ever = value if !@highest_ever || value > @highest_ever
+        super
+      end
+    end
+    ```
+
+    Then after the File.read line you can do
+
+    ```ruby
+    puts registers.highest_ever
+    ```
+
+    https://github.com/daniero/code-challenges/blob/master/aoc2017/ruby/08.rb
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyl12l/
+  :body: |-
+    [**Ruby**](https://github.com/Sharparam/advent-of-code/tree/master/2017): Using `method_missing` and `eval` without tampering or matching on the input data.
+
+    ```ruby
+    class CPU
+        attr_reader :high, :regs
+
+        def initialize; @regs = Hash.new(0) end
+        def inc(value) value end
+        def dec(value) -value end
+        def run(text) eval text end
+
+        def method_missing(sym, *args)
+            (@regs[sym] += args[0].to_i).tap { |v| @high = v if @high.nil? || @high < v }
+        end
+    end
+
+    cpu = CPU.new
+    cpu.run $<.read
+    puts cpu.regs.values.max
+    puts cpu.high
+    ```
+  :replies:
+  - :author: patrickdavey
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyrhce/
+    :body: |-
+      Thanks for posting this. I do write ruby for a day job, but, I hardly ever mess around with method\_missing and friends. Really interesting to see how that all works, how it's smart enough to pass the args along to your `dec` and `inc` methods etc.
+
+      Really neat! thanks for sharing.
+    :replies: []
+- :author: rhardih
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxyq5h/
+  :body: |-
+    Ruby, with eval injecting the condition:
+
+    ```ruby
+    @registers = Hash.new(0)
+
+    evaluator = -> (reg, cond, val) {
+      eval %Q{@registers["#{reg}"] #{cond} #{val}}
+    }
+
+    STDIN.read.split("\n").each do |l|
+      reg0, instruction, val0, _, reg1, cond, val1 = l.split
+
+      if evaluator.call(reg1, cond, val1)
+        case instruction
+        when "inc"
+          @registers[reg0] += val0.to_i
+        when "dec"
+          @registers[reg0] -= val0.to_i
+        end
+      end
+    end
+
+    max = @registers.max_by { |k, v| v }
+
+    puts %Q{Register of maximum value is "#{max[0]}": #{max[1]}"}
+    ```
+  :replies: []

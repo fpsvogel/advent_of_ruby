@@ -1,0 +1,166 @@
+---
+- :author: anadhdguy
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daocnfp/
+  :body: |-
+    My solution for part1...
+
+    **Oneliner in ruby (114 characters)**:
+
+    ```ruby
+    cat input | ruby -pe '_=0,0;d=1;$_.scan(/([LR])(\d+)/).each{|c,n|
+    d=(d+(c.ord&2)-1)%4;_[d%2]+=n.to_i*((d%3>0)?1:-1)};$_=_[0].abs+_[1].abs'
+    ```
+
+    **Oneliner in C (245 characters)**:
+
+    ```ruby
+    void main(){char c;int n=0,d=1,_[2]={0};while(read(0,&c,1))c>57?
+    d=(d+(c&2)+3)%4:c>47?n=n*10+(c&15):n>0?_[d%2]+=d%3>0?
+    n:-n,n=0:0;for(d=0;d<2;d++)n+=_[d]<0?-_[d]:_[d];d=10000000;
+    while(!(n/d)&&(d/=10));do{c=n/d+48;write(1,&c,1);}while(n%=d,d/=10);}
+    ```
+  :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dane3zx/
+  :body: |-
+    Here's my pattern-matching-heavy Elixir answer for part 1! https://gist.github.com/EricDykstra/41b46c9a40bf499f97252a81ef32dd8a
+
+    Will work on part 2 later, still don't have a great idea in my head of how to do it in a functional style. Might look at some of the other answers around here.
+
+    I used Ruby to initially to get on the leaderboard and this was my answer (slightly cleaned up and refactored). Part 2 answer changes only a couple of lines :) https://gist.github.com/EricDykstra/cbbb9b87209814d93e5bb0d252646d0d
+  :replies: []
+- :author: dontfup
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daq39t1/
+  :body: |-
+    Clever enough go at part 1 in ruby, but this won't do well for part 2:
+
+    ```ruby
+    # Read the input
+    input = File.read(File.dirname( __FILE__ ) + "/input").rstrip.split(", ")
+
+    # Imagine a compass
+    orientations = %w{ N E S W }
+
+    # Wake up our navigator
+    navigator = Hash.new(0)
+
+    # Translate instructions
+    instructions = input.map do |instruction|
+      case instruction[0]
+      when "L"
+        orientations.rotate! -1
+      when "R"
+        orientations.rotate!
+      else
+        raise "flibbedy flook"
+      end
+
+      navigator[orientations[0] ] += instruction[1..-1].to_i
+    end
+
+    # Ask our navigator about a shortcut
+    puts navigator["E"] - navigator["W"] + navigator["N"] - navigator["S"]
+    ```
+  :replies:
+  - :author: dontfup
+    :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daqq9c0/
+    :body: |-
+      Okay, I've adapted the same code to solve part 2
+
+      ```ruby
+      # Read the input
+      input = File.read(File.dirname( __FILE__ ) + "/input").rstrip.split(", ")
+
+      # Declare starting position
+      position = [0,0]
+
+      # Imagine a compass
+      orientations = %w{ N E S W }
+
+      # Wake up our navigator
+      navigator = Hash.new(0)
+      previous_positions = Array.new
+
+      # Teach navigator some orienteering
+      def hit_the_road(route, previous_positions)
+        route.detect { |point| previous_positions.include?(point) }
+      end
+
+      def path(a,b)
+        path = a.send(a < b ? :upto : :downto, b).to_a[1..-1]
+      end
+
+      # Translate instructions
+      instructions = input.map do |instruction|
+        case instruction[0]
+        when "L"
+          orientations.rotate! -1
+        when "R"
+          orientations.rotate!
+        else
+          raise "flibbedy flook"
+        end
+
+        # Identify destination
+        navigator[orientations[0] ] += instruction[1..-1].to_i
+
+        # Move toward destination
+        exit_condition = case orientations[0]
+        when "N"
+          p = path(position[-1], position[-1] + instruction[1..-1].to_i)
+          z = Array.new(p.length, position[0])
+          route = z.zip(p)
+          hit_the_road(route, previous_positions)
+        when "E"
+          p = path(position[0], position[0] + instruction[1..-1].to_i)
+          z = Array.new(p.length, position[-1])
+          route = p.zip(z)
+          hit_the_road(route, previous_positions)
+        when "S"
+          p = path(position[-1], position[-1] - instruction[1..-1].to_i)
+          z = Array.new(p.length, position[0])
+          route = z.zip(p)
+          hit_the_road(route, previous_positions)
+        when "W"
+          p = path(position[0], position[0] - instruction[1..-1].to_i)
+          z = Array.new(p.length, position[-1])
+          route = p.zip(z)
+          hit_the_road(route, previous_positions)
+        end
+
+        if exit_condition
+          position = exit_condition
+          break
+        else
+          previous_positions = previous_positions | route
+          position = [navigator["E"] - navigator["W"], navigator["N"] - navigator["S"]]
+        end
+      end
+
+      puts position[0].abs + position[1].abs
+      ```
+    :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dau2kcf/
+  :body: |-
+    Sorry I'm late to the party!
+
+    I like this solution because you can easily expand to any number of dimensions just by updating the configuration at the top.
+
+    **Ruby**
+
+    ```ruby
+    d = 0
+    l = [0,0]
+    m = [[0,1],[1,0],[0,-1],[-1,0]]
+    t = {'R' => 1, 'L' => -1}
+
+    ARGF.first.split(', ').each do |c|
+      d = (d + t[c[0]]) % m.length
+      a = c[1..-1].to_i
+      l = l.zip(m[d].map{|i| i*a}).map{|i| i.reduce(&:+)}
+    end
+
+    p l.map(&:abs).reduce(&:+)
+    ```
+  :replies: []

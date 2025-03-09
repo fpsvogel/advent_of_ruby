@@ -1,0 +1,84 @@
+---
+- :author: KeyboardFire
+  :url: https://www.reddit.com/r/adventofcode/comments/a86jgt/2018_day_21_solutions/ec8fsc5/
+  :body: |-
+    ruby, 21/24. i'm posting the interesting bit because this wasn't actually my part 2 code (i bruteforced it), but i'm glad i managed to finish the reverse engineering by hand before the leaderboard got capped, so:
+
+    ```ruby
+    #!/usr/bin/ruby
+
+    require 'set'
+    seen = Set.new
+
+    def f a;
+        a |= 0x10000
+        b = 8595037
+        b += a&0xff; b &= 0xffffff
+        b *= 65899; b &= 0xffffff
+        b += (a>>8)&0xff; b &= 0xffffff
+        b *= 65899; b &= 0xffffff
+        b += (a>>16)&0xff; b &= 0xffffff
+        b *= 65899; b &= 0xffffff
+        b
+    end
+
+    n = f 0
+    loop {
+        n2 = f n
+        abort "#{n}" if seen.include? n2
+        seen.add n
+        n = n2
+    }
+    ```
+
+    8595037 and 65899 are presumably per-user constants. all those bitwise ands with ffffff are just to make `b` behave as if it were an unsigned 24-bit int. this solves part 2 in a few milliseconds (my brute force took several minutes).
+  :replies:
+  - :author: jonathan_paulson
+    :url: https://www.reddit.com/r/adventofcode/comments/a86jgt/2018_day_21_solutions/ec8fycp/
+    :body: What do you mean by "I bruteforced it" for part 2? You have to know to look for a cycle to figure out when to print the answer, right?
+    :replies:
+    - :author: KeyboardFire
+      :url: https://www.reddit.com/r/adventofcode/comments/a86jgt/2018_day_21_solutions/ec8g32j/
+      :body: yeah, i knew based on the challenge description that it'd have to cycle, so i just ran the input through my "emulator" without any optimizations and printed the values of the register whenever they were compared to register 0, then found when that first started cycling.
+      :replies: []
+- :author: Etsap1
+  :url: https://www.reddit.com/r/adventofcode/comments/a86jgt/2018_day_21_solutions/ec9fybq/
+  :body: |-
+    My brute force solution took almost 30 minutes to run. Here is the optimized version in ruby, which usually runs in less than 20ms:
+
+    `require 'set'`
+
+    `def find_next_terminal_value(x = 0)`
+
+    `y = x | 65536`
+
+    `x = 733884`
+
+    `while y > 0`
+
+    `x = (((x + (y & 255)) & 16777215) * 65899) & 16777215`
+
+    `y >>= 8`
+
+    `end`
+
+    `return x`
+
+    `end`
+
+    `x = find_next_terminal_value`
+
+    `puts x`
+
+    `unique_outputs, part2 = Set[], nil`
+
+    `while unique_outputs.add?(x)`
+
+    `part2 = x`
+
+    `x = find_next_terminal_value(x)`
+
+    `end`
+
+    `puts part2`
+  :replies: []

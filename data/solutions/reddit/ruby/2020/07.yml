@@ -1,0 +1,595 @@
+---
+- :author: DmitryShvetsov
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/ggz5ipr/
+  :body: |-
+    # Ruby
+
+    part 1 [https://github.com/dmshvetsov/adventofcode/blob/master/2020/07/1.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/07/1.rb)
+
+    using Set and iterating over and over against through the input to kinda traverse the tree of bags
+
+    part 2 [https://github.com/dmshvetsov/adventofcode/blob/master/2020/07/2.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/07/2.rb)
+
+    in part 2, it became obvious how to navigate the data as a tree using the depth-first search, which led to a more straightforward solution
+  :replies: []
+- :author: skawid
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf3i6dx/
+  :body: 'Second day playing with ruby! Not sure if it''ll replace python for me, but it''s nice to try: https://github.com/simonbrahan/aoc2020/blob/master/day7/main.rb'
+  :replies: []
+- :author: Ryuujinx
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf0sr0o/
+  :body: |-
+    # Ruby
+
+    Sneaking in right before tomorrow drops.
+
+    Link to code: https://github.com/Ryuujinx/aoc2020/tree/main/day7
+
+    Certainly not the most elegant solution, but it runs fast enough and it works so whatever.
+
+    Also I learned today that you can't make unbound capture groups in regex, this makes me sad. Last year I learned you can't have unbound lookbehinds.
+
+    Regex please, if I want to fuck my performance just let me.
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01zpu/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    lines = ARGF.readlines(chomp: true).reject { |line|
+      line.include? "no other bags"
+    }
+
+    # maps a color name to all the colors it contains
+    # e.g. "faded yellow => [{:num=>8, :color=>"dusky_brown}...]
+    graph = lines.to_h { |line|
+        contents = line.split(" bags contain ")
+      container = contents[0]
+      containees = contents[1].split(",").map { |c|
+        # list of hashes e.g. {:num => 8, :color => "dusky brown"}
+        [
+          [:num, c[/\d+/].to_i],
+          [:color, c[/[a-z]+ [a-z]+/]]
+        ].to_h
+      }
+      [container, containees]
+    }
+
+    # invert the graph so we know what colors a color is contained by
+    inverted = Hash.new {|h, k| h[k] = []} # list is default value
+    graph.each_pair do |container, containees|
+        containees.each do |c|
+            inverted[c[:color]].push(container)
+        end
+    end
+
+    # part 1
+    colors = []
+    def bfs1(g, root, &block)
+        queue = g[root]
+        queue.each do |node|
+        yield node
+            bfs1(g, node, &block)
+        end
+    end
+
+    bfs1(inverted, 'shiny gold') { |color| colors.push(color) }
+    puts colors.uniq.size
+
+    # part 2
+    def bfs2(g, node)
+      queue = g[node]
+      return 0 if !queue
+      queue.sum { |n|
+        n[:num] + (n[:num] * bfs2(g, n[:color]))
+      }
+    end
+    puts bfs2(graph, 'shiny gold')
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01dpo/
+  :body: |-
+    #namingThings :/
+
+    # Ruby
+
+    ```ruby
+    bags = File
+      .readlines('../input/07.txt')
+      .map { |line|
+        bag = line[/^(\w+ \w+)/]
+        content = line
+          .scan(/(\d+) (\w+ \w+)/)
+          .map { |num, name| [num.to_i, name] }
+
+        [bag, content]
+      }.to_h
+
+    TARGET = 'shiny gold'
+
+    # Part 1
+
+    def bags.can_hold?(outter_bag)
+      inner_bags = self[outter_bag].map(&:last)
+
+      inner_bags.any? { |inner_bag| inner_bag == TARGET } ||
+      inner_bags.any? { |inner_bag| can_hold?(inner_bag) }
+    end
+
+    p bags.keys.count { |bag| bags.can_hold?(bag) }
+
+    # Part 2
+
+    def bags.count_inner_bags(outter_bag)
+      content = self[outter_bag]
+
+      content.sum { |number, inner_bag|
+        number + number * count_inner_bags(inner_bag)
+      }
+    end
+
+    p bags.count_inner_bags(TARGET)
+    ```
+  :replies: []
+- :author: zxywx
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexn7cd/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    module Year2020
+      class Bag
+        attr_accessor :colour
+
+        def initialize(rule)
+          @colour = rule.match(/^(\w+ \w+) bags/)[1]
+          @bags = rule.match(/contain (.*)\./)[1].split(", ").inject({}) do |bags, bag_colour_count|
+            bag_colour = bag_colour_count.split(" ")[1, 2].join(" ")
+            bags[bag_colour] = bag_colour_count.split(" ")[0] unless bag_colour == "other bags"
+            bags
+          end
+        end
+
+        def can_contain?(desired, other_bags)
+          @bags.has_key?(desired) || @bags.any? { |colour, count| other_bags[colour].can_contain?(desired, other_bags) }
+        end
+
+        def bag_count(other_bags)
+          @bags.inject(0) { |count, bag| count + bag[1].to_i + (bag[1].to_i * other_bags[bag[0]].bag_count(other_bags)) }
+        end
+      end
+
+      class Day07
+        def part_1(input)
+          bags(input).inject(0) { |count, bag| bag[1].can_contain?("shiny gold", bags(input)) ? count + 1 : count }
+        end
+
+        def part_2(input)
+          bags(input)["shiny gold"].bag_count(bags(input))
+        end
+
+        private
+          def bags(input)
+            @bags ||= processed_bags(input)
+          end
+
+          def processed_bags(input)
+            processed = {}
+            input.each_line do |bag_rule|
+              bag = Bag.new(bag_rule)
+              processed[bag.colour] = bag
+            end
+            processed
+          end
+      end
+    end
+    ```
+  :replies: []
+- :author: nilsecc
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gez6mky/
+  :body: |-
+    **Ruby:**
+
+    stack based solution
+
+    ```ruby
+    file_path = File.expand_path("../test-1.txt", __FILE__ )
+    input = File.read(file_path)
+
+    require 'set'
+
+    class Checker
+      attr_accessor :data, :bags
+
+      def initialize(input)
+        @bags = Hash.new { |h, k| h[k] = [] }
+        @data = input.split("\n")
+                     .map do |rule|
+                      color, contents = rule.split(' bags contain')
+                      @bags[color] += contents.gsub(" bag", "")
+                                              .gsub(" bags", "")
+                                              .tr(".", "")
+                                              .split(', ')
+                                              .map do |string|
+                                                number_of_bags = string.dup.scan(/\d/).join('')
+                                                color = if string[-1] == 's'
+                                                          string.lstrip[0..-2].tr("0-9", "")
+                                                        else
+                                                          string.lstrip.tr("0-9", "")
+                                                        end
+                                                bag_color = color.lstrip
+                                                { bag_color => number_of_bags.to_i }
+                                              end
+                      end
+      end
+
+      # example: @bags
+      # {"light red"=>[{"bright white"=>1}, {"muted yellow"=>2}],
+      # "dark orange"=>[{"bright white"=>3}, {"muted yellow"=>4}],
+      # "bright white"=>[{"shiny gold"=>1}],
+      # "muted yellow"=>[{"shiny gold"=>2}, {"faded blue"=>9}],
+      # "shiny gold"=>[{"dark olive"=>1}, {"vibrant plum"=>2}],
+      # "dark olive"=>[{"faded blue"=>3}, {"dotted black"=>4}],
+      # "vibrant plum"=>[{"faded blue"=>5}, {"dotted black"=>6}],
+      # "faded blue"=>[{"no other"=>0}],
+      # "dotted black"=>[{"no other"=>0}]}
+
+      def solve_silver
+        visited = Set.new()
+        stack = ['shiny gold']
+        until stack.empty?
+          current_color = stack.pop
+          next if visited.member?(current_color)
+
+          bags.each do |parent, children|
+            stack << parent if children.flat_map(&:keys).include?(current_color)
+            visited.add(current_color)
+          end
+        end
+
+        visited.length - 1
+      end
+
+      def solve_gold
+        sum = 0
+        stack = ['shiny gold']
+
+        until stack.empty?
+          children = bags[stack.pop]
+          next if children.nil?
+
+          children.each do |item|
+            child_color = item.keys.first
+            child_count = item.values.first
+            child_count.times do
+              stack << child_color
+              sum += 1
+            end
+          end
+        end
+        sum
+      end
+
+    end
+
+    checker = Checker.new(input)
+    pp checker.solve_silver
+    pp checker.solve_gold
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex50tj/
+  :body: |-
+    **Ruby:** 14:12/19:59, 470/338
+
+    Here's a [recording](https://youtu.be/wZpPaWGFoGg) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/0d28a38bdb69ac60973d3336aa328f6b136d8763/2020/dec07.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Slightly tricky string parsing, needing to handle bag/bags, the trailing '.' and the leading numbers. I didn't try to guess Ruby's `String#split(str, limit)` method for splitting on just the first occurrence, and instead did hack stuff with `index` and slicing the string.
+  :replies: []
+- :author: blafunke
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex7a0p/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    #!/usr/bin/ruby
+
+    def parse_rule(rule_str)
+      if rule_str.include?("no other bags")
+        return {}
+      else
+        return {
+          "quantity" => rule_str.strip.match(/^\d+/)[0],
+          "color" => rule_str.strip.match(/(\w+\s\w+)\sbag/)[1]
+        }
+      end
+    end
+
+    def bags_for_color(bags,color)
+      output = []
+      bags.each do|bag,rules|
+        rules.select{|r|r.length >0}.each do |rule|
+          if rule["color"] == color
+            output << bag
+            output.concat bags_for_color(bags,bag)
+          end
+        end
+      end
+      output
+    end
+
+    def total_for_color(bags,color)
+      total = 1
+      bags[color].each do |rule|
+        if rule != {}
+          total += rule["quantity"].to_i * total_for_color(bags, rule["color"])
+        end
+      end
+      total
+    end
+
+    bags = {}
+    $stdin.each do |line|
+      bag = line.match(/(^\w+\s\w+)\sbags/)[1]
+      rules = line.split("contain")[1].split(',')
+      bags[bag] = rules.map do |rule|
+        parse_rule(rule)
+      end
+    end
+
+    puts "part 1"
+    puts bags_for_color(bags,"shiny gold").uniq.length
+
+    puts "part 2"
+    puts total_for_color(bags,"shiny gold") - 1
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexju4z/
+  :body: |-
+    # Ruby
+
+    I hate recursion with a passion so avoid it if a queue works instead. Luckily, with this challenge a queue is actually easier to understand and less complex.
+
+    Part one and two covered here:
+
+    ```ruby
+    rules = File.readlines('7.txt').map(&:strip)
+
+    graph = Hash.new { |h, k| h[k] = { holds: [], held_by: [] } }
+
+    rules.each do |rule|
+      holder, holds = rule.split(' bags contain ', 2)
+      holds = holds.scan(/(\d+) (.*?) bag/)
+                   .map { |(q, c)| [c] * q.to_i }
+                   .flatten
+      graph[holder][:holds] += holds
+      holds.each { |h| graph[h][:held_by] << holder }
+    end
+
+    def calculate(bag, direction, graph)
+      queue = [bag]
+      bags = []
+      while find = queue.shift
+        bags += graph[find][direction]
+        queue += graph[find][direction]
+        queue.uniq! && bags.uniq! if direction == :held_by
+      end
+      bags.size
+    end
+
+    p calculate('shiny gold', :held_by, graph)
+    p calculate('shiny gold', :holds, graph)
+    ```
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexmrpc/
+    :body: |-
+      The way I store the information about what a bag holds is unorthodox based on my reading of other solutions here.
+
+      Rather than storing a quantity and a color, I store the color numerous times. So instead of [3, "red"], I'll store ["red", "red", "red"] .. this makes the code behind my eventual counting approach (essentially the hottest loop in the program) more efficient, but in a real world scenario the memory usage would be frowned upon! ;-)
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geya3as/
+  :body: No ruby yet? Then I'll share my solution [here](https://github.com/Ganon11/AdventCode/blob/master/2020/Day7/src/Day7.rb)!
+  :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geyf2ul/
+  :body: |-
+    Did not see a short ruby yet, so here is mine:
+
+    ```ruby
+    $rules = ARGF.readlines
+
+    def iterate_rules
+      $rules.map { |predpis|
+        m = predpis.match(/^(.*)\sbags\scontain\s(.*)./)
+        m[2].split(", ").map{ |item|
+          next if item.match? /no other bags/
+          item.match /(\d+)\s(.*)\sbags?/
+          yield(m[1],$2,$1.to_i)
+        }
+      }.flatten.compact
+    end
+
+    def ancestors_and_me(bag)
+      (iterate_rules { |parent,child, multiplicity|
+        ancestors_and_me(parent) if bag==child
+      } + [bag]).uniq
+    end
+
+    def child_count(bag)
+      iterate_rules { |parent,child, multiplicity|
+        multiplicity * (1 + child_count(child)) if parent == bag
+      }.sum
+    end
+
+    print "Result 1: ", ancestors_and_me('shiny gold').count - 1
+    print "\nResult 2: ", child_count('shiny gold')
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gewyjqt/
+  :body: |-
+    Ruby 34/51. I forgot to handle bags containing no other bags while parsing, which wasn't a problem for the first one but definitely was for the second. Oh well.
+
+    ```ruby
+    bags = {}
+    File.read('07.txt').lines(chomp: true).each do |line|
+      pre, post = line.gsub('.', '').gsub(/ bags?/, '').split(' contain ')
+      bags[pre] = post.split(',').map { |t| count, bag = t.split(' ', 2); [count.to_i, bag] }
+    end
+
+    def search(bags, bag)
+      return 0 if !bags.has_key?(bag)
+      return 1 if bags[bag].any? { |c, b| b == 'shiny gold' }
+
+      bags[bag].each do |c, b|
+        return 1 if search(bags, b) == 1
+      end
+      return 0
+    end
+
+    puts bags.map { |bag, contains| search(bags, bag) }.sum
+    ```
+
+    Part two:
+
+    ```ruby
+    bags = {}
+    File.read('07.txt').lines(chomp: true).each do |line|
+      pre, post = line.gsub('.', '').gsub(/ bags?/, '').split(' contain ')
+      if post.include?('no other')
+        bags[pre] = []
+      else
+        bags[pre] = post.split(',').map { |t| count, bag = t.split(' ', 2); [count.to_i, bag] }
+      end
+    end
+
+    def append(bags, current_bag, out, mult = 1)
+      return if bags[current_bag].empty?
+      bags[current_bag].each do |c, b|
+        out[b] ||= 0
+        out[b] += c*mult
+        append(bags, b, out, c*mult)
+      end
+    end
+
+    out = {}
+    append(bags, 'shiny gold', out)
+    puts out.values.sum
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex26kv/
+  :body: |-
+    # Ruby
+
+    It's ugly but it works.
+
+    ```ruby
+    mine = 'shiny gold'
+    @bags = {}
+
+    DATA.each_line.map do |line|
+      color, rest = line.match(/^(.*) bags contain (.*)/).captures
+      contains = rest.split(',').map do |con|
+        c = con.match(/(\d+) (\D+) bag/)&.captures
+        next if c.nil?
+
+        c[0] = c[0].to_i
+        c
+      end
+      @bags[color] = contains
+    end
+
+    def get_parents(m)
+      @bags.filter do |_color, contains|
+        !contains.filter do |c|
+          c&.include?(m)
+        end.empty?
+      end.keys
+    end
+
+    keys = [mine]
+    list = []
+    until keys.empty?
+      list << keys
+      keys = keys.map { |k| get_parents(k) }.flatten
+    end
+
+    pp list.flatten.uniq.count - 1
+
+    to_process = @bags[mine].flatten
+
+    t = 0
+
+    until to_process.empty?
+      to_process = to_process.each_slice(2).map do |count, color|
+        count.times.map do |_i|
+          t += 1
+          @bags[color]
+        end
+      end.flatten.compact
+    end
+
+    puts t
+    ```
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexm197/
+  :body: |-
+    **Ruby**
+
+    Spent way too much time trying to parse the input with a giant regex when I ended up just doing it more piecemeal instead and just removing junk from the lines I didn't care about. I liked the way how the algorithms turned out in the end though, and after I did some clean up with it too!
+
+    ```ruby
+    BAG_LINES = File.readlines('day7_input.txt').map{ |line| line.chomp.gsub(/ bags?|[.]/, '') }
+    BAG_RULES = { }
+
+    BAG_LINES.each do |line|
+      rule = line.split(" contain ")
+      bag = rule.first.to_sym
+      BAG_RULES[bag] = []
+
+      rule[1].split(",").each do |b|
+        m = b.match(/^ ?(\d+) (\w+ \w+)$/)
+        BAG_RULES[bag] << [m[2].to_sym, m[1].to_i] unless m.nil?
+      end
+    end
+
+    # Part 1
+    def containing_bag_count(rules, target_counts, target_bag)
+      bag_count_rec = lambda do |bag|
+        return 1 if bag == target_bag
+        return 0 if rules[bag].empty?
+
+        count = 0
+        rules[bag].each do |b|
+          target_count = target_counts[b.first] < 0 ? b[1] * bag_count_rec.call(b.first) : target_counts[b.first]
+
+          target_counts[b.first] = target_count
+          count += target_count
+        end
+
+        count
+      end
+
+      rules.keys.select { |k| k != target_bag && bag_count_rec.call(k) > 0 }.length
+    end
+
+    shiny_gold_counts = {}
+    BAG_RULES.keys.each { |k| shiny_gold_counts[k] = -1 }
+    puts "#{ containing_bag_count(BAG_RULES, shiny_gold_counts, :"shiny gold") }"
+
+    # Part 2;
+    def total_bag_count(rules, root)
+      bag_count_rec = -> (bag) { rules[bag].map { |b| b[1] * (1 + bag_count_rec.call(b.first)) }.reduce(0, :+) }
+
+      bag_count_rec.call(root)
+    end
+    puts "#{ total_bag_count(BAG_RULES, :"shiny gold") }"
+    ```
+  :replies: []

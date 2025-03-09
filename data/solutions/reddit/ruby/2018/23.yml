@@ -1,0 +1,436 @@
+---
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdbygg/
+  :body: |-
+    **Ruby**. 700/102. Wasted half an hour from missing a minus sign in the regex scan... Yay.
+
+    ```ruby
+    lines = File.readlines('../input.txt').map(&:strip)
+
+    bots = lines.map do |line|
+      line.scan(/-?\d+/).map(&:to_i)
+    end
+
+    START = 2**28
+    DIVISOR = 2
+
+    mult = START
+
+    xs = bots.map{ |b| b[0] / mult }
+    ys = bots.map{ |b| b[1] / mult }
+    zs = bots.map{ |b| b[2] / mult }
+
+    rx = xs.min..xs.max
+    ry = ys.min..ys.max
+    rz = zs.min..zs.max
+
+    loop do
+      best = [0,0,0,0]
+      mbots = bots.map { |bot| bot.map { |c| c / mult } }
+
+      rx.each do |x|
+        ry.each do |y|
+          rz.each do |z|
+            c = mbots.count do |bot|
+              ((bot[0]-x).abs + (bot[1]-y).abs + (bot[2]-z).abs) <= bot[3]
+            end
+            next if c < best.last
+            next if c == best.last && (x.abs+y.abs+z.abs > best[0].abs+best[1].abs+best[2].abs)
+            best = [x,y,z,c]
+          end
+        end
+      end
+
+      rx = ((best[0] - 1) * DIVISOR)..((best[0] + 1) * DIVISOR)
+      ry = ((best[1] - 1) * DIVISOR)..((best[1] + 1) * DIVISOR)
+      rz = ((best[2] - 1) * DIVISOR)..((best[2] + 1) * DIVISOR)
+
+      p [mult, best]
+
+      (p best[0].abs+best[1].abs+best[2].abs; exit) if mult == 1
+      mult /= DIVISOR
+    end
+    ```
+  :replies:
+  - :author: rawling
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddxdj/
+    :body: This is roughly what I did (just... much better), and both my code and it get the same, wrong answer.
+    :replies:
+    - :author: metalim
+      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecde25n/
+      :body: Because it happens to work only for his specific input. It's not a general solution. Doesn't work for any of my inputs.
+      :replies:
+      - :author: rawling
+        :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeju5/
+        :body: Yeah, I think I can visualise a situation where the shrinking grid homes in on a local maximum but misses the global maximum that was hiding between grid points.
+        :replies: []
+  - :author: xiongtx
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecejs06/
+    :body: "> Wasted half an hour from missing a minus sign in the regex scan... Yay.\n\n\U0001F602 Every day I fall into a different \U0001F573️...and it seems I'm never alone!"
+    :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddocv/
+  :body: |-
+    So, despite having done well today, I just found an input that my solution doesn't work for, so it's definitely not general. It worked for me, but I'll have to look into a better approach for other inputs. The zoom in/zoom out strategy seems like it has a ton of promise so I'm going to try that next.
+
+    I tried a ton of silly ideas here, including BFS, before I decided I'd just try the mean point and just keep guessing by getting closer and closer to the origin. I started with large steps to make it go faster, then went smaller so I don't miss something.
+
+    I've had time to clean this up, but it's all the same basic approach that I used. I haven't gotten around to implementing the zoom in/zoom out strategy yet.
+
+    Edit: This solution is _completely_ bogus. It got the "right answer" because it identified a local maximum that just so happened to have an equal Manhattan distance from the origin as my real answer. It thinks the maximum has 834 bots, but my real maximum has 980 bots.
+
+    Ruby:
+
+    ```ruby
+    verbose = ARGV.delete('-v')
+
+    bots = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+      l.scan(/-?\d+/).map(&:to_i).freeze
+    }.freeze
+
+    dist = ->(p1, p2) {
+      p1.zip(p2).sum { |a, b| (a - b).abs }
+    }
+
+    *best_bot, best_r = bots.max_by(&:last)
+    puts "best bot @ #{best_bot} w/ radius #{best_r}" if verbose
+    puts bots.count { |*bot, _| dist[bot, best_bot] <= best_r }
+
+    count_in_range = ->(pt) {
+      bots.count { |*bot, r|
+        dist[bot, pt] <= r
+      }
+    }
+
+    # Part 2:
+    # Start with a point as far away as possible,
+    # then just guess points closer and closer to the origin
+    # not provably correct (local maxima, anyone?),
+    # but good enough for this problem?!
+    currx = bots.sum { |x, _| x } / bots.size
+    curry = bots.sum { |_, y| y } / bots.size
+    currz = bots.sum { |_, _, z| z } / bots.size
+
+    best_count = count_in_range[[currx, curry, currz]]
+
+    is_good = ->(pt) {
+      in_range_here = count_in_range[pt]
+      best_count = in_range_here if in_range_here > best_count
+      in_range_here == best_count
+    }
+
+    stepit = ->(step) {
+      [
+        [1, 1, 1],
+        [1, 1, 0],
+        [1, 0, 1],
+        [0, 1, 1],
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1],
+      ].each { |x, y, z|
+        xdir = (currx > 0 ? -step : step) * x
+        ydir = (curry > 0 ? -step : step) * y
+        zdir = (currz > 0 ? -step : step) * z
+        while is_good[[currx + xdir, curry + ydir, currz + zdir]]
+          currx += xdir
+          curry += ydir
+          currz += zdir
+        end
+      }
+    }
+
+    max_step = 1 << bots.flatten.max.to_s(2).size
+    puts "Step size #{max_step}" if verbose
+
+    puts 0.step { |t|
+      puts "Try #{t}: #{best_count} bots @ #{[currx, curry, currz]}" if verbose
+      step = max_step
+      best_before_stepping = best_count
+      while step > 0
+        stepit[step]
+        step /= 2
+      end
+      break [currx, curry, currz].sum(&:abs) if best_count == best_before_stepping
+    }
+
+    __END__
+    pos=<64355281,-4578031,8347328>, r=89681260
+    pos=<57301484,24998650,93936786>, r=75762903
+    omitted
+    ```
+  :replies:
+  - :author: rcuhljr
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddx2g/
+    :body: |-
+      > So, despite having done well today, I just found an input that my solution doesn't work for, so it's definitely not general. It worked for me, but I'll have to look into a better approach for other inputs. The zoom in/zoom out strategy seems like it has a ton of promise so I'm going to try that next.
+
+      You're not alone, I've been pulling my hair out over my solution. I came here for some sanity checks, and people were generally taking naive approaches similar to what I was doing (moving closer looking for better local maximas). Taking that I tried some other solutions with my data to see if I just had a problem with my implementation, so far I've tried 4 other solvers and none has yielded a correct solution, I'm going to try the Z3 sat solver next and see how it does, but that's a super unsatisfying (hah) approach.
+    :replies: []
+  - :author: p_tseng
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echnznq/
+    :body: |-
+      At this point, I've explored a bunch of solutions and I'm going to throw my hat in with the strategy of splitting the search space into octants and calculating an **upper bound** of the number of intersections for the regions created. When you contract down to a single point, you know the bound is exact. When all remaining candidates have upper bounds smaller than the best you've found so far, you terminate the search because you know you can do no better than what you've already found.
+
+      This approach is described by:
+
+      - https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23\_solutions/ecfmpy0/
+      - https://www.reddit.com/r/adventofcode/comments/a99n7x/2018_day_23_part_2_explanation_with\_visualization/
+      - https://www.reddit.com/r/adventofcode/comments/a8sqov/help_day_23_part_2_any_provably_correct_fast/ecgfnnh/
+
+      Note that there is a related strategy of "divide an octahedron into six smaller octahedra". I implemented this solution as well but for me these solutions find an initial answer very fast, and then take **minutes** to disprove all other candidates. I have not fully investigated the reasons for this. For clarity, the strategy is described in:
+
+      - https://www.reddit.com/r/adventofcode/comments/a8sqov/help_day_23_part_2_any_provably_correct_fast/ecfag7f/
+      - https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23\_solutions/ecdmeal/
+
+      I haven't investigated why, but nevertheless I am going to stick with the splitting into eight octants. As discussed elsewhere, it is possible to construct inputs that expose its worst-case running time, but for four different Advent of Code inputs it finds the correct solution (with the correct number of bots) in 1 second on my machine.
+
+      Ruby:
+
+      ```ruby
+      require_relative 'lib/priority_queue'
+
+      def closest_1d(target, low, high)
+        return 0 if low <= target && target <= high
+        target > high ? target - high : low - target
+      end
+
+      def farthest_1d(target, low, high)
+        return [target - low, high - target].max if low <= target && target <= high
+        target > high ? target - low : high - target
+      end
+
+      class Box
+        attr_reader :min, :max
+
+        # min/max are both [x, y, z], inclusive
+        def initialize(min, max)
+          @min = min.freeze
+          @max = max.freeze
+        end
+
+        def translate(deltas)
+          self.class.new(@min.zip(deltas).map(&:sum), @max.zip(deltas).map(&:sum))
+        end
+
+        def empty?
+          @min.zip(@max).any? { |min, max| min > max }
+        end
+
+        def point?
+          @min.zip(@max).all? { |min, max| min == max }
+        end
+
+        def touched_by?(bot)
+          *pos, r = bot
+          pos.zip(@min, @max).sum { |args| closest_1d(*args) } <= r
+        end
+
+        def contained_by?(bot)
+          *pos, r = bot
+          pos.zip(@min, @max).sum { |args| farthest_1d(*args) } <= r
+        end
+
+        def size
+          @min.zip(@max).reduce(1) { |acc, (min, max)|
+            dim = min > max ? 0 : (max - min + 1)
+            acc * dim
+          }
+        end
+
+        def min_dist
+          @min.zip(@max).sum { |min, max| closest_1d(0, min, max) }
+        end
+
+        def split
+          mid = @min.zip(@max).map { |min, max| (min + max) / 2 }
+
+          8.times.map { |bits|
+            newmin = [
+              bits & 1 == 0 ? @min[0] : mid[0] + 1,
+              bits & 2 == 0 ? @min[1] : mid[1] + 1,
+              bits & 4 == 0 ? @min[2] : mid[2] + 1,
+            ]
+            newmax = [
+              bits & 1 == 0 ? mid[0] : @max[0],
+              bits & 2 == 0 ? mid[1] : @max[1],
+              bits & 4 == 0 ? mid[2] : @max[2],
+            ]
+            self.class.new(newmin, newmax)
+          }.reject(&:empty?)
+        end
+
+        def to_s
+          @min.zip(@max).map { |min, max| min == max ? min : Range.new(min, max) }.to_s
+        end
+      end
+
+      module Nanobot refine Array do
+        def dist(pt)
+          pt.zip(self).sum { |x, y| (x - y).abs }
+        end
+      end end
+
+      surround = ARGV.delete('--surround')
+      verbose = ARGV.delete('-v')
+
+      bots = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+        l.scan(/-?\d+/).map(&:to_i).freeze
+      }.freeze
+
+      using Nanobot
+
+      *best_bot, best_r = bots.max_by(&:last)
+      puts "best bot @ #{best_bot} w/ radius #{best_r}" if verbose
+      puts bots.count { |*bot, _| bot.dist(best_bot) <= best_r }
+
+      # Part 2:
+      # Split the search region into octants,
+      # dividing a large cube into eight smaller ones.
+      #
+      # Lower bound: Number of bots that fully contain a region
+      # Upper bound: Number of bots that touch a region
+      #
+      # We explore areas with the best upper bounds.
+      # When we explore a point (or a region where lower == upper),
+      # we know the exact number of intersections there.
+
+      def coords(bots)
+        [0, 1, 2].map { |i| bots.map { |b| b[i] } }
+      end
+
+      # Start w/ something covering all bots.
+      coords = coords(bots)
+      box = Box.new(coords.map(&:min), coords.map(&:max))
+
+      puts "start w/ #{box}" if verbose
+
+      def most_intersected(start, bots, verbose: false)
+        dequeues = 0
+
+        pq = PriorityQueue.new
+        # We need to order by [max upper bound, min dist]
+        # This allows us to terminate when we dequeue a point,
+        # since nothing can have a better upper bound nor be closer to the origin.
+        #
+        # Supposedly, adding size to the ordering speeds things up,
+        # but I did not observe any such effect.
+        #
+        # I was NOT convinced that adding -lower_bound to the ordering improves anything.
+        pq[start] = [-bots.size, start.min_dist, start.size]
+
+        while (region, (neg_upper_bound, _) = pq.pop(with_priority: true))
+          dequeues += 1
+          outer_upper_bound = -neg_upper_bound
+
+          if region.point?
+            puts "dequeued #{region} w/ #{outer_upper_bound} bots, after #{dequeues} dequeues" if verbose
+            return region
+          end
+
+          region.split.each { |split|
+            #lower_bound = bots.count { |b| split.contained_by?(b) }
+            upper_bound = bots.count { |b| split.touched_by?(b) }
+            pq[split.freeze] = [-upper_bound, split.min_dist, split.size]
+          }
+        end
+      end
+
+      best_region = most_intersected(box, bots, verbose: verbose)
+      puts best_region.min_dist
+
+      best_count = bots.count { |b| best_region.contained_by?(b) }
+
+      (-3..3).each { |dx|
+        (-3..3).each { |dy|
+          (-3..3).each { |dz|
+            new_box = best_region.translate([dx, dy, dz])
+            count_here = bots.count { |b| new_box.contained_by?(b) }
+            puts "#{new_box}: #{count_here}#{' WINNER!' if count_here == best_count}"
+          }
+        }
+      } if surround
+
+      __END__
+      pos=<64355281,-4578031,8347328>, r=89681260
+      pos=<57301484,24998650,93936786>, r=75762903
+      pos=<96148809,8735822,40200623>, r=76307124
+      ```
+    :replies: []
+  - :author: metalim
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeoxn/
+    :body: "> Yep, doesn't work for both of my inputs. As other 5 solutions from this thread. So far best approach for me was picking random points, then check around, LMAO."
+    :replies:
+    - :author: rawling
+      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdvdyg/
+      :body: "> Edit: This solution is completely bogus. It got the \"right answer\" because it identified a local maximum that just so happened to have an equal Manhattan distance from the origin as my real answer. It thinks the maximum has 834 bots, but my real maximum has 980 bots.\n\nLove it \U0001F602"
+      :replies: []
+- :author: maus80
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echuncc/
+  :body: |-
+    Ruby (pure/no gems) implementation (for part 2) that I believe (should) work on any input
+
+    ```ruby
+    def read_bots(filename)
+      lines = File.readlines(filename)
+      re = /pos=<(-?\d+),(-?\d+),(-?\d+)>, r=(\d+)/
+      bots = []
+      lines.each do |line|
+        x, y, z, r = line.scan(re).to_a[0].map(&:to_i)
+        bots << [x, y, z, r]
+      end
+      bots
+    end
+
+    def optimized_combinations(collides, indices, r, index = 0, data = [], i = 0, skipped = 0)
+      if index == r
+        yield data
+        return
+      end
+
+      yield nil if skipped > indices.length - r
+
+      return if i == indices.length
+
+      bot2 = indices[i]
+      collides_all = data[0...index].reduce(true) do |res, bot1|
+        res &&= collides[[bot1, bot2]]
+      end
+
+      data[index] = indices[i]
+
+      optimized_combinations(collides, indices, r, index + 1, data, i + 1, skipped) { |v| yield v } if collides_all
+
+      optimized_combinations(collides, indices, r, index, data, i + 1, skipped + 1) { |v| yield v }
+    end
+
+    def fill_collides(bots)
+      indices = bots.length.times.to_a
+      collides = {}
+      indices.product(indices) do |bot1, bot2|
+        next unless bot1 < bot2
+
+        x1, y1, z1, r1 = bots[bot1]
+        x2, y2, z2, r2 = bots[bot2]
+        collides[[bot1, bot2]] = (x2 - x1).abs + (y2 - y1).abs + (z2 - z1).abs <= r1 + r2
+      end
+      [collides, indices]
+    end
+
+    def find_largest_collision(collides, indices)
+      indices.reverse_each do |size|
+        optimized_combinations(collides, indices, size + 1) do |collision|
+          return collision unless collision.nil?
+
+          break
+        end
+      end
+    end
+
+    bots = read_bots('input')
+    collides, indices = fill_collides(bots)
+    collision = find_largest_collision(collides, indices)
+
+    puts collision.map { |b| bots[b][0..2].map(&:abs).sum - bots[b][3] }.max
+    ```
+  :replies: []

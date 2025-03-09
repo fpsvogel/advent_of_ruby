@@ -1,0 +1,420 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqowh44/
+  :body: |-
+    Ruby, part 1 - maths turned out to be a trap and I fell into it
+
+    (Note: run with -x, which trims text before the #! line)
+
+    ```ruby
+    u=h=1
+    i=gets.to_i
+
+    h=(u+=2)**2 while h<i
+    p h,i,u,''
+    p h-i,h-i-(u+1),h-i-(u+1)*2,h-i-(u+1)*3
+    p h,h-(u+1),h-(u+1)*2,h-(u+1)*3
+    l=v=h-i
+    (l=v
+    v=v-u+1)while v>0
+    p u,l,u-l
+    d=u/2
+    p d,v,d+d-v.abs
+    p (h-i-u)
+    p 361797-361527
+    #!ruby
+    s=[[n=1]]
+    i=gets.to_i
+    h=u=1
+    (h=(u+=2)**2
+    s=s.reverse.map{|x|x+[n+=1]}.reverse
+    s=[[*n+1..n+u].reverse]+(n+=u
+    s.map{|x|[n+=1]+x})
+    s=s+[[*n+1..n+u]]
+    n+=u
+    ) while h<i
+    p '1:',s[u/2][u/2],q=u/2,u/2
+    g=0
+    p "#{i}:",h=s.index{|x|g=x.index(i)},g
+    p (q-h).abs+(q-g).abs
+    ```
+
+    Postscript: I HEARD WHAT YOU SAID. THE SEQUENCE EXISTS ONLINE. I'M NOT CHEATING. I DID IT!
+
+    I had lots of fun with part 2. I can't say I was proud, because I was still in the mindset of rushing despite the leaderboard already being filled. When you have to tackle a problem without the time to organize your thoughts, you tend to (try and) assume things you need are already there so you can focus on the problem on hand. After two debugging rounds, I got it to work. Cheers!
+
+    ```ruby
+    s=[[n=1]]
+    i=gets.to_i
+    h=u=1
+    tl=0
+    tt=->n{(p s,n
+    exit)if n>i
+    tl=n}
+    (h=(u+=2)**2
+    s=s.reverse!.tap{|x|p x}.map.with_index{|x,i|p i,tl
+    x+[tt[(i>0?tl:0)+[(i>0)?s[i-1][-1]:nil,s[i][-1],s[i+1]&&s[i+1][-1]].compact.sum]]}.reverse # Here lies a glorious bug: I was doing map!.&&&.reverse!, which was causing [-1] to find that last element we just inserted.
+    p s
+    r1=[(0...u).map.with_index{|*,i|tt[s[0][[0,u-3-i].max...u-i].sum+(i>0?tl:0)]}
+     .reverse]
+    ts=[r1[0][1..-1]]+s
+    #r1#s=(#n+=u
+      n+=u
+    #p ts,s
+    s.map!.with_index{|x,i|[tt[ts[i,3].map(&:first).sum+tl]]+x}
+    s=r1+s
+    s+=[(0...u).map{|i|tt[s[-1][[0,i-1].max..i+1].sum+(i>0?tl:0)]}]
+    n+=u
+    p s
+    ) while h<i
+    p '1:',s[u/2][u/2],q=u/2,u/2
+    g=0
+    p "#{i}:",h=s.index{|x|g=x.index(i)},g
+    p (q-h).abs+(q-g).abs
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoynk8/
+    :body: Oh my. Why do you write minified code?
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoypai/
+      :body: I'm in the mind set of code golfing because that is my only strength. When you are in unfamiliar territory, it's best to carry something you have with you.
+      :replies: []
+- :author: mikefh
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyh9r/
+  :body: |-
+    Ruby
+
+    Part1
+
+    ```ruby
+    class SpiralGrid
+
+      DIRECTIONS = {
+        right: { step: ->(x, y){ [x + 1, y] }, check: :max_x, next_direction: :up },
+        up: { step: ->(x, y){ [x , y + 1] }, check: :max_y, next_direction: :left },
+        left: { step: ->(x, y){ [x - 1, y] }, check: :min_x, next_direction: :down },
+        down: { step: ->(x, y){ [x , y - 1] }, check: :min_y, next_direction: :right }
+      }
+
+      def self.coordinate_of(target)
+        target_val = target
+        current_val = 1
+        current_coord = [0, 0]
+
+        direction = :right
+        max_y = 0
+        min_y = 0
+        max_x = 0
+        min_x = 0
+
+        while current_val != target_val
+
+          d_obj = DIRECTIONS[direction]
+
+          # proceed 1 step
+          #
+          current_coord = d_obj[:step][*current_coord]
+          current_val += 1
+
+          # check if we've gone too far
+          #
+          time_to_turn =
+            case d_obj[:check]
+            when :max_x
+              current_coord[0] == max_x + 1
+            when :max_y
+              current_coord[1] == max_y + 1
+            when :min_x
+              current_coord[0] == min_x - 1
+            when :min_y
+              current_coord[1] == min_y - 1
+            end
+
+          if time_to_turn
+            case d_obj[:check]
+            when :max_x
+              max_x += 1
+            when :max_y
+              max_y += 1
+            when :min_x
+              min_x -= 1
+            when :min_y
+              min_y -= 1
+            end
+
+            direction = d_obj[:next_direction]
+          end
+        end
+
+        current_coord
+      end
+    end
+
+    coord = SpiralGrid.coordinate_of(347991)
+    p coord
+    p coord.reduce(0) { |sum, c| sum + c.abs }
+    ```
+
+    Part 2
+
+    ```ruby
+    class SpiralGrid
+
+      DIRECTIONS = {
+        right: { step: ->(x, y){ [x + 1, y] }, check: :max_x, next_direction: :up },
+        up: { step: ->(x, y){ [x , y + 1] }, check: :max_y, next_direction: :left },
+        left: { step: ->(x, y){ [x - 1, y] }, check: :min_x, next_direction: :down },
+        down: { step: ->(x, y){ [x , y - 1] }, check: :min_y, next_direction: :right }
+      }
+
+      def self.val_of(target)
+        target_sq = target
+        current_sq = 1
+        current_coord = [0, 0]
+
+        direction = :right
+        max_y = 0
+        min_y = 0
+        max_x = 0
+        min_x = 0
+
+        value = nil
+
+        grid = Hash.new(0)
+        grid['[0, 0]'] = 1
+
+        while current_sq != target_sq
+
+          d_obj = DIRECTIONS[direction]
+
+          # proceed 1 step
+          #
+          current_coord = d_obj[:step][*current_coord]
+          current_sq += 1
+
+          value = [
+            grid[[current_coord[0] - 1, current_coord[1] + 1].to_s], # top left
+            grid[[current_coord[0] , current_coord[1] + 1].to_s], # top center
+            grid[[current_coord[0] + 1, current_coord[1] + 1].to_s], # top right
+            grid[[current_coord[0] - 1, current_coord[1] ].to_s], # left
+            grid[[current_coord[0] + 1, current_coord[1] ].to_s], # right
+            grid[[current_coord[0] - 1, current_coord[1] - 1].to_s], # bot left
+            grid[[current_coord[0] , current_coord[1] - 1].to_s], # bot center
+            grid[[current_coord[0] + 1, current_coord[1] - 1].to_s], # bot right
+          ].reduce(&:+)
+
+          grid[current_coord.to_s] = value
+
+          # check if we've gone too far
+          #
+          time_to_turn =
+            case d_obj[:check]
+            when :max_x
+              current_coord[0] == max_x + 1
+            when :max_y
+              current_coord[1] == max_y + 1
+            when :min_x
+              current_coord[0] == min_x - 1
+            when :min_y
+              current_coord[1] == min_y - 1
+            end
+
+          if time_to_turn
+            case d_obj[:check]
+            when :max_x
+              max_x += 1
+            when :max_y
+              max_y += 1
+            when :min_x
+              min_x -= 1
+            when :min_y
+              min_y -= 1
+            end
+
+            direction = d_obj[:next_direction]
+          end
+        end
+
+        [current_coord, value]
+      end
+    end
+
+    coord = nil
+
+    (3..90).each do |idx|
+      coord = SpiralGrid.val_of(idx)
+
+      break if coord[1] > 347991
+    end
+
+    p coord
+    ```
+  :replies:
+  - :author: Unihedron
+    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoz9yp/
+    :body: I'm still new to ruby, and it didn't occur to me that an approach like finding all nearby squares every round instead of handling them per case exists. I learned ( / promptly looked up) a lot of interesting things about ruby in attempt to understand your code. Thank you for sharing and well done! ^^
+    :replies:
+    - :author: mikefh
+      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqozwxc/
+      :body: |-
+        Thanks! And I'm pumped that it helped you uncover new features of the language. I considered using a ruby metaprogramming technique, but it would have hurt its clarity.
+
+        Though, after seeing the other more-efficient strategies, I may rewrite after I digest the math.
+      :replies: []
+- :author: nawap
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyhbr/
+  :body: |-
+    Ruby for problem 1
+
+    ```ruby
+    def grid_dimension(num)
+      Math.sqrt(num).ceil
+    end
+
+    def port_pos(grid_dim)
+      if grid_dim.odd?
+        [grid_dim / 2, grid_dim / 2]
+      else
+        [grid_dim / 2, (grid_dim / 2) -1]
+      end
+    end
+
+    def data_pos(data, grid_dim)
+      diff = (grid_dim**2 - data)
+      row, col = grid_dim - 1, grid_dim - 1
+      row = row - (diff - col) if diff > col
+      col = [(col - diff), 0].max
+
+      [row, col]
+    end
+
+    def steps(data_pos, port_pos)
+      data_pos.zip(port_pos).map { |a| a.first.abs - a.last.abs}.reduce(&:+)
+    end
+
+    steps(data_pos(289326, grid_dimension(289326)), port_pos(grid_dimension(289326)))
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqp6u3y/
+  :body: |-
+    # Ruby
+
+    I wanted to solve this by by breaking down the problems in as many small parts as possible.
+
+    My idea was that if I had some method `spiral` which yields all the coordinates in an outwards moving spiral, and a method `neighbours` which gives the neighbours of the given coordinates, then you can fill fill in the whole grid in Part 2 with the following line: `grid[pos] = grid.values_at(*neighbours(*pos)).sum`
+
+    The main part of the solution looks like this:
+
+    ```ruby
+    grid = Hash.new { 0 }
+    grid[[0,0] ] = 1
+
+    spiral do |pos|
+      sum = grid[pos] = grid.values_at(*neighbours(*pos)).sum
+
+      if sum > INPUT
+        puts sum
+        break
+      end
+    end
+    ```
+
+    `neighbours` is pretty straightforward:
+
+    ```ruby
+    def neighbours(x,y)
+      [[x-1, y-1], [x, y-1], [x+1, y-1],
+       [x-1, y], [x+1, y],
+       [x-1, y+1], [x, y+1], [x+1, y+1]]
+    end
+    ```
+
+    For `spiral` i noticed that you always move one distance, then turn, then move the same distance, then turn, then increase the distance by one and repeat, so I made a function that yields `1, 1, 2, 2, ....`:
+
+    ```ruby
+    def each_twice
+      1.step { |i| yield i; yield i; }
+    end
+    ```
+
+    So, when I'm at a given `x` and `y`, having a known distance to walk, in a know direction, I want a helper method to tell me all the coordinates on the way to my next turn:
+
+    ```ruby
+    def path(x, y, direction, distance)
+      make_path = ->(xs, ys) { [*xs].product([*ys]) }
+
+      directions = [
+        ->() { make_path[x.upto(x+distance), y] }, # 0 = right
+        ->() { make_path[x, y.downto(y-distance)] }, # 1 = up
+        ->() { make_path[x.downto(x-distance), y] }, # 2 = left
+        ->() { make_path[x, y.upto(y+distance)] } # 3 = down
+      ]
+
+      directions[direction%4][]
+    end
+    ```
+
+    Now I have all I need for my `spiral` method:
+
+    ```ruby
+    def spiral
+      dir = 0
+      x,y = 0,0
+
+      each_twice do |n|
+        path = path(x,y, dir, n)
+
+        path.drop(1).each do |pos|
+          yield pos
+        end
+
+        x,y = path.last
+        dir+=1
+      end
+    ```
+
+    You can see it in its entirety [here](https://github.com/daniero/code-challenges/blob/master/aoc2017/ruby/03.rb)
+  :replies: []
+- :author: andreesgor
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqtiv3v/
+  :body: |-
+    I honestly think this is the most bizarre - in all ways - solution here (Ruby)
+
+    ```ruby
+    #Input
+    num = 9866876
+
+    #Calculate what "level" or "step" of the spiral the desired number is at
+    #Max number of each level (level n) follows the series f(n) = 4n² - 4n + 1
+    level = 0
+    (1..10**11).each do |n|
+      if (4*(n**2) - 4*n + 1) > num
+        level = n
+        break
+      end
+    end
+
+    #Calculate what side of the square the number is at (0,1,2,3)
+    ks = 0
+    mnn = (4*((level-1)**2) - 4*(level-1) + 1)+1
+    (1..4).each do |k|
+      if mnn + k*2*(level-1) >= num
+        ks = k
+        break
+      end
+    end
+
+    # First number in the appropriate side of the square (counting vertices as the last number
+    # of the last side)
+    fst = mnn + (ks-1)*2*(level-1)
+    # Central number of the side of the square (average of adjacent vertices value)
+    half = ((fst-1)+((mnn + ks*2*(level-1))-1))/2
+    # Knowing that the steps needed to get from the center of the square's side is (level-1) - counting entry point as level 1 - and that the steps grow in augments of 1 for each position moved; Calculate total steps by adding difference between number and central number, to the center steps needed.
+    out = (level-1) + (num-half)
+
+    puts "#{out} steps"
+    ```
+  :replies: []

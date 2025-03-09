@@ -1,0 +1,91 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9uejgs/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_05
+  :replies:
+  - :author: maxverse
+    :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/fa88hbm/
+    :body: |-
+      > had a real tough time with this one due to unclear requirements on how position modes would or would not be provided.
+
+      Man, I'm glad I'm not alone here! I'm working through this one now, also in Ruby, and this is the first day where the instructions left me totally puzzled
+    :replies:
+    - :author: J-Swift
+      :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/fa90g2f/
+      :body: I actually just realized I still had a bug in this due to position modes in my OutputOp. Instructions definitely were not clear on this, but I think the rule is basically "Everything except Input might provide position modes"
+      :replies:
+      - :author: maxverse
+        :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/fa90hm1/
+        :body: So, here's a simple question - is input the first number?
+        :replies:
+        - :author: J-Swift
+          :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/fa90vlh/
+          :body: |-
+            Do you mean, what does 'Input' and 'Output' mean? I didn't understand that either. Input means ask the user for input (i.e. `gets`) and output means print it to the user (i.e. `puts`). So if the Input command looks like this:
+
+            `3 55`
+
+            That means ask the user for input and store the number they type in at position 55
+          :replies: []
+- :author: prophetjohn
+  :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9qzu7a/
+  :body: |-
+    Went for a readable ruby version
+
+    [https://github.com/j-clark/adventofcode/blob/master/2019/aoc\_5\_2.rb](https://github.com/j-clark/adventofcode/blob/master/2019/aoc_5_2.rb)
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9p9yxj/
+  :body: |-
+    Driving further into space
+
+    Fix the air conditioning just in case
+
+    Implement new diagnostics
+
+    Parameter mode breaks
+
+    My coding is such a disgrace.
+
+     ​
+
+    Debugging was brief,
+
+    Sigh of relief.
+
+    ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ - "Limerick for day 5", a poem by Uni
+
+    [POEM] included!
+
+    `ruby input 5.rb` 3/332
+
+    [5.rb](https://topaz.github.io/paste/#XQAAAQDOAwAAAAAAAAAwj0ACXuuJDKJHmXoqImEmhqMz3BmJRsPWRJMkgKv951oAANDMUdnIrHcGCLPWIMp7gwUA8RStqHffMhugLevy9Sb1MtdeRkeiICeFC06ko2mPiiS0X8QmD+YGkkQzVTHRBl39Dgyfs+JoniAFCrbLCneAlwstKVqdtxti/l1J5qYVwm0Bek5o2r5C4A/EeX6IoT31JPCze1PCfiYqxEZjtj8CUKDuDiOlhDaUO8mv3f6THPpdD+LeDa80ucyZMvRYuLITzgoBUqOzUe/3orJ+rrRO41Hicvh8ULlFHifyMBWhVlJ0isgeqTVYZeWb+T/ViWv7nxrnmf1Wu91DcrJZ/OY/vgpCH7BgFBI0vBLD5Pzw1GUqLdrww830taFVCutKRXoiAlq/0STg4EN0reKipG68/jys9jN5jW2vUKiqf+Wke0fZWLJbvY1Fm2td1xDTvcAez4LNnWLIpRQnFLU3/5kuJmA=)
+
+    and a link to my [2.rb](https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fd7tb/) which I built most of this on.
+
+    * * *
+
+    Part 2 solved with help from discord user [Tim#5138](https://github.com/tslater2006); had bug where \>!I was treating "non-zero" as "larger than zero"!\<. Shame on me for not reading part 1! (But I'll happily take rank 3!) (accidental factorial: 3! = 6)
+  :replies:
+  - :author: 1vader
+    :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9pfg42/
+    :body: Nice poem! Also congrats on rank 3.
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9pfgi2/
+      :body: Thank you! I had a lot of high (sub-10) ranks in the past 2 years... competition is fierce this year around!
+      :replies: []
+- :author: krazyito65
+  :url: https://www.reddit.com/r/adventofcode/comments/e6carb/2019_day_5_solutions/f9pf56s/
+  :body: |-
+    # RUBY
+
+    Took me a while to realize that the 'input' was actually coming from `stdin` and not from the puzzle, but once i got that the rest came kinda easy.
+
+    Part 2 I just had to fiddle with until I got the instruction pointer correct.
+
+    [https://github.com/krazyito65/Advent-Of-Code/blob/cf72e6cbafc49b4ae146700db9a94d25683aaf13/2019/5.rb](https://github.com/krazyito65/Advent-Of-Code/blob/cf72e6cbafc49b4ae146700db9a94d25683aaf13/2019/5.rb)
+  :replies: []

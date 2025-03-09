@@ -1,0 +1,364 @@
+---
+- :author: gareve
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy0xp4y/
+  :body: |-
+    Ruby
+
+    ```ruby
+    MX = 100
+    $map = {
+        'children' => 3..3,
+        'cats' => (7+1)..MX,
+        'samoyeds' => 2..2,
+        'pomeranians' => 0..(3-1),
+        'akitas' => 0..0,
+        'vizslas' => 0..0,
+        'goldfish' => 0..(5-1),
+        'trees' => (3+1)..MX,
+        'cars' => 2..2,
+        'perfumes' => 1..1,
+    }
+    p $stdin.readlines.select { |line|
+        !line.split()[2..-1].each_slice(2).any? { |k, v| !$map[k[0..-2]].include?(v.to_i) }
+    }
+    ```
+  :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy1l6if/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    data = { children: 3, cats: 7, samoyeds: 2, pomeranians: 3, akitas: 0, vizslas: 0, goldfish: 5, trees: 3, cars: 2, perfumes: 1 }
+    comp = { cats: :>, trees: :>, pomeranians: :<, goldfish: :< }
+    ARGF.each do |line|
+      input = line.scan(/([a-z]+):\s(\d+)/).map{|m| [m.first.to_sym, m.last.to_i]}
+      p line if input.delete_if{|m| ! m.last.send(comp[m.first] || :==, data[m.first])}.length == 3
+    end
+    ```
+  :replies: []
+- :author: SnacksOnAPlane
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy0pkb5/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    sue = {
+      children: 3,
+      cats: 7,
+      samoyeds: 2,
+      pomeranians: 3,
+      akitas: 0,
+      vizslas: 0,
+      goldfish: 5,
+      trees: 3,
+      cars: 2,
+      perfumes: 1
+    }
+
+    $data = {}
+
+    File.readlines("16-1.data").each do |line|
+      name, items = line.chomp.split(": ", 2)
+      $data[name] = {}
+      items.split(", ").each do |item|
+        type, num = item.split(": ")
+        num = num.to_i
+        $data[name][type] = num
+      end
+    end
+
+    $data.each do |name, items|
+      her = true
+      items.each do |item, num|
+        sue_num = sue[item.to_sym]
+        if ['cats','trees'].include? item
+          her = false if sue_num >= num
+        elsif ['pomeranians','goldfish'].include? item
+          her = false if sue_num <= num
+        else
+          her = false if sue[item.to_sym] != num
+        end
+      end
+      puts name if her
+    end
+    ```
+  :replies: []
+- :author: _jonah
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy0qr2l/
+  :body: |-
+    ruby:
+
+    ```ruby
+    input = DATA.read.chomp.split("\n")
+
+    target = {children: 3, cats: 7, samoyeds: 2, pomeranians: 3, akitas: 0,
+              vizslas: 0, goldfish: 5, trees: 3, cars: 2, perfumes: 1}
+
+    samples = input.each_with_object([]) do |x, m|
+      m << x.scan(/(\w+): (\d+)/)
+            .map {|k,v| [k.to_sym, v.to_i]}
+            .to_h
+    end
+
+    p ((samples.index do |sample|
+      sample.keys.all? do |k|
+        k.to_s =~ /cats|trees/ ? target[k] < sample[k] :
+        k.to_s =~ /pomeranians|goldfish/ ? target[k] > sample[k] :
+                                           target[k] == sample[k]
+      end
+    end) + 1)
+    ```
+  :replies: []
+- :author: Phakx
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy0w2ui/
+  :body: |-
+    pretty expressive solution in **Ruby** :
+
+    ```ruby
+    #!/usr/bin/ruby
+    GOLDFISH = /goldfish: (\d+)/
+    CHILDREN = /children: (\d+)/
+    CATS = /cats: (\d+)/
+    TREES = /trees: (\d+)/
+    CARS = /cars: (\d+)/
+    PERFUMES = /perfumes: (\d+)/
+    PART1 = true
+
+    class Aunt
+      attr_accessor :number
+      attr_accessor :children
+      attr_accessor :cats
+      attr_accessor :goldfish
+      attr_accessor :trees
+      attr_accessor :cars
+      attr_accessor :perfumes
+
+      def initialize
+        @dogs = Dogs.new
+        @children = nil
+        @goldfish = nil
+        @cats = nil
+        @trees= nil
+        @cars= nil
+        @perfumes = nil
+      end
+
+      def add_dog(type, count)
+        @dogs.add_dog(type, count)
+      end
+
+      def dogs
+        @dogs
+      end
+    end
+
+    class Dogs
+      attr_reader :type
+
+      def initialize
+        @type = Hash.new
+        @type[:samoyeds] = nil
+        @type[:pomeranians] = nil
+        @type[:akitas] = nil
+        @type[:vizslas] = nil
+      end
+
+      def add_dog(type, count)
+        @type[type] = count
+      end
+
+    end
+
+    def generate_aunt_from_info(aunt_info)
+      aunt = Aunt.new
+
+      aunt.number = aunt_info.scan(/Sue (\d+):/).first.first.to_i
+      if aunt_info.match(GOLDFISH)
+        aunt.goldfish = aunt_info.scan(GOLDFISH).first.first.to_i
+      end
+      if aunt_info.match(CHILDREN)
+        aunt.children = aunt_info.scan(CHILDREN).first.first.to_i
+      end
+      if aunt_info.match(CATS)
+        aunt.cats = aunt_info.scan(CATS).first.first.to_i
+      end
+      if aunt_info.match(TREES)
+        aunt.trees = aunt_info.scan(TREES).first.first.to_i
+      end
+      if aunt_info.match(CARS)
+        aunt.cars = aunt_info.scan(CARS).first.first.to_i
+      end
+      if aunt_info.match(PERFUMES)
+        aunt.perfumes = aunt_info.scan(PERFUMES).first.first.to_i
+      end
+      if aunt_info.match(/(pomerians|samoyeds|akitas|vizslas)/)
+        dogs = aunt_info.scan(/(pomerians: \d+|samoyeds: \d+|akitas: \d+|vizslas: \d+)/)
+        dogs.each do |dog|
+          dog_split = dog.first.split(':')
+          aunt.add_dog(dog_split[0].to_sym, dog_split[1].strip.to_i)
+        end
+      end
+      aunt
+    end
+
+    # children: 3
+    # cats: 7
+    # samoyeds: 2
+    # pomeranians: 3
+    # akitas: 0
+    # vizslas: 0
+    # goldfish: 5
+    # trees: 3
+    # cars: 2
+    # perfumes: 1
+    def filter_aunt_list(aunt_list, part1)
+      if part1
+        aunt_list = aunt_list.find_all { |aunt| aunt.trees.nil? || aunt.trees==3 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.cats.nil? || aunt.cats==7 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.goldfish.nil? || aunt.goldfish==5 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.dogs.type[:pomeranians] == nil || aunt.dogs.type[:pomeranians] == 3 }
+      else
+        aunt_list = aunt_list.find_all { |aunt| aunt.trees.nil? || aunt.trees>3 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.cats.nil? || aunt.cats>7 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.goldfish.nil? || aunt.goldfish<5 }
+        aunt_list = aunt_list.find_all { |aunt| aunt.dogs.type[:pomeranians] == nil || aunt.dogs.type[:pomeranians] < 3 }
+      end
+
+      aunt_list = aunt_list.find_all { |aunt| aunt.cars.nil? || aunt.cars==2 }
+      aunt_list = aunt_list.find_all { |aunt| aunt.children.nil? || aunt.children==3 }
+      aunt_list = aunt_list.find_all { |aunt| aunt.perfumes.nil? || aunt.perfumes==1 }
+      aunt_list = aunt_list.find_all { |aunt| aunt.dogs.type[:samoyeds] == nil || aunt.dogs.type[:samoyeds] == 2 }
+      aunt_list = aunt_list.find_all { |aunt| aunt.dogs.type[:akitas] == nil || aunt.dogs.type[:akitas] == 0 }
+      aunt_list = aunt_list.find_all { |aunt| aunt.dogs.type[:vizslas] == nil || aunt.dogs.type[:vizslas] == 0 }
+    end
+
+    def generate_probability_map(aunt_list, part1)
+      aunt_list = filter_aunt_list(aunt_list, part1)
+      probability_map = Hash.new
+      aunt_list.each do |aunt|
+        probability_score = 0
+        probability_score +=1 unless aunt.children.nil?
+        probability_score +=1 unless aunt.cats.nil?
+        probability_score +=1 unless aunt.trees.nil?
+        probability_score +=1 unless aunt.goldfish.nil?
+        probability_score +=1 unless aunt.perfumes.nil?
+        probability_score +=1 unless aunt.cars.nil?
+        probability_score +=1 unless aunt.dogs.type[:samoyeds].nil?
+        probability_score +=1 unless aunt.dogs.type[:pomeranians].nil?
+        probability_score +=1 unless aunt.dogs.type[:akitas].nil?
+        probability_score +=1 unless aunt.dogs.type[:vizslas].nil?
+
+        probability_map[aunt.number] = probability_score
+      end
+      probability_map
+    end
+
+    File.open("#{File.dirname( __FILE__ )}/input") do |file|
+      aunts = file.readlines
+      aunt_list = []
+      aunts.each do |aunt_info|
+        aunt = generate_aunt_from_info(aunt_info)
+        aunt_list << aunt
+      end
+
+      probability_map = generate_probability_map(aunt_list, PART1)
+      sue = probability_map.max_by{|k,v| v}
+      puts "Part 1: Aunt Sue #{sue[0]} probably sent the gift with a probability of #{sue[1]}"
+
+      probability_map = generate_probability_map(aunt_list, !PART1)
+      sue = probability_map.max_by{|k,v| v}
+      puts "Part 2: Aunt Sue #{sue[0]} probably sent the gift with a probability of #{sue[1]}"
+    end
+    ```
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy1cjw7/
+  :body: |-
+    ruby! i could probably have cut this down if i wasn't so goddamn determined to copy paste
+
+    ```ruby
+    $sues = File.readlines("input").each.map do |line|
+      info = line.scan(/([a-z]+: \d)/).flatten.map{|str| str.split(":")}
+      info.reduce({}){ |h,sue_info| h[sue_info[0]] = sue_info[1].to_i; h}
+    end
+
+    clues = <<-END
+    children: 3
+    cats: 7
+    samoyeds: 2
+    pomeranians: 3
+    akitas: 0
+    vizslas: 0
+    goldfish: 5
+    trees: 3
+    cars: 2
+    perfumes: 1
+    END
+    $clues = clues.each_line.map { |line| line.split ":" }
+
+    def sueteration
+      result = $sues.select do |sue|
+        result = true
+        $clues.each do |clue|
+          test = yield sue, clue
+          result = test if not test.nil?
+        end
+        result
+      end
+      $sues.index(result[0])+1 if not result.empty?
+    end
+
+    puts "--- part 1 ---"
+    result = sueteration do |sue, clue|
+      if sue[clue[0]]
+        false unless sue[clue[0]] == clue[1].to_i
+      end
+    end
+    puts result
+
+    puts "--- part 2 ---"
+    result = sueteration do |sue, clue|
+      if sue[clue[0]]
+        case clue[0]
+        when "trees", "cats"
+          false unless sue[clue[0]] > clue[1].to_i
+        when "pomeranians", "goldfish"
+          false unless sue[clue[0]] < clue[1].to_i
+        else
+          false unless sue[clue[0]] == clue[1].to_i
+        end
+      end
+    end
+    puts result
+    ```
+  :replies: []
+- :author: Herathe
+  :url: https://www.reddit.com/r/adventofcode/comments/3x1i26/day_16_solutions/cy28o92/
+  :body: |-
+    **Ruby part 1** https://github.com/herathe/advent-of-code/blob/master/16-1.rb
+
+    ```ruby
+    MFCSAM = { "children" => 3, "cats" => 7, "samoyeds" => 2, "pomeranians" => 3, "akitas" => 0, "vizslas" => 0, "goldfish" => 5, "trees" => 3, "cars" => 2, "perfumes" => 1 }
+
+    puts DATA.select{ |line|
+        keys = line.scan(/([a-z]+):/).flatten
+        values = line.scan(/: (\d+)/).flatten.map(&:to_i)
+        MFCSAM.merge( keys.zip(values).to_h ) == MFCSAM
+    }
+    ```
+
+    **Ruby part 2** https://github.com/herathe/advent-of-code/blob/master/16-2.rb
+
+    ```ruby
+    MFCSAM = {"children" => 3,"cats" => 7,"samoyeds" => 2,"pomeranians" => 3,"akitas" => 0,"vizslas" => 0,"goldfish" => 5,"trees" => 3,"cars" => 2, "perfumes" => 1 }
+    COMPARISONS = { "cats" => :<,"trees" => :<,"pomeranians" => :>,"goldfish" => :> }
+    COMPARISONS.default = :==
+
+    puts DATA.select{ |line|
+        keys = line.scan(/([a-z]+):/).flatten
+        values = line.scan(/: (\d+)/).flatten.map(&:to_i)
+        keys.zip(values).to_h.all?{ |key, value| MFCSAM[key].send( COMPARISONS[key], value ) }
+    }
+    ```
+  :replies: []

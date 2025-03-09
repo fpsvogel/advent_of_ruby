@@ -1,0 +1,72 @@
+---
+- :author: waferthinner
+  :url: https://www.reddit.com/r/adventofcode/comments/khaiyk/2020_day_21_solutions/ggoaii0/
+  :body: |-
+    ruby
+
+    Oddly , I found this one of the hardest yet. Then I realised two important details;
+
+    1. If an allergen is named for a food, the food must contain the allergic ingredient. As a result, we can find possible allergic ingredients for each allergen by taking the intersection of ingredients in foods that have that allergen
+    2. Since an allergen is only due to a single ingredient, we can prune the list of above possible allergenic ingredients until we have a single assignment for each allergen.
+
+    This effectively amounts to the work needed for parts a and b.
+
+    ```ruby
+    # Read data
+    foods = IO.readlines("input.txt", chomp: true).map do |line|
+      line =~ /(.+)\s\(contains\s(.+)\)/
+      {i: $1.split(' '), a: $2.split(', ')}
+    end
+
+    # If a food has an allergen, it must contain the ingredient with that allergen
+    # We can get possible list of ingredients for each allergen by taking the
+    # intersection of ingredients across foods with that allergen.
+    allergens = foods.map { |x| x[:a] }.flatten.uniq.sort
+    assigned = allergens.to_h do |a|
+      ing = foods.select {|f| f[:a].include? a }
+      [a, ing.map { |f| f[:i] }.reduce(&:&)]
+    end
+
+    # part a
+    ingredients = foods.map { |x| x[:i] }.flatten
+    invalid = ingredients - assigned.map{|k,v| v}.flatten
+    are_invalid = ingredients.map { |i| invalid.include?(i) }
+    puts are_invalid.count(true)
+
+    # Since an allergen can only be caused by one ingredient, we can prune this list.
+    while assigned.values.map(&:length).max > 1
+      known = assigned.select {|k,v| v.length == 1 }.values.flatten
+      assigned = assigned.to_h { |k,v| [k, v.length > 1 ? v - known : v] }
+    end
+
+    # part b
+    puts assigned.keys.sort.map {|x| assigned[x]}.join(',')
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/khaiyk/2020_day_21_solutions/ggkz5uk/
+  :body: |-
+    Ruby! After giving up on yesterday's grid-based challenge, this logic-puzzle-like challenge was a welcome sight! I accidentally solved part 2 while coding part 1, so that was nice and simple.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBsCAAAAAAAAAARiEJHiiMzw3cPM/1Y611SZZzCokqVQwRwyl1Nd0tAtOAWiRIn5ZSurc+2/ZCrLkze/wH456VLwZbh7wjPPYM8mnmrZxZQCom9chzXxt271vML9B4fO751L8gonl4pC7hjWNxBdL03zTrndLgcs5uOnuYKj2NLbfE0vCf6pCeCdMagMXBheJfQEmzA+jHwaxNKocYb2QZ0N+EbNIcuqGW/ze/RJjxDuQNXlvcu+DTMu4Ic+kNd2jKskq9aFqhN0DeCQqlLhqHpVqvLoYnF1k1MbhIlMv8FUuTV5j10M+CtP7wsDX1lVeGFaYyd6ts5XXW+2Wj4wrqgV3LSJR4/mKRDUW+tewyeQDfvt/xEsPid061rL5CtEweageVHs/wKumx3tNz4eD52G+50wPpbV12dsX7Nlk5BpjOudSgWavIqpTQ9sn9wIrAaf6UkIl/hkHEfU+4WXiXapjvLOhRDMKPRjDEkylLgre7Cmyy9/oKL6KLdYEt4Y0mP0T7gKMlzEUerkWnMn4xumcfEOCV3QoK4gJJdnuMIVrDUT2RL0Pj5Pt0/i4XkKjkr69V5MUDRV2SW01CTw+LgWVodqPtg0zdRmM+JTy+fFgx/kuTUAoM/Qxn3rVmLQgBMpDKMUq7Yh/mzjmC3YJ1wHD5GTIjomjVQTwFc38TiUyk+uR/XqRYkD4FUUquXMm0HKgTNoD20i9FPd1wzBDHHYHFNlPQLc32Luat8ZA7Iitf0F4aidBEqUOF4q53iFmStEhKP/Qv97uFMABd5gEVMUTdMCggPGOaSGxin/Nz30PcOiUpSsdrj779xmDaOW5R7aJVhzl9kAd9mmTxVVriCkUH6DyYZtBT58QpDe2/ziDrkf3GPXSN0Gd9DaqfQvPtn6UvQvGPPeYhGJ57SnnD4tUGvQNNDO4nk1k+BNdmXC1CXB0kR5kETmXhxFkUiEckuti1PHvszo4L2tjeQZdkUmh0kLKAfGCllWzCM/LQMpVGZ+PQ+sm8Qw9y0MBvaJB4oZBG5g7OSRWubyzBOT6SEP1v+U9pA3jd26VEPlhdLiUzaoin7rwgqbrxqQaZtQ/R4Sg6iXbANMSsp2jrR7TW5NYtutdGcNwM+SDhUDR9gUllnC1ah4jerJR687gVwjH9yy/5YRMw=)
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/khaiyk/2020_day_21_solutions/ggkbhmc/
+  :body: |-
+    **Ruby:** 9:56/16:44, 60/118
+
+    Here's a [recording](https://youtu.be/ToWx0d7bu9w) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/ad5a568ccb5d7b08baa397aea9d326ffaea853b8/2020/dec21.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Another leaderboard! I think mostly because fewer people are participating though... Seems like Eric was nice and put the extra difficult ones on the weekend, but made sure we wouldn't be up too late on work nights!
+
+    I did Part 2 by hand to find my own solution, but then implemented an actual solution. I think I was confused enough between which ones were ingredients and which ones were allergens, that doing it by hand was probably faster. My variable names were a mess.
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/khaiyk/2020_day_21_solutions/ggk96z6/
+  :body: |-
+    Ruby, 723/1530
+
+    I found tonight's description very confusing for some reason. Maybe still tired from last night's marathon. After cleanup:
+
+    https://gist.github.com/gurgeous/659116ceaf352b0ddd102ba0d27c59c9
+  :replies: []

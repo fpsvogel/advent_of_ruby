@@ -1,0 +1,86 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7jpelc/2017_day_14_solutions/dr8fdsd/
+  :body: |-
+    Overslept today, non-competing solution. Nice to get to do this in a relaxed manner for once! ^^ Fun!
+
+    Part 1, "day10" is the file from here: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10\_solutions/dr113ne/ (I didn't change how it has the `"` character at the start)
+
+    ```ruby
+    input=gets.chomp
+    s=0
+    128.times{|x|
+        result = `echo '#{input}-#{x}'|ruby day10`
+        puts result
+        s+=result[1,99].to_i(16).to_s(2).count('1')
+    }
+    puts s
+    ```
+
+    Part 2 uses a straightforward algorithm which I'm quite proud of - for every line, read all the bits, mark where the used bits are and make temporary groups out of them, then when we read the next line, add group counts when we know a group doesn't connect to anything (and is effectively finalized). It's like a state machine!
+
+    (Were I had been rushing, this would had been a DFS and my code would had been vastly different.)
+
+    ```ruby
+    input=gets.chomp
+    s=0
+    last=nil
+    keys=nil
+    @count=0
+
+    def tally
+        @count += 1
+    end
+    128.times{|x|
+        p line=`echo '#{input}-#{x}'|ruby day10`[1,99].to_i(16).to_s(2).rjust(128,?0)
+
+        if !last
+            left = nil
+            last = line.chars.map{|x|
+                case x
+                when '0'
+                    left = nil
+                when '1'
+                    left || left = tally
+                end
+            }
+            keys = [*1..@count]
+        else
+            # [gid1: int, flag1: bool], [gid2, flag2]...
+            zipped = last.zip(line.chars.map(&'1'.method(:==)))
+            map = {}
+            replace = {}
+            left = nil
+            start = @count + 1
+            p last = zipped.map{|up, down|
+                next left = nil if !down
+
+                keys.delete(up)
+
+                if left
+                    if up
+                        if map.has_key? up
+                            replace[left] = map[up]
+                        else
+                            map[up] = left
+                        end
+                    end
+                    left
+                else
+                    next left = map[up] if up && map.has_key?(up)
+
+                    value = tally
+                    map[up] = value if up
+                    left = value
+                end
+            }
+            s += keys.size
+            if replace.any? then last.map!{|x|replace.has_key?(x) ? replace[x] : x} end
+            keys = last.uniq.compact
+        end
+    }
+    p s+keys.size
+    ```
+
+    A complaint I have on today's challenge is that part 2 doesn't have an example test case that aids debugging. (Also, apparently my wrong answer was the right answer for someone else :D ) For a while, I've been getting 1261 instead of the 1242 in the puzzle input and I couldn't figure out why. For example, having "Considering only the first 10 rows of this example, there would be \_\_\_ regions" would already be a huge help in narrowing down the problem.
+  :replies: []

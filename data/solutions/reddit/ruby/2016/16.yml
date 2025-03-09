@@ -1,0 +1,27 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/5imh3d/2016_day_16_solutions/db9m64a/
+  :body: |-
+    This is one lucky program that runs both in Ruby and Crystal :-)
+
+    ```ruby
+    input = "10001001100000001"
+    length = 35651584
+
+    a = input.each_char.map { |c| c == '1' }.to_a
+    while a.size < length
+      b = a.reverse.map { |x| !x }
+      a = a + [false] + b
+    end
+    a = a.first(length)
+
+    checksum = a
+    loop do
+      checksum = checksum.each_slice(2).map { |(x, y)| x == y }.to_a
+      break if checksum.size.odd?
+    end
+    puts checksum.map { |x| x ? '1' : '0' }.join
+    ```
+
+    The second part runs in 14.5s in Ruby, and in 1.2s in Crystal if compiled with `--release`.
+  :replies: []

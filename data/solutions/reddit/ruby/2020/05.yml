@@ -1,0 +1,580 @@
+---
+- :author: Wattswing
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gijw9ky/
+  :body: |-
+    Ruby
+
+    Second part is kind of "find a hole in a sortable array". :P
+
+    [Code](https://topaz.github.io/paste/#XQAAAQCHBAAAAAAAAAApE8c0yCtOWkGXsb6/Ap/R1MYgWM5XNu2zBIG74I4DeAsdgNBV2lzbiBbOkazv49erCRDEXPtGg9d5LXWxSNbhy6pzusIs2GRsWmq1qH/hXYHz5LN7qZ+QcVtaGM3Z8RN8RMcFrq0/B1xfa+CnH4s5qh+iIFDKXAGQzGJY8Ich8Kza4V/gpZAsL5AW3yRwJXrwkdMZw/Kl5CcNAfaKv3XrLmcIPFH0mmd1PqfzRsTG1RuGArLU6XsyJcbodtq7rtqxNW4kqr3xRLmggVdZb+/or0tVAn+SBDCkQuBt445jdLlJx1o1olRUHihTOEq+O0rnFV4SpnSMJem28egTUkiiIH7ZCqC6kUQyjyjEO/c5G21TVqK5Gl5E/ffyCwaDbHx1VX7TP8JcnWY0HW76eRNM2lVbMd9fxo6SGabY2mpSsOskN8e1VhlAjLkyvpi9f3EAAWUaEhYcclfTcZKW6UW2bB9hMBwHfgxL9/vraSzDd+vIXDBJ+lwQjsGKRnwcR2A4CFapuFLaDCM5+WsoBoZ5mM8WPO6Te64G4DdawIm+NIXHMfs7exei+T7Z7RI9R7Z9Sw8Mq2yEespPyZzC72nGZTT7FcqSdK3YWNjy5XpD/awWsMR3pfNwlPW2uWM+bJ4U8+OZJOsc5SwCM1b7sTHOsC/QqKxRMrDxnjeXYFVqeEyBL69AV2Ft6OsW7qpz/8xk80A=)
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gey4bu4/
+  :body: |-
+    Ruby
+
+    ```ruby
+    # part 1
+    seat_nums = ARGF.readlines.map {|l| l.tr("BFRL", "1010").to_i(2) }
+    puts seat_nums.max
+
+    # part 2
+    puts (seat_nums.min...seat_nums.max).to_a - seat_nums
+    ```
+  :replies: []
+- :author: purplepinapples
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geu1bdg/
+  :body: |-
+    In ruby. Was stuck for a while because I didnt realize `IO.readlines` doesnt strip newlines
+
+    [Repo](https://github.com/seanbreckenridge/advent-of-code-2020)
+
+    ```ruby
+    # frozen_string_literal: true
+
+    require 'set'
+
+    def binary_space_partition(encoded)
+      x = 2**encoded.length - 1
+      y = 0
+      encoded.chars.each do |bit|
+        if Set['B', 'R'].include?(bit)
+          y = x - ((x - y) / 2)
+        else
+          x = y + ((x - y) / 2)
+        end
+      end
+      x
+    end
+
+    def seat_number(line)
+      binary_space_partition(line[0..6]) * 8 + binary_space_partition(line[7..-1])
+    end
+
+    def main(datafile)
+      input = (IO.read datafile).split "\n"
+      ids = input.map { |ln| seat_number(ln) }
+      # part one
+      puts "Part 1: #{ids.max}"
+      # part two
+      sids = ids.to_set
+      puts "Part 2: #{((sids.min..sids.max).to_set - sids).to_a.first}"
+    end
+
+    main ARGV.first
+    ```
+  :replies:
+  - :author: lucbloom
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevj26a/
+    :body: |-
+      Haha, subtracting 2 sets to find the one missing. So wasteful, so 2020. Love it.
+
+      Doesn't Ruby have a "get first element" function for sets? Like start an iteration and immediately `break`?
+    :replies:
+    - :author: purplepinapples
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevk6xm/
+      :body: |-
+        > "get first element" for sets
+
+        Dont believe so. I'm not great at ruby, but I [checked the docs](https://ruby-doc.org/stdlib-2.7.2/libdoc/set/rdoc/Set.html), and didn't see one.
+
+        Under the hood, there obviously would be a "first element" in the underlying hash implementation, but it isn't an exposed function.
+      :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/getk65n/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    def part1(data)
+      data.tr('FLBR','0011').split.max.to_i(2)
+    end
+
+    def part2(data)
+      data.tr('FLBR','0011').split.map{_1.to_i(2)}.sort.then{|a|a.find{!a.member?(_1.succ)}}+1
+    end
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/ges0n5d/
+  :body: |-
+    # Ruby
+
+    (was at a wedding last night, no leaderrboard)
+
+    ```ruby
+    input = DATA.each_line.map do |line|
+      line.chomp.chars.map { |c| %w[B R].include?(c) ? 1 : 0 }
+    end
+
+    input.map { _1.first(7).join.to_i(2) * 8 + _1.last(3).join.to_i(2) }.instance_eval { puts [max, (min..max).to_a - self] }
+
+    __END__
+    BFBFBBBRLL
+    ```
+  :replies: []
+- :author: tckmn
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoa6oq/
+  :body: |-
+    ruby, 1/10
+
+    ```ruby
+    seats = read.lines.map{|x|
+        x.tr('FBRL', '0110').to_i 2
+    }
+
+    p seats.max
+    p [[*0..0b1111111111] - seats].filter{|x| seats.include?(x+1) && seats.include?(x-1)}
+    ```
+
+    panicked and typed out 0b1111111111 instead of just using my answer from part 1, lol
+
+    also, style points for parsing the seats:
+
+    ```ruby
+    main(0):001> s='BFFFBBFRRR'
+    => "BFFFBBFRRR"
+    main(0):002> s.gsub(/./){|c|c.ord%7%2}.to_i 2
+    => 567
+    ```
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geobld3/
+    :body: That's an amazing way to construct the seat numbers! I ended up [doing it a more verbose way](https://github.com/Sharparam/advent-of-code/blob/master/2020/day5/solution.rb).
+    :replies:
+    - :author: Forbizzle
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoce4b/
+      :body: |-
+        Yeah it's interesting. I immediately recognized that the binary search instructions were just binary numbers. And rather than doing a search I could just use turn them into numbers.
+
+        I did Row and Seat separately, failing to realize until now that multiplying by 8 and adding seat was effectively just returning it to it's original number.
+
+        I also learned about the .tr method in ruby. Having instead done a chain of 4 gsubs.
+      :replies: []
+  - :author: wace001
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geom92w/
+    :body: Impressive. Good job! How does tr work?
+    :replies:
+    - :author: tckmn
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georn8k/
+      :body: |-
+        it's the same as `tr` in bash (stands for "translate") -- it'll replace characters in the first string with corresponding characters in the second string
+
+        ```ruby
+        main(0):001> 'becda'.tr 'abcde', '01234'
+        => "14230"
+        ```
+      :replies: []
+- :author: Ryuujinx
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geqgw2y/
+  :body: |-
+    # Ruby
+
+    All these people doin fancy binary things and I'm playing with slicing arrays, smh.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    input = Array.new
+    File.readlines('input').each do |line|
+      input << line.strip
+    end
+
+    row = (0..127).to_a
+    col = (0..7).to_a
+    output = 0
+
+    input.each do |seat|
+      row_id = row.dup
+      col_id = col.dup
+      seat.chars.each do |id|
+        if id == "F"
+          row_id = row_id[0..row_id.length/2 -1]
+        elsif id == "B"
+          row_id = row_id[row_id.length/2..-1]
+        elsif id == "L"
+          col_id = col_id[0..col_id.length/2 -1]
+        elsif id == "R"
+          col_id = col_id[col_id.length/2..-1]
+        end
+      end
+      if row_id[0].to_i * 8 + col_id[0].to_i > output
+        output = row_id[0].to_i * 8 + col_id[0].to_i
+      end
+    end
+
+    puts "Output: #{output}"
+    ```
+
+    Part 2 was mostly the same, I just shoved it in an array sorted it and then checked if current id -2 = last id
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok8ss/
+  :body: |-
+    **Ruby**
+
+    Just a binary encoding exercise and a math trick to find the missing seat at the end using the sum of an [arithmetic series](https://en.wikipedia.org/wiki/Arithmetic_progression) and summing the known seats given that yours is missing. I did it another way at first too with sorting and looking for a gap, but this is more elegant anyways. :)
+
+    Edit: Some minor cleanup with reading the input seats. Also learned of the string.tr methods too which might be been a little bit better to do based on some other solutions I've seen here.
+
+    ```ruby
+    seat_ids = File.readlines("day5input.txt").map{|s| s.chomp.split('').map{|x| {"F" => "0", "B" => "1", "L" => "0", "R" => "1"}[x]}.join.to_i(2)}
+
+    # Part 1
+    max_id = seat_ids.max
+    puts "#{max_id}"
+
+    # part 2
+    min_id = seat_ids.min
+    puts "#{(((max_id - min_id + 1) * (min_id + max_id)) / 2) - seat_ids.reduce(:+)}"
+    ```
+  :replies:
+  - :author: Scoobyben
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geop1ap/
+    :body: Neat approach to part 2!
+    :replies: []
+  - :author: wikipedia_text_bot
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok9fu/
+    :body: |-
+      **[Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic%20progression)**
+
+      In mathematics, an arithmetic progression (AP) or arithmetic sequence is a sequence of numbers such that the difference between the consecutive terms is constant. For instance, the sequence 5, 7, 9, 11, 13, 15, . . .
+
+      [About Me](https://www.reddit.com/user/wikipedia_text_bot/comments/jrn2mj/about_me/) - [Opt out](https://www.reddit.com/user/wikipedia_text_bot/comments/jrti43/opt_out_here/) - OP can reply !delete to delete - [Article of the day](https://redd.it/k6wsfi)
+    :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep4x6g/
+  :body: |-
+    more elixir. realising that in part 2 you're not at the front or back must mean there exists a row with exactly 7 taken seats. so that was nice.
+
+    and i learned that elixir supports ruby style `var || []` when var is nil, so i could reduce a list of tuples into a map of `row => columns` pretty nicely
+
+    ```ruby
+    defmodule Day5 do
+      def parse do
+        {_, file} = File.read("input")
+        file
+        |> String.split("\n", trim: true)
+      end
+
+      def solve do
+          input = parse()
+
+          seats = input
+          |> Enum.map(&seat/1)
+
+          part1 = seats
+          |> Enum.map(fn {row, column} -> row * 8 + column end)
+          |> Enum.max
+
+          IO.puts part1
+
+          {row, taken} = seats
+          |> Enum.reduce(%{}, fn {row, column}, acc -> Map.put(acc, row, [column | acc[row] || [] ] ) end)
+          |> Map.new(fn {k,v} -> {k, Enum.sort(v)} end)
+          |> Enum.find(fn {_,v} -> length(v) == 7 end)
+
+          [column] = (0..7 |> Enum.to_list) -- taken
+
+          IO.puts row * 8 + column
+      end
+
+      def seat(input) do
+        {row, column} = input |> String.graphemes |> Enum.split(7)
+        {seat(row, 0..127 |> Enum.to_list), seat(column, 0..7 |> Enum.to_list)}
+      end
+
+      def seat([h | t], r) do
+        {lower, upper} = Enum.split(r, div(length(r),2))
+
+        if h == "F" or h == "L", do: seat(t, lower), else: seat(t, upper)
+      end
+
+      def seat([], [h | _]), do: h
+    end
+
+    Day5.solve
+    ```
+  :replies:
+  - :author: Jedimastert
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep7wr6/
+    :body: |-
+      > var || []
+
+      fyi, this is called [lazy evaluation](https://www.wikiwand.com/en/Lazy_evaluation), and the concept can be applied much broader if you understand it correctly.
+    :replies:
+    - :author: rkachowski
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep9tt1/
+      :body: where's the laziness? i understand it as a null coalescing operation
+      :replies:
+      - :author: Jedimastert
+        :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepfti8/
+        :body: |-
+          The idea is that the `[]` was never reached because the `||` operator did it's job
+
+          Lazy evaluation means that there are certain situations where executing code will have no effect, and therefore shouldn't be executed. For example, given the expression
+
+          ```ruby
+          true || function()
+          ```
+
+          The output of `function` does not change the output of the expression, which will always be true. Therefore, there's no need to execute it. In this context, "null" is seen as "false" and "non-null" is seen as "true". Therefore, the second half of the expression is only executed if the first part is "null" (i.e false).
+
+          Does that explain things better?
+        :replies:
+        - :author: rkachowski
+          :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gephazd/
+          :body: awesome, thanks!
+          :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep808u/
+  :body: |-
+    **Ruby**
+
+    No leaderboard potential for me today (12 minutes dead, but I did have two children running around) but this one made me love Ruby even more.
+
+    Part 1:
+
+    ```ruby
+    p $<.readlines
+        .map { |l| l.tr!('BFRL', '1010').to_i(2) }
+        .max
+    ```
+
+    Part 2:
+
+    ```ruby
+    $<.readlines
+      .map { |l| l.tr!('BFRL', '1010').to_i(2) }
+      .sort
+      .each_cons(2) { |(a,b)| puts "#{a},#{b}" if b - a > 1 }
+    ```
+
+    I left it as an exercise for myself to determine the number between `a` and `b` ;-) But of course, you could just print a+1. On reflection, I prefer this solution I came up with later:
+
+    ```ruby
+    seats = $<.readlines
+              .map { |l| l.tr!('BFRL', '1010').to_i(2) }
+    p seats.select { |l| !seats.include?(l + 1) }.min + 1
+    ```
+  :replies: []
+- :author: zB0hs
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepjlmd/
+  :body: |-
+    Here's my Ruby solution to Part 2. Convert the seat codes to binary to get the integer values and then find the missing seat with array subtraction!
+
+    ```ruby
+    seat_ids = File.read('../list.txt').split("\n").map { |seat| new_seat = seat.gsub(/B|R/, '1').gsub(/F|L/, '0').to_i(2) }.sort
+
+    puts (seat_ids[0]..seat_ids[-1]).to_a - seat_ids
+    ```
+  :replies:
+  - :author: steerio
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geplrkr/
+    :body: |-
+      Another Ruby one (hijacking your comment to have a Ruby subthread):
+
+      ```ruby
+      seats = STDIN.each_line.map { |l| l.tr('FLBR', '0011').to_i(2) }.sort
+      puts seats[-1]
+      puts seats.each_cons(2).find { |(a,b)| a + 2 == b }.first.succ
+      ```
+    :replies: []
+- :author: ttapu
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoi8x3/
+  :body: |-
+    ruby
+
+    the description was really helpful this time
+
+    ```ruby
+    convert = { 'F' => '0', 'B' => '1', 'L' => '0', 'R' => '1' }
+    seats = []
+    input.each do |i|
+      row = i[0..6].gsub(/\w/, convert).to_i(2)
+      column = i[7..-1].gsub(/\w/, convert).to_i(2)
+      seat = 8 * row + column
+      seats << seat
+    end
+
+    p seats.max
+    # part2
+    seats.sort.each_cons(2) do |a, b|
+      diff = b - a
+      puts "#{a} **my seat** #{b} " if diff > 1
+    end
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqhev/
+  :body: |-
+    **Ruby:** 6:43/13:07, 526/975
+
+    Here's a [recording](https://youtu.be/Z4iU5qRzmcM) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2020/dec05.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    I totally misread what to do with the two values we got (I did `row * seat` first instead of `row * 8 + seat`). Did anyone else find the instructions for Part 2 confusing? At first I thought the seat ids would be sparse and that there would just be two seat ids two apart (e.g., seat ids would be like 5, 32, 235, 712, 714, 832 and so your seat would be 713).
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqwzg/
+  :body: |-
+    Ruby - 18169/17128. I fell asleep before the puzzle was released ¯\_(ツ)\_/¯
+
+    ```ruby
+    def partition_step(range, chars, char)
+      [range.begin..(range.begin + range.size/2 - 1), (range.end - range.size/2 + 1)..range.end][chars.index(char)]
+    end
+
+    puts File.read('05.txt').lines(chomp: true).map { |seat|
+      seat.chars[0..6].reduce(0..127) { |r, c| partition_step(r, ['F', 'B'], c) }.first * 8 +
+        seat.chars[7..9].reduce(0..7) { |r, c| partition_step(r, ['L', 'R'], c) }.first
+    }.max
+    ```
+
+    Part two:
+
+    ```ruby
+    require 'set'
+
+    def partition_step(range, chars, char)
+      [range.begin..(range.begin + range.size/2 - 1), (range.end - range.size/2 + 1)..range.end][chars.index(char)]
+    end
+
+    occupied = Set.new(File.read('05.txt').lines(chomp: true).map { |seat|
+      seat.chars[0..6].reduce(0..127) { |r, c| partition_step(r, ['F', 'B'], c) }.first * 8 +
+        seat.chars[7..9].reduce(0..7) { |r, c| partition_step(r, ['L', 'R'], c) }.first
+    })
+
+    (occupied.min..occupied.max).each do |id|
+      puts id if !occupied.include?(id) && occupied.include?(id-1) && occupied.include?(id+1)
+    end
+    ```
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georjrf/
+  :body: |-
+    # Day 5 in Ruby
+
+    **Part 1 & 2**
+
+    ```ruby
+    input.
+      split.
+      map { |pass| pass.gsub(/\w/, { "F" => "0", "B" => "1", "L" => "0", "R" => "1" }) }.
+      map { |pass| pass[0, 7].to_i(2) * 8 + pass[7, 3].to_i(2) }.
+      tap { |passes| puts passes.max }.
+      sort.
+      each_cons(2).
+      detect { |a, b| b - a == 2 }.
+      tap { |neighbors| puts neighbors.first + 1 }
+    ```
+
+    This outputs both answers.
+  :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozly9/
+  :body: |-
+    My solution in Ruby.
+
+    ```ruby
+    #!/bin/env ruby
+
+    ids = []
+    File.readlines('./input').each do |line|
+        line.strip!
+        row = [0, 127]
+        col = [0, 7]
+        step = 64
+        line[..6].each_char do |char|
+            row[0] += step if char == 'B'
+            row[1] -= step if char == 'F'
+            step /= 2
+        end
+        step = 4
+        line[-3..].each_char do |char|
+            col[0] += step if char == 'R'
+            col[1] -= step if char == 'L'
+            step /= 2
+        end
+        id = (row[0] * 8) + col[0]
+        ids.push(id)
+        puts "Seat #{line} is at row #{row} and column #{col}. Seat id: #{id}"
+    end
+
+    puts "The highest seat ID is #{ids.max}"
+    ids.sort!
+    ids.each_index do |i|
+        next if i == 0
+        if ids[i] != (ids[i-1] + 1)
+            puts "My seat is #{ids[i] - 1}"
+            break
+        end
+    end
+    ```
+  :replies:
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep0mj4/
+    :body: 'Pro tip: Whenever you''re just trying to pull some information out of some strings, with very high probability, [there''s a method for that](https://ruby-doc.org/core-2.7.2/String.html). The trick to Ruby mastery is to remember exactly _which_ methods – and what the hell they are called ;) (For this one [I](https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozxna?utm_source=share&utm_medium=web2x&context=3) used `scan`, `tr` and `to_i`.) The same notion for arrays; You rarely want to push stuff yourself and roll your own loop, much less nested loops.'
+    :replies:
+    - :author: jeffers0n
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep301z/
+      :body: Thanks. I'm still learning Ruby so I know there are tons of methods that aren't even on my radar.
+      :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozxna/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    seat_ids = File
+      .read('input-05.txt')
+      .scan(/([FB]+)([LR]+)/)
+      .map { |row,col|
+        r = row.tr('FB','01').to_i(2)
+        c = col.tr('LR','01').to_i(2)
+        r * 8 + c
+      }
+
+    # Part 1
+    p seat_ids.max
+
+    # Part 2
+    seat_ids.sort.each_cons(2) do |a,b|
+      if (a != b-1)
+        puts a + 1
+        break
+      end
+    end
+    ```
+  :replies:
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep44im/
+    :body: |-
+      d'oh, just realized that there are three digits of the `LR` part, which means that the `FB` part is shifted by 3 (== multiplied by 8), so there is no need to handle the two parts spearately. The `scan`/`map` part can then be simplified to
+
+      ```ruby
+      .scan(/[FB]+[LR]+/)
+      .map { _1.tr('FBLR','0101').to_i(2) }
+      ```
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep913x/
+  :body: |-
+    Ruby, similar to some other submissions:
+
+    ```ruby
+    $lines = open('inputs/05.txt').readlines.map { |l| l.tr('FBLR', '0101').to_i(2) }.sort
+
+    puts $lines.last
+
+    puts $lines.each_with_index.find { |e, i| e + 1 != $lines[i + 1] }.first + 1
+    ```
+  :replies: []
+- :author: maccosmo
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepe19m/
+  :body: |-
+    One liner for both cases in Ruby with help of /u/Redofab and /u/veit\_dev:
+
+    ```ruby
+    a=File.foreach("f").map{|i|i.tr("FLBR","001").to_i(2)};p *[*a.min..a.max]-a,a.max
+    ```
+  :replies: []

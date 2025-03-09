@@ -1,0 +1,199 @@
+---
+- :author: '0x0dea'
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv1vx5/
+  :body: |-
+    I finally "won" one! Thanks, Ruby.
+
+    ```ruby
+    s = 'cqjxjnds'
+    r = Regexp.union [*?a..?z].each_cons(3).map(&:join)
+    s.succ! until s[r] && s !~ /[iol]/ && s.scan(/(.)\1/).size > 1
+    p s
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ayw/
+    :body: "[deleted]"
+    :replies:
+    - :author: _jonah
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv38y5/
+      :body: "`s.succ!` is doing more magic than the regexps."
+      :replies:
+      - :author: KrzaQ2
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7ln7/
+        :body: Not that much, I used `(n.to_i(36)+1).to_s(36).gsub('0', 'a')` to get the next string.
+        :replies: []
+      - :author: gfixler
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv44uz/
+        :body: What's scary is knowing that these things are probably in car braking systems and pacemakers.
+        :replies: []
+  - :author: _jonah
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ror/
+    :body: This is beautiful. And TIL succ could be applied to str, and `!~` exists. And as long as we're golfing, you can shave off a bit by replacing your scan with `s =~ /(.)\1.*(.)\2/`
+    :replies: []
+  - :author: gareve
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7uat/
+    :body: |-
+      Nice, I've discovered Regexp.union :) Without that I was trying with:
+
+      ```ruby
+      r.bytes.each_cons(3).any? {|a,b,c| a + 1 == b and b + 1 == c}
+      ```
+    :replies: []
+  - :author: takeitonben
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvp7z6/
+    :body: code like this is almost like magic to me.
+    :replies: []
+  - :author: crossbrowser
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvb4s5/
+    :body: |-
+      Doesn't this fail rule #3?
+
+      > Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz.
+
+      Or is `"aabaa"` valid?
+    :replies:
+    - :author: jmorais
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxveg1y/
+      :body: |-
+        None of my inputs had this problem. To solve just put a uniq.
+
+        ```ruby
+        s.scan(/(.)\1/).size > 1
+        ```
+
+        becomes
+
+        ```ruby
+        s.scan(/(.)\1/).uniq.size > 1
+        ```
+      :replies:
+      - :author: crossbrowser
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvetmy/
+        :body: Nice, I was trying to do something similar but didn't know about scan. Useful.
+        :replies: []
+  - :author: segfaultvicta
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvcfqo/
+    :body: |-
+      > r = Regexp.union [\*?a..?z].each\_cons(3).map(&:join)
+
+      WOAH.
+
+      What the balls is actually happening here? I'm rusty and did it in boring non-functional style, haha. This is hot, though.
+
+      Also, A+ for s.succ, I remember going "man I bet Ruby has a built-in for this..." when I was implementing it myself. xD
+
+      How long does this take to run, out of curiosity?
+    :replies: []
+- :author: tremendo
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv34sv/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    def min_length(str); 8 <= str.length; end
+    def repeats?(str); str.match(/(\w)\1+.*(\w)\2+/) ? true : false; end
+    def disallowed?(str); str =~ /[iol]/; end
+    def consecutive_three?(str)
+      r, p, chars = false, 0, str.chars
+      while !r && p < (str.length - 2)
+        r = chars[p].next == chars[p + 1] && chars[p + 1].next == chars[p + 2]
+        p += 1
+      end
+      return r
+    end
+    def pwd_valid?(str)
+      min_length(str) && repeats?(str) &&
+        !disallowed?(str) && consecutive_three?(str)
+    end
+
+    input = 'vzbxkghb'
+    while !pwd_valid?(input); input = input.next; end
+    puts input
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv79ev/
+    :body: "[deleted]"
+    :replies:
+    - :author: tremendo
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvajgu/
+      :body: Indeed! thanks for that.
+      :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv3oyr/
+  :body: |-
+    Ruby's .next operator for strings made this really easy. As per usual, I know my regex is bad and should feel bad, but I don't care. Also, I gotta stop with the social life - second night in a row that it cost me a spot on the board.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = 'hepxxzaa'
+
+    until false do
+      if data !~ /i|o|l/
+        if data =~ /abc|bcd|cde|def|efg|fgh|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz/
+          if data =~ /(aa|bb|cc|dd|ee|ff|gg|hh|jj|kk|mm|nn|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz).*(aa|bb|cc|dd|ee|ff|gg|hh|jj|kk|mm|nn|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz)/
+            p data
+            break
+          end
+        end
+      end
+      data = data.next
+    end
+    ```
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv5hua/
+    :body: |-
+      DISREGARD SOCIALIZING
+
+      ACQUIRE STARS
+    :replies: []
+- :author: amnn9
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv77ns/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    def iterate(seed) # yields
+      Enumerator.new do |y|
+        loop do
+          y << seed
+          seed = yield seed
+        end
+      end
+    end
+
+    SEQS = ('a'..'x').map { |c| iterate(c, &:next).take(3).join }
+    CONDITIONS = [/^[^iol]*$/, /(.)\1.*(.)\2/, Regexp.union(*SEQS)]
+
+    def check(from: 'a')
+      iterate(from, &:next).find do |candidate|
+        CONDITIONS.all? { |c| candidate =~ c }
+      end
+    end
+    ```
+
+    My Haskell side yearned for an _iterate_ function, so that's what drove this implementation.
+  :replies: []
+- :author: beefamaka
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvqlz7/
+  :body: |-
+    here's my solution in F#. Feeling jealous of the Ruby 'succ' function so I tried to create my own.
+
+    ```ruby
+    let inc = "abcdefghjkmnpqrstuvwxyz" |> Seq.pairwise |> dict
+    let (&) c s = sprintf "%c%s" c s
+    let nextc (c,str) ch = match c, ch with | 0, n -> 0, n & str | 1, 'z' -> 1, "a" + str | 1, n -> 0, inc.[n] & str
+    let succ = Seq.rev >> Seq.fold nextc (1,"") >> snd
+    let succseq = Seq.unfold (fun f -> Some (f, succ f)) >> Seq.skip 1
+
+    let (=~) s p = Regex.IsMatch(s,p)
+    let run = [|'a'..'z'|] |> Seq.windowed 3 |> Seq.map String |> String.concat "|"
+    let isValid (p:string) = p =~ @"(\w)\1.*(\w)\2" && p =~ run
+    let findNext = succseq >> Seq.find isValid
+
+    findNext "vzbxkghb" |> printfn "%s"
+    ```
+  :replies: []

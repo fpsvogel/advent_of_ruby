@@ -1,0 +1,693 @@
+---
+- :author: bluishness
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp12nt/
+  :body: |-
+    Anyone up for golf? This is my attempt in Ruby, 268 characters.
+
+    ```ruby
+    g=Array.new 1e6,0
+    k=g.clone
+    IO.read('i').each_line{|l|l=l.split /\W/
+    i=l[-6]
+    l,t,_,r,b=l[-5..-1].map &:to_i
+    (l..r).each{|x|(t..b).each{|y|p=y*1e3+x
+    i=~/e/?(g[p]=1-g[p])&&k[p]+=2: i=~/f/?(g[p]=0)&&k[p]=[0,k[p]-1].max: (g[p]=1)&&k[p]+=1}}}
+    puts g.reduce(:+),k.reduce(:+)
+    ```
+  :replies:
+  - :author: de_Selby
+    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpch3e/
+    :body: "/u/geocar has you beaten easily using K [in this comment](https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxoziw1)"
+    :replies:
+    - :author: bluishness
+      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpjfzr/
+      :body: |-
+        Oh wow, that is rather terse, and I don't even have a clue what's going on there. Always great to see how much there is yet to learn.
+
+        I'm always aiming for something that'll fit into a tweet, but that might be impossible with all the logic in this one.
+      :replies:
+      - :author: geocar
+        :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxq3g45/
+        :body: |-
+          This isn't golf: There are a few easy ways to make it smaller, but this is the first thing that came out of my head, so _I_ could not have coded something else faster in another language.
+
+          This also isn't obfuscated: The control flow is very simple and easy to follow for a beginner K programmer.
+
+          Getting a clue into what's going on involves learning a little K. Fortunately, K is very easy.
+
+          Operators are either x f y or f x, e.g. 4+4 or -2, and array indexing is the same as function application:
+
+          1. `f[x]` can be written `f x` and `f[x;y]` can be written `x f y`,
+          2. `f[x;y]` can be projected into a new function `g:f[;y]` such that `g[x]` is `f[x;y]`
+
+          An array like `0 1 2 3` is like `[0,1,2,3]` in JavaScript, except operations apply to the members:
+
+          1. `1 2+3 4` is `4 6`.
+          2. `2*5 6 7` is `10 12 14`
+
+          K has a lot of data types: Numbers (bits, bytes, shorts, ints, longs), strings, symbols, dates, times, timestamps, filenames/handles, guids, dictionaries, tables, keyed-tables, and lists. K also can make arrays of any dimension out of those data types.
+
+          With that in mind, and the [q reference manual](http://code.kx.com/wiki/Reference) we can read the first line:
+
+          e[:](http://code.kx.com/wiki/JB:QforMortals2/functions#Amend_.28:.29){"SJJJJ"[$](http://code.kx.com/wiki/Reference/DollarSign#cast)['](http://code.kx.com/wiki/Reference/each)[@](http://code.kx.com/wiki/Reference/AtSymbol)[;0 2 4 8 10][$](http://code.kx.com/wiki/Reference/DollarSign#cond)["turn"[~](http://code.kx.com/wiki/Reference/Tilde)[\*](http://code.kx.com/wiki/Reference/first)x;2;0][\_](http://code.kx.com/wiki/Reference/Underscore)x}'[![-4]](http://code.kx.com/wiki/Reference/BangSymbolInternalFunction#.E2.88.924.21x)['](http://code.kx.com/wiki/Reference/each)[0:](http://code.kx.com/wiki/Reference/ZeroColon)`:/Users/geocar/e.txt
+
+          Looking at it :
+
+          1. We're defining something called `e` which is `F'![-4]'0:file` where `F` is some function, and `-4!` is an operator which takes a string like `"foo bar baz"` and turns it into `("foo";," ";"bar";," ";"baz")`. Let's look at F:
+          2. "SJJJJ"$' parses a bunch of rows of ("on";"10";"10";"100";"100") into (`on;10;10;100;100)
+          3. `@[;0 2 4 8 10]` is a permutation-projection. In JavaScript you would write `[x[0], x[2], x[4], x[8], x[10] ]`
+          4. `$[b;t;f]` is basically the same as `b?t:f` in JavaScript but is less confusing. This part says _If "turn" is the first x, then 2, otherwise zero_. I'm doing this the input to the function is a bunch of lines like: `("turn";," ";"off";," ";"660";,",";"55";," ";"through";," ";"986";,",";"197")` and if it begins with "turn" then the first two words are useless to me and I want to cut them out. That's what the `_x` does after: it's _cut x_. So you can see this part as `x.slice(x[0]==="turn"?2:0)`. The cond is unnecessary and I could have made it shorter by simply doing `2*"turn"~*x` which would be _2 times if "turn" matches first x_.
+          5. `:/Users/geocar/e.txt is a filename. Filenames have special syntax so you can't use a string where you need a filename accidentally.
+
+          The second line is three statements:
+
+          a:1000 1000[#](http://code.kx.com/wiki/Reference/NumberSign)0
+
+          {p[:](http://code.kx.com/wiki/JB:QforMortals2/functions#Amend_.28:.29)x[1 2][+](http://code.kx.com/wiki/Reference/PlusSymbol)[!:](http://code.kx.com/wiki/Reference/til)['](http://code.kx.com/wiki/Reference/each)1 1[+](http://code.kx.com/wiki/Reference/PlusSymbol)x[3 4][-](http://code.kx.com/wiki/Reference/MinusSymbol)x[1 2];[.](http://code.kx.com/wiki/JB:QforMortals2/functions#4.9.4_Dot_.28..29_for_Monadic_Functions)[`a;p;o[@](http://code.kx.com/wiki/Reference/AtSymbol)[\*](http://code.kx.com/wiki/Reference/first)x]}['](http://code.kx.com/wiki/Reference/each)e
+
+          [+](http://code.kx.com/wiki/Reference/PlusSymbol)[/](http://code.kx.com/wiki/Reference/Slash#over)[/](http://code.kx.com/wiki/Reference/Slash#over)a
+
+          The first one makes my 1000x1000 array.
+
+          That last one is how I add up all the atoms in the array `a`. `+/a` would simply give me a sum of each row.
+
+          To understand the middle one, you need to remember that `[a,b]+[c,d]` is `[a+c,b+d]` and `x[1 2]` is really `[x[1],x[2] ]`.
+
+          `p` is the top-left corner plus the til of (1,1) plus the bottom-right-corner minus the top-left-corner. This makes `p` an array of coordinates `[[x1,y1], [x1+1,y1], [x1+2,y1], ... [x2,y1], [x1,y1+1], [x1,y1+2], ...` containing all the positions I want to do something with.
+
+          .[`a;p;f] is literally a[p]:f[a[p]] or maybe more readable (with less brackets): a[f]:f a[p].
+
+          What I was pointing to in the comment was that `o@*x` is _o at first x_, which we know from our list is going to be an instruction like `off` or `on` or `toggle`. The `o` is a [dictionary](http://code.kx.com/wiki/Reference/BangSymbol#dict) which has as its keys the things I want to look up and the values as the things I want to apply. If this was in JavaScript if `o` was something like:
+
+          ```ruby
+          o = { off:[0,0], on:[1,1], toggle:[1,0] };
+          ```
+
+          might be able to do:
+
+          ```ruby
+          p.forEach(function(xy){ a[xy[0]][xy[1]] = o[x[0] ][a[xy[0]][xy[1]]]; });
+          ```
+
+          but that's a lot more words than .[`a;p;o@\*x], and because function application is indexing, I can use that same routine with a different `o`:
+
+          ```ruby
+          o = { off:function(x){ return Math.max(x-1,0) }, on: function(x) { return x+1 }, toggle: function(x) { return x+2 } };
+          ```
+
+          whereas with JavaScript I'd need _another_ loop. This happens often. Sometimes in JavaScript I'll reach for functions like `_.pick(a,k)` which would be unnecessary if `x["k"]` was the same as `x("k")` -- one could simply use `a.map`.
+
+          If this is something you want to try, [download](http://kx.com/software-download.php) the free version of KDB. You can press [backslash](http://code.kx.com/wiki/Reference/BackSlash#toggle_q.2Fk) to switch from q (the default very wordy language) and k (much more terse and easier to write).
+        :replies: []
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpoveo/
+      :body: '"Beaten" sizewise, maybe.'
+      :replies: []
+- :author: fnoco_xandy
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxov2ms/
+  :body: |-
+    ugly crystal (and i guess ruby) solution for part 2. part1 is just some changes in the case when statement. a lot could be improved but thats the code that got me to place 67
+
+    ```ruby
+    $grid = Array.new(1000) { Array.new(1000){0} }
+    def doline(str)
+        cmd = str.split(" ")
+        ofs = 0
+        ofs=1 if cmd[0]=="turn"
+        rcmd = cmd[ofs]
+        spos = cmd[ofs+1].split(',').map{|e|e.to_i}
+        epos = cmd[ofs+3].split(',').map{|e|e.to_i}
+
+        (epos[0]-spos[0]+1).times do |xc|
+            (epos[1]-spos[1]+1).times do |yc|
+                x = spos[0]+xc
+                y = spos[1]+yc
+                case rcmd
+                    when "on"
+                        $grid[x][y]+=1
+                    when "off"
+                        $grid[x][y]-=1
+                        $grid[x][y]=0 if $grid[x][y]<0
+                    when "toggle"
+                        $grid[x][y]+=2
+                    else
+                        raise "error cmd is #{rcmd} line was #{str}"
+                end
+            end
+        end
+    end
+    File.new("input6").each_line.map { |line|
+        doline(line.strip)
+    }.size
+    p ($grid.map {|r| r.sum} .sum)
+    ```
+  :replies: []
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovasv/
+  :body: |-
+    Not my night. Interruptions, fatigue and a few stupid mistakes (like setting the point to 1 for OFF, or not clearing the grid after correcting that mistake) conspired to make this take way too long.
+
+    My solution (in Ruby) nonetheless:
+
+    ```ruby
+    # Load the data
+    input = File.readlines('input6.txt').map { |l| l =~ /(\w+) (\d+),(\d+) through (\d+),(\d+)/; [$1, $2.to_i, $3.to_i, $4.to_i, $5.to_i] }
+
+    # Build the grid
+    g = Array.new(1000) { Array.new(1000, 0) }
+
+    # Step through and execute the instructions
+    input.each { |x| i, x1, y1, x2, y2 = x; (y1..y2).each { |y| (x1..x2).each { |x| case i; when 'on'; g[x][y] = 1; when 'off'; g[x][y] = 1; when 'toggle'; g[x][y] = (g[x][y] == 0) ? 1 : 0; end } } }
+
+    # Count the lights
+    puts g.inject(0) { |a,b| a += b.grep(1).length }
+
+    # Clear the grid
+    g = Array.new(1000) { Array.new(1000, 0) }
+
+    # Step through and execute the instructions
+    input.each { |x| i, x1, y1, x2, y2 = x; (y1..y2).each { |y| (x1..x2).each { |x| case i; when 'on'; g[x][y] += 1; when 'off'; g[x][y] -= 1 unless g[x][y] == 0; when 'toggle'; g[x][y] += 2; end } } }
+
+    # Sum the brightness
+    puts g.inject(0) { |a,b| a+= b.inject(0) { |c,d| c+= d } }
+    ```
+
+    And an expanded version of the second for clarity:
+
+    ```ruby
+    # Preload input by breaking the string into instructions
+    # and integer coordinates
+    input = File.readlines('input6.txt').map do |line|
+        line =~ /(\w+) (\d+),(\d+) through (\d+),(\d+)/
+        [$1, $2.to_i, $3.to_i, $4.to_i, $5.to_i]
+    end
+
+    # Create an empty 1000 x 1000 array
+    grid = Array.new(1000) { Array.new(1000, 0) }
+
+    input.each do |line|
+        # Break into individual vars for easy access
+        inst, x1, y1, x2, y2 = x
+
+        # Loop over each column in our rectangle
+        (y1..y2).each |y|
+            # loop over each row in this stripe
+            (x1..x2).each |x|
+                case inst
+                    # increase brightness
+                    when 'on'; grid[x][y] += 1;
+                    # reduce brightness unless off
+                    when 'off'; grid[x][y] -= 1 unless grid[x][y] == 0
+                    # supersize brightness
+                    when 'toggle'; grid[x][y] += 2
+                end
+            end
+        end
+    end
+
+    # Iterate through the rows of the grid with an accumulator set to 0
+    puts grid.inject(0) do |a,b|
+        # Sum the points in the row and add the final result to the accumulator
+        a+= b.inject(0) do |c,d|
+            c+= d
+        end
+    end
+    ```
+  :replies:
+  - :author: wdomburg
+    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxowpgt/
+    :body: |-
+      Since a few people were posting benchmarks on their Ruby code:
+
+      real 0m5.375s user 0m5.365s sys 0m0.008s
+
+      (For both answers).
+    :replies: []
+- :author: miftrim
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovm2p/
+  :body: |-
+    My Ruby solution. This takes like a solid three minutes to run. There must be faster ways to do it.
+
+    Part one:
+
+    ```ruby
+    instructions = File.read('../data/06.txt').split("\n")
+
+    grid = [[]]
+    lights_lit = 0
+
+    for i in 0..1000 do
+      for p in 0..1000 do
+        grid.push([i, p, false])
+      end
+    end
+
+    instructions.each do |i|
+      puts i
+      if i.start_with?('turn on')
+        first_light = i.split('turn on ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('turn on ')[-1].split(' through ')[-1].split(',')
+        action = 'on'
+      end
+      if i.start_with?('turn off')
+        first_light = i.split('turn off ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('turn off ')[-1].split(' through ')[-1].split(',')
+        action = 'off'
+      end
+      if i.start_with?('toggle')
+        first_light = i.split('toggle ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('toggle ')[-1].split(' through ')[-1].split(',')
+        action = 'toggle'
+      end
+      grid.each do |g|
+        if g[0].to_i >= first_light[0].to_i && g[0].to_i <= last_light[0].to_i && g[1].to_i >= first_light[1].to_i && g[1].to_i <= last_light[1].to_i
+          if action == 'on'
+            g[2] = true
+          end
+          if action == 'off'
+            g[2] = false
+          end
+          if action == 'toggle'
+            g[2] = g[2].!
+          end
+        end
+      end
+    end
+
+    grid.each do |g|
+      if g[2] == true
+        lights_lit += 1
+      end
+    end
+
+    puts lights_lit
+    ```
+
+    Part two:
+
+    ```ruby
+    instructions = File.read('../data/06.txt').split("\n")
+
+    grid = [[]]
+    brightness = 0
+
+    for i in 0..1000 do
+      for p in 0..1000 do
+        grid.push([i, p, 0])
+      end
+    end
+
+    instructions.each do |i|
+      puts i
+      if i.start_with?('turn on')
+        first_light = i.split('turn on ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('turn on ')[-1].split(' through ')[-1].split(',')
+        action = 'up'
+      end
+      if i.start_with?('turn off')
+        first_light = i.split('turn off ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('turn off ')[-1].split(' through ')[-1].split(',')
+        action = 'down'
+      end
+      if i.start_with?('toggle')
+        first_light = i.split('toggle ')[-1].split(' through ')[0].split(',')
+        last_light = i.split('toggle ')[-1].split(' through ')[-1].split(',')
+        action = 'up2'
+      end
+      grid.each do |g|
+        if g[0].to_i >= first_light[0].to_i && g[0].to_i <= last_light[0].to_i && g[1].to_i >= first_light[1].to_i && g[1].to_i <= last_light[1].to_i
+          if action == 'up'
+            g[2] += 1
+            puts g[2]
+          end
+          if action == 'down' && g[2] > 0
+            g[2] -= 1
+            puts g[2]
+          end
+          if action == 'up2'
+            g[2] += 2
+            puts g[2]
+          end
+        end
+      end
+    end
+
+    grid.each do |g|
+      if g[2]
+        brightness += g[2]
+      end
+    end
+
+    puts brightness
+    ```
+  :replies: []
+- :author: jjshanks
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxow7d6/
+  :body: |-
+    Ruby solution using dictionary of keys approach. String keys "#{x},#{y}" took ~40 seconds, int keys x \* 1000 + y took ~15 seconds. This is part 1 but part 2 is basically the same except I use a hash table instead of a set.
+
+    ```ruby
+    require "set"
+
+    lights = Set.new()
+
+    File.open("input") do |f|
+      f.each_line do |line|
+        parts = line.split(" ")
+        if parts[0] == "turn"
+          add = parts[1] == "on"
+          min_x, min_y = parts[2].split(",")
+          max_x, max_y = parts[4].split(",")
+          min_x, max_x, min_y, max_y = min_x.to_i, max_x.to_i, min_y.to_i, max_y.to_i
+          for x in min_x..max_x
+            for y in min_y..max_y
+              key = x * 1000 + y
+              if add
+                lights.add(key)
+              else
+                lights.delete(key)
+              end
+            end
+          end
+        else
+          # toggle
+          min_x, min_y = parts[1].split(",")
+          max_x, max_y = parts[3].split(",")
+          min_x, max_x, min_y, max_y = min_x.to_i, max_x.to_i, min_y.to_i, max_y.to_i
+          for x in min_x..max_x
+            for y in min_y..max_y
+              key = x * 1000 + y
+              lights.include?(key) ? lights.delete(key) : lights.add(key)
+            end
+          end
+        end
+      end
+    end
+    puts lights.size
+    ```
+  :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxox2z0/
+  :body: |-
+    Ruby, object-oriented solution
+
+    ```ruby
+    class Canvas
+      def initialize(w, h)
+        @width = w
+        @height = h
+        @canvas = Array.new(w*h)
+      end
+      def length
+        @canvas.compact.length
+      end
+      def draw_point(x,y,behavior='toggle')
+        index = @width * y + x
+        case behavior
+        when 'toggle'
+          @canvas[index] = @canvas[index].nil? ? true : nil
+        when 'turn on'
+          @canvas[index] = true
+        when 'turn off'
+          @canvas[index] = nil
+        end
+      end
+      def draw_rect(x1,y1,x2,y2,behavior)
+        (x1..x2).each do |x|
+          (y1..y2).each do |y|
+            draw_point(x,y,behavior)
+          end
+        end
+      end
+    end
+
+    class BrightnessCanvas < Canvas
+      def initialize(w, h)
+        @width = w
+        @height = h
+        @canvas = Array.new(w*h, 0)
+      end
+      def length
+        @canvas.inject :+
+      end
+      def draw_point(x,y,behavior='toggle')
+        index = @width * y + x
+        case behavior
+        when 'toggle'
+          @canvas[index] += 2
+        when 'turn on'
+          @canvas[index] += 1
+        when 'turn off'
+          @canvas[index] = [0, @canvas[index] - 1].max
+        end
+      end
+    end
+
+    # Use Canvas for part 1
+    c = BrightnessCanvas.new(1000,1000)
+
+    ARGF.each do |instruction|
+      matches = /^(toggle|turn off|turn on) ([0-9]+),([0-9]+) through ([0-9]+),([0-9]+)$/.match(instruction)
+      c.draw_rect(matches[2].to_i, matches[3].to_i, matches[4].to_i, matches[5].to_i, matches[1])
+    end
+
+    puts c.length
+    ```
+  :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp3btf/
+  :body: |-
+    Here's my Ruby solution for part 2. I looked through the other ones posted here and thought mine was different enough to merit posting. It's pretty minimalist and easy to read. Enjoy!
+
+    ```ruby
+    map = Hash.new(0)
+    File.readlines("input.txt").each do |line|
+      dir, x1, y1, _, x2, y2 = line.scan(/\D{4,}|\d+/)
+      (x1..x2).each do |x|
+        (y1..y2).each do |y|
+          if dir == "turn on "
+            map["#{x},#{y}"] += 1
+          elsif dir == "turn off "
+            map["#{x},#{y}"] = [map["#{x},#{y}"] - 1, 0].max
+          else
+            map["#{x},#{y}"] += 2
+          end
+        end
+      end
+    end
+    puts map.values.inject(:+)
+    ```
+  :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpvbp2/
+  :body: |-
+    Phew! By far the hardest day yet, this non-programmer took about an hour with lots of print-variable debugging and head scratching.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'pp'
+
+    data = File.readlines("input.txt")
+    lights = Array.new(1000) { Array.new(1000,0) }
+
+    data.each do |c|
+      line = c.split
+      if line[0] == "turn"
+        xstart,ystart = line[2].split(',')
+        xstart = xstart.to_i
+        ystart = ystart.to_i
+        xend,yend = line[4].split(',')
+        xend = xend.to_i
+        yend = yend.to_i
+        if line[1] == 'on'
+          state = 1
+        else
+          state = 0
+        end
+
+        across = xend - xstart
+        down = yend - ystart
+        xcount = 0
+        while xcount <= across
+          ycount = 0
+          while ycount <= down
+            lights[xstart+xcount][ystart+ycount] = state
+            ycount += 1
+          end
+          xcount += 1
+        end
+
+      else
+        xstart,ystart = line[1].split(',')
+        xstart = xstart.to_i
+        ystart = ystart.to_i
+        xend,yend = line[3].split(',')
+        xend = xend.to_i
+        yend = yend.to_i
+
+        across = xend - xstart
+        down = yend - ystart
+        xcount = 0
+        while xcount <= across
+          ycount = 0
+          while ycount <= down
+            lights[xstart+xcount][ystart+ycount] = (lights[xstart+xcount][ystart+ycount] + 1) % 2
+            ycount += 1
+          end
+          xcount += 1
+        end
+
+      end
+
+    end
+
+    counter = 0
+    lights.each do |x|
+      x.each do |y|
+        if y == 1
+          counter += 1
+        end
+      end
+    end
+
+    p counter
+    ```
+
+    But with that out of the way, part 2 was a breeze
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'pp'
+
+    data = File.readlines("input.txt")
+    lights = Array.new(1000) { Array.new(1000,0) }
+
+    data.each do |c|
+      line = c.split
+      if line[0] == "turn"
+        xstart,ystart = line[2].split(',')
+        xstart = xstart.to_i
+        ystart = ystart.to_i
+        xend,yend = line[4].split(',')
+        xend = xend.to_i
+        yend = yend.to_i
+        if line[1] == 'on'
+          state = 1
+        else
+          state = -1
+        end
+
+        across = xend - xstart
+        down = yend - ystart
+        xcount = 0
+        while xcount <= across
+          ycount = 0
+          while ycount <= down
+            lights[xstart+xcount][ystart+ycount] += state
+            if lights[xstart+xcount][ystart+ycount] < 0
+              lights[xstart+xcount][ystart+ycount] = 0
+            end
+            ycount += 1
+          end
+          xcount += 1
+        end
+
+      else
+        xstart,ystart = line[1].split(',')
+        xstart = xstart.to_i
+        ystart = ystart.to_i
+        xend,yend = line[3].split(',')
+        xend = xend.to_i
+        yend = yend.to_i
+
+        across = xend - xstart
+        down = yend - ystart
+        xcount = 0
+        while xcount <= across
+          ycount = 0
+          while ycount <= down
+            lights[xstart+xcount][ystart+ycount] += 2
+            ycount += 1
+          end
+          xcount += 1
+        end
+
+      end
+
+    end
+
+    counter = 0
+    lights.each do |x|
+      x.each do |y|
+        counter += y
+      end
+    end
+
+    p counter
+    ```
+
+    I'm scared for tomorrow's puzzle...
+  :replies: []
+- :author: AnchorText
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxqg7s8/
+  :body: |-
+    Straightforward Ruby solution with just 3 methods and 3 Procs! Please note that in my `directions.txt` I've changed "turn on" and "turn off" to "turnon" and "turnoff" respectively for easier splitting.
+
+    ```ruby
+    # Return a 1000 x 1000 grid of lights (off).
+    def init_lights
+        lights = []
+        1000.times do |x|
+            temp = []
+            1000.times do |y|
+                temp << 0
+            end
+            lights << temp
+        end
+        lights
+    end
+
+    def affect_lights(x1, y1, x2, y2, lights, command)
+        (y1..y2).each do |y|
+            (x1..x2).each do |x|
+                lights[x][y] = command.call(lights[x][y])
+            end
+        end
+    end
+
+    def count_on(lights)
+        lights.flatten.reject{ |x| x == 0 }.count
+    end
+
+    on = Proc.new do |el|
+        el = 1
+    end
+
+    off = Proc.new do |el|
+        el = 0
+    end
+
+    toggle = Proc.new do |el|
+        el = (el == 0 ? 1 : 0)
+    end
+
+    lights = init_lights
+
+    File.foreach('directions.txt') do |line|
+        words = line.split(' ')
+        coord1 = words[1].split(',').map!{ |el| el.to_i }
+        coord2 = words[3].split(',').map!{ |el| el.to_i }
+        if words[0] == "toggle"
+            affect_lights(coord1[0],coord1[1],coord2[0],coord2[1],lights,toggle)
+        elsif words[0] == "turnon"
+            affect_lights(coord1[0],coord1[1],coord2[0],coord2[1],lights,on)
+        elsif words[0] == "turnoff"
+            affect_lights(coord1[0],coord1[1],coord2[0],coord2[1],lights,off)
+        end
+    end
+
+    puts count_on(lights)
+    ```
+  :replies: []

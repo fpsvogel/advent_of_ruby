@@ -1,0 +1,237 @@
+---
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7l3v4/
+  :body: |-
+    **#16** _- Ruby_
+
+    Lots of poorly named variables, logic mixed up where it shouldn't be, me giving some guidance to the random action generator, and 20 million simulations gave me the answer.
+
+    Really long and hard to follow even with syntax highlighting. Here's the whole thing: https://gist.github.com/EricDykstra/4e0fc2569f240a613775
+
+    If I were to re-write it now, I'm sure it would be 1/3 the number of lines and much cleaner. Got the job done in just under an hour, though!
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cygv2kb/
+    :body: I was expecting it to be truly hideous when you said that. I had a look. It has some hacks, but it's not as bad as you made out!
+    :replies: []
+- :author: tomb0y
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy86y2x/
+  :body: |-
+    [longish ruby solution](https://gist.github.com/tomb0y/577ea0f8bc17388c24a4)
+
+    And some results: it's interesting to see how the 71/10 is so much harder than the 51/9 for example
+
+    ```ruby
+    boss = { hp: 51, damage: 9 }
+    player = { hp: 50, mana: 500 }
+
+    hard: 1216
+    * Poison -> Magic Missile -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Shield -> Poison -> Recharge -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Shield -> Recharge -> Poison -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Magic Missile -> Poison -> Recharge -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Magic Missile -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Magic Missile -> Recharge -> Poison -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Recharge -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Magic Missile -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Drain -> Poison -> Magic Missile
+
+    easy: 900
+    * Poison -> Magic Missile -> Recharge -> Magic Missile -> Poison -> Shield -> Magic Missile -> Magic Missile
+    * Poison -> Magic Missile -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Magic Missile -> Poison -> Shield -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Poison -> Magic Missile -> Shield -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Poison -> Shield -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Magic Missile -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile -> Magic Missile
+    * Magic Missile -> Poison -> Recharge -> Magic Missile -> Poison -> Shield -> Magic Missile -> Magic Missile
+    * Magic Missile -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Recharge -> Poison -> Magic Missile -> Magic Missile -> Poison -> Shield -> Magic Missile -> Magic Missile
+    * Recharge -> Poison -> Magic Missile -> Shield -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    * Recharge -> Poison -> Shield -> Magic Missile -> Poison -> Magic Missile -> Magic Missile -> Magic Missile
+    ```
+
+    * * *
+
+    ```ruby
+    boss = { hp: 71, damage: 10 }
+    player = { hp: 50, mana: 500 }
+
+    hard: 1937
+    * Shield -> Recharge -> Poison -> Shield -> Recharge -> Poison -> Shield -> Recharge -> Poison -> Shield -> Magic Missile -> Poison -> Magic Missile
+
+    easy: 1824
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Magic Missile -> Poison -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Recharge -> Poison -> Shield -> Recharge -> Poison -> Shield -> Recharge -> Poison -> Shield -> Magic Missile -> Poison -> Magic Missile
+    ```
+
+    * * *
+
+    ```ruby
+    boss = { hp: 58, damage: 9 }
+    player = { hp: 50, mana: 500 }
+
+    hard: 1309
+    * Poison -> Magic Missile -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Magic Missile -> Shield -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Magic Missile -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Magic Missile -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Magic Missile -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+
+    easy: 1269
+    * Poison -> Recharge -> Magic Missile -> Poison -> Recharge -> Shield -> Poison -> Drain -> Magic Missile
+    * Poison -> Recharge -> Drain -> Poison -> Recharge -> Shield -> Poison -> Magic Missile -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Magic Missile -> Poison -> Drain -> Magic Missile
+    * Poison -> Recharge -> Shield -> Poison -> Recharge -> Drain -> Poison -> Magic Missile -> Magic Missile
+    ```
+  :replies: []
+- :author: mkigikm
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7lr92/
+  :body: |-
+    Some pretty gross ruby (globals, magic numbers, etc.) that does a BFS, pruning nodes that are worse than a best know solution.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    def attack(player)
+      attack = player[:shield] > 0 ? 1 : 8
+      player[:hp] -= attack
+    end
+
+    def tick(player, boss)
+      boss[:hp] -= 3 if player[:poison] > 0
+      player[:mana] += 101 if player[:recharge] > 0
+      [:shield, :poison, :recharge].each do |timer|
+        player[timer] = [player[timer] - 1, 0].max
+      end
+    end
+
+    def mm(player, boss)
+      player[:mana] -= 53
+      boss[:hp] -= 4
+      return 53
+    end
+
+    def drain(player, boss)
+      if player[:mana] >= 73
+        player[:mana] -= 73
+        player[:hp] += 2
+        boss[:hp] -= 2
+        return 73
+      end
+      return 0
+    end
+
+    def timer_action(player, mana, timer, max_time)
+      if player[:mana] >= mana && player[timer] == 0
+        player[:mana] -= mana
+        player[timer] = max_time
+        return mana
+      end
+      return 0
+    end
+
+    def shield(player, boss)
+      timer_action(player, 113, :shield, 6)
+    end
+
+    def poison(player, boss)
+      timer_action(player, 173, :poison, 6)
+    end
+
+    def recharge(player, boss)
+      timer_action(player, 229, :recharge, 5)
+    end
+
+    def turn(total_mana, player, boss)
+      tick(player, boss)
+      #puts total_mana, player, boss if player[:poison] > 0
+      if boss[:hp] <= 0
+        $lowest_mana = [total_mana, $lowest_mana].compact.min
+      end
+      return nil if $lowest_mana && total_mana >= $lowest_mana
+      player[:hp] -= 1
+      return nil if player[:mana] < 53 || player[:hp] <= 0
+
+      [:mm, :drain, :shield, :poison, :recharge].each do |action|
+        a = player.dup
+        b = boss.dup
+        mana = send(action, a, b)
+        if mana > 0
+          tick(a, b)
+          #puts total_mana + mana, player, boss if player[:poison] > 0
+          if b[:hp] <= 0
+            $lowest_mana = [total_mana + mana, $lowest_mana].compact.min
+            return nil
+          end
+          attack(a)
+          $queue << [total_mana + mana, a, b] if a[:hp] > 0
+        end
+      end
+    end
+
+    $lowest_mana = nil
+    $queue = [[0, {hp: 50, mana: 500, shield: 0, poison: 0, recharge: 0},
+               {hp: 55}]]
+
+    while $queue.length > 0
+      turn(*$queue.shift)
+    end
+
+    puts $lowest_mana
+    ```
+  :replies: []
+- :author: Etsap
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy87l69/
+  :body: |-
+    Ruby: I like to optimize it for fewest lines of code, but no promises on readability. Runs in under 30 seconds for my input. Depth-first with pruning based on best solution found so far.
+
+    ```ruby
+    input = ""
+    File.open("input22.txt", 'r') {|f| input = f.read}
+
+    boss_stats = {}
+    input.split(/\n/).each do |line|
+        stat, value = line.split(/: /)
+        boss_stats[stat] = value.to_i
+    end
+    player_stats = {"Hit Points" => 50, "Mana" => 500}
+    spells = {"Magic Missile" => {"Cost" => 53, "Duration" => 1, "Damage" => 4}, "Drain" => {"Cost" => 73, "Duration" => 1, "Damage" => 2, "Heal" => 2}, "Shield" => {"Cost" => 113, "Duration" => 6, "Armor" => 7}, "Poison" => {"Cost" => 173, "Damage" => 3, "Duration" => 6}, "Recharge" => {"Cost" => 229, "Mana" => 101, "Duration" => 5}}
+    def do_effects!(boss_stats, player_stats, effects, mana_spent, lowest_mana)
+        player_stats["Armor"] = 0
+        effects.each do |name, effect|
+            boss_stats["Hit Points"] -= effect["Damage"] if effect.has_key?("Damage")
+            player_stats["Hit Points"] += effect["Heal"] if effect.has_key?("Heal")
+            player_stats["Armor"] += effect["Armor"] if effect.has_key?("Armor")
+            player_stats["Mana"] += effect["Mana"] if effect.has_key?("Mana")
+            effect["Duration"] -= 1
+        end
+        effects.delete_if{|name, duration| duration["Duration"] <= 0}
+        return mana_spent, true if mana_spent <= lowest_mana && boss_stats["Hit Points"] <= 0
+        return lowest_mana, boss_stats["Hit Points"] <= 0
+    end
+    def fight!(boss_stats, player_stats, spells, hard_mode, effects = {}, mana_spent = 0, lowest_mana = 1.0/0)
+        player_stats["Hit Points"] -= 1 if hard_mode
+        lowest_mana, done = do_effects!(boss_stats, player_stats, effects, mana_spent, lowest_mana)
+        spells.each_pair do |spell_name, spell|
+            if spell["Cost"] <= player_stats["Mana"] && spell["Cost"] + mana_spent < lowest_mana && !effects.has_key?(spell_name)
+                this_player_stats, this_boss_stats, this_effects = player_stats.clone, boss_stats.clone, {spell_name => spell.clone}
+                effects.each_pair {|name, effect| this_effects[name] = effect.clone}
+                this_player_stats["Mana"] -= spell["Cost"]
+                lowest_mana, done = do_effects!(this_boss_stats, this_player_stats, this_effects, mana_spent + spell["Cost"], lowest_mana)
+                this_player_stats["Hit Points"] -= this_boss_stats["Damage"] > this_player_stats["Armor"] ? this_boss_stats["Damage"] - this_player_stats["Armor"] : 1
+                done ||= this_player_stats["Hit Points"] <= (hard_mode ? 1 : 0)
+                lowest_mana = fight!(this_boss_stats, this_player_stats, spells, hard_mode, this_effects, mana_spent + spell["Cost"], lowest_mana) unless done
+            end
+        end
+        return lowest_mana
+    end
+
+    puts "Part 1: #{fight!(boss_stats.clone, player_stats.clone, spells, false)}"
+    puts "Part 2: #{fight!(boss_stats, player_stats, spells, true)}"
+    ```
+  :replies: []

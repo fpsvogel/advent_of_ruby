@@ -1,0 +1,313 @@
+---
+- :author: gareve
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7q3o/
+  :body: |-
+    Ruby
+
+    ```ruby
+    require 'json'
+    mp = JSON.parse($stdin.readlines.join())
+    $sum = 0
+    def dfs(mp)
+        return if mp.is_a? Hash and mp.values.include?('red')
+
+        (mp.is_a?(Array) ? mp : mp.values).each { |y| dfs(y) } if mp.class.method_defined? :each
+        $sum += mp if mp.is_a? Integer
+    end
+    dfs(mp)
+    p $sum
+    ```
+
+    For part 1 I just did the regex /(-)\*\d+/ on my editor and copied the values on a spreadsheet xD. The funny part is that this regex it fails with strings like "asd123def"
+  :replies: []
+- :author: Axsuul
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7uw8/
+  :body: |-
+    Ruby recursive solution
+
+    ```ruby
+    def count(struct, blacklisted = nil)
+      case struct
+      when Array
+        struct.map { |s| count(s, blacklisted) }.inject(:+)
+      when Hash
+        struct.values.include?(blacklisted) ? 0 : count(struct.values, blacklisted)
+      when Fixnum
+        struct
+      else
+        0
+      end
+    end
+
+    total = 0
+    red_total = 0
+
+    JSON.parse(read_input(12)).each do |struct|
+      total += count(struct)
+      red_total += count(struct, 'red')
+    end
+
+    puts total
+    puts red_total
+    ```
+  :replies: []
+- :author: tremendo
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw8sxq/
+  :body: |-
+    Here's mine. Another **Ruby** one:
+
+    ```ruby
+    require 'json'
+    input = JSON.parse(File.read('input_file.json'))
+    def parse(json)
+      sum = 0
+      if json.respond_to? :keys
+        return 0 if json.values.include? "red"
+        json.keys.each do |k|
+          sum += json[k].is_a?(Fixnum) ? json[k] : parse(json[k])
+        end
+      elsif json.is_a?(Array)
+        json.each do |v|
+          sum += v.is_a?(Fixnum) ? v : parse(v)
+        end
+      elsif json.is_a?(Fixnum)
+        sum += json
+      end
+      return sum
+    end
+    puts parse(input)
+    ```
+  :replies:
+  - :author: tremendo
+    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwj2t0/
+    :body: |-
+      Looking at it a few hours later, bored, felt the need to compact it a little bit:
+
+      ```ruby
+      require 'json'
+      input = JSON.parse(File.read('input_file.json'))
+      def parse(json, except=nil)
+        if json.respond_to? :values
+          json = json.values
+          return 0 if !except.nil? && json.include?(except)
+        end
+        return 0 if json.is_a?(String)
+        json = [json] if !json.is_a?(Array)
+        return json.inject(0) {|s, v| s += v.is_a?(Fixnum) ? v : parse(v, except)}
+      end
+      puts parse(input), parse(input, 'red')
+      ```
+    :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxway30/
+  :body: |-
+    Day 3 of not being home at 9. It's starting to kill me a little (on the inside). But that's ok, a bug in my part 2 logic would have easily cost me a place on the leaderboard anyway. I did the 'smart' thing and parsed the JSON for part 1 so the bones were all there for part 2. And like most people, this just cried out for recursion.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'json'
+
+    data = JSON.load(File.read('input.txt'))
+
+    def traverseHash(x)
+      count = 0
+      x.each do |y,z|
+        if z.class == Hash
+           count += traverseHash(z)
+        end
+        if z.class == Array
+           count += traverseArray(z)
+        end
+        if z.class == Fixnum
+          count += z
+        end
+        if y.class == Fixnum
+          count += y
+        end
+      end
+      return count
+    end
+
+    def traverseArray(x)
+      count = 0
+      x.each do |y|
+        if y.class == Array
+           count += traverseArray(y)
+        end
+        if y.class == Hash
+           count += traverseHash(y)
+        end
+        if y.class == Fixnum
+          count += y
+        end
+      end
+      return count
+    end
+
+    p traverseHash(data)
+    ```
+
+    Part two, the bug was that I forgot to add the 'skip if red' logic to traverseArray. Turns Out™ you need it in both places. Who knew?!
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'json'
+
+    data = JSON.load(File.read('input.txt'))
+
+    def traverseHash(x)
+      count = 0
+      x.each do |y,z|
+        if y.class == Fixnum
+          count += y
+        end
+        if z.class == Hash
+          if z.has_value?("red")
+            next
+          end
+           count += traverseHash(z)
+        elsif z.class == Array
+           count += traverseArray(z)
+        elsif z.class == Fixnum
+          count += z
+        end
+      end
+      return count
+    end
+
+    def traverseArray(x)
+      count = 0
+      x.each do |y|
+        if y.class == Array
+           count += traverseArray(y)
+        end
+        if y.class == Hash
+          if y.has_value?("red")
+            next
+          end
+           count += traverseHash(y)
+        end
+        if y.class == Fixnum
+          count += y
+        end
+      end
+      return count
+    end
+
+    p traverseHash(data)
+    ```
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgcz/
+    :body: You could have put the `"red"` check at the top of traverseHash instead of before calling traverseHash everywhere.
+    :replies: []
+- :author: phpaoc
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgn1/
+  :body: |-
+    Part1, Ruby, golfed:
+
+    ```ruby
+    p$<.read.scan(/-?\d+/).map(&:to_i).reduce(:+)
+    ```
+
+    _You will not encounter any strings containing numbers._ clearly was an invitation for not actually parsing JSON.
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpauu/
+  :body: |-
+    ruby, not too happy with it..
+
+    ```ruby
+    require 'json'
+    input = File.read "input"
+
+    def sum_str str
+     str.scan(/-?\d+/).map(&:to_i).reduce(:+)
+    end
+
+    class Hash
+      def iterate &b
+          self.each do |k,v|
+            v.iterate(&b) if v.is_a?(Hash) or v.is_a?(Array)
+            k.iterate(&b) if k.is_a?(Hash) or k.is_a?(Array)
+            yield(self, k, v)
+          end
+      end
+    end
+    class Array
+      def iterate &b
+          self.each do |k|
+            k.iterate(&b) if k.is_a?(Hash) or k.is_a?(Array)
+            yield(self, k, nil)
+          end
+      end
+    end
+
+    obj = JSON.parse input
+
+    obj.iterate do |hsh, k, v|
+      hsh.clear if hsh.is_a?(Hash) and hsh.value? "red"
+    end
+
+    puts sum_str input
+    puts sum_str(obj.to_json)
+    ```
+
+    at first i tried to add the same method to both the array and hash class with this approach
+
+    ```ruby
+    [Array, Hash].each do |c|
+      c.class_eval do
+        def iterate &b
+          self.each do |k,v|
+            v.iterate(&b) if v.is_a?(Hash) or v.is_a?(Array)
+            k.iterate(&b) if k.is_a?(Hash) or k.is_a?(Array)
+
+            yield(self, k, v)
+          end
+        end
+      end
+    end
+    ```
+
+    but i eventually discovered that when using more than one block param in the call to `Array#each` results in pattern matching kicking in and you lose elements that don't have an appropriate variable to map to... yuk
+  :replies: []
+- :author: aprosepro
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpi3y/
+  :body: |-
+    part 2 in ruby, i enjoyed this one. of course, like others said... i saw part 1 and thought the entire challenge would be a cakewalk. total re-write from my single line regex for part 1.
+
+    ```ruby
+    require 'json'
+    @sum = 0
+    def process(obj, parent)
+      if obj.respond_to? :each
+        if !( obj.is_a?(Hash) && obj.has_value?("red") )
+          obj.each{ |inner| process(inner, obj) }
+        end
+      else
+        @sum += obj.to_i
+      end
+      @sum
+    end
+    puts 'SUM: ' + process( JSON.parse( File.open('day12_input.txt').first ) , nil).to_s
+    ```
+  :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwqecp/
+  :body: |-
+    Ruby, golfed slightly
+
+    ```ruby
+    require 'json'
+
+    def rsum(val)
+      return 0 if val.respond_to?(:has_value?) && val.has_value?("red")
+      val.respond_to?(:each) ? val.each.reduce(0) {|sum, v| sum + rsum(v)} : val.to_i
+    end
+
+    p rsum(JSON.parse(ARGF.read))
+    ```
+  :replies: []

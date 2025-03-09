@@ -1,0 +1,110 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4fte4/
+  :body: |-
+    Ruby, silver 17 / gold 29
+
+    I had the wrong answer on part 2 because I used 100.times again, which forced me to wait 1 minute :( This one was an easy incomplete BFS which assumes all groups can be found in under 100 steps.
+
+    ```ruby
+    g=[0]
+    h={}
+    $<.map{|x|a,b=x.split' <-> '
+    h[a.to_i]=b.split(', ').map &:to_i
+    }
+    l=[]
+    c=0 # part 2
+    loop{ # end part 2
+    100.times{s=[]
+    g.map{|x|s+=h[x]}
+    l+=g
+    g=s-l}
+    c+=1 if h.delete_if{|x,y|l.index x} # part 2
+    l=[]
+    break unless h.keys.any?
+    g=[h.keys.first]
+    } # end part 2
+    p l.size # part 1
+    p l.size,c # part 2
+    ```
+  :replies:
+  - :author: Grimnur87
+    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4r78n/
+    :body: Yes, I messed about with 10.times, 20.times etc myself until deciding that an until loop would be more foolproof.
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4uc90/
+      :body: What we need is a graph library like how python has networkx :)
+      :replies: []
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5frta/
+    :body: |-
+      Line 3: No need to split each line twice, just `scan` it for number-looking things:
+
+      ```ruby
+      a,*b = x.scan(/\d+/).map(&:to_i)
+      ```
+    :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4ojpx/
+  :body: |-
+    ruby, in some of the least idiomatic ruby possible!
+
+    ```ruby
+    require 'set'
+    input = File.read("input").chomp.lines
+    group_map = input.each_with_object({}) do |i,hsh|
+      key, *group = i.to_enum(:scan, /(\d+)/).map { Regexp.last_match[1] }
+      hsh[key] = group
+    end
+
+    def process_group first_member, map
+      group = Set.new [first_member]
+      to_process = map[first_member].clone
+
+      until to_process.empty? do
+        p = to_process.pop
+
+        p_links = map[p]
+        if p_links.any? {|pl| group.include? pl } and not group.include?(p)
+          group.add p
+          to_process.concat p_links
+        end
+      end
+      group
+    end
+
+    zero_group = process_group "0", group_map
+    puts zero_group.size
+
+    groups = group_map.keys.each_with_object([]) do |k,coll|
+      coll << process_group(k, group_map) unless coll.any? {|g| g.include?(k)}
+    end
+
+    puts groups.size
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5g0bl/
+  :body: |-
+    # Ruby
+
+    Clean and to the point, if I may say so myself:
+
+    ```ruby
+    require 'set'
+
+    input = File.readlines('../input12.txt').map { |line| line.scan(/\d+/).map(&:to_i) }
+    programs = Hash.new { |h,k| Set[k] }
+
+    input.each { |ids|
+      sets = programs.values_at(*ids)
+      cluster = sets.reduce(Set.new) { |super_set, set| super_set.merge set }
+
+      cluster.each { |id| programs[id] = cluster }
+    }
+
+    p programs[0].size # Part 1
+    p programs.values.uniq.size # Part 2
+    ```
+  :replies: []

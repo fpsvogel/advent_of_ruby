@@ -1,0 +1,333 @@
+---
+- :author: '0x0dea'
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq07ki/
+  :body: |-
+    Sorting the outputs by length and then lexicographically makes this dead-simple. First place on the leaderboard could've gone to the first out-of-the-box thinker by a wide margin. :\<
+
+    **Edit** to add my "solution" in Ruby:
+
+    ```ruby
+    trans = {
+      'AND' => '&',
+      'OR' => '|',
+      'NOT' => '~',
+      'LSHIFT' => '<<',
+      'RSHIFT' => '>>'
+    }
+
+    p eval ARGF.
+      read.
+      gsub(Regexp.union(trans.keys), trans).
+      gsub(/(.+?) -> (\w+)/) { "%2s = #$1" % $2 }.
+      upcase.
+      split("\n").
+      sort.
+      rotate.
+      join(?;)
+    ```
+  :replies:
+  - :author: _jonah
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq22qk/
+    :body: Very nice. Just learned a couple new tricks from this. Thanks.
+    :replies:
+    - :author: '0x0dea'
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq24wh/
+      :body: My pleasure. I count seven things that might be considered "tricks" by an intermediate Ruby programmer. For the sake of my curiosity, would you mind sharing?
+      :replies:
+      - :author: _jonah
+        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2bpe/
+        :body: |-
+          1. Using a hash as 2nd arg to gsub
+          2. Regexp.union method -- not really a trick but something I never think of
+          3. ?; for golfed single char string
+        :replies: []
+    - :author: 5ef23132-c4a0-49a0-8
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2lsw/
+      :body: |-
+        nice solution, I didn't event think about the replace/eval trick.
+
+        This solution doesn't work for all inputs right, wouldn't `c -> b` throw a `NameError`?
+      :replies: []
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxr1w6y/
+    :body: "[deleted]"
+    :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2b7s/
+  :body: |-
+    I'm quickly reaching the limits of my competence. If this is the initial downslope of the rollercoaster (to borrow topaz's analogy), I'm gonna get thrown off at the first curve...
+
+    ```ruby
+    #!/usr/bin/env ruby
+    #
+
+    require 'pp'
+
+    data = File.readlines("input.txt")
+    $machine = {}
+    $output = {}
+
+    data.each do |c|
+      x,y = c.chomp.split('->')
+      y = y.lstrip
+      $machine[y] = x.split
+    end
+
+    def foo(gate)
+      if gate.match(/^\d+$/)
+        return gate.to_i
+      end
+
+      if ! $output.has_key?(gate)
+        operate = $machine[gate]
+        if operate.length == 1
+          value = foo(operate[0])
+        else
+          z = operate[-2]
+          if z == 'RSHIFT'
+            value = foo(operate[0]) >> foo(operate[2])
+          elsif z == 'LSHIFT'
+            value = foo(operate[0]) << foo(operate[2])
+          elsif z == 'AND'
+            value = foo(operate[0]) & foo(operate[2])
+          elsif z == 'OR'
+            value = foo(operate[0]) | foo(operate[2])
+          elsif z == 'NOT'
+            value = ~foo(operate[1])
+          end
+        end
+        $output[gate] = value
+      end
+      return $output[gate]
+    end
+
+    p foo('a')
+    ```
+
+    For part 2 I cheated and modified my input.txt to set 'b' to the value I got for 'a'. _grin_
+  :replies:
+  - :author: metric152
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv2kz7/
+    :body: I kind of thought recursion would have made it much better<shakes head></shakes>
+    :replies:
+    - :author: gnuconsulting
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv3n1e/
+      :body: I guess it depends what you mean by 'better'. ¯\_(ツ)\_/¯
+      :replies:
+      - :author: metric152
+        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxwnu3w/
+        :body: Your solution is much shorter than mine because it uses recursion. I wish I would have done the same with mine. It's around 170 lines.
+        :replies: []
+- :author: fnoco_xandy
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0ec6/
+  :body: |-
+    ugly crystal/ruby solution. it remembers outputs by changing the circuit. that's why i create a second circuit to calculate b. without the changes calculating a takes too long(i initially thought i had a loop)
+
+    ```ruby
+    class Outp
+        property args
+        property op
+        def initialize(@args, @op)
+        end
+    end
+    $mi=0
+    class Diag
+        property cons
+        def initialize()
+            @cons = Hash(String, Outp).new()
+        end
+        def calc(name)
+            case name
+                when String
+                    return calcs(name)
+                when UInt16
+                    return name
+                else
+                    raise name
+            end
+        end
+        def calcs(name)
+            v = calcs2(name)
+            cons[name]=Outp.new([v], "IS")
+            mop = @cons[name]
+            return v
+        end
+        def calcs2(name)
+            mop = @cons[name]
+            case mop.op
+            when "IS"
+                return calc(mop.args[0])
+            when "OR"
+                return calc(mop.args[0])|calc(mop.args[1])
+            when "LSHIFT"
+                return calc(mop.args[0])<<calc(mop.args[1])
+            when "RSHIFT"
+                return calc(mop.args[0])>>calc(mop.args[1])
+            when "AND"
+                return calc(mop.args[0])&calc(mop.args[1])
+            when "NOT"
+                return ~calc(mop.args[0])
+            else
+                raise "#{mop.args.to_s} #{mop.op}"
+            end
+        end
+    end
+    def is_number?(str)
+      true if str.to_i rescue false
+    end
+    def s2v(s)
+        if is_number?(s)
+            return s.to_u16
+        else
+            return s
+        end
+    end
+    dia = Diag.new()
+    File.new("input_7").each_line.map { |line|
+        parts = line.strip.split(" ")
+        if parts[1] == "->"
+            dia.cons[parts[2]]=Outp.new([s2v(parts[0])], "IS")
+        elsif parts.size == 5
+            dia.cons[parts[4]]=Outp.new([s2v(parts[0]), s2v(parts[2])], parts[1])
+        elsif parts.size == 4
+            dia.cons[parts[3]]=Outp.new([s2v(parts[1])], parts[0])
+        else
+            raise parts.to_s
+        end
+    }.size
+    v1 = dia.calc("a")
+    p "part 1: #{v1}"
+    dia = Diag.new()
+    File.new("input_7").each_line.map { |line|
+        parts = line.strip.split(" ")
+        if parts[1] == "->"
+            dia.cons[parts[2]]=Outp.new([s2v(parts[0])], "IS")
+        elsif parts.size == 5
+            dia.cons[parts[4]]=Outp.new([s2v(parts[0]), s2v(parts[2])], parts[1])
+        elsif parts.size == 4
+            dia.cons[parts[3]]=Outp.new([s2v(parts[1])], parts[0])
+        else
+            raise parts.to_s
+        end
+    }.size
+    dia.cons["b"]=Outp.new([v1], "IS")
+    v2 = dia.calc("a")
+    p "part 2: #{v2}"
+    ```
+  :replies: []
+- :author: epitron
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0fjh/
+  :body: |-
+    Here's a nice short Ruby version that uses `instance_eval` to generate a method for each wire:
+
+    ```ruby
+    class Circuit
+      TRANSFORMS = {
+        "LSHIFT" => "<<",
+        "RSHIFT" => ">>",
+        "NOT" => "~",
+        "AND" => "&",
+        "OR" => "|",
+        /\b(if|do|in)\b/ => "\\1_",
+      }
+
+      def add(line)
+        TRANSFORMS.each do |from, to|
+          line.gsub!(from, to)
+        end
+
+        expr, name = line.strip.split(" -> ")
+
+        method = "def #{name}; @#{name} ||= #{expr}; end"
+
+        puts method
+        instance_eval method
+      end
+    end
+
+    circuit = Circuit.new
+    open("input.txt").each_line { |line| circuit.add(line) }
+    # circuit.add("46065 -> b")
+    p circuit.a
+    ```
+
+    (Why reimplement a crappy verison of `eval` when you can use the real thing? :)
+  :replies: []
+- :author: _jonah
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq1soj/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    input = DATA.read.chomp.split("\n")
+    substitutions = {'AND' => '&', 'OR' => '|', 'NOT' => '~',
+                     'RSHIFT' => '>>', 'LSHIFT' => '<<'}
+
+    equations = input.map do |line|
+      line.gsub!(/([a-z]+)/, "@\\1_")
+      rhs, lhs = line.match(/(.*) -> (.*)/).captures
+      substitutions.each {|k,v| rhs.sub!(k,v)}
+      "#{lhs} = #{rhs}"
+    end
+
+    go = true
+    while go do
+      go = false
+      equations.each { |code| eval code rescue go = true }
+    end
+
+    p @a_
+    ```
+  :replies: []
+- :author: dubokk15
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxskam0/
+  :body: |-
+    Ruby. [Github](https://github.com/klieth/day7)
+
+    I may have gone insanely overboard, but I built a full parser/tokenizer/AST and an emulator run it all.
+  :replies: []
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxuw4go/
+  :body: |-
+    Not that anyone will see this, but now that I'm getting back to things, might as well post it:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'pp'
+
+    class Wire
+        attr_accessor :input
+        def initialize(name); @name = name; @value = nil end
+        def to_i; @value.nil? ? @value = @input.to_i : @value end
+    end
+
+    class GATE; def initialize(*inputs); @inputs = inputs end
+    end
+
+    class AND < GATE; def to_i; @inputs[0].to_i & @inputs[1].to_i end end
+    class OR < GATE; def to_i; @inputs[0].to_i | @inputs[1].to_i end end
+    class LSHIFT < GATE; def to_i; @inputs[0].to_i << @inputs[1].to_i end end
+    class RSHIFT < GATE; def to_i; @inputs[0].to_i >> @inputs[1].to_i end end
+    class NOT < GATE; def to_i; 65535 ^ @inputs[0].to_i; end end
+
+    wires = Hash.new { |h,k| h[k] = Wire.new(k) }
+
+    ARGF.each do |line|
+
+        case line.chomp
+            when /(\w+) OR (\w+) -> (\w+)/; wires[$3].input = OR.new(wires[$1], wires[$2])
+            when /(\d+) AND (\w+) -> (\w+)/; wires[$3].input = AND.new($1, wires[$2])
+            when /(\w+) AND (\w+) -> (\w+)/; wires[$3].input = AND.new(wires[$1], wires[$2])
+            when /(\w+) LSHIFT (\d+) -> (\w+)/; wires[$3].input = LSHIFT.new(wires[$1], $2)
+            when /(\w+) RSHIFT (\d+) -> (\w+)/; wires[$3].input = RSHIFT.new(wires[$1], $2)
+            when /NOT (\w+) -> (\w+)/; wires[$2].input = NOT.new(wires[$1])
+            when /(\d+) -> (\w+)/; wires[$2].input = $1
+            when /(\w+) -> (\w+)/; wires[$2].input = wires[$1]
+        end
+
+    end
+
+    puts wires['a'].to_i
+    ```
+  :replies: []

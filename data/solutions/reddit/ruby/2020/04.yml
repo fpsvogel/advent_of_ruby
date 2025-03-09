@@ -1,0 +1,738 @@
+---
+- :author: nibbl
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gitttl7/
+  :body: |-
+    **Nim**
+
+    [NoPaste snippet](https://nopaste.ml/?l=ruby#XQAAAQCZBAAAAAAAAAAzHIoib6qv/FV7Zr1CCFnA3F5kN8XW/PRzW/6iKAB8+gNtESkcKVq4oT5mMXxrSfKJM0h0k1A0K+ECNtDvbjlukQf/qavQNcFATWDPr0+o1Y93GSZEQ4GeFUj8M6cFu9d5YGrmWFF5gcfNOLlFudy5LeBSq51BeMvh0vpqlvB3Q9bo/aTttYwfkc13+d5ihFVf6lby7UErc0whv0ipqEovXg5KeA28ytLkdVIaMTqSXHP6FXLr3kcHFuLo/U6INO6JVbC+P5T5i/4ZHeWj/AqwQYNS4d6hGojGhFPnQcEAhWg9vbhEb7ZPHHPucUHKqyZykjr3FuCvTjRKQq/GBX0VXId9aPj8z8xz+DrVh8Op7HDgeF2/CDL/d1udbJgllaZ3HQin0ODEohWKWLEFCO2cjP6n1cE020ToYluUt1lq9CdR08KULkXIPFPC7NsH0GcB1r8gUdjYrtie5yiQjJh8PTYOQG7eUSdRYy38jCcPZhFB569TdKiTwNc6IliP6NoFr6H17rGib04ieQCpV6/HDA0QkLBCinchJfPi24Gp85tN5UaAG7q57TCrhjXqPSEnOu729XWZE8coAXSA7fHK1j3SspSoL7yVG1eMtp0DFCdawrdQ0fukuTi45GsMXHrJGABCWeQAwNahtV6ziivUZko1Uq5mgfZroq+m8B9ysgw2EudLxP4l10e75DENO8Kh12xJAf57+xeiSg==)
+  :replies: []
+- :author: Wattswing
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/ghlql73/
+  :body: |-
+    Ruby [code](https://topaz.github.io/paste/#XQAAAQBhBgAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwl8V/4u3Ir2Ib+in6tp5plipJucjjc1Wk5RAef+7DejTvUFMX3TaZWt8JygEErYcm1k6rFOFsu7jrj56CTbPhzVdY1zUx6dpoV1ha2YERKvcalPzM0/PFw1+2isxhgG8dcxCJVKSmWI2tVNrgERts+sUnaZTM1lWfpE7H7BN/Dl3QVMWrW0PkQyMonuEgjZhqm5i82usQ7afH8QBWF3OMi1DGKl3ke/R4ENZFyhONaHPbK2ck0lX+6ST8uc40BbSV5sjFs3COZaZ9vjncma1fZ68AM8HSfjrJMy3ZGWNgHrpCSSmX5U61MoNJTKK2zecn2odk+vXw7HNVXkfyUdE2I9emWnHgXvgV2dwLvrSMMyiXvUAIgRoVVM/MQIBb5hMILV43IOKGVgsQeRM1ESP7USQ6o+afO52g8Ly524riw7lXRgKc8et4WfR4J/rjI2IT9CMzLyZ30GM23JlL0abEyzWgnx09Bc8C5pt1H5p+IMWE42e5SFcy+opi+I8ScYqAgP0yKEfdefl95Oq8qMuvc4UfB/V7F0hAjyO4axFZkMU1Q0aThVB85ADx4VKFCKC7FvdjMJB6uwo8q/J6d3UHWkZFSEu9wIiSPDzU8yaPx0uXolzJ2gVu/wQSeG209gy7tg2HF9jijqu2sSjh7KXaOYQ+3tBId6GLgIMpwJSuLUQdw6ZgP6r0Nmvvq5KTjHuWW44A2suZDTt1kGCtMPlh5CqhPfpWej7BulRxIUuLYfAv/T2plv8rpAuPQqvTKnN5m4N1csWq4oVGfcv62bhUOf/9ogGow==)
+
+    I love hashes with lambdas as values, yep ! :)
+
+    ```ruby
+    input = File.read('./2020_day_4.input.txt')
+
+    # 'cid' field is not required !
+    required_validation = {
+      'byr' => -> (year){ (1920..2002).include?(year.to_i) },
+      'iyr' => -> (year){ (2010..2020).include?(year.to_i) },
+      'eyr' => -> (year){ (2020..2030).include?(year.to_i) },
+      'hgt' => -> (height) {
+        case height
+        when /cm/
+          height_number = height.gsub('cm', '').to_i
+          (150..193).include?(height_number)
+        when /in/
+          height_number = height.gsub('in', '').to_i
+          (59..76).include?(height_number)
+        end
+      },
+      'hcl' => ->(hair_color){ hair_color.match?(/#([0-9a-f]){6}$/) },
+      'ecl' => ->(eye_color){ %w(amb blu brn gry grn hzl oth).include?(eye_color) },
+      'pid' => ->(pid){ pid.match?(/^[0-9]{9}$/) }
+    }
+    required_fields = required_validation.keys
+    arr_input = input.split("\n\n")
+
+    # Part 1
+    valid_passports_count = arr_input.count do |entry|
+      fields = entry.gsub(/\n/, ' ').split
+      hashed = Hash[fields.map { |field| field.split(':') }]
+
+      required_fields.all?{ |required_field| hashed.keys.include?(required_field) }
+    end
+
+    puts "Part 1: there is #{valid_passports_count} valid passports"
+
+    # Part 2
+    p2_valid_passports_count = arr_input.count do |entry|
+      fields = entry.gsub(/\n/, ' ').split
+      hashed = Hash[fields.map { |field| field.split(':') }]
+
+      all_required_fields_present = required_fields.all?{ |required_field| hashed.keys.include?(required_field) }
+
+      all_validations_pass = required_validation.all? do |key, validation|
+        validation.call(hashed[key]) if hashed[key]
+      end
+
+      all_required_fields_present && all_validations_pass
+    end
+
+    puts "Part 2: there is #{p2_valid_passports_count} valid passports"
+    ```
+
+    I might be wrong (answer me if I am !), but the `pid` rule says:
+
+    > `pid` (Passport ID) - a nine-digit number, including leading zeroes. I understood it as "there MUST be some leading zeroes".
+
+    As I struggled with this, valid passports yielded 22 results, but it wasn't correct. By skipping leading zeroes check, I finally got the right answer.
+  :replies: []
+- :author: nrith
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gg06u7u/
+  :body: |-
+    Ruby, part 1:
+
+    (Assume that the input file is in `4.input`)
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    valid_passport_count = 0
+
+    IO.read("4.input").split("\n\n").each { | line |
+        colon_count = line.count(':')
+
+        if colon_count == 8 || (colon_count == 7 && !line.include?("cid:"))
+            valid_passport_count += 1
+        end
+    }
+
+    p "Valid passport count: " + valid_passport_count.to_s
+    ```
+  :replies: []
+- :author: blafunke
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geprjcb/
+  :body: |-
+    Everything looks like yaml to me.
+
+    ```ruby
+    #!/usr/bin/ruby
+
+    require 'yaml'
+
+    def munge_to_yaml(passport_mess)
+      passport_mess.gsub(' ',"\n").gsub(':',": ").gsub('#','\#')
+    end
+
+    def process(passport_str)
+      passport_yaml = munge_to_yaml(passport_str)
+      YAML.load(passport_yaml)
+    end
+
+    def valid(passport)
+      missing_field = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"].select do |key|
+        ! passport.has_key?(key)
+      end
+      return false if missing_field.length != 0
+
+      return false if passport["byr"] < 1920 || passport["byr"] > 2002
+      return false if passport["iyr"] < 2010 || passport["iyr"] > 2020
+      return false if passport["eyr"] < 2020 || passport["eyr"] > 2030
+
+      if /cm$/.match(passport["hgt"].to_s) then
+        cms = passport["hgt"].sub('cm','').to_i
+        return false if cms < 150 || cms > 193
+      end
+
+      if /in$/.match(passport["hgt"].to_s) then
+        ins = passport["hgt"].sub('cm','').to_i
+        return false if ins < 59 || ins > 76
+      end
+
+      return false unless /#[0-9a-f]{6}/.match(passport["hcl"].to_s)
+
+      return false unless %w(amb blu brn gry grn hzl oth).include?(passport['ecl'].to_s)
+
+      return false unless /[0-9]{9}/.match(passport["pid"].to_s)
+
+      true
+    end
+
+    passports = []
+    passport = ""
+    $stdin.each do |line|
+      if line == "\n" then
+        passports << process(passport)
+        passport = ""
+      else
+        passport = passport + line
+      end
+    end
+
+    puts passports.select {|p| valid(p)}.length
+    ```
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geok056/
+  :body: |-
+    **Ruby**
+
+    Part 2 felt more like something I'd do at my job with input validation and all that, but oh well, using fun stuff with Ruby hashes mapping to lambdas!
+
+    ```ruby
+    passports = File.read("day4input.txt").split("\n\n").map{|p| p.gsub("\n", " ")}
+    required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+
+    # Part 1
+    valid_passports1 = passports.select do |p|
+        p.split(" ").select do |field|
+            required_fields.include?(field.split(":").first)
+        end.length == required_fields.length
+    end
+    puts "#{valid_passports1.length}"
+
+    # Part 2
+    field_validator = {
+        "byr" => -> (y) {y.match?(/^\d{4}$/) && y.to_i.between?(1920, 2002)},
+        "iyr" => -> (y) {y.match?(/^\d{4}$/) && y.to_i.between?(2010, 2020)},
+        "eyr" => -> (y) {y.match?(/^\d{4}$/) && y.to_i.between?(2020, 2030)},
+        "hgt" => -> (h) do
+            m = h.match(/^(\d+)(cm|in)$/)
+            return false if m.nil?
+            return m[1].to_i.between?(150, 193) if m[2] == "cm"
+            return m[1].to_i.between?(59, 76) if m[2] == "in"
+            false
+        end,
+        "hcl" => -> (h) {h.match?(/^#[0-9a-f]{6}$/)},
+        "ecl" => -> (e) {["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].include?(e)},
+        "pid" => -> (p) {p.match?(/^\d{9}$/)}
+    }
+    valid_passports2 = passports.select do |p|
+        p.split(" ").select do |field|
+            kv = field.split(":")
+            id = kv[0]
+            val = kv[1]
+
+            required_fields.include?(id) && field_validator[id][val]
+        end.length == required_fields.length
+    end
+    puts "#{valid_passports2.length}"
+    ```
+  :replies: []
+- :author: ndnenkov
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekxq2j/
+  :body: |-
+    > **Regex** is like violence - if it doesn't solve your problems you aren't using enough of it.
+
+    [https://gist.github.com/ndnenkov/411d18ef8a76726ababab5aac3cb84ee#file-aoc\_2020\_4b-rb-L57-L60](https://gist.github.com/ndnenkov/411d18ef8a76726ababab5aac3cb84ee#file-aoc_2020_4b-rb-L57-L60)
+
+    (Ruby regex one-liner)
+  :replies: []
+- :author: zB0hs
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gempzqj/
+  :body: |-
+    Here's a pointless one-liner in Ruby for Part 2 that relies on a single regex to validate a passport:
+
+    ```ruby
+    puts File.read("../list.txt").split("\n\n").map { |passport| passport.scan(/(byr:(?:19[2-9][0-9]|200[0-2]))|(iyr:(?:201[0-9]|2020))|(eyr:(?:202[0-9]|2030))|(hgt:(?:(?:(?:59|6[0-9]|7[0-6])in)|(?:(?:1[5-8][0-9]|19[0-4])cm)))|(hcl:#(?:[0-9]|[a-f]){6})|(ecl:(?:amb|blu|brn|gry|grn|hzl|oth))|(pid:\d{9}(?:$| ))/).map(&:compact).flatten.length == 7 }.count(true)
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel4pb2/
+  :body: |-
+    **Ruby** This is the first day I would have been on the leaderboard if I actually did challenges when they launch :-) Ruby made light work of part 2 of this challenge, so my stopwatch showed 9m28s!
+
+    ```ruby
+    passports = File.read("4.txt").split("\n\n")
+
+    passports.map! do |passport|
+      passport.scan(/(\w+{3})\:(\S+)/).to_h
+    end
+
+    puts passports.select { |passport|
+      (passport.keys & %w{byr iyr eyr hgt hcl ecl pid}).length == 7 &&
+      passport['byr'].to_i.between?(1920, 2002) &&
+      passport['iyr'].to_i.between?(2010, 2020) &&
+      passport['eyr'].to_i.between?(2020, 2030) &&
+      passport['hcl'] =~ /^\#[0-9a-f]{6}$/ &&
+      %w{amb blu brn gry grn hzl oth}.include?(passport['ecl']) &&
+      passport['pid'] =~ /^\d{9}$/ &&
+      (
+        (passport['hgt'].end_with?('cm') && passport['hgt'].to_i.between?(150, 193)) || (passport['hgt'].end_with?('in') && passport['hgt'].to_i.between?(59, 76))
+      )
+    }.size
+    ```
+  :replies:
+  - :author: odlp
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelkuzo/
+    :body: The `scan` + `to_h` combo is great. I have shamelessly ~~borrowed~~ stolen this and updated my solution.
+    :replies:
+    - :author: petercooper
+      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelpshe/
+      :body: Fill your boots, as we say here! :) I have learnt so much from reading other people's code as well.
+      :replies: []
+  - :author: jeffers0n
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelo8q8/
+    :body: Thanks for posting this. I've been doing mine in Ruby to learn it better and reading your solution makes me realize I need to learn Ruby's built in functions more.
+    :replies: []
+- :author: zxywx
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem4wnm/
+  :body: |-
+    # Single Regex Solutions
+
+    Solutions in Ruby to both parts, using a single regex each
+
+    Part 1
+
+    ```ruby
+    def single_regex_part_1(input)
+      input.scan(/((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109|\120|\123|\126|\129|\132|\135|\138))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109|\120|\123|\126|\129|\132|\135|\138|\149|\152|\155|\158|\161|\164|\167))((((byr):([^ \n]*))|((iyr):([^ \n]*))|((eyr):([^ \n]*))|((hgt):([^ \n]*))|((hcl):([^ \n]*))|((ecl):([^ \n]*))|((pid):([^ \n]*))))/).count
+    end
+    ```
+
+    Part 2
+
+    ```ruby
+    def single_regex_part_2(input)
+      input.scan(/((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109|\120|\123|\126|\129|\132|\135|\138))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))( |\n)((cid):([^ \n]*)( |\n)){0,1}(?!(\4|\7|\10|\13|\16|\19|\22|\33|\36|\39|\42|\45|\48|\51|\62|\65|\68|\71|\74|\77|\80|\91|\94|\97|\100|\103|\106|\109|\120|\123|\126|\129|\132|\135|\138|\149|\152|\155|\158|\161|\164|\167))((((byr):(19[2-9]\d|200[0-2]))|((iyr):(201\d|2020))|((eyr):(202\d|2030))|((hgt):(1[5-8]\dcm|19[0-3]cm|59in|6\din|7[0-6]in))|((hcl):(#[0-9a-f]{6}))|((ecl):(amb|blu|brn|gry|grn|hzl|oth))|((pid):([\d]{9}))))/).count
+    end
+    ```
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genfsgu/
+  :body: |-
+    Ruby, part 2
+
+    ```ruby
+    def between?(a, b)
+      -> s { n = s[/^\d+$/] and n.to_i.between?(a, b) }
+    end
+
+    FIELDS = {
+      byr: between?(1920, 2002),
+      iyr: between?(2010, 2020),
+      eyr: between?(2020, 2030),
+      hgt: -> s {
+        /^(?<v>\d+)cm$/ =~ s && v.to_i.between?(150, 193) or
+        /^(?<v>\d+)in$/ =~ s && v.to_i.between?(59, 76)
+      },
+      hcl: /^#\h{6}$/,
+      ecl: /^(amb|blu|brn|gry|grn|hzl|oth)$/,
+      pid: /^\d{9}$/,
+    }
+
+    p File.read('4.txt').split(/\n{2,}/).map { |lines|
+      lines.split.to_h { |kv| kv.split(':', 2) }
+    }.count { |data|
+      FIELDS.each_pair.all? { |name, predicate|
+        value = data[name.to_s] and predicate === value
+      }
+    }
+    ```
+  :replies:
+  - :author: sorghum
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genhhy1/
+    :body: |-
+      Cool, I ended up with almost the same thing after refactoring:
+
+      ```ruby
+      rules = {
+        "byr" => -> (value) { value.to_i.between?(1920, 2002) },
+        "iyr" => -> (value) { value.to_i.between?(2010, 2020) },
+        "eyr" => -> (value) { value.to_i.between?(2020, 2030) },
+        "hgt" => -> (value) { (value =~ /cm$/ && value.to_i.between?(150, 193)) || (value =~ /in$/ && value.to_i.between?(59, 76)) },
+        "hcl" => /^\#[0-9a-f]{6}$/,
+        "ecl" => /^(amb|blu|brn|gry|grn|hzl|oth)$/,
+        "pid" => /^\d{9}$/,
+      }
+
+      passports = File.read("input.txt").split("\n\n").map do |passport|
+        passport.scan(/(\w+)\:(\S+)/).to_h
+      end
+
+      valid_passports = passports.filter do |passport|
+        rules.all? { |key, rule| rule === passport[key] }
+      end
+
+      puts valid_passports.size
+      ```
+    :replies: []
+  - :author: Karl_Marxxx
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genjztv/
+    :body: |-
+      > value = data[name.to\_s] and predicate === value
+
+      What's going on in this line? How are the actual functions/regexes in FIELDS being applied here?
+
+      Edit: I get that some strings can be compared ('===') to the bare regexes, but how does that work for the other stuff that appears to be returning a boolean?
+    :replies:
+    - :author: sorghum
+      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genmy3k/
+      :body: 'The triple equals is known as the case equality operator. Here the === method is being called on the regex/proc. The === method is also called whenever an object is used in a case/when statement. Good intro here: https://blog.arkency.com/the-equals-equals-equals-case-equality-operator-in-ruby/'
+      :replies:
+      - :author: Karl_Marxxx
+        :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genrlrz/
+        :body: Ah cool thank you!
+        :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genia6n/
+  :body: |-
+    Ruby
+
+    ```ruby
+    valid = 0
+    passports = ARGF.read().split(/\n\n/).map{|p| p.tr("\n", " ")}
+
+    # part 1
+    passports.each do |p|
+        p = p.split.to_h {|entry| entry.split(":")} # convert each entry to a hash map
+        valid += 1 if p.length == 8 or (p.length == 7 and !p.has_key? "cid")
+    end
+    puts valid
+
+    # part 2
+    valid = 0
+    validation_fns = {}
+    validation_fns["byr"] = -> (byr) { (1920..2002).cover? byr.to_i }
+    validation_fns["iyr"] = -> (iyr) { (2010..2020).cover? iyr.to_i }
+    validation_fns["eyr"] = -> (eyr) { (2020..2030).cover? eyr.to_i }
+    validation_fns["hgt"] = -> (hgt) { (hgt.end_with? "cm" and (150..193).cover? hgt.to_i) or
+                                       (hgt.end_with? "in" and (59..76).cover? hgt.to_i) }
+    validation_fns["hcl"] = -> (hcl) { hcl =~ /^#[0-9a-f]{6}$/ }
+    validation_fns["ecl"] = -> (ecl) { %w[amb blu brn gry grn hzl oth].include? ecl }
+    validation_fns["pid"] = -> (pid) { pid =~ /^[0-9]{9}$/ }
+    validation_fns["cid"] = -> (cid) { true }
+    passports.each do |p|
+        p = p.split.to_h {|entry| entry.split(":")} # convert each entry to a hash map
+        valid += 1 if (p.length == 8 or (p.length == 7 and !p.has_key? "cid")) \
+            and p.map.all? { |k,v| validation_fns[k].(v) }
+    end
+    puts valid
+    ```
+  :replies: []
+- :author: odlp
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel9vm3/
+  :body: |-
+    My [Ruby solution](https://github.com/odlp/advent-of-code-2020/blob/main/day-4/passports.rb):
+
+    ```ruby
+    REQUIRED_FIELDS = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+    VALID_EYE_COLORS = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+
+    def valid_field?(field, value)
+      case field
+      when "byr" then value.to_i.between?(1920, 2002)
+      when "iyr" then value.to_i.between?(2010, 2020)
+      when "eyr" then value.to_i.between?(2020, 2030)
+      when "hcl" then value.match?(/\A#[0-9a-f]{6}\z/)
+      when "ecl" then VALID_EYE_COLORS.include?(value)
+      when "pid" then value.match?(/\A\d{9}\z/)
+      when "cid" then true
+      when "hgt"
+        if value.include?("cm")
+          value.to_i.between?(150, 193)
+        elsif value.include?("in")
+          value.to_i.between?(59, 76)
+        end
+      end
+    end
+
+    passports = ARGF.read.split("\n\n").map do |raw_passport|
+      raw_passport.scan(/(\w+{3})\:(\S+)/).to_h
+    end
+
+    passports_with_required_fields = passports.select do |passport|
+      REQUIRED_FIELDS.all? { |field| passport.key?(field) }
+    end
+
+    required_and_valid_count = passports_with_required_fields.count do |passport|
+      passport.all? { |field, value| valid_field?(field, value) }
+    end
+
+    puts "Part 1:", passports_with_required_fields.count
+    puts "Part 2:", required_and_valid_count
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem3ljg/
+  :body: |-
+    This was a good use case for Ruby's ActiveModel
+
+    ```ruby
+    require 'active_model'
+
+    class Passport
+      include ActiveModel::Model
+
+      attr_accessor :byr, :iyr, :eyr, :hgt, :hcl, :ecl, :pid, :cid
+      validates_presence_of :byr, :iyr, :eyr, :hgt, :hcl, :ecl, :pid
+    end
+
+    class StrictPassport < Passport
+      validates_each :byr, :iyr, :eyr do |record, attr, value|
+        record.errors.add(attr) if value !~ /\A\d{4}\z/
+      end
+      validate :valid_byr, :valid_iyr, :valid_eyr, :valid_hgt
+      validates :hcl, format: { with: /\A#[0-9a-f]{6}\z/ }
+      validates :ecl, inclusion: { in: %w(amb blu brn gry grn hzl oth) }
+      validates :pid, format: { with: /\A\d{9}\z/ }
+
+      def valid_byr
+        errors.add(:byr) unless byr.to_i.between?(1920, 2002)
+      end
+
+      def valid_iyr
+        errors.add(:iyr) unless iyr.to_i.between?(2010, 2020)
+      end
+
+      def valid_eyr
+        errors.add(:eyr) unless eyr.to_i.between?(2020, 2030)
+      end
+
+      def valid_hgt
+        if hgt =~ /\A\d+cm\z/
+          errors.add(:hgt, 'out of range') unless hgt.to_i.between?(150, 193)
+        elsif hgt =~ /\A\d+in\z/
+          errors.add(:hgt, 'out of range') unless hgt.to_i.between?(59, 76)
+        else
+          errors.add(:hgt, 'wrong format')
+        end
+      end
+    end
+
+    def fields record
+      Hash[record.scan(/(\w+):(\S+)/)]
+    end
+
+    # $records = DATA.read.split("\n\n").map { |r| fields r }
+    $records = open('inputs/04.txt').read.split("\n\n").map { |r| fields r }
+
+    def part1
+      $records.map { |r| Passport.new(r) }.count(&:valid?)
+    end
+
+    def part2
+      $records.map { |r| StrictPassport.new(r) }.count(&:valid?)
+    end
+
+    puts part1
+    puts part2
+
+    __END__
+    ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+    byr:1937 iyr:2017 cid:147 hgt:183cm
+
+    iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+    hcl:#cfa07d byr:1929
+
+    hcl:#ae17e1 iyr:2013
+    eyr:2024
+    ecl:brn pid:760753108 byr:1931
+    hgt:179cm
+
+    hcl:#cfa07d eyr:2025 pid:166559648
+    iyr:2011 ecl:brn hgt:59in
+    ```
+  :replies: []
+- :author: ttapu
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gen4bgb/
+  :body: |-
+    my ruby solution, but i still hate regex...
+
+    ```ruby
+    base_name = File.basename( __FILE__ )[0..-4]
+
+    present = 0
+    valid = 0
+    present_keys = %w[byr iyr eyr hgt hcl ecl pid]
+
+    # for part2
+    def validate(passport)
+      return false unless passport['byr'].to_i.between?(1920, 2002)
+      return false unless passport['iyr'].to_i.between?(2010, 2020)
+      return false unless passport['eyr'].to_i.between?(2020, 2030)
+
+      hgt = passport['hgt']
+      return false unless /\A\d{2,3}(in|cm)\z/.match?(hgt)
+
+      if hgt[-2..-1] == 'cm'
+        return false unless hgt.to_i.between?(150, 193)
+      else
+        return false unless hgt.to_i.between?(59, 76)
+      end
+      return false unless /\A#[0-9a-f]{6}\z/.match?(passport['hcl'])
+
+      return false unless %w[amb blu brn gry grn hzl oth].include?(passport['ecl'])
+      return false unless /\A[0-9]{9}\z/.match?(passport['pid'])
+
+      true
+    end
+
+    File.read("./#{base_name}.input").split(/\n{2,}/).map do |pp|
+      passport = pp.split(/\n|\s/).map { |data| data.split(':') }.each_with_object({}) do |el, res|
+        res[el[0]] = el[1]
+      end
+      # p passport
+      mod = passport.keys - ['cid']
+      if mod.sort == present_keys.sort
+        present += 1
+        valid += 1 if validate(passport)
+      end
+    end
+
+    p present
+    p valid
+    ```
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekf68w/
+  :body: |-
+    47/34. This one was made for Ruby. Some slight cleanup here. Main bug I encountered was foolishly leaving the # off the front of one regex.
+
+    ```ruby
+    # part1
+
+    KEYS = %w[byr iyr eyr hgt hcl ecl pid cid]
+
+    data = IO.read('inputs/4.txt')
+    count = data.split("\n\n").count do |pp|
+      pp = pp.split.map { |s| s.split(':') }.sort.to_h
+      (KEYS - pp.keys).empty? || (KEYS - pp.keys) == %w[cid]
+    end
+    p count
+
+    # part2
+
+    count = data.split("\n\n").count do |pp|
+      pp = pp.split.map { |s| s.split(':') }.sort.to_h
+
+      next if !(1920..2002).cover?(pp['byr'].to_i)
+      next if !(2010..2020).cover?(pp['iyr'].to_i)
+      next if !(2020..2030).cover?(pp['eyr'].to_i)
+
+      m = (pp['hgt'] || '').match(/^(\d+)(cm|in)$/)
+      next if !m
+
+      d, u = $1.to_i, $2
+      case u
+      when 'cm' then next if !(150..193).cover?(d)
+      when 'in' then next if !(59..76).cover?(d)
+      end
+
+      next if pp['hcl'] !~ /^#[0-9a-f]{6}$/
+      next if pp['ecl'] !~ /^(amb|blu|brn|gry|grn|hzl|oth)$/
+      next if pp['pid'] !~ /^\d{9}$/
+
+      true
+    end
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekfhq8/
+  :body: |-
+    Ruby - 169/133
+
+    ```ruby
+    require 'set'
+    expected = Set.new(%w(byr iyr eyr hgt hcl ecl pid))
+    puts File.read('04.txt').split("\n\n").select { |passport|
+      expected <= Set.new(passport.split("\n").join(' ').split(' ').map { |val| val.split(':').first })
+    }.size
+    ```
+
+    Part two:
+
+    ```ruby
+    require 'set'
+    expected = Set.new(%w(byr iyr eyr hgt hcl ecl pid))
+    puts File.read('04.txt').split("\n\n").select { |passport|
+      vals = Hash[passport.split("\n").join(' ').split(' ').map { |val| val.split(':') }]
+      expected <= Set.new(vals.keys) &&
+        (1920..2002).include?(vals['byr'].to_i) &&
+        (2010..2020).include?(vals['iyr'].to_i) &&
+        (2020..2030).include?(vals['eyr'].to_i) &&
+        ({ 'cm' => (150..193), 'in' => (59..76) }[vals['hgt'][-2..-1]] || (2..1)).include?(vals['hgt'].to_i) &&
+        (/^#[0-9a-f]{6}$/ =~ vals['hcl']) != nil &&
+        ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].include?(vals['ecl']) &&
+        (/^[0-9]{9}$/ =~ vals['pid']) != nil
+    }.size
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekm3hn/
+  :body: |-
+    # Ruby
+
+    mid-500s
+
+    (cleaned up and faster)
+
+    ```ruby
+    require 'ostruct'
+
+    DATA.read.split("\n\n").map do |line|
+      OpenStruct.new(Hash[line.split(' ').map { _1.split(':') }]).then do |h|
+        [
+          (h.each_pair.map(&:first) - [:cid]).length == 7,
+          (
+           h.byr.to_i.between?(1920, 2002) &&
+           h.iyr.to_i.between?(2010, 2020) &&
+           h.eyr.to_i.between?(2020, 2030) &&
+           /^#[\da-f]{6}$/ =~ h.hcl &&
+           /^\d{9}$/ =~ h.pid &&
+           %w[amb blu brn gry grn brn hzl oth].include?(h.ecl) &&
+           h.hgt&.match(/^(\d*)(\D{2})$/)&.captures&.instance_eval do
+             if include? 'in'
+               first.to_i.between?(50, 76)
+             elsif include? 'cm'
+               first.to_i.between?(150, 193)
+             end
+           end
+         )
+        ]
+      end
+    end.transpose.map { puts _1.count(true) }
+    ```
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geksy9s/
+  :body: |-
+    Solution in Ruby. Part a is clean enough, but part 2 became quite ugly.
+
+    ```ruby
+    input = File.read('./input.txt')
+    REQUIRED_KEYWORDS = %w[byr iyr eyr hgt hcl ecl pid].freeze
+
+    def contains_required_fields?(passport)
+      REQUIRED_KEYWORDS.all? { |key| passport.include?(key) }
+    end
+
+    # Part a
+    passports = input.split("\n\n")
+    valid_passports = passports.filter { |passport| contains_required_fields?(passport) }
+    puts "Solution for day 4 part a: #{valid_passports.count}"
+
+    # Part b
+    RULES = {
+      'byr' => ->(val) { val.to_i.then { |num| num.between?(1920, 2020) } },
+      'iyr' => ->(val) { val.to_i.then { |num| num.between?(2010, 2020) } },
+      'eyr' => ->(val) { val.to_i.then { |num| num.between?(2020, 2030) } },
+      'hgt' => lambda do |val|
+        _, height, unit = val.partition(/\d*/)
+        case unit
+        when 'cm' then height.to_i.between?(150, 193)
+        when 'in' then height.to_i.between?(59, 76)
+        else false
+        end
+      end,
+      'hcl' => ->(val) { val.match(/^#[a-f|0-9]{6}$/) },
+      'ecl' => ->(val) { %w[amb blu brn gry grn hzl oth].any? { |str| str.eql?(val) } },
+      'pid' => ->(val) { val.match(/^\d{9}$/) },
+      'cid' => ->(_val) { true }
+    }.freeze
+
+    passports = input.split("\n\n")
+    valid_passports = passports.filter { |passport| contains_required_fields?(passport) }
+    valid_passports.keep_if do |passport|
+      parts = passport.gsub(/\s+/m, ' ').strip.split.map { |str| str.split(':') }.to_h
+      parts.all? { |key, value| RULES.fetch(key).call(value) }
+    end
+
+    puts "Solution for day 4 part b: #{valid_passports.count}"
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gektlnt/
+  :body: |-
+    **Ruby:** (4:23/16:48, 170/244)
+
+    Had to look up Regex syntax for Part 2, and, despite Eric's encouragement, couldn't break top 100 for the leaderboard.
+
+    Here's a [recording](https://youtu.be/Sje1vZXqe1s) of me solving it. I walk through the code (available [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/master/2020/dec04.rb)) at the end.
+
+    I'm streaming myself solving the problems everyday right when they come out on [Twitch](https://twitch.tv/codeistheend).
+  :replies: []

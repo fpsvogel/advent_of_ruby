@@ -1,0 +1,689 @@
+---
+- :author: Wattswing
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ggzhsf4/
+  :body: |-
+    My solution in Ruby
+
+    ```ruby
+    input = File.read('./2020_day_2.input.txt').split("\n")
+
+    # Part 1: "1-13 r: gqdrspndrpsrjfjx"
+    # Means password must contain 1 to 13 'r' occurrences
+    def is_valid_rule?(rule, password)
+      occurences, char = rule.split("\s")
+      min, max = occurences.split('-').map(&:to_i)
+
+      return (min..max).include?(password.count(char))
+    end
+
+    valid_password_count = input.count do |line|
+      rule, password = line.split(': ')
+
+      is_valid_rule?(rule, password)
+    end
+
+    puts "Part 1: Input has #{valid_password_count} valid passwords"
+
+    # Part 2: "1-13 r: gqdrspndrpsrjfjx"
+    # Means position 1(0) (X)OR 13(12) must contain a 'r'
+    def is_valid_rule_part_2?(rule, password)
+      occurences, char = rule.split("\s")
+      a, b = occurences.split('-').map(&:to_i)
+
+      # -1 because 'first char' is 0 in Ruby
+      return (password[a - 1] == char) ^ (password[b - 1] == char)
+    end
+
+    valid_password_count = input.count do |line|
+      rule, password = line.split(': ')
+
+      is_valid_rule_part_2?(rule, password)
+    end
+
+    puts "Part 2: Input has #{valid_password_count} valid passwords"
+    ```
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geojqux/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    pw_db_lines = File.readlines("day2input.txt").map{|s| s.chomp.gsub(/[-]/, " ").gsub(/[:]/, '')}
+
+    # Part 1
+    valid_pws_rule1 = -> (line) do
+        entries = line.split(" ")
+        min = entries[0].to_i
+        max = entries[1].to_i
+        char = entries[2]
+        number_chars = entries[3].split('').select{|c| c == char}.length
+
+        number_chars.between?(min, max)
+    end
+    puts "#{pw_db_lines.select(&valid_pws_rule1).length}"
+
+    # Part 2
+    valid_pws_rule2 = -> (line) do
+        entries = line.split(" ")
+        idx1 = entries[0].to_i - 1
+        idx2 = entries[1].to_i - 1
+        char = entries[2]
+        pw_chars = entries[3].split('')
+
+        (pw_chars[idx1] == char) ^ (pw_chars[idx2] == char)
+    end
+    puts "#{pw_db_lines.select(&valid_pws_rule2).length}"
+    ```
+  :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecg3rg/
+  :body: |-
+    Solution in Ruby. Tried to edit it to work with old reddit code blocks, not sure if successfully so...
+
+    ```ruby
+    input = File.readlines('./input.txt')
+
+    def parse(attempt)
+      range, char, password = attempt.delete(':').split(' ')
+      low, high = range.split('-').map(&:to_i)
+      [low, high, char, password]
+    end
+
+    valid_passwords = input.count do |attempt|
+      low, high, char, password = parse(attempt)
+      (low..high).cover?(password.count(char))
+    end
+
+    puts "Solution for day 2 part a: #{valid_passwords}"
+
+    valid_passwords = input.count do |attempt|
+      a, b, char, password = parse(attempt)
+      (password[a - 1] == char) ^ (password[b - 1] == char)
+    end
+
+    puts "Solution for day 2 part b: #{valid_passwords}"
+    ```
+  :replies: []
+- :author: infov0re
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecuxoa/
+  :body: |-
+    **Ruby** : an anti-golf solution for part 2. (Part 1 is highly similar, with minor differences to the `valid?` method. (I'll take readability over line count). I chose not to use regex because, frankly, then I have two problems (and the line syntax is not complex enough to demand it IMO).
+
+    ```ruby
+    class LineParser
+      attr_accessor :string
+
+      def initialize(string)
+        @string = string
+      end
+
+      def valid?
+        [character_at_first_index, character_at_second_index].select { |c|
+          c == required_character
+        }.length == 1
+      end
+
+      private
+
+      def chunks
+        string.split(" ")
+      end
+
+      def password
+        chunks.last
+      end
+
+      def indices
+        chunks.first.split("-").map(&:to_i)
+      end
+
+      def character_at_first_index
+        password[indices.first - 1]
+      end
+
+      def character_at_second_index
+        password[indices.last - 1]
+      end
+
+      def required_character
+        chunks[1][0]
+      end
+    end
+
+    raw_lines = File.readlines(ARGV[0])
+
+    puts raw_lines.count { |l| LineParser.new(l).valid? }
+    ```
+  :replies: []
+- :author: avoxdesign
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged2s8x/
+  :body: |-
+    My solutions in pure Ruby:
+
+    ```ruby
+    input = []
+    File.readlines("input/d2.txt").each {|line| input << line}
+
+    count = 0
+    input.each do |line|
+
+      params = line.split(" ")
+      range = params[0].split("-")
+      char = params[1][0]
+      password = params[2]
+
+      if password.count(char).between?(range[0].to_i, range[1].to_i)
+        count += 1
+      end
+    end
+
+    puts count
+
+    # Part 2
+    count = 0
+    input.each do |line|
+
+      params = line.split(" ")
+
+      valid = false
+      params[0].split("-").each do |i|
+        if params[2][i.to_i - 1] == params[1][0] then valid = !valid end
+      end
+
+      count += 1 if valid
+    end
+
+    puts count
+    ```
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged428s/
+  :body: |-
+    **Ruby**
+
+    Part 1: [https://github.com/hdf1986/advent-of-code/blob/master/2020/day2/ruby/part1.rb](https://github.com/hdf1986/advent-of-code/blob/master/2020/day2/ruby/part1.rb)
+
+    Part 2: [https://github.com/hdf1986/advent-of-code/blob/master/2020/day2/ruby/part2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2020/day2/ruby/part2.rb)
+
+    ~~Didn't like the boolean part of the second one, but i don't want to think too much today ¯\_(ツ)\_/¯~~
+
+    EDIT: I've updated the boolean operator in part 2 to be a XOR by suggestion of u/chunes
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged51aq/
+    :body: "[deleted]"
+    :replies:
+    - :author: hdf1986
+      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged6ynd/
+      :body: That really makes sense, ~~will update it later to include that~~ I've just updated the code to use it. Thank you!
+      :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeadpy/
+  :body: |-
+    Ruby
+
+    ```ruby
+    # part 1
+    valid = 0
+    lines = File.readlines('input.txt')
+    lines.each do |line|
+        lo, hi, char, pwd = line.match(/(\d*)-(\d*) (\w): (\w*)/).captures
+        valid += 1 if pwd.count(char).between?(lo.to_i, hi.to_i)
+    end
+    puts valid
+
+    # part 2
+    valid = 0
+    lines.each do |line|
+        pos1, pos2, char, pwd = line.match(/(\d*)-(\d*) (\w): (\w*)/).captures
+        valid += 1 if (pwd[pos1.to_i-1] == char) ^ (pwd[pos2.to_i-1] == char)
+    end
+    puts valid
+    ```
+  :replies: []
+- :author: bacon-supreme
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geegd88/
+  :body: |-
+    Using this to re-learn Ruby; wherein one does not know that `array.count(obj)` exists:
+
+    ```ruby
+    def calculateValidPasswords(input, validDefinition)
+        regex = /(\d+)-(\d+) (\w): (\w+)/
+
+        numValidPasswords = 0
+
+        input.each do |line|
+            data = regex.match(line)
+
+            if (method(validDefinition).call(data[1].to_i(), data[2].to_i(), data[3], data[4])) then
+                numValidPasswords += 1
+            end
+        end
+
+        return numValidPasswords
+    end
+
+    def problemOneDefinition(min, max, expect, password)
+        charMap = Hash.new(0)
+
+        password.chars.each { |char| charMap[char] += 1 }
+
+        return charMap[expect] >= min && charMap[expect] <= max
+    end
+
+    def problemTwoDefinition(first, last, expect, password)
+        return (password.chars[first - 1] == expect) ^ (password.chars[last - 1] == expect)
+    end
+
+    # test
+    test_input = [
+        "1-3 a: abcde",
+        "1-3 b: cdefg",
+        "2-9 c: ccccccccc"
+    ]
+
+    input = File.readlines('input')
+
+    puts "Test 1: #{calculateValidPasswords(test_input, :problemOneDefinition)}"
+    puts "Problem 1: #{calculateValidPasswords(input, :problemOneDefinition)}"
+    puts "Test 2: #{calculateValidPasswords(test_input, :problemTwoDefinition)}"
+    puts "Problem 2: #{calculateValidPasswords(input, :problemTwoDefinition)}"
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec97gd/
+  :body: |-
+    Ruby 84/373
+
+    ```ruby
+    puts File.read('02.txt').lines.map(&:chomp).select { |line|
+      range, letter, pw = line.split(' ', 3)
+      lower, upper = range.split('-').map(&:to_i)
+      letter = letter.gsub(':', '')
+      letter_count = pw.count(letter)
+      letter_count >= lower && letter_count <= upper
+    }.to_a.count
+    ```
+
+    Replaced the second to last line for part two with:
+
+    ```ruby
+    (pw[lower-1] == letter) ^ (pw[upper-1] == letter)
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecalhe/
+  :body: |-
+    ### [Ruby (706/418)](https://github.com/Sharparam/advent-of-code/blob/master/2020/day2/solution.rb)
+
+    First I did:
+
+    ```ruby
+    input = ARGF.readlines.map { |l|
+      m = l.match(/(\d+)-(\d+) (.): (.+)/)
+      {
+        min: m[1].to_i,
+        max: m[2].to_i,
+        letter: m[3],
+        pw: m[4]
+      }
+    }
+
+    puts input.select { |d|
+      c = d[:pw].count(d[:letter])
+      c >= d[:min] && c <= d[:max]
+    }.size
+
+    puts input.select { |d|
+      a = d[:pw][d[:min] - 1] == d[:letter]
+      b = d[:pw][d[:max] - 1] == d[:letter]
+      (a && !b) || (b && !a)
+    }.size
+    ```
+
+    And then after submitting and getting the scores I reduced it down to:
+
+    ```ruby
+    puts ARGF.readlines.reduce([0, 0]) { |a, e|
+      e =~ /(\d+)-(\d+) (.): (.+)/
+      n, m = $1.to_i, $2.to_i
+      a[0] += 1 if $4.count($3).between?(n, m)
+      a[1] += 1 if ($4[n - 1] == $3) ^ ($4[m - 1] == $3)
+      a
+    }
+    ```
+  :replies: []
+- :author: lunarfyr3
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gech0k6/
+  :body: |-
+    Another Ruby solution
+
+    ```ruby
+    data = open('day_02_data').readlines
+
+    class Pw
+      def initialize(raw)
+        @raw, @min, @max, @pol, @pw = *raw.match(/(\d+)-(\d+) (\w): (.*)/)
+        @min, @max = [@min, @max].map(&:to_i)
+      end
+
+      def valid_a?
+        (@min..@max).cover? @pw.scan(@pol).count
+      end
+
+      def valid_b?
+        (@pw[@min-1] == @pol) ^ (@pw[@max-1] == @pol)
+      end
+    end
+
+    puts data.reduce(0) { |acc, pw| Pw.new(pw).valid_a? ? acc+1 : acc } # part 1
+    puts data.reduce(0) { |acc, pw| Pw.new(pw).valid_b? ? acc+1 : acc } # part 2
+    ```
+
+    edit: for only one pass
+
+    `puts data.reduce([0,0]) { |acc, line| pw = Pw.new(line); [acc[0] + (pw.valid_a? ? 1:0), acc[1] + (pw.valid_b? ? 1:0)] }`
+  :replies: []
+  - :author: jtgorn
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecpa3j/
+    :body: |-
+      > puts data.reduce(0) { |acc, pw| Pw.new(pw).valid\_a? ? acc+1 : acc } # part 1
+
+      what about:
+
+      ```ruby
+      puts data.select { |pw| Pw.new(pw).valid_a? }.count
+      ```
+    :replies: []
+  - :author: Piggelinmannen
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecqnjd/
+    :body: |-
+      I like the small class! The reduce calls can be replaced by count, like so:
+
+      `puts data.count { |pw| Pw.new(pw).valid_a? } # part 1`
+
+      `puts data.count { |pw| Pw.new(pw).valid_b? } # part 2`
+    :replies:
+    - :author: lunarfyr3
+      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeziap/
+      :body: I like that, much more readable than reduce!
+      :replies: []
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecr4qd/
+    :body: |-
+      My solution, using some other Ruby language features.
+
+      ```ruby
+      list = ARGF.readlines.map { |line| line.match(/(.+): (.+)/).captures }
+
+      puts "part 1"
+      valid = list.count do |policy, password|
+        min, max, char = policy.match(/(\d+)-(\d+) (.)/).captures
+        # `char` needs to occur min-max times.
+        password.count(char).between?(min.to_i,max.to_i)
+      end
+      puts valid
+
+      puts "part 2"
+      valid = list.count do |policy, password|
+        one, two, char = policy.match(/(\d+)-(\d+) (.)/).captures
+        # Only one of these conditions may be true.
+        (password[one.to_i-1] == char) ^ (password[two.to_i-1] == char)
+      end
+      puts valid
+      ```
+    :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecq4a4/
+  :body: |-
+    Ruby
+
+    ```ruby
+    a = File.readlines("2.txt").map{ |line|
+      line.match /(\d+)-(\d+) (.):\s+(.*)/
+      [$1.to_i,$2.to_i,$3,$4]
+    }
+
+    print "Result 1: "
+    p a.count{ |min,max,ch,pwd|
+      (min..max) === pwd.count(ch)
+    }
+
+    print "Result 2: "
+    p a.count{ |p1,p2,ch,pwd|
+      (pwd[p1] == ch) ^ (pwd[p2] == ch)
+    }
+    ```
+  :replies:
+  - :author: jura0011
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gectl55/
+    :body: I like the `(min..max) === pwd.count(ch)`, better than my solution.
+    :replies: []
+- :author: DropkickFish
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged1xbp/
+  :body: |-
+    Ruby. Not the best, but a quick one before work. Hopefully, I'll get chance to improve it and try pt 2 this evening. I need to go back and look at docs for better handling file inputs. Looking forward to seeing what wonderful new string/array/whatever message I learn from other people today
+
+    ```ruby
+    array = []
+    valid = 0
+
+    def min(len)
+      len.split("-")[0].to_i
+    end
+    def max(len)
+      len.split("-")[1].to_i
+    end
+
+    File.foreach('2.txt') { |line| array << line.strip }
+    array.each do |pass|
+      parray = pass.gsub(':', '').split
+      if parray[2].count(parray[1]) >= min(parray[0]) && parray[2].count(parray[1]) <= max(parray[0])
+        valid += 1
+      end
+    end
+
+    print valid
+    ```
+  :replies:
+  - :author: DropkickFish
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geecawt/
+    :body: |-
+      Ruby Pt 2 - did this after work and checked other solutions. I couldn't for the life of me think how best to reduce the size and run time, but then checked other answers and now I know `.captures` exists and there might be a better way to read the input amongst other things.
+
+      ```ruby
+      array = []
+      valid = 0
+
+      def min(len)
+        len.split('-')[0].to_i - 1
+      end
+
+      def max(len)
+        len.split('-')[1].to_i - 1
+      end
+
+      File.foreach('2.txt') { |line| array << line.strip }
+      array.each do |pass|
+        p = pass.gsub(':', '').split
+        s = p[2]
+        min = min(p[0])
+        max = max(p[0])
+        if (s[min] == (p[1]) && s[max] != (p[1])) || (s[min] != (p[1]) && s[max] == (p[1]))
+          valid += 1
+        end
+      end
+
+      print valid
+      ```
+    :replies: []
+- :author: odlp
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gedbp0i/
+  :body: |-
+    [Ruby](https://github.com/odlp/advent-of-code-2020/blob/main/day-2/passwords.rb):
+
+    ```ruby
+    input_path = File.expand_path("passwords.txt", __dir__ )
+    PasswordEntry = Struct.new(:character, :range, :password, keyword_init: true)
+
+    password_entries = File.readlines(input_path).map do |line|
+      start_finish_part, character_part, password = line.split(" ")
+      start, finish = start_finish_part.split("-").map(&:to_i)
+      character = character_part.delete_suffix(":")
+
+      PasswordEntry.new(character: character, range: start..finish, password: password)
+    end
+
+    answer_part_1 = password_entries.count do |entry|
+      entry.range.include?(entry.password.count(entry.character))
+    end
+
+    answer_part_2 = password_entries.count do |entry|
+      [entry.range.begin, entry.range.end].one? do |position|
+        index = position - 1
+        entry.password[index] == entry.character
+      end
+    end
+
+    puts "Part 1: #{answer_part_1}", "Part 2: #{answer_part_2}"
+    ```
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec9ugj/
+  :body: |-
+    Ruby. Messed up my interpreter settings and lots lots of minutes fixing that :'(
+
+    I actually got the right code running, but because I didn't unset $/=?, , the line seperator wasn't on new lines and it would pass the entire file as one thing in the array
+
+    ```ruby
+    p $<.map{|x|a,b,c=x.split
+    d,e=a.split(?-).map &:to_i
+    #c.count(b[0]).between?(d,e) <- part 1
+    (c[d-1]+c[e-1]).count(b[0])==1
+    }.count{|x|x}
+    ```
+  :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geem9m8/
+  :body: |-
+    Ruby :)
+
+    Part 1:
+
+    ```ruby
+    #!/bin/env ruby
+
+    def parse_line (line)
+        ret = Hash.new
+        ret[:pass] = line.split(':')[1].strip
+        ret[:char] = line.split(' ')[1][0]
+        ret[:min] = line.split(' ')[0].split('-')[0].to_i
+        ret[:max] = line.split(' ')[0].split('-')[1].to_i
+        return ret
+    end
+    results = {
+        :pass => 0,
+        :fail => 0
+    }
+
+    File.readlines('./input').each do |line|
+        password = parse_line(line)
+        count = password[:pass].count(password[:char])
+        if count <= password[:max] && count >= password[:min]
+            results[:pass] += 1
+        else
+            results[:fail] += 1
+        end
+    end
+
+    pp results
+    ```
+
+    Part 2:
+
+    ```ruby
+    #!/bin/env ruby
+
+    def parse_line (line)
+        ret = Hash.new
+        ret[:pass] = line.split(':')[1].strip
+        ret[:char] = line.split(' ')[1][0]
+        ret[:min] = line.split(' ')[0].split('-')[0].to_i
+        ret[:max] = line.split(' ')[0].split('-')[1].to_i
+        return ret
+    end
+    results = {
+        :pass => 0,
+        :fail => 0
+    }
+
+    File.readlines('./input').each do |line|
+        password = parse_line(line)
+        c1 = password[:pass][password[:min] - 1]
+        c2 = password[:pass][password[:max] - 1]
+        if (c1 == password[:char]) ^ (c2 == password[:char])
+            results[:pass] += 1
+        else
+            results[:fail] += 1
+        end
+    end
+
+    pp results
+    ```
+  :replies: []
+- :author: OutofPlaceStuff
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gef04ld/
+  :body: |-
+    Done part 1 in Ruby and in Python. Python is my "native" language. I'm just now picking up Ruby for a potential job. Always open to feedback.
+
+    Ruby
+
+    ```ruby
+
+    """
+    password-philosophy.rb: from day_2.txt find out how many passwords are valid according to their policies; solve puzzle at https://adventofcode.com/2020/day/2
+    2 December 2020
+    @Vicki_Langer
+    """
+
+    valid_passwords = 0
+
+    passwords_with_policies = File.readlines("inputs/day_2.txt")
+
+    # \d numerical digit
+    # \w alphanumeric characters
+    # * zero or more
+
+    passwords_with_policies. each do |line|
+        low, high, character, password = line.match(/(\d*)-(\d*) (\w): (\w*)/).captures # each () goes to the respective variable and is the captured in an array
+            if password.count(character).between?(low.to_i, high.to_i)
+                valid_passwords += 1
+            end
+        puts valid_passwords
+    end
+    ```
+
+    Python
+
+    ```ruby
+    """
+    password-philosophy.py: from day_2.txt find out how many passwords are valid according to their policies; solve puzzle at https://adventofcode.com/2020/day/2
+    2 December 2020
+    @Vicki_Langer / @VickiLanger
+    """
+
+    def validate_passwords():
+        num_valid_passwords = 0
+        for line in open('inputs/day_2.txt').readlines():
+            lower_upper, character, password = line.strip('\n').split()
+            character = character[0]
+            lower, upper = lower_upper.split('-')
+            count = password.count(character)
+            if (count >= int(lower)) & (count <= int(upper)):
+                num_valid_passwords += 1
+                print(num_valid_passwords)
+
+    validate_passwords()
+    ```
+  :replies: []

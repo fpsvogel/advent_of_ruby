@@ -1,0 +1,317 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhaqcb/
+  :body: |-
+    Ruby. Top 100 in both parts, yay!
+
+    ```ruby
+    p a=$<.map{|x|x.scan(/-?\d+/).map &:to_i}
+    # I read a few lines of input and figured this magic number is GoodEnoughTM
+    50000.times{|ttt|a.map!{|x,y,h,j|[x+h,y+j,h,j]}
+    aa=a.map{|x|x[0]}
+    bb=a.map{|x|x[1]}
+    (
+    h={}
+    j='' # part 2
+    a.each{|x,y|h[[x,y]]=1}
+    (bb.min..bb.max).each{|y|(aa.min..aa.max).each{|x|
+    print h[[x,y]] ? "#" : " " # part 1
+    j += h[[x,y]] ? "#" : " " # part 2
+    }
+    print "\n"
+    }
+    # part 2
+    (p qqq+1 # off by one lol (added in post, I added 1 before submitting manually)
+    # copied from first line of aligned particles. 1/0 to crash program (or just use exit)
+    1/0)if j['###### ###### #### ##### #### #### #### ###']
+    )if bb.max - bb.min < 50
+    }
+    ```
+  :replies:
+  - :author: teddim
+    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhf89i/
+    :body: Congrats!!
+    :replies: []
+  - :author: HeyItsBATMANagain
+    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjjnm/
+    :body: |-
+      > if j['###### ###### #### ##### #### #### #### ###']
+
+      Not a ruby dude, but doesn't this only work if you already know that this string will be part of the answer?
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjtgv/
+      :body: Yes. I copied it from the end of part 1 since I haven't closed my terminal window yet. Calling `[other_string]` on a string will perform a match - if it exists, it allows you to write to it (e.g. `'abc'['b']='d'`) but in this case it just returns a non-nil value. I don't know how to generalize this in a fast enough way that can be done in speedcoding.
+      :replies: []
+- :author: ChronJob
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhayvp/
+  :body: |-
+    Ruby 196/194! It was fun to watch the animation on my terminal.
+
+    I found the points in time where all coordinates were greater than 0 (I assumed they all had to be positive in order to be visualized), then looked at each state in that range (there were about 40 time steps) until I saw the message. What a fun problem!
+
+    ```ruby
+    input_lines = File.new('day-10-input.txt').readlines
+
+    def parse_line(line)
+      regex = /position=<([\-|\s]\d+), ([\-|\s]\d+)> velocity=<([\-|\s]\d+), ([\-|\s]\d+)>/
+      matches = regex.match(line).captures
+      {
+        :x => matches[0].strip.to_i,
+        :y => matches[1].strip.to_i,
+        :v_x => matches[2].strip.to_i,
+        :v_y => matches[3].strip.to_i,
+      }
+    end
+
+    def state(t, points)
+      points.map {|p| [p[:x] + p[:v_x] * t, p[:y] + p[:v_y] * t]}
+    end
+
+    def display(coords)
+      (0...250).each do |y|
+        puts (0...250).map {|x| coords.include?([x, y]) ? '#' : '.' }.join('')
+      end
+    end
+
+    points = input_lines.map {|line| parse_line(line)}
+
+    # assumption: we need to wait until all points are non-negative
+    t_for_positive_coords = (0..20_000).select {|t| state(t,points).flatten.all? {|val| val >= 0}}
+    t_for_positive_coords.each do |t|
+      puts "\n", t, "\n"
+      display(state(t, points))
+    end
+    ```
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhc17x/
+  :body: |-
+    Ruby
+
+    Leaderboard code was: just print out everything where ymax - ymin \< 20. For part 2 I counted how tall the part 1 message was, then printed out the variable `t` when ymax - ymin was that value.
+
+    This has been cleaned up to try to be smarter about when to print the message (when is yrange smallest?). Be careful not to make an off-by-one error if you take this approach though.
+
+    By the way, this one combines aspects of https://adventofcode.com/2016/day/8 and https://adventofcode.com/2017/day/20 , two days that I enjoyed in the past!
+
+    ```ruby
+    require 'set'
+
+    pos_and_vels = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+      l.scan(/-?\d+/).map(&:to_i).freeze
+    }.freeze
+
+    prev_points = nil
+    prev_yrange = 1.0 / 0.0
+
+    puts 0.step { |t|
+      points = pos_and_vels.map { |a, b, c, d| [a + c * t, b + d * t] }
+
+      ymin, ymax = points.map(&:last).minmax
+      yrange = ymax - ymin
+
+      if yrange > prev_yrange
+        ymin, ymax = prev_points.map(&:last).minmax
+        xmin, xmax = prev_points.map(&:first).minmax
+        prev_points = Set.new(prev_points)
+
+        (ymin..ymax).each { |y|
+          (xmin..xmax).each { |x|
+            print prev_points.include?([x, y]) ? ?X : ' '
+          }
+          puts
+        }
+
+        puts
+        break t - 1
+      end
+
+      prev_points = points
+      prev_yrange = ymax - ymin
+    }
+
+    __END__
+    position=< 21992, -10766> velocity=<-2, 1>
+    rest of input
+    ```
+  :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhk89a/
+  :body: |-
+    I kind of like this Ruby code
+
+    ```ruby
+    a=ARGF.readlines.map{ |l| l.scan(/-?\d+/).map(&:to_i)}
+
+    500000.times do |i|
+      p = a.map{|x,y,vx,vy| [x+vx*i,y+vy*i] }
+      pt=p.transpose
+      if (w = pt[1].max-pt[1].min)<30
+        (pt[1].min..pt[1].max).each do |ax|
+          (pt[0].min..pt[0].max).each do |ay|
+            print (p.index [ay,ax]) ? "#" : '.'
+          end
+          puts
+        end
+        gets
+      else
+        puts w
+      end
+    end
+    ```
+
+    My heuristic was quite simple - wait until height of the cluster gets small enough and than present iterations to user and let him decide which one gives readable text.
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhawi5/
+  :body: |-
+    ## Ruby (#13,#16)
+
+    I moved the points and record the state at smallest bounding box. I run this in `irb` so that I can press `Ctrl+C` to exit the loop without killing the whole program, in order to inspect the final state.
+
+    ```ruby
+    # Note: These comments are added afterwards
+    # Input
+    data = `pbpaste`
+    init = data.scan(/position=<\s*(-?\d+),\s*(-?\d+)> velocity=<\s*(-?\d+),\s*(-?\d+)>/).map { |a| a.map(&:to_i) }
+
+    # Calculate the next state
+    trans = -> aa { aa.map { |a,b,c,d| [a+c, b+d, c, d] } }
+
+    # Calculate total area
+    area = -> aa { aa.map { |a,b,c,d| a }.minmax.reduce(&:-) * aa.map { |a,b,c,d| b }.minmax.reduce(&:-) }
+
+    # Run this loop in REPL (irb) and press Ctrl+C when output stops changing
+    c = init; min_area = area[c]; min_map = nil; t = 0; min_t = 0
+    loop do
+      c = trans[c]
+      c_area = area[c]
+      t += 1
+
+      # Remember the state with smallest bounding box
+      if c_area < min_area; min_area = c_area; min_map = c; min_t = t; end
+      p [min_area, min_t]
+    end
+
+    # Post-processing
+    minmax_x = min_map.map { |a,b,c,d| a }.minmax
+    minmax_y = min_map.map { |a,b,c,d| b }.minmax
+    out = Hash.new(' ')
+    min_map.each { |a,b,c,d| out[[a,b]] = '#' }
+
+    # Print output
+    (minmax_y[0]..minmax_y[1]).each { |y| (minmax_x[0]..minmax_x[1]).each { |x| print out[[x,y]] }; puts }
+
+    # Print time
+    p min_t
+    ```
+  :replies: []
+- :author: HeyItsBATMANagain
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhr634/
+  :body: |-
+    # Crystal
+
+    While I first solved this in TypeScript, I've rewritten a solution in Crystal since I've never done Ruby or similar before.
+
+    This is probably also the reason why my code doesn't really look Ruby/Crystal-esque, so any comments on how to improve this are greatly appreciated.
+
+    This solution assumes that you don't yet know how many seconds it could take and what the result is, so the smallest boundary is checked after every move (seen some solutions simplified where the range goes specifically to the actual number of seconds so no checking has to be done, or where the moveset is compared to the result)
+
+    ```ruby
+    @pos = Array(Array(Int32)).new
+    @vel = Array(Array(Int32)).new
+
+    def part1
+      @input.each do |line|
+        f1, f2, r1, r2 = [line.index('<'), line.index('>'), line.rindex('<'), line.rindex('>')]
+        if f1 && f2 && r1 && r2
+          @pos << line[f1 + 1..f2 - 1].split(',').map { |v| v.to_i }
+          @vel << line[r1 + 1..r2 - 1].split(',').map { |v| v.to_i }
+        end
+      end
+      minx, maxx, miny, maxy = self.minMaxPos(@pos)
+      leastx, leasty = [(minx - maxx).abs, (miny - maxy).abs]
+      (0..UInt16::MAX).each do |time|
+        minx, maxx, miny, maxy = moves(time)
+        bounds = [(minx - maxx).abs, (miny - maxy).abs]
+        if (bounds[0] + bounds[1]) <= leastx + leasty
+          leastx = bounds[0]
+          leasty = bounds[1]
+        else
+          time -= 1
+          minx, maxx, miny, maxy = moves(time)
+          bounds = [(minx - maxx).abs, (miny - maxy).abs]
+          map = Array.new(bounds[1] + 1) { |y| Array.new(bounds[0] + 1) { |j| ' ' } }
+          Range.new(0, @pos.size, true).each do |index|
+            ymove = (@pos[index][1] - miny.abs) + (@vel[index][1] * time)
+            xmove = (@pos[index][0] - minx.abs) + (@vel[index][0] * time)
+            map[ymove][xmove] = '█'
+          end
+          map.each { |row| puts row.join }
+          return time
+        end
+      end
+    end
+
+    def minMaxPos(arr : Array(Array(Int32)))
+      miny, maxy, minx, maxx = [arr[0][1], arr[0][1], arr[0][0], arr[0][0]]
+      arr.each do |pos|
+        y = pos[1]
+        miny = (y < miny) ? y : miny
+        maxy = (y > maxy) ? y : maxy
+        x = pos[0]
+        minx = (x < minx) ? x : minx
+        maxx = (x > maxx) ? x : maxx
+      end
+      return [minx, maxx, miny, maxy]
+    end
+
+    def moves(time : Int32)
+      moves = Array(Array(Int32)).new
+      Range.new(0, @pos.size, true).each do |index|
+        xmove = @pos[index][0] + @vel[index][0] * time
+        ymove = @pos[index][1] + @vel[index][1] * time
+        moves << [xmove, ymove]
+      end
+      return self.minMaxPos(moves)
+    end
+    ```
+  :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebj2o9o/
+  :body: |-
+    Ruby
+
+    Certainly my favorite puzzle so far. Having that element of human judgement necessary is something I'm fond of. I picked an arbitrary number (in this case 100) at which point I started visualizing the data. Once width and height were at or below 100, that is. I just did a little `gets` which reads stdin input, as an easy way of stepping to the next second when i hit the enter key.
+
+    ```ruby
+    def display(stars)
+      x_coords = stars.map { |d| d[0] }.map { |p| p[0] }
+      y_coords = stars.map { |d| d[0] }.map { |p| p[1] }
+
+      return false unless (x_coords.min..x_coords.max).size <= 100 && (y_coords.min..y_coords.max).size <= 100
+
+      (y_coords.min..y_coords.max).each do |y|
+        (x_coords.min..x_coords.max).each do |x|
+          stars.map { |d| d[0] }.any? { |p| p[0] == x && p[1] == y } ? print('#') : print(' ')
+        end
+        puts ''
+      end
+
+      true
+    end
+
+    data = File.read('data.txt').chomp.split("\n").map { |d| d.scan(/[\d-]+/).map(&:to_i).each_slice(2).to_a }
+    seconds = 0
+    loop do
+      puts seconds && gets if display(data)
+      seconds += 1
+      data.map! do |position, velocity|
+        position[0] += velocity[0]
+        position[1] += velocity[1]
+        [position, velocity]
+      end
+    end
+    ```
+  :replies: []

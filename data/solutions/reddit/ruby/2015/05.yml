@@ -1,0 +1,247 @@
+---
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnsyn2/
+  :body: |-
+    My Ruby solution. Took me longer than I'd like because I messed up my backreferences at first.
+
+    (For the record, I run this in a REPL, so I just care that my expression evaluates to the answer. In a script you would just need to prepend a puts.)
+
+    # Read the data
+
+    ```ruby
+    input = File.readlines('input5.txt').map { |l| l.chomp }
+    ```
+
+    # Part 1
+
+    ```ruby
+    input.inject(0) { |c,s| (s.scan(/ab|cd|pq|xy/).length == 0) && (s.scan(/[aeiou]/).length > 2) && (s.scan(/(.)\1/).length > 0) && c+=1; c }
+    ```
+
+    # Part 2
+
+    ```ruby
+    input.inject(0) { |c,s| (s.scan(/(..).*\1/).length > 0) && (s.scan(/(.).\1/).length > 0) && c+=1; c }
+    ```
+  :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnthrm/
+  :body: |-
+    My saddest code yet! Specifically, part one is the first code that I'm actually embarrassed to post. But I figure that as long as I keep getting the right answer... :-P
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.readlines("input.txt")
+
+    total = 0
+
+    data.each do |c|
+      if c =~ /[aeiou].*[aeiou].*[aeiou]/
+        if c =~ /aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz/
+          if c !~ /ab|cd|pq|xy/
+            total += 1
+          end
+        end
+      end
+    end
+
+    p total
+    ```
+
+    Part 2 the brute force approach broke down and I had to actually read up on back references. This specifically is what cost me a spot on the board _grin_
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.readlines("input.txt")
+
+    total = 0
+
+    data.each do |c|
+      if c =~ /([a-z][a-z]).*\1/
+         if c =~ /([a-z])[a-z]\1/
+           total += 1
+         end
+       end
+    end
+
+    p total
+    ```
+  :replies:
+  - :author: Aneurysm9
+    :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnx5x0/
+    :body: The only thing sad about part 1 is not using ([a-z])\1. I thought I knew how to use backreferences but kept on misusing them and screwing up the groupings, which certainly cost me a few spots on the board.
+    :replies: []
+- :author: miftrim
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnuxod/
+  :body: |-
+    Ruby!
+
+    ⌒(o＾▽＾o)ノ
+
+    Part one:
+
+    ```ruby
+    strings = File.read('05-strings.txt').split("\n")
+    nice_strings = 0
+    strings.each do |s|
+      if s =~ /(\w)\1+/ && s =~ /.*[aeiou].*[aeiou].*[aeiou].*/ && s !~ /.*ab|cd|pq|xy.*/
+        nice_strings += 1
+      end
+    end
+
+    puts "Nice: #{nice_strings}"
+    ```
+
+    Part two:
+
+    ```ruby
+    strings = File.read('05-strings.txt').split("\n")
+    nice_strings = 0
+    strings.each do |s|
+      if s =~ /(\w{2}).*\1+/ && s =~ /(\w).\1/
+        nice_strings += 1
+      end
+    end
+
+    puts "Nice: #{nice_strings}"
+    ```
+
+    ☆_:.｡.o(≧▽≦)o.｡.:_☆
+  :replies: []
+- :author: zacwaz
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxo8upq/
+  :body: |-
+    Here's another **Ruby** solution. Instead of clever one-liners, for these challenges I've been trying to focus on writing [obvious, readable code using small methods and classes](https://robots.thoughtbot.com/sandi-metz-rules-for-developers). I'd appreciate any critiques or suggestions!
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    module Day5
+      def self.solve_part_1(input)
+        input.strip.split("\n").select{|str|
+          MoralString.new(str).nice?
+        }.length
+      end
+
+      def self.solve_part_2(input)
+        input.strip.split("\n").select{|str|
+          BetterMoralString.new(str).nice?
+        }.length
+      end
+    end
+
+    class MoralString < String
+      DISALLOWED = %w(ab cd pq xy)
+      MINIMUM_VOWELS = 3
+
+      def nice?
+        enough_vowels? && consecutive_letters? && !disallowed_substrings?
+      end
+
+      def naughty?
+        !nice?
+      end
+
+      private
+
+      def enough_vowels?
+        self.scan(/[aeiou]/).length >= MINIMUM_VOWELS
+      end
+
+      def consecutive_letters?
+        self.length != self.squeeze.length
+      end
+
+      def disallowed_substrings?
+        DISALLOWED.any? { |s| self.match(s) }
+      end
+    end
+
+    class BetterMoralString < String
+
+      def nice?
+        any_repeated_nonoverlapping_letter_pairs? &&
+          any_letters_with_identical_neighbors?
+      end
+
+      def naughty?
+        !nice?
+      end
+
+      private
+
+      def any_repeated_nonoverlapping_letter_pairs?
+        letter_pairs.map{|pair| self.scan(pair).size > 1 }.any?
+      end
+
+      def any_letters_with_identical_neighbors?
+        letters.each_cons(3).any? {|n| n[0] == n[2] }
+      end
+
+      def letter_pairs
+        letters.each_cons(2).map(&:join)
+      end
+
+      def letters
+        self.split('')
+      end
+    end
+
+    input = File.open("./input_day5").read
+    puts Day5.solve_part_1(input)
+    puts Day5.solve_part_2(input)
+    ```
+  :replies: []
+- :author: Aeverous
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cy0s1pr/
+  :body: |-
+    My newbie **Ruby** solution, had to play around with http://regexr.com/ for awhile, but it works!
+
+    ```ruby
+    input = File.read('input5.txt').lines.map! {|x| x.chomp}
+
+    def first(input)
+      goodwords = []
+
+      input.each do |word|
+        if word.each_char.find_all{|c| c.match(/[aeuoi]/)}.length >= 3
+          if word.match(/(\w)\1+/)
+            unless word.match(/(ab)|(cd)|(pq)|(xy)/)
+              goodwords << word
+            end
+          end
+        end
+      end
+
+      p goodwords.length
+    end
+
+    first(input)
+    ```
+
+    **Part 2**
+
+    ```ruby
+    def second(input)
+      goodwords = []
+
+      input.each do |word|
+        if word.match(/(\w)\w\1/)
+          if word.match(/(..)\w*\1/)
+            goodwords << word
+          end
+        end
+      end
+
+      p goodwords.length
+    end
+
+    second(input)
+    ```
+
+    Pretty pleased with how concise it is compared to my day 3 solution, which was a spaghetti nightmare.
+
+    Looking around I see I could've done the check for 3 vowels in step 1 much easier with a better regexp, oh well.
+  :replies: []

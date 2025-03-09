@@ -1,0 +1,235 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb2drs1/
+  :body: |-
+    Ruby
+
+    in which I cut pretty much all the corners. I am sorry.
+
+    ```ruby
+    input = (ARGV.empty? ? DATA : ARGF).each_line.map(&:chomp).map(&:freeze).freeze
+
+    guards = Hash.new { |h, k| h[k] = Hash.new(0) }
+
+    guard = nil
+    started_sleeping = nil
+
+    input.sort.each { |l|
+      last_number = l.scan(/\d+/).last.to_i
+      if l.end_with?('begins shift')
+        guard = last_number
+      elsif l.end_with?('falls asleep')
+        started_sleeping = last_number
+      elsif l.end_with?('wakes up')
+        woke_up = last_number
+        (started_sleeping...woke_up).each { |min| guards[guard][min] += 1 }
+      end
+    }
+
+    %i(sum max).each { |f|
+      id, minutes = guards.max_by { |_, v| v.values.public_send(f) }
+      puts id * minutes.keys.max_by(&minutes)
+    }
+    ```
+  :replies:
+  - :author: oezi13
+    :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb3exp2/
+    :body: |-
+      Yeah for Ruby!
+
+      ```ruby
+      Guard = Struct.new("Guard", :id, :total, :minutes)
+
+      guards = {}
+      guard = nil
+      asleep = nil
+
+      File.readlines("day4_input.txt").sort.each { |l|
+
+        if l =~ /Guard \#(\d+) begins shift$/
+          id = $1.to_i
+          guard = guards[id] ||= Guard.new(id, 0, [0] * 60)
+
+        elsif / 00:(?<minute>\d+)\] falls asleep$/ =~ l
+          asleep = minute.to_i
+
+        elsif l =~ / 00:(\d+)\] wakes up$/
+
+          awake = $1.to_i
+
+          guard.total += awake - asleep
+          (asleep...awake).each { |min|
+            guard.minutes[min] += 1
+          }
+
+        end
+      }
+
+      guard = (guards.values.sort_by {|g| g.total}).last
+      puts "Part1: #{guard.id * guard.minutes.each_with_index.max[1]}"
+
+      guard = (guards.values.sort_by {|g| g.minutes.each_with_index.max[0] }).last
+      puts "Part2: #{guard.id * guard.minutes.each_with_index.max[1]}"
+      ```
+    :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb1xcir/
+  :body: |-
+    Yeah!!! I have no idea what I'm doing anymore!!! Ruby
+
+    [Card] [Image](https://i.imgur.com/U8iWZRt.png)
+
+    ```ruby
+    h={}
+    ll=0
+    sl={}
+    p (a=$<.sort).map{|x|m = x.chomp
+    m =~ /^\[1518-(\d{2})-(\d{2}) (\d{2}):(\d{2})\] (.+)$/
+    j,k,o,q,s=[$1, $2, $3, $4, $5]
+    j,k,o,q=b=[j,k,o,q].map(&:to_i)
+    #p b
+    s =~ /^(?:Guard #(\d+)|(falls)|(wakes))/
+    if $1
+    ll=$1.to_i
+    elsif $2
+    sl[ll]=b
+    elsif $3
+    u,i,l,n=sl[ll]
+    kk=h[ll] ? h[ll] : h[ll]=0
+    kk += (o*60+q)- (l*60+n)
+    h[ll] = kk
+    end
+    }
+    guard = h.max_by{|x,y|y}.first
+    p guard
+
+    # part 1
+
+    sl=0
+    qqq=Hash.new 0
+    a.map{|x|m = x.chomp
+    m =~ /^\[1518-(\d{2})-(\d{2}) (\d{2}):(\d{2})\] (.+)$/
+    j,k,o,q,s=[$1, $2, $3, $4, $5]
+    j,k,o,q=b=[j,k,o,q].map(&:to_i)
+    #p b
+    s =~ /^(?:Guard #(\d+)|(falls)|(wakes))/
+    if $1
+    ll=$1.to_i
+    elsif $2
+    (sl=q) if ll == guard
+    elsif $3
+    (n=sl
+    (qqq[n]+=1
+
+    n+=1
+    n=0 if n==60)while n!=q) if ll == guard
+    end
+    }
+    p qqq.max_by{|x,y|y}.first*guard
+
+    # part 2
+    qqqt=Hash.new{Hash.new 0}
+    qsl={}
+    a.map{|x|m = x.chomp
+    m =~ /^\[1518-(\d{2})-(\d{2}) (\d{2}):(\d{2})\] (.+)$/
+    j,k,o,q,s=[$1, $2, $3, $4, $5]
+    j,k,o,q=b=[j,k,o,q].map(&:to_i)
+    #p b
+    s =~ /^(?:Guard #(\d+)|(falls)|(wakes))/
+    if $1
+    ll=$1.to_i
+    elsif $2
+    (qsl[ll]=q) #if ll == guard
+    elsif $3
+    (n=qsl[ll]
+    qqq=qqqt.has_key?(ll) ? qqqt[ll] : (qqqt[ll]=qqqt[ll])
+    (qqq[n]+=1
+
+    n+=1
+    n=0 if n==60)while n!=q) #if ll == guard
+    end
+    }
+    p qqqt
+    a,b= qqqt.max_by{|x,y|y.max_by{|x,y|y}.last}
+    p a*b.max_by{|x,y|y}.first
+    p b.max_by{|x,y|y}.last
+    ```
+
+    Edit: Yes, just like all the previous days, I didn't read the question...
+
+    Edit: Changed the layout of the code so you can run it without any hassle and it will just work. If you're reading this, bless you
+  :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb21dgj/
+  :body: |-
+    Ruby
+
+    ```ruby
+    require 'time'
+
+    data = File.read('data.txt').chomp.split("\n")
+               .map! { |d| d.match(/\[([\d\-:]+)\] ([\w#]+)/).to_a }
+               .sort_by! { |d| Time.parse(d[1]) }
+
+    guards = {}
+    recent_guard = nil
+
+    data.each do |d|
+      m = d[2].match(/#(\d+)/)
+      recent_guard = m[1]&.to_i if m
+      guards[recent_guard] ||= {}
+
+      date = DateTime.parse(d[1])
+      guards[recent_guard][date.strftime('%m-%d')] ||= '.' * 60
+
+      c = '#' if d[2] == 'falls asleep'
+      c = '.' if d[2] == 'wakes up'
+      next unless c
+
+      guards[recent_guard][date.strftime('%m-%d')][date.minute..59] = c * (60 - date.minute)
+    end
+    ```
+
+    **Part 1**
+
+    ```ruby
+    sleepiest = guards.map { |id, s| [id, s.values.join.count('#')] }.max_by { |id, total| total }[0]
+    mins = (0..59).map { |m| guards[sleepiest].values.map { |s| s[m] }.join.count('#') }
+    puts sleepiest * mins.each_with_index.max[1]
+    ```
+
+    **Part 2**
+
+    ```ruby
+    soln = guards.map do |id, s|
+      t = (0..59).map { |m| s.values.map { |s| s[m] }.join.count('#') }
+      [id, t.each_with_index.max[1], t.max]
+    end
+
+    soln = soln.max_by { |s| s[2] }
+    p soln[0] * soln[1]
+    ```
+  :replies: []
+- :author: charismotron
+  :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb1ym65/
+  :body: |-
+    **Ruby**
+
+    [https://github.com/chrismo/adventofcode2018/blob/master/day4/script.rb](https://github.com/chrismo/adventofcode2018/blob/master/day4/script.rb)
+  :replies: []
+- :author: morfi717
+  :url: https://www.reddit.com/r/adventofcode/comments/a2xef8/2018_day_4_solutions/eb2c2f5/
+  :body: |-
+    Ruby
+
+    ```ruby
+    F = File.read("#{ __dir__ }/data/day4.txt")
+              .scan(/.+?#(\d+)(.+?)(?:G|\Z)/m).map{ |o| o[-1] = o.last.scan(/\:(\d+)\] f.+?\:(\d+)\] w/m); [*o]}
+              .group_by(&:first).map{ |k, v|
+                   [k.to_i, v.map{ |i| i.last }.flatten(1).map(&->a { a.map(&:to_i) }).map(&->t { (t.first..t.last-1).to_a }).flatten]
+              }.reject{ |v| v.last.empty? }
+
+    puts "Ans 1: %s" % F.max_by{|o| o.last.size}.yield_self{ |k, v| k * v.group_by(&:itself).values.max_by(&:size).first }
+    puts "Ans 2: %s" % F.max_by{|o| o.last.group_by(&:itself).values.max_by(&:size).size }.yield_self{ |k, v| k * v.group_by(&:itself).values.max_by(&:size).first }
+    ```
+  :replies: []

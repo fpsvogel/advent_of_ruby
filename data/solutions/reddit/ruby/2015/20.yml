@@ -1,0 +1,77 @@
+---
+- :author: rabiedenharn
+  :url: https://www.reddit.com/r/adventofcode/comments/3xjpp2/day_20_solutions/cy59ps2/
+  :body: |-
+    **Ruby**
+
+    Takes less than 2 minutes on my MacMini (or about 2 minutes each when outputting progress to the screen)
+
+    ```ruby
+    target = input.to_i
+
+    module Divisors
+      extend self
+      def of(n)
+        divisors = []
+        1.upto((n.to_f**0.5).floor) do |d|
+          q,r = n.divmod d
+          divisors << d << q if r.zero?
+        end
+        divisors.uniq.sort
+      end
+    end
+
+    # star 1
+    house = 1
+    presents = nil
+    loop do
+      presents = Divisors.of(house).reduce(0) {|t,e| t + 10*e}
+      break if presents >= target
+      house += 1
+    end
+    puts "1: house %8d gets %8d presents"%[house,presents]
+
+    # Since it has to be larger, we can keep going
+
+    # star 2
+    loop do
+      presents = Divisors.of(house).reduce(0) {|t,e| house/e <= 50 ? (t + 11*e) : t}
+      break if presents >= target
+      house += 1
+      # puts house if (house % 1000).zero?
+    end
+    puts "2: house %8d gets %8d presents"%[house,presents]
+    ```
+  :replies: []
+- :author: tomb0y
+  :url: https://www.reddit.com/r/adventofcode/comments/3xjpp2/day_20_solutions/cy5aj3b/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    require 'prime'
+
+    input = 36_000_000
+
+    def divisors(n)
+      divs = n.prime_division.flat_map { |(p, c)| Array.new c, p}
+      (0..divs.count).to_a.flat_map { |i| divs.combination(i).to_a }.map { |x| x.inject(1, :*)}.uniq
+    end
+
+    def presents(n)
+      divisors(n).inject(0, :+) * 10
+    end
+
+    def presents_2(n)
+      divisors(n).select{ |d| d*50 >= n }.inject(0, :+) * 11
+    end
+
+    500_000.upto(1_000_000) do |n|
+      x = presents n # x = presents_2 n
+      if x >= input
+        puts n
+        break
+      end
+    end
+    ```
+  :replies: []

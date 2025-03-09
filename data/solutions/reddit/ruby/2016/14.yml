@@ -1,0 +1,102 @@
+---
+- :author: yjerem
+  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6bfrw/
+  :body: |-
+    Ruby, took 90 seconds to run for part II:
+
+    ```ruby
+    require 'digest'
+
+    SALT = 'yjdafjpo'
+
+    def md5_stretched(index)
+      hash = Digest::MD5.hexdigest("#{SALT}#{index}")
+      2016.times { hash = Digest::MD5.hexdigest(hash) }
+      hash
+    end
+
+    hashes = 0.upto(999).map { |i| md5_stretched(i) }
+
+    count = 0
+    i = 0
+    loop do
+      cur = hashes[i % 1000]
+      hashes[i % 1000] = md5_stretched(i + 1000)
+
+      if cur =~ /(.)\1\1/ && hashes.any? { |hex| hex[$1 * 5] }
+        count += 1
+        if count == 64
+          puts i
+          exit
+        end
+      end
+      i += 1
+    end
+    ```
+  :replies:
+  - :author: 3urny
+    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6p8s0/
+    :body: |-
+      I did a Ruby solution too. It took about 80s just like yours. One thing that makes the ruby code fast is only checking for hashes with 5 repeated characters at first, and then going back when one is found.
+
+      But I wasn't satisfied, so I added some parallelism using `fork`. I got it to run in about 40s. (I only have a dual core :/).
+
+      Well then I tried coding the stretched md5 function in C. This is when I had 13s.
+
+      And since I had the forking anyways, I used that too and got it to run in 5s with both C extension and forking.
+    :replies: []
+  - :author: jtbandes
+    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6cm0z/
+    :body: "Very neat. TIL that `String#[]` can accept a substring to search for.\n\nI got #3 for part 1 with a much less clean Ruby solution, but it was too slow for part 2...then I made the fatal choice of deciding to rewrite it in C... \U0001F635 let's just say you won't find me on the part 2 leaderboard."
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db758en/
+  :body: |-
+    Ruby.
+
+    I strive to create some generic, reusable stuff for part 1 so that part 2 can be solved with as little extra code as possible. Today I made a function that takes a salt and a code block for the hashing and creates a generator for the valid keys. Solving part 2 was then just calling that method with a slightly different code block.
+
+    ```ruby
+    require 'digest'
+
+    SALT = 'ahsbgdzn'
+
+    class String
+      def triplet
+        self =~ /(.)\1\1/ && $1
+      end
+
+      def quintuplets
+        self.scan(/(.)\1{4}/).flat_map(&:first).uniq
+      end
+    end
+
+    def keys(salt)
+      triplets = Hash.new { |h,k| h[k] = [] }
+
+      Enumerator.new do |yielder|
+        0.step do |i|
+          hash = yield("#{salt}#{i}")
+
+          triplet = hash.triplet
+          next unless triplet
+
+          hash.quintuplets
+            .flat_map { |char| triplets[char].select { |found_at| found_at > i - 1000 } }
+            .sort
+            .each { |key| yielder << key }
+
+          triplets[triplet] << i
+        end
+      end
+    end
+
+    # Part 1:
+    puts keys(SALT) { |s| Digest::MD5.hexdigest(s) }.take(64).last
+
+    # Part 2:
+    puts keys(SALT) { |s| (0..2016).reduce(s) { |h,_| Digest::MD5.hexdigest(h) } }.take(64).last
+    ```
+
+    Also found here: https://github.com/daniero/code-challenges/blob/master/aoc2016/14.rb
+  :replies: []

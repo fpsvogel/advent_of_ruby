@@ -28,7 +28,7 @@ module DownloadSolutions
 
       def self.megathread_path(year:, day:)
         if year.to_i == 2015 && day.to_i == 1
-          return "/r/programming/comments/#{MEGATHREADS[2015][0]}/daily_programming_puzzles_at_advent_of_code/"
+          return "/r/programming/comments/#{MEGATHREADS[2015][0]}/daily_programming_puzzles_at_advent_of_code.json"
         end
 
         slug = "day_#{day.to_i}_solutions"
@@ -251,7 +251,7 @@ module DownloadSolutions
         return [] if raw_comment["data"]["replies"].empty?
 
         raw_comment["data"]["replies"]["data"]["children"].filter_map { |child|
-          next nil if %w[AutoModerator daggerdragon].include?(child["data"]["author"])
+          next nil if %w[AutoModerator daggerdragon backtickbot].include?(child["data"]["author"])
           next nil if child["data"]["body"] == "[removed]"
 
           if child["kind"] == "more"
@@ -283,9 +283,12 @@ module DownloadSolutions
       def clean_body!(comment, languages)
         precleaned_body = comment[:body]
           .gsub("\u00a0", " ") # Non-breaking space
-          .gsub("#x200B;", "") # Zero-width space
+          # Zero-width space (unintentional); do not remove "\u200b" (intentional, e.g. Unihedron's poems in 2019)
+          .gsub("#x200B;", "")
           .gsub("&amp;", "&")
-          .gsub("\n\n&\n\n", "\n\n") # Mysterious ampersand, on Reddit an empty paragraph
+          # Mysterious ampersand, on Reddit an empty paragraph
+          .gsub("\n\n&\n\n", "\n\n")
+          .delete_suffix("\n\n&")
           .gsub("&lt;", "<")
           .gsub("&gt;", ">")
           .gsub("&#39;", "'")
@@ -346,7 +349,7 @@ module DownloadSolutions
 
         children = comments
           .filter { it[:parent_id] == comment[:id] }
-          .reject { %w[AutoModerator daggerdragon].include? it[:author] }
+          .reject { %w[AutoModerator daggerdragon backtickbot].include? it[:author] }
           .reject { it[:body].strip == "[removed]" }
 
         comment[:replies] += children

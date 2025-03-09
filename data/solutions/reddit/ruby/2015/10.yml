@@ -1,0 +1,359 @@
+---
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsxjs/
+  :body: |-
+    Ruby solution using the new (as of 2.2.0) slice\_when enum method.
+
+    ```ruby
+    def look_and_say(input)
+      input.slice_when{|i, j| i != j}.to_a.flat_map{|el| [el.length, el.first]}
+    end
+    answers = ["3113322113".split("").map(&:to_i)]
+    1.upto(50) {|x| answers << look_and_say(answers.last)}
+    puts answers.last.count
+    ```
+  :replies:
+  - :author: tomb0y
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxttgxo/
+    :body: love the slice\_when! you could also use chars instead of split("") :)
+    :replies: []
+- :author: tomb0y
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvjq/
+  :body: |-
+    Being on the leaderboard feels awesome :)
+
+    Ruby solution:
+
+    ```ruby
+    input = '3113322113'
+    50.times { input = input.gsub(/(.)\1*/) { |s| s.size.to_s + s[0] } }
+    puts input.length
+    ```
+  :replies: []
+- :author: reacher
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsc40/
+  :body: |-
+    My Ruby solution. I finally made the leaderboard!
+
+    ```ruby
+    s = '1113222113'
+
+    def foo(s)
+      r = ''
+      cnt = 1
+      for i in 0..s.size-1
+        c = s[i]
+        if s[i+1] != c
+          r << cnt.to_s
+          r << c
+          cnt = 1
+        else
+          cnt = cnt + 1
+        end
+      end
+      return r
+    end
+
+    1.upto(50) {
+      s = foo(s)
+    }
+
+    puts s.size
+    ```
+  :replies: []
+- :author: Axsuul
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvn9/
+  :body: |-
+    Recursive Ruby solution
+
+    ```ruby
+    def say(input)
+      saying = ""
+      input_split = input.split('')
+
+      count = 0
+
+      input_split.each_with_index do |char, i|
+        next_char = input_split[i+1]
+
+        count += 1
+
+        if char != next_char
+          saying << "#{count}#{char}"
+
+          count = 0
+        end
+      end
+
+      saying
+    end
+
+    def look_and_say(input, n, m = 1)
+      saying = say(input)
+
+      if n == m
+        saying
+      else
+        look_and_say(saying, n, m+1)
+      end
+    end
+
+    puts look_and_say(INPUT, 40).length
+    puts look_and_say(INPUT, 50).length
+    ```
+  :replies:
+  - :author: Axsuul
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtt00p/
+    :body: |-
+      I also like to write specs
+
+      ```ruby
+      RSpec.describe '#say' do
+        it "says" do
+          expect(say("21")).to eq "1211"
+          expect(say("1211")).to eq "111221"
+          expect(say("111221")).to eq "312211"
+        end
+      end
+
+      RSpec.describe '#look_and_say' do
+        it "returns for n sequence for starting input" do
+          expect(look_and_say("1", 1)).to eq "11"
+          expect(look_and_say("1", 2)).to eq "21"
+          expect(look_and_say("1", 3)).to eq "1211"
+          expect(look_and_say("1", 4)).to eq "111221"
+          expect(look_and_say("1", 5)).to eq "312211"
+        end
+      end
+      ```
+    :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtthdu/
+  :body: |-
+    My initial (braindead) copy finished the first part in a few seconds. The second run is still going, 15 minutes in. In fact, it took long enough for me to remember something vague about there being a difference in speed between various methods of string concatenation in ruby, look it up, copy my program, change two instances of += to \<\<, run the modified script, get the right answer, and finish the challenge.
+
+    Wow.
+
+    So the lesson here is - small changes can make a big difference. Also, my laptop gets warm after this much intensive CPU utilization. Ouch. This is the fixed script:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = '1113122113'
+
+    def speak(z)
+      previous = ""
+      current = z[0]
+      count = 0
+      final = ""
+      z.each_char do |x|
+        if x != current
+          previous = current
+          current = x
+          final << count.to_s + previous
+          count = 0
+        end
+        count += 1
+      end
+      final << count.to_s + current
+      return final
+    end
+
+    1.upto(50) {
+      data = speak(data)
+    }
+
+    p data.length
+    ```
+
+    I'll reply to this with the total time the first copy takes (if it ever finishes).
+  :replies:
+  - :author: gnuconsulting
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuvnr/
+    :body: Almost exactly an hour! Vs. 5 seconds using \<\<
+    :replies: []
+  - :author: dalfgan
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuxzx/
+    :body: 'ahah I did the same thing (but I used "#{x}#{y}"). After 2 or 3 min, I was like something is not correct. What about doing this in your code: final \<\< count.to\_s \<\< current'
+    :replies:
+    - :author: gnuconsulting
+      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtv7xw/
+      :body: No noticeable change. Still takes about 5.5 seconds for 50 iterations. I believe it's because it does the right-hand concat first (between `count.to_s` and `current`) which are both tiny strings, before appending the result onto `final` (the death-blow if you use `+=`).
+      :replies: []
+- :author: segfaultvicta
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuu0n/
+  :body: |-
+    Golang - there's probably a slightly cleaner way to do this.
+
+    I originally used string concatenation, ran into a brick wall at iteration 44, was DEEPLY confused because I wasn't memory-bound or CPU-bound, scratched my head for a while until I remembered that go's naive string concatenation is a giant pile of string-copying because strings are immutable, realised they were just byte arrays under the sheets, laughed INCREDIBLY HARD, cancelled the process, made a few adjustments, am still laughing. I think this is the first time I've ever had a process bound by /the speed at which it can copy stuff in RAM/.
+
+    This is DEFINITELY my favourite puzzle so far in terms of "B-side slapping me in the face with a trout", and I definitely learned a thing about golang. Ruby or Perl would have made the solution obvious and a nice clean one-liner, I think, but honestly one of the reasons I'm doing these in golang is deliberately to run into these sort of issues - I plan to do at -least- the first ten days in Elixir sometime next month while I try to learn it, and I feel like I'll run into a complementary set of issues. I'm really looking forward to comparing the two experiences!
+
+    ```ruby
+    func indexToEndRun(s []byte, from int) int {
+    for i := from + 1; i < len(s); i++ {
+        if s[i] != s[from] {
+            return i - 1
+        }
+    }
+    return len(s) - 1
+    }
+
+    func day10sideB(lines []string) string {
+    bytes := []byte(lines[0])
+    for i := 0; i < 50; i++ {
+        newString := []byte{}
+        for j := 0; j < len(bytes); {
+            runEndsAt := indexToEndRun(bytes, j)
+            runSize := byte((runEndsAt + 1) - j)
+
+            newString = append(newString, runSize+byte(48)) //shens
+            newString = append(newString, bytes[j])
+
+            j = runEndsAt + 1
+        }
+        bytes = newString
+    }
+    return strconv.Itoa(len(bytes))
+    }
+    ```
+  :replies:
+  - :author: metamatic
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwhtoh/
+    :body: |-
+      > Ruby or Perl would have made the solution obvious and a nice clean one-liner, I think, but honestly one of the reasons I'm doing these in golang is deliberately to run into these sort of issues
+
+      Yes. I'm using these exercises as a way to learn to write Go usefully, and that means "belt and braces" error handling, unit tests, and not writing "clever" code.
+
+      Anyhow, I guessed that speed was going to be an issue, so I checked and read that [byte buffers are the way to do character appends in Go](http://golang-examples.tumblr.com/post/86169510884/fastest-string-contatenation). I went that route and the code finishes in half a second. You might want to compare your code's speed with a byte buffer version?
+    :replies:
+    - :author: segfaultvicta
+      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwymqg/
+      :body: |-
+        Huh, neat, thanks for the link! I think I will try that sometime and speed-compare just for funsies.
+
+        Writing to a byte buffer is definitely a lot cleaner-looking, to me, too, so.
+      :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtw6vi/
+  :body: |-
+    **Ruby solution**
+
+    Avoids using strings altogether, just arrays....
+
+    ```ruby
+    def looksay(s)
+        result = []
+        prev = s[0]
+        count = 1
+        for i in 1..s.length-1 do
+            digit = s[i]
+            if digit != prev then
+                result.push(count)
+                result.push(prev)
+                prev = digit
+                count = 1
+            else
+                count = count + 1
+            end
+        end
+        result.push(count)
+        result.push(prev)
+        return result
+    end
+    input = [1,3,2,1,1,3,1,1,1,2]
+    for i in 1..50
+        input = looksay(input)
+        puts i.to_s + ", " + input.length.to_s
+    end
+    ```
+  :replies: []
+- :author: tremendo
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxu2gu7/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    def look_and_say(n)
+      rs = []
+      all_chars = n.chars
+      cur_chr = all_chars[0]
+      kount = 0
+      all_chars.each do |c|
+        if c != cur_chr
+          rs << kount.to_s
+          rs << cur_chr
+          cur_chr = c
+          kount = 0
+        end
+        kount += 1
+      end
+      rs << kount.to_s
+      rs << cur_chr
+      return rs.join
+    end
+
+    def solve(input, n)
+      n.times do |i|
+        input = look_and_say(input)
+      end
+      puts '-> ' + input.length.to_s
+    end
+
+    solve('1', 5)
+    input = '1113122113'
+    solve(input, 40)
+    solve(input, 50)
+    ```
+  :replies: []
+- :author: vanderzee94
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxub4t6/
+  :body: |-
+    My solution in ruby
+
+    ```ruby
+    def lns(inuput)
+        chunks = inuput.chars.chunk{|e| e}.map{|e| e[1].join }.compact
+        return chunks.map{ |s| s.length.to_s + s[0] }.join('')
+    end
+    input = "3113322113"
+    1.upto(50) { input = lns input }
+    puts input.size
+    ```
+  :replies: []
+- :author: zacwaz
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxuxeku/
+  :body: |-
+    Simple, functional **Ruby** solution:
+
+    ```ruby
+    def look_and_say(input)
+      input.chars.chunk{|e| e}.map{|e| e.last.length.to_s + e.first }.join
+    end
+
+    input = "1113122113"
+    puts 40.times.reduce(input) {|memo| look_and_say memo }.length
+    ```
+  :replies: []
+- :author: talkb1nary
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwr955/
+  :body: |-
+    Late to party, but i liked my result in Ruby
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    def look_and_say inp
+        inp.scan(/((\d)\2*)/).map(&:first).map { |a|
+            [a.size, a[0] ]
+        }.flatten.join('')
+    end
+
+    num = ARGV[0]
+    40.times { num = look_and_say(num) }
+    puts num.size
+
+    10.times { num = look_and_say(num) }
+    puts num.size
+    ```
+  :replies: []

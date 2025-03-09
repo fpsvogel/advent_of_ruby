@@ -1,0 +1,391 @@
+---
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazkl9g/
+  :body: |-
+    Ruby
+
+    ```ruby
+    data = File.read('data.txt').chomp.split("\n").map do |d|
+      d.match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/)
+    end
+    ```
+
+    **Part 1**
+
+    ```ruby
+    counts = Array.new(1000) { Array.new(1000, 0) }
+
+    data.map(&:to_a).map { |a| a.map(&:to_i) }.each do |_, _, left, top, width, height|
+      (top..top + height - 1).each do |row|
+        (left..left + width - 1).each do |col|
+          counts[row][col] += 1
+        end
+      end
+    end
+
+    puts counts.flatten.count { |e| e >= 2}
+    ```
+
+    **Part 2**
+
+    ```ruby
+    counts = Array.new(1000) { Array.new(1000) }
+    maps = []
+
+    data.map(&:to_a).map { |a| a.map(&:to_i) }.each do |_, id, left, top, width, height|
+      maps << [id, left, top, width, height]
+      (top..top + height - 1).each do |row|
+        (left..left + width - 1).each do |col|
+          counts[row][col] = [] unless counts[row][col]
+          counts[row][col] << id
+        end
+      end
+    end
+
+    puts maps.find { |id, _, _, width, height| counts.flatten(1).count { |a| a == [id] } == width * height }[0]
+    ```
+
+    This one kicked my ass. I barked up the wrong tree for a long time, took me over an hour to debug everything.
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb2rsqp/
+    :body: |-
+      Rances can actually be made inclusive simply by adding `...` instead of `..` as the range operator.
+
+      Great solution!
+    :replies: []
+  - :author: daybreaker
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0b4bm/
+    :body: |-
+      Went in sort of the same route for Part 1, using .times instead of .each
+
+      My part 2 was a little different, choosing to just use a boolean that fails when an id hits a cell claimed more than once. I make no claims at this being anywhere near optimal ruby though :-P
+
+      ```ruby
+      ids.each do |id_string|
+        id, left, top, width, height = split_id(id_string)
+
+        unblocked = true
+
+        width.to_i.times do |xindex|
+          height.to_i.times do |yindex|
+            unblocked = false and break if fabric[left.to_i + xindex][top.to_i + yindex] > 1
+          end
+        end
+
+        puts id if unblocked
+      end
+      ```
+    :replies: []
+- :author: moomaka
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0dv9v/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    Plan = Struct.new(:id, :x, :y, :width, :height, keyword_init: true) do
+      def x_min; x + 1; end
+      def x_max; x_min + width; end
+      def y_min; y + 1; end
+      def y_max; y_min + height; end
+
+      def coords
+        @coords ||= (x_min...x_max).to_a.product (y_min...y_max).to_a
+      end
+    end
+
+    fabric = Hash.new(0)
+
+    PARSER = /#(?<id>\d+) @ (?<x>\d+),(?<y>\d+): (?<width>\d+)x(?<height>\d+)/
+    plans = File.readlines('input.txt').map do |input|
+      Plan.new(PARSER.match(input).named_captures.transform_values!(&:to_i)).tap do |plan|
+        plan.coords.each { |x, y| fabric[[x, y]] += 1 }
+      end
+    end
+
+    puts "Part 1: #{fabric.count { |_, v| v > 1 }}"
+
+    puts "Part 2: #{plans.find { |p| p.coords.all? { |x, y| fabric[[x, y]] == 1 } }.id}"
+    ```
+  :replies:
+  - :author: ZoDalek
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb11gyo/
+    :body: Shame the struct definition is a little verbose because man the solution itself is so beautifully compact!
+    :replies:
+    - :author: moomaka
+      :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb141fd/
+      :body: |-
+        The Struct was just for readability, but you can code golf it down a bit and still keep it fairly easy to read:
+
+        ```ruby
+        coords = -> (p) { ((p[:x]+1)...(p[:x]+1+p[:w])).to_a.product ((p[:y]+1)...(p[:y]+1+p[:h])).to_a }
+        fabric = Hash.new(0)
+        PARSER = /#(?<id>\d+) @ (?<x>\d+),(?<y>\d+): (?<w>\d+)x(?<h>\d+)/
+        plans = File.readlines('input.txt').map do |input|
+          PARSER.match(input).named_captures.map { |k,v| [k.to_sym, v.to_i] }.to_h.tap do |p|
+            coords[p].each { |x, y| fabric[[x, y]] += 1 }
+          end
+        end
+        puts "Part 1: #{fabric.count { |_, v| v > 1 }}"
+        puts "Part 2: #{plans.find { |p| coords[p].all? { |x, y| fabric[[x, y]] == 1 } }[:id]}"
+        ```
+      :replies: []
+- :author: rock_neurotiko
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazomdx/
+  :body: |-
+    Day 3 in Ruby:
+
+    ```ruby
+    format_r = /#(.+) @ (\d+),(\d+): (\d+)x(\d+)/
+
+    data = Hash.new 0
+
+    boxes = File.open("input").map do |line|
+      id, left, top, wide, tall = line.match(format_r).captures
+      left = left.to_i
+      top = top.to_i
+      wide = wide.to_i
+      tall = tall.to_i
+
+      right = left + wide - 1
+      bottom = top + tall - 1
+
+      (left..right).each do |i|
+        (top..bottom).each do |j|
+          coords = [i, j]
+          data[coords] += 1
+        end
+      end
+
+      [id, left, top, wide, tall]
+    end
+
+    puts "Solution 1:", data.values.select { |x| x > 1 }.count
+
+    def collides?(data, left, right, top, bottom)
+      for i in (left..right) do
+        for j in (top..bottom) do
+          coords = [i, j]
+          return false if data[coords] > 1
+        end
+      end
+
+      true
+    end
+
+    one_remain = boxes.select do |box|
+      _, left, top, wide, tall = box
+      right = left + wide - 1
+      bottom = top + tall - 1
+
+      collides?(data, left, right, top, bottom)
+    end
+
+    puts "Solution 2:", one_remain[0][0]
+    ```
+  :replies: []
+- :author: CommanderViral
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0a1zv/
+  :body: |-
+    Crystal (both parts 1 and 2 computed together)
+
+    ```ruby
+    fabric = Array.new(1000) do
+        Array.new(1000) do
+            Array(Int32).new
+        end
+    end
+
+    input = File.open("input")
+    claim_regex = /#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/
+    all_ids = [] of Int32
+    input.each_line do |line|
+        parse_match = claim_regex.match(line)
+        next if parse_match.nil?
+        id = parse_match[1].to_i
+        all_ids << id
+        left = parse_match[2].to_i
+        top = parse_match[3].to_i
+        width = parse_match[4].to_i
+        height = parse_match[5].to_i
+
+        (left...(left + width)).each do |l|
+            (top...(top + height)).each do |t|
+                fabric[l][t] << id
+            end
+        end
+    end
+
+    square_inches = 0
+    bad_ids = Set(Int32).new
+    fabric.each do |i|
+        i.each do |j|
+            square_inches += 1 if j.size > 1
+            bad_ids = bad_ids.concat(j) if j.size > 1
+        end
+    end
+
+    good_id = (all_ids - bad_ids.to_a).first
+
+    puts "part 1: #{square_inches}"
+    puts "part 2: #{good_id}"
+    ```
+
+    And what's fun is it's valid Ruby with a line added and 3 lines changed.
+  :replies: []
+- :author: jschulenklopper
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0s050/
+  :body: |-
+    Ruby... but in a single pass over the claims. (I see a lot of double passes; one processing all the claims for marking the fabric, one processing all the claims again or the fabric to look for single-marked spots.)
+
+    ```ruby
+    fabric = Hash.new([])
+    all_ids = Array.new
+
+    while line = gets do
+        # Parse a line.
+        id, x, y, w, h = line.strip.match(/^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)$/).captures.map(&:to_i
+
+        # Add id to list of all ids.
+        all_ids << id
+
+        w.times do |i|
+            h.times do |j|
+                # Enter claim on fabric; add id to list.
+                fabric[[x+i,y+j]] += [id]
+
+                # If there's more than one claim on the spot,
+                # remove id and other ids on that spot from all_ids.
+                if fabric[[x+i,y+j]].length > 1
+                   all_ids.delete(id)
+                   fabric[[x+i,y+j]].each { |id| all_ids.delete(id) }
+                end
+            end
+        end
+    end
+
+    puts all_ids.join(", ")
+    ```
+  :replies: []
+- :author: omegaxLoL
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0txje/
+  :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day3.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
+  :replies: []
+- :author: vanderzee94
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb1q783/
+  :body: |-
+    Ruby Solution for both parts
+
+    ```ruby
+    data = File.readlines('input.txt')
+
+    parser = /\#(?<id>\d+) \@ (?<l>\d+),(?<t>\d+): (?<w>\d+)x(?<h>\d+)/
+
+    overlap = Hash.new
+    cloth = []
+    1000.times { cloth << Array.new( 1000, "." ) }
+
+    data.each do |claim|
+      match = parser.match(claim)
+      id, l, t, w, h = match["id"], match["l"].to_i, match["t"].to_i, match["w"].to_i, match["h"].to_i
+      overlap[id] = true
+      (l...l+w).each do |row|
+        (t...t+h).each do |column|
+          if cloth[row][column] == "."
+            cloth[row][column] = match["id"]
+          else
+            overlap[cloth[row][column]] = false
+            overlap[id] = false
+            cloth[row][column] = "x"
+          end
+        end
+      end
+    end
+    p cloth.flatten.count("x")
+    p overlap.key(true)
+    ```
+  :replies: []
+- :author: 121lazz
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eccbxf3/
+  :body: |-
+    Later than late to the party, but a party 'twas.
+
+    I found it easiest to deal with arrays of coordinates and to focus on readability. In Ruby:
+
+    ```ruby
+    class InchClaimer
+      attr_reader :claims
+
+      def initialize(inputs)
+        @claims = build_claims(inputs)
+      end
+
+      def overlaps
+        claims_per_coordinate
+          .count { |_coord, claims| claims.count > 1 }
+      end
+
+      def claim_without_overlaps
+        claims.each do |claim|
+          break claim.id if claim.coords.all? do |coord|
+            coords_without_overlap.include? coord
+          end
+        end
+      end
+
+      private
+
+      def build_claims(inputs)
+        inputs.map do |input|
+          Claim.new(parse(input))
+        end
+      end
+
+      def parse(input)
+        id = input.slice(/(?<=\#)(\d+)/)
+        left = input.slice(/(?<=\@\s)(\d+)/)
+        top = input.slice(/(?<=\d\,)(\d+)/)
+        rows = input.slice(/(?<=\dx)(\d+)/)
+        cols = input.slice(/(\d+)(?=x\d)/)
+
+        {
+          id: id,
+          left: left,
+          top: top,
+          cols: cols,
+          rows: rows
+        }.transform_values(&:to_i)
+      end
+
+      def claims_per_coordinate
+        @claims_per_coordinate ||=
+          claims
+          .flat_map(&:coords)
+          .group_by(&:itself)
+      end
+
+      def coords_without_overlap
+        @coords_without_overlap ||=
+          claims_per_coordinate
+          .select { |_coord, claims| claims.count == 1 }
+      end
+
+      Claim = Struct.new(:id, :left, :top, :cols, :rows, keyword_init: true) do
+        def coords
+          Array.new(rows) do |row|
+            Array.new(cols) do |col|
+              [row + top, col + left]
+            end
+          end.flatten(1)
+        end
+      end
+
+    end
+
+    input = IO.readlines('3_input.txt', chomp: true)
+
+    inch_claimer = InchClaimer.new(input)
+    puts "Square inches with overlap: #{inch_claimer.overlaps}"
+    puts "Claim id that does not overlap with anything: #{inch_claimer.claim_without_overlaps}"
+    ```
+  :replies: []

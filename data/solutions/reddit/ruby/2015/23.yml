@@ -1,0 +1,160 @@
+---
+- :author: Phakx
+  :url: https://www.reddit.com/r/adventofcode/comments/3xxdxt/day_23_solutions/cy8t1vs/
+  :body: |-
+    **RUBY** I was done in about ~10 minutes
+
+    ```ruby
+    #!/usr/bin/ruby
+    File.open("#{File.dirname( __FILE__ )}/input") do |file|
+      instructions = file.readlines
+      iteration_count = instructions.size
+      i=0
+      registers = Hash.new
+      #registers['a'] = 1 #Part 2
+      registers['a'] = 0
+      registers['b'] = 0
+      VALUE_IS_ONE = 'jio'
+      INCREMENT = 'inc'
+      TRIPLE = 'tpl'
+      HALF = 'hlf'
+      VALUE_IS_EVEN = 'jie'
+      JUMP = 'jmp'
+      while i < iteration_count
+        current_instruction = instructions[i]
+        current_instruction.sub!(',', '')
+        instruction_split = current_instruction.split ' '
+        instruction = instruction_split[0]
+        register = instruction_split[1]
+        jump_value = instruction_split[2].to_i
+
+        if instruction == VALUE_IS_ONE
+          if registers[register] == 1
+            i += jump_value
+            next
+          end
+        end
+
+        if instruction == INCREMENT
+            registers[register] += 1
+        end
+
+        if instruction == TRIPLE
+          registers[register] = registers[register] * 3
+        end
+        if instruction == HALF
+          registers[register] = registers[register] / 2
+        end
+        if instruction == VALUE_IS_EVEN
+          if (registers[register] % 2) == 0
+            i += jump_value
+            next
+          end
+        end
+
+        if instruction == JUMP
+          jump_value = register
+          i += jump_value.to_i
+          next
+        end
+        i += 1
+      end
+      puts "Value a is #{registers['a']}"
+      puts "Value b is #{registers['b']}"
+    end
+    ```
+  :replies: []
+- :author: jordanscales
+  :url: https://www.reddit.com/r/adventofcode/comments/3xxdxt/day_23_solutions/cy91suo/
+  :body: |-
+    Just some basic ruby :) Feel free to suggest any changes, I'm not a Ruby programmer.
+
+    ```ruby
+    state = {
+        a: 0,
+        b: 0,
+        counter: 0,
+        instructions: []
+    }
+
+    # Extract the register from an instruction
+    def reg(line)
+        line.split(" ")[1].to_sym
+    end
+
+    # Extra the value from an instruction
+    def value(line)
+        line.split(" ")[1].to_i
+    end
+
+    ARGF.each do |line|
+        state[:instructions] << case line
+            when /hlf/
+                -> { state[reg(line)] /= 2 }
+            when /tpl/
+                -> { state[reg(line)] *= 3 }
+            when /inc/
+                -> { state[reg(line)] += 1 }
+            when /jmp/
+                -> {
+                    # Increment the counter (minus 1 because we'll inc it after)
+                    state[:counter] += value(line) - 1
+                }
+            when /jie/
+                -> {
+                    match = line.match /(a|b), (.*)/
+                    reg = match[1].to_sym
+                    offset = match[2].to_i
+
+                    if state[reg].even?
+                        state[:counter] += offset - 1
+                    end
+                }
+            when /jio/
+                -> {
+                    match = line.match /(a|b), (.*)/
+                    reg = match[1].to_sym
+                    offset = match[2].to_i
+
+                    if state[reg] == 1
+                        state[:counter] += offset - 1
+                    end
+                }
+            end
+    end
+
+    while state[:counter] < state[:instructions].count
+        state[:instructions][state[:counter]].()
+        state[:counter] += 1
+    end
+
+    # What is the value in register b when the program in your puzzle input is
+    # finished executing?
+    puts state[:b]
+    ```
+  :replies: []
+- :author: vanderzee94
+  :url: https://www.reddit.com/r/adventofcode/comments/3xxdxt/day_23_solutions/cy9395s/
+  :body: |-
+    Solution in Ruby.
+
+    ```ruby
+    r=Hash.new
+    r['a']=0 #Uncomment for part 1
+    #r['a'] = 1 #Uncomment for part 2
+    r['b']=0
+    f=File.open("input.txt").readlines
+    l=0
+    while l<f.size
+        m = f[l].match(/(...) (.+)/)
+        r[m[2]]/=2 if m[1]=="hlf"
+        r[m[2]]*=3 if m[1]=="tpl"
+        r[m[2]]+=1 if m[1]=="inc"
+        if m[1]=="jmp" then d=m[2].match(/([\+|\-]\d+)/); l+=d[1].to_i-1; end
+        if m[1]=="jie" then d=m[2].match(/(.), ([\+|\-]\d+)/); l+=d[2].to_i-1 if r[d[1]]%2==0; end
+        if m[1]=="jio" then d=m[2].match(/(.), ([\+|\-]\d+)/); l+=d[2].to_i-1 if r[d[1]]==1; end
+        l+=1
+    end
+    p r['b']
+    ```
+  :replies: []

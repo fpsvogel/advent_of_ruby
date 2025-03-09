@@ -1,0 +1,238 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbrxaa/
+  :body: |-
+    This day made me so unsure what I want from Advent of Code. Yesterday, I thought "I really wish the problems made us think more, rather than a contest of who can type the fastest". Today, the problem made us think more and it did not go well: missed part 2 leaderboard because I went with the broken approach of thinking the total relative permutation from one iteration can simply be reapplied multiple times. Nope, because there are absolute permutations too. I think what I ultimately want is to continue to have problems that make us think... but for me to be better at thinking of the right solution in the heat of the moment. Oh well, next time.
+
+    Here is a Ruby solution that finds a cycle.
+
+    ```ruby
+    def dance(orig, steps)
+      steps.each_with_object(orig.dup) { |step, progs|
+        args = step[1..-1]
+        case step[0]
+        when ?s
+          progs.replace(progs.chars.rotate(-args.to_i).join)
+        when ?x
+          l, r = args.scan(/\d+/).map(&:to_i)
+          progs[l], progs[r] = [progs[r], progs[l]]
+        when ?p
+          l, r = args.split(?/)
+          progs.tr!(l + r, r + l)
+        else raise "Unknown dance step #{step}"
+        end
+      }
+    end
+
+    input = (ARGV.empty? ? DATA : ARGF).read.split(?,).map(&:freeze).freeze
+
+    progs = [(?a..?p).to_a.join.freeze]
+
+    loop {
+      progs << dance(progs[-1], input).freeze
+      break if progs[-1] == progs[0]
+    }
+
+    progs.pop
+
+    puts progs[1]
+    puts progs[1_000_000_000 % progs.length]
+
+    __END__
+    x3/4,pm/e,x15/7,pp/l,etc.
+    ```
+
+    Note that I have since scrapped this solution in favour of one that splits up the dance into relative and absolute moves, however I will defer to https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16\_solutions/drbqb27/ to explain how that looks, since it wasn't my idea.
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbootv/
+  :body: |-
+    Ruby (#23/#44); Pleasant challenge! Part 2 was a shock, but I've actually encountered [a problem with the same mechanic](https://cdn.discordapp.com/attachments/385778069098463232/391459810425700352/unknown.png) before (which handles more details), so I went to look up my solution on that site and re-implemented the relevant parts here. (Also, that problem took me an all-nighter to figure out (maths and I don't get along), so it's nice that it came back to save me here!) I was lucky to have no bugs!
+
+    ```ruby
+    g=(?a..?p).to_a
+    y=gets.split(?,)
+    h={} # part 2
+    c=1000000000
+    c.times{|x|break if x>=c
+    (
+    tv,w=h[g*'']
+    gap=x-tv
+    remain=c-x-1
+    (
+        skiptimes=remain/gap
+        c-=skiptimes*gap
+    )if remain>=gap
+    ) if h.has_key?(g*'')
+
+    uu=g*'' # part 2 end
+    y.each{|x|case x
+    when /s(.+)/
+    g.rotate!(-$1.to_i)
+    when /x(\d+)\/(\d+)/
+    a,b=$1.to_i,$2.to_i
+    g[a],g[b]=g[b],g[a]
+    when /p(.)\/(.)/
+    a,b=g.index($1),g.index($2)
+    g[a],g[b]=g[b],g[a]
+    end}
+    h[uu]=[x,g[0..-1]]} # part 2
+    p g.join
+    ```
+
+    [postscript](https://cdn.discordapp.com/attachments/293355384436162560/391462643325599774/unknown.png)
+  :replies: []
+- :author: Fluffy_ribbit
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbwp49/
+  :body: |-
+    Ruby. I am like a little baby.
+
+    ```ruby
+    class DanceLine
+      attr_accessor :programs, :moves
+      def initialize(programs, dance_moves)
+        self.programs = programs
+        self.moves = dance_moves.split(',')
+      end
+
+      def spin(arg)
+        x = arg.to_i
+        self.programs = self.programs[-x..-1] + self.programs[0..(-x - 1)]
+      end
+
+      def exchange(args) # switch programs at position a and b
+        a, b = args.chomp.split('/').map(&:to_i)
+        hold = self.programs[a]
+        self.programs[a] = self.programs[b]
+        self.programs[b] = hold
+      end
+
+      def partner(args) # switch programs named a and b
+        a, b = args.chomp.split('/')
+        hold_index = self.programs.find_index(b)
+        self.programs[self.programs.find_index(a)] = b
+        self.programs[hold_index] = a
+      end
+
+      def execute(move)
+        #p [move, self.programs]
+        case move[0]
+        when 's' then spin(move[1..-1])
+        when 'x' then exchange(move[1..-1])
+        when 'p' then partner(move[1..-1])
+        end
+      end
+
+      def run
+        self.moves.each {|move| execute(move)}
+
+        self.programs.join
+      end
+    end
+
+    p DanceLine.new(('a'..'e').to_a, "s1,x3/4,pe/b").run
+    p DanceLine.new(('a'..'p').to_a, File.read("../input/dance_moves.txt").chomp).run
+
+    require_relative "part1.rb"
+
+    dance = DanceLine.new(('a'..'p').to_a, File.read("../input/dance_moves.txt"))
+
+    start = dance.run
+    cycle_length = 1_000_000_000
+    100.times do |n|
+      dance.run
+
+      cycle_length = n + 1 if dance.programs.join == start
+    end
+
+    dance = dance = DanceLine.new(('a'..'p').to_a, File.read("../input/dance_moves.txt"))
+
+    (1_000_000_000 % cycle_length).times {dance.run}
+
+    p dance.programs.join
+    ```
+  :replies:
+  - :author: Grimnur87
+    :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc03cr/
+    :body: |-
+      Similar approach here, only I added my methods directly to the Array class:
+
+      ```ruby
+      # Extend built-in:
+      class Array
+          # Array rotator
+          def s!(num)
+              self.rotate!(-num)
+          end
+
+          # Array swap pair by index
+          def x!(i,j)
+              self[i], self[j] = self[j], self[i]
+              self
+          end
+
+          # Array swap pair by value
+          def p!(a,b)
+              i, j = self.find_index(a), self.find_index(b)
+              self.x!(i,j)
+          end
+      end
+      ```
+
+      After processing the instructions I called them thusly: `dance.send(head+'!', *tail)`.
+
+      Bit of a waste of time but I learned something new.
+    :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc3bi9/
+  :body: |-
+    ruby
+
+    I was completely stumped. I had to read this thread to remove some of my misconceptions. I was determined to believe that this could be reduced to a fixed permutation function. I wrote some crazy metaprogramming fast\_dance function to dynamically generate a function that would perform the permutation. It was pretty cool and completely useless.
+
+    Even after that I still couldn't figure out why the result wasn't 1000000000 % seen.size. Too much holiday spirit i guess...
+
+    ```ruby
+    input = File.read("input").chomp.split(",").map(&:chars)
+    input.map! do |line|
+      op = line.shift
+      args = line.join.split("/")
+      args.map!(&:to_i) unless op == "p"
+
+      [op.to_sym, args]
+    end
+
+    def s arr, v
+      arr.rotate!(-v)
+    end
+
+    def x arr, a,b
+      arr[a], arr[b] = arr[b], arr[a]
+    end
+
+    def p arr, a, b
+      x arr, arr.index(a), arr.index(b)
+    end
+
+    arr = ("a".."p").to_a
+
+    def dance input, arr
+      input.each { |(op, args)| send op, arr, *args }
+    end
+
+    dance input, arr
+    puts arr.join
+
+    arr = ("a".."p").to_a
+    seen = []
+    1000000000.times do |i|
+      if seen.include? arr.join
+        puts seen[1000000000 % i]
+        break
+      end
+
+      seen << arr.join
+      dance input, arr
+    end
+    ```
+  :replies: []

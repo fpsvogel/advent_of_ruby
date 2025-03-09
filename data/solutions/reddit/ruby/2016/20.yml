@@ -1,0 +1,82 @@
+---
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/5jbeqo/2016_day_20_solutions/dbfo4nb/
+  :body: |-
+    **Ruby**. Clean as I could and covering any corner cases.
+
+    ```ruby
+    def overlap?(range1, range2)
+      min, max = [range1, range2].minmax_by(&:first)
+      min.cover?(max.first) || min.last + 1 == max.first
+    end
+
+    def merge_overlapping_ranges(*ranges)
+      starts, stops = ranges.map { |range| [range.first, range.last] }.transpose
+      Range.new(starts.min, stops.max)
+    end
+
+    def merge_ranges(ranges)
+      ranges.reduce([]) do |processed, current|
+        overlapping, distinct = processed.partition { |range| overlap?(range, current) }
+        merged = merge_overlapping_ranges(current, *overlapping)
+        [merged, *distinct]
+      end
+    end
+
+    filename = ARGV[0] || 'input/20.txt'
+    input = File.open(filename).each_line.map { |line| Range.new(*line.split('-').map(&:to_i)) }
+
+    blacklist = merge_ranges(input)
+
+    # Part 1
+    p blacklist.min_by(&:first).last + 1
+
+    # Part 2
+    p 2**32 - blacklist.reduce(0) { |count, range| count + range.size }
+    ```
+  :replies:
+  - :author: anonymous_4_custody
+    :url: https://www.reddit.com/r/adventofcode/comments/5jbeqo/2016_day_20_solutions/dbjdm3n/
+    :body: |-
+      > Ruby
+
+      Here's mine. Similar, but I sorted before I merged.
+
+      ```ruby
+      module BlockedIps
+        module_function
+
+        def sort(ranges)
+          ranges.sort { |one,two| one.min <=> two.min }
+        end
+
+        def overlap_upper_bound(ranges)
+          ranges.max_by {|x| x.max }.max
+        end
+
+        def consolidate_overlaps(ranges)
+          range_changed = 0
+          while range_changed != ranges.size
+            range_changed = ranges.size
+            ranges = sort(ranges)
+              .chunk_while { |first,second| first.max + 1 >= second.min }
+              .map { |overlapping_ranges|
+                (overlapping_ranges.first.min..overlap_upper_bound(overlapping_ranges))
+              }
+          end
+          ranges
+        end
+
+        def smallest_allowed(ranges)
+          consolidate_overlaps(ranges).first.max+1
+        end
+
+        def count_all_allowed(ranges)
+          consolidate_overlaps(ranges)
+            .each_cons(2)
+            .inject(0) { |counter,(n1,n2)|( (n1.max + 1)...n2.min).size + counter }
+        end
+
+      end
+      ```
+    :replies: []

@@ -1,0 +1,72 @@
+---
+- :author: andars_
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darhz11/
+  :body: |-
+    Ruby, parts 1 and 2. [link](https://raw.githubusercontent.com/andars/advent-of-code/master/2016/day4/task.rb)
+
+    Solutions for part 2 found via a quick search of the output for `north` in vim.
+  :replies: []
+- :author: anadhdguy
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darj14n/
+  :body: |-
+    ```ruby
+    #!/usr/bin/env ruby
+    input = File.read('input')
+    sum = 0
+    room = 0
+    input.each_line{|line|
+      m=line.chomp.split(/[-\[\]]/); cs=m.pop; sid=m.pop.to_i
+      sum += sid if cs == m.join.chars.group_by{|x|x}.sort_by{|k,v|[-v.size,k]}.map{|k,v|k}.take(5).join
+      room = sid if m.join(' ').gsub(/[a-z]/){|c| (((c.ord-0x61+sid)%26)+0x61).chr }[/north/]
+    }
+    puts ">> PART1: #{sum}"
+    puts ">> PART2: #{room}"
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darm5t9/
+  :body: |-
+    I can do both parts in 3 lines of Ruby, and even construct additional pylons:
+
+    ```ruby
+    l=File.open('input4.txt','r').readlines.map{|l|/^([a-z\-]+)-(\d+)\[([a-z]{5})\]/.match(l).to_a}.select{|pylon|pylon && pylon[1].chars.reject{|c|c=='-'}.each_with_object(Hash.new(0)){|c,o|o[c]+=1}.sort_by{|k,v|-v*256 + k.ord % 256}.map(&:first).first(5).join('') == pylon[3]}
+    l.inject(0){|sum,e|sum+=e[2].to_i}
+    l.map{|s|[s[1].chars.map{|c|((c.ord-'a'.ord+s[2].to_i) % 26+ 'a'.ord).chr}.join(''), s[2].to_i]}.select{|e|e[0] =~ /northpole/}[0][1]
+    ```
+
+    more readable:
+
+    ```ruby
+    l=File.open('input4.txt','r').readlines\
+    .map{|l|/^([a-z\-]+)-(\d+)\[([a-z]{5})\]/\
+    .match(l).to_a}\
+    .select{|pylon|pylon &&
+        pylon[1].chars.reject{|c|c=='-'}\
+    .each_with_object(Hash.new(0)){|c,o|o[c]+=1}\
+    .sort_by{|k,v|-v*256 + k.ord % 256}\
+    .map(&:first)\
+    .first(5)\
+    .join('') == pylon[3]}
+    l.inject(0){|sum,e|sum+=e[2].to_i}
+    l.map{|s|
+      [s[1].chars\
+    .map{|c|((c.ord-'a'.ord+s[2].to_i) % 26+ 'a'.ord).chr}.join(''),
+       s[2].to_i]
+    }.select{|e|e[0] =~ /northpole/}[0][1]
+    ```
+  :replies: []
+- :author: socialmeatloaf
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/dasoy5y/
+  :body: |-
+    One disgustingly ugly line of Ruby for Part 1:
+
+    ```ruby
+    puts File.foreach('day4.input').map{ |line| if line.tr('-', '').tr("\n","").gsub(%r{\[\S+\]},"").gsub(/\d/,'').split("").inject(Hash.new(0)) { |h,v| h[v] += 1; h }.sort_by{|k, v| [-v, k]}.first(5).map {|row| row[0]}.join("").eql?line.tr('-', '').match(%r{\[\S+\]})[0].tr('[]',"") then line.match(%r{\d+})[0].to_i end }.compact.inject(0){|sum,x| sum + x }
+    ```
+
+    One disgustingly ugly line of Ruby for Part 2:
+
+    ```ruby
+    File.foreach('day4.input').map{ |line| if line.tr("\n","").split('-').slice(0..line.tr("\n","").split('-').size-2).join("").each_char.inject("") { |newtext, char| newtext + Hash[('a'..'z').to_a.zip(('a'..'z').to_a.rotate(line.tr("\n","").split('-')[-1].gsub(%r{\[\D+\]},"").to_i ))][char]}.include? "north" then puts line.tr("\n","").split('-')[-1].gsub(%r{\[\D+\]},"").to_i end}
+    ```
+  :replies: []

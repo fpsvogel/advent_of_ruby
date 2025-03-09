@@ -1,0 +1,123 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fbczcr4/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_11
+  :replies: []
+- :author: Kache
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/faj25ci/
+  :body: |-
+    **Ruby** shortened to 17 lines, not counting `Intcode`:
+
+    ```ruby
+    COLOR = { black: 0, white: 1 }
+    PAINT = { black: ' ', white: '█' }.transform_keys(&COLOR)
+
+    robot, coord = Intcode.new(File.read('input11')), Vector[0, 0]
+    facing = [Vector[0, -1], Vector[1, 0], Vector[0, 1], Vector[-1, 0]] # coordinate conversion
+
+    painted, hull_colorcode = Hash.new, COLOR[:white] # Part 1: COLOR[:black]
+    while (paintcode = robot.run([hull_colorcode]))
+      painted[coord.to_a] = paintcode
+      coord += facing.rotate!([-1, 1].at(robot.run)).first
+      hull_colorcode = painted.fetch(coord.to_a, COLOR[:black])
+    end
+
+    dim_x, dim_y = painted.keys.transpose.map(&:minmax).map { |lo, hi| (lo..hi) }
+    puts painted.size, dim_y.map { |y|
+      dim_x.map { |x| PAINT[painted.fetch([x, y], COLOR[:black])] }.join
+    }.join("\n")
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7sld/
+  :body: |-
+    Ruby again.
+
+    Built a basic Robot class that keeps track of the color of the panels and it's direction and position, with the methods _check\_color_, _paint_, and _turn_. Wanted to do some [more thread stuff](https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z55xo?utm_source=share&utm_medium=web2x), so I set up a channel for the camera feed to the intcode program, and a command channel for the robot.
+
+    Then one thread does this:
+
+    ```ruby
+    loop do
+      camera_channel.push(robot.check_color)
+
+      robot.paint(command_channel.pop)
+      robot.turn(command_channel.pop)
+    end
+    ```
+
+    while another does this:
+
+    ```ruby
+    intcode = read_intcode('../input/input11.txt')
+
+    computer = IntcodeComputer
+      .new(intcode, input: camera_channel, output: command_channel)
+      .run
+
+    camera_channel.close
+    ```
+
+    I did a test run, expecting it to break or loop forever or someting bad, but to my suprise it simply worked and exited peacefylly. Turns out `Queue`'s [`close`](https://ruby-doc.org/core/Queue.html#method-i-close) method actually makes any subsequent calls to `push` raise an Exception that inherits from StopIteration, which simply make the robot thread break its loop without any fuzz. Neat!
+
+    The whole thing can be seen here: [aoc2019/ruby/11.rb](https://github.com/daniero/code-challenges/blob/master/aoc2019/ruby/11.rb)
+  :replies: []
+- :author: Yardboy
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7p2m/
+  :body: |-
+    # Ruby
+
+    [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle11b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle11b/solution.rb)
+
+    Intcode Computer source: [https://github.com/Yardboy/advent-of-code/tree/master/2019/intcode](https://github.com/Yardboy/advent-of-code/tree/master/2019/intcode)
+
+    # [Poem]
+
+    I just moved the robot around
+
+    Not realizing that in the ending
+
+    Negative coordinates would abound
+
+    And my map would need some mending
+
+    So I calculated max and min
+
+    And with them shifted down and right
+
+    Fixed myself a tonic and gin
+
+    Cause then I had the answer right
+  :replies: []
+- :author: MaterialFerret
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai5kx5/
+  :body: |-
+    # Ruby
+
+    Completely reused existing intcode parser. For robot movement I used sine and cosine functions, I felt like using some trigonometry just for the sake of using it after yesterday. And because of my unfulfilled robotics aspirations. :)
+
+    [https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day11.rb](https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day11.rb)
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fahd4f9/
+  :body: |-
+    I did wrote my solutions on Ruby, if there's another intcode problem i'll probably separate my intcodeVM to another module/file.
+
+    They also need a bit of clean up but here they are:
+
+    Part1: [https://github.com/hdf1986/advent-of-code/blob/master/day11/part1.rb](https://github.com/hdf1986/advent-of-code/blob/master/day11/part1.rb)
+
+    Part2: [https://github.com/hdf1986/advent-of-code/blob/master/day11/part2.rb](https://github.com/hdf1986/advent-of-code/blob/master/day11/part1.rb)
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fagct5o/
+  :body: |-
+    Ruby [11_intcode_langtons\_ant.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/11_intcode_langtons_ant.rb) and [lib/intcode.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/lib/intcode.rb) for 96/56 today. Has been cleaned up but the idea is the same.
+
+    Haskell [11_intcode_langtons\_ant.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/bin/11_intcode_langtons_ant.hs) and [lib/AdventOfCode/Intcode.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/lib/AdventOfCode/Intcode.hs).
+
+    I examined the program. There are a few functions in there which is unsurprising. There is one particular function whose caller I couldn't find, until I saw there was a 106,0,X lying around, and that a previous function had stored the address of the otherwise-uncalled-so-far function into X after having been passed it by a caller. So today we got to see higher-order functions, or function pointers, or however you want to think of it. Interesting.
+  :replies: []

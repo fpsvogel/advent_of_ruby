@@ -1,0 +1,64 @@
+---
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gffp3au/
+  :body: |-
+    # Ruby
+
+    Kind of slow (7 seconds and 20 seconds for parts 1 and 2 respectively), maybe more to do with how I make copies of old and new states in a loop. I'll have to consider how to rewrite this later. Suggestions welcome.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBECwAAAAAAAAAkk4bN/Dq9JvpdmcyYGaBc7LQX/buFf1oDyCAw4zc/6HyE0/lc22e478Mw/zzhx1WgUiFjq9QIRbKna4otu0Ap5rU8ChjwBjw1pbLYvr04QDdpNlXzWCuuoQkSkHb3fx0GjDHFLj7US6MrO+lBB01QaueCu9jCDv2FBezBSuEJGFvdewTPqrZCf808GJ3ne1O4hAK4nwh7YE4ecLnAXVwFFWlQVp7eGe6rau6+utPDJ6WiOtp6ec2BxhAro2iK7WMRNQSXS5ngHVYCIUL0S8GTQ7T3v5GCJTi3u7L538V+cEm9g9W1RotbwGGCF3cK/fvfSMH+wpqW3P4hKNpKcVw2H4d1nYkrv7VCCTiZNtTtmusKckhC8UzovPGA+bURvMUW+pM0A2xY9X7WTGeof8fP0KYp4UydB+fPouiZdcE5bHlUUGnKkQGUhhmptbDeYaQUz47DCUb44Ha3ia4k5m0EywRNVHcgDtBqNF1ZYus4SEHfk01/gvgX7uCBEdcFuEvJandmXH6kfafkbFkJWJWtPV2YtCDN2KRm7TDpS7e6Oy8YUeUhTXzmPs6HMANBVoyD4jGe6oHKUmPdnC7j8tVG9RjLeR5GUlFC9eX91+IG0DfqxOaSE3tAurvGMRyFonxAYZEExDJ4JoLALnyfgD6XnSznVAo9d0p0IipmIGGsUPZCodOr6d4xAHY/mEdFEXBEZKuf0vrJFuI3XQBFC1B0VYfDwz6t66Q2EtsNqn0a6GVZvIZ9OT52MJ3L+miUBw9uuNcwY/5vVWSx32abo3xSplOIlucst6XxRJJ7O3xZNf6HwTV5mMYsj/jymdPOm9CC+d44tmsYLorb4Omi7MEgBVn2rmUqKHIpI6k70UhL5nAI52xkgkkSUsZaNZdOVuoyrSjmvSR2oBxH9bIwP2yngLPOa5cUJYcSZ+9JqSuopZ4A8qIDYXiLTsnBwxhexqO6BKwb3hUfdiN5YBuzddr2y3Xg76cibBCKmoXb5HlWPb/9onPZFUag87e95+oSsve/x85qNbMLgPiarjBtFuxHBWLmqnjPqbCZGlmd1OvDq9jnlJt0y689bba2FXDJ7j+Wpkb8FvWTnhvdIRVt4+Holo2w3vzyoNbyZCJjqWOEIL/H5eCHxrIDFMGMCPxfU7pQOIgE28r+Aujt+S01vNRE5q+dnaLqiN7NCGGHzQUoPME3ZiukTQnruNjalZcekmJ499EvOSe2iTtA3nf3VhRUh3RwzjgCF3y+zFnpQT31AhXuydVQ1uMCLAEOkj6Mh6fgWfrlpElJcWmRedKL9uzxNBOTsnr+2s79g1UZh7yC2ODXxq6XPMFDeqPljAakR8kH3MoKcvj8QSLl)
+  :replies:
+  - :author: Krakhan
+    :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfgbunl/
+    :body: |-
+      Better solution that uses one less copy on each iteration, skipping floor tiles in the main loop and not saving them when looking up surroundings, and just caching each of the seat visibilities. About 3-4 seconds on each part now, much better.
+
+      [pastebin](https://pastebin.com/gshb1ebL)
+    :replies:
+    - :author: mr_banana_lord
+      :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/ggghzwi/
+      :body: |-
+        Late to the party, but nethertheless I would like to share my solution as it's even faster (1.3s).
+
+        I have extracted the neighbor calculation and cached the next visible seats for each seat and then just used the coordinates instead of recalculating them every time. Also the check for Array boundaries is done more efficiently, maybe that's why it is a faster solution.
+
+        [https://github.com/MrBananaLord/adventofcode/blob/master/day\_11/task\_2.rb](https://github.com/MrBananaLord/adventofcode/blob/master/day_11/task_2.rb)
+      :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfdicvy/
+  :body: |-
+    **Ruby:** 9:08/26:44, 138/643
+
+    Here's a [recording](https://youtu.be/Ba0EwT5AM88) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/d528e2ddf4876054f464da3a50ab753cc846e879/2020/dec11.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Part 1 went pretty well I thought. Only 30 seconds away from the leaderboard!
+
+    I lost TONS of time because I didn't re-initialize my starting location when exploring in different directions in Part 2. This led to very confusing output and serious concern that I didn't understand something about Ruby scoping rule.
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfd7730/
+  :body: |-
+    Ruby 317/181
+
+    https://gist.github.com/gurgeous/5a7d2d1a445af6b99f1ca912c1a60c78
+
+    Two things I've learned since last year (1) use arrays for directions (2) use ranges for bounds checking!
+  :replies:
+  - :author: lasagnaman
+    :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfd8qkv/
+    :body: yooooo your tip (1) is sick. Stealing that for the future.
+    :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfdkgih/
+  :body: |-
+    Ruby 11227/8772. Fell asleep before the problems were released again ¯\_(ツ)\_/¯
+
+    [paste](https://topaz.github.io/paste/#XQAAAQBOBgAAAAAAAAARiAqGkkN7pUjVWW5PyUyHG0Kg1qjbFQsxMn57rA2U8PFRT9HwDm/jKPypT8lhWbRv+5Mo6S7pU2e8bFUf9NSngYwD8fRFsFWwB/qQX9QCKImN+t63gpP8aHfrzxMICG/37U3JjprLqRfhXS0Z+cF/uQf5vPg3nOuFgbBZO0SfqYfqd3OT73cAby2RoHQ6BnemvsZkbpJdG/Io69nx211VbrO9zYqlDzGrqss3RkolVDBNJIVCrnlQDG7oEBUTFlA2Cb/HvJ5At2q3DlSwX4tfMx7Br+Gl/d7zi1zicV5XnqkPZSxsopagVzF5EY2Cwyz/4teszqzY6k2CYgHPD4x1T1/ubJWSmev/nOKWuyN3+Z9Ruci+L7icqOhP52XsaITKLi2k5H7fJPfeIT9lfFjzEwB4WUUkX77ycS7iDXRl7oYp81WebaJgACdwHkcXdaWGGjT70fgM+5l4tOsZN44Z9wfh1nGeympHMzfWxLaxyRUsYC/uINKVA9lZGEKRlBWLLcw48t0G1CpeoFVuaRwSK26PrzKVRfnpqr1L9ZM7QfczoKtvpU6l3HgXV1nMsW6A/vy8TAJ5lqn+vsb/vb5Fp1+e0nOwcOublmWNb3B373LdoiH1Wp/k/x3GQuE5qWFJx/IDDtdEjS76W9T6nzrunfPOSPZS4ElnCOkyBWVq+2GgLZk1RY0DOfwMomfYfc4+WlMciCBkZjfKuRbIXwkxyQGhZFv+Tj6t)
+  :replies: []
+- :author: wholarry
+  :url: https://www.reddit.com/r/adventofcode/comments/kaw6oz/2020_day_11_solutions/gfeu6gb/
+  :body: |-
+    [Ruby](https://github.com/dgokman/advent_of_code_2020/blob/main/aoc_2020_11.rb)
+
+    I finished 17th for part 1, which is the first time i've ever made the leaderboard after many seemingly futile attempts. I recognized quickly the similarity between this and a previous AoC problem and essentially just copied that over with a few changes. Feels a little like cheating but I'm still thrilled to finally get points
+  :replies: []

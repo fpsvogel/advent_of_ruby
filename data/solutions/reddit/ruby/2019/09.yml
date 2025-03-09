@@ -1,0 +1,50 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/faxrgkx/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_09
+  :replies: []
+- :author: Suitable_Flounder
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9zrhq/
+  :body: |-
+    **Ruby**
+
+    Like many people I didn't get relative mode on output parameters correct the first time. But let's appreciate the cleverness of /u/topaz2078 that the program tells you which code failed!
+
+    Anway, FWIW, [Ruby code](https://topaz.github.io/paste/#XQAAAQDYAwAAAAAAAAAoHInmjW7FQ21VepncIdt88EyjWtU63IQl6JqtLHB2nLT3hJaF+dOKgtxR8uSGS7VNeLB+m6bnxV3dumUheE5ZRkr1ullBW6L/9FK38Zyagat5B8/1oc+0wsi2wV9AwlMi+QDPT7n36Y6eq5Egux+YiPCRAGk2R66MEe9PpELpaA+J63XTIYGxh7tP2hKQXkl0zXPv/U+G6XveWaJYJZcXv08Gj0hEoCVrqvL6NlH+MlLmZQrYcv37YDxzy1gXagYMRUZsPPUYGOAGAJLrQjwzhbqg9yKBgtV3lv82MmA9Bn0Eb+z7loEdZC/TeNO6XwZ2LAdZCENBRVLKnZZ4S3elhXNnzu/Ad+fxaFgbAogWY5u1Z1o5JJKFLiIYqBn2+IhIzdXLLZyg30BJgy9ywOrSM/ULzDXsiGrHIpLol7nEgqovlnCQJmIxM6uz6+d79iErf4DGM3hqIFQ0tPKWd/tIoavd1wpIk0lebXHMEJni4NKMTW8N4qugzSh+KEhX3f98ZRmQ)
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qba7/
+  :body: |-
+    Hi.
+
+    Ruby got me #38/#37 on the leaderboard. [09_intcode_relative.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/09_intcode_relative.rb) + [lib/intcode.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/lib/intcode.rb). There's some stuff in there about "dynamic disassembly" and "static disassembly" and "execution stats" as well, which I'll get back to later.
+
+    Haskell is just for fun. [09_intcode_relative.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/bin/09_intcode_relative.hs) and [lib/AdventOfCode/Intcode.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/lib/AdventOfCode/Intcode.hs). Feel free to tear that one apart, I'm still learning Haskell. It doesn't have the three aforementioned tools because I didn't have the mental endurance to build them in two languages.
+
+    So about those disassemblers I was talking about. You can be sure this is coming. Here's what my part 2 was doing:
+
+    ```ruby
+    def f(x)
+      return a < 3 ? a : (f(a - 1) + f(a - 3))
+    end
+
+    output f(CONST_1) + CONST_2
+    ```
+
+    To preserve integrity, let's not elaborate on how to determine CONST_1 and CONST_2 by looking at your input file.
+
+    Part 2 was testing your interpreter's ability to call a recursive function. That would be why it took so much longer to run than part 1 (part 1 in \< 1 millisecond, part 2 in a whopping 1.3 seconds). You should look forward to disassembling one in a future day.
+
+    For those who thought "Oh, this relative base looks like a stack pointer" and who have some knowledge of how functions are called in many common assembly languages, this development should not be a surprise after seeing that a relative base was introduced today. I believe it was already possible to have functions without this relative base (you just need to designate a certain memory address that stores the relative base), but having a relative base makes it more convenient. Looking at the disassembled code you will see some clear `call` and `ret` patterns in there that take full advantage of the relative base.
+
+    As for how that function was determined, suffice it to say it took _me_ the use of all three tools I mentioned. I'm not very good at this, but I felt I had to prepare for the future day when this is coming. Maybe you can do it with fewer of the tools!
+
+    See you next time.
+  :replies:
+  - :author: goliatskipson
+    :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qnei/
+    :body: So ... Part 2 is testing a recursive function?
+    :replies: []

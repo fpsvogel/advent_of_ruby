@@ -1,0 +1,89 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbllkye/
+  :body: |-
+    The story behind this solution is, as usual, twofold:
+
+    - It's too slow
+    - It's a good chance to test out the capabilities of the Intcode runner, just like [day 13](https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan6cjr/) and [day 17](https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb73yzz/), both of which involved calling a specific function and making sure you've passed the correct arguments to it.
+
+    Even the shortest discovered Springscript programs so far ([four instructions](https://www.reddit.com/r/adventofcode/comments/edocmd/2019_day_21_part_1_all_41_instruction_solutions/) part 1, [six instructions](https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbjujku/) part 2) takes a total 2.2 seconds (parts 1 and 2 combined). Since I'm trying to keep everything around a second per day, this won't do at all.
+
+    It appears that the Springscript runner in the Intcode program just takes too long. A quick examination shows that it gets called over 10000 times on part 2.
+
+    Let's fix that, by replacing the Springscript runner completely. Let's add a [custom opcode](https://github.com/petertseng/adventofcode-rb-2019/commit/edaf07c568f3bcbb74ebc19c26f9e6ccff582d9e) to the Intcode runner. We need to find the address of the Springscript runner function. Finally we need to find the address of the array where the hull is stored. Having done these three things, we replace the Springscript runner function with the custom opcode, then define the custom opcode to perform the "should I jump?" calculation whenever it is reached. That way, the calculation is performed in your programming language of choice, rather than in Springscript. The advantage is your programming language is much faster than Springscript and you're not limited to just two writable registers.
+
+    Ruby: [21_springdroid_adventure.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/21_springdroid_adventure.rb)
+
+    Now it runs in about 0.7 seconds, which is within my goal. There could be many more possibilities for the custom opcode, but they require further study of the program before I am able to take advantage of them.
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbjrxiz/
+  :body: |-
+    Haven't gotten to part 2 yet, just wanted to share how nicely it works with Ruby's heredoc strings to blend intcode and jumpcode:
+
+    ```ruby
+    require_relative 'intcode'
+
+    def run_springcode(intcode, springcode)
+      output = IntcodeComputer.new(
+        intcode,
+        input: springcode.chars.map(&:ord)
+      ).run.output
+
+      puts output.map { |int| int > 127 ? int.to_s : int.chr }.join
+    end
+
+    intcode = read_intcode('../input/input21.txt')
+
+    puts "== PART 1 =="
+    run_springcode(intcode, <<END)
+    NOT A J
+    NOT B T
+    OR T J
+    NOT C T
+    OR T J
+    AND D J
+    WALK
+    END
+    ```
+
+    Haven't looked at other solutions yet, but I solved part 1 manually. The logic is "if there is a hole on either A B or C, but not on D, then jump". Does onviously not work for part 2, so I'll have to work that one out.
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbiol6c/
+  :body: |-
+    ## [**Ruby** (366/249)](https://github.com/Sharparam/advent-of-code/blob/master/2019/day21/solution.rb)
+
+    Springcode for part 1:
+
+    ```ruby
+    NOT A J
+    NOT B T
+    AND D T
+    OR T J
+    NOT C T
+    OR T J
+    AND D J
+    WALK
+    ```
+
+    Springcode for part 2:
+
+    ```ruby
+    NOT A J
+    NOT B T
+    AND D T
+    OR T J
+    NOT C T
+    OR T J
+    NOT A T
+    OR T J
+    AND H J
+    OR E J
+    AND D J
+    RUN
+    ```
+
+    For part 2 I was playing around and semi-randomly moved the `AND D J` instruction to the end on a whim, and it turned out to be what finalized the solution for me.
+  :replies: []

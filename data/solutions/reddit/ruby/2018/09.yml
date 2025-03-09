@@ -1,0 +1,386 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebepxns/
+  :body: |-
+    RUBY
+
+    ​ ​ DOESN'T
+
+    ​ ​ ​ ​ HAVE
+
+    ​ ​ ​ ​ ​ ​ LINKED
+
+    ​ ​ ​ ​ ​ ​ ​ ​ LISTS
+
+    ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ haha, this is fun (rewriting to solve part 2)
+
+    part 1 (code has a bug: incorrect answer if marble # is divisible by 23)
+
+    ```ruby
+    m=[0]
+    a,b=$<.read.split(/\D+/).map &:to_i
+    p a,b
+    c=0
+    h=Hash.new 0
+    pl=1
+    b.times{|x|next if x==0
+    x%23>0 ? (
+    m.insert((m.index(c)+2)%m.size,x)
+    c=x
+    pl+=1
+    ) : (
+    h[pl]+=x
+    tak=(m.index(c)-7)%m.size
+    h[pl]+=m[tak]
+    m[tak,1]=[]
+    c=m[tak]
+    )
+    pl=1 if pl==a+1
+    }
+    p h.max_by{|x,y|y}.last
+    ```
+  :replies:
+  - :author: GeneralYouri
+    :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/eberm2j/
+    :body: |-
+      I don't know Ruby at all, but I had the exact same bug, which caused one of the provided test cases to fail. The reason was stupid simple: my iteration used `<` instead of `<=`, making it skip the last marble.
+
+      **Edit:** `b.times` seems to be your 'loop', right? Could you do something like `(b + 1).times` to solve the bug?
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebes9zz/
+      :body: |-
+        Absolutely! I was planning to fix this alongside the edit where I put in my rewritten solution that is quick for part 2, but you beat me to it :) My input was lucky and was not divisible by 23.
+
+        x.times is an iterator that does something x times but calls the loop with the intervals 0-indexed, so another fix could be just `(1..b).each` which would remove the `next if _==0` skip case in the loop. (In general it's a good idea not to use `.times` with the parameter since it's, as demonstrated, not exactly intuitive. Looping through numbers is generally done with ranges and not `.times`.)
+      :replies: []
+  - :author: Aquamoogle
+    :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebessxz/
+    :body: A quick Google (I don't know Ruby, but didn't believe that ruby didn't support linked lists.) Turns out much like other languages these days objects are passed as pointers which allows LINKED LISTS. One sample walk through I found here. http://www.jessespevack.com/blog/2018/2/2/lets-make-a-linked-list-in-ruby
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebesyzq/
+      :body: Ruby does a good job keeping the abstraction of objects away from actually complicating space, so it will recognize and respect what you're trying to do with a Node class and actually play well with your linked list. However of course you actually have to write it (there's no standard library module with it, you can't just load something like `require 'matrix'`). And I'm writing one just so I can also use it in case it shows up in the future.
+      :replies: []
+  - :author: tomthecool
+    :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebhhk72/
+    :body: |-
+      You're right... But it's quite easy to create a basic implementation via a custom class:
+
+      ```ruby
+      class Node
+        attr_accessor :val, :prev_node, :next_node
+        def initialize(val, prev_node = self, next_node = self)
+          @val = val
+          @prev_node = prev_node
+          @next_node = next_node
+        end
+
+        def replace_next(val)
+          new_node = Node.new(val, self, @next_node)
+          @next_node.prev_node = new_node
+          @next_node = new_node
+        end
+
+        def delete
+          @prev_node.next_node = @next_node
+          @next_node.prev_node = @prev_node
+          @val
+        end
+      end
+      ```
+
+      You can then use this to write some solution like:
+
+      ```ruby
+      (1..turns).each do |turn|
+        if turn % 23 == 0
+          7.times { current_node = current_node.prev_node }
+          removed_marble = current_node.delete
+          current_node = current_node.next_node
+          scores[current_player-1] += (removed_marble + turn)
+        else
+          current_node = current_node.next_node
+          current_node.replace_next(turn)
+          current_node = current_node.next_node
+        end
+
+        current_player %= players
+        current_player += 1
+      end
+      ```
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebeqjn6/
+  :body: |-
+    ## Ruby (#122, #18)
+
+    ```ruby
+    n_players = 477
+    n_marbles = 70851 * 100
+
+    class Marble
+      def initialize num
+        @num = num
+      end
+      attr_reader :num
+      attr_accessor :ccw, :cw
+    end
+
+    first = Marble.new(0); first.ccw = first; first.cw = first
+    num = 0; current = first
+    insert = -> a, c, b { a.cw = c; c.ccw = a; b.ccw = c; c.cw = b; c }
+    scores = Hash.new(0)
+    play = -> num {
+      if num % 23 == 0
+        scores[num % n_players] += num
+        current = current.ccw.ccw.ccw.ccw.ccw.ccw.ccw
+        current.ccw.cw = current.cw
+        current.cw.ccw = current.ccw
+        scores[num % n_players] += current.num
+        current = current.cw
+      else
+        current = current.cw; a = current; current = current.cw; b = current; current = insert[a, Marble.new(num), b]
+      end
+    }
+
+    # For debugging
+    print_marble = -> m { c = m.cw; o = [m.num]; while c != m; o << c.num; c = c.cw; end; o }; print_marble[first]
+
+    (1..n_marbles).each { |num| play[num] }
+    p scores.values.max
+    ```
+  :replies: []
+- :author: hluk
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebex92k/
+  :body: |-
+    Ruby. Took me a while to realize that `Array#insert` is no go because it's very slow.
+
+    ```ruby
+    class CircleNode
+      attr_accessor :value, :prev, :next
+
+      def initialize(value)
+        @value = value
+        @prev = self
+        @next = self
+      end
+
+      def remove
+        @prev.next = @next
+        @next.prev = @prev
+        @value
+      end
+
+      def insert(value)
+        node = CircleNode.new(value)
+        node.prev = self
+        node.next = @next
+        @next.prev = node
+        @next = node
+        node
+      end
+    end
+
+    def high_score(player_count, last_marble)
+      players = Array.new(player_count, 0)
+      circle = CircleNode.new(0)
+
+      (23..last_marble).step(23) do |marble|
+        (marble - 22...marble).each { |marble1| circle = circle.next.insert(marble1) }
+
+        6.times { circle = circle.prev }
+        removed_marble = circle.prev.remove
+
+        current_player = (marble - 1) % player_count
+        players[current_player] += marble + removed_marble
+      end
+
+      players.max
+    end
+
+    puts high_score(435, 71184)
+    puts high_score(435, 7118400)
+    ```
+  :replies:
+  - :author: justinhj
+    :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebgwbnq/
+    :body: |-
+      I am amazed how slow my solution was on part 2 using a simple array approach with insert. It took over 2 hours.
+
+      I rewrote it to use double linked list and the time dropped to 17 seconds. The two solutions are here for anyone interested... not as neat as /u/hluk haha
+
+      [https://github.com/justinhj/adventofcode2018/blob/master/day9ruby/day9part1.rb](https://github.com/justinhj/adventofcode2018/blob/master/day9ruby/day9part1.rb)
+
+      [https://github.com/justinhj/adventofcode2018/blob/master/day9ruby/day9part2.rb](https://github.com/justinhj/adventofcode2018/blob/master/day9ruby/day9part2.rb)
+    :replies: []
+  - :author: WalrusTusks_are_funk
+    :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebwbd5o/
+    :body: 'This is a pretty nice, simple implementation of a double-linked list. Worked great for me. I found a c++ deque implementation here for Ruby, but it didn''t work properly for me: [https://github.com/wyhaines/deque](https://github.com/wyhaines/deque)'
+    :replies: []
+- :author: ChronJob
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebexx35/
+  :body: |-
+    Ruby. Wrote my own doubly linked list which was many orders of magnitude faster than my original Array based approach.
+
+    ```ruby
+    class LinkedListNode
+      attr_accessor :value, :prev, :next
+
+      def initialize(value, prev, next_)
+        @value = value
+        @prev = prev || self
+        @next = next_ || self
+      end
+
+      def insert_after(value)
+        new_node = LinkedListNode.new(value, self, @next)
+        @next.prev = new_node
+        @next = new_node
+        new_node
+      end
+
+      def delete
+        @prev.next = @next
+        @next.prev = @prev
+        @next
+      end
+    end
+
+    def highest_score(players, last_marble)
+      scores = Hash.new {|h,k| h[k] = 0}
+      last_marble_number = 0
+      current_marble = LinkedListNode.new(0, nil, nil)
+
+      while last_marble_number < last_marble
+        new_marble = last_marble_number += 1
+
+        if new_marble % 23 == 0
+          marble_to_remove = current_marble.prev.prev.prev.prev.prev.prev.prev
+          current_player = last_marble_number % players
+          scores[current_player] += (new_marble + marble_to_remove.value)
+          current_marble = marble_to_remove.delete
+        else
+          current_marble = current_marble.next.insert_after(new_marble)
+        end
+      end
+
+      scores.max_by {|player, score| score}[1]
+    end
+
+    puts highest_score(425, 70848)
+    puts highest_score(425, 70848 * 100)
+    ```
+  :replies: []
+- :author: nuvan
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebeqqlu/
+  :body: |-
+    **Ruby** , 67/242.
+
+    I completely forgot about linked lists at first, so my brute force array attempt is _still_ running even as I write this up. I probably spent a good 10-15 minutes looking at the example trying to see a pattern so that I could just generate the board at any given point in time.
+
+    ```ruby
+    N = Struct.new(:n,:p,:v) do
+        def self.init
+            N.new.tap do |n|
+                n.n = n
+                n.p = n
+                n.v = 0
+            end
+        end
+
+        def insert_before(val)
+            n = N.new(self,self.p,val)
+            self.p.n=n
+            self.p=n
+        end
+
+        def remove
+            self.p.n = self.n
+            self.n.p = self.p
+            [self,self.n]
+        end
+    end
+
+    def solve
+        @lines.each do |line|
+            m = /(\d+) players; last marble is worth (\d+) points/.match(line)
+            players, points = m[1..-1].map(&:to_i)
+
+            score = Array.new(players,0)
+            board = N.init
+            player = 1
+            cur = board
+
+            (1..points).each do |m|
+                if m % 23 == 0
+                    score[player] += m
+                    removed,cur = cur.p.p.p.p.p.p.p.remove
+                    score[player] += removed.v
+                else
+                    cur = cur.n.n.insert_before(m)
+                end
+                player = (player + 1) % players
+            end
+            puts "The winning elf's score is #{score.max}"
+        end
+    end
+    ```
+  :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a4i97s/2018_day_9_solutions/ebf3a63/
+  :body: |-
+    Ruby
+
+    Took me a long ass time to figure out that there wasn't some shortcut I was missing. Long enough that even though I knew I had the wrong approach, I didn't finish the true solution before my brute-forced version actually finished and gave me the right answer. I started implementing it with a doubly-linked-list, but wasn't 100% sure of myself so I looked for hints which confirmed my thoughts. I kinda feel like I cheated... anyway, here's my solution, no golfing yet just going for clarity:
+
+    ```ruby
+    class Marble
+      attr_accessor :value, :p, :n
+
+      def initialize(value)
+        @value = value
+        @p = self
+        @n = self
+      end
+    end
+
+    player_count = 439
+    last_marble = 71307 * 100
+
+    players = Hash.new(0)
+    pile = (1..last_marble).to_a.map { |v| Marble.new(v) }
+    current_marble = Marble.new(0)
+    current_player = 1
+
+    until pile.empty?
+      new_marble = pile.shift
+
+      if new_marble.value % 23 == 0
+        players[current_player] += new_marble.value
+        7.times { current_marble = current_marble.p }
+        a = current_marble.p
+        b = current_marble.n
+        a.n = b
+        b.p = a
+        players[current_player] += current_marble.value
+
+        current_marble = b
+      else
+        current_marble = current_marble.n
+        t = current_marble.n
+        current_marble.n = new_marble
+        new_marble.n = t
+        new_marble.p = current_marble
+        t.p = new_marble
+
+        current_marble = new_marble
+      end
+
+      current_player += 1
+      current_player = 1 if current_player > player_count
+    end
+
+    puts players.values.max
+    ```
+  :replies: []

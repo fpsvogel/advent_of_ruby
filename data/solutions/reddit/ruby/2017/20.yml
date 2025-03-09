@@ -1,0 +1,76 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dridara/
+  :body: |-
+    Ruby; strong language warning
+
+    [full solution](https://raw.githubusercontent.com/Unihedro/workout/master/adventofcode2017/day20)
+
+    [highlight](https://i.stack.imgur.com/PyJNQ.png)
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dricrsg/
+  :body: |-
+    Silly mistake. Forgot to include negative signs in my input parser. Still got correct answer for part 1, but delayed part 2 significantly since I assumed part 1 correct meant my input parser was correct. Shouldn't happen again...
+
+    When going for leaderboard: I simply ran for a few thousand cycles and picked the closest particle, then ran forever until the number of live particles stopped changing. Seems like what everyone else is doing anyway.
+
+    I've cleaned it up since then and am just making some assumptions: Do part 1 without simulating every iteration. Do part 2 by assuming that if no collisions happen in N cycles it's not going to happen anymore. There's probably a better way to tell when to terminate both parts though (when the magnitudes of the velocity vectors get large enough maybe???)
+
+    Ruby:
+
+    ```ruby
+    particles = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+      l.scan(/-?\d+/).map(&:to_i).each_slice(3).to_a
+    }
+
+    # Pick an arbitrary large time and hope it gives the right result?
+    T = 10000
+    # Simply comparing magnitudes is fraught with peril:
+    # p 0 0 0 v 1 0 0 a 1 0 0
+    # p 0 0 0 v -2 0 0 a 1 0 0
+    puts particles.each_with_index.min_by { |(p, v, a), _|
+      p.zip(v, a).map { |p0, v0, a0| (p0 + v0 * T + a0 * T * T / 2).abs }.sum
+    }.last
+
+    GIVE_UP_AFTER = 50
+    cycles_since_last_collision = 0
+    last_size = particles.size
+
+    puts loop {
+      particles.each { |p, v, a|
+        [0, 1, 2].each { |x|
+          v[x] += a[x]
+          p[x] += v[x]
+        }
+      }
+      particles = particles.group_by(&:first).select { |k, v|
+        v.size == 1
+      }.values.flatten(1)
+      cycles_since_last_collision = 0 if particles.size != last_size
+      break particles.size if (cycles_since_last_collision += 1) > GIVE_UP_AFTER
+      last_size = particles.size
+    }
+
+    __END__
+    p=<-6,0,0>, v=< 3,0,0>, a=< 0,0,0>
+    p=<-4,0,0>, v=< 2,0,0>, a=< 0,0,0>
+    p=<-2,0,0>, v=< 1,0,0>, a=< 0,0,0>
+    p=< 3,0,0>, v=<-1,0,0>, a=< 0,0,0>
+    ```
+  :replies:
+  - :author: phongvis
+    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drie3nr/
+    :body: Same here! Feel so strange that no duplicated coordinates are found! Finally got it when printed the coordinates in each iteration and compare with the input.
+    :replies: []
+  - :author: ephemient
+    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drigydv/
+    :body: This space intentionally left blank.
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drijgdu/
+      :body: |-
+        I feel like it should be possible to do something along the lines of... for every pair of particles, calculate their _potential_ collision time by solving for t where position are equal, then we can just just take the maximum t found. Not excited about having to do it against all pairs, but not seeing a better way right now. But I think this way can be done one-time at the beginning, instead of having to recalculate for all pairs at every tick.
+
+        Ah, unfortunately this only tells us how long to run part 2, and doesn't tell us how long to run part 1. In part 1, yes, it may have to be something like your way.
+      :replies: []

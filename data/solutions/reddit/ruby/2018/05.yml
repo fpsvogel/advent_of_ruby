@@ -1,0 +1,329 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4digq/
+  :body: |-
+    Ruby, reporting in.
+
+    Leaderboard code was not nearly this clean, I copy/pasted the react code, and started out with actually just running it 100 times. That was good enough for part 1, but for part 2 I actually needed to make it run to completion. So I ate a minute penalty on part 2 for making a really far-off guess. This code is slightly less repetitive than what I submitted (I made `react` into a function) and uses the fact that `gsub` returns nil if no modifications were made.
+
+    ```ruby
+    def react(str)
+      loop {
+        break str if (?a..?z).all? { |x|
+          [
+            str.gsub!(x + x.upcase, ''),
+            str.gsub!(x.upcase + x, ''),
+          ].none?
+        }
+      }
+    end
+
+    input = (ARGV.empty? ? DATA : ARGF).read.chomp.freeze
+
+    puts (part1 = react(input.dup).freeze).size
+    puts (?a..?z).map { |tried_letter|
+      react(part1.tr(tried_letter + tried_letter.upcase, '')).size
+    }.min
+
+    __END__
+    my input goes here
+    ```
+
+    It ran on my input in about 1 second so I did not need to do anything more clever.
+
+    Edit: Yeah okay, after reading others' solutions, I get it, a less wasteful way to do it would be to add letters left-to-right and therefore I know I only need to delete from the right end of the string. Let this be a lesson on there being a huge difference between what I write if I want to go as fast as possible versus what I might write if I actually have time to think about it.
+  :replies:
+  - :author: Karl_Marxxx
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb576m4/
+    :body: |-
+      As someone learning ruby for the first time, this is an excellent code snippet to study. Mind if I ask a few questions?
+
+      What's going on with this line?
+
+      > ARGV.empty? ? DATA : ARGF
+
+      I get that there's a ternary operator here, and that you're asking if ARGV is empty, but are DATA and ARGF? Google says that DATA refers to stuff that's at the end of your program, but it doesn't look like anything's there. How does ARGF work? If you're supplying a text file as an argument (we only hit this if ARGV has something in it) why not just use ARGV[0]?
+
+      What does "?a" mean in ruby? Firing up irb, it looks like it just converts that character a to a string (and can only do one character -- `?asdf` throws an error). Is there a name for this transformation?
+
+      Last q: how does ruby know to execute all the code after the break statement and return str? Wouldn't loop just immediately exit when it sees "break"?
+
+      Sorry for the noob q's but this language is fascinating.
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5mrpo/
+      :body: |-
+        Hey there, don't hesitate to ask any more question if you have any!
+
+        > but are DATA and ARGF? Google says that DATA refers to stuff that's at the end of your program, but it doesn't look like anything's there.
+
+        The fact that DATA is confusing is my fault entirely, of course. in the actual file on my computer there is an ` __END__ ` and my input there. But I took that out before posting here because otherwise the post would become unnecessarily large.
+
+        I've edited my post with the proper ` __END__ ` and just put a placeholder for "my input goes here", so that would be how that works. Usually I leave ARGV empty.
+
+        > How does ARGF work? If you're supplying a text file as an argument (we only hit this if ARGV has something in it) why not just use ARGV[0]?
+
+        I could, though note that the code would look slightly different because ARGV[0] would just be a string (a filename) which I can't call `read` on line I can with DATA and ARGF. I think it might be have to be something like `input = (ARGV.empty? ? DATA.read : File.read(ARGV[0])).chomp` and I preferred to have something that can just call `read` on in both cases, hence ARGF instead of ARGV[0]. Less repetition that way. Also note that ARGF enables reading from stdin really easily, if putting the filename `-` on ARGV.
+
+        therefore, I judged this DATA/ARGF combination to be the simplest way to allow for the various possible ways I might want to run the script:
+
+        - Run it with no arguments. it should run on my input by default.
+        - Run it with a filename on ARGV - it will run on that file
+        - Run it with `-` on ARGV - it will run on stdin
+
+        > What does "?a" mean in ruby? Firing up irb, it looks like it just converts that character a to a string (and can only do one character -- `?asdf` throws an error). Is there a name for this transformation?
+
+        you'll want to look at https://ruby-doc.org/core-2.3.0/doc/syntax/literals\_rdoc.html and search for "character literal" . Note that it was only added to the docs in 2.3.0, but it looks like it was around for longer. Of course reading later versions of the docs is fine too. You have of course already correctly figured out what it does.
+
+        > Last q: how does ruby know to execute all the code after the break statement and return str? Wouldn't loop just immediately exit when it sees "break"?
+
+        That would be because of the `if` afterward. You may see this used in some pieces of code like `raise SomeError if something`. It would be "unfortunate" if that raised an error every time. Thus, it doesn't happen unless the condition is true. For more information you could read about "modifier if"
+      :replies: []
+  - :author: _liquidlemon
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t4em/
+    :body: I'm also solving in Ruby and I have to say that I absolutely love your solutions. They're all really smart and checking out your solution is as interesting as solving it on my own, because every day you seem to include something that I didn't even know existed in the language (like taking array slices with `[x, y]`, symbol arrays in the form of `%i()`, the safe navigation operator that you had in your refined solution for today, `Hash#to_proc`, being able to group statements in parentheses to use the modifier syntax). I really appreciate that you're publishing all your solutions so that others can learn from them. Even if I end up refactoring my solutions so that they end up looking a little bit too much like yours ;)
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6c82q/
+      :body: |-
+        Thanks for writing in. Indeed one of my hopes is that I can show some interesting things that can be done in the language.
+
+        One of the things you mentioned stood out to me: the grouping with parentheses. I know you refer to the `(puts freq; break) if seen.include?(freq)` on day 1. There's also a related thing (since it also uses parentheses) which is doing an assignment in the middle of a larger expression such as `puts (part1 = react(input)).size` on day 5. I thought about it and I think these are different from most things I do in Advent of Code. Most things are things I would also do in larger projects where it's important to write maintainable code. But these two things actually stand out in this regard because these are pretty much just space-saving measures and in most other contexts I would write these out on separate lines. It may be a little too surprising otherwise, especially if other readers of the code are not watching for assignments in unexpected places like a `puts` line.
+
+        Just some interesting thoughts when I consider how others might make use of my code.
+      :replies:
+      - :author: _liquidlemon
+        :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6e4d6/
+        :body: |-
+          They did stand out to me as well but I think in this kind of scenario where concise code is valued they are perfectly fine. Especially the second one I've used before and not felt too bad about it. Being able to save a value while using it at the same time can be really useful at times. Heck, even Python introduced a way to do that recently (although it didn't happen without controversy).
+
+          I look forward to seeing your future solutions (and hope I can still understand them :P). Good luck with staying on top of the leaderboard!
+        :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4fpde/
+  :body: |-
+    Ruby
+
+    ```ruby
+    chars = File.read('data.txt').chomp.chars
+    ```
+
+    **Part 1**
+
+    ```ruby
+    loop { (r = chars.find_index.with_index { |c, i| c == chars[i+1]&.swapcase }) ? (2.times { chars.delete_at(r) }) : (break) }
+    puts chars.count
+    ```
+
+    **Part 2**
+
+    ```ruby
+    results = {}
+
+    def react(chars)
+      loop { (r = chars.find_index.with_index { |c, i| c == chars[i+1]&.swapcase }) ? (2.times { chars.delete_at(r) }) : (break) }
+      return chars.count
+    end
+
+    ('a'..'z').each { |p| results[p] = react(chars.clone.delete_if { |c| c.downcase == p }) }
+    puts "result: #{results.values.min}"
+    ```
+
+    This was a fun one. Cool to see that I was able to fit the loop in part 1 on a single line too. Also, don't bother trying the part 2 solution, it's horrifically slow (7 minutes). Luckily `a` was the character with the shortest resulting string for my input, and i saw mid-run that it was significantly smaller than other letters' results, so I tried it before it was finished and got it right before the script finished.
+
+    EDIT: Here's a bonus multi-threaded solution to part 2 (you'll need something other than MRI to run it, I used JRuby, because MRI doesn't schedule on multiple cores). It ran on 12 logical cores and finished after 70 seconds. Yikes.
+
+    ```ruby
+    chars = File.read('data.txt').chomp.chars
+    results = {}
+
+    def react(chars)
+      loop { (r = chars.find_index.with_index { |c, i| c == chars[i+1]&.swapcase }) ? (2.times { chars.delete_at(r) }) : (break) }
+      return chars.count
+    end
+
+    ('a'..'z').map { |p| Thread.new { results[p] = react(chars.clone.delete_if { |c| c.downcase == p }) } }.each(&:join)
+    sleep(1) until results.count == 26
+    puts "result: #{results.values.min}"
+    ```
+  :replies: []
+- :author: jazzido
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4ec3w/
+  :body: |-
+    Part 1, in Ruby:
+
+    ```ruby
+    input = File.read('input.txt').strip.split('')
+    stack = [input.shift]
+
+    input.each { |unit|
+      if (stack.last.ord - unit.ord).abs == 32
+        stack.pop
+      else
+        stack << unit
+      end
+    }
+
+    puts stack.length
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4g72j/
+    :body: Ooh clever use of character codes!
+    :replies: []
+  - :author: reacher
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4i3ms/
+    :body: This is a nice solution, but it breaks when the first 2 characters have matching polarity. adding "and !stack.empty?" to that first condition fixes it
+    :replies: []
+- :author: charismotron
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4j96r/
+  :body: |-
+    **Ruby**
+
+    [https://github.com/chrismo/adventofcode2018/blob/master/day5/script.rb](https://github.com/chrismo/adventofcode2018/blob/master/day5/script.rb)
+
+    ```ruby
+    def process(input)
+      chars = input.chars
+      idx = 0
+      while idx < chars.length do
+        idx = 0 if idx < 0
+        char = chars[idx]
+        next_char = chars[idx + 1]
+        if char && next_char && char.downcase == next_char.downcase && char != next_char
+          chars[idx] = nil
+          chars[idx + 1] = nil
+          chars.compact!
+          idx -= 1
+        else
+          idx += 1
+        end
+      end
+      chars.join
+    end
+
+    if __FILE__ == $0
+      puts "Part 1"
+      input = File.read('input.txt')
+      output = process(input)
+      puts "output length: #{output.length}"
+      puts output
+
+      puts "Part 2"
+      res = {}
+      ('a'..'z').each do |filter_char|
+        print '.'
+        filtered_input = input.dup.gsub(/#{filter_char}/i, "")
+        output = process(filtered_input)
+        res[filter_char] = output
+      end
+      puts
+      shortest = res.min_by { |filter_char, out| out.length }
+      p shortest
+      puts shortest.last.length
+    end
+    ```
+
+    Could be more elegant - the stack approach seems very ideal of course now that I see that. At least it runs not too slow (intermediate versions definitely bogged down):
+
+    ```ruby
+    $ time ruby script.rb
+    Part 1
+    output length: 10384
+    Part 2
+    ..........................
+    5412
+
+    real 0m8.799s
+    user 0m8.691s
+    sys 0m0.081s
+    ```
+  :replies: []
+- :author: Schaulustiger
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t6ic/
+  :body: |-
+    **Ruby from the command line**
+
+    ```ruby
+    ruby -ne 'puts ([""]+(?a..?z).to_a).reduce($_.size){|m,u|b=$_.dup.gsub(/#{u}|#{u.swapcase}/,"");loop{break unless b.sub!(/(.)(?!\1)(?i:\1)/,"")};p b.strip.size if u=="";b.strip.size<m ? b.strip.size : m}' input.txt
+    ```
+  :replies: []
+- :author: morfi717
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb60kp7/
+  :body: |-
+    Ruby
+
+    ```ruby
+    F = File.read("#{ __dir__ }/data/day5.txt").strip.each_char.to_a
+
+    ξ = F.uniq.sort.each_slice(26).reduce(&:zip).append(['Ω']).map { |ϵ|
+         (F - ϵ).each_with_object([]) { |Ξ, ϕ|
+              ϕ.last && (Ξ.ord - ϕ.last.ord).abs == 32 ? ϕ.pop : ϕ << Ξ
+         }.size
+    }
+
+    puts "Ans 1: %s" % ξ.max
+    puts "Ans 2: %s" % ξ.min
+    ```
+  :replies: []
+- :author: juzmark
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/ec71qi0/
+  :body: |-
+    Ruby - Looking for feedback. Thank you!
+
+    ```ruby
+    input_array = File.read('input.txt').chomp.split("")
+
+    def scan_and_delete_array(a)
+      result = []
+      a.each do |c|
+        if result[-1] == c.swapcase
+          result.pop
+        else
+          result << c
+        end
+      end
+      result.length
+    end
+
+    # Part 1
+    puts scan_and_delete_array(input_array)
+
+    # Part 2
+    scanned_char = []
+    result_lengths = input_array.map do |c|
+      if scanned_char.include?(c)
+        next
+      else
+        scanned_char << c
+        scan_and_delete_array(input_array - [c.downcase] - [c.upcase])
+      end
+    end
+
+    puts result_lengths.compact.min
+    ```
+
+    ​
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4d97q/
+  :body: |-
+    Had two bugs... Fixed one, couldn't find the other one fast enough :p Ruby
+
+    [Card] Nsfw [Image](https://i.imgur.com/qC9baRR.png)
+
+    (I was using $\<.chars instead of $\<.read, which was an enumerable and after it consumes for the first time it doesn't work a second time...)
+
+    ```ruby
+    g=' '
+    a=$<.read
+    a.chars{|x|g[-1].downcase==x.downcase && g[-1] != x ? (g[-1]='') : g<<x}
+    p g.strip.size
+
+    a=g.strip # This line is added afterwards because all initial reductions also apply regardless of which letter to take away, so part 1 can be used as a first pass
+    p a.downcase.chars.uniq.map{|x|g=' '
+    a.chars.reject{|y|y.downcase==x}.each{|x|g[-1].downcase==x.downcase && g[-1] != x ? (g[-1]='') : g<<x}
+    g.strip.size
+    }.min
+    ```
+  :replies: []

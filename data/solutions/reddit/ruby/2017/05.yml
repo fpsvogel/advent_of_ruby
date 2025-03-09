@@ -1,0 +1,185 @@
+---
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshwef/
+  :body: |-
+    in ruby, this felt simultaneously wayy too easy and waayy too dirty of a solution. i feel like i'm missing some really elegant iteration trick, but everyone in this thread seems to have the same approach
+
+    ```ruby
+    def jump &blk
+        input = File.read("input").lines.map(&:to_i)
+
+        index = 0
+        steps = 0
+
+        while index < input.size
+            to_move = input[index]
+            input[index] += blk ? blk.call(to_move) : 1
+            index += to_move
+
+            steps += 1
+        end
+
+        steps
+    end
+
+    puts jump
+    puts jump {|f| f >= 3 ? -1 : 1}
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsj6pi/
+    :body: |-
+      Here's the iteration trick that I used. (Also, your code would not catch if the index would run out at the other end, so below 0.)
+
+      ```ruby
+      offsets = readlines.map { |offset| offset.to_i }
+      index, count = 0, 0
+      while offset = offsets[index] do # Here's the crux
+        offsets[index] += (offsets[index] >= 3 ? -1 : 1)
+        index += offset
+        count += 1
+      end
+      puts count
+      ```
+
+      The 'trick' is twofold: it gets the `offset` immediately while testing the `while` condition (which will save a line). This value will be `nil` (and thus `false`) for index values outside the range of offset instructions.
+
+      What I like in your solution is that you're passing the proper increment function as a block to `jump()`. Kudos to you.
+    :replies: []
+  - :author: gettalong
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqt8aci/
+    :body: |-
+      Here is my 2-line quick and dirty solution for use in IRB:
+
+      ```ruby
+      arr = File.readlines('/tmp/input5').map(&:chomp).map(&:to_i)
+      old_i = 0; i = 0; count = 0; while 0 <= i && i < arr.length do old_i = i; i += arr[i]; arr[old_i] >= 3 ? arr[old_i] -=1 : arr[old_i] += 1; count += 1; end; count
+      ```
+    :replies: []
+- :author: OneEyedGammer
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshytd/
+  :body: |-
+    My god, I spent almost 10 minutes trying to figure out why my code wasn't working on part 2. Turns out it doesn't want an absolute value.
+
+    Here is my garbage code in ruby:
+
+    ```ruby
+        def count_steps filename
+            count = 0
+            contents = []
+            File.open(filename, "r") do |f|
+                f.each_line do |line|
+                    contents.push(line.to_i)
+                end
+            end
+            index = 0
+            steps = 0
+            while true
+                temp = contents[index]
+                contents[index] = contents[index] + 1
+                # temp >= 3 ? contents[index] -= 1 : contents[index] += 1 replace the above line with this for part 2
+                index += temp
+                count += 1
+                break if index >= contents.length || index < 0
+            end
+            return count
+        end
+    ```
+  :replies:
+  - :author: gbeier
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqu1ghw/
+    :body: I made the exact same mistake. I think "offset" tripped that in my brain.
+    :replies:
+    - :author: OneEyedGammer
+      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dquvrb8/
+      :body: I don't think we're wrong for thinking that way. From what I've seen from programming challenges it would read that way. Oh well, it didn't take long to long to notice what was wrong.
+      :replies: []
+- :author: andreesgor
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqti5pu/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    arr = input.lines.map(&:to_i).to_a
+
+    part=2
+    steps, current = 0, 0
+    while current < arr.length
+      cache = current
+      current += arr[current]
+
+      if part == 1
+        arr[cache] += 1
+      elsif part == 2
+        if arr[cache] < 3
+          arr[cache] += 1
+        else
+          arr[cache] -= 1
+        end
+      end
+
+      steps += 1
+    end
+
+    puts "Steps: #{steps}"
+    ```
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsdne6/
+  :body: |-
+    Ruby. Huge disappointment! I was running my day4 code instead of my day5 code. I couldn't even count what day it is anymore :)
+
+    Solved in a minute, took 7 minutes to realize I was not running it properly.
+
+    ```ruby
+    h=$<.map &:to_i
+    s=0
+    g=j=0
+    (g+=1
+    v=h[j=s]
+    v<0 ? (s+=v) : (
+    s+=v
+    )
+    h[j]+=1 # part1
+    h[j]+=(j >= 3 ? -1 : 1) #part2
+    )while s>=0 && h[s]
+    p g
+    ```
+
+    PS: I've been keeping a [small blog over on github detailing my Aoc adventure so far.](https://github.com/Unihedro/workout/blob/master/adventofcode2017/entry1.md) there will be a short break before I "blog" about day6+ again though
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshm9c/
+    :body: |-
+      Another solution in Ruby. A bit more characters, a bit less magic :-)
+
+      ```ruby
+      offsets = readlines.map { |offset| offset.to_i }
+      index, count = 0, 0
+      while offset = offsets[index] do
+        offsets[index] += (offsets[index] >= 3 ? -1 : 1) # Or just `+1` for part 1.
+        index += offset
+        count += 1
+      end
+      puts count
+      ```
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshxts/
+      :body: |-
+        Respect! Really tidy code - I wrote mine in a rush :/. Some notes (not sure if it'll be helpful but in case it expands your knowledge):
+
+        1. `.to_i` ignores whitespace characters both in front and back, as well as any invalid characters after the leading number: `"99 red balloons".to_i #=> 99`, `" 100 ".to_i #=> 100` so .strip or .chomp right before extracting the integer is usually redundant
+        2. `map!` is a destructive operation which (attempts to) change the original Enumerable as well, it doesn't do much in this case so it can be `map` instead.
+      :replies:
+      - :author: jschulenklopper
+        :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsizom/
+        :body: Ha, those were indeed two minor improvements that I made later (updated in the post as well). Looks just like a recent discovery that `.split(" ")` would split on spaces _and_ tabs... just as the default `.split` without argument :-)
+        :replies:
+        - :author: Unihedron
+          :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsjhqj/
+          :body: |-
+            Hello, yes, .split uses $; by default, if $; is nil then it uses whitespace. This means newline characters are also included. As such $\<.read.split will give you all non-space character sequences when the parameter is not specified. The use of this global variable is very similar to how perl implements input parsing.
+
+            However, if $; is specified then .split won't be acting on whitespaces.
+          :replies: []
