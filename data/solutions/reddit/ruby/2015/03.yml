@@ -1,0 +1,220 @@
+---
+- :author: wdomburg
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxm6m18/
+  :body: |-
+    My Ruby solution.
+
+    # Read the data.
+
+    ```ruby
+    input = File.read('input3.txt').split('')
+    ```
+
+    # Puzzle 1
+
+    ```ruby
+    x = 0; y = 0; a = {[0,0] => 1}; input.each { |i| case i; when '>'; x += 1; when '<'; x -= 1; when '^'; y -= 1; when 'v'; y += 1; end; a[[x,y]] = 1 }; a.length
+    ```
+
+    # Puzzle 2
+
+    ```ruby
+    e = [[0,0],[0,0]].cycle; a = {[0,0] => 1}; input.each { |i| p = e.next; case i; when '>'; p[0] += 1; when '<'; p[0] -= 1; when '^'; p[1] -= 1; when 'v'; p[1] += 1; end; a[[x,y]] = 1 }; a.length
+    ```
+
+    To make it a bit more clear, an expanded version of puzzle 2:
+
+    ```ruby
+    # initialize the positions of both santas
+    santas = [[0,0],[0,0]].cycle
+
+    # initialize the list of houses
+    houses = {[0,0] => 1}
+
+    # iterate over the delivery instructions
+    input.each do |instruction|
+        # switch santas
+        position = santas.next
+
+        # move the santa
+        case instruction
+                when '>'; position[0] += 1
+                when '<'; position[0] -= 1
+                when '^'; position[1] -= 1
+                when 'v'; position[1] += 1
+        end
+
+        # drop the gift
+        houses[[position[0],position[1]]] = 1
+    end
+
+    # count the houses
+    houses.length
+    ```
+  :replies:
+  - :author: Monofu
+    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxnyqsk/
+    :body: Using a cycle was genius! I would never thought to use that. Makes so much sense in hindsight...
+    :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxldtie/
+  :body: |-
+    Continuing my non-programmer attempts, I kinda like my part 1 solution (mostly because at first I thought this would be super hard and then I remembered hashes) but the part 2 solution is very hacky. I don't like it at all.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.read("input.txt")
+
+    x = 0
+    y = 0
+
+    current = x.to_s + y.to_s
+    locations = {}
+    locations[current] = "visited"
+
+    data.each_char do |c|
+
+      if c == '^'
+        y += 1
+      elsif c == 'v'
+        y -= 1
+      elsif c == '<'
+        x -= 1
+      elsif c == '>'
+        x += 1
+      end
+
+      current = x.to_s + y.to_s
+      locations[current] = "visited"
+
+    end
+
+    p locations.length
+    ```
+
+    Day 2:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.read("input.txt")
+
+    x1 = x2 = y1 = y2 = 0
+
+    current = x1.to_s + "," + y1.to_s
+    locations = {}
+    locations[current] = "visited"
+
+    alt = 0
+    data.each_char do |c|
+      if alt == 0
+        alt = 1
+        if c == '^'
+          y1 += 1
+        elsif c == 'v'
+          y1 -= 1
+        elsif c == '<'
+          x1 -= 1
+        elsif c == '>'
+          x1 += 1
+        end
+        current = x1.to_s + "," + y1.to_s
+        locations[current] = "visited"
+      else
+        alt = 0
+        if c == '^'
+          y2 += 1
+        elsif c == 'v'
+          y2 -= 1
+        elsif c == '<'
+          x2 -= 1
+        elsif c == '>'
+          x2 += 1
+        end
+        current = x2.to_s + "," + y2.to_s
+        locations[current] = "visited"
+      end
+
+    end
+
+    p locations.length
+    ```
+  :replies:
+  - :author: dalfgan
+    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxmhuu6/
+    :body: |-
+      About the first part:
+
+      ```ruby
+      current = x.to_s + y.to_s
+      locations[current] = "visited"
+      ```
+
+      If x is 12 and y is 1, then it will be "121".
+
+      If x is 1 and y is 21, then it will also be "121".
+
+      At least, 2nd part you put ",".
+    :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlh10r/
+  :body: |-
+    Cleaned-up Ruby solution using coroutines (Fiber): The first argument chooses the number of santas (or the puzzle number!)
+
+    ```ruby
+    require 'set'
+    map = Set.new
+
+    give_gifts = -> move {
+      map << (x, y = 0, 0)
+      loop {
+        case move
+        when '<' then x -= 1
+        when '>' then x += 1
+        when '^' then y -= 1
+        when 'v' then y += 1
+        else raise move
+        end
+        map << [x, y]
+        move = Fiber.yield
+      }
+    }
+
+    n = Integer(ARGV[0] || 1)
+    santas = n.times.map { Fiber.new(&give_gifts) }
+
+    STDIN.read.each_char.each_slice(n) { |moves|
+      santas.zip(moves) { |santa, move| santa.resume(move) }
+    }
+    p map.size
+    ```
+  :replies: []
+- :author: haitei
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlmjj9/
+  :body: |-
+    Relearning Haskell for the nth time:
+
+    ```ruby
+    import Data.Set
+
+    move (x,y) '<' = (x-1,y)
+    move (x,y) '^' = (x,y+1)
+    move (x,y) '>' = (x+1,y)
+    move (x,y) 'v' = (x,y-1)
+
+    visitNext (visited, current) dir = (insert newPos visited, newPos) where newPos = move current dir
+    visitNext2 ((va, vb), ca, cb) dir = ((vb, insert newPos va), cb, newPos) where newPos = move ca dir
+
+    start = singleton (0,0)
+
+    main = do
+        c <- getLine
+        print $ size . fst $ Prelude.foldl visitNext (start, (0,0)) c
+        print $ size $ uncurry union $ (\(a,_,_) -> a) $ Prelude.foldl visitNext2 ((start, start), (0,0), (0,0)) c
+    ```
+
+    Not too pretty but works.
+
+    EDIT: hmm I did the first one in python, the second in ruby, for the fourth I think I'll use Befunge
+  :replies: []

@@ -1,0 +1,190 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhw73s/
+  :body: |-
+    Those compatible pairs that we were asked to print out in part 1? [You know something funny about them?](#s "They all involve the empty disk!!!"). So this game devolves into "how can we move the data with only one disk empty at a time?", sort of like those [sliding tile puzzles](https://en.wikipedia.org/wiki/15_puzzle).
+
+    For leaderboard placement: Printed out my grid (preserved in my code as `-m` flag), and solved it by hand (move empty to top, avoid walls, use math to figure out how many more moves are needed to get data out)
+
+    Edit: And let me just confirm that I breathed a huge sigh of relief when I found that my math was correct, because otherwise I anticipated this would have been a long slog of a puzzle. I did not make my above discovery until after having mathed my way onto the leaderboard.
+
+    **Ruby** code that automates what I did by hand.
+
+    Raises an exception if:
+
+    - There is a compatible pair not involving an empty disk
+    - (Edit: newly added this) There is a wall on the top two rows
+
+    since either condition breaks the math.
+
+    ```ruby
+    SHOW_MAP = ARGV.delete('-m')
+
+    Node = Struct.new(:x, :y, :size, :used, :avail, :use_pct)
+
+    nodes = (ARGV.empty? ? DATA : ARGF).each_line.drop(2).map { |l|
+      node = l.chomp.scan(/\d+/).map(&:to_i)
+      raise "Not a df line: #{l}" unless node.size == 6
+      Node.new(*node).freeze
+    }
+
+    HEIGHT = nodes.map(&:y).max + 1
+    WIDTH = nodes.map(&:x).max + 1
+
+    # We could exploit the fact that the nodes come in order,
+    # but let's be safe.
+    GRID = Array.new(HEIGHT) { Array.new(WIDTH) }
+    nodes.each { |n| GRID[n.y][n.x] = n }
+    GRID.each(&:freeze).freeze
+
+    pairs = nodes.permutation(2).select { |a, b|
+      aused = a[:used]
+      aused != 0 && aused <= b[:avail]
+    }
+
+    puts pairs.size
+
+    nonempty_pairs = pairs.select { |a, b| b.used > 0 }
+    unless nonempty_pairs.empty?
+      nonempty_pairs.each { |a, b| puts "Should move #{a} => #{b}" }
+      # We're raising here simply because it will break the below algorithm.
+      # If any input has a pair with non-empty recipient, we should use it.
+      # But the below code can't smartly decide which pairs to use
+      # (in case one recipient could take from multiple senders)
+      raise 'non-empty pairs found, code needs to take them into account'
+    end
+
+    empties = nodes.select { |n| n.used == 0 }
+
+    def assert_no_walls(nodes)
+      largest = nodes.max_by(&:used)
+      too_small = nodes.select { |n| n.size < largest.used }
+      return if too_small.empty?
+      puts too_small
+      raise "#{too_small.size} nodes can't take data of #{largest}"
+    end
+
+    def naive_move_to_top(empty)
+      start = [empty.y, empty.x]
+      queue = [start]
+      dist = {start => 0}
+
+      while (pos = queue.shift)
+        y, x = pos
+        my_size = GRID[y][x].size
+        return [dist[pos], x] if y == 0
+        [
+          ([y - 1, x] if y > 0),
+          ([y + 1, x] if y + 1 < HEIGHT),
+          ([y, x - 1] if x > 0),
+          ([y, x + 1] if x + 1 < WIDTH),
+        ].compact.each { |n|
+          ny, nx = n
+          next if dist.include?(n) || GRID[ny][nx].used > my_size
+          dist[n] = dist[pos] + 1
+          queue << n
+        }
+      end
+    end
+
+    # For the below math to work, there must be no walls in the top two rows.
+    assert_no_walls(GRID[0..1].flatten)
+
+    puts empties.map { |empty|
+      # Naively move the empty spot to y=0. What x does it end up at?
+      steps, x = naive_move_to_top(empty)
+      # Move to (WIDTH - 2, 0), one to the left of the goal.
+      steps += WIDTH - 2 - x
+      # 1 step moves the goal data into (WIDTH - 2, 0), with empty space behind.
+      steps += 1
+      # 4 steps each to move the empty space from behind to in front,
+      # 1 step to move the goal data
+      steps + 5 * (WIDTH - 2)
+    }.min
+
+    puts GRID.map { |row|
+      row.map { |node|
+        wall = empties.none? { |e| node.used <= e.size }
+        wall ? ?# : node.used == 0 ? ?_ : ?.
+      }.join
+    } if SHOW_MAP
+    ```
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwjaw/
+    :body: |-
+      > They all involve the empty disk.
+
+      Could it be a clue?!
+    :replies: []
+  - :author: pedrosorio
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwe0d/
+    :body: |-
+      > Those compatible pairs that we were asked to print out in part 1? They all involve the empty disk.
+
+      That's it, from now on in advent of code, if asked about number of things X, I am always going to print the list of things X :P
+    :replies:
+    - :author: topaz2078
+      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx3so/
+      :body: That is a _really_ good strategy. Many of the puzzles' part 1 is just a stepping stone to make sure you're on-track for part 2.
+      :replies: []
+  - :author: BumpitySnook
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwvxz/
+    :body: |-
+      Your solution arrives at 225 steps for my input, as does /u/drysle 's. My solution and hand solution get 224. The website says neither is correct. /u/topaz2078 , help? Input is here: http://dpaste.com/0JHB11A
+
+      Printed it looks like this:
+
+      ```ruby
+      !...............................G
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      .................................
+      ....#############################
+      .................................
+      ...............E.................
+      ```
+    :replies:
+    - :author: topaz2078
+      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx0cw/
+      :body: For part two, I get 225, and that's also what the site is expecting.
+      :replies:
+      - :author: BumpitySnook
+        :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhxarn/
+        :body: I swear I entered 225 into the site and got 'Wrong'. Doh. Must have typoed it.
+        :replies:
+        - :author: "[deleted]"
+          :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbiew3r/
+          :body: Did you get the right answer? I counted yours and got 232. Is it right?
+          :replies:
+          - :author: BumpitySnook
+            :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbif5yn/
+            :body: As topaz says, 225 is correct.
+            :replies: []
+  - :author: Quick_Question404
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhww4u/
+    :body: I immediately thought of the sliding tile puzzle when seeing this problem, but couldn't think of any way to programatically solve it.
+    :replies: []

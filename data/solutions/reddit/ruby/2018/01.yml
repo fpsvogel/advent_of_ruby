@@ -1,0 +1,583 @@
+---
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau8pho/
+  :body: |-
+    Another Ruby.
+
+    ```ruby
+    require 'set'
+    data = File.readlines('input.txt').map(&:to_i)
+    puts data.sum
+
+    freq = 0
+    seen = Set.new
+    data.cycle { |num|
+      freq += num
+      (puts freq; break) if not seen.add?(freq)
+    }
+    ```
+  :replies:
+  - :author: tbuehlmann
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhm5m/
+    :body: There's also Set#add? which will add the argument and return the set if it wasn't included before. Returns `nil` if the argument was already included.
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav6n3j/
+      :body: Thanks! I changed it. One line less!
+      :replies: []
+  - :author: Karl_Marxxx
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav37m4/
+    :body: |-
+      > puts data.sum
+
+      Is this not a standard ruby thing? I get `undefined method sum for array`
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviujt/
+      :body: "[deleted]"
+      :replies:
+      - :author: Karl_Marxxx
+        :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviwk1/
+        :body: Ah I'm on 2.0. Thanks.
+        :replies: []
+    - :author: vanderzee94
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaz6nsv/
+      :body: |-
+        you can also do
+
+        ```ruby
+        data.inject(:+)
+        ```
+
+        instead of sum
+      :replies: []
+- :author: antigrapist
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau5j8f/
+  :body: |-
+    Ruby, my puzzle input is in var a.
+
+    Part 1:
+
+    ```ruby
+    freq = 0
+    a.each_line do |line|
+      freq += line.to_i
+    end
+    p freq
+    ```
+
+    Part 2:
+
+    ```ruby
+    freq = 0
+    counter = {}
+    loop do
+      a.each_line do |line|
+        freq += line.to_i
+        if counter[freq] == 1
+          p freq
+          return
+        end
+        counter[freq] = 1
+      end
+    end
+    ```
+  :replies:
+  - :author: Cyanogen101
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eb27ot2/
+    :body: |-
+      Hey I was doing something similiar but with an Array instead of a hash, can you look over mine and help explain why it didnt work? (I took out the breaks just to try get at least an output)
+
+      ```ruby
+      frequency = 0
+      duplicate_list = []
+      numbers = File.read('input.txt')
+
+      loop do
+       numbers.each_line do |x|
+        frequency += x.to_i
+        puts frequency if duplicate_list.include?(frequency)
+        duplicate_list << frequency
+        end
+      end
+
+      #but using a hash like you works fine
+
+      frequency = 0
+      duplicate_list = {}
+      numbers = File.read('input.txt')
+
+      loop do
+       numbers.each_line do |x|
+        frequency += x.to_i
+        puts frequency if duplicate_list[frequency] == 1
+        duplicate_list[frequency] = 1
+        end
+      end
+      ```
+    :replies: []
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauu4rn/
+    :body: |-
+      Had almost the same solution for part 1, but golfed that down to this:
+
+      `puts gets(nil).split.map(&:to_i).reduce(0,&:+)`.
+
+      It gets the whole input file in a string, splits that (on whitespace), converts to integers and reduces the array by adding all the values.
+    :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau7m1y/
+  :body: |-
+    Ruby
+
+    ```ruby
+    data = File.read('data.txt').chomp.split("\n")
+    ```
+
+    **Part 1**
+
+    ```ruby
+    puts data.sum(&:to_i)
+    ```
+
+    **Part 2**
+
+    ```ruby
+    found = nil
+    list = [0]
+    f = 0
+
+    until found
+      data.each do |d|
+        f += d.to_i
+        found = f if list.include? f
+        break if found
+
+        list << f
+      end
+    end
+
+    puts found
+    ```
+  :replies: []
+- :author: alienpirate5
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaubge7/
+  :body: |-
+    Ruby part 2:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    s = ""
+    i = ""
+    while (i = gets)
+      s += i
+    end
+
+    a = s.split.map(&:to_i)
+
+    r = 0
+    h = Hash.new(0)
+    found = false
+
+    until found do
+      a.each do |i|
+        r += i
+        h[r] += 1
+        if h[r] > 1
+          puts r
+          found = true
+          break
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: captainkari
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauei50/
+  :body: |-
+    Solution in Ruby for part one:
+
+    `santa = Array[] #I put my array here in plain text, not going to do that on reddit though`
+
+    `curntfrq = 0`
+
+    `santa.each do |n|`
+
+    `curntfrq += n`
+
+    `end`
+
+    `print "\n\n#{curntfrq}"`
+
+    Solution for part 2:
+
+    `santa = Array[]`
+
+    `freq = Array[]`
+
+    `curntfrq = 0`
+
+    `match = 0`
+
+    `interations = 0`
+
+    `while (match == 0)`
+
+    `santa.each do |n|`
+
+    `curntfrq += n`
+
+    `freq.each do |t|`
+
+    `if (t == curntfrq)`
+
+    `match = curntfrq`
+
+    `break`
+
+    `end`
+
+    `end`
+
+    `freq << curntfrq`
+
+    `end`
+
+    `print "#{interations+=1}, "`
+
+    `end`
+
+    `print "\n\n#{match}"`
+
+    (pardon formatting issues, idk how to do formatting and it's 4am)
+  :replies:
+  - :author: DaDiscoBeat
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhjk2/
+    :body: Add 4 spaces in front of each lines :)
+    :replies: []
+- :author: tbuehlmann
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhvyh/
+  :body: |-
+    Ruby:
+
+    Part 1:
+
+    ```ruby
+    changes = File.read('changes.txt')
+    puts eval(changes.delete("\n"))
+    ```
+
+    Part 2:
+
+    ```ruby
+    require 'set'
+
+    changes = File.read('changes.txt').strip.lines.map(&:to_i)
+    frequencies = Set[0]
+    frequency = 0
+
+    changes.cycle do |change|
+      frequency = frequency + change
+
+      unless frequencies.add?(frequency)
+        puts frequency
+        exit
+      end
+    end
+    ```
+  :replies: []
+- :author: omegaxLoL
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaunrqb/
+  :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day1.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
+  :replies: []
+- :author: lindgrenj6
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavk971/
+  :body: |-
+    This is my first time doing advent of code. I'm a bit rusty as I've been doing consulting rather than coding for the last year, nevertheless heres my implmentation in ruby:
+
+    ```ruby
+    #!/usr/bin/env ruby
+    input = STDIN.each_line.map(&:to_i)
+
+    # Part One
+    puts 'Part One: ' + input.reduce(0, :+).to_s
+
+    # Part Two
+    nums = {}
+    accumulator = 0
+
+    input.cycle do |e|
+      accumulator += e
+      # use a hash because a list is way too slow
+      break unless nums[accumulator].nil?
+
+      nums[accumulator] = true
+    end
+    puts 'Part Two: ' + accumulator.to_s
+    ```
+
+    aaand in Java (in case any students are around):
+
+    ```ruby
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.HashSet;
+    import java.util.List;
+    import java.util.Scanner;
+    import java.util.Set;
+
+    public class One {
+        public static void main(String[] args) throws IOException {
+            List<Integer> input = readInput();
+
+            System.out.println("Part one: " + p1(input));
+            System.out.println("Part two: " + p2(input));
+        }
+
+        private static Integer p2(List<Integer> input) {
+            Set<Integer> nums = new HashSet<>();
+            Integer accumulator = 0;
+
+            Boolean found = false;
+            while (!found) {
+                for(Integer i : input) {
+                    accumulator += i;
+                    if(!nums.add(accumulator)) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            return accumulator;
+        }
+
+        private static int p1(List<Integer> input) {
+            int p1 = input.stream().mapToInt(Integer::intValue).sum();
+            return p1;
+        }
+
+        private static List<Integer> readInput() {
+            List<Integer> input = new ArrayList<>();
+            Scanner sc = new Scanner(System.in);
+            while (sc.hasNextLine()) {
+                input.add(sc.nextInt());
+            }
+            sc.close();
+            return input;
+        }
+    }
+    ```
+  :replies: []
+- :author: compdog
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavxq3s/
+  :body: |-
+    **Ruby**
+
+    Not the most concise, but they're clear and easy to follow.
+
+    Part 1:
+
+    ```ruby
+    # Make sure that we have a filename
+    if !ARGV.empty?
+        # Final solution
+        frequency = 0
+
+        # Read each line from input file
+        File.readlines(ARGV[0]).each {|line|
+            drift = line.to_i
+
+            frequency += drift
+        }
+
+        # print solution
+        puts "Final frequency is #{frequency}"
+    else
+        puts "Please specify file to read"
+    end
+    ```
+
+    Part 2:
+
+    ```ruby
+    # Make sure that we have a filename
+    if (!ARGV.empty?)
+
+        # List of seen frequencies
+        frequencies = [0]
+
+        # current frequency value
+        frequency = 0
+
+        # Loop until we find a duplicate
+        while true
+
+            # Read each line from input file
+            File.readlines(ARGV[0]).each {|line|
+                drift = line.to_i
+
+                frequency += drift
+
+                # Check if we have seen this frequency before
+                if (frequencies.include? frequency)
+                    puts "Found solution: #{frequency}"
+                    return
+                else
+                    frequencies.push frequency
+                end
+            }
+        end
+    else
+        puts "Please specify file to read"
+    end
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eawbkkd/
+  :body: |-
+    Wanted to brush up on Ruby and compare with Perl (which I don't know yet)
+
+    Ruby:
+
+    Part 1:
+
+    ```ruby
+    total = 0
+    File.open('./raw_nums.txt', 'r') do |f|
+      f.each_line do |line|
+        puts line
+        total += line.chomp.to_i
+      end
+    end
+
+    puts "total: #{total}"
+    ```
+
+    Part 2:
+
+    ```ruby
+    require 'set'
+
+    frequencies = Set.new
+    total = 0
+
+    frequencies.add(total)
+
+    answer = nil
+    file = './raw_nums.txt'
+    answer = nil
+    changes = []
+
+    File.open(file, 'r') do |f|
+      f.each_line do |line|
+        change = line.chomp.to_i
+        changes << change
+      end
+    end
+
+    loop do
+      changes.each do |c|
+        total += c
+        if frequencies.add?(total).nil? then
+          answer = total
+          break
+        end
+      end
+
+      break unless answer.nil?
+    end
+
+    puts "First reached twice #{answer}"
+    ```
+
+    Perl:
+
+    Part 1:
+
+    ```ruby
+    #/bin/env perl
+    use v5.28;
+    use warnings;
+    use strict;
+
+    my $handle = "./raw_nums.txt";
+    open my $file, "<", $handle or die "Could not open file: $handle";
+    my @lines = <$file>;
+    close $file;
+
+    my $total = 0;
+
+    chomp @lines;
+    for my $line (@lines) {
+        say "line: $line";
+        $total += $line;
+    }
+
+    say "Total: $total";
+    ```
+
+    Part 2:
+
+    ```ruby
+    #/bin/env perl
+    use v5.28;
+    use warnings;
+    use strict;
+
+    use Set::Scalar;
+
+    my $handle = "./raw_nums.txt";
+    open my $file, "<", $handle or die "Could not open file: $handle";
+    my @lines = <$file>;
+    close $file;
+
+    my $total = 0;
+    my @changes;
+    my $frequencies = Set::Scalar->new;
+    my $answer;
+
+    chomp @lines;
+    for my $line (@lines) {
+        push @changes, $line;
+    }
+
+    OUTER: {
+        while(1) {
+            for my $change (@changes) {
+                $total += $change;
+
+                if ($frequencies->has($total)) {
+                    $answer = $total;
+                    last OUTER;
+                } else {
+                    $frequencies->insert($total)
+                }
+            }
+
+            last OUTER if (defined($answer));
+        }
+    }
+
+    say "First reached twice $answer";
+    ```
+  :replies: []
+- :author: shvetsovdm
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/ebbq2nh/
+  :body: |-
+    **Day 1 Part 2** solution in **Ruby**
+
+    ```ruby
+    def day1part2(input)
+      seen = Set.new([0])
+
+      sum = 0
+      input.cycle.each do |n|
+        sum += n
+        return sum if seen.include?(sum)
+        seen.add(sum)
+      end
+      # Benchmark: user 3.923110 system 0.096206 user and system 4.019316 (elapsed 4.040252) time
+    end
+    ```
+  :replies: []

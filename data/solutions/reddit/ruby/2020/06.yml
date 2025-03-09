@@ -1,0 +1,572 @@
+---
+- :author: Wattswing
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gindlts/
+  :body: |-
+    Ruby
+
+    ```ruby
+    input = File.read('2020_day_6.input.txt')
+
+    answer_groups = input.split("\n\n")
+    answers = answer_groups.map{ |group| group.split("\n").map(&:chars) }
+
+    # Part 1
+    solution = answers.map { |answer_group| answer_group.flatten.uniq.count }.sum
+
+    puts "Part 1 solution (sum of uniq counts) is #{solution}"
+
+    solution = answers.map { |answer_group| answer_group.inject(:&).count }.sum
+    puts "Part 2 solution (sum of intersections) is #{solution}"
+    ```
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gey4mds/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    # convert each chunk to an array of arrays of chars
+    customs = ARGF.read.split(/\n\n/).map do |chunk|
+        chunk.split.map(&:chars)
+    end
+
+    # part 1 -union
+    puts customs.map { |chunk| chunk.reduce(:|).size }.sum
+
+    # part 2 -intersection
+    puts customs.map { |chunk| chunk.reduce(:&).size }.sum
+    ```
+  :replies:
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf5sjhu/
+    :body: Hi. Please could you explain what reduce(:&) does.
+    :replies:
+    - :author: Karl_Marxxx
+      :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf6ngxc/
+      :body: |-
+        Reduce is a function that takes a list and combines, or "reduces", all the elements down to one value by taking the first two values and combining them, then combining that result with the next value, and so on. Of course, you might want to decide how things get combined, and so you can specify another function that tells you how to combine things. For example, say I have a list of numbers: [1, 2, 5, 6, 2]. If I call reduce on this list, and specify that the combining operation is "+", then I get ((((1+2)+5)+6)+2) = 16. In ruby, that could look like `[1, 2, 5, 6, 2].reduce(:+)`. "`:+`" is fancy ruby syntax that refers to the addition operator.
+
+        Essentially, we've just rewritten `sum` here. Kinda lame, but we can use this in more cool ways, as I will explain. In the AoC challenge, each "chunk" is a list.
+
+        ```ruby
+        # this is one chunk from the input, representing one customs form
+        [['a', 'b', 's'], # list 1
+          ['x', 'y', 'q', 'z'], # list2
+          ['x', 'a', 'b'] ] # list 3
+        ```
+
+        Each value in the list is a list of chars. The first part of the challenge asks to the get the size of all the characters that appears once in each chunk (and then sum all the sizes together). I use reduce here to combine all the lines from the chunk. I look at the first two entries of the chunk, `list1` and `list2` and ask the question, "which characters appears at least once in either of these two lists?" Then I take that result and compare that to `list3`, and so on. The end result will be a list that contains all the characters that occurred at least once in all the previous lists. I "ask the question" by passing in a comparison function. In part one, the comparison function is "|". If you're not familiar with set notation, "|" just means "union" or "what occurred in either of these two things". In part two, I use the "&" intersection function instead, which tells me only the things that are common across two things.
+
+        So long story short reduce(:&) means I'm calling the reduce function on a list using the "&" intersection operator. Apologies if you already knew all that stuff above.
+      :replies:
+      - :author: craigontour
+        :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf6uomq/
+        :body: |-
+          That's one of the more comprehensive explanations I've read so far.
+
+          Will copy that to my coding documentation.
+
+          Thanks.
+        :replies: []
+  - :author: McPhage
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gey68e0/
+    :body: Where / how dd you handle spaces, capital letters, and punctuation in the input?
+    :replies:
+    - :author: Karl_Marxxx
+      :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf01vcs/
+      :body: "`.split` to handle spaces, and I don't believe there was punctuation/capital letters in the input"
+      :replies:
+      - :author: McPhage
+        :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf03w3e/
+        :body: Yeah, so it turns out Chrome “translated” mine from Polish to English first, so I ended up with some weird stuff in my input.
+        :replies:
+        - :author: Karl_Marxxx
+          :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gf09g5d/
+          :body: Oh wow! Haha.
+          :replies: []
+- :author: zxywx
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gexhjod/
+  :body: |-
+    # Ruby Solution
+
+    Part 1
+
+    ```ruby
+    input.split("\n\n").inject(0) { |total, group| total + group.each_line(chomp: true).map(&:chars).flatten.uniq.count }
+    ```
+
+    Part 2
+
+    ```ruby
+    input.split("\n\n").inject(0) { |total, group| total + group.each_line(chomp: true).map(&:chars).inject(:&).count }
+    ```
+  :replies: []
+- :author: The-more-you-gnoll
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gewydad/
+  :body: |-
+    Ruby
+
+    (Saw the one other ruby solution is much shorter and just had to sigh)
+
+    ```ruby
+    *#\* -------------- Part 1 ----------------*
+     file = "input.txt"
+     batch\_data = File.open(file).read
+     groups = batch\_data.split(/\\n\\n/).map { |group| group.split("\\n") }
+     groups.each do |group|
+      index = groups.index(group)
+      groups\[index\] = group.reduce(&:+).chars.uniq
+     end
+     p groups.reduce(0) { |memo, el| memo + el.length }
+    *#\* -------------- Part 2 ----------------*
+     file = "input.txt"
+     batch\_data = File.open(file).read
+     groups = batch\_data.split(/\\n\\n/).map { |group| group.split("\\n") }
+     groups.each do |group|
+      index = groups.index(group)
+      group = group.map { |person| person.chars.sort }
+      groups\[index\] = group.reduce { |memo, person| memo.intersection(person) }
+     end
+     p groups.reduce(0) { |memo, group| memo + group.size
+    ```
+  :replies: []
+- :author: tckmn
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges7bz7/
+  :body: |-
+    ruby 1/1 woo
+
+    ```ruby
+    p read.split("\n\n").map{|x|x.split.join.chars.uniq.size}.sum
+    p read.split("\n\n").map{|x|x.lines.map{|x|x.chomp.chars}.reduce(:&).size}.sum
+    ```
+  :replies:
+  - :author: mebeim
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges7h2s/
+    :body: That is just... amazing timing and amazing code. Kudos!
+    :replies: []
+  - :author: padiwik
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gescqjv/
+    :body: Any reason you use `split` in the first one but `lines` in the second one?
+    :replies:
+    - :author: tckmn
+      :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesf7sk/
+      :body: no lol, the first time my brain was like "ok how do i kill all the whitespace" and it spit out `.split.join` as a unit, then for part 2 i deleted everything in the braces to start again and the first thing that came to mind to transform the lines was `.lines.map`
+      :replies: []
+  - :author: maccosmo
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gevy4a5/
+    :body: "just found your code and saw that your's is very similar to mine :D\n\nbtw, you could remove some bytes\n\ninstead of `\"\\n\\n\"` you can write `?\\n*2` to safe 1 byte. and `sum` takes a block, so you could replace your `map` with `sum` instead cheers! \U0001F37B"
+    :replies: []
+  - :author: prafster
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gewvliz/
+    :body: |-
+      It's admirable that you managed to understand part 1 in 45s let alone answer it!
+
+      I'm learning Dart whilst doing these puzzles but I'm tempted to use Ruby because it is a lovely language.
+    :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges6nvc/
+  :body: |-
+    Ruby 9/31
+
+    My input downloader failed so I had to manually open the input text in browser to copy into file lmao
+
+    ```ruby
+    a=$<.read.split("\n\n")
+    p a.sum{|x|
+    # x.split.join.chars.uniq.size <- part 1
+    x.lines.map{|x|x.chomp.chars}.reduce{|x,y|x&y}.size
+    }
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gets91l/
+  :body: |-
+    # Ruby
+
+    Using `uniq` and set intersection operator `&`
+
+    ```ruby
+    groups = File
+      .read('input-06.txt')
+      .split("\n\n")
+      .map { |group| group.lines.map(&:chomp) }
+
+    # Part 1
+    p groups.sum { |group| group.join.chars.uniq.size }
+
+    # Part 2
+    p groups.sum { |group| group.map(&:chars).reduce(&:&).size }
+    ```
+  :replies: []
+- :author: maccosmo
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gett48l/
+  :body: |-
+    **Ruby** , Part 1 and 2 in one line (input filename is called "i")
+
+    ```ruby
+    i=IO.read(?i).split(?\n*2);p i.sum{|x|(x.chars.uniq-[?\n]).size},i.sum{|g|g.split.map(&:chars).inject(:&).size}
+    ```
+
+    * * *
+
+    Or separate:
+
+    ```ruby
+    i=IO.read(?i).split(?\n*2)
+    ```
+
+    Part 1
+
+    ```ruby
+    p i.sum{|g|(g.chars.uniq-[?\n]).size}
+    ```
+
+    Part 2
+
+    ```ruby
+    p i.sum{|g|g.split.map(&:chars).inject(:&).size}
+    ```
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesr6wv/
+  :body: |-
+    # Day 6 in Ruby
+
+    Golfed into chained calls. This is an easy one to solve with Ruby built-in methods.
+
+    ```ruby
+    input.
+      split("\n\n").
+      map { |e| e.split.map { |f| f.chars } }.
+      tap { |r| p r.sum { |g| g.reduce(:|).count } }.
+      tap { |r| p r.sum { |g| g.reduce(:&).count } }
+    ```
+
+    This outputs answers for part 1 and part 2.
+
+    The keys to this solution are the set operations `|` (union) and `&` (intersection). Applying these via `reduce` has the effect of checking each passenger's answer's within their group to find the total number of unique answers in the group, and then the total number of answers common to each passenger in the group.
+
+    See: [https://ruby-doc.org/core-2.7.2/Enumerable.html#method-i-reduce](https://ruby-doc.org/core-2.7.2/Enumerable.html#method-i-reduce)
+
+    See: [https://ruby-doc.org/stdlib-2.7.2/libdoc/set/rdoc/Set.html#method-i-26](https://ruby-doc.org/stdlib-2.7.1/libdoc/set/rdoc/Set.html#method-i-26)
+
+    See: [https://ruby-doc.org/stdlib-2.7.2/libdoc/set/rdoc/Set.html#method-i-7C](https://ruby-doc.org/stdlib-2.7.1/libdoc/set/rdoc/Set.html#method-i-7C)
+  :replies:
+  - :author: 0rac1e
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gew4van/
+    :body: |-
+      This is super nice!
+
+      I of course figured the intersection, but I didn't realise both parts were essentially the same if you prep the input right.
+
+      Apart from splitting my output, I didn't break it down further to lists of charachter-lists, so I came to solve part one without doing a union.
+    :replies: []
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/get6luq/
+    :body: Good use of `tap` to get both solutions into one tight script. I always do two separate scripts for part one and two but this is a neat approach.
+    :replies:
+    - :author: shandley256
+      :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/getg8w6/
+      :body: |-
+        Cheers Peter!
+
+        I usually write two scripts too :-) Typically one ends up requiring the other to re-use common code but I've been doing a bit of Elixir lately and the functional pipeline approach is quite nice for smaller chunks of code.
+      :replies: []
+- :author: jschulenklopper
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gev0hjz/
+  :body: |-
+    A puzzle that fits well with **Ruby** :
+
+    ```ruby
+    groups = ARGF.read.split("\n\n").map(&:split)
+
+    puts "part 1"
+    puts groups.map { |group| group.join.chars.uniq.length }.sum
+
+    puts "part 2"
+    puts groups.map { |group| group.map(&:chars).reduce(&:&).length }.sum
+    ```
+  :replies:
+  - :author: dev_all_the_ops
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gewudla/
+    :body: |-
+      Since ruby 1.9 `reduce(&:&)` could be replaced by `reduce(:&)`.
+
+      [https://stackoverflow.com/a/13093610/1626687](https://stackoverflow.com/a/13093610/1626687)
+    :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges8lct/
+  :body: |-
+    Ruby
+
+    ```ruby
+    inp = ARGF.read.split("\n\n").map{ |g|
+      g.split.map(&:chars)
+    }
+
+    print "Result 1: ",
+    inp.map{ |g|
+      g.flatten.uniq.count
+    }.sum
+
+    print "\nResult 2: ",
+    inp.map{ |g|
+      g.reduce{|pru,item| pru & item}.count
+    }.sum
+    ```
+  :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges8zcs/
+  :body: |-
+    # Ruby
+
+    (304/298)
+
+    ```ruby
+    DATA.read.split("\n\n").map do |a|
+      a.split("\n").map(&:chomp).then do |b|
+        [
+          b.join.chars.uniq.count,
+          b.map(&:chars).reduce(:&).count
+        ]
+      end
+    end.transpose.map(&:sum).tap{ puts _1 }
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesbowo/
+  :body: |-
+    **Ruby:** 2:14/8:44, 59/786
+
+    Here's a [recording](https://youtu.be/uq9J9QeenFw) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/7b198ddb847b9dfc752d34f0f0415e4acde88a6a/2020/dec06.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Finally cracked the global leaderboard! But I left out a break statement and lost a ton of time on Part 2.
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gese5jk/
+  :body: |-
+    **Ruby**
+
+    My one line solution per part after reading the initial input file. Just about using set operations.
+
+    ```ruby
+    require "set"
+    FORMS = File.read('day6_input.txt').split("\n\n")
+
+    # Part 1
+    puts "#{ FORMS.map { |group| group.gsub("\n", '').split('').to_set.length }.reduce(:+) }"
+
+    # Part 2
+    puts "#{ FORMS.map { |group| group.split("\n").map { |list| list.split('') }.reduce(:&).length }.reduce(:+) }"
+    ```
+  :replies:
+  - :author: Krakhan
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/geuv3sg/
+    :body: |-
+      Cleaned up a bit before bed and after waking up.
+
+      ```ruby
+      FORMS = File.read('day6_input.txt').split("\n\n")
+
+      def counts(forms, set_op_sym)
+        forms.map { |group| group.split("\n").map(&:chars).reduce(set_op_sym).length }.reduce(:+)
+      end
+
+      # Part 1
+      puts "#{ counts(FORMS, :|) }"
+
+      # Part 2
+      puts "#{ counts(FORMS, :&) }"
+      ```
+    :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/getzqee/
+  :body: |-
+    Ruby. I'm finally learning to utilize more of Ruby's builtin methods instead of using .each for everything.
+
+    Solution 1:
+
+    ```ruby
+    #!/bin/env ruby
+
+    text = File.read('./input').split("\n\n")
+
+    text.map! do |t|
+        t.delete("\n").split('').uniq.reduce(:+)
+    end
+    size = text.map { |t| t.length }.reduce(:+)
+
+    p size
+    ```
+
+    Solution 2:
+
+    ```ruby
+    #!/bin/env ruby
+
+    groups = Hash.new
+    text = File.read('./input').strip.split("\n\n")
+
+    people = text.map { |t| t.count("\n") + 1 }
+
+    text.map!.with_index do |t, i|
+        t.delete!("\n")
+        t.each_char { |c| t.delete!(c) if t.count(c) != people[i] }
+        t.split('').uniq.reduce(:+)
+    end
+
+    text.compact!
+    size = text.map { |t| t.length }.reduce(:+)
+
+    p size
+    ```
+  :replies:
+  - :author: jtgorn
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/geuzqym/
+    :body: You can replace reduce(:+) by sum, althought if you move length to the first map!, it spimplifies the second one.
+    :replies: []
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gev02wj/
+    :body: |-
+      That can be done somewhat more succinct:
+
+      ```ruby
+      groups = ARGF.read.split("\n\n").map(&:split)
+
+      puts "part 1"
+      puts groups.map { |group| group.join.chars.uniq.length }.sum
+
+      puts "part 2"
+      puts groups.map { |group| group.map(&:chars).reduce(&:&).length }.sum
+      ```
+    :replies: []
+- :author: angryfeet73
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesd3dy/
+  :body: |-
+    # Ruby
+
+    Feeling quite pleased that I managed to get this one in four lines, though it probably could be reduced to three...
+
+    ```ruby
+    file = File.open("inputs/day6.txt")
+    input = file.readlines.map(&:chomp).join(',').gsub(/,{1}/, ' ').split(/\s{2}/)
+    # Part one
+    puts input.map { |e| e.gsub(/\s/, '').chars.uniq.length }.sum
+    # Part two
+    puts input.map { |e| e.split(' ').map { |x| x.chars }.reduce(&:&).length }.sum
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/ges7b8x/
+  :body: |-
+    Ruby 1521/358. I misread the question and did part two for part one initially.
+
+    ```ruby
+    require 'set'
+    puts File.read('06.txt').split("\n\n").map { |group|
+      answers = Set.new
+      group.lines(chomp: true).each do |line|
+        answers.merge(Set.new(line.chars))
+      end
+      answers.size
+    }.reduce(&:+)
+    ```
+
+    Part two:
+
+    ```ruby
+    require 'set'
+    puts File.read('06.txt').split("\n\n").map { |group|
+      answers = nil
+      group.lines(chomp: true).each do |line|
+        line_answers = Set.new(line.chars)
+        answers = answers.nil? ? line_answers : answers & line_answers
+      end
+      answers.size
+    }.reduce(&:+)
+    ```
+  :replies:
+  - :author: MichalMarsalek
+    :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesdyzn/
+    :body: Yeah the same thing happened to me... placed 850/150….
+    :replies: []
+- :author: blafunke
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/gesadqe/
+  :body: |-
+    Now I know my abc's
+
+    (Ruby)
+
+    ```ruby
+    require 'set'
+    # part1
+    def sum_any(group)
+      group.gsub("\n","").split('').to_set.size
+    end
+
+    # part 2
+    def sum_every(group)
+      sum = 0
+      people = group.split("\n")
+
+      %w(a b c d e f g h i j k l m n o p q r s t u v w x y z).each do |q|
+        sum += 1 if people.select {|p| p.include?(q)}.length == people.length
+      end
+      sum
+    end
+
+    group = ""
+    total = 0
+    $stdin.each do |line|
+      if line == "\n" then
+        total += sum_every(group)
+        group = ""
+      else
+        group = group + line
+      end
+    end
+    total += sum_every(group)
+
+    puts total
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/get6b0k/
+  :body: |-
+    # Ruby
+
+    Part one:
+
+    ```ruby
+    p File.read("6.txt")
+          .split("\n\n")
+          .map { |cs| cs.scan(/[a-z]/) }
+          .map { |cs| cs.uniq.size }
+          .sum
+    ```
+
+    Part two:
+
+    ```ruby
+    p File.read("6.txt")
+          .split("\n\n")
+          .map(&:split)
+          .map { |cs| cs.map(&:chars) }
+          .map { |cs| cs.inject(:&) }
+          .map(&:size)
+          .sum
+    ```
+  :replies: []
+- :author: nata79
+  :url: https://www.reddit.com/r/adventofcode/comments/k7ndux/2020_day_06_solutions/getjz31/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    groups = File.read('day6.txt').split("\n\n").map { |group| group.split("\n").map(&:chars) }
+
+    p groups.map { |group| group.flatten.uniq.size }.sum
+
+    p groups.map { |group| group.reduce { |acc, answers| acc & answers }.size }.sum
+    ```
+  :replies: []

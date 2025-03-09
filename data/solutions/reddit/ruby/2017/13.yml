@@ -1,0 +1,126 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6ftpy/
+  :body: |-
+    After completely failing to get on the leaderboard since my part 2 code ran too slow, it's time to make it faster. It's too inefficient to iterate each possible starting time one by one!
+
+    Instead, for each period, I look at what starting times are forbidden by scanners with that period and combine all that together.
+
+    For example, for my input, the code determines that my part 2 answer must satisfy two conditions:
+
+    - Congruent to 966862 mod 1441440
+    - Congruent to some number in [0, 2, 6, 8, 10, 12, 16, 18, 20, 22, 24, 26, 28, 30, 32] mod 34
+
+    That first bullet point means I only need to iterate through a few values in order to find the answer that eventually works. (Runs in less than a tenth of a second, as opposed to multiple seconds when iterating by 1 each time)
+
+    (It's Ruby)
+
+    ```ruby
+    depths = (ARGV.empty? ? DATA : ARGF).readlines.map { |x|
+      x.scan(/\d+/).map(&:to_i)
+    }.to_h.freeze
+
+    periods = depths.map { |k, v| [k, 2 * (v - 1)] }.to_h.freeze
+
+    puts periods.select { |k, v| k % v == 0 }.keys.map { |k| k * depths[k] }.sum
+
+    # For a given (depth, period) pair,
+    # we can determine a forbidden starting time:
+    # The starting time is NOT congruent to -depth modulo period.
+    # We combine all these forbidden times by period.
+    def forbidden_starts(periods)
+      periods.group_by(&:last).map { |period, depths|
+        [period, depths.map { |depth, _| -depth % period }.sort]
+      }.to_h
+    end
+
+    # Expand smaller periods into larger ones, then remove the smaller ones.
+    # For example, 2 => [1], 8 => [2, 4, 6] would turn into:
+    # 8 => [2, 4, 6, 1, 3, 5, 7]
+    def absorb_periods(forbidden_starts)
+      periods = forbidden_starts.keys.sort
+
+      periods.each_with_index { |p1, i|
+        expand_into = periods[(i + 1)..-1].select { |x| x % p1 == 0 }
+        next if expand_into.empty?
+        forbidden = forbidden_starts.delete(p1)
+        expand_into.each { |p2|
+          forbidden_starts[p2] |= (0...p2).select { |p| forbidden.include?(p % p1) }
+        }
+      }
+
+      forbidden_starts
+    end
+
+    forbidden_starts = absorb_periods(forbidden_starts(periods))
+
+    single_openings, other_periods = forbidden_starts.partition { |p, ds|
+      ds.size == p - 1
+    }
+
+    # For any periods with only one opening, we can combine them into one big period,
+    # and this big period also only has one opening!
+    base, period = single_openings.sort_by(&:first).reverse.reduce([0, 1]) { |(b, p1), (p2, ds)|
+      allowed_d = (0...p2).find { |d| !ds.include?(d) }
+      b += p1 until b % p2 == allowed_d
+      [b, p1.lcm(p2)]
+    }
+
+    puts base.step(by: period).find { |delay|
+      # Now we only need to check all other periods.
+      other_periods.all? { |p, ds| !ds.include?(delay % p) }
+    }
+
+    __END__
+    0: 3
+    (rest of input omitted, you don't need to see that)
+    ```
+  :replies:
+  - :author: sim642
+    :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6lufv/
+    :body: |-
+      Took me a while to think through how you're calculating this, especially not being familiar with Ruby syntax. Here's what I managed deduce:
+
+      1. Each scanner gives us a congruence `depth + start ≢ 0 (mod 2*(range-1))`, where `depth` and `range` are given for every scanner and `start` is the variable we're looking for. Simply put: `start ≢ -depth (mod period)`.
+      2. The congruences are grouped by their period and combined if one's divisor divides the other. This gives a list of remainders for every given modulo (period) that would lead to being caught.
+      3. Find a period that forbids all remainders except one, that one gives a positive congruence (not a negative one like all the ones we've had so far).
+      4. Futhermore, if there are multiple of such, find them all and combine using the Chinese Remainder Theorem, which now can be used since the congruences are not negated. This is where the lowest common multiple comes in and produces a congruence with a large divisor.
+      5. Just try all values for that large congruence against all the rest until a suitable one is found.
+
+      I have to admit, it is pretty clever but from a mathematical point of view, not too general. The speedup only comes in the case where there are periods that forbid all but one value, hopefully multiple such to get a real big congruence at the end. I wonder if this is the case for the AoC inputs because I'm sure in general one could construct a set of depths and ranges that don't do that and maybe always leave two possible values left, etc. The optimization doesn't help in such case as is but I suppose it could be extended to still be smart enough to only consider such two cases separately and continue the reduction recursively or something. This however still sounds like it can be exponential in general if all periods leave multiple possible remainders.
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6o0a2/
+      :body: |-
+        Yup, you've got it, both what I've done and the weaknesses of it. Although it was true for my input that there was only one period that allowed \> 1 value, I can't speak for everyone else's inputs. So I'm guilty of specialising a bit.
+
+        Prompted by your idea I decided to write the code that would try to keep track of multiple possible values (https://github.com/petertseng/adventofcode-rb-2017/tree/day13\_multi), but you are right that it's exponential because the number of possible solutions we need to decide between is the product of the numbers of values allowed by each period.
+      :replies: []
+    - :author: thomastc
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6nne8/
+      :body: 'Thanks for the summary. This is the direction I was thinking about while my brute force solution was running. It matches my intuition: because we''re looking for something that''s _not_ equal mod something, the CRT is of limited use, and the best we can do is limit the search space a bit.'
+      :replies: []
+    - :author: pak21
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr7jet2/
+      :body: Certainly my input has a very similar set of results (must be congruent to 967380 modulo 1441440, must be one of 15 values modulo 34), even to the detail where the two missing values modulo 34 are 967380 and 967380 + 1441440, thus also giving me a solution of the form n + 2 \* 1441440.
+      :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6bw7a/
+  :body: |-
+    Ruby; A good day! Even though I screwed up by doing `(x+1)%(correct base)` and had to fix the +1 (wrong intuition), I still solved both parts quickly enough to be on top 20 for both.
+
+    ```ruby
+    h=[]
+    $<.map{|x|h<<[x.to_i,x[/\d+$/].to_i]}
+    s=0
+    c=0
+    q=->c{ # part 2
+      h.each{|x,y|(#p s+=x*y if (x%((y-1)*2))==0 # part 1
+      return) if ((x+c)%((y-1)*2))==0} # part 2
+      p s # part 1
+      p c # part 2
+      exit
+    }
+    q[c+=1] while 1
+    ```
+  :replies: []

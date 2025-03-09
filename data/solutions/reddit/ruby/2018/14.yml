@@ -1,0 +1,217 @@
+---
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr5ufg/
+  :body: |-
+    ## CARD The Christmas/Advent Research & Development (C.A.R.D.) department at AoC, Inc. just published a new white paper on Elf Chocolate Recipes.
+
+    wasn't bad today... unfortunately takes about 60s to run...<ruby></ruby>
+
+    ```ruby
+    require 'pp'
+    INPUT = 236021
+    START = 3710
+
+    @scores = START.to_s.chars.map(&:to_i)
+    @elves = [0,1]
+
+    20_000_000.times do
+        elf_scores = [@scores[@elves[0]],@scores[@elves[1]]]
+        @scores.concat(elf_scores.inject(&:+).to_s.chars.map(&:to_i))
+        @elves = @elves.each_with_index.map do |elf,i|
+            new_pos = (elf + 1 + elf_scores[i]) % @scores.length
+            new_pos
+        end
+    end
+
+    pp @scores[INPUT...(INPUT+10)].map(&:to_s).join
+
+    @cur_idx = 0
+    until @matched || @cur_idx >= 100
+        str = @scores[0...1e9].join
+        if str.match(/236021/)
+            idx = @cur_idx * 1_000_000
+            @matched = true
+            idx += str.index /236021/
+            puts idx
+        else
+            nil
+        end
+        @cur_idx += 1
+        @scores.rotate!(1e9)
+    end
+    ```
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr3em5/
+  :body: |-
+    [Card] [image](https://i.imgur.com/w5qydaR.png)
+
+    Ruby, as coded by a guy who's not good in coding, who doesn't know how to implement a subarray search so strings it is:
+
+    part 1
+
+    ```ruby
+    p a=gets.to_i
+    b=[3,7]
+    c,d=0,1
+    a-=1
+    (
+    #p [b,b[c],b[d],c,d]
+    e=(b[c]+b[d]).digits.reverse
+    score=e.sum
+    b.push(*e)
+    c=(c+b[c]+1)%b.size
+    d=(d+b[d]+1)%b.size
+    )while b.size<=a+10
+
+    p b
+    puts b[a+1,10]*''
+    ```
+
+    part 2 (watching numbers being printed makes me feel like such an edgy hacker lmao)
+
+    ```ruby
+    p a=gets.to_i
+    b={0=>3,1=>7} # ???
+    size=2 # ???
+    c,d=0,1
+    a-=1
+    ee='37'
+    off=0
+    0.step{|tt|
+    (ki=(ee.size/1000)-1
+    off+=ki*1000
+    ee=ee[ki*1000..-1]
+    p tt,ee.size) if tt>0&&tt%10000==0
+    #p [b,b[c],b[d],c,d]
+    e=(b[c]+b[d])#.digits.reverse
+    #score=e > 10 ? 1+(e%10) : e
+    e>9 ? ( # ??? # ??? # ???
+    b[size]=1
+    b[size+=1]=e-10) : (b[size]=e
+    )
+    size+=1
+    ee+=e.to_s
+    #p ee
+    c=(c+b[c]+1)%size
+    d=(d+b[d]+1)%size
+    (
+    p off+(ee).index($_.chomp,-8)
+    1/0)if (ee).index($_.chomp,-8)
+    }
+    ```
+  :replies: []
+- :author: _liquidlemon
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebrask4/
+  :body: |-
+    **Ruby**
+
+    Part 2 turned out to be a lot more demanding than I expected but in the end I managed to solve both in a single pass so I'm quite happy with the end result.
+
+    ```ruby
+    digits = nil
+    input = (ARGV[0] || DATA.read.chomp).tap { |s| digits = s.chars.map(&:to_i) }.to_i
+
+    def step
+      scoreboard = [3, 7]
+      first = 0
+      second = 1
+
+      loop do
+        score = scoreboard[first] + scoreboard[second]
+        (scoreboard << score / 10; yield scoreboard) if score > 9
+        scoreboard << score % 10
+        yield scoreboard
+        first = (first + scoreboard[first] + 1) % scoreboard.size
+        second = (second + scoreboard[second] + 1) % scoreboard.size
+      end
+    end
+
+    start = nil
+    len = 0
+    step do |board|
+      if board.size == input + 10
+        recipes = board[input, 10].map(&:to_s).join
+        puts "Part 1: #{recipes}"
+      end
+
+      if board.last == digits[len]
+        len += 1
+        start = board.size - 1 if start.nil?
+        break if len == digits.size
+      else
+        len = 0
+        start = nil
+      end
+    end
+
+    puts "Part 2: #{start}"
+
+    __END__
+    760221
+    ```
+  :replies:
+  - :author: kamireri
+    :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebvh39s/
+    :body: |-
+      There's a small bug in the last if/else statement in the block. When the next digit doesn't match the one that we're expecting in the pattern, it might be the first digit of the pattern. I've put a revised version below. It now produces the correct result for the '01245' test input.
+
+      ```ruby
+      digits = nil
+      input = (ARGV[0] || DATA.read.chomp).tap { |s| digits = s.chars.map(&:to_i) }.to_i
+
+      def step
+        scoreboard = [3, 7]
+        first = 0
+        second = 1
+
+        loop do
+          score = scoreboard[first] + scoreboard[second]
+          (scoreboard << score / 10; yield scoreboard) if score > 9
+          scoreboard << score % 10
+          yield scoreboard
+          first = (first + scoreboard[first] + 1) % scoreboard.size
+          second = (second + scoreboard[second] + 1) % scoreboard.size
+        end
+      end
+
+      start = nil
+      len = 0
+      step do |board|
+        if board.size == input + 10
+          recipes = board[input, 10].map(&:to_s).join
+          puts "Part 1: #{recipes}"
+        end
+
+        unless board.last == digits[len]
+          len = 0
+          start = nil
+        end
+
+        if board.last == digits[len]
+          len += 1
+          start = board.size - 1 if start.nil?
+          break if len == digits.size
+        end
+      end
+
+      puts "Part 2: #{start}"
+      ```
+    :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebtfakm/
+  :body: |-
+    I love ruby
+
+    ```ruby
+    a = '37'; e = Vector[0,1]; j = Vector[1,1]
+
+    until /#{ARGV[0]}.?$/.match a do
+      n = e.map{|f| a[f % a.size].to_i }
+      a << n.sum.to_s
+      e = e+j+n
+    end
+
+    puts "String '#{ARGV[0]}' found after #{a.partition(pat)[0].size} receipts"
+    ```
+  :replies: []

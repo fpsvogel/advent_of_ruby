@@ -1,0 +1,349 @@
+---
+- :author: gareve
+  :url: https://www.reddit.com/r/adventofcode/comments/3xb3cj/day_18_solutions/cy34808/
+  :body: |-
+    Ruby. Good time, not so good code
+
+    ```ruby
+    m = $stdin.readlines.map(&:strip)
+
+    m[0][0] = '#'
+    m[m.size-1][0] = '#'
+    m[m.size-1][m[0].size - 1] = '#'
+    m[0][m[0].size - 1] = '#'
+
+    def g(mm, y, x)
+        return '#' if x == 0 and y == 0
+        return '#' if x == 0 and y == mm.size - 1
+        return '#' if x == mm[0].size - 1 and y == mm.size - 1
+        return '#' if x == mm[0].size - 1 and y == 0
+
+        sum = 0
+        (-1..1).each do |dy|
+            (-1..1).each do |dx|
+                yy,xx = y + dy, x + dx
+                next if dy == 0 and dx == 0
+                next if yy < 0 or xx < 0
+                next if yy >= mm.size or xx >= mm[0].size
+
+                sum += 1 if mm[yy][xx] == '#'
+            end
+        end
+
+        return (sum == 2 or sum == 3) ? '#' : '.' if mm[y][x] == '#'
+        return sum == 3 ? '#' : '.'
+    end
+
+    def f(m)
+        mm = []
+        m.size.times do |y|
+            line = ''
+            m[y].size.times do |x|
+                line += g(m, y, x)
+            end
+            mm << line
+        end
+        return mm
+    end
+
+    100.times {
+        m = f(m)
+    }
+
+    p m.flatten.join.count('#')
+    ```
+  :replies: []
+- :author: Axsuul
+  :url: https://www.reddit.com/r/adventofcode/comments/3xb3cj/day_18_solutions/cy37ag4/
+  :body: |-
+    Ruby with recursion
+
+    ```ruby
+    def build_matrix(filename)
+      matrix = {}
+
+      File.open(filename).readlines.each_with_index do |line, x|
+        line.strip.split('').each_with_index do |dot, y|
+          matrix[x] ||= {}
+          matrix[x][y] = dot
+        end
+      end
+
+      matrix
+    end
+
+    def print_matrix(matrix)
+      matrix.each do |_, row|
+        puts row.values.join('')
+      end
+    end
+
+    def count_on(matrix)
+      count = 0
+
+      matrix.each do |_, row|
+        row.each do |_, dot|
+          count += 1 if dot == '#'
+        end
+      end
+
+      count
+    end
+
+    def stuck!(matrix)
+      z = matrix.length - 1
+
+      matrix[0][0] = '#'
+      matrix[0][z] = '#'
+      matrix[z][0] = '#'
+      matrix[z][z] = '#'
+
+      matrix
+    end
+
+    def animate_lights(matrix, steps, stuck = false)
+      z = matrix.length - 1
+
+      stuck!(matrix) if stuck
+
+      # Create deep copy of matrix
+      next_matrix = Marshal.load(Marshal.dump(matrix))
+
+      matrix.each do |x, row|
+        row.each do |y, dot|
+          neighbors = []
+
+          (x-1..x+1).each do |xx|
+            (y-1..y+1).each do |yy|
+              next if x == xx && y == yy
+              next if xx < 0 || xx > z
+              next if yy < 0 || yy > z
+
+              neighbors << matrix[xx][yy]
+            end
+          end
+
+          on_count = neighbors.select { |d| d == '#' }.count
+
+          new_dot =
+            # If off, turn on if exactly 3 neighbors are on
+            if dot == '.'
+              on_count == 3 ? '#' : '.'
+            # If on, leave on if 2 or 3 neighbors are on
+            else
+              (2..3).cover?(on_count) ? '#' : '.'
+            end
+
+          next_matrix[x][y] = new_dot
+        end
+      end
+
+      stuck!(next_matrix) if stuck
+
+      if steps == 0
+        matrix
+      elsif steps == 1
+        next_matrix
+      else
+        animate_lights(next_matrix, steps - 1, stuck)
+      end
+    end
+
+    puts count_on(animate_lights(build_matrix('day18.txt'), 100))
+    puts count_on(animate_lights(build_matrix('day18.txt'), 100, true))
+    ```
+  :replies: []
+- :author: Phakx
+  :url: https://www.reddit.com/r/adventofcode/comments/3xb3cj/day_18_solutions/cy38yeo/
+  :body: |-
+    **Ruby** with some (sadly ugly) console printing of the grid:
+
+    ```ruby
+    #!/usr/bin/ruby
+    def print_map(coord_map)
+      sleep 0.3
+      system('clear')
+      (0..99).each do |j|
+        (0..99).each do |i|
+          if coord_map[[j,i]]
+            print '#'
+          else
+            print '.'
+          end
+        end
+        puts
+      end
+    end
+    File.open("#{File.dirname( __FILE__ )}/input") do |file|
+      lights = file.readlines
+      light_map = Hash.new
+      lights.each_with_index do |light_line, vert_index|
+        light_line.strip.split('').each_with_index do |bulb, horizontal_index|
+          if bulb == '#'
+            light_map[[vert_index, horizontal_index]] = true
+          else
+            light_map[[vert_index, horizontal_index]] = false
+          end
+        end
+      end
+
+      (0..99).each do
+        new_map = Hash.new
+        light_map.each_pair do |coords, activation|
+          neighbours = 0
+          neighbours += 1 if light_map[[coords[0]+1, coords[1]]] rescue false
+          neighbours += 1 if light_map[[coords[0]-1, coords[1]]] rescue false
+          neighbours += 1 if light_map[[coords[0], coords[1]+1]] rescue false
+          neighbours += 1 if light_map[[coords[0], coords[1]-1]] rescue false
+          neighbours += 1 if light_map[[coords[0]+1, coords[1]+1]] rescue false
+          neighbours += 1 if light_map[[coords[0]+1, coords[1]-1]] rescue false
+          neighbours += 1 if light_map[[coords[0]-1, coords[1]+1]] rescue false
+          neighbours += 1 if light_map[[coords[0]-1, coords[1]-1]] rescue false
+
+          if (neighbours == 2 || neighbours == 3) && activation
+            new_map[coords] = true
+          elsif !activation && neighbours == 3
+            new_map[coords] = true
+          else
+            new_map[coords] = false
+          end
+          if coords == [0,0] || coords == [99,99] || coords ==[0,99] || coords ==[99,0]
+            new_map[coords] = true
+          end
+
+        end
+        light_map = new_map
+        print_map(light_map)
+      end
+      puts light_map.values.count(true)
+    end
+    ```
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3xb3cj/day_18_solutions/cy3qep6/
+  :body: |-
+    Ruby, took me an hour :)
+
+    ```ruby
+    class Light
+
+        attr_reader :x, :y, :always_on
+        def initialize(x,y)
+            @x = x
+            @y = y
+            @on = false
+            @always_on = false
+        end
+
+        def turn_on(on)
+            @on = on
+        end
+
+        def set_always_on
+            @always_on = true
+        end
+
+        def on
+            @always_on ? true : @on
+        end
+
+        def to_s
+            on ? "#" : "."
+        end
+    end
+
+    class Grid
+
+        attr_reader :grid, :lights, :size
+
+        def initialize(size)
+            @grid = []
+            @lights = []
+            @size = size
+            for y in 0...size
+                @grid[y] = []
+                for x in 0...size
+                    l = Light.new(x,y)
+                    @grid[y][x] = l
+                    @lights << l
+                end
+            end
+            always_on = [0,size-1].repeated_permutation(2).to_a
+            always_on.each {|x,y| @grid[y][x].set_always_on}
+        end
+
+        def to_s
+            output = []
+            @grid.each do |l|
+                output << l.map{|l|l.to_s}.join
+            end
+            output.join("\n")
+
+        end
+
+        def neighbours(light)
+            x = light.x
+            y = light.y
+            combinations = [-1,0,1].repeated_permutation(2).to_a
+            combinations.delete([0,0])
+            values = combinations.map{|x_offset, y_offset| [x+x_offset, y+y_offset]}.find_all{|x,y| x >= 0 && y>=0 &&x <@size && y <@size}
+
+            lights = values.map{|x,y|@grid[y][x]}
+            return lights
+        end
+
+        def lights_on
+            @lights.find_all{|l|l.on}.count
+        end
+
+        def copy
+            copy = Grid.new(@size)
+            for y in 0...@size
+                for x in 0...@size
+                    copy.grid[y][x].turn_on(@grid[y][x].on)
+                    copy.grid[y][x].set_always_on if @grid[y][x].always_on
+                end
+            end
+            copy
+        end
+    end
+
+    class Processor
+
+        attr_reader :grid
+
+        def parse(lines)
+            size = lines.count
+            @grid = Grid.new(size)
+            lines.each_with_index do |l,y|
+                l.strip.chars.each_with_index do |c,x|
+                    light = @grid.grid[y][x]
+                    light.turn_on(c =='#')
+                end
+            end
+        end
+
+        def step
+            copy = @grid.copy
+            copy.lights.each do |l|
+                n_on = copy.neighbours(l).find_all{|n|n.on}.count
+                target = @grid.grid[l.y][l.x]
+                if (l.on)
+                    target.turn_on(false) if (n_on != 2 && n_on != 3)
+                else
+                    target.turn_on(true) if (n_on == 3)
+                end
+            end
+        end
+    end
+
+    p = Processor.new
+    p.parse(File.new("input18.txt").readlines)
+    100.times do |i|
+        puts i
+        p.step
+    end
+    puts p.grid
+    puts p.grid.lights_on
+    ```
+  :replies: []

@@ -1,0 +1,250 @@
+---
+- :author: becojo
+  :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/daxi9cd/
+  :body: |-
+    Ayy 20th/13th with Ruby. https://github.com/Becojo/adventofcode/blob/master/2016/day08.rb
+
+    It was indeed a very nice challenge today!
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/daxif2o/
+    :body: "[deleted]"
+    :replies:
+    - :author: becojo
+      :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/daxilo2/
+      :body: Nice, I did no know that, thank you! I'm so used to this cycle/lazy/drop/take pattern lol.
+      :replies: []
+- :author: blanketandtea
+  :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/day4pag/
+  :body: |-
+    **Ruby**
+
+    Reminders to myself
+
+    - do not forget to match all digits of a number
+    - Array#rotate rotates left for positive numbers
+
+    Display data is an array of arrays which allows for using Array#rotate.
+
+    This is straight forward for rows. For columns I map the column pixels to an Array which is then rotated and written back.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    class Display
+      CMD_MAP = {
+        /^rect (?<p1>\d+)x(?<p2>\d+)$/ => :draw_rect,
+        /^rotate row [xy]=(?<p1>\d+) by (?<p2>\d+)$/ => :rotate_row,
+        /^rotate column [xy]=(?<p1>\d+) by (?<p2>\d+)$/ => :rotate_column
+      }.freeze
+
+      def initialize(width:, height:)
+        @data = Array.new(height) { Array.new(width, 0) }
+      end
+
+      def process_commands(commands)
+        commands.each { |cmd| process_command(cmd) }
+      end
+
+      def process_command(command)
+        CMD_MAP.each do |pattern, method|
+          command.match(pattern) do |m|
+            send(method, m[:p1].to_i, m[:p2].to_i)
+            return true
+          end
+        end
+        raise "Unknown command '#{command}'"
+      end
+
+      def draw_rect(width, height)
+        width.times { |x| height.times { |y| @data[y][x] = 1 } }
+      end
+
+      def rotate_column(index, dist)
+        @data.map { |row| row[index] }
+             .rotate(-dist)
+             .each_with_index { |c, i| @data[i][index] = c }
+      end
+
+      def rotate_row(index, dist)
+        @data[index].rotate!(-dist)
+      end
+
+      def pixels_lit
+        @data.flatten.inject(0, &:+)
+      end
+
+      def print
+        puts '=' * (@data[0].size * 2 + 4)
+        @data.each { |ln| puts "==#{ln.map { |px| px == 1 ? '##' : ' ' }.join}==" }
+        puts '=' * (@data[0].size * 2 + 4)
+      end
+    end
+
+    display = Display.new(width: 50, height: 6)
+    commands = open(ARGV[0]).readlines.map(&:strip)
+    display.process_commands(commands)
+
+    display.print
+    puts "Puzzle08 Step1: Pixels lit: #{display.pixels_lit}"
+    puts 'Puzzle08 Step2: Read the displayprint above'
+    ```
+  :replies: []
+- :author: johneffort
+  :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/day5zot/
+  :body: |-
+    Ruby Day 8. I really liked the way you can use .transpose and .rotate, it makes the actual work code quite clean.
+
+    ```ruby
+    class Screen
+
+      def initialize(width, height)
+        @array = []
+        height.times do |l|
+          line = [false] * width
+          @array << line
+        end
+      end
+
+      def rect(width, height)
+        (0...height).each do |h|
+          (0...width).each do |w|
+            @array[h][w] = true
+          end
+        end
+      end
+
+      def rotate_column(x, by)
+        transposed = @array.transpose
+        transposed[x].rotate!(-by)
+        @array = transposed.transpose
+      end
+
+      def rotate_row(y, by)
+        @array[y].rotate!(-by)
+      end
+
+      def values
+        @array.flatten
+      end
+
+      def to_s
+        @array.length.times do |y|
+          puts @array[y].map{|v|v ? "#" : "."}.join
+        end
+      end
+    end
+
+    class Processor
+
+      attr_reader :screen
+
+      def initialize(width, height)
+        @screen = Screen.new(width,height)
+      end
+
+      def process_command(command)
+        m = command.match(/rect (\d+)x(\d+)/)
+        if (m)
+          @screen.rect(m[1].to_i, m[2].to_i)
+          return
+        end
+        m = command.match(/rotate column x=(\d+) by (\d+)/)
+        if (m)
+          @screen.rotate_column(m[1].to_i, m[2].to_i)
+          return
+        end
+        m = command.match(/rotate row y=(\d+) by (\d+)/)
+        if (m)
+          @screen.rotate_row(m[1].to_i, m[2].to_i)
+          return
+        end
+
+      end
+
+      def lit
+        @screen.values.count{|v|v}
+      end
+
+      def to_s
+        @screen.to_s
+      end
+
+    end
+
+    p = Processor.new(7,3)
+    p.process_command("rect 3x2")
+    puts p
+    p.process_command("rotate column x=1 by 1")
+    puts p
+    p.process_command("rotate row y=0 by 4")
+    puts p
+    p.process_command("rotate column x=1 by 1")
+    puts p
+    puts
+
+    p = Processor.new(50,6)
+    File.new("day8_input.txt").readlines.map{|l|l.strip}.each do |l|
+      p.process_command(l)
+    end
+    puts p.lit
+    ```
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/5h52ro/2016_day_8_solutions/dazgoas/
+  :body: |-
+    ok i feel pretty good about this one, i actually implemented a basic dsl in ruby and execute each line of input as if it was an invokation. things i liked - \* dsl approach \* realising rotating a row is the same as rotating a transposed column \* writing a visualisation before completing part one, meaning i got part 2 for free :D
+
+    ```ruby
+    input = File.open("input.txt").readlines.map {|l| l.chomp }
+
+    @grid = Array.new(50){ Array.new(6) { 0 }}
+
+    def rect pos
+      x,y = pos.match(/(\d+)x(\d+)/).captures.map{|s| s.to_i}
+
+      0.upto(x-1) do |row|
+        0.upto(y-1) do |column|
+          @grid[row][column] = 1
+        end
+      end
+    end
+
+    def rotate input
+      type, dim,loc, amount = input.match(/\s*(row|column)\s(x|y)=(\d+)\sby\s(\d+)/).captures
+      case type
+      when "column"
+        rotate_column loc.to_i, amount.to_i
+      when "row"
+        rotate_row loc.to_i, amount.to_i
+      end
+    end
+
+    def rotate_column column, val
+      d = @grid[column].pop val
+      @grid[column].unshift(d).flatten!
+      nil
+    end
+
+    def rotate_row row, val
+      @grid = @grid.transpose
+      rotate_column row, val
+      @grid = @grid.transpose
+      nil
+    end
+
+    def pg
+      @grid.transpose.each {|l| puts l.join.gsub("1","#").gsub("0","-") }
+      nil
+    end
+
+    input.each do |line|
+      cmd, input = line.match(/(\w+)\s(.*)/).captures
+      eval "#{cmd} '#{input}'"
+    end
+
+    pg
+
+    puts @grid.flatten.reduce(:+)
+    ```
+  :replies: []

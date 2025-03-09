@@ -31,20 +31,15 @@ describe DownloadSolutions::Cli do
       expect(new_file_contents).to eq(existing_file_contents)
     end
 
-    context "2024#01", vcr: "reddit_2024_01" do
-      it { download_solutions(year: 2024, day: 1) }
+    2016.upto(2024) do |year|
+      context "#{year}#01", vcr: "reddit_#{year}_01" do
+        it { download_solutions(year:, day: 1) }
+      end
     end
 
-    context "2023#01", vcr: "reddit_2023_01" do
-      it { download_solutions(year: 2023, day: 1) }
-    end
-
-    context "2022#01", vcr: "reddit_2022_01" do
-      it { download_solutions(year: 2022, day: 1) }
-    end
-
-    context "2021#01", vcr: "reddit_2021_01" do
-      it { download_solutions(year: 2021, day: 1) }
+    # Because 2015#01 doesn't have any Ruby solutions.
+    context "2015#02", vcr: "reddit_2015_02" do
+      it { download_solutions(year: 2015, day: 2) }
     end
   end
 end

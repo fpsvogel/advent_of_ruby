@@ -1,0 +1,17 @@
+---
+- :author: Yardboy
+  :url: https://www.reddit.com/r/adventofcode/comments/eafj32/2019_day_14_solutions/fbbicfv/
+  :body: |-
+    # Ruby
+
+    TIL how to use Ruby's #bsearch.
+
+    [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle14b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle14b/solution.rb)
+  :replies: []
+- :author: vinc686
+  :url: https://www.reddit.com/r/adventofcode/comments/eafj32/2019_day_14_solutions/faurisj/
+  :body: |-
+    [Ruby](https://github.com/vinc/adventofcode/blob/master/ruby/2019/14/lib.rb)
+
+    Part 1 took me forever, it was frustrating! My brain was fried, I ended up printing my `needed` and `wasted` hash tables everywhere and modifying the code at semi random until all the tests passed... At least in ruby parsing the input was easy and the second part was just one line of code.
+  :replies: []

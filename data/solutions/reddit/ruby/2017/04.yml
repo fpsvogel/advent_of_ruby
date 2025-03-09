@@ -1,0 +1,51 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7hf5xb/2017_day_4_solutions/dqqj92m/
+  :body: |-
+    Ruby, #8 silver #4 gold (run with -x)
+
+    ```ruby
+    To ensure security, a valid passphrase must contain no duplicate words.
+
+    For added security, yet another system policy has been put in place. Now, a valid passphrase must contain no two words that are anagrams of each other - that is, a passphrase is invalid if any words letters can be rearranged to form any other word in the passphrase.
+
+    For example:
+
+    abcde fghij is a valid passphrase.
+    abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
+    a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
+    iiii oiii ooii oooi oooo is valid.
+    oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
+
+    #!ruby
+    p $<.count{|x|v=x.split
+    v=v.map!{|x|x.chars.sort*''} # this line added for part 2
+    v.uniq==v}
+    ```
+
+    PS: I now keep a [log series detailing my adventofcode adventure](https://github.com/Unihedro/workout/blob/master/adventofcode2017/entry1.md). If you're interested feel free to read it as I write more, if I do!
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/7hf5xb/2017_day_4_solutions/dqqnfky/
+    :body: Fun log series! It's always enlightening to see some stream-of-consciousness gut-reaction to the puzzles so I can try to improve them for next year.
+    :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/7hf5xb/2017_day_4_solutions/dqqo3ae/
+  :body: |-
+    Never code golfed before, but I gave it a try:
+
+    ```ruby
+    #!/usr/bin/ruby
+    # part 1
+    p File.read('data.txt').split("\n").count{|p|a=p.split;a==a.uniq}
+    # part 2
+    p File.read('data.txt').split("\n").count{|p|a=p.split.map{|w|w.chars.sort};a==a.uniq}
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7hf5xb/2017_day_4_solutions/dqqr184/
+    :body: |-
+      You can trim some characters using `readlines()`. No need for a `split()` anymore:
+
+      `p File.readlines('data.txt').count{|p|a=p.split;a==a.uniq}`
+    :replies: []

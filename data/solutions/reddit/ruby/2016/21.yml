@@ -1,0 +1,121 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge41p/
+  :body: |-
+    Full disclosure: Of course for the leaderboard placement I will brute force the password by trying every permutation of abcdefgh. It makes sense to do that because we have the forward process programmed and "do not have time" to make the reverse process. At least, it would probably take more time to make the reverse process than to just brute force.
+
+    But now that the leaderboard pressure is off, I went ahead and did an implementation that can run the instructions in reverse. Behold:
+
+    ( **Ruby** )
+
+    ```ruby
+    def apply(instructions, input, undo: false)
+      instructions.reduce(input.dup) { |pw, (cmd, *args)|
+        case cmd
+        when :swap_letter
+          # Undo == do
+          pw.tr(args.join, args.join.reverse)
+        when :swap_position
+          # Undo == do
+          i, j = args
+          pw[i], pw[j] = [pw[j], pw[i]]
+          pw
+        when :rotate_right
+          pw.chars.rotate(args[0] * (undo ? 1 : -1)).join
+        when :rotate_left
+          pw.chars.rotate(args[0] * (undo ? -1 : 1)).join
+        when :rotate_based
+          i = pw.index(args[0])
+          if undo
+            # rotate_based needs the most work to undo.
+            # pos shift newpos
+            # 0 1 1
+            # 1 2 3
+            # 2 3 5
+            # 3 4 7
+            # 4 6 2
+            # 5 7 4
+            # 6 8 6
+            # 7 9 0
+            # all odds have a clear pattern, all evens have a clear pattern...
+            # except 0, which we'll just special-case.
+            rot = i / 2 + (i % 2 == 1 || i == 0 ? 1 : 5)
+          else
+            rot = -(i + 1 + (i >= 4 ? 1 : 0))
+          end
+          pw.chars.rotate(rot).join
+        when :reverse_positions
+          # Undo == do
+          c = pw.chars
+          s, e = args
+          c[s..e] = c[s..e].reverse
+          c.join
+        when :move_position
+          from, to = undo ? args.reverse : args
+          c = pw.chars
+          ch = c.delete_at(from)
+          c.insert(to, ch)
+          c.join
+        else raise "Unknown command #{cmd} #{args}"
+        end
+      }
+    end
+
+    instructions = (ARGV.empty? ? DATA : ARGF).readlines.map { |l|
+      words = l.split
+      interesting = words.select { |w| w.size == 1 }.map { |w| w =~ /\d+/ ? w.to_i : w }
+      [words[0..1].join(?_).to_sym] + interesting
+    }
+
+    puts apply(instructions, 'abcdefgh')
+    puts apply(instructions.reverse, 'fbgdceah', undo: true)
+    ```
+
+    As far as I can tell, there is only one unique solution for any given input (please correct if I am wrong).
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge6w8/
+    :body: |-
+      > As far as I can tell, there is only one unique solution for any given input
+
+      All of the functions _should_ be perfectly reversible. I tried to be quite careful about that.
+    :replies:
+    - :author: daniel-sd
+      :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbges98/
+      :body: |-
+        For size 8 this is true. But for the sample size (5), rotate around letter is not always reversible.
+
+        Take both 'acbde' and 'acdeb' and rotate based on position of b
+
+        ```ruby
+        01234
+        acbde
+        ```
+
+        rotation = 2 + 1 + 0 = 3 result = 'bdeac'
+
+        ```ruby
+        acdeb
+        01234
+        ```
+
+        rotation = 4 + 1 + 1 = 6 result = 'bdeac'
+
+        Unfortunately practicing with the sample input was quite confusing for this one.
+      :replies:
+      - :author: BumpitySnook
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgf1py/
+        :body: Your puzzle input wasn't abcde, though. Topaz controls the inputs and the scrambling recipe.
+        :replies: []
+      - :author: topaz2078
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgfoqx/
+        :body: For the second part, you can use the example generator you wrote in part 1. Furthermore, your input is the process, not the string - the string you're working on is the same for everyone.
+        :replies: []
+      - :author: bildzeitung
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgexsx/
+        :body: That's the gotcha -- size 8 is key to making that rule work. Eric's mapping function is unique over that string length.
+        :replies: []
+      - :author: eregontp
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbhak5z/
+        :body: 'And indeed, for the example output (decab), there are two valid inputs: abcde and deabc.'
+        :replies: []

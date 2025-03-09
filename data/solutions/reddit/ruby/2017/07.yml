@@ -1,0 +1,173 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1an1/
+  :body: |-
+    Ruby; kinda late, had to rewrite a lot. I assumed the puzzle was "validate heights" (and a wrong one was provided), not "ensure balancing", based on the highlighted text. Even after I rewrote my code, it showed 2 wrong sectors, which worried me hugely. It took a long time for me to realize that I should manually dig through the input for the disc to change. Fun riddle!
+
+    Also I think we're reaching the point where forfeiting readability for speed is starting to become a liability.
+
+    ```ruby
+    h={}
+    o=[]
+    $<.map{|x|x=~/^(\S+) \((\d+)\) ?([^>]+> )?/
+    #p $1, $'
+    l=($3 ? ($'.split(', ').map(&:to_sym)) : [])
+    h[$1.to_sym]=[$2.to_i,l]
+    o+=l
+    }
+    q={}
+
+    # part 1 only
+    p h.delete_if{|x,y|!y.any? || o.index(x)}
+
+    # part 2 here
+    h.delete_if{|x,y|a,b=y
+    #p b
+     h[x]=q[x]=[a,b,a+b.sum{|x|h[x] ? h[x][0] : q[x][2]}] if b.all?{|x|!h[x] || (!h[x].any?)}}while h.any?
+    #p h.reject!{|x,y|y[0]!=y[2]&&y[2]!=0}
+     q.map{|x,y|a,b,c=y
+    t=b.map{|x|q[x][2]}
+    (p x,a,b,c,t,q[x]) if t.uniq.count>1
+    }
+    ```
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1kdy/
+    :body: |-
+      > Also I think we're reaching the point where forfeiting readability for speed is starting to become a liability.
+
+      **_yes_**
+    :replies: []
+  - :author: LeCrushinator
+    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqxs2mv/
+    :body: This looks similar to when I let my 4 year old pretend they're typing something on the keyboard. I've been programming for years and this still looks like greek to me.
+    :replies: []
+- :author: arachnist
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw96y5/
+  :body: |-
+    Went through my pry and zsh history, and cleaned up the ruby solution i came up with in the morning
+
+    ```ruby
+    class Node
+      attr_accessor :name, :weight, :children
+
+      def initialize(name, weight, children = [])
+        @name = name
+        @weight = weight
+        @children = children
+      end
+
+      def branch_weight
+        @children.map do |c|
+          c.branch_weight
+        end.reduce(@weight, :+)
+      end
+
+      def common_children_weight
+        value_counter = Hash.new(0)
+        values = @children.map do |c|
+          c.branch_weight
+        end
+
+        values.each do |v|
+          value_counter[v] += 1
+        end
+
+        values.select do |v|
+          v if v != value_counter.key(1)
+        end[0]
+      end
+
+      def outlier
+        o = nil
+        @children.each do |c|
+          o = c if c.branch_weight != self.common_children_weight
+        end
+        o
+      end
+    end
+
+    def construct_tree(b_root)
+      if (ch = Branches[b_root]).nil?
+        children = []
+      else
+        children = ch.map do |c|
+          construct_tree(c)
+        end
+      end
+
+      Node.new(b_root, Weights[b_root], children)
+    end
+
+    def find_final_outlier(root)
+      outlier = root.clone
+      previous = nil
+      while not (outlier = outlier.outlier).nil?
+        previous = outlier.clone
+      end
+      previous
+    end
+
+    Branches = {}
+    Weights = {}
+    children = []
+    all = []
+    file = ARGV[0] || "input.txt"
+
+    open(file).each_line do |line|
+      a = line.gsub(/,/, "").split
+      Weights.merge!({ a[0] => Integer(a[1].gsub(/[()]/, "")) })
+      all << a[0]
+      if not a[3].nil?
+        Branches.merge!({ a[0] => a[3..a.count] })
+        children += a[3..a.count]
+      end
+    end
+
+    Root = construct_tree((all - children)[0])
+    puts Root.name
+    puts find_final_outlier(Root).weight + (Root.common_children_weight - Root.outlier.branch_weight)
+    ```
+  :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw10dq/
+  :body: |-
+    **Ruby REPL** (irb) solution. The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
+
+    Part 1 (47th rank):
+
+    ```ruby
+    -> x { s = {}; p = {}; x.scan(/(\w+).*?->\s*(.+)/).each { |a, b| b.strip.split(', ').each{|n|p[n]=a}; s[a]=1 }; s.keys.select{|z|!p[z]} }[`pbpaste`]
+    ```
+
+    Part 2 (71st rank):
+
+    ```ruby
+    s = {}; p = {}; c = {}; `pbpaste`.scan(/(\w+) \((\d+)\)(?: -> )?(.*)/).each { |a, w, b| b.length > 0 && b.strip.split(', ').each{|n|p[n]=a; (c[a]||=[]) << n}; s[a]=w.to_i }
+    wei = -> n { s[n] + (c[n] || []).map(&wei).reduce(0, &:+) }
+
+    # s['name'] -> Weight of the program
+    # p['name'] -> Name of the program’s parent (or nil)
+    # c['name'] -> List of the program’s children
+    # wei['name'] -> Weight of the program, including all its children.
+
+    # Use this to find the nodes with unbalanced child weight
+    c.select { |n, ch| ch.map(&wei).uniq.length > 1 }
+
+    # The final answer can be found by manually inspecting weights in the REPL. Here’s mine:
+    # 2.4.1 :085 > wei['nieyygi']
+    # => 11781
+    # 2.4.1 :086 > wei['mxgpbvf']
+    # => 1117
+    # 2.4.1 :087 > wei['cfqdsb']
+    # => 1117
+    # 2.4.1 :088 > wei['yfejqb']
+    # => 1117
+    # 2.4.1 :089 > wei['ptshtrn']
+    # => 1122
+    # 2.4.1 :090 > s['ptshtrn']
+    # => 526
+    # 2.4.1 :091 > 526 - (1117 - 1122)
+    # => 521
+    ```
+  :replies: []

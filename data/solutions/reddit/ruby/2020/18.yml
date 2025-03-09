@@ -1,0 +1,267 @@
+---
+- :author: billiamthesecond
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggbs034/
+  :body: |-
+    # [Ruby](https://www.billiam.org/advent-of-code/18.html)
+
+    I struggled a bit with part 2 and then just did it with regex in a loop that wouldn't handle other operators or rules.
+  :replies: []
+- :author: damyvv
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggao1o3/
+  :body: |-
+    # Ruby
+
+    I first made a solution that created a tree which it then solved. But I wanted to try another approach with just using **regex** and **eval**. So this was what i came up with. You can check this and other solutions on [my github](https://github.com/damyvv/AoC_2020).
+
+    ```ruby
+    # Part 1
+    p File.read("day18_input.txt").split("\n").map { |l|
+        loop do break unless l.sub!(/\((\d+)\)/, '\1') ||
+                             l.sub!(/(.*?)(\d+\s*[+*]\s*\d+)(.*)/) { "#{$1}#{eval($2)}#{$3}" }
+        end
+        l
+    }.map(&:to_i).sum
+
+    # Part 2
+    p File.read("day18_input.txt").split("\n").map { |l|
+        loop do
+            break unless
+                l.sub!(/\((\d+)\)/, '\1') ||
+                l.sub!(/(.*?)(\d+\s*[+]\s*\d+)(.*)/) { "#{$1}#{eval($2)}#{$3}" } ||
+                l.sub!(/^(.*?)(\d+\s*[*]\s*\d+)([^(]*)$/) { "#{$1}#{eval($2)}#{$3}" }
+        end
+        l
+    }.map(&:to_i).sum
+    ```
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg9xkc7/
+  :body: |-
+    # Ruby
+
+    Recursive stack evaluator that reads left to right. Fairly straight forward, though hard coded with + having more precedence than \* for part 2 via flag to calc\_eval function.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQD9BQAAAAAAAAAilgYjwtWpSjoK7ZXFJt80jYPP3IxfbZ+qKhk6siCMDvFu5qxBhCrx/N+iUTnxs5HHTt6ONcgTjliaD7X5aLtYQfDhmm+vqguU2F7qhD2VDdV/Xl3gS+lwh3kkiuk9wTrDM0WaXyZTJX5k1uskG87cSrqYHABY8tn0mapauhERx/MGiPlGES5DivZExo8dhujcZTJC0X2Nkj9Z6xvXgWDcT4cR7deW+3oaI09sY3nbbv3Er3H7YF1Ic/9UBtdEOhrCwnFrrMVY7b70KYwh0eYort2+eyugvWaLdMxopLxW3i/qUE/2gKUkqyFiAwPDZcXaf5jHWbey2p2gUSKJNjN2hth4qWeUrEuMZ1zkERFWBa7/YpIw7n59NQbPfYIc/U843p7OlqUZ7Kj/B9zFRT6QCEPh9W2oDIk8XuLy3lavOeki52mNL8UnCmEp0ARsJ5DocCoJLoPwlPK1Xj0lQDuzZmvTcOSEyyYoJoZmSP53Wnn6Ca5roK26WGnqTBSCbVErUsCYJUrxdqxTFC+NnBU7HuBZJAMBPHUYrFACWWpAoK+eqr2PzS5gEuKEkKsN7SdSirZ+WHxxqoOgJUyqDN+Mf10kb1XoGraE4RDGbVfEGfHqH1893VG8SdqvaPA6e6lyvszdSVCJJe6gKPFsOZQwZDMkMb9FFE/sHkraK1HwjW0jhrX/ThRUt4f8d/XZMFs3btqSL+bJ/b1AUo1phaSNRfzCdcOWi0VgmeInQtlARI6NQFV8PscAHf/1vrJt)
+  :replies: []
+- :author: paileyq
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg812h9/
+  :body: |-
+    Thankyou Ruby for letting me redefine operators!
+
+    ```ruby
+    class Integer
+      def -(other)
+        self * other
+      end
+
+      def /(other)
+        self + other
+      end
+    end
+
+    p DATA.readlines.map { |expr| eval(expr.tr('+*', '/-')) }.sum
+    ```
+  :replies:
+  - :author: valtism
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87vt4/
+    :body: bruh
+    :replies: []
+- :author: ndnenkov
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg81ply/
+  :body: |-
+    Ruby
+
+    Part 1
+
+    ```ruby
+    class Integer
+      alias_method :add, :+
+      alias_method :mult, :*
+    end
+
+    puts TASKS.sum { |task| eval task.reverse.gsub('+', '.add').gsub('*', '.mult').tr('()', ')(') }
+    ```
+
+    Part 2
+
+    ```ruby
+    class Integer
+      alias_method :add, :+
+      alias_method :mult, :*
+
+      alias_method :*, :add
+      alias_method :+, :mult
+    end
+
+    puts TASKS.sum { |task| eval task.tr('+*', '*+') }
+    ```
+
+    That moment when... the metaprogramming in your language is so strong that it feels like cheating. xd
+  :replies:
+  - :author: frontpageminus
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84lvj/
+    :body: Wow, this is genius. Never would’ve thought of doing it this way.
+    :replies: []
+- :author: jschulenklopper
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8nfl2/
+  :body: |-
+    **Ruby**
+
+    I'm feeling a bit naughty over this one. I changed the expressions, substituting `+` operator into other operators with the same (part 1) or higher (part 2) precedence as/than the `*` operator. Then I redefined those operators (I picked `%` and `**`) to be a normal addition. Then a standard `Kernel#eval` on the expression does the job. LOC ~22~ 13.
+
+    ```ruby
+    expressions = ARGF.readlines.map(&:strip)
+
+    class Integer
+      def %(operand)
+        self + operand
+      end
+      def **(operand)
+        self + operand
+      end
+    end
+
+    puts "part 1"
+    puts expressions.sum { |expression|
+      eval(expression.gsub("+", "%"))
+    }
+
+    puts "part 2"
+    puts expressions.sum { |expression|
+      eval(expression.gsub("+", "**"))
+      }
+    ```
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8q2xv/
+    :body: |-
+      A tip: That `reduce` call is the same as just doing a `sum`:
+
+      ```ruby
+      expressions.sum { |expr| eval(expr.gsub("+", "%")) }
+      ```
+    :replies:
+    - :author: jschulenklopper
+      :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg93mq5/
+      :body: Yes, that's even better. Thanks. See if I can change that in the original post.
+      :replies: []
+  - :author: el_daniero
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8qbpp/
+    :body: Hey, I did [almost the same thing](https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8oy0d?utm_source=share&utm_medium=web2x&context=3). I tried overloading the operators in Integer, but tried to swap them directly and ran into trouble when I wanted to sum them. It worked out in the end though – my ["cleaned up" version](https://github.com/daniero/code-challenges/blob/master/aoc2020/ruby/18.rb) is very similar to yours, but using `**` to correct the precedence for part 1 didn't occur to me. Nice one
+    :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg82rcr/
+  :body: |-
+    Ruby 19/30
+
+    Had two bugs, one where I forgot to escape the + character in regex. Fun
+
+    ```ruby
+    s=0
+    calc=->x{
+    y=x.split
+    y.unshift eval(y.shift(3).join) while y[1]
+    y[0]
+    }
+    calc=->x{
+    x.sub!(/\d+ \+ \d+/){eval $&} while x[/\d+ \+ \d+/]
+    eval x
+    }
+    a=$<.map{|xx| g=xx.chomp
+    while g[/\(([^()]+)\)/]
+    p g.sub!(/\(([^()]+)\)/){calc[$1]}
+    end
+    s+=p calc[g]
+    }
+    p s
+    ```
+  :replies: []
+- :author: wholarry
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8463r/
+  :body: |-
+    [Ruby](https://github.com/dgokman/advent_of_code_2020/blob/main/aoc_2020_18.rb)
+
+    Fun with monkey patching!
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87tvv/
+  :body: |-
+    **Ruby:** 19:55/28:52, 705/601
+
+    Here's a [recording](https://youtu.be/nRnCPWq86JI) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/4e6d2edf94452cb4d41b38d3b1097d60719bfcc1/2020/dec18.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Gah, just awful. I TA'd a compiler class in college and a whole lot of good that did me! After nine minutes I still hadn't even come up with a sensible approach and deleted my code and started over. Blah. Though I actually do like my approach for Part 2: an expression without parentheses can be evaluated by splitting on ` * `, then eval-ing the addition parts and multiplying them together.
+  :replies: []
+- :author: WholeWheatBagels-
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8c4mk/
+  :body: |-
+    # Ruby
+
+    Very short, \< 20 lines without comments. Operator overloading go _brrrr_. I think this might be the most blursed code I've written.
+
+    https://github.com/detjensrobert/advent-of-code-2020/blob/master/day18/day18.rb
+  :replies:
+  - :author: meh9083
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8mk99/
+    :body: |-
+      Ingenious!
+
+      I would not have been surprised if something randomly broke even just in the few functions you still call.
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8oy0d/
+  :body: |-
+    Quickly rejected the idea to write a grammar in Antlr and went for a quick and dirty one today
+
+    # Part 1 – Ruby + J + Vim
+
+    Ran the input file on the following command from the shell:
+
+    ```ruby
+      $ ruby -pe '$_.reverse!.tr! ")(", "()"' < input-18.txt > input-18.rev.txt
+    ```
+
+    Opened input-18.rev.txt in vim and inserted `echo` in front of all the lines, then ran it through J [here](https://tio.run/##bVw7siQ5jtTnFCWSERr/PM/amq2tsveXZitJuMMRPUJXV72XGcEPCDgcDv7vv//93//1P//3J60/z5/697/y97/U/v7R/rx/Wv77l5HPr977qzT@/u33wf73/@P3/2zfTP385nzrvc84/7LPjfz7cfnXed3@@9f5@1TCr39fLueLvy/tvz/ZOdvPf08f94t/X/Kcb5/nz98nziB//1p/f7zs4/N@vNuPzmD81b85nCf9fp7O5@2x/byUb/mN4874N7R1/riPKXjEmXazz5ac/@Xreb69zq9@T8hY3nnm9Rvwb/T3C7@X/J50vri4ist2YmW89v422W/woPv6lW0qSddiYei/L4@zsr@f2kCLDf98ZdindsYIelzQ8/Fyl/7u9u@X235ps35pLguDOpt0Bj7tfe2u6nNW0vbmfGBgMN2M5Ix9YCdsh84inl1J2wxw2sM27e9Ow3bizPq8vtsHzwQxMTfEa3Rn2Ge6CatSbYUad/lYQMX8zkh6hoEVe9K2150FzneL7gP7fUzVE3QmtrhI9@/nZFQZ7rSzeKdW/QDdz/eMj5mVYhtxsnfm@9pZ5vvjacu@s9hcmvaaglNbYBQwhDOSceZ4N/1auw22meFvGu/AYNs1ENvFtOF0tv13rDv7kVs4FBM2Melbup/OM56zXk2H8Hs1nrJs/McI7gGFz7DzI/Zv23JWbbtrSQmOrOB98DgF7gnup4kDwwcW7PPa2YS3NdPBMp7ZpGozXmaJx9AWDA0uYNh4R6Ydu@c41j@x6Ytjv4Mo5nCx8mI68FINe11tEBtDXjDl@7NmQ0lVTuDZuLujObgTO23Vj0RKNom7ogU@wb3iwN51OhHf/43vNLF5jC3BbXYNSQ0LbYfommzlEbB3Y/KJ@2pv77Qjt9YCw972zY2zVSSKpK3TQdzEiU3wp5Puo/uOIgrfUNTE03BscDg3PuvBbuqP6x3r77dZvI/G3WmP7rCv4fHvrmgT38OTdhGC@60zq9TFnCcOS8IrJh5fbEoFu5yqvGvD6@K5CKM3Mkwb2rTB03HDFTx0BRUDdVdo57OLF@yYNDaziCu6m7MtwJyX7@yR0QPByPaPCnMA1lBzS0Ne2G3z77OrxCws0EY8TTCWZj9d8NJFZoMDzAMKj1Cy4ICZseIDUa3a2sCsG50WfAmcTMt4VHejnQQmtkyFDvNlADXvc7YhSyjjlsNJnRcXAQ8LBlEy3WOzkU6Gi/vNuzpT9njp3mOA8Kipc6V5qh7f4UlbfrGv9rozxWGIFu4ak5zupRxX81WcffIYBI@dsRGIo4lLMyScnyWaeMz@WjjiVhGXQfRVbZmbeJ0Ew61wLB2vbRJFkU/cY3BX7BXourOAip0xO@KtloFYsmwvsTrMsWaurQf7m6jQsDNCDybeYTkDBkrLpj/lN6@Z0aU9ltAYPMWJT378pp6SniXILjolAR/i4avs1BIvd1573AEBy/hGdjwxwRc0ok9znp2AtsJ0qoe@hUkI/jQzXViPSXzxOErk6O@4CN4kqnJTh6IGRP0pZ3hozjV4ihIACQMcZnAzQMfF2F7zWXcNb1jDxuOpjbDDDUyz0ZubNmJ@jOgT5s586I/tFMacNPs@vvEsdTlCA4ckbVt0t1Mxvw5jH75rtkfqIi9QgocxpOPrBHNZvu73cAF0T9jzRgRAIkunwlwbKC2pVQ5JBYe72OZ57j0Gw0@PpMIVzpPOMsGgJ@MDYTHBto1AEOuQtI6fJbfR/olaU9Lka7rFvHSpm54F0X3goPGwCazgmQB2FKx8sRDQa1Or3pqUL4zhrAnfi0SsyMHqnv7ynYZtBIDcHd4OhzrzIouUCm/c2JGNDHAJhhgtacFgsLvu5t3u6LvhbeB0lejo8HtViIsJ54XNmko8LCw@c9Rta2qQ1ocQaaxK8seO4sYWdl9oZ1rOsVjZiSi3sG/KySjYzDgq7NathJiNT2NSfOdKRslmNQFdnO5JTZB057aAdAD2y7YrDpOqmMhygoRAE4tB3s4yuQpnNWQXqrhZ5rnXaoU5a0qwNUX0CmWvxyJZt75E3cIApvAfLQs7UjVO2/Js7FpxJzU9im4GmyKOufpaeuKb1B1WM96bQZMUwHA2D0zW/KHBpxCUTjlmSBmHervBUJ9ldqlIsCua58DsiAqXIhkyfYUhj4zOJhBT9gq@owlXort@1lwmnZanVYaBHD1KAnCzcd8ImPEFU7ruE@G7yhRJnm0JPhcOFzHwm0N6ZimA0awwFZkxeQ76sCxulnhMsjDB04SMtAbQkgKDmJQRPOI5SVOR4XjroU2c@XbmB0MxHKLP9qSDnEV1YOF55913Aj49RkwxlkMl9ctVvRq5e4Vgk/l8jp5xCC2WGsOYGQsjrrLVg4M2E50kfg2bZgVMU70e@M/ihkPjwWxI2Y8cT8v7B/WCmcU/MIYvyQWRIZEdHgoWKg@TOQQpTjj2yB45POvEGbTsJH/5sq7sLoa3Pr4XPGKirS5Z4IUZThhTox@WGDcdSm5mKo@DqPEPqIIyCZi1rrMcOGbXY9ALTaWVswbCakfnenTBcls9sOW7dvQH0@/5IZ9aKNtkEsVkvXFSt6YCdDuaRnSCRD/AslKDRgO8/Bk/oYwaT8niX7ZijNeWdkoRpGlthonakPxmq9VUHp8HpLxgdDodYpjJZAzIqiiUfJxK7Ew7wS7BoAoOtho@a1qDtO/DyptxA1NWZWn5jSc4y2IOJNz96zOYuHj9AuvQhRHCNi/HjstD32YxozPvUHdePltaslZPGqjAJEUGMxhQmlkLSXTbheCzSxVwfF13EVzVCTNvjOHJ@6Rrg2WNLcGJSTMSQTP7QONzKgUrulhVcP/evFJiUeBL6XPdupD2NRJ9XSDFUMbJfhS5@KUgayu2GISaNVaMCToSUAv5kKn53JRC21aiEVZxJyR4qcuYmsdeUEQBFyU48c50IG2srsNMBPgtZ2FmWrnkPWTiErNKRUkb4UDZjbQkspNnGiRxPcFAdfPxsll1XspB3EVU2Ws1y4@l@4lN7CUTWCSYSeY6L3Oxjgb/IdisSxH4oTtEAogD4qqF5WnWqzksOUImbPSaJMMWA7T4/3smsqBg4qQp82QCMkg1OSn7RLbOZ919NbdXD8wqR1amvgb2iRoFN@qOQiA/0mHNLJtJFlXDwa/OjVoQZoLJZebhQEzKWEGmMpqsd3FOU4tP3audr35tU67ShNro2bksX@H@rTA0f053d/ewbOH1c2CyiaOzBUmRyN9KFtPplwiAAd@6gtomADyU3V9XWWSlQ0naAKw1gdwJ8CshZ2UJnqhBxBhXXtBYTny1Mgr6P4hhbIVFe1OcR9WkqMWC0uNEaAFrmD0be50apd0XIak3k@4mMzdfoC6aiMGh0sjCJ0xx0lLNSYlv0YoPpThDMq5rKFlDZg@Z17c4ujyrBx527hh10pnJxSEOfcp45BmLewY/0yvLeRP8kliPZji4TIF6FBSnvISZlXAmxFpZF8NFMRfMSxVn0jAo7spiEE6IsZKpKJV1rybxI1FOhfGR8w9VmCbmDSUTlGSvH7cugQ4JRli8xMCMmF@UX63OVt1PuEhlyHnk@jnBTd6ZpaKatYgDxPmwyrqzCBdepD7f8uEKJPGrUqopRFNThwQMEop9zP661Dy2hqUhlcTB7AzLUpWYMp9EeqtJlJmcUaeGA0PIQbOF7E6yshbUeYXQk6HeDp8uT8@B3K6BV4xH93F422W5dxZx2fTKyBNsbqkho2b7cmeGw2yRC95ytjgo96wkZ1IR4ZSUf219En/vcbB8krtHEjSzetay@wf9LGHOE1FgZqQakop0p0nst4syPokrVcJRsmQu1DgBQIAuExlm@q6p1fUCG@yRl5eKYaoqC5gAS3eNxPZEXccaauNnCmVOr@eQg5KruyrMKboKXofATbL09Ts4OLfq7lwCTWI2UbgJ7cPFUujZRda2HGebYw7SRiQTNcvnncysjvJfzx2ql0eM79ByVcg@qYCA162SbJn4rYqzq8oSFPHS17kuAdDtU@BpwgvyldPVdqya8dtDPWhRPdEWnzeZvm5hpVmx3srRd2Z3O5bJl7rC8UVZyGqZphHC3HXPsZTvYqPlkrPHz2hz1gnUkOpQbRmGVniAozHdLeWs7UJeW@UaAVdBPG/Ki3v1L6u3R2gbUqBRhTKzJqcOeliI7vs1GSw3E1TnUx4i1K1lxa2QbdmmCSGPtWG1nII7@vMmDMQt6@QY/VL90HkrC@m3Y3FiOe511r1TTL5ZPH1cbdGCFFcTuQgLWFilEadAo6i5Sp7lWuItPNtyI/ODbK5vS9o@AiH9MutMQ7ZAdUQJ5H4qIlYjAaH2T4UOOTeI11oWf0Y@suWsjjVqlqepIrCWouKpUhFTBRkUJlOx4gislECKqLuUTdwsJq4wL5h80rPVhUCzo0ghe/5oopcqHSL0rCKhLJTvSRW86EZyK1b2apYtWeCIZv5oXlNwRFOL6oWnXXljsiZbHOSOlHqi8ZRMrvKjKYJ/dRZ2kYLUlHeIRRQ9mO0jZnXbKGSkqU95EOnQQBCqoCIaNGfwUvLDVKIjQlXlCIweJCs8sigwTYuM1OMjwh9SmygWKVBRhHtWkq25HoJx@mWpbWlNb2lY6NQwAwm5N2cgZVGtsObFuoXA5bRc8AjfEeknkj3rozRITViFCsyxP90sWtvqUjuYQtAiuMT67OAyCW1GQD9JALOWt7WWP0X1wkMblnPQ65Mec4rwFXHucvmk9AaocnFSaD6pBdyqluzqNUJ/DE/MlOJhDYe9SIMH64aDc1cH1ETV0d2XwQGOrNxlYarv2kWtVg@MzesP7ImZqj6idFd1TE2q5EP1QynoofVAeLVxRwUV048UUGPTLICVxyWNFiKv3gK/p0sXnWK8tH7UUSeiq6LdDBRL/of8Pw052p2Vpqw9Ez3muI9oAbeYwWLBrUq4HtrCho8qV7wlIK4sTqkrih0i3Fnh9I3YzCYy4PLRClSckyHppWQB1Io2aoti1SStIMXPIkTtXsWyxCgKWJb4dduh@OLNpLDI9jTXVaPV4iv3q1SZEN8t118GdYmi4Ue6rIriHirABQChGQ11Xhkz8UtKkz0G0MVhRMqKDmHqCoO/OEwm/EG@Xr59GcnpMZF3Ft2pKUnooHWCqamq8w91ebZGbZG6BlmA02v/sTJfvnVLrDZlFi0LkmRYY/jnJpDgpuQj55igTZmSGDNLeUmco5eOSYZsiQkIwjzWTSrlNbundo@Y0naRgZv5EN6CVSU@dmbtFtuKKh@hOaoA@8rq8fpQkltUCKwLaHdLwOld82zBMJe4yURoSfsDViYN3UUWKY5Q0AebHJo2DA0fLkjpwikVaR0jzLERSd9uy2Hq9keLFT@nn2pQE3SJt1uRRhDZNlWPoNCQCF6DVGSTONUTuYNGWwmuRmKWLiG0QbKPGBCERNMWBVOPQhESgE@IYhb6sxu0ZwydyoKsGgKjZpKKxEXN4SCk5UimVRGcDK24JJ6W1AmrpS98/qNXr7C@lYXXmuq7H/fdzZtaYuv1FshN5h1RRET/AUOpYG2rPsurHI9XbWtWtpeIpmm0b9J1FTNjBNfUvM7@fLvgRJbYo4VTrZxqqBFNLc21/JEpYynVyUoLiMhDhsrGimad6D55/jjJp0qw/QE3VVvCyX/10FouCoXtqOzRUPo6FVe0mZoee0vsZHLD3mgV34Xm16Jao6K@m9l8otag6pkhYG7epW1Wn2rojBHE3dliLcrc0EJcnUZ5PtcDUBmQiEFsQbSO@TowFBrx9awZ@LtJWuuyrymdTMDBLB0RGpScQ58wK@meP49Qktf6i6Yg/dNlPrUcJENWelVblJdQNWRS2EeUYwPuQwVXU3bCWTI66QVzJwiOUCktlbd4yuLVpJfafL8MwQErEjWCHAqVp1bkyB8W8a4Uu4cW/fZRJQ0Fa2nIfQUlR5Qv2ScFxkXw//j01bE45kGOOclwgCxNb0EO/aldN607Lw0S7lofFtMCeNYY5fKMKrKQkkOHQP9APr@BYTKCeYPRokK9e16n9QCuloCCRzoEHnnEcsng6zL6pO/0xKYKY8wCaHXNyyts@fPR8S/vYn79QpfNEqw4H9YHebcBa75Ncz6WKoeobYaDgscFTlqMIsNIVrKpfjLo9UUnCZpEuPTlKqBX/bqXs5a3u4kQj9VB3JMgKKcHiWGCyl2Kb01PNkUUJACLS7e0zaIJTko1XGXA9lpZV2rNOML2KaCgD9wbD16Na1586Lz@IW2xw8m7VthcN3JYnCg87MoDOKnuU2TFgJbSxbe1f3QcEINuCZy8RYZXUmQBsNW7kZ08XirNlUt9qMMYajGPcBVL1XTZ@RwbAW9WKlHxlJZWObXXwmV7I@oi5IaUQkvucZH1HgdewJOU83APvaJM9HVEMT6Bs2oFuoZSQv7cj@B3Jcl9CzLAxIIcqruThcIdOHW/oMUv5cCxYStVuOukqLYy3i61vu3AbOiKwp6tAqX2kbVtrweLwjJ0b4QqUJXceQf4s6Qg@a3RFb@CCWrS0M3nd46ULDG2eatGFM5VaaUd2sbSRFXiZWtuTdZ7ZTbDTKZ8IPZWJ0asqeC4Co/YsrZtsXNwaYLrekKiFt6kUORQTqZJXZU6jpVCO9rSrV/CpjSXDvrUh9JyTT1gcVrNHaC3bWxh7YY2RwAWpiDwJqW45IKP5M33cMr5S9Uu7VnoOfDir1zj8MhtPnoj18yqLZRr1raXE1VV9lk88a@vXCm1WeP/SCFT@94A1Cka7iItnp4KOZ3Elv7GTdVCywqqkqFlEi@wNc3dRhbhuF7vMgX3DOddi7C3Ozua9XYpYX5bqGN3v@jlcYJGlLzDhVl6E0@VQpBTuCnwcCL1Dg39GLL3EyuLg8RRLm@iFDrxtd15p6jxT2FvSTBXahayXj@Dyuf@gvfp1854FyKvQZhRleWm1vWWo0VgPpwRBBH9j9JdC1cXTOXWqrbL@0UK7Dpmha2rSs75QwIrlonZrLO9YZzdLORHeCtZVR2FgvXCJqEi8ldC0@wUDXO6KiT0DqEc4urmIk4398ZF8q6tLJJilRNUQbrdFcJC3FC14lTNUFE9BT5dL4Ypn96AJLWrx5vQB3OFKLvXvtH973//Pw "J – Try It Online"), copied it the output into vim again, joined the lines with a `+` between and ran it through J again
+
+    # Part 2 – Ruby
+
+    Made my own int class, did some text substitutions and evaled it
+
+    ```ruby
+    class WeirdInt
+      attr_reader :value
+
+      def initialize value
+        @value = value
+      end
+
+      def + m
+        WeirdInt.new(@value * m.value)
+      end
+
+      def * m
+        WeirdInt.new(@value + m.value)
+      end
+    end
+
+    p File
+      .open(ARGV[0] || 'input-18.txt')
+      .map { |line| line.gsub(/(\d+)/) { "WeirdInt.new(#$1)" } }
+      .map { |line| eval line.tr('+*', '*+') }
+      .sum(&:value)
+    ```
+  :replies: []
+- :author: parentheses-of-doom
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg96kpl/
+  :body: |-
+    [Iolang](https://twitter.com/prajjwalsin/status/1339944793460199426).
+
+    Inspired by the Ruby solution this is in reply to. In IO you have complete control over the operator table, so its trivial to do something like this.
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84988/
+  :body: |-
+    Ruby ~2000, ~1200. Enjoyed this one!
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCYBgAAAAAAAAARiAqGkkN7pUjVWW5OA4BzX/JHfi7z2aau9moFBGbYSg43h4FAYxbPuL8B8u+9KwLhK7+ZF6zDi0ligWj12tiNFf/x+qOqjx1s4ViZYyxKi/1rEVi9WdQ7xMNvANNaaIG4whpk5Pra95uwfJuBhtfVyORnuBqUumbzzMLoLxK715wyt1klcT5feLY3F8eXq3fuwUzXU2udHRgPyrFHth5SXSFPsDlryIY93AC6lJnB4OXpBSCFHw9DNH1k6EYEZBRHFnrD0jtMFifh4zYhnUDW8CbLoaYf43K4bu514UOui17tAYKZtD2b9NAtujl3qCdFOQn7p3Y0anqo8LcXoAF1aaMDE0CHk2J+myakcWgcOslvoEhw2M8pTceCJjPSpG8uzrWbLERB+9AKPRSdf7A0hYmVTiprMZb6yCUTOWh1OTxF/weUCEolBrmppfI9Kv55yQYCVd7G8L9HmTKugRFNl3/I99x9dewHDtPNuRUXM99lUGLSS8TD+i7siOpLL/nI0/CIPu9LIhXIn+rUpB3RHgQDIzjRUH7z/z7oN5l1rHM8Vz9QNFb+gQMaSAbl947OlaD8yPYX9tpZM356gGw9Vc9JalvvhQ9/1FWHtn5DdE9N+4XYG/MVwj/T0oVR9Re1ztxE7iBCc4qtrRMcHRPRCaH04lFB6FTAuwewnC+XVehUNLefvzUj46hOTSV0bCMuKTXDtkBsguijnfxmYRNgh+BywL7F8TmS7B2OGSJF6d/UbNSJC2/abbEAZqMCzjK1ffoq6Fj1dq/BYnThbp5c2Dmy5P9Zy++BAClfOs7HE0cSIV7A18ktNMBWNdKsyADXdSBncsjhZtq9vrH/a9rDfnYTwNSdVEp/oRmytNQ/YPaembmphA0BQYTVlXOjFOtpTf6X2fFs/5YmX1HTOt1i7pn4cX8fWZGKuiIP/72EB10=)
+  :replies: []

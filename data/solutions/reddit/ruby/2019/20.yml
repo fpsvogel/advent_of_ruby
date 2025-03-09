@@ -1,0 +1,118 @@
+---
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbhgxoo/
+  :body: |-
+    [Ruby, 1485/984](https://github.com/firetech/advent-of-code/blob/master/2019/20/donut.rb)
+
+    I woke up today, looked at the problem, understood it just fine but couldn't come up with a good way to parse the vertically oriented portals of the map, and just went back to bed. A few hours later, it dawned on me that I could just parse the horizontal portals, transpose the map and run the same parsing again. After some experimenting, transposing the input turned out to take basically no time, so I started implementing that. I'm mainly posting this because I was quite satisfied with the quirky simplicity of my parser. :)
+
+    For the actual traversing I initially just traversed the map from AA to ZZ using a big BFS that took portals into account (I generated a Hash dictionary of `[x,y] => [x,y]` for all portals in both directions for this). This worked just fine for part 1. With some modifications (modifying the portal Hash to `[x,y] => [x,y,level_delta]`, with `level_delta` being `1` for inner portals and `-1` for outer), it also did the work for part 2, albeit a bit slow (~6s total runtime on a Xeon E5420).
+
+    I did have some initial issues in part 2, finding a shorter path by moving to negative levels, but after blocking that and making sure `level_delta` was set correctly (it was initially, but I had mistakenly inverted it when looking for issues), I got the correct answer.
+
+    Later, I applied some knowledge and tactics from [day 18](https://www.reddit.com/r/adventofcode/comments/ec8090/2019_day_18_solutions/fbb0sqh/) and started precomputing all the paths between portals (using multiple BFSs), followed by two BFSs (one for part 1 and one for part 2) of the precomputed data, the total runtime came down to a more appealing ~0.2s. :)
+  :replies: []
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbg2tm6/
+  :body: |-
+    58/24. The parsing was the bulk of the difficult work, since BFS is already written and ready to go. I got slowed down on part 1 by type errors (can you believe that I have forgotten how to properly add a single list to a list of lists and had to try no fewer than four times before I got it right?), which is what I get for using a language without static type checking. Did much better on part 2 because it only involved adding another bit to the portals found and adding another dimension to state and by that time I had figured out my type issues. Just had to do a bit of debugging to realise that no, I shouldn't allow traveling to negative depths.
+
+    I just used plain BFS to get on the leaderboard, which was fast enough since it ran in 5 seconds. I have since retrofitted it with the same Dijkstra's that everyone else is doing which gets it down to 0.25 seconds, which I'll call good enough for me.
+
+    My input did NOT have any pairs that are the reverse of each other (AB and BA), so that meant I got away with being very sloppy with my portal matching code. However, since I've now seen that other people do have such pairs in their inputs, I've fixed my code up to actually handle that correctly too.
+
+    ~~Part 2 important note: If you ever go into the same portal more than once, you have repeated a previous position but at a deeper depth and thus you are doomed to wander the halls of Pluto for all eternity. So you could track every single portal you have entered and make sure that you never repeat one, but I didn't feel like keeping track of that in my state so I just did something simpler. If your depth ever exceeds the number of portals, then by the pigeonhole principle you have gone into _some_ portal more than once. So, depth can be limited to be no greater than the number of portals.~~ This has been disproven. I will determine whether there is some alternate way to prove a bound on the depth.
+
+    Ruby: [20_donut_maze.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/20_donut_maze.rb)
+
+    Haskell: [20_donut_maze.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/bin/20_donut_maze.hs) (Haven't gotten around to adding Dijkstra's to this one yet, so this one's just BFS for now)
+  :replies:
+  - :author: coda_pi
+    :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbg6p0s/
+    :body: |-
+      > Part 2 important note: If you ever go into the same portal more than once, you have repeated a previous position but at a deeper depth and thus you are doomed to wander the halls of Pluto for all eternity.
+
+      Not strictly true. Here's a map where you have to enter the `BC` portal twice:
+
+      ```ruby
+         #############
+         #############
+         #############
+         ### ###
+         ### #..AA
+       ZZ...FG #.#
+         ### BC...BC
+       FG...DE #.#
+         ### #..DE
+         ### ###
+         #############
+         #############
+         #############
+      ```
+
+      I think it may well be the case that you never need to enter level X where X is the number of portals, though.
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbg9nq1/
+      :body: |-
+        Thanks, confirmed and acknowledged. Correct path through this maze is of length 18, traveling down through BC twice to depth 2 before exiting up through DE and FG. It's what I get for being too clever I guess. I'll strike out the relevant section of my post.
+
+        Note that the map you gave has an interesting property, which is that you can travel from the outer BC portal directly to the inner BC portal. I wonder if it is only the presence of this property that disproves the above principle, and whether the maps given as our inputs lack this property. Or if it has nothing to do with it. I will try to find alternate ways to prove a bound on depth.
+      :replies:
+      - :author: coda_pi
+        :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbgdp1c/
+        :body: |-
+          Actually, I don't think there's a linear bound on the depth (as a function of the number of portals) to get to the fastest solution. Indeed, imagine a map like this:
+
+          ```ruby
+             ############### ###############
+             #.............. --- ..............#
+             #.############# #############.#
+             #.# #..ZZ
+             #.# #.#
+           BD...BE YF...YA
+             ### ###
+           BC...BD YA...YB
+             ### ###
+           BB...BC YB...YC
+             ### --- ###
+           BA...BB YC...YD
+             ### ###
+           BE...BA YD...YE
+             #.# ###
+           AA..# YE...YF
+             ### ###
+             ### ###
+             ############### ###############
+             ############### --- ###############
+             ############### ###############
+          ```
+
+          The hyphens represent having a large number of columns - large enough that any solution crossing the corridor more than once takes more steps than the fastest solution (travelling down to level 24 on the left branch, crossing the long corridor and then travelling up to level 0 on the right branch).
+
+          Of course, it's possible to solve the maze without diving below level 10 - go down to level 4 on the left branch, then cross, then go down 6, then cross back, then go back up to level 0 and cross again to the finish. It would be interesting to determine as a function of X (the number of portals) how deep you need to go to find a solution (I'd conjecture this is O(X)) and how deep you need to go to find the fastest solution (this example shows you need at least O(X^2 ) levels).
+
+          PS This also serves as an example where there's no portal connected directly to itself.
+        :replies:
+        - :author: metalim
+          :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbi2caf/
+          :body: |-
+            That's interesting. So upper bound of levels is around LCM(a,b) where a+b == number of portals.
+
+            Don't think, however, that Eric did any "gotchas" in this task. He's kind. Have you noticed, that even outer portals in the task are on same range of coordinates as inner portals? No portals in corners. All of this was done to avoid any uncomfortable parsing.
+          :replies: []
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbg7cdh/
+      :body: |-
+        Nah, whenever you use a portal the second time in the same direction you will end up beeing in the same position as the first time, only some levels deeper. Since start and end are both on level 0 going deeper in levels does not make the solution better.Hence the optimal solution does not have the same portal twice in the same direction in its path.
+
+        I think it would be otherwise if we could use negative levels.
+      :replies:
+      - :author: gedhrel
+        :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbg9trb/
+        :body: 'I think the post you replied to has a concrete counterexample to this statement. You go out twice on the way to the solution: DE -\>(out)-\> DE -\> FG -\> (out) -\> FG -\> ZZ so you must traverse inwards twice through the BC loop first.'
+        :replies:
+        - :author: "[deleted]"
+          :url: https://www.reddit.com/r/adventofcode/comments/ed5ei2/2019_day_20_solutions/fbgbgyl/
+          :body: Ah, ok, now I understand. Thanks.
+          :replies: []

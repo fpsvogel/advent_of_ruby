@@ -1,0 +1,380 @@
+---
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eb9xtuf/
+  :body: |-
+    Ruby
+
+    This one was tough for me, I figured out it was topological sort pretty quickly, but figuring out how to tweak the algorithm to grab the right nodes was tough. I ended up using a priority queue to sort the `to_visit` set and that fixed my problem.
+
+    Part 2 initially seemed absurdly difficult, but implementing a second-by-second work loop didn't actually take much effort.
+
+    Always nice when you're so excited about the right answer you throw your hands up in the air!
+
+    ```ruby
+    require 'pqueue'
+
+    data = File.read('data.txt').chomp.split("\n").map{ |d| d.match(/Step ([A-Z])[a-z]+([A-Z])/)[1..2] }
+
+    class Node
+      attr_accessor :val, :children
+
+      def initialize(val)
+        @val = val
+        @children = []
+      end
+    end
+
+    nodes = []
+    data.each do |before, after|
+      added = nodes.map(&:val)
+      nodes << Node.new(before) unless added.include? before
+      nodes << Node.new(after) unless added.include? after
+
+      before = nodes.find { |n| n.val == before }
+      after = nodes.find { |n| n.val == after }
+
+      before.children << after unless before.children.include? after
+    end
+    ```
+
+    **Part 1:**
+
+    ```ruby
+    list = []
+    roots = nodes.reject { |n| nodes.any? { |n2| n2.children.include? n } }.sort_by(&:val)
+    s = PQueue.new(roots) { |a, b| a.val < b.val }
+    p s.to_a.map(&:val).join
+
+    until s.empty?
+      n = s.pop
+      list << n
+
+      n.children.sort_by(&:val).each do |c|
+        n.children.delete(c)
+        s << c unless nodes.any? { |n2| n2.children.include? c }
+      end
+    end
+
+    p list.map(&:val).join
+    ```
+
+    **Part 2:**
+
+    ```ruby
+    current_seconds = 0
+    base_seconds = 60
+
+    workers = { # value structure: [working_node, second_total_when_finished]
+      1 => nil,
+      2 => nil,
+      3 => nil,
+      4 => nil,
+      5 => nil
+    }
+
+    until nodes.empty?
+      # check for finished jobs
+      workers.reject { |_, job| job.nil? }.each do |id, job|
+        if job[1] == current_seconds
+          workers[id] = nil
+          nodes.delete(job[0])
+        end
+      end
+
+      # get new jobs
+      workers.select { |_, job| job.nil? }.each do |id, _|
+        work_node = nodes.find { |n| nodes.none? { |n2| n2.children.include? n } && !workers.values.compact.map { |w| w[0] }.include?(n) }
+        break unless work_node
+
+        finish_time = current_seconds + work_node.val.ord - 64 + base_seconds
+        workers[id] = [work_node, finish_time]
+      end
+
+      current_seconds += 1
+    end
+
+    puts current_seconds - 1
+    ```
+  :replies:
+  - :author: aoc_throwaway
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbg934/
+    :body: |-
+      check out my part 1 ruby solution:
+
+      ```ruby
+      h = {}
+      File.readlines('input.txt').each do |l|
+        i, j = l[36], l[5]
+        h[i] ||= []
+        h[j] ||= []
+        h[i] << j
+      end
+
+      f = ''
+      until h.empty?
+        e = h.select {|k,v| v.empty?}.keys.sort[0]
+        h.delete(e)
+        h.each {|k,v| v.delete(e)}
+        f += e
+      end
+      puts f
+      ```
+
+      --kss
+    :replies: []
+  - :author: Larkenx
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebc0qie/
+    :body: here’s my part 1 ruby solution as well, after learning ruby for a couple hours https://github.com/Larkenx/AdventOfCode2018/blob/master/7/parta.rb
+    :replies:
+    - :author: craigontour
+      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebkkqqn/
+      :body: Which site did you use to learn Ruby so fast?
+      :replies:
+      - :author: Larkenx
+        :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebl4ws1/
+        :body: Pretty much the Ruby docs exclusively. I had just learned Perl 6 and Lua, which are quite similar in ways
+        :replies: []
+- :author: Dee_Jiensai
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eba5rfj/
+  :body: |-
+    ruby 2.5.1
+
+    That was nice. Now i have to go look up what a topological sort is.
+
+    ```ruby
+    require 'pp'
+
+    input = File.read('input7').lines.map!{|l| l.match(/Step\ (?<do_this>[A-Z]+{1})\ must\ be\ finished\ before\ step\ (?<before_that>[A-Z]+{1})\ can\ begin.*$/).named_captures.transform_keys(&:to_sym)}
+
+    all = input.map(&:values).flatten.uniq
+
+    def to_i(letter)
+      letter.bytes[0] - 64
+    end
+
+    data = {}
+    all.each do |letter|
+      data[letter] = {before: [], dauer: 60 + to_i(letter)}
+      input.each do |item|
+        if item[:before_that] == letter
+          data[letter][:before].push item[:do_this]
+        end
+      end
+    end
+
+    def find_next(data,done)
+      res = []
+      data.each_pair do |letter, hash|
+        unless done.include? letter
+          i=0
+          if hash[:before]
+            hash[:before].each do |item|
+              i+=1 unless done.include? item
+            end
+          end
+          res.push [letter,i]
+        end
+      end
+      res.sort{|a,b| a[1] <=> b[1]}
+      res.select{|x| x[1] == 0}.map(&:first).sort
+    end
+
+    done = []
+    order = []
+    while true
+      res = find_next(data,done)
+      done.push res[0]
+      order.push res[0]
+      break if res.length == 0
+    end
+
+    #output solution part 1
+    pp order.flatten.join
+
+    # The file output is just for fun.
+    File.open('output7', 'w') do |f|
+      f.write "Time 1 2 3 4 5 done in Progress"
+      f.write "\n"
+    end
+
+    done = []
+    in_progress = []
+    order = []
+    time = 0
+    workers = [nil,nil,nil,nil,nil]
+    res = []
+
+    while done.length < all.length
+      for count in 0..4
+        if workers[count] and workers[count][1] == time
+          done.push workers[count][0]
+          in_progress.delete(workers[count][0])
+          workers[count] = nil
+        end
+      end
+      unless workers.include?(nil)
+      else
+        if res.empty?
+          res = find_next(data,done)
+          res -= in_progress
+        end
+        while workers.include?(nil) and not res.empty?
+          for count in 0..4
+            break if res.empty?
+            if workers[count] == nil
+              letter = res.slice!(0)
+              workers[count] = [letter, data[letter][:dauer] + time]
+              order.push(letter)
+              in_progress.push(letter)
+            end
+          end
+        end
+      end
+      time += 1
+
+      a = "#{sprintf('%5s',time)}"
+      (0..4).each do |c|
+        a += "#{workers[c].nil? ? ' idle ' : " " + workers[c][0] + " "}"
+      end
+      a += " #{ done.join}"
+      a += " #{ in_progress.join}"
+      pp a
+      File.open('output7', 'a') do |f|
+        f.write a
+        f.write "\n"
+      end
+    end
+    ```
+  :replies:
+  - :author: aoc_throwaway
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbhb9y/
+    :body: |-
+      check out my part 1 ruby solution:
+
+      ```ruby
+      h = {}
+      File.readlines('input.txt').each do |l|
+        i, j = l[36], l[5]
+        h[i] ||= []
+        h[j] ||= []
+        h[i] << j
+      end
+
+      f = ''
+      until h.empty?
+        e = h.select {|k,v| v.empty?}.keys.sort[0]
+        h.delete(e)
+        h.each {|k,v| v.delete(e)}
+        f += e
+      end
+      puts f
+      ```
+    :replies: []
+- :author: aoc_throwaway
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebazkui/
+  :body: |-
+    Short Ruby solution for part 1, takes \<1ms to run (usually around 0.3ms):
+
+    ```ruby
+        h = {}
+        File.readlines('input.txt').each do |l|
+          i, j = l[36], l[5]
+          h[i] ||= []
+          h[j] ||= []
+          h[i] << j
+        end
+
+        f = ''
+        until h.empty?
+          e = h.select {|k,v| v.empty?}.keys.sort[0]
+          h.delete(e)
+          h.each {|k,v| v.delete(e)}
+          f += e
+        end
+        puts f
+    ```
+
+    -kss
+  :replies:
+  - :author: wzkx
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebchy1a/
+    :body: |-
+      Very good solution! I translated it into Python to see if it looks the same there.
+
+      ```ruby
+      h = {}
+      for l in open('07.dat','rt').readlines():
+        i, j = l[36], l[5]
+        if i not in h: h[i] = []
+        if j not in h: h[j] = []
+        h[i].append( j )
+
+      r = ''
+      while len(h):
+        e = sorted( k for k,v in h.items() if len(v)==0 )[0]
+        del h[e]
+        for k in h:
+          if e in h[k]: h[k].remove(e)
+        # could be one line too: for k in h: e not in h[k] or h[k].remove(e)
+        r += e
+      print( r )
+      ```
+    :replies:
+    - :author: aoc_throwaway
+      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebfgin4/
+      :body: Nice! Probably faster in python too. Ruby is slow.
+      :replies: []
+- :author: morfi717
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebcrskf/
+  :body: |-
+    Ruby (0.08s)
+
+    ```ruby
+    F = File.read("#{ __dir__ }/data/day7.txt")
+                .scan(/Step (\w+) must.+? step (\w+) can/)
+
+    Timer = {t: -1}
+    Workers = Array.new(5) { [nil, 0] }
+
+    V = F.group_by(&:first).map{|k, v| [k, v.map(&:last).sort] }.to_h
+    V.to_a.transpose.map(&:flatten).reverse.reduce(:-).uniq.sort.each{ |λ|
+        V[λ] = []
+    }
+
+    def P1(stack)
+        Timer[:t] += 1
+
+        Workers.select(&:first).each{ |ω|
+            ω[1] -= 1
+
+            if(ω.last == 0)
+                stack.append(ω.first)
+                V.delete(ω.first)
+                ω[0] = nil
+            end
+        }
+
+        if V.any?
+            Ξ = Workers.reject(&:first)
+
+            V.to_a.transpose
+                .map(&:flatten)
+                .append(Workers.map(&:first))
+                .reduce(:-)
+                .sort
+                .take(Ξ.size)
+                .each_with_index.each{ |letter, idx|
+                    Ξ[idx][0] = letter
+                    Ξ[idx][1] = letter.ord - 64 + 60
+                }
+
+            P1(stack)
+        end
+
+        stack
+    end
+
+    puts "Ans1: %s" % P1([]).join
+    puts "Ans2: %s" % Timer[:t]
+    ```
+  :replies: []

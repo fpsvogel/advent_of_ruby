@@ -1,0 +1,47 @@
+---
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kimluc/2020_day_23_solutions/ggv5h83/
+  :body: |-
+    Ruby/C. I did the first part in Ruby and it would've taken about 3 hours to finish the second part, so I dropped down to C for that.
+
+    [part 1 in ruby](https://topaz.github.io/paste/#XQAAAQD5AQAAAAAAAAAxnUpFZEQ7Dc9Km5XXPYqAfqlYHxmpwd9cqnG+MaZ5/0KWPVHOBS7qDwVyWWHJq+zZnJMEu4tLHYJcfRia3gbAJZFoBfzJj0NLtLGFUcTLgcJW4HT/AeeiTs5soxnjU9z8yj2UaKuxnSaAhBsbAWzNNEps12HTsLSz/uPeQnl5cEB8rk5B4cvWOqka54xW4ddnp7r6hgfy7mwbltdA0BuMxuj3bFIzj5ucz1sAU4xVmFCbFYi/BHJm7erGmrINSKGHDMKNVTprdtqcvbC8wH70qYjCYgg+YN1jjF9uThlR/HvU5GpEftPCYFUMK0UrvotS9qKfa2T/655thTVHGRHz5t2sxwKMNmRd+mcap/P9kmYNm/9QiRZX1RgcMSsHsl8vgGvb/9kcPX4=)
+
+    [both parts in c](https://topaz.github.io/paste/#XQAAAQDXDwAAAAAAAAARmknGRw8TogB3OyPPwW5K8Q8ohQvj8m6aOXY901m0ltVAO4cA2jqlC6jcYxj0IWcYk2HBZHYQjqfd9uOoZUebiNZXGU4VIogXOGZ2MWV0rJhlqCizc5XX2e+MdgaJuOhEGY3iAUS+rYJf6WAb5O4Bgxph/kHvYgFzH7LEUi7AMWuqLFfptme2dc84Lt5mt4pZPRyGG+5Ax9sW+kZgRkD6o/75JyYbXeX/pCpeBVjtkn3r7hdkF8PTGj//8fmFLaFTHNvPVu8flp+Jlz5CYTyg5MVxKSjoHvobb+BDcVyfxX0WOQ95fDUX1QLapj881l73La3bwP5/kf85N5dpwfynJ1rwBUakFQPBSAlq08H6xNw+K5YH9kCR3Wc7AosI0zOwhSNpdVBL1poHcRj6lAOAP2l62BV1B7ywfeylB0yuXVNdWVjyiIxDNXfFtXpEk8wsPEYyV7RRIYrrvElZwADPBQDfA2TS47wAZTjPZ4lvUNMbWFnHx5eWkG1d9qOfhA4bkOeYm8xiYbLhtCxxG3/HHWGmZMJoG6Wq8e8Uy/z08TfJW/mjKHS6Kpfl8jkc9volly1pngONxj1nwDU54jhr+manq6AeOUGebW/Ope/jDDNSyoh38MzyOAXtI/3fyUOXv6tI+0K+5YFkoKnnFdE/aQ+HDUkjhktKBuAlquYKh59l0R00U4XCtCg8GpiiX0XGSqNv5jKUzEN9NTlL0XRhN6GAJOIowBvemEjU53sDTUMjd1uC3L5zqT1AQOZwnMP5D1++2Lo2i1Ft3WuVTQqWXMjAJDEz1h31FhqmZKRMEmqS0ZH6yr7mtFtMMrxwjA6JzTOYeKS+knF6yA6zq46L+DAoy4fNn2qjtJaxSVDGvjcaktqZOcgh0UjLkuypbxl5nL05bjArl0LSxXeSjbQgf8IMZA8aUDAj0a//Nd4TovClds+tgSQt37frk5sfyDknylpV6fQ050NNxZ9ACeiXAqmIl5DmLVYRSPql6jUITgmCflZIBAji25isfITIRzJuJ5U9LOcHoGgrK7NoNyQdXHecHkleztU05v7XhLeTMcNjMR98WXX2gHW+xjK8KdjQE9KDrSFxM1XBTPu7zIwLUNe6BaopPL0mfeqd9f/Fr7YJhBtewf5pTEWVRRDSdQhBPAlGQwtenVryljDv2zXHujd/UO6DU+OZM2qehSLQsmefnvs6r0o5JnosWK6vIAdFN20ePORG1XrXxflhi4BwMpfumaXLnOOARg6TJneWYFD7mTxZ6h01kFN05falGqyv0E8fP10Wtk5OviRR69bJitpYahmylUDX7+ehAy6kH3UD3ldrnL14v/G6FnvVUDBezCaBQNuIo8ed/P8bgp8C4xkWaHXoCM56lp+B6rpLWJew5BrdxIZZds69Jon0GnbTfkOW9FXilERGEdFMVM7NIzIlBoR1IBaJl35WL8vkxWCkRkHKAgAdbzITjoHTZbOm9bYFG5CHFn8ayBoR6kMjzioNbBt4e2be1AvdbcO08X/xtwDtgn4X2e/SVAfqGP0XESUSwEmUMHiZ+b/I/7LuC2kmtcp3A0iMI2UUIInLk46WD852QELQkHbRAkZ2bVNTqGZcTLFPGcJo5CbUndGJAEvlHF9O1W4+6fcziNJFGDZkPtUNWwxGReqx/enfFNodq/c7hqZCM46hWZ00mHw2NjjTyAffJd41LuHlZfkQKTFs4WjkuN+vYUnip6w8Qr2k/1i6rP9im+KpoGwobv/c8Or0)
+  :replies: []
+- :author: DmitryShvetsov
+  :url: https://www.reddit.com/r/adventofcode/comments/kimluc/2020_day_23_solutions/ggs0wvz/
+  :body: |-
+    # Ruby
+
+    part 1 [https://github.com/dmshvetsov/adventofcode/blob/master/2020/23/1.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/23/1.rb) (rank 3504)
+
+    Using `slice` and `rotate` which is obviously not efficient for rotating millions of cups for the part 2.
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kimluc/2020_day_23_solutions/ggs3970/
+  :body: 'Ruby, part 2 (rank 699): https://gist.github.com/jablan/417ba0613c922ce641c1ce20ada607e7'
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kimluc/2020_day_23_solutions/ggs4at8/
+  :body: |-
+    **Ruby:** 14:00/2:06:14, 233/1534
+
+    Here's a [recording](https://youtu.be/4TuoXaQTf6Y) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/4380a8edd9fa47feb1a7e5042af347e2fecd7fee/2020/dec23.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Ugh, debugging arbitrary linked list operations on lists with a million elements did not go well.
+
+    I made the mistake of trying to rearrange the order of the three cups, the current cup, the destination cup, and everything else, all at once. This meant I had to handle special cases when the destination cup came immediately after the three cups, or right before the current cup.
+
+    If I just read the instructions very carefully, I would have seen that it makes it clear that there are really two separate operations:
+
+    - First, remove the three subsequent cups from the list, and complete the circle with those cups removed
+    - Then, add those three cups after the destination cup
+
+    And if you just implement those two parts separately, it's really quite simple.
+
+    I also spent a lot of time getting my cup initialization to work both for a million cups, and for just the initial ten cups (which I need to test on the example).
+
+    What a struuuuuuuugle. In the constant struggle to finish the problem as fast as possible, it's hard to take a step back and reconsider your approach, especially when you always feel like you're "almost there." This is definitely one of those times where taking a break and coming back with fresh eyes would have made it go a lot faster.
+
+    Also bummed I forgot to commit my super messy initial solution before cleaning it up. :(
+  :replies: []

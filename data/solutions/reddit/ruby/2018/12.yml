@@ -1,0 +1,123 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebm4fz5/
+  :body: |-
+    Part 1: I got confused for a moment because I forgot to actually store the rules. You'll notice that I wrote a `fetch` which errors if the key doesn't exist, since I saw "all patterns are present" in the description. But this made me wonder whether I was missing a pattern, and I spent some time trying to figure out whether my input had accidentally gotten truncated. Then I realised, of course, 32 is in fact the correct number of lines in the input. And then I discovered I actually forgot to store the rules.
+
+    Part 2: I just printed out sums and tried to look for patterns, and then extrapolated from the pattern I was seeing. I had an off-by-one that cost a bit of time here. The process is now automated in code. Most of the rest of the code is as it was when I was going for the leaderboard.
+
+    I would consider writing it in terms of bit patterns and just do the mask/shift thing, but this code is not really suffering in terms of performance (runs in \< 1 second) so I'm not sure I want to spend the time on that.
+
+    Ruby:
+
+    ```ruby
+    input = (ARGV.empty? ? DATA : ARGF).each_line.map(&:chomp)
+
+    initial = input.shift.split(?:).last.strip.each_char.map { |c| c == ?# }
+    input.shift
+
+    rules = input.each_with_object({}) { |x, h|
+      l, r = x.split(' => ')
+      h[l.each_char.map { |c| c == ?# }] = r == ?#
+    }.freeze
+
+    sums = {}
+
+    leftmost = 0
+    # Arbitrarily choose to stop after this many iterations have same diff:
+    diffs = [nil] * 10
+
+    plants = initial
+    sums[0] = plants.zip(leftmost.step).sum { |p, i| p ? i : 0 }
+
+    gens_done = 1.step { |gen|
+      plants = ([false, false, false, false] + plants + [false, false, false, false]).each_cons(5).map { |c| rules.fetch(c) }
+      leftmost -= 2
+      sums[gen] = plants.zip(leftmost.step).sum { |p, i| p ? i : 0 }
+      diffs.shift
+      diffs << sums[gen] - sums[gen - 1]
+      break gen if diffs.uniq.size == 1
+    }
+
+    puts sums[20]
+    puts sums[gens_done] + diffs[0] * (50 * 10 ** 9 - gens_done)
+
+    __END__
+    initial state: #...#..###.#.###.####.####.#..#.##..#..##..#.....#.#.#.##.#...###.#..##..#.##..###..#..##.#..##...
+
+    ...#. => #
+    #..## => #
+    rest of input omitted for posting
+    ```
+  :replies:
+  - :author: OneParanoidDuck
+    :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebx6nm8/
+    :body: |-
+      Finally, someone else who mentions bit patterns.. Seems like I'm the only idiot to actually do it with bitwise operations on integers. Wanted to because I feel I'm getting a bit too comfortable using fancy language constructs.
+
+      Below my CPython 3.7 solution, part2 averages 60ms on an Intel i7 870. (edit: or am I supposed to include the interpreter startup time?)
+
+      ```ruby
+      import time
+      t_start = time.time()
+
+      char_to_bit = {'#': '1', '.': '0'}
+      bit_to_char = {'1': '#', '0': '.'}
+
+      def str_to_int(string: str) -> int:
+          return int(''.join(char_to_bit[c] for c in string), 2)
+
+      def int_to_str(number: int) -> str:
+          return ''.join(bit_to_char[c] for c in bin(number)[2:])
+
+      def lowest_enabled_bit(number: int) -> int:
+          binary = bin(number)[2:]
+          return len(binary) - binary.rfind('1') if '1' in binary else None
+
+      def num_bits(number: int) -> int:
+          return len(bin(number)[2:])
+
+      def sum_of_pots_with_plants(number: int, base_idx: int) -> int:
+          return sum(idx for idx, value in enumerate(int_to_str(number), base_idx) if value == '#')
+
+      start_string = '##.#..#.#..#.####.#########.#...#.#.#......##.#.#...##.....#...#...#.##.#...##...#.####.##..#.#..#.'
+      num_generations = 50000000000
+      combinations = [str_to_int(comb) for comb in [
+          '.#.#.', '.#...', '#####', '#..#.', '#...#', '###.#', '...##',
+          '#.##.', '.#.##', '##.#.', '..###', '###..', '##..#', '#..##',
+      ]]
+
+      current_number = str_to_int(start_string) << 3
+      base_idx = 0
+      current_sum = sum_of_pots_with_plants(current_number, base_idx)
+      current_sumchange = 0
+      for generation in range(num_generations):
+          if generation > 0:
+              new_sum = sum_of_pots_with_plants(current_number, base_idx)
+              new_sumchange = new_sum - current_sum
+              if current_sumchange == new_sumchange:
+                  remaining_generations = num_generations - generation
+                  final_sum = int(new_sum + (remaining_generations * new_sumchange))
+                  time_in_ms = (time.time() - t_start) * 1000
+                  raise Exception(
+                      f'Sum increases at constant rate. Calculated final value after {remaining_generations} more '
+                      f'generations: {final_sum}. (Took {time_in_ms:.5f}ms)')
+              current_sum = new_sum
+              current_sumchange = new_sumchange
+
+          if lowest_enabled_bit(current_number) <= 3:
+              current_number <<= 2
+
+          current_bit_count = num_bits(current_number)
+          next_number = 0
+          for current_bit in range(0, current_bit_count + 1):
+              bits_to_compare = (current_number & (0b11111 << current_bit)) >> current_bit
+              for comb in combinations:
+                  if (comb ^ bits_to_compare) == 0:
+                      next_number |= 2 ** (current_bit + 2)
+                      break
+
+          current_number = next_number
+          base_idx -= (num_bits(current_number) - current_bit_count)
+      ```
+    :replies: []

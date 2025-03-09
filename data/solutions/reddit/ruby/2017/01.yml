@@ -1,0 +1,104 @@
+---
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlqjqh/
+  :body: |-
+    2 lines of Ruby:
+
+    ```ruby
+    digits = File.read("1.txt").strip.chars.map(&:to_i)
+    p digits.zip(digits.rotate(digits.size/2)).select { |a, b| a == b }.sum(&:first)
+    ```
+
+    Just change the argument to rotate to 1 for part 1.
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqltuo8/
+    :body: "[deleted]"
+    :replies: []
+- :author: jschulenklopper
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlq7z2/
+  :body: |-
+    Short solution in Ruby, combining both parts:
+
+    ```ruby
+    while line = gets # Process all lines in input file.
+      digits = line.strip.chars.map(&:to_i) # Turn a line into an array of integers.
+      sumA, sumB = 0, 0
+      digits.each.with_index do |digit, index|
+        sumA += digit if digit == digits[(index+1) % digits.length] # Add next digit
+        sumB += digit if digit == digits[(index + digits.length / 2) % digits.length] # Add digit half-way.
+      end
+      puts sumA, sumB
+    end
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlws4o/
+    :body: |-
+      Even more Ruby-esque:
+
+      ```ruby
+      while line = gets
+        digits = line.strip.chars.map(&:to_i)
+        puts digits.reject.each_with_index { |digit, i|
+          # Replace `digits.length/2` by `1` for first puzzle.
+          digits[i] != digits[(i + digits.length/2) % digits.length]
+        }.sum
+      end
+      ```
+
+      This removes the elements not meeting the condition from the array, and then totals the remaining digits.
+    :replies: []
+  - :author: Grimnur87
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlu3s6/
+    :body: Good to know. Same approach here, at least the crux lines. I did use an `each_cons(2)` in the first part. This is neater.
+    :replies: []
+- :author: disclosure5
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlik5e/
+  :body: |-
+    Ruby
+
+    ```ruby
+    def makecaptcha(input)
+      total = 0
+      half = input.length/2
+
+      half.times do |i|
+        if input[i] == input[i+half]
+          total = total + (input[i].to_i * 2)
+      end
+    end
+
+    puts "Total was #{total}"
+    end
+    ```
+  :replies: []
+- :author: egze
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlw51d/
+  :body: |-
+    My ruby attempt
+
+    ```ruby
+    class CaptchaSolver
+
+      attr_reader :input, :length
+
+      def initialize(input)
+        @input = input.to_s.split("").map(&:to_i)
+        @length = @input.size
+      end
+
+      def solve!
+        matches = []
+        input.each_with_index do |element, i|
+          matches << element if element == input[(i + 1) % length]
+        end
+        matches.inject(0, :+)
+      end
+
+    end
+
+    ?> CaptchaSolver.new(input).solve!
+    => 1175
+    ```
+  :replies: []

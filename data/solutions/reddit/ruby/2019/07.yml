@@ -1,0 +1,123 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa27oma/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_07
+  :replies: []
+- :author: Kache
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa0mffc/
+  :body: |-
+    Super fun! In Ruby, after refactoring and reusing `Intcode`:
+
+    ```ruby
+    def self.max_looped_signal(intcode = @@input)
+      (5..9).to_a.permutation.map do |phase_settings|
+        amps_buffs = phase_settings.map { |s| [Intcode.new(intcode), [s]] }
+
+        (0..).reduce(0) do |input, i|
+          amp, buff = amps_buffs[i % 5]
+          amp.run(buff << input) || (break input)
+        end
+      end.max
+    end
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z55xo/
+  :body: |-
+    First time using a thread in Ruby!
+
+    I'm aiming to use the same intcode implementation for all challenges, and refator and expand each time there's a new requirement. I also keep it backwards compatible. Before part 1 today, I changed input/output from being an actual IO object to simply be an array that is `push`ed and `shift`ed, which is a lot simpler to handle.
+
+    Part 2 was simply begging for a multithreaded solution, and I was happy to discover that there is a thread safe class `Queue` with has the same push and shift operations as `Array`!
+
+    I'm also happy with how my "try all combination" function could easily be refactored, so that the two lines that print each solution simply read as follows:
+
+    ```ruby
+    p find_max_signal(program, 0..4, &method(:run_single))
+    p find_max_signal(program, 5..9, &method(:run_with_feedback))
+    ```
+
+    Setting up the threads and channels for part 2:
+
+    ```ruby
+    def run_with_feedback(program, sequence)
+      channels = sequence.map { |phase_setting| Queue.new.push(phase_setting) }
+
+      threads = sequence.map.with_index { |_,i|
+        Thread.new do
+          amp = IntcodeComputer.new(
+            program,
+            input: channels[i],
+            output: channels[(i+1)%channels.length]
+          )
+          amp.run
+        end
+      }
+
+      channels.first.push(0)
+      threads.each(&:join)
+      channels.first.pop
+    end
+    ```
+
+    The whole thing can be viewed here: [code-challenges/aoc2019/ruby/07.rb](https://github.com/daniero/code-challenges/blob/master/aoc2019/ruby/07.rb)
+
+    The current Intcode Computer is here: [code-challenges/aoc2019/ruby/intcode.rb](https://github.com/daniero/code-challenges/blob/master/aoc2019/ruby/intcode.rb)
+  :replies: []
+- :author: ShinobuLove
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z31gy/
+  :body: |-
+    [Ruby](https://github.com/CodeGradox/advent-of-code-2019/blob/master/day07/main)
+
+    For part 1 it took me a minute to understand I had to use permutations for the phases.
+
+    I had to look up an explanation for part 2, but figured it out in the end.
+  :replies: []
+- :author: tckmn
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wshfv/
+  :body: |-
+    ruby 3rd/28th
+
+    posting solely because i find it pretty amusing that my part 2 code reads the input file 600 times, which i only realized after the fact
+
+    (`intcode` procedure is just the interpreter modified so that it returns `[code_array, instruction_pointer, output]` immediately when output is produced)
+
+    ```ruby
+    p ([*5..9].permutation(5).map do |x|
+        thing = 0
+        a1, i1, op1 = intcode(read.split(',').map(&:to_i), 0, [x[0], 0])
+        a2, i2, op2 = intcode(read.split(',').map(&:to_i), 0, [x[1], op1])
+        a3, i3, op3 = intcode(read.split(',').map(&:to_i), 0, [x[2], op2])
+        a4, i4, op4 = intcode(read.split(',').map(&:to_i), 0, [x[3], op3])
+        a5, i5, op5 = intcode(read.split(',').map(&:to_i), 0, [x[4], op4])
+        loop{
+        a1, i1, op1 = intcode(a1, i1, [op5])
+        a2, i2, op2 = intcode(a2, i2, [op1])
+        a3, i3, op3 = intcode(a3, i3, [op2])
+        a4, i4, op4 = intcode(a4, i4, [op3])
+        a5, i5, op5 = intcode(a5, i5, [op4])
+        break unless a5
+        thing = op5
+        }
+        thing
+    end.max)
+    ```
+  :replies:
+  - :author: captainAwesomePants
+    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wv4wk/
+    :body: I thought to myself "better bundle everything in a class if I need to save the IP and the data and the inputs and such." You just returned a tuple of the whole thing. Such a fast tweak, good job!
+    :replies:
+    - :author: mariotacke
+      :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wzh4m/
+      :body: Same here. This is actually a pretty brilliant solution. Keeps the intcode function stateless.
+      :replies: []
+  - :author: yxhuvud
+    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9x3st6/
+    :body: |-
+      Funnily enough, at least for me, the whole thing works using the exact same parsed entries, without even having to `dup` it. Which is quite cute considering it is self modifying code.
+
+      [https://github.com/yxhuvud/aoc19/blob/master/day7.cr#L59](https://github.com/yxhuvud/aoc19/blob/master/day7.cr#L59)
+    :replies: []

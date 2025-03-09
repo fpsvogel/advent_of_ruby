@@ -1,0 +1,520 @@
+---
+- :author: blafunke
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfhhpxr/
+  :body: |-
+    [Ruby](https://pastebin.com/33r1dfnx)
+
+    Fairly efficient in both space and time I think. Sorting is the worst part.
+  :replies: []
+- :author: Markavian
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfdzoe0/
+  :body: |-
+    Here's my node js solution for Day 10. It's not the best.
+
+    https://johnbeech.github.io/advent-of-code-2020/solutions/day10/viewer.html
+
+    I had manually calculated the network links mapping sequences from 0:1, 1:1, 2:4, 3:7, on paper but then my brain broke, and I couldn't figure out the next step. Today I went back through this megasolutions thread and went with ACProctor's Ruby approach for Part 2, rewritten into javascript. I'd seen a few hints about tribonacchi from highlighted reddit approaches - so its soothing to know "I was on the right track" even if I wasn't able to find the efficient solution on my own. I have a scribbled page of A4 notes trying to find patterns, branching nodes, node counts.
+
+    Roll on day 11...
+  :replies: []
+- :author: ACProctor
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd237l/
+  :body: |-
+    ## Ruby
+
+    I haven't seen someone posting a solution like mine, so I figured I'd share my approach.
+
+    I have the answers for both Part 1 and Part 2 in O(n log n) time, and only one copy of the data in RAM.
+
+    First, I read the list, and sorted it. (this is where the n log n comes in via quick sort).
+
+    ```ruby
+    #start with outlet (joltage = 0)
+    numbers = [0]
+    File.open('day10.data').each do |line|
+      next if(line.nil?)
+      md = line.match(/([0-9]+)/)
+      if(!md.nil?)
+        numbers << md[1].to_i
+      end
+    end
+
+    numbers.sort!
+
+    # add device (highest joltage +3)
+    numbers << numbers[-1] + 3
+    ```
+
+    Then for part 1, I ran through the entire list, and counted when the delta between each item was 1 or 3.
+
+    ```ruby
+    puts "Part 1"
+    three_count = 0
+    one_count = 0
+    (0..numbers.length-2).each do |i|
+        delta = numbers[i+1] - numbers[i]
+        if(delta > 3)
+            puts "Invalid sequence, can't continue from #{numbers[i]} to #{numbers[i+1]}"
+        elsif(delta == 3)
+            three_count += 1
+        elsif(delta == 1)
+            one_count += 1
+        end
+    end
+    puts "#{three_count} 3-jolt jumps * #{one_count} 1-jolt jumps = #{three_count*one_count}"
+    ```
+
+    For part 2, I figured that I could derive a mathematical proof by focusing on how many valid combinations you could make within sequences of contiguous numbers. 1,2,3,4,5 has the same number of combinations as 11,12,13,14,15 so the actual numbers don't matter just the length of the sequence.
+
+    I started to build out some data to see if I could come up with a theorem for what the valid combinations would be given our rules would be. After figuring out the number of combinations sequences of 1,2,3,4 and 5 consecutive numbers would produce, I decided to check the data to see what the maximum length of a sequence was that I'd have to figure out.
+
+    It turns out that my input data's longest sequence of consecutive numbers was 5. So rather than coming up with a formula and a proof, I was able to just create an array of values for 1-5 length sequences, and return the combination in O(1) time. permute\_map = [1,1,1,2,4,7]
+
+    Having my "formula" to determine complexity of each sequence, I just went back to my loop I had created for part 1, and any time I noticed a 3-number jump between numbers, I multiplied my total combinations value by the mapped value from the length of the sequence.
+
+    ```ruby
+    three_count = 0
+    one_count = 0
+    max_length = 0
+    cur_length = 0
+    permute_map = [1,1,1,2,4,7]
+    total_combos = 1
+
+    (0..numbers.length-2).each do |i|
+        cur_length += 1
+        delta = numbers[i+1] - numbers[i]
+        if(delta == 3)
+            three_count += 1
+
+            total_combos *= permute_map[cur_length]
+
+            max_length = cur_length if cur_length > max_length
+            cur_length = 0
+        elsif(delta == 1)
+            one_count += 1
+        end
+    end
+
+    puts "Part 1: #{three_count} 3-jolt jumps * #{one_count} 1-jolt jumps = #{three_count*one_count}"
+    puts "Part 2: Total Combos = #{total_combos}"
+    ```
+  :replies:
+  - :author: SnooEagles6377
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/ghah2my/
+    :body: |-
+      Thanks for the thorough discussion of part 2, it helped me simplify my solution.
+
+      For part one, let me help you simplify yours :) To count the differences between numbers, you can use `each_cons(2)` and subtract them. Then if you are using a newer Ruby, use `.tally` to do the count (otherwise you can do `group_by(&:itself).values.map(&:size)`). Turns part one into a one-liner.
+    :replies: []
+  - :author: backtickbot
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd23z6/
+    :body: |-
+      [Fixed formatting.](https://np.reddit.com/r/backtickbot/comments/kaw6bh/httpsnpredditcomradventofcodecommentska8z8x2020/)
+
+      Hello, ACProctor: code blocks using triple backticks (```) don't work on all versions of Reddit!
+
+      Some users see [this](https://stalas.alm.lt/backformat/gfd237l.png) / [this](https://stalas.alm.lt/backformat/gfd237l.html) instead.
+
+      To fix this, **indent every line with 4 spaces** instead.
+
+      [FAQ](https://www.reddit.com/r/backtickbot/wiki/index)
+
+      ^(You can opt out by replying with backtickopt6 to this comment.)
+    :replies:
+    - :author: ACProctor
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd31yk/
+      :body: good bot
+      :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfci2wh/
+  :body: |-
+    # Ruby
+
+    Part 1 was easy, and then I spent too much time trying to think I could cheat at part 2 without actually still following the constraints. Once I finally realized that, I'm amazed at how a hash used for memoizing the recursion results makes the solution become instant vs having to sit around for a very long time without one (and looking at some other threads.. Ya, makes sense, exponential time and all that). There's probably some other dynamic programming way of doing this too, but meh, don't care now.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAhBAAAAAAAAAAwmQhJeBEoRoycf4oaE6QWXYzfGQaKTTe+cU2mAjnDZZItrEaWBFPT3hHlTOWkxk6YOPCJEnKolvO7Ow+6ckmMp5BV9q+olHDzGgr2rZwcmYbSYEeLWBGusH9v/96/Q3ULKOZlj844B/25KTOxdHmL5xtk45Tn4/snm7Tou+uusWsNu6QgT6Xs22yTiuzQFEea9w9bESJraONWuhJq/SQYHCP0DZd8sfpE4ZCY2DMM6AorXNmG4hb6Yi6V04n1bcJ0wvxdNHj0G/3pL79OqrQL1GZjRnV1vRGE0Owc0p/GslWn/SSUFjwKhwU6GiurE0OVPrgyHVpi5qymZ7eexe+rrVguBV58hvO7GJdHEUtI/xEg0TbONZsOy1NDZ1AyIVyoLLR9bKT4EGfRbnv8CVwM+BB/WSoeSSC66wCGO3YvQbWkWgf7du1+QclxpJoW/ODcwc0A7wn035rKz3ClexwwPTjHqqMlf7rWlNVJ0q2yixzmvfsFPc4R9JrZeoyCtt9MF5XBlh03veR5vYej33f6RnupqkSRO1FLMCbEpx/BmjWDREdmIsQLx0u8BjOyxgjeBL+6Qrmsu568QUfzpbWFmmWVKuf+y0ynnSn1AK1izUYAUAOpIM4XUOHnrgRhfp67yQj7pDErG8usgmVW64M02usd0WAr/z4TNwA=)
+  :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcaf2q/
+  :body: |-
+    Has anyone seen this solutions? Ruby:
+
+    ```ruby
+    a = ARGF.readlines.map(&:to_i).sort
+    x = (a.count-a.max)/2
+    puts "Part 1: #{(x+a.count)*(1-x)}"
+
+    c = [nil,nil,nil,1]
+    a.each { |i| c[i+3] = c[i..i+2].compact.sum }
+    puts "Part 2: #{c.last}"
+    ```
+  :replies:
+  - :author: mattaman101
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffj2jv/
+    :body: |-
+      > c = [nil,nil,nil,1]
+      >
+      > a.each { |i| c[i+3] = c[i..i+2].compact.sum }
+
+      Man, nice work. I recognized it was a dp question, and started memorizing, and then switched to tabulation but I couldn't get it to work. I had the idea, but this made it so much easier to realize.
+    :replies: []
+  - :author: Karl_Marxxx
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcw7sb/
+    :body: Can you explain the logic of part 1 to me? Also, how does part 2 work? Isn't i a value from the input (not an index)?
+    :replies:
+    - :author: jtgorn
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg6ak2/
+      :body: Sorry, I do not understand your question about part 2.
+      :replies:
+      - :author: Karl_Marxxx
+        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkp7c4/
+        :body: I was confused because you are using the value from a as an index into c. This confused me because I assumed you would quickly run into an indexing out-of-bounds error. Another user pointed out that ruby simply backfills nils up until the needed index, which I hadn't known before.
+        :replies: []
+    - :author: jtgorn
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg65zs/
+      :body: |-
+        Part 1 actually assumes that there are no differencies of 2. With such assumptions: imagine the list of differencies. It only consists of 3s and 1s. The total sum of that list should give input joltage of your device (a.max+3). If there are A 3s and B 1s, the total sum is A\*3+B. You know how many differencies there are (a.count+1) which gives you two equasions:
+
+        ```ruby
+        A*3+B = a.max+3
+        A+B = a.count +1
+        ```
+
+        it is easy to calculate A and B from that and calculate A\*B.
+      :replies:
+      - :author: Karl_Marxxx
+        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkosty/
+        :body: Awesome, thanks!
+        :replies: []
+    - :author: '442401'
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffkzmv/
+      :body: |-
+        This is quite beautiful.
+
+        For part 1, imagine a row of buckets labeled upwards from 0. Put the outlet (rated 0) in the first bucket and put each adaptor into the bucket corresponding to its rated joltage value. Each time there is a jump of 3 jolts between adaptors we leave 2 empty buckets. Therefore, to calculate the number of 3 jolt differences (`x`) count the number of empty buckets (`a.max - a.count`) and divide by 2. Then add 1 to represent the device's built in adaptor. (The author has chosen to use a negative difference (`a.count - a.max`) and subtract that halved negative difference from 1 (`1-x`) but the result is the same).
+
+        Now, imagine we have 3 adaptors, rated 1,2,and 3 jolts. When we put them in their respective buckets. We have 4 buckets containing the outlet and 3 adaptors. Because we know the number of 3 jolt gaps (in this case 0) we can subtract this from the number of adaptors to find the number of 1 jolt gaps. In this case, 3 (0-1, 1-2, and 2-3). Again, because the author has chosen to use the negative difference, the number of adaptors is added to the negated number of 3 jolt gaps (`x + a.count`) to arrive at the same result.
+
+        In part 2, yes `i` is the value from the input but it is also being used as an index into the array. `a.each { |i| c[i+3] = c[i..i+2].compact.sum }` says that every time an adaptor with a value 1 greater than the previous is added to the collection, the number of possible arrangements will increase by the sum of the previous 3 possible arrangements whereas adding an adaptor with a value 3 greater than the previous maximum will not alter the number of possible arrangements.
+      :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90tw1/
+  :body: |-
+    Ruby, 265/382, after cleanup:
+
+    ```ruby
+    # part 1
+    data = IO.read('inputs/10.txt').split.map(&:to_i).sort
+    data = [0] + data + [data.last + 3]
+    diff = Hash.new(0)
+    data.each_cons(2) { |a, b| diff[b - a] += 1 }
+    p diff[1] * diff[3]
+
+    # part 2
+    def calc(adapters, cache, n)
+      return 1 if n == 0
+      return 0 if !adapters.include?(n)
+      cache[n] ||= (1..3).sum { |x| calc(adapters, cache, n - x) }
+    end
+    p calc(data.to_set, {}, data.last)
+    ```
+  :replies: []
+- :author: hltk
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91xad/
+  :body: |-
+    Ruby. Part 2 uses the hash table's constructor (recursively) for building the dp.
+
+    ```ruby
+    a = read('10').ints
+    a += [a.max + 3] + [0]
+
+    diffs = a.sort.each_cons(2).map{|x,y|y - x}.tally
+    p diffs[1] * diffs[3]
+
+    dp = Hash.new{|h,x|
+      h[x] = (x-3...x).filter{|i|a.include? i}.map{|i|h[i]}.sum
+    }
+    dp[0] = 1
+    puts dp[a.max + 3]
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9oykp/
+  :body: |-
+    # Ruby
+
+    Seen some clever solutions on here especially given I didn't notice step 2 was an arithmetic problem. I treated it as a graph optimization problem, but still managed a shortish solution:
+
+    ```ruby
+    ns = [0, *$<.readlines.map(&:to_i).sort]
+    g = ns.map { |num| [num, ns.select { |n| (n - num).between?(1,3) }] }.to_h
+    g[ns.max] = 1
+    p ns.reverse[1..-1].map { |k| g[k] = g[k].sum { |d| g[d] } }.last
+    ```
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfamvp0/
+  :body: |-
+    # Ruby
+
+    Up until now I've just thrown in a lot of `combination(x).find` etc, and everything has passed like a breeze. Today my hastily slapped-toghetter part 2 bruteforce had been running for 2 hours before it dawned on me that "oh, it's just dynamic programming".
+
+    ```ruby
+    adapters = File
+      .readlines('input-10.txt')
+      .map(&:to_i)
+      .sort
+
+    outlet = 0
+    device = adapters.max + 3
+
+    # Part 1
+    jumps = [outlet, *adapters, device]
+      .each_cons(2)
+      .map { |a,b| b-a }
+      .tally
+
+    p jumps[1] * jumps[3]
+
+    # Part 2
+    require 'set'
+    nodes = Set[outlet, *adapters, device]
+
+    paths = Hash.new { 0 }
+    paths[outlet] = 1
+
+    possible_jumps = [1, 2, 3]
+
+    [outlet, *adapters].each do |node|
+      possible_jumps.each do |jump|
+        target = node + jump
+        if nodes.include? target
+          paths[target] += paths[node]
+        end
+      end
+    end
+
+    p paths[device]
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90ccm/
+  :body: |-
+    Ruby 500/359. Probably could make this fancier, but the memoization got part two under a second.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQCSAwAAAAAAAAARiAqGkkN7pUjVWW5Qxng6Sa5RIpX45F8jD+UzAnG94fGsw92jqpPvt0f0lNYaCwwDk7adI7w0p58gIuu0WGbp0gmxYNjQhRjLVp0BOJ0lsE6giFORUZUludzYZM7a4FlFlc+5/guuelyungcIh33yxUBBjWlPJ0U05V+eQYrAbgbA6GiLxvwnwFe1QFaagyl0KD/pkR5uhPQfcdeX0VuKuqHU/5jrkF7j4UMryIm5CXIg/zVRrO99t/j+wONt0KJnBfDup9zbXYVG2/MJRFoByudziiUXK3oTtYxfzWKxF2/dUGhWsDnm8IIix3J4qF/aC0tnAIKPwisdRD+zqyvW0mTdtYK+B2uev0kwa6/0Jd6Ps8bMxsDgPUdu6g6ws3b+XEwvuPnitlqe9fzhGYmj9z3DYM3wAYPhxY21gJytiK/mHUREK+OOLkApZgntdpj77ZIkWN4ClUwy7vqmMgJRjxBncMSoLy3/1aVvzQ==)
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91536/
+  :body: |-
+    Ruby 149/44.
+
+    Had an off by one error for part 1 because I forgot the first adapter is 1 away lol
+
+    ```ruby
+    a=$<.map(&:to_i).sort
+    b=c=1
+    a.each_cons(2){|x,y|case y-x
+    when 1
+    b+=1
+    when 3
+    c+=1
+    end}
+    p b*c
+
+    h={0=>1}
+    a.each{|x|h[x]=([h[x-1],h[x-2],h[x-3]]-[nil]).sum}
+    p h.values.last
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9cr2t/
+  :body: |-
+    **Ruby:** 8:06/29:01, 1409/1335
+
+    Here's a [recording](https://youtu.be/IOCH3ChHZnI) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/959c985ce9f61c58e21a1e23f2da1c8d15896e0c/2020/dec10.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Ugh, I got absolutely shellacked today. I found the wording of Part 1 really confusing and half-started to implement all the possible adapter chains we'd need for Part 2 before I realized we just needed to sort and compute the differences.
+
+    Part 2 didn't go much better. I spent a while implementing a recursive solution, which I eventually got written "correctly" only to then realize that it wouldn't never finish in time. (It was only at this point I read the comment about "more than a trillion"...) Rather than switch to a dynamic programming/memoization method, I broke up the input into "chunks" where the end of one chunk was separated by the start of the next chunk by 3, indicating that both adapters HAD to be used. Then I could compute how many different chains there were in each shorter chunk, using the same solution I had already come up with, then multiple those all together.
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9ouwx/
+    :body: |-
+      Part 2 of this one totally beat me too for a while. I failed to notice the "over a trillion" comment and wrote a very naive recursive search (though over a graph) and went down the same rabbit hole you did! :-D
+
+      I took longer than you though ended up with what you might find an interesting solution given we went totally different ways.
+
+      ```ruby
+      ns = [0, *$<.readlines.map(&:to_i).sort]
+      g = ns.map { |num| [num, ns.select { |n| (n - num).between?(1,3) }] }.to_h
+      g[ns.max] = 1
+      p ns.reverse[1..-1].map { |k| g[k] = g[k].sum { |d| g[d] } }.last
+      ```
+    :replies:
+    - :author: backtickbot
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9ovdb/
+      :body: |-
+        [Fixed formatting.](https://np.reddit.com/r/backtickbot/comments/kadxf1/httpsnpredditcomradventofcodecommentska8z8x2020/)
+
+        Hello, petercooper: code blocks using triple backticks (```) don't work on all versions of Reddit!
+
+        Some users see [this](https://stalas.alm.lt/backformat/gf9ouwx.png) / [this](https://stalas.alm.lt/backformat/gf9ouwx.html) instead.
+
+        To fix this, **indent every line with 4 spaces** instead.
+
+        [FAQ](https://www.reddit.com/r/backtickbot/wiki/index)
+
+        ^(You can opt out by replying with backtickopt6 to this comment.)
+      :replies:
+      - :author: petercooper
+        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9p19n/
+        :body: I think this bot is fine, but would be useful if it only commented a few minutes after the original comment as I always catch and fix the solution as soon as I see the comment ;-)
+        :replies: []
+- :author: Robert-Damoc
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9nvaj/
+  :body: |-
+    You can also find the solution in the following link: [Day 10 Solution in Ruby](https://github.com/robert-damoc/Advent-of-Code/blob/master/2020/Day10/day10.rb) - This repo includes solutions for past days too.
+
+    ```ruby
+    # frozen_string_literal: true
+
+    require 'basic_file_reader'
+
+    adapters = BasicFileReader.lines(file_name: 'input').map(&:to_i).sort
+
+    # Monkeypatch the [] for arrays so that the default value for an array will
+    # be 0 instad of nil; this way we don't need to add .to_i or exatra checks
+    class Array
+      def [](index)
+        at(index) || 0
+      end
+    end
+
+    def joltages(adapters)
+      diffs = [0, 0, 1]
+      current_jolt = 0
+
+      adapters.each do |adapter|
+        diffs[adapter - current_jolt - 1] += 1
+        current_jolt = adapter
+      end
+
+      diffs[0] * diffs[2]
+    end
+
+    def adapters_arrangements(adapters)
+      arrangements = []
+
+      arrangements[adapters.size - 1] = 1
+
+      (adapters.size - 2).downto(0).each do |index|
+        arrangements[index] = 0
+        (index + 1).upto(index + 3) do |i|
+          next if adapters[i] - adapters[index] > 3
+
+          arrangements[index] += arrangements[i]
+        end
+      end
+
+      arrangements.first
+    end
+
+    p joltages(adapters)
+    p adapters_arrangements([0] + adapters + [adapters.max + 3])
+    ```
+  :replies: []
+- :author: AmazedAlligator
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfag6bj/
+  :body: |-
+    Super Simple **Ruby** solution for part 2 which counts paths in a directed graph. Not nearly as succinct as the other one but hopefully it's easy to understand.
+
+    [https://github.com/m7rk/adventofcode2020/blob/master/10.rb](https://github.com/m7rk/adventofcode2020/blob/master/10.rb)
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfb338j/
+  :body: |-
+    Ruby
+
+    For part 2, I summed the possible paths in reverse for each adapter's "friends". O(n)-ish
+
+    ```ruby
+    adapters = open('inputs/10.txt').readlines.map(&:to_i).sort
+    $jolts = [0] + adapters + [adapters.max + 3]
+
+    def part_1
+      diffs = $jolts[1..].each_with_index.map { |num, index| num - $jolts[index] }
+
+      diffs.count(1) * diffs.count(3)
+    end
+
+    def part_2
+      friends = $jolts.each_with_index.map do |adapter, index|
+        [adapter, $jolts[index + 1, 3].select { |a| a <= adapter + 3 }]
+      end
+
+      scores = []
+
+      friends.reverse.each do |adapter, set|
+        scores[adapter] = set.size.zero? ? 1 : set.map { |friend| scores[friend] }.sum
+      end
+
+      scores.first
+    end
+
+    p part_1
+    p part_2
+    ```
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbq4f4/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    input = ARGF
+    nums = input.readlines.map(&:to_i).sort
+
+    # part 1
+    inc1 = inc3 = 1 # default adapter
+    nums.each_cons(2) { |a, b| b - a == 1 ? inc1 += 1 : inc3 += 1 }
+    p inc1 * inc3
+
+    # part 2
+    counts = [0] * nums.size
+    children = -> (val) {
+        nums.each_index.select { |idx| val < nums[idx] && nums[idx] <= val+3 }
+    }
+    (nums.size-1).downto(0) do |i|
+        c = children.call(nums[i])
+        counts[i] = [1, counts.values_at(*c).sum].max
+    end
+    p counts.values_at(*children.call(0)).sum
+    ```
+  :replies:
+  - :author: theGalation
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc5lbn/
+    :body: |-
+      THANK YOU
+
+      I have tried this 4 different ways and none of them worked. I'm going to read through this until I grok all of it.
+
+      If I get this in a whiteboard I am eating the markers.
+    :replies:
+    - :author: Karl_Marxxx
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc641m/
+      :body: It's a dynamic programming approach. Lemme know if you'd like me to help break it down!
+      :replies: []
+  - :author: theGalation
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc7gp1/
+    :body: This is some good ruby magic.
+    :replies: []
+- :author: anericod
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9dsvd/
+  :body: |-
+    # Ruby
+
+    ## [Part 1](https://topaz.github.io/paste/#XQAAAQCiAQAAAAAAAAAwZ/6EGhQuSiJ3zPaFi5GSatKSquQ9dQfNsPoynkPHMAJa17HtFnMvo/RCWwJVQZmuS8Yqxw0NBAbdLoSNAqfKfhWTaz3EPqeDu0oygM1GR+laIDuV6WqYSp04XGjuwsQCMNoHkndL/ixIJ6erzopRbPvwLRRquLivBXWbQDYo7IcAJq1HXMBt7ICZmpbuTgEhDyoplm8gq5vtBjq4lJb01FETtizUfhaX8eK1+3K1EsKpNokueeiY4D1u5LLco2kQSnWgXp6dTNevVjrnsf/x8gT3)
+
+    ## [Part 2](https://topaz.github.io/paste/#XQAAAQC8AgAAAAAAAAAQbEpGU6KM06bYzko2qol1x50UqMR5hJxQKlOKhP2T82/eHIVfJFPRJQ9804W5+V6nYETQIdDQa0tldtL6UXXpgDK6LmjdVNZqHyfjDPe09O3EwKGxmNMTkgIezNdOqRU2HjZFZ+xTd+N9z3hmVQMUGqNMgx0gzh5q2Nj8Q7bi1r23hlYAH8gvhwBqIl0Hrbb/QHq9DrhTWM5DpJvZG/MQPJKrqZXf4qtZjF9e1W/NVlJwZ2FK7wGngtgJm/+ETZHcwWXLqKw7TQbGeqkOzzkCzU06sCqrpiYqZif/MnW6A8eYqF2FfbKflXUbE1uwuNQkw1nUzWsEHk8jYLfwE9j8XRwKYQ7/98IenKt4WF+HP4pLmHmmLoHTu4/W039YoS2Tq9f+Wb7W)
+  :replies: []

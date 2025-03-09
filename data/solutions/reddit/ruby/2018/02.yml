@@ -1,0 +1,299 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawj95t/
+  :body: |-
+    I mistyped 4 3 instead of 2 3 and got an obviously wrong answer which I wasn't smart enough to double check, so I had to wait one minute. Still got on top 100 though! [Imgur](https://i.imgur.com/ds13ZAy.png)
+
+    ```ruby
+    a=$<.map(&:chars).map{|x|x.group_by &:itself}
+    b=a.count{|x|x.any?{|x,y|y.count == 2}}
+    c=a.count{|x|x.any?{|x,y|y.count == 3}}
+    p b*c
+    #!ruby
+    a=$<.map(&:chars)
+    a.map{|x|a.map{|y|
+    d=x.zip(y).count{|x,y|x!=y}
+    (p x.join,y.join
+    1/0)if d==1
+    }}
+    ```
+
+    Doesn't actually compute part 2, you have to manually find and replace the character yourself, but better than nothing
+  :replies:
+  - :author: abnew123
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjn4w/
+    :body: Man, I'm always so sad when I look at other's solutions lol. While I wasn't particularly slow (177th), my code is 70+ lines lol. Oh well, I blame java
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjoq3/
+      :body: Don't worry I got your back, I'll do a java one for you
+      :replies: []
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawmqct/
+      :body: |-
+        Part 1
+
+        ```ruby
+        import java.util.*;
+        import java.util.stream.*;
+
+        public class Main {
+
+            public static void main (String[] args) {
+                Scanner s = new Scanner(System.in);
+                int count2 = 0, count3 = 0;
+                while (s.hasNextLine()) {
+                    boolean check2 = true, check3 = true;
+                    for (int value : s.nextLine().chars().collect(HashMap<Integer, Integer>::new, (map, elem) -> map.put(elem, map.getOrDefault(elem, 0) + 1), HashMap::putAll).values())
+                        if (check2 && value == 2) {
+                            count2++;
+                            if (!check3) break;
+                            check2 = false;
+                        }
+                        else if (check3 && value == 3) {
+                            count3++;
+                            if (!check2) break;
+                            check3 = false;
+                        }
+                }
+                System.out.println(count2 * count3);
+            }
+
+        }
+        ```
+
+        It's getting long so I'm only including what's in main() for part 2
+
+        ```ruby
+        Scanner s = new Scanner(System.in);
+        Collection<char[]> all = new ArrayList<>();
+        while (s.hasNextLine()) {
+            String line = s.nextLine();
+            char[] current = line.toCharArray();
+            Optional<char[]> find = all.stream().filter((elem) -> {
+                boolean miss = false;
+                for (int i = 0; i < current.length; i++)
+                    if (current[i] != elem[i])
+                        if (miss) return false; else miss = true;
+            return miss;
+            }).findAny();
+            if (find.isPresent()) {
+                System.out.println(find.get());
+                System.out.println(line);
+            }
+            all.add(current);
+        }
+        ```
+      :replies: []
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawwe0m/
+      :body: |-
+        Another Java solution: Part 1:
+
+        ```ruby
+        public int getChecksum(BufferedReader reader) throws IOException {
+            String line;
+            int doubleDigits = 0;
+            int tripleDigits = 0;
+            while ((line = reader.readLine()) != null) {
+                Map<Character, Integer> frequencies = new HashMap<>();
+                for (char c : line.toCharArray()) {
+                    frequencies.merge(c, 1, (a, b) -> a + b);
+                }
+                Set<Integer> uniqueFrequencies = new HashSet<>(frequencies.values());
+                if (uniqueFrequencies.contains(2)) doubleDigits++;
+                if (uniqueFrequencies.contains(3)) tripleDigits++;
+            }
+            return doubleDigits * tripleDigits;
+        }
+        ```
+
+        Part2:
+
+        ```ruby
+        public String getCommonLetters(BufferedReader reader) {
+            List<String> lines = reader.lines().collect(Collectors.toList());
+            for (int i = 0; i < lines.size(); i++) {
+                String firstLine = lines.get(i);
+                for (int j = i + 1; j < lines.size(); j++) {
+                    String secondLine = lines.get(j);
+                    int distance = 0;
+                    StringBuilder commonLetters = new StringBuilder();
+                    for (int k = 0; k < firstLine.length(); k++) {
+                        if (firstLine.charAt(k) != secondLine.charAt(k)) {
+                            if (++distance > 1) {
+                                break;
+                            }
+                        } else {
+                            commonLetters.append(firstLine.charAt(k));
+                        }
+                    }
+                    if (distance == 1) {
+                        return commonLetters.toString();
+                    }
+                }
+            }
+            return "";
+        }
+        ```
+      :replies: []
+  - :author: DoodleFungus
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjlyk/
+    :body: Wow, our ruby answers have been remarkably similar both days (but I've barely missed the leaderboard both times, grrrrr)
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjna2/
+      :body: Fastest gun in the west!
+      :replies: []
+  - :author: charismotron
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawnzm8/
+    :body: |-
+      TIL: Array#count exists
+
+      TIL: Array#count takes a block.
+
+      I thought about zip but couldn't think of a way to make it work - forgetting there'd be nested arrays.
+    :replies:
+    - :author: _liquidlemon
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawvsgw/
+      :body: |-
+        I managed to do it using zip, you might like it
+
+        ```ruby
+        ids = DATA.readlines.map(&:chomp)
+        two = 0
+        three = 0
+        ids.each do |id|
+          counts = id.chars.group_by(&:itself).values.map(&:length).uniq
+          two += 1 if counts.include? 2
+          three += 1 if counts.include? 3
+        end
+        checksum = two * three
+        puts "Part 1: #{checksum}"
+
+        ids.product(ids) do |x, y|
+          same = x.chars.zip(y.chars).select { |a, b| a == b }.map(&:first)
+          if same.length == x.length - 1
+            puts "Part 2: #{same.join}"
+            break
+          end
+        end
+        ```
+      :replies: []
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawp4sp/
+      :body: It's actually also on Enumerable, so you can directly .count lines on STDIN, except unfortunately we need to use it twice in this case!
+      :replies: []
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayay2l/
+    :body: Can you explain the x.join,y.join 1/0?
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayuhrv/
+      :body: at this point both `x` and `y` are array of size-1 strings, so `.join` turns them back into non-split strings and feeds them through `p` which prints them. 1/0 crashes the program. it's faster to type than exit
+      :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawl9y6/
+  :body: |-
+    Ruby
+
+    ```ruby
+    data = File.read('data.txt').chomp.split("\n")
+    ```
+
+    **Part 1**
+
+    ```ruby
+    twos, threes = 0, 0
+    data.each do |d|
+      twos += 1 if d.each_char.select { |c| d.count(c) if d.count(c) == 2 }.uniq.count > 0
+      threes += 1 if d.each_char.select { |c| d.count(c) if d.count(c) == 3 }.uniq.count > 0
+    end
+    puts twos * threes
+    ```
+
+    **Part 2**
+
+    ```ruby
+    data.each_with_index do |d1, i|
+      data[i + 1..data.size].each do |d2|
+        diff = d1.each_char.with_index.count { |c, k| c != d2.chars[k] }
+        puts [d1, d2] if diff == 1
+      end
+    end
+    ```
+  :replies:
+  - :author: justinhj
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eaxf0lv/
+    :body: |-
+      Nice, much more succinct than what I came up with
+
+      ```ruby
+          def count_twos_and_threes(str)
+            sa = str.scan(/\w/)
+
+            groups = sa.group_by { |c| c }.values
+
+            has_two = groups.any? { |g| g.length == 2 }
+            has_three = groups.any? { |g| g.length == 3 }
+
+            return has_two ? 1 : 0, has_three ? 1 : 0
+          end
+
+          counts = lines.reduce([0, 0]) do |acc, line|
+            twos, threes = count_twos_and_threes(line)
+
+            acc[0] = acc[0] + twos
+            acc[1] = acc[1] + threes
+
+            acc
+          end
+
+          puts counts[0] * counts[1]
+      ```
+    :replies: []
+- :author: omegaxLoL
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eax092v/
+  :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day2.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
+  :replies: []
+- :author: EngCanuck
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayzzlt/
+  :body: |-
+    Ruby:
+
+    Here's my solution, using the damerau-levenshtein gem for part 2:
+
+    ```ruby
+    #!/usr/bin/env ruby
+    require 'damerau-levenshtein'
+
+    ids = File.readlines('ids.txt').map(&:strip)
+
+    # Part one
+    twos = 0
+    threes = 0
+    candidates = []
+    ids.each do |id|
+      counts = id.split('')
+                 .each_with_object(Hash.new(0)) { |letter, hash| hash[letter] += 1 }
+                 .values
+      continue unless counts.include?(2) || counts.include?(3)
+      twos += 1 if counts.include?(2)
+      threes += 1 if counts.include?(3)
+      candidates.push(id)
+    end
+
+    puts twos * threes
+
+    # Part two
+    prototypes = candidates.permutation(2).find do |a, b|
+      DamerauLevenshtein.distance(a, b) == 1
+    end
+
+    first = prototypes[0].split('')
+    second = prototypes[1].split('')
+    second -= ((first - second) | (second - first))
+
+    puts second.join
+    ```
+  :replies: []

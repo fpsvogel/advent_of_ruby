@@ -1,0 +1,123 @@
+---
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3v3w2f/day_2_solutions/cxk4xpj/
+  :body: |-
+    Not-a-programmer solutions in ruby
+
+    Part 1:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.readlines("input.txt")
+
+    total = 0
+    present = []
+    data.each do |c|
+      temp = c.strip.split("x")
+      present = temp.collect{|i| i.to_i}
+      present = present.sort
+      x = 2 * present[0] * present[1]
+      y = 2 * present[1] * present[2]
+      z = 2 * present[2] * present[0]
+      total += x + y + z + (present[0] * present[1])
+    end
+
+    p total
+    ```
+
+    Part 2:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    data = File.readlines("input.txt")
+
+    total = 0
+    present = []
+    data.each do |c|
+      temp = c.strip.split("x")
+      present = temp.collect{|i| i.to_i}
+      present = present.sort
+      ribbon = (present[0] * 2) + (present[1] * 2)
+      bow = present[0] * present[1] * present[2]
+      total += ribbon + bow
+    end
+
+    p total
+    ```
+  :replies:
+  - :author: Aneurysm9
+    :url: https://www.reddit.com/r/adventofcode/comments/3v3w2f/day_2_solutions/cxk5rbh/
+    :body: I'm so proud of you! For a not-a-programmer you came up with pretty much the mirror of my Perl solution.
+    :replies:
+    - :author: gnuconsulting
+      :url: https://www.reddit.com/r/adventofcode/comments/3v3w2f/day_2_solutions/cxki7t4/
+      :body: Heh. Pure coincidence I'm sure :-P
+      :replies: []
+- :author: mikealxmitchell
+  :url: https://www.reddit.com/r/adventofcode/comments/3v3w2f/day_2_solutions/cxk8soe/
+  :body: |-
+    Ruby: Day 2 Part I
+
+    ```ruby
+    sum = 0
+    File.open(ARGV[0]).each do |line|
+      box = line.split('x').map(&:to_i).sort
+      sum += 3*box[0]*box[1] + 2*box[1]*box[2] + 2*box[0]*box[2]
+    end
+    puts sum
+    ```
+
+    Ruby: Day 2 Part II
+
+    ```ruby
+    sum = 0
+    File.open(ARGV[0]).each do |line|
+      box = line.split('x').map(&:to_i).sort
+      sum += 2*box[0] + 2*box[1] + box[0]*box[1]*box[2]
+    end
+    puts sum
+    ```
+  :replies: []
+- :author: adherry
+  :url: https://www.reddit.com/r/adventofcode/comments/3v3w2f/day_2_solutions/cxkqhxw/
+  :body: |-
+    My Ruby solution, could be a bit more dry, but does the job
+
+    ```ruby
+    # Day 2
+    file = File.new("input", "r")
+    arr = []
+    while (line = file.gets)
+      arr << line.split('x')
+      arr[-1][-1] = arr[-1][-1].gsub("\n","")
+    end
+    arr.each do |element|
+      element.map! { |e| e.to_i }
+    end
+    #star 1
+    total_amount_paper = 0
+    arr.each do |element|
+      sides = []
+      sides << element[0]*element[1]
+      sides << element[1]*element[2]
+      sides << element[0]*element[2]
+      smallest_side = sides.min
+      sum_of_sides = 0
+      sides.map { |e| sum_of_sides += e*2 }
+      total_amount_paper += smallest_side + sum_of_sides
+    end
+
+    #star 2
+    total_amount_ribbon = 0
+    arr.each do |element|
+      required_length = 0
+      element.min(2).map { |e| required_length += 2*e}
+      volume = element[0]*element[1]*element[2]
+      total_amount_ribbon += required_length + volume
+    end
+    puts "Total amount of paper needed: #{total_amount_paper}"
+    puts "Total amound of ribbon needed: #{total_amount_ribbon}"
+    ```
+  :replies: []

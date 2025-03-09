@@ -1,0 +1,549 @@
+---
+- :author: SomebodyTookMyHandle
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxydtvs/
+  :body: |-
+    I also tackled it in Ruby using a class-based approach. A bit sloppy, but, hey, it's not only the reindeer who are racing!
+
+    ```ruby
+    class Reindeer
+      attr_accessor :name, :pace, :go_time, :rest_time, :winning_seconds
+
+      def initialize(name, pace, go_time, rest_time)
+        @name = name
+        @pace = pace
+        @go_time = go_time
+        @rest_time = rest_time
+        @winning_seconds = 0 # For Part Two
+      end
+
+      def find_distance(total_seconds)
+        d = 0
+        until total_seconds <= 0
+          can_go = go_time
+          while can_go > 0
+            d += pace
+            can_go -= 1
+            total_seconds -= 1
+            break if total_seconds == 0
+          end
+          total_seconds -= rest_time
+        end
+        d
+      end
+    end
+
+    def reindeer_io
+      reindeer = []
+
+      IO.foreach("help14-reindeer.txt") do |line|
+        data = line.split
+
+        r = Reindeer.new(data[0], data[3].to_i, data[6].to_i, data[13].to_i)
+        p r
+        reindeer << r
+      end
+
+      reindeer
+    end
+
+    # Part One
+    def find_best(arr, seconds)
+      arr.each do |reindeer|
+        p [reindeer.name, reindeer.find_distance(seconds)]
+      end
+    end
+
+    # Part Two
+    def find_leaders(arr, seconds)
+
+      (1..seconds).to_a.each do |second_count|
+        leader = arr.max_by { |reindeer| reindeer.find_distance(second_count) }
+        leader.winning_seconds += 1
+      end
+
+      arr.each do |reindeer|
+        p [reindeer.name, reindeer.winning_seconds]
+      end
+    end
+
+    find_best(reindeer_io, 2503)
+    puts ""
+    find_leaders(reindeer_io, 2503)
+    ```
+  :replies:
+  - :author: JurgenKesker
+    :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytybj/
+    :body: |-
+      Nice, I have almost the same approach. Only I see you use .max\_by. I will look that one up, didn't know that one.
+
+      My solution: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytkcc
+
+      -- I had a look at max\_by, but it seems to return only 1 leader. What if there are multiple leaders? Your code doesn't seem to handle that.
+    :replies:
+    - :author: SomebodyTookMyHandle
+      :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy0flil/
+      :body: That's a very good point. I guess I lucked out in that the leader was the first position in the array so that that reindeer received all the ties.
+      :replies: []
+- :author: Axsuul
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxye2lc/
+  :body: |-
+    Ruby (State machine)
+
+    ```ruby
+    class Reindeer
+      attr_accessor :name, :state, :speed, :fly_duration, :rest_duration, :clock, :distance, :points
+
+      def initialize(name, speed, fly_duration, rest_duration)
+        self.name = name
+        self.speed = speed.to_i
+        self.fly_duration = fly_duration.to_i
+        self.rest_duration = rest_duration.to_i
+
+        # Initialize
+        self.state = :flying
+        self.clock = 0
+        self.distance = 0
+        self.points = 0
+      end
+
+      def tick!
+        self.clock += 1
+        self.distance += speed if flying?
+
+        # Determine state after
+        if flying? && clock == fly_duration
+          self.state = :resting
+          self.clock = 0
+        elsif resting? && clock == rest_duration
+          self.state = :flying
+          self.clock = 0
+        end
+
+      end
+
+      def flying?
+        state == :flying
+      end
+
+      def resting?
+        state == :resting
+      end
+
+      def add_point!
+        self.points += 1
+      end
+    end
+
+    reindeers = []
+    reindeer_points = {}
+
+    File.open('day14.txt').readlines.each do |line|
+      _, name, speed, fly_duration, rest_duration = line.match(/(\w+) can fly (\d+) km\/s for (\d+) seconds, but then must rest for (\d+) seconds/).to_a
+
+      reindeers << Reindeer.new(name, speed, fly_duration, rest_duration)
+      reindeer_points[name] = 0
+    end
+
+    2503.times do
+      reindeers.map(&:tick!)
+
+      highest_distance = reindeers.sort_by { |r| r.distance }.last.distance
+
+      reindeers.each do |reindeer|
+        reindeer.add_point! if reindeer.distance == highest_distance
+      end
+    end
+
+    puts reindeers.sort_by { |r| r.points }.map(&:inspect)
+    ```
+  :replies: []
+- :author: jchook
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyeaqr/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    class Deer
+      attr_accessor :current_distance, :points
+      def initialize(distance, fly_duration, rest_duration)
+        @distance = distance.to_i
+        @duration = {fly: fly_duration.to_i, rest: rest_duration.to_i}
+        @current_time = @current_distance = @points = 0
+        @mode = :fly
+      end
+      def change_mode
+        @mode = (@mode == :fly) ? :rest : :fly
+        @current_time = 1
+      end
+      def fly
+        @current_time += 1
+        change_mode if @current_time > @duration[@mode]
+        @current_distance += @distance if (@mode == :fly)
+      end
+    end
+
+    deer = []
+
+    ARGF.each do |line|
+      deer << Deer.new(*line.match(/(\d+).*?(\d+).*?(\d+)/i).to_a.slice(1..-1))
+    end
+
+    2503.times do
+      deer.each {|d| d.fly }
+      deer.max_by(&:current_distance).points += 1
+    end
+
+    p deer.max_by(&:points).points
+    ```
+  :replies: []
+- :author: gnuconsulting
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyef06/
+  :body: |-
+    Well out of the leaderboard today - part 2 kicked my butt. I feel like I can - more and more - see the seams between my ever-so-slightly-more-than-shell-scripts and "real" programs.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    def calc(speed,time,rest)
+     distance = 0
+     totaltime = 0
+     while true do
+       for i in 1..time
+         if totaltime >= 2503
+           return distance
+         end
+         totaltime += 1
+         distance += speed
+       end
+       for i in 1..rest
+         if totaltime >= 2503
+           return distance
+         end
+         totaltime += 1
+       end
+     end
+    end
+
+    data = File.readlines("input.txt")
+
+    data.each do |x|
+      line = x.split(' ')
+       p line[0]
+       p calc(line[3].to_i,line[6].to_i,line[13].to_i)
+    end
+
+    #!/usr/bin/env ruby
+
+    def calc(speed,time,rest)
+     distance = 0
+     score = []
+     totaltime = 0
+     while true do
+       for i in 1..time
+         if totaltime >= 2503
+           return score
+         end
+         totaltime += 1
+         distance += speed
+         score << distance
+       end
+       for i in 1..rest
+         if totaltime >= 2503
+           return score
+         end
+         totaltime += 1
+         score << distance
+       end
+     end
+    end
+
+    data = File.readlines("input.txt")
+
+    rein = {}
+    data.each do |x|
+      line = x.split(' ')
+       rein[line[0]] = calc(line[3].to_i,line[6].to_i,line[13].to_i)
+    end
+
+    lead = ""
+    totals = { "Rudolph" => 0,
+               "Cupid" => 0,
+               "Prancer" => 0,
+               "Donner" => 0,
+               "Dasher" => 0,
+               "Comet" => 0,
+               "Blitzen" => 0,
+               "Vixen" => 0,
+               "Dancer" => 0
+    }
+    max = 0
+    for i in 0..2502
+      rein.each do |key,value|
+        if value[i] > max
+          max = value[i]
+          lead = key
+        end
+      end
+      totals[lead] += 1
+    end
+    p totals
+    ```
+  :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyiyjk/
+  :body: |-
+    ruby
+
+    ```ruby
+    input = File.read "input"
+
+    def distance speed, duration, rest, seconds
+      iter = duration + rest
+      cycles = seconds / iter
+      remainder = seconds % iter
+
+      speed * duration * cycles + speed * [remainder, duration].min
+    end
+
+    distances = input.each_line.map do |line|
+      speed, duration, rest = line.scan(/(\d+)/).flatten.map(&:to_i)
+      distance speed, duration, rest, 2503
+    end
+
+    puts "--- part 1 ---"
+    puts distances.max
+
+    deer = Hash.new {|k,v| k[v] = {}}
+    input.each_line.map do |line|
+      stats = line.scan(/(\d+)/).flatten.map(&:to_i)
+      name = line.split(" ").first
+
+      deer[name][:stats] = stats
+      deer[name][:points] = 0
+    end
+
+    2503.times do |i|
+      round_results = {}
+      deer.each { |k,v| round_results[k] = distance *v[:stats], i+1 }
+      round_results.each do |k,v|
+        deer[k][:points] = deer[k][:points] + 1 if v == round_results.values.max
+      end
+    end
+
+    puts "--- part 2 ---"
+    puts deer.map{|k,v|v[:points]}.max
+    ```
+
+    i screwed myself by forgetting that **each** winning reindeer gets a point
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytkcc/
+  :body: |-
+    Ruby part 1 & 2
+
+    ```ruby
+    class Deer
+
+    attr_reader :speed, :duration, :rest, :name
+
+        def initialize(name, speed, duration, rest)
+            @name = name
+            @speed = speed
+            @duration = duration
+            @rest = rest
+        end
+
+        def to_s
+            "#{@name} can fly #{@speed} km/s for #{@duration} seconds, but then must rest for #{@rest} seconds"
+        end
+
+        def distance(seconds)
+            cycle = @duration + @rest
+            cycles = seconds / cycle
+            left = seconds % cycle
+            left_fly_seconds = [left, @duration].min
+            fly_seconds = left_fly_seconds + (cycles * @duration)
+            distance = fly_seconds * @speed
+        end
+
+    end
+
+    class Processor
+
+        attr_reader :deers
+
+        def initialize
+            @deers = []
+        end
+
+        def parse(input)
+            match = input.match(/(\w+) can fly (\d+) km\/s for (\d+) seconds, but then must rest for (\d+) seconds./)
+            all, name, speed, duration, rest = match.to_a
+            @deers << Deer.new(name, speed.to_i, duration.to_i, rest.to_i)
+        end
+
+        def race_part1(seconds)
+            sorted = @deers.sort_by{|d|d.distance(seconds)}.reverse
+            sorted.each do |d|
+                puts "#{d.name} => #{d.distance(seconds)}"
+            end
+        end
+
+        def race_part2(seconds)
+            points = {}
+            @deers.each {|d|points[d.name] = 0}
+            for i in 1..seconds
+                @deers.group_by{|d|d.distance(i)}.sort.reverse[0][1].each {|d|points[d.name] += 1}
+            end
+            puts points.sort.reverse
+        end
+
+    end
+
+    input = File.new("input14.txt").readlines.map{|l|l.strip}
+    p = Processor.new
+    input.each do |l|
+        p.parse(l)
+    end
+    p.deers.each do |p|
+    puts p
+    end
+    p.race_part2(2503)
+    ```
+  :replies: []
+- :author: HorizonShadow
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyxwec/
+  :body: Ruby - https://github.com/HorizonShadow/Advent-of-Code/tree/master/day14
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxz2qac/
+  :body: |-
+    Ruby solution:
+
+    ```ruby
+    $reindeer = []
+    $speed = {}
+    $time_flying = {}
+    $time_resting = {}
+
+    File.foreach("advent14input.txt"){|line|
+        # Tokenize
+        line = line.strip! || line
+        line = line.slice(0,line.length-1)
+        tokens = line.lines(" ").to_a
+        for t in tokens do
+            t = t.strip! || t
+        end
+
+        # Extract values
+        r = tokens[0]
+        s = tokens[3]
+        t_f = tokens[6]
+        t_r = tokens[13]
+        $reindeer.push(r)
+        $speed[r] = s.to_i
+        $time_flying[r] = t_f.to_i
+        $time_resting[r] = t_r.to_i
+
+    }
+
+    def distance(r, time)
+        t = time
+        d = 0
+        while t > 0 do
+            tf = $time_flying[r]
+            if t < tf then
+                tf = t
+            end
+            d = d + $speed[r]*tf
+            t = t - tf
+            t = t - $time_resting[r]
+        end
+        return d
+    end
+
+    #Part 1
+
+    distance = {}
+
+    for r in $reindeer do
+        distance[r] = distance(r,2503)
+    end
+
+    puts "Part 1 solution: " + distance.values.max.to_s
+
+    #Part 2
+
+    points = {}
+    for r in $reindeer do
+        points[r] = 0
+    end
+
+    for i in 1..2503 do
+        max = 0
+        reindeer_in_lead = nil
+        for r in $reindeer do
+            d = distance(r,i)
+            if d > max then
+                max = d
+                reindeer_in_lead = r
+            end
+        end
+        points[reindeer_in_lead] = points[reindeer_in_lead] + 1
+    end
+
+    puts "Part 2 solution: " + points.values.max.to_s
+    ```
+  :replies: []
+- :author: zacwaz
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy1snmd/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    module Day14
+      def self.solve_part_1(input, time)
+        reindeer = input.readlines.map {|str|
+          Reindeer.new(*ReindeerTravel.parse_rule(str)).distance_after(time)
+        }.max
+      end
+
+      def self.solve_part_2(input, time)
+        reindeer = input.readlines.map {|str|
+          Reindeer.new(*ReindeerTravel.parse_rule(str))
+        }
+        scores = Hash[reindeer.map {|r| [r.name, 0]}]
+        for t in 1..time
+          distances = Hash[reindeer.map{|r| [r.name, r.distance_after(t)]}]
+          reindeer.select{|r| distances[r.name] == distances.values.max}.each{|r| scores[r.name] += 1 }
+        end
+        scores.values.max
+      end
+    end
+
+    class ReindeerTravel
+      def self.parse_rule(str)
+        # Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.
+        str.scan(/^([A-Z][a-z]+) can fly (\d+) km\/s for (\d+) seconds, but then must rest for (\d+) seconds./).first
+      end
+    end
+
+    class Reindeer
+      attr_accessor :name
+
+      def initialize(name, speed, flight_time, rest_time)
+        @name = name
+        @speed = speed.to_i
+        @flight_time = flight_time.to_i
+        @rest_time = rest_time.to_i
+      end
+
+      def distance_after(time)
+        quotient, remainder = time.divmod(@flight_time + @rest_time)
+        (quotient * @flight_time * @speed) + [remainder * @speed, @flight_time * @speed].min
+      end
+    end
+    ```
+  :replies: []

@@ -1,0 +1,26 @@
+---
+- :author: anadhdguy
+  :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/dap9xzs/
+  :body: |-
+    **Oneliner in ruby (117 characters)**:
+
+    ```ruby
+    cat input | ruby -e '_=[1,1];c=0;gets(nil).each_byte{|b|b>64?(a=(b/3)&1;
+    d=((b/3)&2)-1;_[a]=[0,_[a]+d,2].sort[1]):c=c*10+_[0]*3+_[1]+1};p c'
+    ```
+  :replies:
+  - :author: givdwiel
+    :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daplj48/
+    :body: I suppose this only works for part 1 and not for part 2, since there's a gap in the ASCII table between the numbers and letters
+    :replies:
+    - :author: anadhdguy
+      :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daqfal3/
+      :body: |-
+        yup, this solution is only for part1.
+
+        For the part2, the gap wasn't the biggest problem (as I didn't OR 0x30 like the one in C, so I can just multiply by 16 instead of 10, and then display the result with `.to_s(16)`), but rather that it's not a nice rectangle.
+
+        Basically, I solved this by using the center of the keypad as origin (`7` as `(0,0)` for the 2nd keypad, so it starts at `(0,-2)`), and checking that it's in the grid with `abs(x)+abs(y) < 2`.
+
+        The oneliner for the part2 (not posted) is 192char, i'm not too happy with it, but don't have time to fix it.
+      :replies: []

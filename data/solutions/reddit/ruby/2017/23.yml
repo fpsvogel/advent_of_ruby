@@ -1,0 +1,29 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7lms6p/2017_day_23_solutions/drngoc3/
+  :body: |-
+    Ruby; rank 80 for part 2. Ruby has continuation (like goto but only backflip) so it made porting the code easier. I actually converted the code pretty quick, but it took a lot of staring to realize what it was actually doing... I blame the lack of sleep!
+
+    For fun, unoptimized version: https://gist.github.com/Unihedro/962b3c66f0ed500cb66530fd9b775bb9
+
+    ```ruby
+    require'continuation'
+    d=e=f=g=h=0
+    c=b=93
+    b*=100
+    b+=100000
+    c=b
+    c+=17000
+    j2 = callcc {|cc| cc}
+    p h+=1 if (2...(b**0.5).to_i).any?{|d|
+    b%d==0
+    }
+    g=b
+    g-=c
+    (p h;exit)if g==0
+    b+=17
+    j2.call(j2)
+    ```
+
+    ^[postscript](https://cdn.discordapp.com/attachments/293355384436162560/394006646596304896/unknown.png)
+  :replies: []

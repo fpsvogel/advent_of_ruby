@@ -1,0 +1,48 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb73yzz/
+  :body: |-
+    I guess I'll throw my kinda weird solution out there, in the style of some of the weird solutions to day 13.
+
+    Thought process someone might go through to arrive at this:
+
+    - Ah, the instructions state that the robot will output a large number, then halt.
+    - Look for any addresses that are outputted right before a halt.
+    - What functions exist that modify those addresses?
+    - When those functions are called, what are their inputs?
+    - Probably the position of the robot, right?
+    - The robot only cares that it visited every location, right? It doesn't particularly care how it get to those locations. Straight path, winding path, it's all the same to the robot. So then what if it teleported, with no memory of how it got to where it is...?
+
+    So that's (Ruby) [17_set_and\_forget.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/17_set_and_forget.rb)
+
+    I mostly wrote this code since I haven't properly written the code that breaks up the instruction list into three functions yet, so this is just to amuse me while I figure that out and write that...
+  :replies:
+  - :author: gedhrel
+    :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb8xxx5/
+    :body: Yup. I've been reverse engineering the intcode each day after solving the puzzle. Some nice techniques there (including self-modifying code to manage array indexing).
+    :replies: []
+- :author: alienpirate5
+  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb6xeny/
+  :body: |-
+    Ruby: 524/311
+
+    Part 1: [here](https://topaz.github.io/paste/#XQAAAQAyBAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kt1xEsGKaC0+Fz4mBFJqbLuOp8Ux6B8b1flK0MINiN7e1CbqxYHulKoX7k0SdDzFZ3rFasBPAhw3mspjOaPLdvh7E+aHayLqhOs/ZizNBT2SSDm1cel+gjP1TicCUfZ+P48/STqF3MJ2Cmdpe6tce5K79pwVp2HFot7473ftoSZIGAPu/u4+TXiiaKmUBm6oapgxS4qcrU4G3XI4oC3HUWa2cCz6m6krJ6JIzj1qFulKZFpOx8j78BGaYjv8LF6t6pWsJqdPK8+OlyvK8fv4E5UpR0WpsujMS0VfiQ5hszsHmtVgMF1IQkjZJ5wBhuRtj/8OoPVnh8zNxVW2set5M/XIXdVaEcMYIg8khaAzISMxcC3AUrGCCXNtpjoCXezZ3C8MS9QVHdN0zLHRraOtIbddqmkS+y2KViHiKOYvqtxdGc23Aibjnevdy8tJRgjl7FxUDz+ZgYGlgo9KiogbDo/1gSjK5l6eKcSfUXGshNAd7dwLJ0cLrxveLnVhFSY2knKl/G2yA4zAQ6dxmgpT3lI2Fh8OmMVRGbHbogOBbIVb8bgbB4MiPxl3ulOItSuzhQo2laq994hWFAiO4D0c38hKAgAehMINCyZl6mSgFWEyb1MH65kHPWwiO2N351htN8oK5kGHA8yWJYkK1/nN9wtalBedzSxJppKGqs3k0W8bnEcq1EqLeq9wS7yJSVP/Jl2qW2/xhJ5GEuBK8qgyw0n/3/le3mg==)
+
+    Part 2: [here](https://topaz.github.io/paste/#XQAAAQBsBAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kt1xEsGKaC0+Fz4mBFJqbLuOp8Ux6B8b1flK0MINiN7e1CbqxYHulKoX7k0SdDzFZ3rFasBPAhw3mspjOaPLdvh7E+aHayLqhOs/ZizNBT2SSDm1cel+gjP1TicCUfZ+P48/STqF3MJ2Cmdpe6tce5K79pwVp2HFot7473ftoSZIGAPu/u4+TXiiaKmUBm6oapgxS4qcrU4G3XI4oC3HUWa2cCz6m6krJ6JIzj1qF40qv6DPnZ6jsRgzy58rLdU+H2GDg0ZWLKAEdp6xMK2K7YIEQWuBO2tuQgq9OgNCIQS9sCfTEW17T89wblZhz3vh1WtlxES5c7g0qD2h96H7/chNqsaqAXbZjlIg7rGrd+PkH6W6WIxe2AGz7YMSMCAvtwO5NSauiP+h2MrfX59Ibb6G117QkDDa9gBK+55eWDw1hZ1OBL/W+ZtK/g7BVwZTnu3ZkVcLc2Wc37PhYyIxoq30vqBbzVeFRJ7KunXj6HF8CtZMTgEDCErZR3ygm+ESpe1EQeDtXpRznUCWQ4Wa8U2KB85IxintMa8jhp2JgK75Ag3DxbkaqYeXZcGDVMYTfyvtj8fDf9O+YmrYIebER2OwwKhpLScf/xDQ3Ph2phgsoJTv+34wscTO3XrHhEn9JP+wl422VhHaXO1x5UwEFe3z5bslJf11pkScJK+wOoqIeT8EFxQkkayxYNBwAKNidS5+oifnXC3JOKcnQlmZJ+5+u26NsHLvGLkGric8m1cn/6vIKZg==)
+
+    libintcode: [here](https://topaz.github.io/paste/#XQAAAQDSDwAAAAAAAAAR4CRJKPo4y0sUUbMOOHiGH/+y1uugceRRc4OmINsbWz87fAbuuwbuylW+PKnj7cAeqQ4VP3PnSVnRx759Hwzb+4Z+5+EVb1El60Rl242NbBcYE0uVPyVEzd09utMDbapZLlzdEykmmN9u7FO4Wd157Hx4Kiwy5HeWs0zthXMZlNDkH/7uBa8RnKjBJDnr4W4rvLkf9tdmjWN24G1Q38voSe9nosTEUqP/s4z2Q/1BOSYnp0482YgrwbeQ5JEW6U07Ueic1wOFLZkd/F0w3rkZxhFqKSU+fZuav2WnY9a447f8XS7oFtV95GWD6aSaCqpK4RMjMngLGG3biXEIl1m4SvD9ld6ppzSQ+RuZqHh96qjjuRNix456qXHHGxN0vOxWaseP1zIByG+/UN8UE8wcjIZYGV05k3v2/Rqar2POaDQDHmKUCY61ZuQpWWDu5eK2dVD/+vzoeSzJptzOFdABxu5g8eLaWUpa1MPrs/rzKoO5SLM0LSbese6AX+sxqDIqAHrHW8tPSv68E3wDF/3V62hwuAHreNuvxLoPUyMnZAfEnC1NLNwfUXvEzwWrVMNMbCXeSpCsafCRZka8BWr+R1nBi3IreMSoJvhggRUs7o7zZQzASzXxfyfIQH+QpI0MXGnhLKX61uX1HnxNdyRp0nRyz14kd+LTYBTfWREPswUGvVKTPWDpA+7tmGPRvMkcOtJLG0aGjUN0qRXGFH8yT0qsQG/vRSwg0KHKQsEkqvKc5kW89aP2ds+hO5qmJMOwTQXP8dPlG1GKfy+++OFB3jOEKzywcDYJbhekbej+Dad0egXMElIuzgi3sdZ0uwOdZrxX8F1bnPxfL+K86yB/9O75UUN1g8JRL+5Mq8UC5bPanxeF3zf45K/pY0vzFxjSredt7lSdXdidFgglYG/hSN9LGrg3EQObJd6ID96+e+TubW2644KyaUqbp5tesXg6o/bwTSlE2l/dKkeutkH2Z3xKDFZijN7aVqb3rshi6wPAHWfN7i9Zpe+feACDvLzW9Siswlu/NBj7Z6obbEZyxm5GX0cB9VXTBK5+5ZdjvTLrRR6ZBBqrUQrEMX+V55rHxeIMYni/NKHud6AdPVWx5M6zNzs4FIU2Nc214zFzB/YEvR8jDmI0sQqjcB/RbsxonWCLAVCMG4eNAqRPrU740/bbsOUQyDFGP2tU0KR7nmufkOwANakFKLLCnIcB3HnxuvmjwIzMDp5ISo+NYs77eJkCLz3vGX+tPLnlG5MmndeCDHHOShoyegIvETBgl3QAdCUuPVtMcqKx3XdSVediE1M0xZ3F3ywKokPqIo20BTZ1OZ2T2A0EFLItDwa2jJcxS2TVPGGt/a2gU/8C3MhT4dn19wRYovGCerE9hdPAjv7MYOr416Auwpmq/EOo5zY9xR82FtOrHe+CdJ3wVrVjICsGQluXmYLaxvL561ORSvgdhtUlTU6FJ30ZniKrn90hfs6wuZ22e66rILi85TrmlUoemMeoC57EGAlzL59wTRJTpLvpSGwotkZmcQeicOoYlwIL8agrqGxDL6DiTyQ/PWboW8E0xGdUqsLosf6FSR/gWRYg+hH0fg0juQyKq0rbaHapOiE8RsI3LfX2JmoHaywbu/zaVZMKrHX74hSTzzSQyGnVjH5tgqDvbjTkY8UIGJe4QR2BuzE2+trAeSLUTBYJfvaQuJDJJSX3SmVhAMud5y2rije5jQcrqzXJCGJO1/af+YZm1dto9JXX46xL0xu1rL93rWStjEfEV1f7LFUs9eH9TcRsYGwICmqPkEiV7jOTpOqsDOeWLXpufrih0qc3dm5+PyrVc7gCXkq6d2cMb40qlf7c0tk=)
+
+    input: [here](https://topaz.github.io/paste/#XQAAAQAuEwAAAAAAAAAYiwLht+r38I0p+w2fBErV6JvUnsjbSeFdWbb2XDzkZMdraMQF7wPtKIHccwLk+C1K4HrCvyDKJVOqAUm+UagZp6D91IZ0NXbgEaStI4mGRflWbeMW1GwXLBltQ8L0COOEh1llERK5W/dcs2E2p9YHkrb3qIw/dVdpzZ7t2npOmXeK5O9Qyx4nS8+AZoK4Elp3uwpjbTaiH6/+aQHESvg93PXq+mSdGugKh5mDSTOqFHz9DQYafS52WvGYxlUxuIEm0YVd73/T3mC6PI0zMJTekNa50ao7DFPQhwrDlxoaQ0SSnWBTRFxv0O8sh1ipRxUhfv/7P7ZnUIZVnEva8+MUvNLY/Lt5ljoSldqWfzgaSJe4lmyKY1xsrUNDT8q+w6W5Jn6xB4itm1WqqXmvWdy4LtGK54E/G6X7ksbgf1ud/bwHKGHg0Q2Jo7SoKRs65r6hUiny/GNQhF1V67JXuwvn9l1/cbtVF+Dy534HSB8e0b3KEwgONUf21wSecZ8YhqmWMIlczUUBlQlBC9rCVoZxpY4sW3hmV+xMl6ufZqTeoWf258gZ+dkSOUgAu6bUTkSp7nyJh2q1RwFfgKpBqe5J1fg8e9X9V/Z8H3YJctq2DRTb5Gr8CTOLjmiAklg1wcR1rPhaXgrp08URgAX0eQ7jQn2soXHv6S+XJTJo5pMCYl8Uxp/siOvRZ0iMonCKwt7DPNBYON8fs49RJ0yOFIi5IQpI8o2Rz8OOQ3DdPhURUl1iCR9JH/bnk2iVMTNRalXceOfRgCOJkw8bWjWyMxRyETviHlcCnhfEBIg6i3t7uYdzBuSCwSgn1zYj2ccvfQJok4BcFhP3S4rOlJQrCX1WwduHxN0n5NURNo0wW0xEz6ororMdsexQDLdl0D7D7EiqrCgO2zuMzzYAH6Cxnc8bLay3AbIkQC2Tfo7MEI91JSPnqCTLhjZzBNMj8dRw0BYz89Jws0X6S8eYrlQxh2/hZo6w8W8sBUgo4tpG2heOxxZcPMb8azuMgMmq9rCLOkZHUnVRqgo1psrm5GkgZsmJhq/90iZgVMb7u3IL49TvuSf3xS+2HFNJmE/KqsahRN5OzlYyoj7pgvD563yFk2VmdbFo1d/lU11yl30E4rjWrdQZj2IHVvhFVeMtJZ8NkacbCtwsxJtOglLWJuaFBqeJQ8oHF9vIwnG+vND4wSHrUzlsJqXfxmsM918IkU61nwIfUH0cj3qKNnnQIzSkZrwgl8IZaZiYBPseby6fLWk3Px15gtb9cAMxdgMmhv4tSVu9aS/in2KkbAD/6pjLuDDvzBD2Hd0uR9jdm5nh9qI3S/PyVONF49WY19K9i7LGL59xLXaLKWY0g8+DI2UVMLdZszTThC/4yjsV2Nln9d/Q6sqLwMmp0XGvg5bkkQQaVw464lI2dmjNPCAxdk5ez9PDR/khIyNV2O2AxBw9Ilhjl4JDgBFvyzouUBNr0Oy2YNg04FqtMLH68lE2c7u+1J0zdyRTZUCLM2Y+ibqss5HxA1ozGsX7TBF62dC0ZLLQaH5C+KrPAP7ryy+8kYeuXalmXxsJRJPXc/2bB1ruFVIqK8Gvyax1zgGA3WxijzNvC+ti0tTE5Irw6sxsbPybYO7NwgQrX/hLNQ+dOtmK0lv76uDrS+pWaaUP+GYZW5g8b5ESz8eCg9i5hkzZ7PFoqzDl50H+Y3RkkBjFph5rp//O0pJm)
+
+    I solved part 2 manually. This one was fun
+
+    part 2 input:
+
+    ```ruby
+    A,B,A,B,C,C,B,A,B,C
+    L,8,R,12,R,12,R,10
+    R,10,R,12,R,10
+    L,10,R,10,L,6
+    y
+    ```
+  :replies: []

@@ -1,0 +1,285 @@
+---
+- :author: pwhyz
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ia8ek/
+  :body: |-
+    # Ruby Golfed
+
+    ```ruby
+    def exec_op v
+      { 1 => method(define_method(:a) {|x,y,z,m| m[z] = m[x] + m[y]}),
+        2 => method(define_method(:a) {|x,y,z,m| m[z] = m[x] * m[y]})
+      }[v] || method(define_method(:empty) {|a,b,c,d| nil })
+    end
+
+    def run_program i
+      i.each_slice(4).to_a.map {|p| exec_op(p[0]).call(p[1], p[2], p[3], i)}
+    end
+    ```
+
+    Part 2 was done tweaking input other than with an algorithm.
+
+    Full code at [paste](https://topaz.github.io/paste/#XQAAAQBrAgAAAAAAAAAyGUj/Tve38MzRtZbm3r89bULIsmWYplfgMPs86+76gdev4zrFsCgRGPloppeyn2vkDgnVs1tL4aCNpxNV+Ek2X7ciU/gt7UN550xVUvCcR4Qkv7PIzvyJEYPreWCavBQkbQyvKIgs77AtEnIYz9fCdBzwU1juv6ExDoe/y+Vmeba3UmCzVjjLn9vplrjNswDNH2MdTVu4YfsvT0qZ4PaDlFiyX7LfonVUKXWjpx92l2SeG8fJi+vJTARXv8CDKClDHPuduRsPXSfkW9UV69SZp8tyRHgDVl4zPHiP3REFUeSqGYBiF74yyXpLcoEgwe1GMA+D+90LpkWV1bVFLKLiCGpvz1akP4rt7nB9TrmdJloD/l5ea1d96X8sEIZ3oZ3mPmU7/185jgA=)
+  :replies: []
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9i4v23/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_02
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fd7tb/
+  :body: |-
+    ​ ​ ​ ​​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ Code
+
+    ​ ​ ​ ​ ​ ​​ ​ ​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ Has bug in it
+
+    ​ ​ ​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​ ​ ​ Can't find the problem
+
+    ​ ​ ​ ​​ ​ ​ ​ Debug with the given test cases
+
+    ​​ ​ ​ ​​ ​ ​ ​ ​ ​ ​​ ​ ​ ​ Oh it's something dumb
+
+    ​​ ​ ​ ​​ ​ ​ ​ ​ ​ ​​ ​ ​ ​ Fixed instantly though
+
+    ​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​​ ​ ​ ​ Fell out from top 100s
+
+    ​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​​ ​ ​ ​ Still gonna write poem
+
+    - "Attempted to draw a house", a poem by Uni
+
+    `ruby 2.rb input` 247/128
+
+    ```ruby
+    a= $<.read.chomp.split(?,).map &:to_i
+
+    #a#=[2,4,4,5,99,0]
+    # begin part 2
+    b=a*1
+
+    want = 19690720
+    (0..99).each{|noun|
+    (0..99).each{|verb|
+    # end part 2
+    a=b*1
+    a[1]=noun # 12
+    a[2]=verb # 2
+    ps = 0
+    until a[ps]==99
+    case a[ps]
+    when 1
+    # bug: a[ps+3]= instead of a[a[ps+3]]
+    a[a[ps+3]]=a[a[ps+1]]+a[a[ps+2]]
+    when 2
+    a[a[ps+3]]=a[a[ps+1]]*a[a[ps+2]]
+    when 99
+    break
+    end
+    ps += 4
+    end
+    # part 1
+    p a[0]
+    # part 2
+    (p [noun,verb]
+    exit)if a[0] == want
+    }}
+    ```
+
+    * * *
+
+    [It looked better in monospace](https://i.imgur.com/zcjuPI2.png). Also I want to tackle every poem type: Day 1 has been haiku, day 2 is shaped poems, will there really be enough types of poems for me to write?!
+  :replies:
+  - :author: tslater2006
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fe4pf/
+    :body: |-
+      Here's a few different types, should be able to find enough I think?
+
+      [Types of poems](https://www.writersdigest.com/whats-new/list-of-50-poetic-forms-for-poets)
+    :replies: []
+- :author: ni3t
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h25cv/
+  :body: |-
+    Ruby 2.7.0-dev (hehe)
+
+    https://github.com/ni3t/advent-2019/blob/master/2_1202_program\_alarm.rb
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9f9uu3/
+  :body: |-
+    Ruby, #55/#150
+
+    ```ruby
+    lines = $<.read.split("\n")
+
+    (0..99).each do |x|
+      (0..99).each do |y|
+        codes = lines[0].split(',').map(&:to_i)
+        codes[1] = x
+        codes[2] = y
+
+        idx = 0
+        loop do
+          e = true
+          a, b, c, d = codes[idx..idx+3]
+          case a
+          when 1
+            codes[d] = codes[b] + codes[c]
+          when 2
+            codes[d] = codes[b] * codes[c]
+          when 99
+            if codes[0] == 19690720
+              p codes
+              p x, y
+              p 100 * x + y
+              exit
+            end
+            e = false
+          else
+            raise '??'
+          end
+          break unless e
+          idx += 4
+        end
+      end
+    end
+    ```
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fc1f6/
+    :body: |-
+      Golfed it up /u/Unihedron
+
+      ```ruby
+      g=$<.read.split(?,).map &:to_i
+      0.upto(99){|x|0.upto(99){|y|h=g.dup
+      h[1,2]=x,y
+      h.each_slice(4){|a,b,c,d|a==99?(p 100*x+y if h[0]==19690720;break):h[d]=a==1?h[b]+h[c]:h[b]*h[c]}}}
+      ```
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fcq9j/
+      :body: |-
+        `$<.read.split(?,)` -\> `$/=?,;$<`
+
+        `0.upto(99)` -\> `100.times`
+
+        `h=g.dup` -\> `h=g*1`
+
+        the huge line I don't want to check for now lol. Still working on my poem
+      :replies:
+      - :author: BluFoot
+        :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9gb3xt/
+        :body: I thank you for your teachings, that first one is ridiculous
+        :replies:
+        - :author: Unihedron
+          :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9irna3/
+          :body: |-
+            Some more:
+
+            `p 100*x+y if h[0]==19690720` -\> `h[0]==19690720&&p(100*x+y)` cuts off one char (syntactic sugar is not always shorter!)
+
+            and an advanced but dirty trick: move the `.map &:to_i` from line 1 to line 2, i.e. `h=g.map &:to_i`; since `.map` creates a new array, why duplicate with an operation if we can delay an operation and use it to exploit its new-ness nature? (because it's suboptimal. but hey, code golf!) 2 chars saved?! now, if you followed my advice as before, this wouldn't work because if `g=$<`, `.map` consumes the entire thing and subsequent attempts to `.map` it would fail because `STDIN` reads forwards; so we should make it read everything in at once and reuse that value, so `g=*$<` with spread operator to force it into an array! 2 chars saved 1 char used profit of 1 char!
+
+            BTW, $/=?, helps in this case only because , is not a number. if the seperator is 0, i.e. the input is 10203 and we want 1 2 3, the input "lines" are respectively 10 20 3 which to_i's into 10 20 3. to_i is smart about non-numericals however, and 1, 2, 3 is neatly squeezed into 1 2 3
+          :replies:
+          - :author: BluFoot
+            :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ixten/
+            :body: |-
+              Wow, the splat operator to make it an array is next level. I'll do anything for 1 char in golf! ANYTHING!
+
+              I think end product after all your suggestions is pretty sexy. 162 chars, not bad!
+
+              ```ruby
+              $/=?,
+              g=*$<
+              100.times{|x|100.times{|y|h=g.map &:to_i
+              h[1,2]=x,y
+              h.each_slice(4){|a,b,c,d|a==99?(h[0]==19690720&&p(100*x+y);break):h[d]=a==1?h[b]+h[c]:h[b]*h[c]}}}
+              ```
+            :replies: []
+  - :author: UnconstrainedRibhus
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9flov9/
+    :body: |-
+      Ah, I like the assignment of `a, b, c, d`
+
+      I am more of a beginner and try to keep it a bit more object oriented. It might actually help as it was hinted that we might need to reuse the `IntCode`
+
+      So my solution looks more something like this:
+
+      ```ruby
+      class IntCode
+        attr_reader :memory
+        # array of numbers
+        def initialize(input, fix: true) ...
+
+        def compute ...
+
+        def memory ...
+
+        def result ...
+
+        def noun= value ...
+
+        def verb= value ...
+
+        private
+
+        def terminate ...
+
+        # parameters
+        def argument_1 ...
+
+        def argument_2 ...
+
+        def target ...
+
+        def fix_programm ...
+      end
+      ```
+    :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h0hpu/
+  :body: |-
+    **Ruby**
+
+    Using `array.repeated_permutation.find` to brute force part 2. Quite a lot cleaner imo than nesting for loops and what-not.
+
+    ```ruby
+    input = File.read('input/input02.txt').scan(/\d+/).map(&:to_i)
+
+    def run(program, noun, verb)
+      memory = program.dup
+
+      memory[1] = noun
+      memory[2] = verb
+
+      memory.each_slice(4) { |opcode, n1, n2, target|
+        case opcode
+        when 1
+          memory[target] = memory[n1] + memory[n2]
+        when 2
+          memory[target] = memory[n1] * memory[n2]
+        when 99
+          break
+        end
+      }
+
+      return memory[0]
+    end
+
+    # Part 1
+
+    p run(input, 12, 2)
+
+    # Part 2
+
+    output = 19690720
+
+    possible_inputs = [*0..99]
+    combinations = possible_inputs.repeated_permutation(2)
+
+    p combinations
+      .find { |noun, verb| run(input, noun, verb) == output }
+      .then { |noun, verb| 100 * noun + verb }
+    ```
+  :replies: []

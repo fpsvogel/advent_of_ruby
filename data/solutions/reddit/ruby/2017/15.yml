@@ -1,0 +1,75 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dr9ystc/
+  :body: |-
+    Ruby; I'm stupid. I wrote `65535`, thought to myself wait am I right? rewrote it to `1<< ... -1`, ran it, oh yeah it's `65536`, then I freaking went to change it back to 65535 because I **totally have that kind of time**. (silver 101 / gold 60)
+
+    anyway... you've gotta be good at manipulating with bits, right? :D
+
+    ```ruby
+    f=16807
+    g=48271
+    h=2147483647
+    j=65535
+    i=0
+    a=gets[/\d+$/].to_i
+    b=gets[/\d+$/].to_i
+    40000000.times{ # part 1
+    5000000.times{ # part 2
+    loop{a=a*f%h # part 1: only keep this
+    break if a%4<1}
+    loop{b=b*g%h # part 1: only keep this
+    break if b%8<1}
+    i+=1 if 0== (a&j)^(b&j)
+    }
+    p i
+    ```
+  :replies:
+  - :author: raevnos
+    :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra1z7s/
+    :body: 0xFFFF works too.
+    :replies: []
+- :author: rkachowski
+  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra48m4/
+  :body: |-
+    **ruby**
+
+    that postfix until is nice, i didn't even know that was possible...
+
+    ```ruby
+    VALUES = [873,583]
+    FACTORS = [16807,48271]
+    DENUM = 2147483647
+
+    def part_1
+      matches = 0
+      values = VALUES.clone
+
+      40000000.times do
+        values[0] = values[0] * FACTORS[0] % DENUM
+        values[1] = values[1] * FACTORS[1] % DENUM
+
+        matches += 1 if values[0] & 65535 == values[1] & 65535
+      end
+
+      puts matches
+    end
+
+    def part_2
+      matches = 0
+      values = VALUES.clone
+
+      5000000.times do
+        values[0] = values[0] * FACTORS[0] % DENUM
+        values[1] = values[1] * FACTORS[1] % DENUM
+
+        values[0] = values[0] * FACTORS[0] % DENUM until values[0] % 4 == 0
+        values[1] = values[1] * FACTORS[1] % DENUM until values[1] % 8 == 0
+
+        matches += 1 if values[0] & 65535 == values[1] & 65535
+      end
+
+      puts matches
+    end
+    ```
+  :replies: []

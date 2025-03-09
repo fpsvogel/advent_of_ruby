@@ -1,0 +1,233 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfzhjm/
+  :body: |-
+    **Ruby** , #30/#24
+
+    For simulation-based problems, they tend to be long, and have many small details that I may easily miss.
+
+    Therefore, for these kind of problems I prefer to write it in OOP-style code, using descriptive object names (`Group`, `Army`, `Attack`) and creating extra methods for concepts in the problem (such as `effective_power`), otherwise, I would have a very hard time figuring out what went wrong when the answer was incorrect. Solving it the slow-but-sure way, I'm surprised that I still make it to the leaderboard.
+
+    For part 2: I manually tweaked the `boost` variable and re-run the code until the immune system wins (human binary search). I think doing it manually is faster than writing an actual binary search in code.
+
+    ```ruby
+    class Group < Struct.new(:id, :units, :hp, :immunity, :weaknesses, :attack_type, :attack_damage, :initiative)
+      def effective_power
+        units * attack_damage
+      end
+      def choosing_order
+        [-effective_power, -initiative]
+      end
+      def damage_by(other_group)
+        return 0 if immunity.include?(other_group.attack_type)
+        (weaknesses.include?(other_group.attack_type) ? 2 : 1) * other_group.effective_power
+      end
+      def take_attack(damage)
+        units_reduced = [damage / hp, units].min
+        self.units -= units_reduced
+        units_reduced
+      end
+      def dead?
+        units == 0
+      end
+    end
+
+    class Attack < Struct.new(:attacker, :defender)
+      def execute!
+        damage = defender.damage_by(attacker)
+        killed = defender.take_attack(damage)
+        # puts "#{attacker.id} !!=[#{damage}]=> #{defender.id}, killing #{killed}"
+      end
+      def initiative
+        attacker.initiative
+      end
+    end
+
+    class Army < Struct.new(:groups)
+      def choose_targets_in(defending_army)
+        plan = []
+        chosen = Hash.new
+        chosen.compare_by_identity
+        groups.sort_by(&:choosing_order).each do |g|
+          target = defending_army
+            .groups
+            .reject { |t| chosen[t] }
+            .max_by { |t| [t.damage_by(g), t.effective_power, t.initiative] }
+          if target
+            damage = target.damage_by(g)
+            if damage > 0
+              # puts "#{g.id} => #{target.id} [#{damage}]"
+              chosen[target] = true
+              plan << Attack.new(g, target)
+            end
+          end
+        end
+        plan
+      end
+      def empty?
+        groups.reject!(&:dead?)
+        groups.empty?
+      end
+    end
+
+    def load_battle
+      gc = -1
+      boost = 0
+      File.read('24.in').split('Infection:').map { |data|
+        gc += 1
+        gi = 0
+        data.lines.map { |l|
+          if l =~ /(\d+) units each with (\d+) hit points/
+            gi += 1
+            units = $1.to_i
+            hp = $2.to_i
+            weaknesses = []
+            if l =~ /weak to ([^;\)]+)/
+              weaknesses = $1.split(', ').map(&:strip)
+            end
+            immunity = []
+            if l =~ /immune to ([^;\)]+)/
+              immunity = $1.split(', ').map(&:strip)
+            end
+            raise "!!!" unless l =~ /with an attack that does (\d+) (\w+) damage at initiative (\d+)/
+            attack_damage = $1.to_i + (gc == 0 ? boost : 0)
+            attack_type = $2
+            initiative = $3.to_i
+            id = ['Immune system', 'Infection'][gc] + ' group ' + gi.to_s
+            Group.new(id, units, hp, immunity, weaknesses, attack_type, attack_damage, initiative)
+          else
+            nil
+          end
+        }
+        .compact
+      }.map { |gs| Army.new(gs) }
+    end
+
+    a, b = load_battle
+    puts a.groups
+    puts b.groups
+    round_num = 0
+    loop do
+      puts "[Round #{round_num += 1}] #{a.groups.length} [#{a.groups.map(&:units).sum}] / #{b.groups.length} [#{b.groups.map(&:units).sum}]"
+      # [*a.groups, *b.groups].each do |c|
+      # puts "#{c.id} contains #{c.units} units"
+      # end
+      break if a.empty? || b.empty?
+      plan = a.choose_targets_in(b) + b.choose_targets_in(a)
+      plan.sort_by(&:initiative).reverse.each(&:execute!)
+    end
+
+    puts "== BATTLE END =="
+    [*a.groups, *b.groups].each do |c|
+      puts "#{c.id} contains #{c.units} units"
+    end
+    p (a.groups + b.groups).map(&:units).sum
+    ```
+  :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfz1y9/
+  :body: |-
+    **Ruby,** 74/48. Loved this one!
+
+    ```ruby
+    lines = File.readlines('../input.txt').map(&:strip)
+    # lines = File.readlines('example.txt').map(&:strip)
+
+    class Group
+      attr_accessor :id, :side, :size, :hp, :ad, :at, :it, :wk, :im
+      def initialize(id, side, size, hp, ad, at, it, wk, im)
+        @id = id
+        @side = side
+        @size = size
+        @hp = hp
+        @ad = ad
+        @at = at
+        @it = it
+        @wk = wk
+        @im = im
+      end
+
+      def ef
+        @size * @ad
+      end
+
+      def attack(dmg)
+        @size -= dmg / @hp
+      end
+
+      def alive?
+        @size > 0
+      end
+    end
+
+    def damage(a, b)
+      return 0 if b.im.include?(a.at)
+      d = a.ef
+      d *= 2 if b.wk.include?(a.at)
+      d
+    end
+
+    a = true
+    og = lines[1..-1].map.with_index do |l, id|
+      next if l.empty?
+      (a = false; next) if l.include? 'Infection'
+      side = a ? ?a : ?b
+      size, hp, ad, it = l.scan(/\d+/).map(&:to_i)
+      at = l.scan(/(\w+) damage/).first.first
+      wk = []
+      im = []
+      stuff = l.scan(/\((.*)\)/).first
+      if stuff
+        stuff.first.split('; ').each do |s|
+          types = s.scan(/.* to (.*)/).first.first.split(', ')
+          s.include?('weak to') ? wk += types : im += types
+        end
+      end
+      Group.new(id, side, size, hp, ad, at, it, wk ,im)
+    end.compact
+
+    0.upto(Float::INFINITY) do |boost|
+      p boost
+      groups = og.map { |g| g.dup }
+      groups.each { |g| g.ad = g.ad + boost if g.side == ?a }
+
+      until [?a, ?b].any? { |side| groups.all? { |u| u.side == side } }
+        targets = {}
+        groups.sort_by { |g| [g.ef, g.it] }.reverse.each do |g|
+          best = [nil, 0]
+          groups.each do |f|
+            next if g.side == f.side
+            dmg = damage(g, f)
+            b = best[0]
+            if dmg > best[1] || b && ((dmg == best[1] && f.ef > b.ef) || (dmg == best[1] && f.ef == b.ef && f.it > b.it))
+              best = [f, dmg] unless targets.values.map(&:id).include?(f.id)
+            end
+          end
+          targets[g.id] = best[0] if best[0]
+        end
+
+        break if targets.empty?
+        groups.sort_by(&:it).reverse.each do |g|
+          t = targets[g.id]
+          next unless t && g.alive? && t.alive?
+          t.attack(damage(g, t))
+        end
+
+        groups.select!(&:alive?)
+      end
+
+      if groups.all? { |u| u.side == ?a }
+        p groups.sum(&:size)
+        exit
+      end
+    end
+    ```
+  :replies:
+  - :author: Unihedron
+    :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecg1wzj/
+    :body: "`0.upto(Float::INFINITY)` can be rewritten to `0.step` for generalization; `.step` with no arguments provided will go on indefinitely with `step=1` (thus allowing lazy enumerable operations)."
+    :replies:
+    - :author: BluFoot
+      :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecgh61w/
+      :body: Thank you! That's great.
+      :replies: []

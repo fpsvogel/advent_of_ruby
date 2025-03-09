@@ -1,0 +1,313 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7asl/
+  :body: |-
+    A very fun logic puzzle!
+
+    Part 1: Oh no, reading error... I thought the problem was asking for `== 3` instead of the actual `>= 3`, submitted multiple wrong answers, and frantically tried to figure out what was wrong for 5 minutes before rereading the problem and slapping myself on the forehead.
+
+    Part 2: My thought here was "Eric must have made this problem actually possible". I started by printing out the possible operations corresponding w/ each opcode, seeing a specific property \>!there was an opcode that had only one possibility!\< that would make it possible, and so I implemented that process in code for all opcodes.
+
+    Ruby:
+
+    ```ruby
+    instructions = {
+      addr: ->(a, b, c, r) { r[c] = r[a] + r[b] },
+      addi: ->(a, b, c, r) { r[c] = r[a] + b },
+      mulr: ->(a, b, c, r) { r[c] = r[a] * r[b] },
+      muli: ->(a, b, c, r) { r[c] = r[a] * b },
+      banr: ->(a, b, c, r) { r[c] = r[a] & r[b] },
+      bani: ->(a, b, c, r) { r[c] = r[a] & b },
+      borr: ->(a, b, c, r) { r[c] = r[a] | r[b] },
+      bori: ->(a, b, c, r) { r[c] = r[a] | b },
+      setr: ->(a, _, c, r) { r[c] = r[a] },
+      seti: ->(a, _, c, r) { r[c] = a },
+      gtir: ->(a, b, c, r) { r[c] = a > r[b] ? 1 : 0 },
+      gtri: ->(a, b, c, r) { r[c] = r[a] > b ? 1 : 0 },
+      gtrr: ->(a, b, c, r) { r[c] = r[a] > r[b] ? 1 : 0 },
+      eqir: ->(a, b, c, r) { r[c] = a == r[b] ? 1 : 0 },
+      eqri: ->(a, b, c, r) { r[c] = r[a] == b ? 1 : 0 },
+      eqrr: ->(a, b, c, r) { r[c] = r[a] == r[b] ? 1 : 0 },
+    }.freeze
+
+    raise 'You forgot an instruction...' if instructions.size != 16
+
+    could_be = Array.new(instructions.size) { instructions.keys }
+
+    verbose = ARGV.delete('-v')
+    input = (ARGV.empty? ? DATA : ARGF).each_line.map(&:chomp)
+
+    last_after = input.rindex { |l| l.start_with?('After: ') }
+
+    puts input[0..last_after].each_slice(4).count { |before, op, after, _|
+      before = before.scan(/\d+/).map(&:to_i).freeze
+      after = after.scan(/\d+/).map(&:to_i).freeze
+      opcode, a, b, c = op.split.map(&:to_i)
+
+      alike = instructions.select { |_, v|
+        regs = before.dup
+        begin
+          v[a, b, c, regs]
+        rescue
+          # Actually this line isn't necessary...
+          # I did it to defend against registers >= 4
+          # but it never happens in input?
+          next false
+        end
+        regs == after
+      }
+      could_be[opcode] &= alike.keys
+
+      alike.size >= 3
+    }
+
+    could_be.each_with_index { |c, i| puts "#{i} (#{c.size}) -> #{c}" } if verbose
+
+    assignments = [nil] * instructions.size
+    until assignments.all?
+      only_one = could_be.index { |a| a.size == 1 }
+      raise "I'm not smart enough to do this one: #{could_be}" unless only_one
+
+      assigned = could_be[only_one][0]
+      puts "Assign #{only_one} #{assigned}" if verbose
+      assignments[only_one] = instructions[assigned]
+      could_be.each { |e| e.delete(assigned) }
+    end
+
+    regs = [0, 0, 0, 0]
+
+    input.drop(last_after + 1).drop_while(&:empty?).each { |l|
+      opcode, a, b, c = l.split.map(&:to_i)
+      assignments[opcode][a, b, c, regs]
+    }
+
+    p verbose ? regs : regs[0]
+
+    __END__
+    Before: [3, 1, 0, 1]
+    9 3 3 2
+    After: [3, 1, 0, 1]
+
+    omitted
+    ```
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7nrw/
+    :body: |-
+      > raise 'You forgot an instruction...' if instructions.size != 16
+
+      I wish I'd written this, would have saved me a lot of time!!
+    :replies:
+    - :author: sigacuckoo
+      :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx88wi/
+      :body: Hahaha :( I lost so much time because i forgot to add one of the commands to the list.
+      :replies: []
+  - :author: ButItMightJustWork
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebwdjta/
+    :body: 'regarding your spoiler/hint: I just assuned that this was the case and implemented the necessary code.'
+    :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7hzj/
+  :body: |-
+    Ruby, #117/127. Somehow skipped over the binary OR instructions in part 1, and had brain lag trying to figure out part 2. But overall happy with the solution!
+
+    ```ruby
+    require 'pry'
+
+    lines = $<.readlines.map(&:strip)
+
+    class Sample
+      attr_accessor :before, :inst, :after
+      def initialize(before, inst, after)
+        @before = before
+        @inst = inst
+        @after = after
+      end
+    end
+
+    def addr(r, a, b, c) r[c] = r[a] + r[b] end
+    def addi(r, a, b, c) r[c] = r[a] + b end
+    def mulr(r, a, b, c) r[c] = r[a] * r[b] end
+    def muli(r, a, b, c) r[c] = r[a] * b end
+    def banr(r, a, b, c) r[c] = r[a] & r[b] end
+    def bani(r, a, b, c) r[c] = r[a] & b end
+    def borr(r, a, b, c) r[c] = r[a] | r[b] end
+    def bori(r, a, b, c) r[c] = r[a] | b end
+    def setr(r, a, b, c) r[c] = r[a] end
+    def seti(r, a, b, c) r[c] = a end
+    def gtir(r, a, b, c) r[c] = a > r[b] ? 1 : 0 end
+    def gtri(r, a, b, c) r[c] = r[a] > b ? 1 : 0 end
+    def gtrr(r, a, b, c) r[c] = r[a] > r[b] ? 1 : 0 end
+    def eqir(r, a, b, c) r[c] = a == r[b] ? 1 : 0 end
+    def eqri(r, a, b, c) r[c] = r[a] == b ? 1 : 0 end
+    def eqrr(r, a, b, c) r[c] = r[a] == r[b] ? 1 : 0 end
+
+    opcodes = (0..15).to_a
+    named_codes = [:addr, :addi, :mulr, :muli, :banr, :bani, :borr, :bori, :setr, :seti, :gtir, :gtri, :gtrr, :eqir, :eqri, :eqrr]
+
+    samples = []
+    program = []
+    lines.each_slice(4).map do |slice|
+      if slice[0].start_with? 'Before'
+        samples << Sample.new(*slice[0..2].map { |line| line.scan(/\d+/).map(&:to_i) })
+      else
+        program += slice.map { |line| line.scan(/\d+/).map(&:to_i) }
+      end
+    end
+
+    possible = opcodes.each_with_object({}) do |code, h|
+      h[code] = named_codes
+    end
+
+    samples.each do |sample|
+      possible[sample.inst[0]] &= named_codes.select do |code|
+        r = sample.before.dup
+        send(code, r, *sample.inst[1..-1])
+        r == sample.after
+      end
+    end
+
+    code_map = {}
+    until code_map.size == 16
+      possible.each do |num, codes|
+        next if code_map[num]
+        codes.each do |code|
+          next if possible.any? { |num2, code2| num2 != num && code2.include?(code) }
+          possible[num] = [code]
+          code_map[num] = code
+          break
+        end
+      end
+    end
+
+    registers = [0] * 4
+    program.each do |prog|
+      send(code_map[prog[0]], registers, *prog[1..-1])
+    end
+
+    puts registers.first
+    ```
+  :replies: []
+- :author: nuvan
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw8q6u/
+  :body: |-
+    **Ruby** 177/321
+
+    I really thought I could do better when I read the description, as I've played around with simple VMs before (eg the [Synacor Challenge](https://challenge.synacor.com/)). Ah well, still fun.
+
+    I cost myself at least 20 minutes on part 2 because I kept attempting to work out the opcode values using the initial register settings from the samples, instead of the actual instructions. :facepalm: :headdesk:
+
+    ```ruby
+    OPCODES = {
+        addr: -> regs, a, b, c { regs[c] = regs[a] + regs[b] },
+        addi: -> regs, a, b, c { regs[c] = regs[a] + b },
+        mulr: -> regs, a, b, c { regs[c] = regs[a] * regs[b]},
+        muli: -> regs, a, b, c { regs[c] = regs[a] * b },
+        banr: -> regs, a, b, c { regs[c] = regs[a] & regs[b] },
+        bani: -> regs, a, b, c { regs[c] = regs[a] & b },
+        borr: -> regs, a, b, c { regs[c] = regs[a] | regs[b] },
+        bori: -> regs, a, b, c { regs[c] = regs[a] | b },
+        setr: -> regs, a, b, c { regs[c] = regs[a] },
+        seti: -> regs, a, b, c { regs[c] = a },
+        gtir: -> regs, a, b, c { regs[c] = a > regs[b] ? 1 : 0 },
+        gtri: -> regs, a, b, c { regs[c] = regs[a] > b ? 1 : 0 },
+        gtrr: -> regs, a, b, c { regs[c] = regs[a] > regs[b] ? 1 : 0 },
+        eqir: -> regs, a, b, c { regs[c] = a == regs[b] ? 1 : 0 },
+        eqri: -> regs, a, b, c { regs[c] = regs[a] == b ? 1 : 0 },
+        eqrr: -> regs, a, b, c { regs[c] = regs[a] == regs[b] ? 1 : 0 },
+    }
+
+    def solve
+        opcodes = (0...16).map{ |n| [n,nil] }.to_h
+        part1_count = 0
+        samples = 0
+        smallest_sizes = {}
+        idx = 0
+        @input.lines.each_slice(4) do |before,input,after,_|
+            samples += 1
+            registers = /Before:\s+\[(\d+), (\d+), (\d+), (\d+)\]/.match(before)[1..-1].map(&:to_i)
+            expected_regs = /After:\s+\[(\d+), (\d+), (\d+), (\d+)\]/.match(after)[1..-1].map(&:to_i)
+
+            op, a, b, out = /(\d+) (\d+) (\d+) (\d+)/.match(input)[1..-1].map(&:to_i)
+
+            idx += 4
+            rs = nil
+            possibles = OPCODES.select do |opcode,oper|
+                rs = registers.dup
+                oper.call(rs,a,b,out)
+                rs == expected_regs
+            end
+
+            part1_count += 1 if possibles.size >= 3
+            if possibles.size == 1
+                opcodes[op] = possibles.keys.first
+                smallest_sizes[op] = 1
+            else
+                begin
+                    if opcodes[op].nil?
+                        opcodes[op] = possibles.keys
+                        smallest_sizes[op] = possibles.keys.size
+                    elsif opcodes[op].is_a?(Array)
+                        intersection = opcodes[op] & possibles.keys
+                        if smallest_sizes[op] > intersection.size
+                            smallest_sizes[op] = intersection.size
+                        end
+                        opcodes[op] = intersection
+                        if opcodes[op].size == 1
+                            opcodes[op] = opcodes[op].first
+                        end
+                    end
+                rescue => e
+                    puts e
+                    puts op
+                    puts possibles.keys
+                    puts opcodes
+                    puts smallest_sizes
+                    raise
+                end
+            end
+        rescue
+            break
+        end
+
+        changed = true
+        until !changed do
+            changed = false
+            known_ops = opcodes.values.select{|op| op.is_a?(Symbol)}
+            opcodes.each do |k,v|
+                next if v.is_a?(Symbol)
+                res = v - known_ops
+                if res != v
+                    changed = true
+                    if res.size == 1
+                        opcodes[k] = res.first
+                    else
+                        opcodes[k] = res
+                    end
+                end
+            end
+        end
+
+        puts "There are #{opcodes.values.uniq.size} known opcocdes"
+        puts "There are #{part1_count} samples out of #{samples} that behave like 3 or more opcodes"
+
+        registers = [0,0,0,0]
+        instrs = 0
+        @lines[idx..-1].each do |line|
+            next if line.empty?
+            instrs += 1
+            if instrs == 1
+                puts "The first instruction is #{line}"
+            end
+            op, a, b, out = /(\d+) (\d+) (\d+) (\d+)/.match(line)[1..-1].map(&:to_i)
+            OPCODES[opcodes[op]].call(registers,a,b,out)
+        end
+
+        puts "The value of register 0 after running the program is #{registers.join(" ")} (#{instrs} instructions were run)"
+    end
+    ```
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx06fa/
+    :body: Tabs?! In Ruby?! HERESY!
+    :replies: []

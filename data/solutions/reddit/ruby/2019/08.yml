@@ -1,0 +1,103 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/faxrf8l/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_08
+  :replies: []
+- :author: MrMacintosh
+  :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/faba0sa/
+  :body: 'Quick solution in Ruby: [paste](https://topaz.github.io/paste/#XQAAAQBPAwAAAAAAAAA0m0hHVws1hFaETa6Q5kjKhoRGQhpEGP8Zi+ToEsZir/RFQ7IH8c5mUELULnsWbmAOpk5AZLKP+AK1gsu8ZUsSmbSTP1/SKf2a/sNFu5uy94x755AsIXEkqCUEyyknvTwKlj9h1YxXe/xx5uu3tAde+090KQowBEnZIXKvD6yH9U/uvL28qJ980Ln71J4R9SzKu3Kg0ruR07UvEZpOsKH3r0qvpjHkI8xqE2KKe6Gzy0p3aqlI86wcBykwjhKFMv/DoTV3pMyCh9/qiQW46TkSqMjgVAwUI4zmOexN0gFrmzFBPYPSjl0kmUBBKBtfXFYAxNZ/3A3oLZmxRaRENjpTGXm5nLCY4haOsrscJoer5eq8k9zu1wGKR0KWC59UIc4RtBmRe7KZFbl3L4D/cVLUqWq7NXmeFO64TmwzDmm/go/9AylJHZHbvSJJzCorltNi0mOxB9Yo2TMStbJf892WYHqOcwh4+3xgcfpdrR9cRNTGv5E8+UCPx8OJdVCGUPHrKzpU6FpEB/4NMjVcBFBMchchTMWa+0zJw3uk+HFaSGrOJ7i9KRNzC+HSzZejFUcQr2TdUrBi25xyDRomY4FXrdR0731+t0Ci02uGHv/xWC7e)'
+  :replies: []
+- :author: dpkcodes
+  :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa68fsl/
+  :body: |-
+    Here are my solutions in Ruby
+
+    [https://github.com/dpkeesling/adventOfCode/tree/master/2019/day8](https://github.com/dpkeesling/adventOfCode/tree/master/2019/day8)
+  :replies: []
+- :author: ryanbigg
+  :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa374pa/
+  :body: |-
+    Ruby, Part 1:
+
+    ```ruby
+    min_layer = File.read("input").strip.chars.map(&:to_i).each_slice(150).min_by { |slice| slice.count(0) }
+    min_layer.count(1) * min_layer.count(2)
+    ```
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa3uas1/
+    :body: |-
+      Mine is very similar so I'm attaching it to your comment:
+
+      ```ruby
+      File.read('8.sif')
+        .chars
+        .each_slice(25 * 6)
+        .min_by { |vs| vs.count('0') }
+        .tap { |slice| puts slice.count('1') * slice.count('2') }
+      ```
+    :replies:
+    - :author: petercooper
+      :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa3yh7t/
+      :body: |-
+        And part 2:
+
+        ```ruby
+        puts File.read('8.sif')
+              .chars
+              .each_slice(25 * 6)
+              .inject { |a, b|
+                a.map.with_index { |pixel, idx|
+                  pixel == '2' ? b[idx] : pixel
+                }
+              }
+              .map { |c| c == '1' ? 'X' : ' ' }
+              .each_slice(25).map(&:join).join("\n")
+        ```
+      :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa4fdm1/
+  :body: |-
+    Ruby
+
+    ```ruby
+    WIDTH = 25
+    HEIGHT = 6
+
+    pixels = File.read('../input/input08.txt').chomp.chars.map(&:to_i)
+    layers = pixels.each_slice(WIDTH*HEIGHT)
+
+    # Part 1
+
+    p layers
+      .min_by { |layer| layer.count(0) }
+      .then { |layer| layer.count(1) * layer.count(2) }
+
+    # Part 2
+
+    BLACK = 0
+    WHITE = 1
+    TRANSPARENT = 2
+
+    def stack_pixels(a, b)
+      a == TRANSPARENT ? b : a
+    end
+
+    image = layers
+      .to_a
+      .transpose
+      .map { |pixel| pixel.reduce(&method(:stack_pixels)) }
+
+    puts image
+      .each_slice(WIDTH)
+      .map { |row| row.map(&{ BLACK => ' ', WHITE => '#'}) }
+      .map(&:join)
+    ```
+  :replies:
+  - :author: zxywx
+    :url: https://www.reddit.com/r/adventofcode/comments/e7pkmt/2019_day_8_solutions/fa8o6ne/
+    :body: Neat solution. Nice use of `min_by` and `transpose`
+    :replies: []

@@ -1,0 +1,91 @@
+---
+- :author: ross314
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaq8zx/
+  :body: |-
+    First time on the leaderboard (#62)! I was able to come up with a formula for how many times to apply the multiplication and remainder and then just repeated the steps that many times.
+
+    Ruby:
+
+    ```ruby
+    row = 2947
+    column = 3029
+    n = row + column - 2
+    iterations = (n * (n + 1)) / 2 + column - 1
+    result = 20151125
+    iterations.times do
+      result = (result * 252533) % 33554393
+    end
+
+    puts "Value at (#{row}, #{column}): #{result}"
+    ```
+  :replies:
+  - :author: Blecki
+    :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqjg7/
+    :body: Really no time before this counts. There are no more days, you're on the leaderboard and shall stay there forever.
+    :replies:
+    - :author: topaz2078
+      :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyar7bu/
+      :body: I intend to release a much more thorough set of completion data; this leaderboard won't be the only one.
+      :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqbvw/
+  :body: |-
+    **Ruby #36 - 10:50**
+
+    Pretty simple one overall, but I'm happy it ended on a quick one rather than one of the knock-down, drag-out ones that took an hour or more to complete.
+
+    ```ruby
+    end_row = 2981
+    end_col = 3075
+    row = 1
+    col = 1
+    max_row = 1
+    acc = 20151125
+    until row == end_row && col == end_col
+      acc = (acc * 252533) % 33554393
+      if max_row == col
+        row = max_row + 1
+        max_row = row
+        col = 1
+      else
+        row -= 1
+        col += 1
+      end
+    end
+
+    p acc
+    ```
+
+    Going to throw a donation to /u/topaz2078 when I have money in my paypal account. Enjoyed going through these and will use some of them as practice for learning new languages. Enjoyed learning from all of you here, as well, by looking through your code and reading your comments/suggestions on mine. Merry Christmas!!
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyiarkc/
+  :body: |-
+    Ruby, this day felt as the easiest in a long time. Thanks for Advent of Code, it was great!
+
+    ```ruby
+    def index(x,y)
+
+        y_value = loop(y,1,1)
+        x_value = loop(x,y_value,(y+1))
+    end
+
+    def loop(target, start, start_step)
+    current = start
+        for i in (1...target)
+            current += (i + (start_step -1))
+        end
+        current
+    end
+
+    index_of_answer = index(3083,2978)
+    #index_of_answer = index(6,6)
+    last_answer = 20151125
+    index_of_answer.times do |i|
+        next if (i == 0)
+        puts "#{i}/#{index_of_answer}" if (i% 1000 == 0)
+        last_answer = ((last_answer * 252533) %33554393)
+    end
+    puts last_answer
+    ```
+  :replies: []

@@ -1,0 +1,23 @@
+---
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/5g80ck/2016_day_3_solutions/dazzvd1/
+  :body: |-
+    Ruby. A little late to the party, but I'm really pleased with this one:
+
+    ```ruby
+    check_triangle = ->(tuple) { a,b,c = tuple.sort; a + b > c }
+
+    input = File.readlines('03_input.txt').map { |line| line.split.map(&:to_i) }
+
+    # Part 1
+    p input.count(&check_triangle)
+
+    # Part 2
+    p input
+      .each_slice(3)
+      .flat_map(&:transpose)
+      .count(&check_triangle)
+    ```
+
+    https://github.com/daniero/code-challenges/blob/master/aoc2016/03.rb
+  :replies: []

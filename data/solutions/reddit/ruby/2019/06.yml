@@ -1,0 +1,83 @@
+---
+- :author: MrMacintosh
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9xvxfr/
+  :body: 'inefficient but simple solution in Ruby: [paste](https://topaz.github.io/paste/#XQAAAQCPAgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYpbqMrEvvyYvRhwZlJkq0byGdgqaN1DyZ4BeAGQvLX9hzOpDc9HB3NyYDmpf5+sQnXSqva5cbWL/Syniop04NfK89duWTDepNy91/IgPAWkXJAKtjVFHubqZeqYYFY8OQ8jL7LbdZJiksxNg/J59FhxiGwWzSOTF4pCY4pdBpAki/bDUhK2aEZsYGDvO5BchM9buTidBtwF8h3Hs8VyaIIRn56vL1J8cZVCbIQ2cferiMT6zxsS9fZK+JNcoI0UMhsDHvWfFtR/VMyB/UZVjF23G0iHHm7CF1X7nHxRX5JwXey7k+BkQscdOICOscq2YwpCHk42HuyAP6UdjZMYKIytBrnLVM/AtsMGy1QXTtXiprby/08xQZqlvIfq9aiB7Lm0XLm/p+djIsehIY6y0wqsXkBcueIYdK4HGkgvRdfYGVOU5460ZxeyQmgLJFZq46l8imXV/hcUfSFOf7d9JHLaLUbLKoLbrylMafUACC3hmMYe7v1DJX5IkT/suY0g==)'
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9vjndw/
+  :body: |-
+    **Ruby**
+
+    I did it "properly" but have also code golfed both parts. Part one (this is slow due to an inefficient algorithm):
+
+    ```ruby
+    o={}
+    $<.map{|q|r,s=q.scan(/\w+/)
+    o[s]||=[];(o[r]||=[])<<s}
+    p o.map{|y,z|((ns||=[])<<y=y[0] while y=o.find{|_,z|z.index(y)})||[*ns].size}.sum
+    ```
+
+    And part two (this is very fast):
+
+    ```ruby
+    p=$<.map{|o|o.scan(/\w+/).reverse}.to_h
+    i=%w{YOU SAN}.map{|i|((o||=[])<<i while i=p[i])||o}
+    p i.sum{|a|a.index(i.inject(:&)[0])}
+    ```
+  :replies: []
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9ueh2b/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_06
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9t7uhp/
+  :body: |-
+    I love graph problems,
+
+    ​ ​ ​ ​ They are so interesting
+
+    ​ ​ ​ ​ ​ ​ ​ ​ To model and solve.
+
+    But what's that, a bug?
+
+    ​ ​ ​ ​ Why have I made such mistake
+
+    ​ ​ ​ ​ ​ ​ ​ ​ It should've been easy.
+
+    ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ - "Buggy code", a poem by Uni
+
+    [POEM] a chouka (長歌)
+
+    `ruby 6.rb input` 567/351
+
+    [6-ver14:12:50.304961227.rb](https://topaz.github.io/paste/#XQAAAQDTAAAAAAAAAAA0D0toEGJhDJ64jJmHQTiEb5rJyl4bjiuiC93pZeyyJnnWr0/WUguWQCwkjUvzL0OQlipvH3avM+FGVAja6fi99/Pe+EoD+hS4+TEbfzpUoTE7rzSM0KE1zT9lbc2lY/RRsWIFJXXkGEod9MBjAOQHlssrh96qJCAW1kV2133HcRPnQ7UUSmEbRhU8fNdiHZpgfqMPL1yOELwmwsWyEnIPfBEyVEE6pXI0cDxfOkoOeL//tYvgAA==) | [6-ver14:18:53.388994599.rb](https://topaz.github.io/paste/#XQAAAQDnAAAAAAAAAAA0D0toEGJhDJ64jJmHQTiEb5rJyl4bjiuiC93pZeyyJnnWr0/WUguWQCwimEDKtRo8v54HhiUrljiteG/NddV3SPuzTf0y5wZEn+uf+DEgoDTXK0XPn0B+Qrt/mQmN1IQ9jTiGkfFC2L5v1vKkQD3aR7dCt81QQipqgw5YLqTTfz8pygzVLS+favNpXlP1tsZD5RwNnxMEx7TZrtmCkZsE2mnt/D57p9YU8D5supCHXilzR2ZQ7HAsItn850wHVw7oUZfz21///faXIA==)-|-
+
+    * * *
+
+    [Uni never learns](https://i.imgur.com/eaV9568.png); I'm very upset.
+  :replies: []
+- :author: mikal82
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9tj2rq/
+  :body: |-
+    [Scala](https://topaz.github.io/paste/#XQAAAQBPAwAAAAAAAAA3mImUzseuUG6pDUraFQrRv+4PrJ9QFyDrTD3pCNT16gRfe9CQ1WQQIOrEQXqEE9sqsXCkpCCJmeMyYopz1gAR11gWZVnfGbZvWnyoYAiZWqKQiI0rFwCNDqCbsII0ZSUUfxsL8aj+vf/o0SB+WIwEkGDJyrZSbvAU4Wo/ldsE9wbR01Lq+zjuH3UDauM+w494GHxJLDWKY2ZYMNWJWwaDwegYoX48yvM8cnDSRsxrhzoOESfS9HJIAdxh/7Xs0GsHR4VFbaj4pOmimnAX3VPnbqPBcKsenxkVZMOZIxO9LcbfGj4RvvvWDw8D9YMfyawuehTooRPRvvs28XeVMgNmMkMNlOkfAGQzUVFFIAyePfgYRLAZYhQIJQ1qSvM0gyY4Xy7MPy9Zdi4OYxnXRWDHfXq5U0KlQK/Pc1VWBfkCTI/07na2ZQuOMd6hGHBpX6W8Nm4iJ7V15oasO6niOuOM2c77TIaesD1RWvdC1H/z66mCDaVXjCfyTRDF3aSUskZjltxXN2yb9Fzk/jP1k/hW/1i7NaBl9oQiV8Q1tJWQ2o93q6uTunFzVlc1E8yyKFEyxyn3qRZQrlhRWR5jlQZuVJr6wGI4+ryewXMt3gOEgAg///PAjZs=)
+
+    Here I used flatMap to advance to the next "level" in all directions at once. This approach simplifies step 1, but for step 2 I needed to remove visited nodes to avoid going back and forth.
+
+    Scala turns out to be surprisingly good for AoC (so far), although not as elegant as Clojure and not as simple as Python or Ruby.
+  :replies:
+  - :author: fidesachates
+    :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9u5qqa/
+    :body: Very impressed with how concise your solution is
+    :replies: []
+- :author: prophetjohn
+  :url: https://www.reddit.com/r/adventofcode/comments/e6tyva/2019_day_6_solutions/f9u1qfl/
+  :body: |-
+    **Ruby**
+
+    part 1: [https://github.com/j-clark/adventofcode/blob/master/2019/aoc\_6\_1.rb](https://github.com/j-clark/adventofcode/blob/master/2019/aoc_6_1.rb)
+
+    part 2: [https://github.com/j-clark/adventofcode/blob/master/2019/aoc\_6\_2.rb](https://github.com/j-clark/adventofcode/blob/master/2019/aoc_6_2.rb)
+  :replies: []

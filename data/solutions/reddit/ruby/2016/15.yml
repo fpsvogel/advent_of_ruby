@@ -1,0 +1,146 @@
+---
+- :author: jtbandes
+  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uj0t/
+  :body: |-
+    Today's a great day for [another](https://www.reddit.com/r/adventofcode/comments/3xjpp2/day_20_solutions/cy59qye/) [Mathematica one-liner](http://reference.wolfram.com/language/ref/ChineseRemainder.html):
+
+    ```ruby
+    ChineseRemainder[-initialValues - Range[7], discSizes]
+    ```
+
+    &nbsp;
+
+    The inputs would be `initialValues = {5, 8, 1, 7, 1, 0, 0}` and `discSizes = {17, 19, 7, 13, 5, 3, 11}`, given my puzzle input:
+
+    > Disc #1 has 17 positions; at time=0, it is at position 5.
+    >
+    > Disc #2 has 19 positions; at time=0, it is at position 8.
+    >
+    > Disc #3 has 7 positions; at time=0, it is at position 1.
+    >
+    > Disc #4 has 13 positions; at time=0, it is at position 7.
+    >
+    > Disc #5 has 5 positions; at time=0, it is at position 1.
+    >
+    > Disc #6 has 3 positions; at time=0, it is at position 0.
+    >
+    > **_(part 2)_** Disc #7 has 11 positions; at time=0, it is at position 0.
+
+    And the sentence I seem to be repeating every day: "my actual leaderboard solution was written much less elegantly in Ruby" :-)
+
+    In the interest of getting higher on the leaderboard in the future, maybe it'd actually be interesting to consider what I think I _wasted_ time on today:
+
+    - actually parsing the input instead of putting the numbers in an array manually
+    - initially trying to increment the "current" state at each timestep (and reset it between tries) instead of explicitly computing each disc's position at the time the capsule reaches it
+    - off-by-one errors :(
+  :replies:
+  - :author: Wee2mo
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vciq/
+    :body: I had a hunch Mathematica would have an abrupt solution if you happened to know about it.
+    :replies: []
+  - :author: nononopotato
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbalad9/
+    :body: |-
+      I tried this with my input: ChineseRemainder[{10, 15, 17, 1, 0, 1}-Range[6], {13, 17, 19, 7, 5, 3}]
+
+      And it gave me 388735, which wasn't the correct answer..? Anything I did wrong?
+    :replies:
+    - :author: jtbandes
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbatom5/
+      :body: |-
+        You missed a `-`; it should be `ChineseRemainder[-{10, 15, 17, 1, 0, 1}-Range[6], {13, 17, 19, 7, 5, 3}]`.
+
+        That's because, for instance, for your first disc we want `10+t+1 = 0 (mod 13)`, or `t = -10-1 (mod 13)`.
+      :replies: []
+- :author: andars_
+  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7u0fg/
+  :body: |-
+    Ruby!
+
+    Feels good to be back on the leaderboard for the first time in a while.
+
+    ```ruby
+    disks = []
+
+    File.read(ARGV[0]).each_line do |line|
+      if line =~ /Disc #(\d+) has (\d+) positions; at time=(\d+), it is at position (\d+)./
+        disks << [$1.to_i, $2.to_i, $4.to_i]
+      end
+    end
+
+    def solve(disks)
+      t = 0
+      while true
+        s = disks.inject(0) { |n, d|
+          pos = (d[2] + d[0] + t) % d[1]
+          n + pos
+        }
+        return t if s == 0
+        t += 1
+      end
+    end
+
+    puts "Part 1: #{solve(disks)}"
+    disks << [disks.length+1, 11, 0]
+    puts "Part 2: #{solve(disks)}"
+    ```
+  :replies:
+  - :author: jtbandes
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uy6u/
+    :body: |-
+      Quick tip that I've been using for some of these: you can use the `DATA`/` __END__ ` feature to cram everything in one file:
+
+      ```ruby
+      DATA.read.each_line { |line| ... }
+      ...more code...
+      __END__
+      your puzzle input here!
+      ```
+    :replies:
+    - :author: andars_
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7v4ik/
+      :body: That's neat, I haven't seen that before. I'll give it a try.
+      :replies: []
+  - :author: mperham
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vnz8/
+    :body: |-
+      I created the input manually rather than regexp'ing it. Enumerable#all? came in super-handy:
+
+      ```ruby
+      discs = [
+        [0, 5, 2],
+        [1, 13, 7],
+        [2, 17, 10],
+        [3, 3, 2],
+        [4, 19, 9],
+        [5, 7, 0],
+        [6, 11, 0],
+      ]
+
+      count = 0
+      loop do
+        (puts count; break) if discs.all? do |disc|
+          (disc[2] + count + (disc[0] + 1)) % disc[1] == 0
+        end
+        count += 1
+      end
+      ```
+    :replies:
+    - :author: "[deleted]"
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db805j4/
+      :body: "[deleted]"
+      :replies:
+      - :author: mperham
+        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8c8jb/
+        :body: |-
+          Whoa, that first line is amazing. Kudos.
+
+          Side note, I always use #detect because #find clashes with ActiveRecord::Base#find.
+        :replies: []
+      - :author: eregontp
+        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8qn8e/
+        :body: |-
+          Mine is p (0..Float::INFINITY).find { |t| disks.all? { |dt, n, pos| (t + pos + dt) % n == 0 } }
+
+          Nice trick with 0.step
+        :replies: []

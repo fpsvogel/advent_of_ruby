@@ -1,0 +1,439 @@
+---
+- :author: lannonbr
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzhu3m/
+  :body: 'It seems that everyone was going brute force for this problem. I would be interested to see one that wasn''t. Anyway here''s my solution in Ruby: [day15.rb](https://github.com/lannonbr/AdventOfCode/blob/master/day15/day15.rb)'
+  :replies:
+  - :author: r_sreeram
+    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzl0u2/
+    :body: |-
+      > everyone was going brute force for this problem. I would be interested to see one that wasn't.
+
+      https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzkxzn
+    :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzit7z/
+  :body: |-
+    Finally made the leaderboard!!!! :)
+
+    My solution in Ruby:
+
+    ```ruby
+    #Sugar: capacity 3, durability 0, flavor 0, texture -3, calories 2
+    #Sprinkles: capacity -3, durability 3, flavor 0, texture 0, calories 9
+    #Candy: capacity -1, durability 0, flavor 4, texture 0, calories 1
+    #Chocolate: capacity 0, durability 0, flavor -2, texture 2, calories 8
+
+    ingredient_properties = [[3,0,0,-3,2],
+                [-3, 3, 0, 0, 9],
+                [-1,0,4,0,1],
+                [0,0,-2,2,8] ]
+
+    maximum = 0
+    maximum_for_500calories = 0
+
+    totalamount = 100
+    for i in 1..totalamount do
+        remaining1 = totalamount - i
+        for j in 1..remaining1 do
+            remaining2 = remaining1 - j
+            for k in 1..remaining2 do
+                remaining3 = remaining2 - k
+                for l in 1..remaining3 do
+                    amounts = [i,j,k,l]
+
+                    total = 1
+                    calories = 0
+                    for m in 0..3 do
+                        total_per_property = 0
+                        for n in 0..3 do
+                            total_per_property = total_per_property + amounts[n]*ingredient_properties[n][m]
+                        end
+                        if total_per_property < 0 then
+                            total_per_property = 0
+                        end
+                        total = total*total_per_property
+                        calories = calories + amounts[m]*ingredient_properties[m][4]
+                    end
+
+                    if total > maximum
+                        maximum = total
+                    end
+                    if total > maximum_for_500calories && calories == 500
+                        maximum_for_500calories = total
+                    end
+                end
+            end
+        end
+    end
+
+    puts "Part 1 solution: " + maximum.to_s
+    puts "Part 2 solution: " + maximum_for_500calories.to_s
+    ```
+  :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzkgnc/
+  :body: |-
+    Non-brute-forced solution to the first half in Ruby. Since I figured a greedy algorithm would work right out the gate, I decided to write that instead of brute-force. It's not pretty, and I had to switch to a brute-force method to get #90 on the leaderboard for part 2, but here it is.
+
+    ```ruby
+    @ingredients = {
+    "Frosting" => {capacity: 4, durability: -2, flavor: 0, texture: 0, calories: 5},
+    "Candy" => {capacity: 0, durability: 5, flavor: -1, texture: 0, calories: 8},
+    "Butterscotch" => {capacity: -1, durability: 0, flavor: 5, texture: 0, calories: 6},
+    "Sugar" => {capacity: 0, durability: 0, flavor: -2, texture: 2, calories: 1}
+    }
+
+    def calc(h)
+      total = {capacity: 0, durability: 0, flavor: 0, texture: 0}
+      h.each do |k,v|
+        total[:capacity] += (@ingredients[k][:capacity] * v)
+        total[:durability] += (@ingredients[k][:durability] * v)
+        total[:flavor] += (@ingredients[k][:flavor] * v)
+        total[:texture] += (@ingredients[k][:texture] * v)
+      end
+      total.map{|k,v|v}.inject(:*)
+    end
+
+    recipe = Hash.new(0)
+    recipe["Frosting"] = 1
+    recipe["Candy"] = 1
+    recipe["Butterscotch"] = 1
+    recipe["Sugar"] = 1
+    96.times do
+      x = ["Frosting","Candy","Butterscotch","Sugar"].map do |ing|
+        new_rec = recipe.dup
+        new_rec[ing] += 1
+        {"#{ing}" => calc(new_rec)}
+      end.sort_by{|h| h.first.last}.last.first
+      recipe[x.first] += 1
+    end
+
+    p calc(recipe)
+    ```
+  :replies: []
+- :author: JurgenKesker
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzrq92/
+  :body: |-
+    Ruby, part 2. Couldn't find a way to dynamically generate the combinations, so went for a hardcoded nested for loop.
+
+    ```ruby
+    class Ingredient
+
+        attr_reader :name, :properties
+
+        def initialize(name, capacity, durability, flavor, texture, calories)
+            @name = name
+            @properties = {}
+            @properties[:capacity] = capacity
+            @properties[:durability] = durability
+            @properties[:flavor] = flavor
+            @properties[:texture] = texture
+            @properties[:calories] = calories
+        end
+
+        def value(property)
+            @properties[property]
+        end
+
+        def to_s
+            @name
+        end
+    end
+
+    class UsedIngredient
+        attr_reader :ingredient, :teaspoons
+
+        def initialize(ingredient, teaspoons)
+            @ingredient = ingredient
+            @teaspoons = teaspoons
+        end
+
+        def score(property)
+            @teaspoons * @ingredient.value(property)
+        end
+
+        def to_s
+            "#{@teaspoons} ts of #{@ingredient}"
+        end
+    end
+
+    class Cookie
+
+        attr_reader :used_ingredients
+
+        def initialize(used_ingredients)
+            @used_ingredients = used_ingredients
+        end
+
+        def score
+            keys = [:capacity, :durability, :flavor, :texture] #:calories are ignored for now
+            scores = []
+            keys.each do |k|
+                score = @used_ingredients.map{|i|i.score(k)}.inject(:+)
+                score = score < 0 ? 0 : score
+                scores << score
+            end
+            scores.inject(:*)
+
+        end
+
+        def to_s
+            @used_ingredients.map{|u|u.to_s}.join(", ")
+        end
+
+    end
+
+    class Processor
+
+        attr_reader :ingredients
+        def initialize
+            @ingredients = []
+        end
+
+        def parse (input)
+            match = input.match(/(\w+): capacity (-*\d+), durability (-*\d+), flavor (-*\d+), texture (-*\d+), calories (-*\d+)/)
+            all, name, capacity, durability, flavor, texture, calories = match.to_a
+            @ingredients << Ingredient.new(name, capacity.to_i, durability.to_i, flavor.to_i, texture.to_i, calories.to_i)
+
+        end
+
+        def highest_score
+            #all combinations 100,0,0 : 99,1,0, 98,1,1 98,2,0 98,0,2
+            combinations = []
+            for i in 0..100
+                for j in 0..100
+                    for k in 0..100
+                        for l in 0..100
+                            combinations << [i,j,k,l] if (i + j + k + l== 100)
+                        end
+                    end
+                end
+            end
+
+            highscore = 0
+            best_cookie = nil
+            combinations.each do |c|
+                used_ingredients = []
+                for i in 0...@ingredients.length
+                    used_ingredients << UsedIngredient.new(@ingredients[i], c[i])
+                end
+                cookie = Cookie.new(used_ingredients)
+                cookie_score = cookie.score
+                if (highscore < cookie_score && cookie.calories == 500)
+                    highscore = cookie_score
+                    best_cookie = cookie
+                end
+            end
+
+            puts "Best cookie: #{best_cookie} => #{highscore}"
+        end
+
+        # def generate_next_round(current)
+            # new = []
+            # for i in 0..100
+            # for j in 0...current.length
+                # new << current[j] + [i]
+            # end
+            # end
+            # new
+        # end
+    end
+
+    input = "Sugar: capacity 3, durability 0, flavor 0, texture -3, calories 2
+    Sprinkles: capacity -3, durability 3, flavor 0, texture 0, calories 9
+    Candy: capacity -1, durability 0, flavor 4, texture 0, calories 1
+    Chocolate: capacity 0, durability 0, flavor -2, texture 2, calories 8"
+    lines = input.lines.map{|l|l.strip}
+    p = Processor.new
+    lines.each do |l|
+        p.parse(l)
+    end
+    puts p.ingredients
+    p.highest_score
+    ```
+  :replies: []
+- :author: Phakx
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzszqn/
+  :body: |-
+    Solution in **Ruby** after some iterations...
+
+    ```ruby
+    #!/usr/bin/ruby
+    class Ingredient
+      def initialize(name)
+        @name = name
+        @capacity = 0
+        @durability = 0
+        @flavor = 0
+        @texture = 0
+        @calories = 0
+      end
+    end
+
+    def get_sum_possibilities(numbers, sum)
+      Array(numbers).repeated_combination(4).find_all { |x, y, z, a| x + y +z + a == sum } || []
+    end
+
+    def generate_cookie_score(cookie_map, part2)
+      capacity = 0
+      durability = 0
+      flavor = 0
+      texture = 0
+      calories = 0
+      result = 0
+      cookie_map.each_pair do |key, value|
+        capa = key.instance_variable_get(:@capacity) * value
+        capacity += capa
+
+        dura = key.instance_variable_get(:@durability) * value
+        durability += dura
+
+        flav = key.instance_variable_get(:@flavor) * value
+        flavor += flav
+
+        textu = key.instance_variable_get(:@texture) * value
+        texture += textu
+
+        calo = key.instance_variable_get(:@calories) * value
+        calories += calo
+      end
+      if capacity >= 0 && durability >=0 && flavor >=0 && texture >=0
+        result = capacity * durability * flavor * texture
+      end
+      if calories != 500 && part2
+        result = 0
+      end
+      result
+    end
+
+    File.open("#{File.dirname( __FILE__ )}/input") do |file|
+      ingredients = file.readlines
+      cookie_map = Hash.new
+      ingredients.each do |ingredient|
+        split = ingredient.split(':')
+        ingredient = Ingredient.new(split[0])
+        ingredient_split = split[1].split(',')
+
+        ingredient.instance_variable_set(:@capacity, ingredient_split[0].scan(/-?\d+/).first.to_i)
+        ingredient.instance_variable_set(:@durability, ingredient_split[1].scan(/-?\d+/).first.to_i)
+        ingredient.instance_variable_set(:@flavor, ingredient_split[2].scan(/-?\d+/).first.to_i)
+        ingredient.instance_variable_set(:@texture, ingredient_split[3].scan(/-?\d+/).first.to_i)
+        ingredient.instance_variable_set(:@calories, ingredient_split[4].scan(/-?\d+/).first.to_i)
+        cookie_map[ingredient] = 0
+      end
+
+      teaspoons = Array(0..100)
+      score_list_part1 =[]
+      score_list_part2 =[]
+      combinations = get_sum_possibilities(teaspoons, 100)
+
+      combinations.each do |combination|
+        combination.permutation do |permutation|
+          index = 0
+          cookie_map.each_key do |key|
+            cookie_map[key] = permutation[index]
+            index +=1
+          end
+          #Part 1
+          cookie_score = generate_cookie_score(cookie_map, false)
+          score_list_part1 << cookie_score if cookie_score != 0
+          #Part 2
+          cookie_score = generate_cookie_score(cookie_map, true)
+          score_list_part2 << cookie_score if cookie_score != 0
+        end
+      end
+
+      puts "Part1: #{score_list_part1.max}"
+      puts "Part2: #{score_list_part2.max}"
+    end
+    ```
+  :replies:
+  - :author: JurgenKesker
+    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzyqtc/
+    :body: Nice use of `repeated_combination`. Didn't know that one.
+    :replies: []
+- :author: razr_69
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxztug8/
+  :body: |-
+    My solution in Ruby.
+
+    ```ruby
+    #!usr/bin/env ruby
+
+    def increment_array! array, total
+      inced = increment_array_with_idx! array, 1, total
+      array[0] = total-array[1..-1].reduce(0) { |s, e| s + e }
+      inced
+    end
+
+    def increment_array_with_idx! array, i, total
+      i>=array.size ? false :
+        (array[i..-1].reduce(0) { |s, e| s + e } < total ? (array[i] += 1; true) :
+          ((array[i] = 0; increment_array_with_idx! array, i+1, total)))
+    end
+
+    if ARGV[0] && File.file?(ARGV[0])
+      input_file = ARGV[0]
+    else
+      puts 'either no argument given or argument is not a file'
+      exit 1
+    end
+
+    total_teaspoons = 100
+    ingredients = []
+
+    File.open(input_file, 'r') do |f|
+      f.readlines.map(&:chomp).each do |line|
+        if match = line.match(/^(\S+): capacity ([+-]?\d+), durability ([+-]?\d+), flavor ([+-]?\d+), texture ([+-]?\d+), calories ([+-]?\d+)$/)
+          ingredients << Hash[[:name, :capacity, :durability, :flavor, :texture, :calories]
+            .zip([match.captures[0]] + match.captures[1..6].map { |c| c.to_i })]
+        end
+      end
+    end
+
+    cur_distr = Array.new ingredients.length, 0
+    cur_distr[0] = total_teaspoons
+
+    scorings = []
+    begin
+      capacity = 0; durability = 0; flavor = 0; texture = 0; calories = 0
+
+      cur_distr.each_with_index do |amount, i|
+        capacity += ingredients[i][:capacity]*amount
+        durability += ingredients[i][:durability]*amount
+        flavor += ingredients[i][:flavor]*amount
+        texture += ingredients[i][:texture]*amount
+        calories += ingredients[i][:calories]*amount
+      end
+
+      scorings << { distr: cur_distr, score: [capacity,0].max*[durability,0].max*[flavor,0].max*[texture,0].max, calories: calories }
+    end while increment_array! cur_distr, total_teaspoons
+
+    puts "The total score of the highest-scoring cookie is '#{scorings.sort_by { |s| s[:score] }.last[:score]}'."
+    calories = 500
+    puts "The total score of the highest-scoring cookie with exactly '#{calories}' calories is '#{scorings.select { |s| s[:calories] == calories }.sort_by { |s| s[:score] }.last[:score]}'."
+
+    exit 0
+    ```
+
+    I tried to recursively increment an array of the distribution of the ingredients (_increment\_array!_) without generating those with more than 'total' teaspoons. It is also independent from the amount of the different ingredients and the total amount of teaspoons.
+
+    Appreciate your feedback on the solution :)
+  :replies: []
+- :author: Herathe
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cy26spt/
+  :body: |-
+    Ruby part 1 using repeated\_combination
+
+    ```ruby
+    ingredients = DATA.map{ |line| line.scan(/-?\d+/).map(&:to_i) }
+    puts ingredients.repeated_combination(100).map{ |combi|
+        ingredients.map{ |ingredient|
+            ingredient.map{ |attribute| attribute * combi.count(ingredient) }
+        }.transpose.map{ |x|
+            score = x.inject(:+)
+            score < 0 ? 0 : score
+        }[0..3].inject(:*)
+    }.max
+    ```
+  :replies: []

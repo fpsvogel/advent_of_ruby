@@ -1,0 +1,83 @@
+---
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ghebg8n/
+  :body: |-
+    **Solution in Ruby**
+
+    Using the _Baby Step Giant Step_ algorithm for computing discrete logarithms: [https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day\_25/advent25.1.rb](https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day_25/advent25.1.rb)
+
+    Runs in a few milliseconds.
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzzquo/
+  :body: |-
+    Ruby, relatively quick brute force
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAoAgAAAAAAAAAyGUj/T4c8Tgpz+GZV01uLKnl7UFtKCqLkjkhsTUDB2dz3QjU4O3voS3d2E4iJHmUXanUz7zuCY0HMGISq/QHc9kTrFORB8rab27Orh6FCNlPFp1jm6nej11SUxZeqz8rlMGDWs2LCumdvn/mW21kO6Rw/Kw8ApNCtC28kGVYnB7yrdgWu+8+VO4j+JJ2mXsQT1ftyQ5+r5oDPotl4X3VVkvEjjqRcFfRSEjpZyP2VVVg28WKSaVSWFM0EzTmtbcvY1VkvrpnHXPehdB086ojgbDJtVfhxRb2hvRtvahw97GEtEFXM0yYvbAPCNSQ/Fwaz2btFzLCgX14OgLZNyRF4bXOV/J8d4syRcy3IiAFVI28FXYP5Ng6S6iabWiEu/Vhvd4qHBl0U7RvYL+I8HmNTXENm3fA5e45nvFhCCF2Xi/1Yiaj//2+iYwA=)
+  :replies: []
+- :author: DmitryShvetsov
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggywejp/
+  :body: |-
+    # Ruby
+
+    [https://github.com/dmshvetsov/adventofcode/blob/master/2020/25/1.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/25/1.rb)
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzpx2h/
+    :body: |-
+      Similar,
+
+      ```ruby
+      card_key, door_key = ARGF.readlines.map(&:to_i)
+
+      SUBJECT, MOD = 7, 20201227
+
+      f_step = lambda { |subject, card| (card * subject) % MOD }
+
+      card_subject, card_loop = 1, 0
+      until card_subject == card_key
+        card_loop += 1
+        card_subject = f_step.call(SUBJECT, card_subject)
+      end
+
+      door_subject, door_loop = 1, 0
+      until door_subject == door_key
+        door_loop += 1
+        door_subject = f_step.call(SUBJECT, door_subject)
+      end
+
+      encryption_key = 1
+      card_loop.times do
+        encryption_key = f_step.call(door_key, encryption_key)
+      end
+
+      puts encryption_key
+      ```
+    :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggyspxo/
+  :body: |-
+    Ruby 616/518
+
+    Great fun, see you guys next year! Edit: code golf
+
+    ```ruby
+    def solve(key)
+      1.upto(9999999).find { |n| 7.pow(n, 20201227) == key }
+    end
+
+    p card.pow(solve(door), 20201227)
+    p door.pow(solve(card), 20201227)
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggytz6h/
+  :body: |-
+    **Ruby:** 7:42/7:48, 128/110
+
+    Here's a [recording](https://youtu.be/DTu0_XLBSbo) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/75c4ab0b9e5f1b00761aedb82392584a61255290/2020/dec25.rb). I streamed myself solving every day's problem on [Twitch](https://twitch.tv/codeistheend); give me a follow! In the new year I'll be working on my own programming language!
+
+    Gah! I forgot to return the value after my loop! I've DEFINITELY made this sort of mistake before. Everything else was correct, so if I hadn't forgotten that I would've finished Part 1 in 5:26, and Part 2 in 5:32, which would have been good for 37th and 29th. (I had glanced at last year's Day 25 recently and remembered that the Part 2 was just clicking a link; I was ready.) Oh, well. I still had a great time!
+
+    Merry Christmas, everyone!
+  :replies: []

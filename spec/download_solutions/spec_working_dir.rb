@@ -1,6 +1,5 @@
 module DownloadSolutions
   module SpecWorkingDir
-
     def create_working_dir!
       @original_dir = Dir.pwd
       # Not nested in @original_dir (gem root) because in Arb::SpecWorkingDir

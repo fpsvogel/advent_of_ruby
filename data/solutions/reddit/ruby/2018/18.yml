@@ -1,0 +1,279 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec15imz/
+  :body: |-
+    The below is NOT the code I used to get into the leaderboard (since that was mostly vanilla)... it is instead kind of insane code. My leaderboard code took 3-4 seconds to run and I was not satisfied.
+
+    So I used a classic, the lookup tables approach like one you'd find at http://dotat.at/prog/life/life.html , except this time the neighbourhood is 18 bits so the lookup table now has 262144 elements (with a quarter of it being wasted space!)
+
+    Down to 1 second now. Should be decent if translating the lookup table approach to a compiled language.
+
+    (There's also double-buffering in there, but I found that double-buffering didn't really make a difference in runtime for me).
+
+    Note that I imagine the "compact representation" from that page could still be possible: Y coordinates would still be represented as negative numbers, trees' X coordinates as positive odd numbers, and lumber X coordinates as positive even numbers, or something. It would probably still work, I just haven't tried it yet. (In other words, "this isn't even my final form!!!")
+
+    Ruby:
+
+    ```ruby
+    require 'time'
+
+    # Nothing ever depends on the count of OPEN,
+    # so we are safe to make OPEN 0.
+    # Otherwise, we'd have to number elements 1, 2, 3.
+    # Not that it matters anyway; either way, space is being wasted.
+    # (two bits can represent four elements, but we only have three)
+    OPEN = 0
+    TREE = 1
+    LUMBER = 2
+
+    # 2 bits per cell, 9 cells in 3x3 neighbourhood,
+    # arranged in this way:
+    # 0 - 5: top left , left , bot left
+    # 6 - 11: top , self , bot
+    # 12 - 17: top right, right, bot right
+    # Move across the array, shifting off the left as we go.
+    # Index into a lookup table using this 18-bit integer.
+
+    BITS_PER_CELL = 2
+    CELLS_PER_ROW = 3
+    CELL_MASK = (1 << BITS_PER_CELL) - 1
+    MID_OFFSET = BITS_PER_CELL
+    TOP_OFFSET = BITS_PER_CELL * 2
+
+    COL_OFFSET = BITS_PER_CELL * CELLS_PER_ROW
+    RIGHT_COL_OFFSET = COL_OFFSET * 2
+
+    # Where the right column gets inserted
+    TOP_RIGHT_OFFSET = RIGHT_COL_OFFSET + TOP_OFFSET
+    MID_RIGHT_OFFSET = RIGHT_COL_OFFSET + MID_OFFSET
+    BOT_RIGHT_OFFSET = RIGHT_COL_OFFSET
+
+    ME = 4
+    NOT_ME = (0...9).to_a - [ME]
+
+    verbose = ARGV.delete('-v')
+
+    before_lookup = Time.now
+
+    # It takes about half a second to build the lookup table,
+    # but the time it saves makes it worth it!
+    NEXT_STATE = (1 << 18).times.map { |i|
+      trees = 0
+      lumber = 0
+      NOT_ME.each { |j|
+        n = (i >> (j * BITS_PER_CELL)) & CELL_MASK
+        if n == TREE
+          trees += 1
+        elsif n == LUMBER
+          lumber += 1
+        end
+      }
+      case (i >> (ME * BITS_PER_CELL)) & CELL_MASK
+      when OPEN
+        trees >= 3 ? TREE : OPEN
+      when TREE
+        lumber >= 3 ? LUMBER : TREE
+      when LUMBER
+        lumber > 0 && trees > 0 ? LUMBER : OPEN
+      else
+        # Note that 3 is unfortunately a waste of space.
+      end
+    }.freeze
+
+    puts "Lookup table in #{Time.now - before_lookup}" if verbose
+
+    # Next state resulting from `src` is written into `dest`
+    def iterate(src, dest)
+      dest.each_with_index { |write_row, y|
+        top = y == 0 ? nil : src[y - 1]
+        mid = src[y]
+        bot = src[y + 1]
+
+        # The first element in the row (which has no elements to its left)
+        bits = mid[0] << MID_RIGHT_OFFSET
+        bits |= top[0] << TOP_RIGHT_OFFSET if top
+        bits |= bot[0] << BOT_RIGHT_OFFSET if bot
+
+        (1...write_row.size).each { |right_of_write|
+          bits >>= COL_OFFSET
+          bits |= top[right_of_write] << TOP_RIGHT_OFFSET if top
+          bits |= mid[right_of_write] << MID_RIGHT_OFFSET
+          bits |= bot[right_of_write] << BOT_RIGHT_OFFSET if bot
+          write_row[right_of_write - 1] = NEXT_STATE[bits]
+        }
+
+        # The last element in the row (which has no elements to its right)
+        bits >>= COL_OFFSET
+        write_row[-1] = NEXT_STATE[bits]
+      }
+    end
+
+    def compress(grid)
+      # grid.flatten *does* work, of course,
+      # but let's see if we can do better.
+      grid.map { |r| r.reduce(0) { |acc, cell| (acc << BITS_PER_CELL) | cell } }
+    end
+
+    TESTDATA = <<SAMPLE
+    .#.#...|#.
+    .....#|##|
+    .|..|...#.
+    ..|#.....#
+    #.#|||#|#|
+    ...#.||...
+    .|....|...
+    ||...#|.#|
+    |.||||..|.
+    ...#.|..|.
+    SAMPLE
+
+    print_grid = ARGV.delete('-g')
+    current = (ARGV.include?('-t') ? TESTDATA : ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+      l.chomp.each_char.map { |c|
+        case c
+        when ?.; OPEN
+        when ?|; TREE
+        when ?#; LUMBER
+        else raise "invalid #{c}"
+        end
+      }
+    }
+
+    def resources(grid, verbose)
+      flat = grid.flatten
+      trees = flat.count(TREE)
+      lumber = flat.count(LUMBER)
+      "#{"#{trees} * #{lumber} = " if verbose}#{trees * lumber}"
+    end
+
+    patterns = {}
+
+    buffer = current.map { |row| [nil] * row.size }
+
+    1.step { |t|
+      iterate(current, buffer)
+      current, buffer = buffer, current
+
+      puts resources(current, verbose) if t == 10
+
+      key = compress(current)
+
+      if (prev = patterns[key])
+        cycle_len = t - prev
+
+        # If we stored in `patterns` in a reasonable way,
+        # we could just look in `patterns`...
+        # instead we'll just iterate more.
+        more = (1000000000 - t) % cycle_len
+        previous = t + more - cycle_len
+        #prev_flat = patterns.reverse_each.find { |k, v| v == previous }[0]
+
+        puts "t=#{t} repeats t=#{prev}. #{more} more cycles needed (or rewind to #{previous})" if verbose
+
+        more.times {
+          iterate(current, buffer)
+          current, buffer = buffer, current
+        }
+
+        puts resources(current, verbose)
+
+        break
+      end
+
+      patterns[key] = t
+    }
+
+    current.each { |row|
+      puts row.map { |cell|
+        case cell
+        when OPEN; ?.
+        when TREE; ?|
+        when LUMBER; ?#
+        else raise "Unknown #{cell}"
+        end
+      }.join
+    } if print_grid
+
+    __END__..|.#...||..||.#|#..|...#.#..#.|#.|...|#|.#.|.||#.
+    .|#....##.#||.......|..|...|..#.#...#...|.#.......
+    omitted
+    ```
+  :replies:
+  - :author: evonfriedland
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2fdb2/
+    :body: Thanks for sharing your code, p\_tseng. Are there any good (perhaps with diagrams) walkthroughs of the lookup table approach you might recommend?
+    :replies:
+    - :author: p_tseng
+      :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2qyur/
+      :body: |-
+        This is an interesting one because I don't think I found anything with diagrams, but I found Stack Exchange answer https://codereview.stackexchange.com/questions/42718/optimize-conways-game-of-life/42790#42790 to be useful.
+
+        (In case it hasn't already been mentioned, day 18 bears enough resemblance to Conway's Game of Life that the opportunities for speedups are similar between the two. Therefore, search results for "fast game of life" or "optimise game of life" are likely to be useful. I only knew this because this is not the first time it's come up in Advent of Code, since we had https://adventofcode.com/2015/day/18 )
+      :replies: []
+  - :author: xepherys
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ed9mx0t/
+    :body: Very nice. I'm trying desperately to rewrite this in C#, but not knowing Ruby is making it slightly difficult. Building your lookup table initially and your iterate func mostly make sense... I'm sure I can figure it out eventually lol.
+    :replies: []
+- :author: BluFoot
+  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec1244r/
+  :body: |-
+    Ruby, 246/190.
+
+    ```ruby
+    lines = $<.readlines.map(&:strip)
+
+    OPEN = ?.
+    TREE = ?|
+    LUMBER = ?#
+
+    grid = lines
+
+    def adj(grid, y, x)
+      (-1..1).flat_map do |yd|
+        next if y+yd < 0 || y+yd >= grid.size
+        (-1..1).map do |xd|
+          next if x+xd < 0 || x+xd >= grid.first.size || (yd == 0 && xd == 0)
+          grid[y+yd][x+xd]
+        end
+      end
+    end
+
+    so_far = []
+    found = false
+
+    i = 0
+    ITER = 1000000000
+    until i == ITER do
+      p i
+      if !found && so_far.any? { |p| (0...grid.size).all? { |j| p[j] == grid[j] } }
+        i = ITER - ITER % i
+        found = true
+      else
+        so_far << grid.map { |l| l.dup }
+      end
+
+      new = grid.map { |l| l.dup }
+      grid.each.with_index do |l, y|
+        l.chars.each.with_index do |c, x|
+          adjac = adj(grid, y, x)
+          case c
+          when OPEN
+            new[y][x] = TREE if adjac.count(TREE) >= 3
+          when TREE
+            new[y][x] = LUMBER if adjac.count(LUMBER) >= 3
+          when LUMBER
+            new[y][x] = OPEN unless adjac.count(LUMBER) >= 1 && adjac.count(TREE) >= 1
+          end
+        end
+      end
+      grid = new
+      i += 1
+    end
+
+    p grid.sum { |l| l.chars.count(TREE) } * grid.sum { |l| l.chars.count(LUMBER) }
+    ```
+  :replies:
+  - :author: ka-splam
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec14om3/
+    :body: Please, fix your code formatting?
+    :replies: []

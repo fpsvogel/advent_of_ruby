@@ -1,0 +1,463 @@
+---
+- :author: joeyGibson
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi5hv5i/
+  :body: |-
+    After seeing multiple submissions in APL by /u/jayfoad and /u/ka-splam, I started experimenting with Dyalog APL, and decided to take a whack at re-implementing some of the AoC challenges in APL (I did them all in Ruby the first time). Starting with Day 1, which took me many hours, I came up with this. It's probably shitty APL code, but it's mine. :-) I tried to "think in APL", and not in procedural languages, but I just couldn't come up with those idioms, yet.
+
+    I welcome any comments from fans of APL, who know more about it than I do.
+
+    ```ruby
+    ⍝ a function to solve part 1
+     R←combos VALS;val;pos;others
+     R←⍬
+     :For val :In VALS
+         others←VALS~val
+         pos←(others=(2020-val))
+         R←R,pos/others
+     :EndFor
+
+     R←×/R
+
+    ⍝ a function to solve part 2
+     R←combos3 VALS;val;val1;pos;others;others1
+     R←⍬
+     :For val :In VALS
+         others←VALS~val
+         :For val1 :In others
+             others1←others~val1
+             pos←(others1=(2020-(val+val1)))
+             R←R,pos/others1
+         :EndFor
+     :EndFor
+
+     R←((⍳⍴R)=(R⍳R))/R
+     R←×/R
+
+    ⍝ Read the test data file
+    data←⍎¨⊃⎕nget 'adventofcode2020/day1/input.txt'1
+
+    ⍝ run part 1
+    combos data
+    ⍝ run part 2
+    combos3 data
+    ```
+
+    Edit: I looked at someone else's code, and realized I could remove one of the functions, if I changed how I read in the text file.
+  :replies:
+  - :author: jayfoad
+    :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/giau5xg/
+    :body: 'Here''s an idea for a completely different array oriented solution: you''re looking for a value x such that both x and 2020-x are present in VALS. So you could try applying the APL set functions (dyadic `⍳` `∊` `∩` `∪` `~`) to VALS and 2020-VALS.'
+    :replies: []
+  - :author: ka-splam
+    :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi7q3i2/
+    :body: "Well done!\n\n> I tried to \"think in APL\", and not in procedural languages, but I just couldn't come up with those idioms, yet.\n\nI've been a beginner in APL for a couple of years, and this is by far the hardest part - much harder than the weird symbols - \"okay but ... how do I _solve problems_ using arrays?\" :D I don't fault you at all for using loops. This `others←VALS~val` and `pos/others` are nice bits of array thinking, just to make a point of calling that out \U0001F44D\n\nOn your code, I know it's possible to solve the problems in one-liners, and you can see that code in other people's answers if you want to go there so I'm not saying \"do it completely differently\" - code you write is more fun than code other people wrote; I'm going to throw some comments, not actually saying you ought to use them, just hoping to share some things APL can do:\n\n```ruby\nFerret←{⍵[2]}\nR←Ferret¨(⎕VFI¨LINES)\n```\n\nThat `⍵[2]` to get the second item can be written `2⊃⍵` \"2 pick\" or \"pick 2nd item of omega\" (as a rule of thumb they try to put control instructions like what to pick on the left of builtins, and data to be processed on the right), and that would let you write it without the `{}` dfn as `2⊃¨ (⎕VFI¨LINES)` \"pick the second item of each of...\".\n\nAnother way, because it's a fairly unique-y APL thing, if you raise the dimension of the ⎕VFI result with `↑` \"mix\", instead of a 1D list it turns into a 2D array, and then you can select the entire second column with `[;2]` in one move: `(↑⎕VFI¨LINES)[;2]`.\n\nHere `⊃¨⊃¨R` looks like you're un-nesting or disclosing the numbers? Nesting and enclosing always trips me up; I suspect you're doing `⊃¨` twice to make suuuure? Monadic `∊` is that kind of blunt tool \"flatten everything, lose the structure and get me all the values in a simple array\", and `∊R` might do the same thing here.\n\nThis line `R←R,pos/others` looks like it's appending to a list, and APL can do that with `,←` as in `R,←pos/others`. As an aside, in PowerShell catenating onto an array can be done with `$array += $item` which is a special-case use of `+=` that hardly shows up anywhere else, but APL is much cooler and can combine a lot of functions with `←` assignment not limited to just addition or catenation, it can do things like:\n\n```ruby\n      array ← 1 2 3 4 5 6 7 8 9 10\n      array ⌊← 5\n      array\n1 2 3 4 5 5 5 5 5 5\n```\n\nI'm not sure if that's always a shorthand for writing the variable name twice `array ← array ⌊ 5` or if there's more to it than that, but it would make it less annoying to use a longer variable name `result,←pos/others` instead of `result←result,pos/others`.\n\nAnyway, good job though, it's made me happy :)"
+    :replies:
+    - :author: joeyGibson
+      :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi7tamc/
+      :body: |-
+        Ooo, yes! More advice for me to try out tonight! Thanks! I actually removed that entire `cvt` function, where `Ferret` was, after seeing some other code that did what I wanted better. Basically, I was reading the file, and getting a multiply-nested structure, from which I needed to get the integer values, and this is what I came up with. Once I saw an example, I was able to remove that function, and just replace my
+
+        ```ruby
+        data←⊃⎕nget 'adventofcode2020/day1/input.txt'1
+        ```
+
+        with
+
+        ```ruby
+        data←⍎¨⊃⎕nget 'adventofcode2020/day1/input.txt'1
+        ```
+
+        and that got me a single-level vector with usable integers in it.
+      :replies: []
+  - :author: jayfoad
+    :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi655c0/
+    :body: |-
+      Great! The only thing about your code that really stands out as un-idiomatic is the :For loops. To get the best out of APL you should really strive to do operations on whole arrays at a time. The practical reason for this is: it'll run faster. The more important reason is: it unlocks a whole new way of looking at problems, with a higher level of abstraction.
+
+      In part 1 you use a :For loop as a way of searching all pairs of numbers in VALS, to find two that sum to 2020. If you look at APL's outer product (`∘.f`) you'll find it's a general way of doing a Cartesian product (all pairs) on any two arrays, which you can use here to find the sum of all pairs drawn from VALS and VALS in a single shot.
+
+      For part 2 you might like to think about how you can find all _triples_, still making use of the same outer product operator.
+
+      Incidentally [The APL Orchard](https://chat.stackexchange.com/rooms/52405/the-apl-orchard) is a great place for learning and discussing APL.
+    :replies:
+    - :author: joeyGibson
+      :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi9vjan/
+      :body: |-
+        If `data` contains `1721 979 366 299 675 1456`, and I run
+
+        `data∘.{(⍺+⍵)=2020}data`, then I get a matrix of true/false values
+
+        ```ruby
+        0 0 0 1 0 0
+        0 0 0 0 0 0
+        0 0 0 0 0 0
+        1 0 0 0 0 0
+        0 0 0 0 0 0
+        0 0 0 0 0 0
+        ```
+
+        How can I get the value at that junction? I tried to figure out how to have the anonymous function return `⍵` if the condition is true, but I couldn't figure out how to do it. I feel like I'm close, but not sure where to go next.
+      :replies:
+      - :author: jayfoad
+        :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/giad5bl/
+        :body: |-
+          Good question! Boolean arrays, and especially vectors, are used a lot. One thing you can do with a Boolean vector is use it to select items from another vector with Compress `/`:
+
+          ```ruby
+                X←3 1 4 1 5 9 2
+                X>6
+          0 0 0 0 0 1 0
+                (X>6)/X
+          9
+          ```
+
+          One trick I saw in someone else's solution was to do an or-reduction `∨/` on your Boolean matrix to find which rows contain a 1, and use that result to select items from `data`.
+
+          Another option is to use Where `⍸` on the Boolean matrix. This will give you a vector of pairs with the coordinates of the 1s. (Sorry Where is too new to feature in Mastering Dyalog APL.)
+
+          Some stylistic comments about `data∘.{(⍺+⍵)=2020}data` which you are free to take or leave!
+
+          1. APLers tend to write `2020=⍺+⍵` instead of `(⍺+⍵)=2020` just so they can omit the parens. You might think that's a dumb reason for writing everything "the wrong way round", and I wouldn't argue with you, but you will see it everywhere in APL and you might just find that you get used to it yourself.
+          2. `=` is a "scalar function" so you can pull it out of the outer product: `2020=data∘.{⍺+⍵}data` which is of course just `2020=data∘.+data`. Because APL is interpreted there is some overhead to evaluating lambdas, so `∘.+` will almost certainly run a lot faster than `∘.{...}`.
+          3. The Commute operator `⍨` lets you apply a function to two identical arguments: `2020=∘.+⍨data`. (This usage of Commute really needs a better name, like Selfie?)
+
+          With that in mind, another option for solving part 1 is to use the _Ravel_ of the entire Boolean matrix to select from the Ravel of a matrix of products, something like: `(,2020=∘.+⍨data)/,∘.×⍨data`
+
+          Yes it's a bit wasteful generating the whole of `∘.×⍨data` just to select one or two items from it, but I bet you'll find it still runs pretty fast!
+        :replies:
+        - :author: joeyGibson
+          :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/giat4pz/
+          :body: |-
+            I keep seeing the `2020=⍺+⍵` style, which reminds me of how some people write Java code with `if (null == foo)...`, which annoys me greatly. Knowing _why_ APL code is written that way makes total sense, and I will certainly adopt that style.
+
+            As for your other points I will definitely be working through them tonight. Thank you!
+          :replies: []
+      - :author: joeyGibson
+        :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi9zvy8/
+        :body: |-
+          After some more testing, and reading, I came up with
+
+          ```ruby
+          ×/((∊(data∘.{(⍺+⍵)=2020:⍵ ⋄ 0}data))~0)
+          ```
+
+          which works, but all the parens are kind of smelly, I think.
+        :replies:
+        - :author: jayfoad
+          :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/giadj31/
+          :body: |-
+            Yup, that works. Some of the outer parens are just not needed: `×/∊(data∘.{(⍺+⍵)=2020:⍵ ⋄ 0}data)~0`
+
+            Another APLism to to use Booleans as the mathematical values 0 and 1 (this is "Iverson's convention" and [Knuth says it's OK](https://arxiv.org/pdf/math/9205211.pdf)). So your lambda could be written as `{((⍺+⍵)=2020)×⍵}` or `{⍵×2020=⍺+⍵}`.
+          :replies:
+          - :author: joeyGibson
+            :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/giasxev/
+            :body: I have seen uses of boolean results like that, but it didn't occur to me to use that here. That definitely cuts out some of the fluff.
+            :replies: []
+    - :author: joeyGibson
+      :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gi6bk46/
+      :body: YES! Thank you! This is the kind of feedback I was hoping for. I knew that the `:For` loops smelled bad, I just couldn't figure out how to get the same effect any other way. I'm only about 250 pages into "Mastering Dyalog APL", so I'm still finding my way. I will definitely investigate this tonight.
+      :replies: []
+- :author: blafunke
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geqtqg4/
+  :body: |-
+    Late to the party, but I tried to dress it up a bit to make up for tardiness.
+
+    ruby:
+
+    ```ruby
+                          11
+                         es =
+                        $stdin
+                     .read.split(
+                   "\n").map{|e|e.to_i
+                }and es.each_index{|i|es[
+              i+1..es.length-1].each_index{
+             |j| 1111111111111111111111111111
+            1111111111111111111111111111111111
+          11111111111111111111111111111111111111
+        es[j+1..es.length-1].each{|e| 111111111111
+      1111111111111111111111111111111111111111111111
+    abort((es[i]*es[j]*e).to_s)if es[i]+es[j]+e==2020}
+                          }}
+                          {}
+    ```
+  :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geojn61/
+  :body: |-
+    **Ruby**
+
+    Started to learn Ruby for fun, so going to try to do these challenges this year with that then just using C# for what I do at my work:
+
+    ```ruby
+    expenses = File.read("day1input.txt").split.map{|s| s.to_i}
+
+    # Part 1
+    puts "#{expenses.combination(2).to_a.select{|c| c.reduce(:+) == 2020}.first.reduce(:*)}"
+
+    # Part 2
+    puts "#{expenses.combination(3).to_a.select{|c| c.reduce(:+) == 2020}.first.reduce(:*)}"
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8dg41/
+  :body: |-
+    ## [Ruby (428/369)](https://github.com/Sharparam/advent-of-code/blob/master/2020/day1/solution.rb)
+
+    ```ruby
+    input = ARGF.readlines.map(&:to_i)
+
+    puts input.combination(2).find { |p| p.sum == 2020 }.reduce(&:*)
+    puts input.combination(3).find { |t| t.sum == 2020 }.reduce(&:*)
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8nz8m/
+    :body: |-
+      Nice! This is very close to my solution. I love ruby's combinatorics functions.
+
+      (You don't need that ampersand in #reduce)
+    :replies:
+    - :author: Sharparam
+      :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8rjq5/
+      :body: |-
+        Yeah the built-in combinatorics stuff is a lifesaver, I miss a lot of these built-in things when working in other languages.
+
+        Didn't know that reduce could take a plain symbol for the method, thanks for pointing it out!
+      :replies: []
+- :author: Piggelinmannen
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geax0kn/
+  :body: |-
+    Hi!First time posting! :) Solution in ruby:
+
+    ```ruby
+    input = File.readlines('./input.txt')
+
+    result = input
+             .map(&:to_i)
+             .combination(2)
+             .find { |combination| combination.sum == 2020 }
+             .reduce(:*)
+    puts "Day1 first part: #{result}"
+
+    result = input
+             .map(&:to_i)
+             .combination(3)
+             .find { |combination| combination.sum == 2020 }
+             .reduce(:*)
+    puts "Day1 second part: #{result}"
+    ```
+
+    Could obviously be replaced with a method, since only the number provided to combination differs. Kind of like to keep solutions separate though.
+
+    EDIT: reddit code blocks...
+  :replies: []
+- :author: shandley256
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geafdj9/
+  :body: |-
+    Ruby Part 1
+
+    > input.split.map(&:to\_i).combination(2).detect { |tuple| tuple.sum == 2020 }.reduce(:\*)
+
+    Ruby Part 2
+
+    > input.split.map(&:to\_i).combination(3).detect { |tuple| tuple.sum == 2020 }.reduce(:\*)
+  :replies: []
+- :author: MuumiJumala
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8rsst/
+  :body: |-
+    Code golf (Ruby)
+
+    ```ruby
+    i=$<.map &:to_i
+    puts [2,3].map{|n|i.combination(n).find{|x|x.sum==2020}.reduce:*}
+    ```
+  :replies:
+  - :author: jtgorn
+    :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge908p9/
+    :body: |-
+      I prefer this syntax
+
+      ```ruby
+      p ARGF.map(&:to\_i).combination(2).find{|x| x.sum==2020}.reduce:\*
+      ```
+    :replies: []
+- :author: odlp
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8vp59/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    combination_size = ARGV.first.to_i
+    expenses_path = File.expand_path("expenses.txt", __dir__ )
+    expenses = File.readlines(expenses_path).map(&:to_i)
+
+    expenses
+      .combination(combination_size)
+      .detect { |expenses| expenses.sum == 2020 }
+      .tap do |expenses|
+        break if expenses.nil?
+
+        combination = expenses.join(" * ")
+        answer = expenses.inject(:*)
+        puts "#{combination} = #{answer}"
+      end
+    ```
+  :replies: []
+- :author: DropkickFish
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geaqgdt/
+  :body: |-
+    Ruby.
+
+    Was pretty happy with cutting down the run time average until I saw the two one liners, although plus side is I've learnt about a couple of new methods which is nice, and after checking the others I'm not terribly far off with the time to run.
+
+    ```ruby
+    array = []
+    File.foreach("input1.txt") { |line| array << line.to_i }
+    pairs = array.combination(ARGV[0].to_i)
+    pairs.each do |pair|
+      if pair.sum == 2020
+        puts pair[0..-1].reduce(:*)
+      end
+    end
+    ```
+  :replies: []
+- :author: Mermoose
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gebmpyg/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    require 'set'
+
+    NUMBERS = File.read('p1-input.txt').split("\n").map(&:to_i)
+
+    def product_of_entries_that_sum_to(sum, num_nums)
+      sum_to_2020 = NUMBERS.combination(num_nums).find { |nums| nums.reduce(&:+) == sum }
+      sum_to_2020.reduce(&:*)
+    end
+
+    puts product_of_entries_that_sum_to(2020, 2)
+    puts product_of_entries_that_sum_to(2020, 3)
+    ```
+  :replies: []
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gedmx6c/
+  :body: |-
+    My solution in Ruby:
+
+    `#!/bin/env ruby`
+
+    `#Find the two entries that sum to 2020; what do you get if you multiply them together?`
+
+    `numbers = File.readlines('./input')`
+
+    `numbers.each do |num1|`
+
+    `numbers.each do |num2|`
+
+    `sum = num1.to_i + num2.to_i`
+
+    `puts num1.strip + '+' + num2.strip + '=' + sum.to_s`
+
+    `if sum == 2020`
+
+    `puts num1.to_i * num2.to_i`
+
+    `exit`
+
+    `end`
+
+    `end`
+
+    `end`
+  :replies: []
+- :author: combustible
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/gebclbc/
+  :body: |-
+    I'll be honest... not sure my heart's in it this year
+
+    ```ruby
+    -> % time ruby -e 'i=File.read("input1.txt").split("\n").map{|x| x.to_i};x=[0,0,0];while x.sum!=2020;x=i.sample(3);end;puts x[0]*x[1]*x[2]'
+    212900130
+    ruby -e 0.19s user 0.03s system 99% cpu 0.216 total
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8d75b/
+  :body: |-
+    Ruby - 1706 / 1575. Just brute forcing it. Part one:
+
+    ```ruby
+    values = File.read('1_1.txt').lines.map(&:chomp).map(&:to_i)
+    (0..values.size-2).each do |l|
+      (l+1..values.size-1).each do |r|
+        if values[l] + values[r] == 2020
+          puts values[l] * values[r]
+          exit
+        end
+      end
+    end
+    ```
+
+    Part two:
+
+    ```ruby
+    values = File.read('1_1.txt').lines.map(&:chomp).map(&:to_i)
+    (0..values.size-3).each do |l|
+      (l+1..values.size-2).each do |r|
+        (r+1..values.size-1).each do |c|
+          if values[l] + values[r] + values[c] == 2020
+            puts values[l] * values[r] * values[c]
+            exit
+          end
+        end
+      end
+    end
+    ```
+  :replies: []
+- :author: jtgorn
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge8yog2/
+  :body: |-
+    Ruby
+
+    ```ruby
+    $a = File.readlines("1.txt").collect(&:to_i)
+
+    def sumsto(total)
+      $a & $a.collect { |x| total - x }
+    end
+
+    def summable(total)
+      !sumsto(total).empty?
+    end
+
+    print "Result 1: ",sumsto(2020).reduce(1, :*)
+    print "\nResult 2: ", $a.select{ |i| summable(2020-i) }.reduce(1, :*)
+    ```
+  :replies: []
+- :author: hdf1986
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge93z7e/
+  :body: |-
+    My ruby solutions for day 1:
+
+    Part 1: [https://github.com/hdf1986/advent-of-code/blob/master/2020/day1/ruby/part1.rb](https://github.com/hdf1986/advent-of-code/blob/master/2020/day1/ruby/part1.rb)
+
+    Part 2: [https://github.com/hdf1986/advent-of-code/blob/master/2020/day1/ruby/part2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2020/day1/ruby/part2.rb)
+  :replies: []
+- :author: '442401'
+  :url: https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/ge9809q/
+  :body: |-
+    **Ruby**
+
+    Returns an array containing solutions to parts 1 & 2
+
+    ```ruby
+    input = File.readlines("input.txt").map(&:to_i)
+
+    [2, 3].map do |part|
+      input.permutation(part) { |perm| break perm if perm.sum == 2020 }.inject(:*)
+    end
+    ```
+  :replies: []

@@ -1,0 +1,93 @@
+---
+- :author: J-Swift
+  :url: https://www.reddit.com/r/adventofcode/comments/e8m1z3/2019_day_10_solutions/fbcvg9u/
+  :body: |-
+    Ruby
+
+    https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_10
+  :replies: []
+- :author: Yardboy
+  :url: https://www.reddit.com/r/adventofcode/comments/e8m1z3/2019_day_10_solutions/fai82fg/
+  :body: |-
+    # Ruby
+
+    #notrig
+
+    [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle10b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle10b/solution.rb)
+
+    Intcode source: [https://github.com/Yardboy/advent-of-code/tree/master/2019/intcode](https://github.com/Yardboy/advent-of-code/tree/master/2019/intcode)
+
+    # [Poem]
+
+    We moved when I was in eighth grade
+
+    And of trigonometry I learned none
+
+    My old school taught it semester 2
+
+    And my new school semester 1
+
+    So my Ruby solution has no trig
+
+    But that's okay, cause I'm no dope
+
+    Just fixed myself a whiskey and sour
+
+    After I solved it using only the slope
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/e8m1z3/2019_day_10_solutions/fafbqhm/
+  :body: |-
+    Ruby.
+
+    My answer to part 1 was greater than 200, so I didn't have to worry about the laser coming around 360 degrees.
+
+    ```ruby
+    asteroids = File
+      .open('../input/input10.txt')
+      .each_line
+      .with_index
+      .flat_map { |line, linenum|
+        line
+          .each_char
+          .with_index
+          .flat_map { |char, charnum|
+            char == '#' ? [[charnum, linenum]] : []
+          }
+      }
+
+    def angle_between(x1, y1, x2, y2)
+      Math.atan2(x2-x1, -(y2-y1)) % (2*Math::PI)
+    end
+
+    def distance_between(x1, y1, x2, y2)
+      Math.sqrt((x1-x2)**2 + (y1-y2)**2)
+    end
+
+    location, lines_of_sight = asteroids
+      .map { |asteroid|
+        others = asteroids - asteroid
+        lines = others.group_by { |other| angle_between(*asteroid, *other) }
+        [asteroid, lines]
+      }
+      .max_by { |_, lines| lines.size }
+
+    # Part 1
+    p lines_of_sight.size
+
+    # Part 2
+    p lines_of_sight
+      .sort[199].last
+      .min_by { |asteroid| distance_between(*location, *asteroid) }
+      .then { |x,y| x*100+y }
+    ```
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/e8m1z3/2019_day_10_solutions/fae1va2/
+  :body: |-
+    **Ruby**
+
+    I was determined not to use trigonometry at all for this, and for part 1 that was reasonably trivial to do: https://github.com/peterc/aoc2019solutions/blob/master/10a.rb
+
+    With stage two however, I was a bit facepalming it.. but then realized I could calculate a "pseudoangle" that _might_ just be accurate enough to sort the points. Thankfully... it was: https://github.com/peterc/aoc2019solutions/blob/master/10b.rb
+  :replies: []

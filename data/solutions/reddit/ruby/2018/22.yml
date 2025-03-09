@@ -1,0 +1,28 @@
+---
+- :author: Immediate_Channel
+  :url: https://www.reddit.com/r/adventofcode/comments/a8i1cy/2018_day_22_solutions/ecc2o5o/
+  :body: |-
+    My **ruby** solution takes 188 seconds to run with a handrolled A\*. What am I doing wrong?
+
+    https://pastebin.com/raw/WtZ8ALEK
+  :replies:
+  - :author: dark_terrax
+    :url: https://www.reddit.com/r/adventofcode/comments/a8i1cy/2018_day_22_solutions/ecc6n6k/
+    :body: |-
+      I don't know Ruby at all, but just glancing at your solution, my guess is that the inner loop of your pathfinding solution is going to be insanely expensive due to not using a proper priority\_queue.
+
+      You have the following line:
+
+      > current = open_set.keys.min_by { |t| est_full_travel\_score[t] }
+
+      Which is going to be an O(N) operation on your queue, which can be very large. This turns your algorithm from O(N log N) (priority queue) to be an O(N^2) which for the size of the inputs here is going to be significant.
+
+      I would try finding a decent priority\_queue implementation in Ruby and use that.
+    :replies:
+    - :author: Immediate_Channel
+      :url: https://www.reddit.com/r/adventofcode/comments/a8i1cy/2018_day_22_solutions/eccam6h/
+      :body: |-
+        Hey, thanks! I changed it to use a priority queue and my runtime went from 188 seconds to 5.
+
+        https://pastebin.com/raw/fWzPUcKe
+      :replies: []

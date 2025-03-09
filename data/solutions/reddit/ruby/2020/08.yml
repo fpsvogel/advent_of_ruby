@@ -1,0 +1,451 @@
+---
+- :author: jeffers0n
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf6d3jz/
+  :body: |-
+    Ruby. I found this much easier than day 07.
+
+    ```ruby
+    #!/bin/env ruby
+
+    def run_code (instructions)
+        acc = 0
+        tracker = Array.new(instructions.length, false)
+        i = 0
+        success = false
+        while tracker[i] == false do
+            tracker[i] = true
+            case instructions[i][0..2]
+            when 'acc'
+                acc += instructions[i].split(' ')[1].to_i
+                i += 1
+            when 'jmp'
+                i += instructions[i].split(' ')[1].to_i
+            when 'nop'
+                i += 1
+            end
+            success = true if i == instructions.length
+        end
+        return success, acc, tracker
+    end
+
+    input = File.readlines('./input').to_ary.map(&:strip)
+    succ, acc, tracker = false, 0, []
+
+    input.each.with_index do |instruction, i|
+        mod = input.map(&:clone)
+        if instruction[0..2] == 'jmp'
+            mod[i][0..2] = 'nop'
+        elsif instruction[0..2] == 'nop'
+            mod[i][0..2] = 'jmp'
+        else
+            next
+        end
+        succ, acc, tracker = run_code(mod)
+        break if succ == true
+    end
+
+    p acc
+    ```
+  :replies:
+  - :author: rune_kg
+    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gfkdzu8/
+    :body: Very pretty!
+    :replies: []
+- :author: tckmn
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0zdyb/
+  :body: "[ruby 6/2](https://gist.github.com/tckmn/ba6c243bfde8d73c4e92033f7f0cabef), unedited from my part 2 submission, posting because it's pretty silly. nothing like reading the input file 635 times to avoid bugs from forgetting to copy / reset things lol"
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1nh3w/
+  :body: |-
+    # Ruby
+
+    Wasted time trying to think of a 'clever' solution for part two. Which I did but then had other work to do so just brute forced it :-D
+
+    ```ruby
+    # Parser and lexer ;-)
+    code = $<.readlines
+             .map(&:split)
+             .map { |is| [is[0].to_sym, is[1].to_i] }
+
+    # Interpreter
+    def execute(code, no_loops = false)
+      pc = acc = cycles = 0
+      coverage = []
+
+      while (cycles += 1) < 1000
+        return acc if pc >= code.length || (coverage[pc] && no_loops)
+        coverage[pc] = true
+
+        ins, op = code[pc]
+        acc += op if ins == :acc
+        pc += op - 1 if ins == :jmp
+        pc += 1
+      end
+    end
+
+    # Run code for part one
+    puts execute(code, true)
+
+    # Change code for part two
+    code.each.with_index do |_, loc|
+      next unless %i{jmp nop}.include?(code[loc][0])
+
+      code[loc][0] = code[loc][0] == :nop ? :jmp : :nop
+      res = execute(code)
+      code[loc][0] = code[loc][0] == :nop ? :jmp : :nop
+
+      puts "#{loc} - #{res}" if res
+    end
+    ```
+  :replies: []
+- :author: Ryuujinx
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2g2b8/
+  :body: |-
+    # Ruby
+
+    This one I didn't find terribly difficult, just moving some pointers around an array really. Code: https://github.com/Ryuujinx/aoc2020/tree/main/day8
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2jcsg/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    main_prog = ARGF.readlines.map { |line|
+        code, value = line.split
+        [code, value.to_i, false]
+    }
+
+    def run_program(prog)
+        p_counter = 0
+        acc = 0
+        while true
+            op, val, visited = prog[p_counter]
+            return acc, false if visited == true
+            return acc, true if p_counter == prog.length
+            prog[p_counter][2] = true
+            case op
+            when "nop"
+                p_counter += 1
+            when "acc"
+                acc += val
+                p_counter += 1
+            when "jmp"
+                p_counter += val
+            else
+                raise "op: #{op}"
+            end
+        end
+    end
+
+    def copy(prog)
+        return prog.map { |line|
+            op, val, visited = line
+            [op, val, visited]
+        }
+    end
+
+    # part 1
+    acc, success = run_program(copy(main_prog))
+    puts acc
+
+    # part 2
+    main_prog.each.with_index do |line, i|
+        op, val, _ = line
+        if op == "jmp"
+            new_op = "nop"
+        elsif op == "nop"
+            new_op = "jmp"
+        else
+            new_op = op
+        end
+        new_prog = copy(main_prog)
+        new_prog[i][0] = new_op
+        acc, success = run_program(new_prog)
+        p acc if success
+    end
+    ```
+  :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0yz10/
+  :body: |-
+    Ruby 423/218
+
+    ```ruby
+    require 'set'
+
+    class Interpreter
+      def initialize(instructions)
+        @instructions = instructions
+      end
+
+      def run
+        accumulator = 0
+        offset = 0
+        visited = Set.new
+
+        while true
+          return [accumulator, true] if offset >= @instructions.size
+
+          instruction, value = @instructions[offset]
+          case instruction
+          when 'nop'; offset += 1
+          when 'acc'; accumulator += value; offset += 1
+          when 'jmp'; offset += value
+          end
+
+          return [accumulator, false] if visited.include?(offset)
+          visited.add(offset)
+        end
+      end
+    end
+
+    instructions = File.read('08.txt').lines(chomp: true).map { |l| i, v = l.split(' '); [i, v.to_i] }
+    interpreter = Interpreter.new(instructions)
+
+    # part 1
+    puts Interpreter.new(instructions).run[0]
+
+    # part 2
+    (0...instructions.size).each do |change|
+      saved = instructions[change][0]
+      next if saved == 'acc'
+
+      instructions[change][0] = saved == 'jmp' ? 'nop' : 'jmp'
+      accumulator, halted = interpreter.run
+      puts accumulator if halted
+
+      instructions[change][0] = saved
+    end
+    ```
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf12k89/
+  :body: |-
+    **Ruby:** 4:41/9:25, 348/203
+
+    Here's a [recording](https://youtu.be/vOs2QW8GEeg) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/b10dc253003990f01d06639aaad43d380df35ddd/2020/dec08.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Forgot to increment the instruction pointer after updating the accumulator in Part 1 and lost 40 seconds waiting for the submission timeout. But otherwise pretty straightforward. Will have to clean it up before the next processor problem!
+  :replies:
+  - :author: petercooper
+    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1n8t6/
+    :body: |-
+      I took a similar approach to you, but got majorly screwed by `dup` not being a deep clone, as I was editing the inner array directly (e.g. like `new_ops[i][0] = :nop` would have been in your scenario) and screwing up my original code ;-) Wasted 10 minutes of my time debugging that one.. oops! :-)
+
+      Also thought I'd bring up some shortcuts you can take in processing the input, e.g.
+
+      ```ruby
+      ops = $<.readlines
+              .map(&:split)
+              .map { |is| [is[0], is[1].to_i] }
+      ```
+    :replies: []
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf159kl/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    PROGRAM = File.readlines("day8_input.txt").map{ |line| line.chomp.split(' ') }
+
+    def run_program(program)
+      ip = 0
+      acc = 0
+      seen = Array.new(program.size) { |i| 0 }
+
+      while (0...program.size).include?(ip)
+        instr = program[ip][0]
+        val = program[ip][1].to_i
+
+        seen[ip] += 1
+        break if seen[ip] == 2
+
+        case instr
+        when 'acc'
+          acc += val
+          ip += 1
+        when 'jmp'
+          ip += val
+        when 'nop'
+          ip += 1
+        else
+        end
+      end
+
+      [ip, acc]
+    end
+
+    # Part 1
+    _, acc = run_program(PROGRAM)
+    puts "#{ acc }"
+
+    # Part 2
+    def fixed_program_acc(program)
+      program.each_with_index do |instr, idx|
+        next if instr[0] == 'acc'
+
+        program[idx][0] = instr[0] == 'jmp' ? 'nop' : 'jmp'
+
+        ip, acc = run_program(program)
+        return acc if ip >= program.size
+
+        program[idx][0] = instr[0] == 'jmp' ? 'nop' : 'jmp'
+      end
+
+      "unfixable"
+    end
+    puts "#{ fixed_program_acc(PROGRAM) }"
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf19a9e/
+  :body: |-
+    The worst possible solution in ruby:
+
+    [https://github.com/sreedevk/advent-of-code/blob/master/2020/day8/main.rb](https://github.com/sreedevk/advent-of-code/blob/master/2020/day8/main.rb)
+  :replies: []
+- :author: hamnixster
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1a0rj/
+  :body: |-
+    Here is my ruby solution. For part 2, using the marked up instructions from part one, it works backwards from the last intcode looking for candidates to flip that were visited in the course of executing part1. Checking these, I got the answer.
+
+    I feel like there are edge cases that would cause this to fail, but it worked for my input at least.
+
+    Does anybody else have a solution where they did not iterate over all the possible swaps?
+
+    ```ruby
+    part2_input = File.read("8").split("\n").map { |ins| ins.split.tap { |ins| ins[-1] = ins.last.to_i } }.map.with_index { |ins, i| ins.unshift(i) }
+    part1_input = Marshal.load(Marshal.dump(part2_input))
+
+    def run_intcode(instructions)
+      pointer, acc, count = 0, 0, 0
+      while (ins = instructions[pointer]) && (val = ins[2]) && ins[-1] != "visited"
+        inc = 1
+        ins << count
+        count += 1
+        ins << "visited"
+        case ins[1]
+        when "acc"
+          acc += val
+        when "jmp"
+          inc = val
+        end
+        pointer += inc
+      end
+      acc
+    end
+
+    # finds all potential swaps that would lead to the final instruction
+    def swap_index(input, start = nil)
+      start ||= input.size - 1
+      bottom, top = start - 1, start
+      candidates = []
+      range_to_reach = loop {
+        bottom_ins = input[bottom]
+        # if bottom was visited, this means it was a jmp away since start has not been visited
+        # therefore, flipping it to be a nop would lead to start, so it's a swap candidate
+        if bottom_ins[-1] == "visited"
+          candidates << bottom
+          break [bottom + 1, top]
+        end
+        val = bottom_ins[2]
+        # if the bottom instruction is a jump back, or a forward jump over the entire range,
+        # we know the bounds of the range and break out.
+        if bottom_ins[1] == "jmp" && (val <= 0 || val > (top - bottom) + 1)
+          break [bottom + 1, top]
+        end
+        # otherwise, we loop back checking more instructions until we find a jmp that leads out
+        # of the range, giving us the bound of the range we need to consider jmps into
+        bottom -= 1
+      }
+
+      # Next, we look for jmps, or nops that can become jmps, into the range.
+      (
+        input.select.with_index { |ins, pos|
+          code, val = ins[1..3]
+          # look for any insructions, that if they were jumps, would land in the range
+          if (val + pos).between?(*range_to_reach) && !pos.between?(*range_to_reach)
+            # if the position is a visited nop, it's a candidate directly
+            candidates << pos if code == "nop" && ins[-1] == "visited"
+            code == "jmp"
+          end
+        }.map.with_index { |candidate, i|
+          # for jumps that lead to the range, recursively find more visited candidates
+          swap_index(input, input.index(candidate))
+        } +
+        candidates # add the candidates from this fn call with recursive calls
+      ).flatten.compact.uniq # clean up
+    end
+
+    puts run_intcode(part1_input)
+
+    swap_index(part1_input)[0].tap { |index| part2_input[index][1] = part2_input[index][1] == "jmp" ? "nop" : "jmp" }
+
+    puts run_intcode(part2_input)
+    ```
+  :replies: []
+- :author: odlp
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf28t0s/
+  :body: |-
+    Here's my [Ruby solution](https://github.com/odlp/advent-of-code-2020/blob/main/day-8/boot.rb):
+
+    ```ruby
+    require "set"
+
+    Instruction = Struct.new(:type, :value, :index, keyword_init: true)
+
+    original_instructions = ARGF.map.with_index do |raw_instruction, index|
+      type, raw_value = raw_instruction.split(" ")
+      Instruction.new(type: type, value: raw_value.to_i, index: index)
+    end
+
+    def execute(instructions)
+      visited_instructions = Set.new
+      accumulator = 0
+      pointer = 0
+
+      while current_instruction = instructions[pointer]
+        if visited_instructions.include?(current_instruction)
+          return [:looped, accumulator]
+        end
+
+        visited_instructions << current_instruction
+        pointer = current_instruction.index + 1
+
+        case current_instruction.type
+        when "acc"
+          accumulator += current_instruction.value
+        when "jmp"
+          pointer = current_instruction.index + current_instruction.value
+        end
+
+        if current_instruction == instructions.last
+          return [:finished, accumulator]
+        end
+      end
+    end
+
+    puts "Part 1:", execute(original_instructions).last
+
+    TYPE_MUTATIONS = { "jmp" => "nop", "nop" => "jmp" }
+
+    mutants = original_instructions.map do |instruction|
+      if (mutation = TYPE_MUTATIONS[instruction.type])
+        instruction.dup.tap { |mutant| mutant.type = mutation }
+      end
+    end.compact
+
+    mutants.detect do |mutant|
+      revised_instructions = original_instructions.dup
+      revised_instructions[mutant.index] = mutant
+      halt_reason, value = execute(revised_instructions)
+
+      if halt_reason == :finished
+        puts "Part 2:", value
+        true
+      end
+    end
+    ```
+  :replies: []

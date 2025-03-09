@@ -1,0 +1,390 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretcuj/
+  :body: |-
+    That was a really fun puzzle, I like the part 2 twist and thought "uh oh, how am I going to do this...". This is good, I hope there are more of these.
+
+    Part 2 strategy: Didn't bother waiting for the programs to terminate. Just keep running them and periodically monitor the size of 1's send queue. When it starts staying at the same value, just submit that value.
+
+    I know I know this is terrible, I'll do it the right way later.
+
+    Ruby
+
+    ```ruby
+    def run(input, id, tx, rx)
+      regs = Hash.new(0)
+      regs[:p] = id
+      vals_received = 0
+      pc = -1
+      resolve = ->(y) { y.is_a?(Integer) ? y : regs[y] }
+
+      while (pc += 1) >= 0 && (inst = input[pc])
+        case inst[0]
+        when :snd
+          tx << resolve[inst[1]]
+        when :set
+          regs[inst[1]] = resolve[inst[2]]
+        when :add
+          regs[inst[1]] += resolve[inst[2]]
+        when :mul
+          regs[inst[1]] *= resolve[inst[2]]
+        when :mod
+          regs[inst[1]] %= resolve[inst[2]]
+        when :rcv
+          if tx.object_id == rx.object_id
+            # Part 1!
+            return rx[-1] if resolve[inst[1]] != 0
+          else
+            val = nil
+            # Oh noes, a spinlock.
+            val = rx[vals_received] until val
+            vals_received += 1
+            regs[inst[1]] = val
+          end
+        when :jgz
+          pc += (resolve[inst[2]] - 1) if resolve[inst[1]] > 0
+        else raise "Unknown instruction #{inst}"
+        end
+      end
+    end
+
+    insts = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+      inst, *args = l.split
+      [inst.to_sym, *args.map { |a| a.match?(/-?\d+/) ? a.to_i : a.to_sym }].freeze
+    }.freeze
+
+    sound = []
+    puts run(insts, 0, sound, sound)
+
+    send0 = []
+    send1 = []
+
+    t0 = Thread.new { run(insts, 0, send0, send1) }
+    t1 = Thread.new { run(insts, 1, send1, send0) }
+    t2 = Thread.new {
+      loop {
+        puts send1.size
+        sleep 1
+      }
+    }
+
+    t0.join
+    t1.join
+    t2.join
+
+    __END__
+    set i 31
+    set a 1
+    mul p 17
+    jgz p p
+    mul a 2
+    add i -1
+    jgz i -2
+    add a -1
+    set i 127
+    set p 622
+    mul p 8505
+    mod p a
+    mul p 129749
+    add p 12345
+    mod p a
+    set b p
+    mod b 10000
+    snd b
+    add i -1
+    jgz i -9
+    jgz a 3
+    rcv b
+    jgz b -1
+    set f 0
+    set i 126
+    rcv a
+    rcv b
+    set p a
+    mul p -1
+    add p b
+    jgz p 4
+    snd a
+    set a b
+    jgz 1 3
+    snd b
+    set f 1
+    add i -1
+    jgz i -11
+    snd a
+    jgz f -16
+    jgz a -19
+    ```
+  :replies:
+  - :author: p_tseng
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drevge6/
+    :body: |-
+      > do it the right way later
+
+      Eh, I was thinking I'd do something with threads and condition variables (so that I wasn't doing that dumb busy wait anymore) but deadlock detection got a little hairy (the send/receive stuff is fine). Instead I went with the boring old "run one program until it can't run anymore, then run the other" approach.
+
+      ```ruby
+      def run(insts, id, tx, rx)
+        regs = Hash.new(0)
+        regs[:p] = id
+        vals_received = 0
+        pc = 0
+        resolve = ->(y) { y.is_a?(Integer) ? y : regs[y] }
+
+        -> {
+          ran_anything = false
+
+          while pc >= 0 && (inst = insts[pc])
+            case inst[0]
+            when :snd
+              tx << resolve[inst[1]]
+            when :set
+              regs[inst[1]] = resolve[inst[2]]
+            when :add
+              regs[inst[1]] += resolve[inst[2]]
+            when :mul
+              regs[inst[1]] *= resolve[inst[2]]
+            when :mod
+              regs[inst[1]] %= resolve[inst[2]]
+            when :rcv
+              if tx.object_id == rx.object_id
+                # Part 1!
+                return rx[-1] if resolve[inst[1]] != 0
+              else
+                # Part 2!
+                return ran_anything ? :wait : :still_waiting unless (val = rx[vals_received])
+                vals_received += 1
+                regs[inst[1]] = val
+              end
+            when :jgz
+              pc += (resolve[inst[2]] - 1) if resolve[inst[1]] > 0
+            else raise "Unknown instruction #{inst}"
+            end
+
+            pc += 1
+            ran_anything = true
+          end
+
+          :finished
+        }
+      end
+
+      insts = (ARGV.empty? ? DATA : ARGF).each_line.map { |l|
+        inst, *args = l.split
+        [inst.to_sym, *args.map { |a| a.match?(/-?\d+/) ? a.to_i : a.to_sym }].freeze
+      }.freeze
+
+      sound = []
+      puts run(insts, 0, sound, sound)[]
+
+      send = [[], []]
+      runners = [0, 1].map { |id| run(insts, id, send[id], send[1 - id]) }
+      other_was_waiting = false
+      puts 0.step { |n|
+        status = runners[n % 2][]
+        if status == :still_waiting && other_was_waiting
+          # Deadlocked.
+          break send[1].size
+        end
+        other_was_waiting = status == :still_waiting
+      }
+
+      __END__
+      set i 31
+      set a 1
+      mul p 17
+      jgz p p
+      mul a 2
+      add i -1
+      jgz i -2
+      add a -1
+      set i 127
+      set p 622
+      mul p 8505
+      mod p a
+      mul p 129749
+      add p 12345
+      mod p a
+      set b p
+      mod b 10000
+      snd b
+      add i -1
+      jgz i -9
+      jgz a 3
+      rcv b
+      jgz b -1
+      set f 0
+      set i 126
+      rcv a
+      rcv b
+      set p a
+      mul p -1
+      add p b
+      jgz p 4
+      snd a
+      set a b
+      jgz 1 3
+      snd b
+      set f 1
+      add i -1
+      jgz i -11
+      snd a
+      jgz f -16
+      jgz a -19
+      ```
+    :replies: []
+  - :author: rdc12
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreube7/
+    :body: Probably a real fast way to code it up thou
+    :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretil2/
+  :body: |-
+    # Part 2: JavaScript
+
+    [js-csp](https://github.com/ubolonton/js-csp) implements the “Communicating sequential processes” thing, like Goroutines/Clojure’s core.async.
+
+    Ended up at rank 114, because I wasted some time trying to implement CSP in Ruby myself. This is so bug prone and I got into an infinite loop.
+
+    Assuming `INPUT` is a string containing the problem’s input.
+
+    ```ruby
+    const csp = require('js-csp')
+    const code = INPUT.split(/\n/).map(a => a.trim().split(/\s+/))
+
+    function * prog (p, inbox, outbox) {
+      const d = { p }
+      const get = k => k.match(/\d/) ? +k : (d[k] || 0)
+      let i
+      let sent = 0
+      const report = () => {
+        console.log({ i, d }, code[i])
+      }
+      for (i = 0; (report(), i < code.length); i++) {
+        const c = code[i]
+        if (c[0] === 'snd') {
+          sent += 1
+          const val = get(c[1])
+          console.log('Program', p, 'sent', val, 'from', c[1], 'total', sent, 'time(s)')
+          yield csp.put(outbox, val)
+          continue
+        }
+        if (c[0] === 'rcv') {
+          const val = yield csp.take(inbox)
+          d[c[1]] = val
+          console.log(p, 'recv', val, c[1])
+          continue
+        }
+        if (c[0] === 'set') {
+          d[c[1]] = get(c[2])
+          continue
+        }
+        if (c[0] === 'add') {
+          d[c[1]] += get(c[2])
+          continue
+        }
+        if (c[0] === 'mul') {
+          d[c[1]] *= get(c[2])
+          continue
+        }
+        if (c[0] === 'mod') {
+          d[c[1]] %= get(c[2])
+          continue
+        }
+        if (c[0] === 'jgz') {
+          if (get(c[1]) > 0) {
+            i -= 1
+            i += get(c[2])
+          }
+          continue
+        }
+      }
+    }
+
+    const m0 = csp.chan(99999999)
+    const m1 = csp.chan(99999999)
+    csp.go(function * () { yield * prog(0, m0, m1) })
+    csp.go(function * () { yield * prog(1, m1, m0) })
+    ```
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreu6sz/
+  :body: |-
+    Ruby. I've caught more bugs today than in the last five months! Needless to say, I was drastically far from today's leaderboards. Top 200 though!
+
+    ```ruby
+    snd X plays a sound with a frequency equal to the value of X.
+    set X Y sets register X to the value of Y.
+    add X Y increases register X by the value of Y.
+    mul X Y sets register X to the result of multiplying the value contained in register X by the value of Y.
+    mod X Y sets register X to the remainder of dividing the value contained in register X by the value of Y (that is, it sets X to the result of X modulo Y).
+    rcv X recovers the frequency of the last sound played, but only when the value of X is not zero. (If it is zero, the command does nothing.)
+    jgz X Y jumps with an offset of the value of Y, but only if the value of X is greater than zero. (An offset of 2 skips the next instruction, an offset of -1 jumps to the previous instruction, and so on.)
+    #!ruby
+    $h=Hash.new(){0}
+    #p g("b")
+    #exit
+    last=nil
+    ins=$<.map &:chomp
+    i=j=0
+    $f=->x,h,q,oq,k{ins[x]=~/(\S+) (.)(?: (.+))?/
+
+    g=->x{
+    x[/^-?\d+$/] ? x.to_i : h[x]
+    }
+    #p x,ins.size,ins[x],$2,$3,g($2),$h
+     case $1
+    when 'snd'then (oq<< g[$2];
+    k<<1 if k) # part 1: last=g[$2]
+    when 'set'then h[$2] = g[$3]
+    when 'add'then (l=$2;r=$3;h[l] = g[l] + g[r])
+    when 'mul'then (l=$2;r=$3;h[l] = g[l] * g[r])
+    when 'mod'then (l=$2;r=$3;h[l] = g[l] % g[r])
+    when 'rcv'then q.any? ? ( h[$2]=q.shift ) : (next x) # part 1: g[$2]==0 ? (0) : (p last;exit)
+    when 'jgz'then (r=$3;g[$2] <= 0 ? (0) : (next x+g[r]))
+    end
+    x+1
+    }
+    #i=$f[0]
+    k=[]
+    $h2=Hash.new(){0}
+    $h2['p']=1
+    q1=[]
+    q2=[]
+    li=lj=nil
+    loop{li=i
+    i=$f[i,$h,q1,q2,nil]
+    lj=j
+    j=$f[j,$h2,q2,q1,k]
+    break if li==i&&lj==j}
+
+    p k.size
+    ```
+
+    Notable moments: 1. Ruby really loves giving % additional meaning, such as %w[string string2 string3], which tripped my syntax highlighting even though the code was fine, it drove me in circles for a while, 2. if you're using regex global variables like $2, they get overwritten if you use it again!!! 3. did not anticipate an integer in jump operation, since part 1 solved fine, ended up watching my program run for four minutes before my hinch of something wrong catching up...
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drg10dq/
+  :body: |-
+    Ruby, using the builtin deadlock detection mechanism to solve part2 and printing the answer in `ensure`:
+
+    ```ruby
+      when /^rcv (#{REG})$/
+        r = $1
+        -> {
+          ok = false
+          begin
+            @registers[r] = @queue.pop # Raises a fatal exception which cannot be caught if deadlock
+            ok = true
+          ensure
+            puts "Program #{@pid} sent #{@sends} messages\n" unless ok
+          end
+        }
+    ```
+
+    Full solution: https://github.com/eregon/adventofcode/commit/a7de4896d493b2be92bba400734d9d1ef7a58f8f
+  :replies:
+  - :author: oantolin
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drldvv2/
+    :body: Oh, I didn't know about the deadlock detection, cool!
+    :replies: []

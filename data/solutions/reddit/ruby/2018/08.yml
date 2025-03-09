@@ -1,0 +1,209 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc8pi3/
+  :body: |-
+    Ruby... and factoring out as much of the common code between parts 1 and 2 as is possible
+
+    ```ruby
+    input = (ARGV.empty? ? DATA : ARGF).read.split.map(&:to_i).freeze
+
+    # Pass me a block telling me what to do with [child_values, metadata_values]
+    def val(a, &b)
+      n_children = a.shift
+      n_metadata = a.shift
+      yield(n_children.times.map { val(a, &b) }, a.shift(n_metadata))
+    end
+
+    puts val(input.dup) { |child, meta| child.sum + meta.sum }
+
+    puts val(input.dup) { |child, meta|
+      # metadata indices are 1-indexed, so just prepend a zero.
+      child.unshift(0)
+      child.size == 1 ? meta.sum : meta.sum { |x| child[x] || 0 }
+    }
+
+    __END__
+    8 11 7 2 etc etc etc
+    ```
+  :replies:
+  - :author: BluFoot
+    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc9drb/
+    :body: A work of art.
+    :replies: []
+- :author: justjarvo
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsq2r/
+  :body: |-
+    Part 1 Ruby golf:
+
+    ```ruby
+    R = ->(s) {
+      c, mc, *s, mt = s + [0]
+      c.times { _, s = R.(s).tap { |t, _| mt += t } }
+      [mt + s[0...mc].sum, s[mc..-1]]
+    }
+    puts R.(File.read("res/day8.txt").scan(/\d+/).map(&:to_i))
+    ```
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcytm4/
+  :body: |-
+    **Ruby** (2.5.3p105)
+
+    Golfed part 1:
+
+    ```ruby
+    def f d, s; (c, m) = d.shift 2; s + c.times.map { f d, s }.sum + d.shift(m).sum end
+    puts f File.read('input.txt').split.map(&:to_i), 0
+    ```
+
+    But did [an OO approach](https://github.com/Sharparam/advent-of-code/blob/master/2018/day8/part2.rb) for part 2 as it felt more natural to me.
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc97go/
+  :body: |-
+    I'm getting old... and slow :D Ruby
+
+    [Card] [image](https://i.o0.nz/bzBZ.png)
+
+    ```ruby
+    a=$<.read.split.map(&:to_i)
+    #p a
+    s1=0 # part 1 (added "1")
+    # protip: if you're using s as a recursion variable, DELETE THAT ABOVE or you'll get into a fun (!!) debugging session
+    readnode=->{s2=0 # part 2 (added "2")
+    h,m=a.shift 2
+    nodes=h.times.map{readnode[]}
+    temp=a.shift(m) # not a thing in either of the original code but you know why it's here
+    s1+=temp.sum
+    s2+=h==0 ? (temp.sum||0) : temp.sum{|x|x ? x==0 ? 0 : (nodes[x-1]||0) : 0}
+    #p a,s
+    s2
+    }
+    (p readnode[] # part 2
+
+    )#while a.any? <- lol ?
+    p s1 # part 1
+    ```
+  :replies: []
+- :author: Frizkie
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcbdl3/
+  :body: |-
+    Ruby
+
+    These are my solutions after I golfed for a bit. Still took me longer than I'd like to figure out how to approach part 1. Part 2 was trivial after I overthought part 1. Feels good getting practice in though.
+
+    **Part 1:**
+
+    ```ruby
+    def process(list, all_nodes)
+      num_children = list.shift
+      num_metadata = list.shift
+      all_nodes << [(0..num_children - 1).to_a.map { process(list, all_nodes) }, list.shift(num_metadata)]
+      all_nodes.last
+    end
+
+    all_nodes = []
+    process(File.read('data.txt').chomp.split(' ').map(&:to_i), all_nodes)
+    puts all_nodes.map { |n| n[1] }.flatten.sum
+    ```
+
+    **Part 2:**
+
+    ```ruby
+    def process(list)
+      num_children = list.shift
+      num_metadata = list.shift
+      [(0..num_children - 1).to_a.map { process(list) }, list.shift(num_metadata)]
+    end
+
+    def value(node)
+      node[0].any? ? node[1].map { |m| m != 0 && (m - 1) >= 0 && (m - 1) < node[0].size ? value(node[0][m - 1]) : 0 }.sum : node[1].sum
+    end
+
+    puts value(process(File.read('data.txt').chomp.split(' ').map(&:to_i)))
+    ```
+  :replies:
+  - :author: Sharparam
+    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcxwe0/
+    :body: |-
+      For your shifting, you could save a bit of space by doing
+
+      ```ruby
+      (num_children, num_metadata) = list.shift 2
+      ```
+    :replies: []
+- :author: ShorrockIn
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsa65/
+  :body: |-
+    **Ruby** : The OO approach worked out pretty well with this one.
+
+    ```ruby
+    class Node
+      attr_reader :child_nodes_count
+      attr_reader :metadata_count
+      attr_reader :children
+      attr_reader :metadata
+
+      def initialize(iterator)
+        @child_nodes_count = iterator.next
+        @metadata_count = iterator.next
+        parse(iterator)
+      end
+
+      def parse(iterator)
+        @children = (0...@child_nodes_count).map {Node.new(iterator)}
+        @metadata = (0...@metadata_count).map {iterator.next}
+      end
+
+      def sum_metadata
+        @metadata.sum + @children.map(&:sum_metadata).sum
+      end
+
+      def value
+        return @metadata.sum if @child_nodes_count == 0
+
+        @metadata.map do |index|
+          index == 0 ? 0 : (@children[index - 1]&.value || 0)
+        end.sum
+      end
+    end
+
+    class Iterator
+      attr_reader :data, :index
+      def initialize(data); @data, @index = data, 0; end
+      def next; @index += 1; @data[index - 1]; end
+    end
+
+    input = $<.map(&:to_s)[0].split(" ").map(&:strip).map(&:to_i)
+    root = Node.new(Iterator.new(input))
+
+    puts "1: #{root.sum_metadata} / 2: #{root.value}"
+    ```
+  :replies: []
+- :author: morfi717
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebenbhc/
+  :body: |-
+    Ruby
+
+    ```ruby
+    F = File.read("#{ __dir__ }/data/day8.txt").split.map(&:to_i)
+
+    def P1(Θ)
+        child, meta = Θ.shift(2)
+
+        (1..child).map { P1(Θ) } + Θ.shift(meta)
+    end
+
+    def P2(Θ)
+        child, meta = Θ.shift(2)
+
+        out = (1..child).map { P2(Θ) }
+        mData = Θ.shift(meta)
+
+        child > 0 ? mData.map{ |g| out[g-1] } : mData.sum
+    end
+
+    puts "Ans1: %s" % P1(F.dup).flatten.sum
+    puts "Ans2: %s" % P2(F).flatten.reject(&:nil?).sum
+    ```
+  :replies: []

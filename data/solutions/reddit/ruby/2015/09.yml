@@ -1,0 +1,323 @@
+---
+- :author: gareve
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtgagf/
+  :body: |-
+    Ruby solution for both parts of the problem :)
+
+    ```ruby
+    dist = {}
+    $stdin.readlines.map(&:split).each do |x, to, y, equals, d|
+        dist[[x,y].sort] = d.to_i
+    end
+
+    p dist.keys.flatten.uniq.permutation.map { |comb|
+        comb.each_cons(2).reduce(0) {|s, x| s + dist[x.sort] }
+    }.sort.rotate(-1).first(2)
+    ```
+  :replies:
+  - :author: a_dollar_sign_texas
+    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtqbtb/
+    :body: |-
+      I am in absolute awe of this. And I'm even familiar with the whole notation matters story of knuth vs. shell script: http://www.leancrew.com/all-this/2011/12/more-shell-less-egg/.
+
+      Wow. Just ... that is brilliant. May I ask why you approached the problem in such a way? I thought that TSP was going to have significant code, even for just a brute force solution.
+    :replies:
+    - :author: gareve
+      :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtz4l1/
+      :body: Thanks, let's thank Ruby :) I started with the traditional solution and cleaned up the parts that I was uncomfortable with. The last improvement was the [x, y].sort
+      :replies: []
+- :author: _jonah
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskk63/
+  :body: |-
+    Ruby:
+
+    ```ruby
+    input = DATA.read.chomp.split("\n").map do |line|
+      line.match(/(\w+) to (\w+) = (\d+)/).captures
+    end
+
+    cities = input.flat_map {|trip| trip[0..1]}.uniq
+
+    distances = input.reduce({}) { |m, trip| m[trip[0..1].join] = trip[2].to_i; m }
+
+    cities.permutation.map do |path|
+      path.each_cons(2).reduce(0) do |m,pair|
+        m += distances[pair.join('')] || distances[pair.rotate.join('')]
+      end
+    end.min.tap {|x| p x}
+    ```
+  :replies: []
+- :author: SnacksOnAPlane
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsivkf/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    distances = Hash.new{ |h,k| h[k] = Hash.new }
+
+    File.readlines("9-1.data").each do |line|
+      line = line.chomp
+      places, dist = line.split(" = ")
+      dist = dist.to_i
+      p1, p2 = places.split(" to ")
+      distances[p1][p2] = dist
+      distances[p2][p1] = dist
+    end
+
+    shortest_dist = 9999999
+    shortest_perm = nil
+    longest_dist = 0
+    longest_perm = nil
+
+    distances.keys.permutation.each do |perm|
+      dist = 0
+      (0..perm.length - 2).each do |i|
+        p1 = perm[i]
+        p2 = perm[i+1]
+        dist += distances[p1][p2]
+      end
+      if dist < shortest_dist
+        puts "new shortest dist: #{dist}"
+        shortest_dist = dist
+        shortest_perm = perm
+      end
+      if dist > longest_dist
+        puts "new longest dist: #{dist}"
+        longest_dist = dist
+        longest_perm = perm
+      end
+    end
+
+    puts "shortest: #{shortest_dist}"
+    puts "longest: #{longest_dist}"
+    ```
+  :replies:
+  - :author: dubokk15
+    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsmv3h/
+    :body: |-
+      Here's the same solution with lots of Ruby shortcuts:
+
+      ```ruby
+      input = File.read("distances.txt").lines.map(&:strip)
+
+      distances = Hash.new { |h,k| h[k] = {} }
+
+      input.each do |line|
+        s, e, d = line.match(/(\w+) to (\w+) = (\d+)/)[1..3]
+        d = d.to_i
+        distances[s][e] = d
+        distances[e][s] = d
+      end
+
+      distances = distances.keys.permutation.map do |perm|
+        perm.each_cons(2).inject(0) do |c, (s, e)|
+          c + distances[s][e]
+        end
+      end.sort
+
+      puts distances[0]
+      puts distances[-1]
+      ```
+    :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsixwb/
+  :body: |-
+    Leveraging Ruby's permutation method...
+
+    ```ruby
+    cities = ["Faerun", "Tristram", "Tambi", "Norrath", "Snowdin", "Straylight", "AlphaCentauri", "Arbre"]
+    routes = {}
+    open("input.txt").each_line do |line|
+      c1, _, c2, _, dist = line.split
+      dist = dist.to_i
+      routes["#{c1}#{c2}"] = dist
+      routes["#{c2}#{c1}"] = dist
+    end
+    final = []
+    cities.permutation(8).map.with_index do |permutation, inx|
+      total = 0
+      0.upto(6).each do |i|
+        total += routes["#{permutation[i]}#{permutation[i+1]}"]
+      end
+      final << total
+
+      puts "#{inx} #{final.max}"
+    end
+    puts final.max
+    ```
+  :replies: []
+- :author: fnoco_xandy
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsj2td/
+  :body: |-
+    brute force crystal/ruby solution, $find\_shortest with true for part 1, false for part 2.
+
+    ```ruby
+    $find_shortest = true
+    $dists = Hash(Tuple(String, String), Int32).new()
+    File.new("input_9").each_line.map { |line|
+        p = line.strip.split(" ")
+        from = p[0]
+        to = p[2]
+        le = p[4].to_i
+        $dists[{from, to}]=le
+    }.sum
+    lst = $dists.keys.map{|v|[v[0], v[1]]}.flatten.uniq.permutations.map {|p|
+        p.each_with_index.map {|xy|
+            t,i = xy[0], xy[1]
+            return 0 if i==0
+            if $dists[{p[i-1], t}]?
+                return $dists[{p[i-1], t}]
+            else
+                if $dists[{t, p[i-1]}]?
+                    return $dists[{t, p[i-1]}]
+                else
+                    if $find_shortest
+                        return 1000
+                    else
+                        return -1000
+                    end
+                end
+            end
+        }.sum
+    }.sort
+    if $find_shortest
+        p lst.first
+    else
+        p lst.last
+    end
+    ```
+  :replies: []
+- :author: tremendo
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskeec/
+  :body: |-
+    Another Ruby, brute force (permutation) solution. My delay was I was trying to close the loop, assuming Santa had to return to the starting point
+
+    ```ruby
+    Distance = Struct.new(:towns, :distance)
+
+    all_distances = File.read(File.join(Dir.home, 'tmp', 'input9.txt'))
+    locations = []
+    distances = []
+
+    all_distances.each_line do |line|
+      parts = line.split(' = ')
+      towns = parts[0].split(' to ')
+      distances << Distance.new(towns, parts[1].to_i)
+      locations += towns
+    end
+
+    locations.uniq!
+    shortest_distance = 10_000_000
+    longest_distance = 0
+
+    locations.permutation.each do |route|
+      this_distance = 0
+      route.length.pred.times do |leg|
+        dist = distances.find do |d|
+          d[:towns].include?(route[leg]) && d[:towns].include?(route[leg.next])
+        end
+        this_distance += dist[:distance]
+      end
+      shortest_distance = this_distance if this_distance < shortest_distance
+      longest_distance = this_distance if this_distance > longest_distance
+    end
+
+    puts "shortest: #{shortest_distance}", "longest: #{longest_distance}"
+    ```
+  :replies: []
+- :author: HorizonShadow
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxt5zzn/
+  :body: |-
+    Ruby (All of my solutions [here](https://github.com/HorizonShadow/Advent-of-Code)):
+
+    ```ruby
+    require 'set'
+
+    class Map
+
+      attr_reader :paths
+
+      def initialize
+        @distances = {}
+        @paths = []
+      end
+
+      def init_from_file(file)
+        @distances = distances_from_file(file)
+        @paths = calc_all_paths
+      end
+
+      def shortest_path
+        @paths.min
+      end
+
+      def longest_path
+        @paths.max
+      end
+
+      private
+      def distances_from_file(file)
+        hash = {}
+        File.open(file, 'r') do |infile|
+          while(line = infile.gets)
+            cities, distance = parse(line)
+            hash[cities.to_set] = distance
+          end
+        end
+        hash
+      end
+
+      def parse(str)
+        s = str.split
+        [[s.first, s[2]], Integer(s.last)]
+      end
+
+      def calc_all_paths
+        all_routes = @distances.map {|k,v| k.to_a}.flatten.uniq.permutation.to_a
+        all_routes.each.with_object([]) do |cities, dists|
+          dists << calc_dist(cities)
+        end
+      end
+
+      def calc_dist(cities)
+        cities.each_cons(2).with_object([]) do |(o, t), sum|
+          sum << get_dist(o, t)
+        end.inject(:+)
+      end
+
+      def get_dist(one, two)
+        @distances[[one,two].to_set].to_i
+      end
+    end
+    ```
+  :replies: []
+- :author: mushy_plushy
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtahil/
+  :body: |-
+    Ruby brute force. Yields lowest value. For highest value 'min' is replaced by 'max' at end.
+
+    ```ruby
+    all_cities = []
+    combinations = {}
+    res = []
+
+    File.open("path").each_line do |line|
+        line =~ /(\d+)(\s+\w+\s+)(\d+)(\s+\S+\s)(\d+)/
+        all_cities << $1
+        all_cities << $3
+        combinations[[$1, $3]] = $5
+        combinations[[$3, $1]] = $5
+    end
+
+    all_combinations = all_cities.uniq.permutation.to_a
+    for i in 0..all_combinations.size-1
+        counter = 0
+        curr_combo = all_combinations[i]
+        for j in 0..curr_combo.size-2
+            counter += combinations[[curr_combo[j], curr_combo[j+1]]].to_i
+        end
+        res << counter
+    end
+    puts res.min
+    ```
+  :replies: []

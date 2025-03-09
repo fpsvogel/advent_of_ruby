@@ -1,0 +1,222 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dku/
+  :body: |-
+    Ruby; I tried guessing what it wanted me to do (fill towards the start and loop back, instead of filling after the index of the unit) and I guessed wrong. :P
+
+    ```ruby
+    p (s=gets.split.map &:to_i)
+    m=s.size
+    h={}
+    i=0
+    (h[s.to_s]=1 # part 1
+    h[s.to_s]=(i+=1) # part 2
+    v=s.max
+    i=s.index(v)
+    s[i]=0
+    v>=m && (s.map!{|x|x+v/m}
+    v-=v/m*m)
+    j=p
+    (i..i+v).map{|x|x==i ? j=1 : x>=m ? s[x-m]+=1 : s[x]+=1 }
+    #s[v]+=1 if j
+    p s
+    i+=1 # part 1
+    )while !h[s.to_s]
+    p i
+    p i-h[s.to_s]
+    ```
+  :replies:
+  - :author: nakilon
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqua8h9/
+    :body: Excuse me, where is the loop?
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqub2k2/
+      :body: The loop starts at previous counter with the same state to the current counter. `p i` prints the solution for part 1, while `h[s.to_s]` to `i` is the loop, so the size is `p i-h[s.to_s]`
+      :replies:
+      - :author: nakilon
+        :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquelrk/
+        :body: Oops, didn't see the markdown code block had scrollbar...
+        :replies: []
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquidyd/
+    :body: |-
+      My solution in Ruby, also using string representation of memory banks as key in a hash, and the cycle count of when that configuration has been seen is stored as value.
+
+      ```ruby
+      config = gets.split.map(&:to_i)
+      cycles = 0
+      memory = {}
+
+      until memory.has_key?(config.to_s)
+        # Store cycle count with string representation of memory banks.
+        memory[config.to_s] = cycles
+
+        # Find bank with most blocks.
+        index = config.index(config.max)
+        blocks = config[index]
+
+        # Redistribute the blocks from index bank.
+        config[index] = 0
+        blocks.times do |i|
+          config[(index + i + 1) % config.length] += 1
+        end
+
+        cycles += 1
+      end
+
+      puts cycles # Part 1
+      puts cycles - memory[config.to_s] # Part 2, cycle count minus when cycle started.
+      ```
+    :replies: []
+- :author: nakilon
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dry/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    a = gets.split.map &:to_i
+    s = {a.dup => 0}
+    m = 0
+    loop do
+      m += 1
+      i = a.index a.max
+      n = a[i]
+      a[i] = 0
+      n.times do
+        i = (i + 1) % a.size
+        a[i] += 1
+      end
+      break p m - s[a] if s[a]
+      s[a.dup] = m
+    end
+    ```
+
+    122nd place with around 8 minutes, damn. How one can solve in 2 minutes if I've spent 4 minutes to read the task?! ..(
+
+    **UPD: golfed to 125 chars for lulz**
+
+    ```ruby
+    a=gets.split.map &:to_i
+    s,m={},0
+    until s[a]
+    s[a]=m+=1
+    a[i=a.index(a.max)]-=x=a[i]
+    x.times{a[i=(i+1)%a.size]+=1}end
+    p m-s[a]+1
+    ```
+  :replies:
+  - :author: Unihedron
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudd9e/
+    :body: ~~$/=' ';a=$\<.map &:to\_i to get rid of another char.~~ (\<- I couldn't get it to put a tab character here) `until ... end` can be replaced with modifier syntax `()until ...` to get rid of 2 chars (including whitespace). Also, it doesn't really matter that `m` is initialized to zero for part 2 (end+k - start+k == end-start) so you can delete `,m ,0` and replace the two `m` references with the global variable `$.` which is the "lines read" counter (because we don't use `gets` again)
+    :replies:
+    - :author: nakilon
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquek6v/
+      :body: |-
+        There is some problem with input taken from site -- maybe that some gaps consist of two whitespace characters instead of one so `a` gets parsed incorrectly for me.
+
+        The rest works fine. Thanks! -4 chars
+      :replies: []
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqw138x/
+  :body: |-
+    **Ruby REPL** (irb) solution. The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
+
+    Part 1 (31st rank)
+
+    ```ruby
+    nx = -> x { max = x.max; m = x.index(max); n = x.dup; n[m] = 0; (m + 1...m + 1 + max).map { |i| i % x.length }.each { |i| n[i] += 1 }; n }
+    -> a { seen = { }; c = 0; while !seen[a]; c += 1; seen[a] = true; a = nx[a]; end; c }[`pbpaste`.split.map(&:to_i)]
+    ```
+
+    Part 2 (38th rank)
+
+    ```ruby
+    nx = -> x { max = x.max; m = x.index(max); n = x.dup; n[m] = 0; (m + 1...m + 1 + max).map { |i| i % x.length }.each { |i| n[i] += 1 }; n }
+    -> a { seen = { }; c = 0; while !seen[a]; c += 1; seen[a] = c; a = nx[a]; end; c - seen[a] + 1 }[`pbpaste`.split.map(&:to_i)]
+    ```
+  :replies: []
+- :author: doromin
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudcpy/
+  :body: |-
+    **Ruby** simply using mem-string(join) instead of array of mem-arrays as comparison made it fast enough.
+
+    ```ruby
+
+        data = input.split("\t").strip.map(&:to_i)
+        results = []
+
+        while !results.include?(data.join)
+          results << data.join
+          max = data.max
+          i = data.index(max)
+          data[i] = 0
+          max.times do
+            i = (i + 1) % data.size
+            data[i] += 1
+          end
+        end
+        puts 'part1 -------', results.count, '----------'
+
+        initial_data = data.clone
+        cycles = 0
+
+        loop do
+          break if data == initial_data
+          max = data.max
+          i = data.index(max)
+          data[i] = 0
+          max.times do
+            i = (i + 1) % data.size
+            data[i] += 1
+          end
+          cycles += 1
+        end
+        puts 'part2 -------', cycles, '----------'
+
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui874/
+    :body: |-
+      Question: would your `data.join` not be fallible for cases in which the string representation of two different arrays is equal? As in: `[1,11,0,22,2].join == [11,1,0,2,22].join` which is `true`, but the arrays clearly aren't.
+
+      I think you got lucky that this case didn't appear with your input :-) A `data.join(",")` would prevent this from occurring.
+    :replies: []
+- :author: disclosure5
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui8ho/
+  :body: |-
+    Rather than paste another boring Ruby solution, this is the sort of workload where jruby shines. Have a benchmark. Even though this horrible test included the significant warm up time, which is about six seconds on this machine.
+
+    ```ruby
+    $ time ./six.rb
+    ... 0m24.399s
+    $ time jruby ./six.rb
+    ... 0m14.844s
+    ```
+  :replies:
+  - :author: maxerickson
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqumy44/
+    :body: |-
+      Looks like checking whether the current arrangement has already occurred is really costly there. My solution is similar to the Python solutions posted already, uses sets to check for the repeat (my computer is ancient):
+
+      ```ruby
+      time python six.py
+      user 0m0.258s
+      ```
+    :replies:
+    - :author: nakilon
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv10ll/
+      :body: I suppose he's putting arrangements to Array, not Hash. That costs him a lot but he's free of collision unlike of your solution.
+      :replies: []
+  - :author: nakilon
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv0wdf/
+    :body: |-
+      I've got 0.090s and 0.170s
+
+      Is my MRI broken?
+    :replies:
+    - :author: disclosure5
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv90m8/
+      :body: I'm going to guess your solution is a lot more performant!
+      :replies: []

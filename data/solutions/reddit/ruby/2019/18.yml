@@ -1,0 +1,25 @@
+---
+- :author: firetech_SE
+  :url: https://www.reddit.com/r/adventofcode/comments/ec8090/2019_day_18_solutions/fbb0sqh/
+  :body: |-
+    [Ruby, 641/396](https://github.com/firetech/advent-of-code/blob/master/2019/18/keymaze.rb)
+
+    I was quite stumped when I read the instructions this morning. I could understand them just fine, but I had no idea where to start implementing. I had to "cheat" a bit by looking for inspiration in some posted solutions. I'm mainly doing AoC to improve my algorithm skills, so I consider this part of the learning process (even though I obviously try to avoid it as much as possible).
+
+    Anyhow, I ended up with precomputing the paths between the keys (and from start to all keys) à la [/u/mcpower\_](https://www.reddit.com/r/adventofcode/comments/ec8090/2019_day_18_solutions/fb9wg35/) using a BFS from each key (and start), and then doing a recursive DFS (with cache) over reachable keys, somewhat inspired by [/u/sophiebits](https://www.reddit.com/r/adventofcode/comments/ec8090/2019_day_18_solutions/fb9w5oq/). This got the job done and I submitted my answers, but it was unsatisfyingly slow (both parts calculated in a total of ~35s on the Xeon E5420 server I usually use, and ~15s on an i7 4790 workstation). I tried optimizing back and forth but nothing really made any dent (except using JRuby to run it, which brought the times down to ~25s on the server and ~8s on the workstation)...
+
+    ...until I saw [/u/sim642's edit](https://www.reddit.com/r/adventofcode/comments/ec8090/2019_day_18_solutions/fba0o50/) and made my precomputing classify passed keys as a prerequisite, just like passed doors (it would be silly to walk past a key without activating it). This significantly reduced the amount of nodes the DFS had to traverse, and brought the runtime down to a reasonable value. It now takes less than a second per part when run with JRuby on the workstation:
+
+    ```ruby
+    $ time jruby keymaze.rb
+    Minimum steps (part 1): ████
+      (Parse: 0.430s, Calc: 0.377s, Total: 0.808s)
+    Minimum steps (part 2): ████
+      (Parse: 0.082s, Calc: 0.629s, Total: 0.711s)
+    jruby keymaze.rb 7,80s user 0,21s system 285% cpu 2,811 total
+    ```
+
+    ^"Parse" ^here ^illogically ^includes ^the ^path ^precomputation, ^btw.
+
+    I think I'm satisfied for today. :)
+  :replies: []

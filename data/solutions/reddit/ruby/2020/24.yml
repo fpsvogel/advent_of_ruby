@@ -1,0 +1,57 @@
+---
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/ggwp9je/
+  :body: |-
+    Ruby. This is... very slow. The last days in part two took 20-30s each to run. Tons of easy optimizations stick out to me, but I don't have time for it today. There's a URL in a comment in my part one solution to a resource I found for how to represent a hexagonal map in memory, definitely was struggling before I found that.
+
+    [part one](https://topaz.github.io/paste/#XQAAAQAzAgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYn9dyScbAm+68s6htXWf25N/3txBhbUKWLTSVh6xlx7SLnupNGuugcoHGgI8/YMxkE1k6YxeabHb5Vt3XrC0XZZrjCgK+DwYmplJ1Itii/TK5vuHPALIiX8sCFIjegQ0rtekE7eet+fuQNxjvuPPXxTVs9EtjPF49w4pcV1NDYbw83R+Q6W9t06AL2l4RVXjZ+goBQ6d5XS9lrAoXd3XlzNFVP2I/oXH/LYuu1xxzLnxbEDTce1MwiRfh5l0RmKTdnuC9ek83nnYSFycyDwd/NTGNVCH3FAlPOVkzvfPpTPHNgb01GzmtKg/U3zNlCKqV3dEM5QgYPbgrnSUcHvz4FcYLpVzSVGnSGS0ATCJpYyn5HwtigdrqQlmNPlQ+637JX5vIo2XFBHWv3s4X8z+sb8rS3PbMuCxkJh3I5Dtma1HgdqL2BtxFd5hNxIP8Xri6)
+
+    [part two](https://topaz.github.io/paste/#XQAAAQCXBQAAAAAAAAA5GUqKNoFH6SMqoVC09YUYn9dyScbAm+68s6htXWf25N/3txBhbUKv7kuqyQJgJG263A4op3Z4VcdHLNOI7NZeDIyaAtKd5PwEh/MbERuAhH4yMTTAam2llbd/XtggAU8Rg/K0Wnqi92KMcpVof8b9rfKs3w10Qu8MTxTQ9frkOOnGp0Bk3mq6jJp7XKhnhqm28Ap1YaVNizqukPs15/NO61/NOYGTzPj+2+qHZjVGXqR0Z9+hWr/szKN2FoE6/fA2F0u+xHE2duw9BkY7ZD/byLm8heZ+gdbzbmeio1EY5SlEvVtDo6C4Ttf0ax10gmRSFk94m0hoMJiYS2tk3gHW9B4Wsm4moby36WnHcL2OhAzERDemeQjqluI4YG5AWU+6/JMEnBbyzVd8qHg3ev7NB+emrCChtmhIYcBHjkyu+owxlKwcUlUbq5obOdcDn1acm8SVket0YjFJJxpoHrA4ZP4SfK1U7YLJwmM8rmZEjdTz5ZWVxv/n5PqwCjskdoR5sI3Oz8TZDGVXYbr1gf7Sq2yif1HKrCvwgOsIpaW+HbfEwXIqNaQtsMeyX4Bl4VGIOhzUzH1z20FEm8I3mt/mZ5xQM/JDdfuGqEmcmKeR0NirCJ/h0ZEUf8wp7ASKA68sy9dXUj1WhKsnAfzkt8siRJ4DvDsTHAcKKKMNT0M0+0Vio8t9/K8ruruGrnoNSV+rUNvMqbyOHivA8QtPHjb5HVLimuOVuf+guwxL)
+  :replies:
+  - :author: mr_banana_lord
+    :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/gk87yyh/
+    :body: |-
+      faster ruby solution [https://github.com/MrBananaLord/adventofcode/tree/master/day\_24](https://github.com/MrBananaLord/adventofcode/tree/master/day_24)
+
+      I have stored only black tiles
+
+      btw I wrote also a processing script which visualized the outcome [https://github.com/MrBananaLord/processing/tree/main/adventofcode](https://github.com/MrBananaLord/processing/tree/main/adventofcode)
+    :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/ggvn5vr/
+  :body: |-
+    **Ruby:** 10:31/20:42, 314/254
+
+    Here's a [recording](https://youtu.be/FUA022PPjSM) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/dee2a66799a6eb34192d2869e98ccfb59c85c08c/2020/dec24.rb). (I've streamed myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend), and I'll finish strong tomorrow!)
+
+    Pretty tough leaderboard today. In Part 1 I didn't make the north and south directions properly opposites (I had northeast and southeast go up and down, then northwest and southwest both went one to the left.) Then in Part 2 I accidentally converted something to an array, which blew up the run-time. Had I not done that I probably could have finished a minute or so sooner. Overall pretty minor mistakes, so I'm decently satisfied with how I did.
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/ggvjjn1/
+  :body: |-
+    Ruby 241/1279
+
+    My original implementation used the 3d approach from https://www.redblobgames.com/grids/hexagons/. I implemented it quickly but it ran slowly on part 2 and cost me many minutes. Here's the cleaned up version:
+
+    https://gist.github.com/gurgeous/e78b9b06566821e9013df444c97a5c72
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/ggvv73y/
+  :body: |-
+    Ruby (1193/867):
+
+    https://gist.github.com/jablan/27bb4969af8ff736a35a070358b6e492
+  :replies: []
+- :author: DmitryShvetsov
+  :url: https://www.reddit.com/r/adventofcode/comments/kj96iw/2020_day_24_solutions/ggvvqyt/
+  :body: |-
+    # Ruby
+
+    part 1 [https://github.com/dmshvetsov/adventofcode/blob/master/2020/24/1.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/24/1.rb)
+
+    thought I will speed up the instruction parsing process by expanding the initial directions [e, se, sw, w, ne, nw] from already calculated parts of instructions, but it worked fast even without dynamic programming technique.
+
+    part 2 [https://github.com/dmshvetsov/adventofcode/blob/master/2020/24/2.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/24/2.rb)
+
+    One resource that helped with the idea of how to make [coordinates for hexoganal grid](https://www.redblobgames.com/grids/hexagons/)
+  :replies: []

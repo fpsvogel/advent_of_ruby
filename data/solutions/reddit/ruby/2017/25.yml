@@ -1,0 +1,101 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqarsn/
+  :body: "Ruby; 35/33; tfw it was easy but I'm slow\n\n```ruby\ns=:A\na=Hash.new{|x,y|x[y]=0}\nu=0\n12523873.times{v=a[u]\ns=case s\nwhen :A\nv==0 ? (a[u]=1;u+=1;:B) : (a[u]=1;u-=1;:E)\nwhen :B\nv==0 ? (a[u]=1;u+=1;:C) : (a[u]=1;u+=1;:F)\nwhen :C\nv==0 ? (a[u]=1;u-=1;:D) : (a[u]=0;u+=1;:B)\nwhen :D\nv==0 ? (a[u]=1;u+=1;:E) : (a[u]=0;u-=1;:C)\nwhen :E\nv==0 ? (a[u]=1;u-=1;:A) : (a[u]=0;u+=1;:D)\nwhen :F\nv==0 ? (a[u]=1;u+=1;:A) : (a[u]=1;u+=1;:C)\nend\n}\np a.values.sum\n```\n\n✨\U0001F623 Merry christmas! \U0001F384"
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqot7y/
+  :body: |-
+    # Ruby, gsub and eval
+
+    First I wrote a little generic Turing machine, with none of the states implemented
+
+    ```ruby
+    class TuringMachine
+      attr_reader :checksum_steps, :tape
+
+      def initialize()
+        @tape = []
+        @cursor = 0
+      end
+
+      def read
+        @tape[@cursor] || 0
+      end
+
+      def write(value)
+        @tape[@cursor] = value
+      end
+
+      def move_right
+        @cursor+= 1
+      end
+
+      def move_left
+        if @cursor > 0
+          @cursor-= 1
+        else
+          @tape.unshift(0)
+        end
+      end
+
+      def step
+        @state = self.method(@state).call
+      end
+    end
+    ```
+
+    Then I transformed the input into Ruby code
+
+    ```ruby
+    instructions = File.read('../input25.txt')
+      .downcase
+      .gsub(/begin in state (\w)./) { "@state = :#$1" }
+      .gsub(/perform a diagnostic checksum after (\d+) steps.\n/) { "@checksum_steps = #$1" }
+      .gsub(/in state (\w):/) { "def #$1" }
+      .gsub(/if .* 0:/) { "if read == 0" }
+      .gsub(/if .* 1:/) { "else" }
+      .gsub(/- write the value (\d)./) { "write #$1" }
+      .gsub(/- move one slot to the (\w+)./) { "move_#$1" }
+      .gsub(/- continue with state (\w)./) { ":#$1" }
+      .gsub(/^$|\z$/) { " end\nend\n" }
+    ```
+
+    This returns something like this:
+
+    ```ruby
+    def a
+      if read == 0
+        write 1
+        move_right
+        :b
+      else
+        write 0
+        move_right
+        :c
+      end
+    end
+    # etc
+    ```
+
+    This can be run like this:
+
+    ```ruby
+    tm = TuringMachine.new
+    tm.instance_eval instructions
+
+    tm.checksum_steps.times { tm.step }
+    puts tm.tape.count(1)
+    ```
+  :replies:
+  - :author: twinkiac
+    :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/dwz296p/
+    :body: |-
+      [@tape's latest tweet](https://i.imgur.com/1tB4iOu.jpg)
+
+      [@tape on Twitter](https://twitter.com/tape)
+
+      -
+
+      ^I ^am ^a ^bot ^| ^[feedback](https://www.reddit.com/message/compose/?to=twinkiac)
+    :replies: []

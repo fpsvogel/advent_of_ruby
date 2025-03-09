@@ -1,0 +1,352 @@
+---
+- :author: mkigikm
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9tczw/
+  :body: |-
+    So proud of this ridiculous ruby. It has everything: monkey-patching basic classes, awful variable names, and the use of begin and rescue as a goto statement. It's fun to see what you can come up with when you aren't worried about a code review.
+
+    ```ruby
+    input="""1
+    2
+    3
+    5
+    7
+    13
+    17
+    19
+    23
+    29
+    31
+    37
+    41
+    43
+    53
+    59
+    61
+    67
+    71
+    73
+    79
+    83
+    89
+    97
+    101
+    103
+    107
+    109
+    113"""
+
+    class Array
+      def sum
+        self.reduce(:+)
+      end
+
+      def quantum
+        self.reduce(:*)
+      end
+    end
+
+    packages = input.each_line.map(&:to_i)
+    total = packages.length
+    target_weight = packages.sum / 4
+    best = nil
+    smallest = 4
+    tries = 0
+
+    if packages.combination(smallest).any? { |front| front.sum == target_weight }
+      puts "at least 1 sol"
+    else
+      puts "no candidates"
+      exit
+    end
+    packages.combination(smallest) do |front|
+      tries += 1
+      puts "tried #{tries}" if tries % 10000 == 0
+      next if front.sum != target_weight
+      #puts "candidate #{front} #{front.sum}"
+      begin
+        (smallest..(total - 3 * smallest)).each do |middle|
+          (packages - front).combination(middle) do |left|
+            next if left.sum != target_weight
+            (middle..(total - 3 * smallest)).each do |upper|
+              (packages - front - left).combination(upper).each do |right|
+                trunk = packages - front - left - right
+                if right.sum == target_weight && trunk.sum == target_weight
+                  #puts "found a solution! #{front} #{front.sum} #{left} #{left.sum} #{right} #{right.sum} #{trunk} #{trunk.sum}"
+                  best = front.quantum if !best || best > front.quantum
+                  puts best
+                  raise "found one!"
+                end
+              end
+            end
+          end
+        end
+      rescue
+        nil
+      end
+    end
+
+    puts best
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyehlh1/
+    :body: I've got a real think for code like this. Love it.
+    :replies: []
+- :author: cort_troc
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9syc6/
+  :body: |-
+    **Ruby**. Couldn't work out how to build in picking only array elements of the smallest length after the select so broke it out manually. Guessed on the ranges because it was computationally expensive. Took me 15 minutes before I realized working out the algorithm on the example inputs was much faster than doing 4..18 brute force on the full input!
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    @input = File.readlines('input.txt').map(&:to_i)
+
+    def find_smallest_quantum(wanted_weight)
+      all = (4..7).flat_map{|size| @input.combination(size).select {|a|a.reduce(:+) == wanted_weight}.sort}
+      smallest = nil
+      quantum_smallest = nil
+      all.each do |e|
+        smallest = e.length if smallest.nil?
+        break if e.length > smallest
+        quantum = e.reduce(:*)
+        if (quantum_smallest.nil? || quantum < quantum_smallest)
+          quantum_smallest = quantum
+        end
+      end
+      quantum_smallest
+    end
+
+    total_weight = @input.reduce(:+)
+
+    puts "part1: #{find_smallest_quantum(total_weight/3)}"
+    puts "part2: #{find_smallest_quantum(total_weight/4)}"
+    ```
+  :replies: []
+- :author: ericdykstra
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya5tre/
+  :body: |-
+    **5th in 9:25 using Ruby!**
+
+    Late posting this, but I like my solution! It's the greedy version without verifying the other packages, otherwise the code would be slightly longer. Here are the basic steps:
+
+    1. Look for combinations that add up to the correct amount (total divided by number of groups) starting with combinations of one package, then two, until it finds an amount of packages that has a combination that adds up to that number. This takes care of equal weights, and lowest number of packages.
+
+    2. Sort all the combinations in that set by the QE factor and take the first one!
+
+    `
+
+    ```ruby
+    array = []
+    num_groups = 3 # Replace with 4 for part 2
+    start = 1
+    until answer = array.combination(start).select{|c| c.inject(:+) == (array.inject(:+) / num_groups)}.sort_by{|c| c.inject(:*)}.first
+      start += 1
+    end
+    p answer.inject(:*)
+    ```
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya7f1f/
+    :body: "[deleted]"
+    :replies:
+    - :author: cort_troc
+      :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyadzcw/
+      :body: |-
+        Nice! I got stuck in mine trying to select the smallest array size from multiple, because i'd put a range to loop the combinations. That's much better.
+
+        Trying to get it yours down to a 1 liner but can't. Can anyone?
+
+        ```ruby
+        start, groups = 0, 3
+        until answer = array.combination(start+=1).select{|a|a.reduce(:+)==(array.reduce(:+)/groups)}.map{|a|a.reduce(:*)}.min
+        end
+        p answer
+        ```
+      :replies:
+      - :author: cort_troc
+        :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeyqm/
+        :body: |-
+          recursive makes it look a bit smaller. I guess it's fair to call that a one liner.
+
+          ```ruby
+          f=->(l,g,i=1){l.combination(i).select{|a|a.reduce(:+)==(l.reduce(:+)/g)}.map{|a|a.reduce(:*)}.min||f.(l,g,i+1)}
+
+          p f.(array, 3)
+          p f.(array, 4)
+          ```
+        :replies: []
+  - :author: TheNiXXeD
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya81r6/
+    :body: Nice, that's the same logic I used for my JS solution.
+    :replies: []
+- :author: iodiot
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9u7wo/
+  :body: |-
+    **Ruby**. Simple bfs. My guess was to add the heaviest gift into initial solution.
+
+    ```ruby
+    gifts = []
+    File.open('24.txt').each {|line| gifts << line.chomp.to_i}
+
+    gifts.reverse!
+
+    def compute_weight(gifts)
+      gifts.inject(0) {|sum, x| sum += x}
+    end
+
+    def compute_qe(gifts)
+      gifts.inject(1) {|prod, x| prod *= x}
+    end
+
+    groups_count = 3
+
+    # for part 2
+    #groups_count = 4
+
+    min_qe = -1
+    min_count = gifts.count / groups_count
+    exact_weight = compute_weight(gifts) / groups_count
+
+    ways = [[gifts[0]]]
+
+    n = 0
+
+    while not ways.empty?
+      way = ways.shift
+
+      next if compute_weight(way) > exact_weight
+      next if way.count > min_count
+      next if (min_qe != -1) and (compute_qe(way) >= min_qe)
+
+      if compute_weight(way) == exact_weight
+        min_qe = (min_qe == -1) ? compute_qe(way) : [min_qe, compute_qe(way)].min
+        min_count = [min_count, way.count].min
+        next
+      end
+
+      rem_gifts = gifts - way
+      rem_gifts.each {|gift| ways << (way + [gift])}
+    end
+
+    p min_qe
+    ```
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyabdk1/
+  :body: |-
+    **Ruby**
+
+    ```ruby
+    # Convenience methods for the Array class
+    class Array
+      def sum
+        return self.reduce(:+)
+      end
+      def product
+        return self.reduce(1,:*)
+      end
+    end
+
+    # Order the weights largest first, to find the combos with the fewest number of elements
+    weights = [1,2,3,5,7,13,17,19,23,29,31,37,41,43,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113].reverse
+
+    def find_combo(w,size)
+        r = []
+        if w.length == 0
+            return r
+        end
+        for i in 1..w.length-1 do
+            # All combinations with i elements
+            # First combo found will have the smallest number of elements
+            combos = w.combination(i).to_a
+            for c in combos do
+                if c.sum == size then
+                    r.push(c)
+                    # Recursively find a combo of the right size in the remaining elements
+                    #
+                    r.push(find_combo(w - c,size))
+                    return r
+                end
+            end
+        end
+    end
+
+    # Output product of weights in the first combo (with the smallest number of weights)
+
+    puts "Part 1 solution = " + find_combo(weights,weights.sum/3)[0].product.to_s
+
+    puts "Part 2 solution = " + find_combo(weights,weights.sum/4)[0].product.to_s
+    ```
+  :replies: []
+- :author: SomebodyTookMyHandle
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeja9/
+  :body: |-
+    Ruby solution that actually checks the remaining present weights for validity. More verbose than others and more dependent on doing some preliminary math beforehand. First, solutions to the first part of the problem (fewest number of packages) are generated and sorted by "quantum entanglement". Then and only then are each of these checked in order to see whether the remaining presents can be split up properly.
+
+    Definitely not as slick as some of the other recursive solutions I've seen here, but what can you do?
+
+    ```ruby
+    present_weights = [1,3,5,11,13,17,19,23,29,31,37,41,43,47,53,59,67,71,73,79,83,89,97,101,103,107,109,113]
+
+    def passenger_seat_combos(arr, items, weight)
+      valid_combos = []
+      arr.combination(items).to_a.each do |combo|
+        valid_combos << combo if combo.inject(:+) == weight
+      end
+      # return combos sorted by "quantum entanglement"
+      valid_combos.sort_by { |combo| quantum_entanglement(combo) }
+    end
+
+    def quantum_entanglement(arr)
+      arr.inject(:*)
+    end
+
+    def find_min_that_can_be_balanced(arr, combos, groups, weight)
+      # because combos are already sorted by quantum entanglement in #passenger_seat_combos,
+      # we can just return the first one we find that has remaining subsets capable of
+      # being balanced properly
+      combos.each do |combo|
+        remaining = arr - combo
+        if can_be_balanced?(remaining, groups, weight)
+          return quantum_entanglement(combo)
+        end
+      end
+      nil
+    end
+
+    def can_be_balanced?(arr, groups, weight)
+      return true if groups == 1 && arr.inject(:+) == weight
+
+      (1..(arr.length - 1)).to_a.each do |combo_size|
+        arr.combination(combo_size).to_a.each do |combo|
+          if combo.inject(:+) == weight
+            remaining = arr - combo
+            return can_be_balanced?(remaining, groups - 1, weight)
+          end
+        end
+      end
+      false
+    end
+
+    # Part One
+    # desired_weight = present_weights.inject(:+) / 3
+    # p desired_weight # 508
+
+    # Since all present weights are odd, that means the minimum amount of packages
+    # we can put in the passenger seat is 6, so search for combinations of 6 that add up to 508
+
+    sorted_combos_3_partitions = passenger_seat_combos(present_weights, 6, 508)
+    p find_min_that_can_be_balanced(present_weights, sorted_combos_3_partitions, 2, 508)
+
+    # Part Two
+    # desired_weight = present_weights.inject(:+) / 4
+    # p desired_weight # 381
+
+    # Since all present weights are odd, that means the minimum amount of packages
+    # we can put in the passenger seat is now 5, so search for combinations of 5 that add up to 381
+
+    sorted_combos_4_partitions = passenger_seat_combos(present_weights, 5, 381)
+    p find_min_that_can_be_balanced(present_weights, sorted_combos_4_partitions, 3, 381)
+    ```
+  :replies: []

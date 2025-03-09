@@ -1,0 +1,129 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbc4udx/
+  :body: |-
+    My first naive solution takes about 17 seconds to finish part 2. Once again, this is unacceptably slow.
+
+    My first thought was to check whether there were any repeating patterns in the rows generated... NOPE, not in any of my 400000 rows. There goes that idea.
+
+    You know what? Let's make a silly\* solution. We'll:
+
+    - store the input row in blocks of ten, because that evenly divides 100 and in my testing it seemed to work well (20 performed worse! why?)
+    - precompute every block of twelve -\> block of ten transformation
+    - precompute every block of ten -\> safe count
+    - reuse the same two arrays (one for the old row, one for the new row) to avoid allocations
+
+    For each block in the new row, use the corresponding block in the old row and one bit each from the surrounding blocks to look up what the block in the new row will be. Let's go.
+
+    ```ruby
+    # Store rows in blocks of this size.
+    # 1 = trap, 0 = safe.
+    # Within each block, characters on the left are the most significant bits.
+    BLOCK = 10
+
+    # We'll pre-compute every single block of 12 -> 10,
+    # since 4096 entries in a table is easy.
+    RULE = (0...(1 << BLOCK + 2)).map { |i|
+      (0...BLOCK).select { |j|
+        (i >> j) & 1 != (i >> j + 2) & 1
+      }.map { |j| 1 << j }.reduce(0, :|)
+    }.freeze
+
+    SAFE_COUNT = (0...(1 << BLOCK)).map { |i| BLOCK - i.to_s(2).count(?1) }.freeze
+
+    input = ARGV.first || '...^^^^^..^...^...^^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^^^.^^......^^^^'
+
+    prev_row = input.each_char.each_slice(BLOCK).map { |slice|
+      slice.reduce(0) { |i, c| i << 1 | (c == ?^ ? 1 : 0) }
+    }
+
+    safe = prev_row.map { |block| SAFE_COUNT[block] }.reduce(:+)
+
+    current_row = Array.new(prev_row.size)
+
+    [39, 399960].each { |n|
+      n.times {
+        window = 0
+        current_row.size.times { |i|
+          window = (window << BLOCK | prev_row[i] << 1 | (prev_row[i + 1] || 0) >> BLOCK - 1) & (1 << BLOCK + 2) - 1
+          current_row[i] = RULE[window]
+          safe += SAFE_COUNT[current_row[i]]
+        }
+        prev_row, current_row = [current_row, prev_row]
+      }
+      puts safe
+    }
+    ```
+
+    Yeah, 1.5 seconds!
+
+    \*: Why is this silly? You would think all these ideas are reasonable. But the answer is that you could consider it silly because it's only going halfway. If we're going to store them in blocks of 10, why not [blocks of 100](https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbc0l6j/)? Yes, the Ruby translation of that code works just fine. Thank the people who did automatic BigNum conversions, etc.
+
+    My answer is always "it's as silly as you'd like it to be".
+
+    ```ruby
+    input = ARGV.first || '...^^^^^..^...^...^^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^^^.^^......^^^^'
+
+    row = input.each_char.reduce(0) { |i, c| i << 1 | (c == ?^ ? 1 : 0) }
+    mask = 2 ** input.size - 1
+
+    safe = input.size - row.to_s(2).count(?1)
+
+    [39, 399960].each { |n|
+      n.times {
+        row = ((row << 1) ^ (row >> 1)) & mask
+        safe += input.size - row.to_s(2).count(?1)
+      }
+      puts safe
+    }
+    ```
+
+    About half a second. Not as good as the compiled C code, which takes about 7 milliseconds, but it'll do.
+  :replies: []
+- :author: eregontp
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcb1ln/
+  :body: |-
+    Ruby one-liner. I find it rather readable for a golfed solution.
+
+    ```ruby
+    f=false;t=0;b=r.bytes.map{|e|e==94};n.times{t+=b.count(f);b=[f,*b,f].each_cons(3).map{|a,_,c|a!=c}};p t
+    ```
+  :replies: []
+- :author: johneffort
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcpya7/
+  :body: |-
+    Ruby, quite readable, not very fast, but doable. 30s for part 2
+
+    ```ruby
+    def process(start, row_count)
+      rows = [start]
+      while (rows.length < row_count)
+        puts rows.length if rows.length % 100 == 0
+        old_row = rows.last
+        new_row = [false] * old_row.length
+        new_row.each_with_index do |tile, i|
+          left,center,right = get_tiles(old_row, i)
+           trap = ((left && center && !right) || (center && right && !left) || (left && !center && !right) || (!left && !center && right))
+           new_row[i] = trap
+        end
+        rows << new_row
+      end
+      puts rows.flatten.count{|r| !r}
+    end
+
+    def get_tiles(old_row, i)
+      left = i > 0 ? old_row[i-1] : false
+      center = old_row[i]
+      right = (i < (old_row.length - 1)) ? old_row[i + 1] : false
+      [left,center,right]
+    end
+
+    input =".^^.^.^^^^"
+    values = input.chars.map{|c|c =="^"}
+    process(values, 10)
+
+     input = ".^^^^^.^^.^^^.^...^..^^.^.^..^^^^^^^^^^..^...^^.^..^^^^..^^^^...^.^.^^^^^^^^....^..^^^^^^.^^^.^^^.^^"
+     values = input.chars.map{|c|c =="^"}
+     process(values, 400000)
+    ```
+  :replies: []

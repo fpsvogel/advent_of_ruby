@@ -1,0 +1,186 @@
+---
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnakx9/
+  :body: |-
+    Rank #7 for Part 1 ^^ just slightly over 1 minute with Ruby! Didn't make it on leaderboards with part 2 due to a stupid bug that took **18!!!** minutes to debug :(
+
+    ```ruby
+    p$<.map{|x|v=x.split.map &:to_i
+    v.max-v.min}.sum
+    ```
+
+    Good luck to everyone for striking a spot in the leaderboard :)
+
+    For completion's sake, here's part 2, it's a battlefield of bug hunting that I was embarrassed to post... but whatever :D
+
+    ```ruby
+    p$<.map{|x|l=x.split.map &:to_i
+    l.sort!
+    p l
+    v=0
+    m=l.reverse.find{|x|l.any?{|y|#next if
+    v=y
+     x!=y &&(y%x<1)}}
+    v/m
+    }.sum
+    ```
+  :replies:
+  - :author: Grimnur87
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnl07h/
+    :body: I also used sort! and reverse to optimise the search.
+    :replies:
+    - :author: Unihedron
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqno5nn/
+      :body: My problem was that I did not check value==compare value and sometimes searches return prematurely as false positive of division to 1. But yes, it was a straightforward approach to take.
+      :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqna63c/
+  :body: |-
+    You guys are FAST. But since I see no Ruby solutions I'll still post mine:
+
+    ```ruby
+    def difference(arr)
+      arr = arr.sort
+      return arr[-1] - arr[0]
+    end
+
+    def checksum(arrays)
+      result = 0
+      arrays.each do |n|
+        result = result + difference(n)
+      end
+      result
+    end
+
+    puts checksum(nums)
+
+    def divisible(arr)
+      answer = nil
+      arr.each do |x|
+        arr.each do |y|
+          if x != y && x % y == 0
+            answer = x / y
+          end
+        end
+      end
+      answer
+    end
+
+    def divisible_checksum(arr)
+      result = 0
+      arr.each do |a|
+        result = result + divisible(a)
+      end
+      result
+    end
+
+    puts divisible_checksum(nums)
+    ```
+  :replies:
+  - :author: Fluffy_ribbit
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbx6d/
+    :body: |-
+      ```ruby
+      def check(sheet)
+        cells = sheet.map {|row| row.split.map {|cell| cell.to_i} }
+        cells.inject(0) {|total, row| total + (row.max - row.min)}
+      end
+
+      def check(sheet)
+        cells = sheet.map {|row| row.split.map {|cell| cell.to_i} }
+
+        total = 0
+
+        cells.each do |row|
+          row.each do |cell|
+            row.each do |divisor|
+              dividend, modulo = cell.divmod(divisor)
+              total += dividend if modulo == 0 && dividend != 1
+            end
+          end
+        end
+
+        total
+      end
+      ```
+    :replies: []
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnhhaw/
+    :body: 'Here''s mine: https://raw.githubusercontent.com/jschulenklopper/adventofcode/master/2017/day02/day02b.rb. Reasonably concise but still readable.'
+    :replies:
+    - :author: mentero
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqniwss/
+      :body: |-
+        > Ruby
+
+        and mine https://gist.github.com/mentero/3cce36ee20effcf1691992a00692c05c
+      :replies: []
+- :author: disclosure5
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnb1mb/
+  :body: |-
+    [Ruby solution here](https://raw.githubusercontent.com/technion/aoc2017/master/two.rb).
+
+    Honestly I spent most of this trying to parse the input. This feels like a horrible hack job:
+
+    ```ruby
+    testlines = test.split("\n").map { |n| ret = n.split(/\s+/) ; ret.map(&:to_i) }
+    ```
+  :replies:
+  - :author: jschulenklopper
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqne8n0/
+    :body: |-
+      Tip: `string.split(" ")` splits on any whitespace: spaces and tabs.
+
+      My loop is (with the input file passed as argument on command line):
+
+      ```ruby
+      while line = gets
+        values = line.strip.split(" ").map(&:to_i)
+        checksum += values.max - values.min
+      end
+      puts checksum
+      ```
+    :replies: []
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbarw/
+    :body: "[deleted]"
+    :replies:
+    - :author: disclosure5
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbvmx/
+      :body: Thanks ! I should have realised they would be tabs..
+      :replies: []
+  - :author: rkachowski
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqni74z/
+    :body: |-
+      i was pretty similar. the same approach with different methods
+
+      ```ruby
+      input.lines.map{|l| l.strip.split("\t").map(&:to_i) }
+      ```
+    :replies:
+    - :author: disclosure5
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnig0x/
+      :body: TIL that .lines is an existing function
+      :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqomop6/
+  :body: |-
+    Ruby is amazing!
+
+    ```ruby
+    checksum = File.read("day2.input")
+                               .split("\n")
+                               .reduce(0) { |checksum, row|
+                                                  checksum + row.split("\t").map(&:to_i).minmax.reverse.reduce(:-)
+                           }
+    ```
+  :replies: []
+- :author: disclosure5
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnffzu/
+  :body: |-
+    Following the rushed Ruby, [here's a hopefully nice Erlang answer.](https://github.com/technion/aoc2017/blob/master/two.erl). I don't really follow why line #26 is needed. The file does not end in a new line, but the split/2 seems to break out an empty list at the end anyway.
+
+    Edit: vim corrupts the test data and doesn't tell you.
+
+    https://vi.stackexchange.com/questions/3298/how-to-make-vim-automatically-add-a-newline-to-the-end-of-a-file
+  :replies: []

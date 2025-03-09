@@ -1,0 +1,225 @@
+---
+- :author: KeyboardFire
+  :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboleqg/
+  :body: |-
+    ruby 2nd/1st
+
+    sincere apologies for the monstrosity you're about to see (and this is the cleaned up version)
+
+    the main trick to save time was that instead of worrying about removing crashed carts from the list while iterating over it, i just set an `alive` flag to `false` and kept them
+
+    also i'm quite fond of sorting by `99999y + x`
+
+    an interesting piece of trivia is that the set of transformations [/, \, turn left, turn right] is swapping x and y followed by all permutations of signs:
+
+    ```ruby
+    / x y => -y -x
+    \ x y => y x
+    L x y => y -x
+    R x y => -y x
+    ```
+
+    code:
+
+    ```ruby
+    #!/usr/bin/ruby
+
+    class Cart
+        attr_accessor :x, :y, :xv, :yv, :t, :alive
+        def initialize x, y, xv, yv
+            @x = x
+            @y = y
+            @xv = xv
+            @yv = yv
+            @t = 0
+            @alive = true
+        end
+    end
+
+    ca = []
+    d = File.readlines('f').map.with_index do |line,y|
+        line.chomp.chars.map.with_index do |c,x|
+            case c
+            when ?< then ca.push Cart.new(x,y,-1,0); ?-
+            when ?> then ca.push Cart.new(x,y, 1,0); ?-
+            when ?^ then ca.push Cart.new(x,y,0,-1); ?|
+            when ?v then ca.push Cart.new(x,y,0, 1); ?|
+            else c
+            end
+        end
+    end
+
+    loop {
+        ca.sort_by!{|c| c.y*99999+c.x}
+        ca.each do |c|
+            next unless c.alive
+
+            cx = c.x + c.xv
+            cy = c.y + c.yv
+            crash = ca.find{|c2| c2.x == cx && c2.y == cy && c2.alive}
+            if crash
+                c.alive = false
+                crash.alive = false
+                asf = ca.select{|asdf|asdf.alive}
+                if asf.size == 1
+                    p asf[0].x
+                    p asf[0].y
+                    exit
+                end
+                next
+            end
+            c.x = cx
+            c.y = cy
+
+            case d[c.y][c.x]
+            when '\\' then c.xv, c.yv = c.yv, c.xv
+            when '/' then c.xv, c.yv = -c.yv, -c.xv
+            when '+'
+                case c.t
+                when 0 then c.xv, c.yv = c.yv, -c.xv
+                when 1 #nop
+                when 2 then c.xv, c.yv = -c.yv, c.xv
+                end
+                c.t = (c.t+1)%3
+            end
+
+        end
+    }
+    ```
+  :replies:
+  - :author: topaz2078
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebolgt5/
+    :body: |-
+      > ruby 2nd/1st
+
+      Very nice!!
+
+      > also i'm quite fond of sorting by `99999y + x`
+
+      Note to self, make a 100000-wide grid next time.
+    :replies: []
+  - :author: dtinth
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomfmk/
+    :body: |-
+      Congrats on getting 2nd/1st!
+
+      Just a bit of tip that you can sort an array by multiple values by using an Array as a sort key: `ca.sort_by!{|c|[c.y,c.x]}`
+    :replies:
+    - :author: KeyboardFire
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomq8c/
+      :body: oh cool, i didn't know that. thanks!
+      :replies: []
+  - :author: jonathan_paulson
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebom43c/
+    :body: Thanks for posting. Your code for handling the rotations (`\ / +`) is really concise!
+    :replies: []
+  - :author: markasoftware
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomy9b/
+    :body: Holy shit, storing x and y component velocities never crossed my mind! Absolutely brilliant!
+    :replies: []
+  - :author: sigacuckoo
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebose9c/
+    :body: Directions as speed vector really cleans the code up! I used the transition maps like most of the people.
+    :replies: []
+  - :author: tobiasvl
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboxdwy/
+    :body: For me, part 2 seems to be off by one in the X coordinate (I had `54,66` while your code prints out `55\n66`).
+    :replies: []
+  - :author: VikeStep
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebp3lw0/
+    :body: |-
+      Just fyi, your example above the code has the permutations switched around for the corners. It should be the following as it appears in your code:
+
+      ```ruby
+      / x y => -y -x
+      \ x y => y x
+      ```
+    :replies:
+    - :author: KeyboardFire
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu451/
+      :body: whoops, fixed that, thanks!
+      :replies: []
+  - :author: jtgorn
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqm2re/
+    :body: Beautiful. What sort of syntax is it ?v ?^ etc.. ?
+    :replies:
+    - :author: KeyboardFire
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu5d6/
+      :body: it's sugar for single-character strings (e.g. `?v == "v"`)
+      :replies:
+      - :author: jtgorn
+        :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebtbonm/
+        :body: Thanks! I have learned one thing today :)
+        :replies: []
+  - :author: koordinate
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ecgbyjm/
+    :body: |-
+      Nice. Thank you for sharing.
+
+      A Swift translation:
+
+      ```ruby
+      class Cart {
+          var x: Int, y: Int
+          var vx: Int, vy: Int
+          var t = 0
+          var isAlive = true
+
+          init(x: Int, y: Int, vx: Int, vy: Int) {
+              (self.x, self.y, self.vx, self.vy) = (x, y, vx, vy)
+          }
+      }
+
+      var carts = [Cart]()
+      var d = [[Character]]()
+      while let line = readLine() {
+           d.append(line.enumerated().map { x, c in
+              switch c {
+              case "<": carts.append(Cart(x: x, y: d.count, vx: -1, vy: 0)); return "-"
+              case ">": carts.append(Cart(x: x, y: d.count, vx: +1, vy: 0)); return "-"
+              case "^": carts.append(Cart(x: x, y: d.count, vx: 0, vy: -1)); return "|"
+              case "v": carts.append(Cart(x: x, y: d.count, vx: 0, vy: +1)); return "|"
+              default: return c
+              }
+          })
+      }
+
+      var haveCrashed = false
+      while carts.count > 1 {
+          carts = carts.sorted(by: { $0.y == $1.y ? $0.x < $1.x : $0.y < $1.y })
+          for c in carts {
+              if !c.isAlive {
+                  continue
+              }
+
+              let (cx, cy) = (c.x + c.vx, c.y + c.vy)
+              if let crash = carts.first(where: { $0.x == cx && $0.y == cy && $0.isAlive }) {
+                  if !haveCrashed {
+                      print(cx, cy, separator: ",")
+                      haveCrashed = true
+                  }
+                  c.isAlive = false
+                  crash.isAlive = false
+              }
+              (c.x, c.y) = (cx, cy)
+
+              switch d[cy][cx] {
+              case "\\": (c.vx, c.vy) = (c.vy, c.vx)
+              case "/": (c.vx, c.vy) = (-c.vy, -c.vx)
+              case "+":
+                  switch c.t {
+                  case 0: (c.vx, c.vy) = (c.vy, -c.vx)
+                  case 2: (c.vx, c.vy) = (-c.vy, c.vx)
+                  default: break
+                  }
+                  c.t = (c.t + 1) % 3
+              default: break
+              }
+          }
+          carts = carts.filter { $0.isAlive }
+      }
+      if let c = carts.first {
+          print(c.x, c.y, separator: ",")
+      }
+      ```
+    :replies: []

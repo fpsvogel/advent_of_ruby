@@ -1,0 +1,89 @@
+---
+- :author: fixed_carbon
+  :url: https://www.reddit.com/r/adventofcode/comments/5gr0xf/2016_day_6_solutions/dauhuao/
+  :body: |-
+    Ruby. `chunk` seems to be getting a lot of exercise in these problems.
+
+    ```ruby
+    INPUTFILE = 'input.txt'
+
+    inp = File.readlines(INPUTFILE).map{|s| s.strip.chars}.transpose
+
+    # Part One
+    puts inp.map{|line| line.sort.chunk{|b| b}.sort_by{|el| el.last.size}.last.first}.join
+
+    # Part Two
+    puts inp.map{|line| line.sort.chunk{|b| b}.sort_by{|el| el.last.size}.first.first}.join
+    ```
+  :replies: []
+- :author: andars_
+  :url: https://www.reddit.com/r/adventofcode/comments/5gr0xf/2016_day_6_solutions/daufndh/
+  :body: |-
+    Ruby.
+
+    ```ruby
+    positions = []
+    10.times do |i|
+      positions << Hash.new(0)
+    end
+
+    File.open(filename).each_line do |line|
+      chars = line.split('')
+      chars.each_with_index do |c, i|
+        positions[i][c] += 1
+      end
+    end
+
+    puts "Part 1:"
+    puts positions.map { |pos|
+      k,_ = pos.max_by{|k,v| v}
+      k
+    }.join
+
+    puts "Part 2:"
+    puts positions.map { |pos|
+      k,_ = pos.min_by{|k,v| v}
+      k
+    }.join
+    ```
+  :replies: []
+- :author: doublehyphen
+  :url: https://www.reddit.com/r/adventofcode/comments/5gr0xf/2016_day_6_solutions/daufx8l/
+  :body: |-
+    Ruby solution. I think it is pretty short and clean.
+
+    ```ruby
+    count = Hash.new { |h, k| h[k] = Hash.new(0) }
+    $stdin.each do |line|
+      line.scan(/./).each_with_index { |c, i| count[i][c] += 1 }
+    end
+    puts count.values.map { |x| x.max_by { |_, n| n }[0] }.join
+    ```
+  :replies: []
+- :author: brantyr
+  :url: https://www.reddit.com/r/adventofcode/comments/5gr0xf/2016_day_6_solutions/dauh5yy/
+  :body: |-
+    Trying to learn ruby... apparently there are no do - while loops...
+
+    ```ruby
+    file = File.new("input06.txt","r")
+    frequencies = Array.new
+    line = file.gets
+    line.each_char do
+        frequencies << Hash.new(0)
+    end
+
+    loop do
+        for i in 0..(line.length-1) do
+            frequencies[i][line[i]] += 1
+        end
+        break if !(line=file.gets)
+    end
+
+    frequencies.each do | current |
+        freqArr = current.sort { |a,b| b[1]<=>a[1]}
+        #print freqArr[0][0] # Part 1
+        print freqArr.last[0] # Part 2
+    end
+    ```
+  :replies: []

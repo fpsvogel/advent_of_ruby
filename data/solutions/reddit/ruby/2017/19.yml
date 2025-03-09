@@ -1,0 +1,87 @@
+---
+- :author: dtinth
+  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgjw1m/
+  :body: |-
+    # Ruby (28th, 22nd)
+
+    ```ruby
+    IN = `pbpaste`
+
+    maze = {} # Dictionary with a array (coordinate vector) as a key
+    start = nil
+    IN.lines.each_with_index { |v, i|
+      v.chars.each_with_index { |c, j|
+        if c =~ /[A-Z]/
+          if i == 0
+            start = [i, j]
+          end
+          maze[[i, j]] = c
+        elsif c =~ /\S/
+          if i == 0
+            start = [i, j]
+          end
+          maze[[i, j]] = '!'
+        end
+      }
+    }
+
+    direction = [0, 1]
+
+    cur = start.dup
+    rl = -> d { [d[1], -d[0]] } # Rotate left
+    rr = -> d { [-d[1], d[0]] } # Rotate right
+    nx = -> c, d { [c[0] + d[0], c[1] + d[1]] } # Next step
+    nn = 0 # Number of steps
+    loop {
+      break if !maze[cur]
+      # p cur
+      nn += 1
+      print maze[cur] if maze[cur] != '!'
+      if !maze[nx[cur, direction]]
+        if maze[nx[cur, rl[direction]]]
+          direction = rl[direction]
+        elsif maze[nx[cur, rr[direction]]]
+          direction = rr[direction]
+        end
+      end
+      cur = nx[cur, direction]
+    }
+    puts
+    puts nn
+    ```
+  :replies: []
+- :author: Unihedron
+  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgk54d/
+  :body: |-
+    Ruby; My sanity decays further as more debugging effort was required. Today's bug was fall-through statements. Almost made it to the leaderboards though :p (~120)
+
+    ```ruby
+    g=*$<
+    x=g[0].index(?|)
+    y=1
+    n=:down
+    o="" # part 1
+    o=0 # part 2
+    loop{p n
+    v=g[y][x]
+    o+=1 # part 2
+    break if v==' '||y<0||x<0
+    o<< v if !'|-+'.index(v) # part 1
+    (n==:down ? y+=1 :
+     n==:up ? y-=1 :
+     n==:right ? x+=1 :
+     n==:left ? x-=1 : 0
+    next) if v!=?+
+    (
+    n==:down||n==:up ? (n= g[y][x-1]!=' ' ? :left : :right) :
+    (n= g[y-1]&&g[y-1][x]!=' ' ? :up : :down)
+    )if v==?+
+    (n==:down ? y+=1 :
+     n==:up ? y-=1 :
+     n==:right ? x+=1 :
+     n==:left ? x-=1 : 0)
+    p y,x
+    }
+    p o
+    ```
+  :replies: []

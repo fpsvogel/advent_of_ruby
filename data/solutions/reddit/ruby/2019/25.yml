@@ -1,0 +1,40 @@
+---
+- :author: p_tseng
+  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fc4qi6w/
+  :body: |-
+    Solved it day-of with mostly manual playing plus machine assistance (replay a list of moves so that I don't lose all my progress, brute-force the pressure pad). I've since gone back and added some nice bells and whistles to the game player, as follows:
+
+    - With the -s flag, prints all strings present in the program. Please excuse some garbage that gets printed out, since there are some segments that look like strings but end up not being strings and I don't bother to filter them out.
+    - With the -i flag, prints all items, their weights, their locations, and the address of the function that will be executed if that item is picked up (if any).
+    - With the -r flag, prints all rooms, their flavour text, the item(s) that room contains (if any) their neighbouring rooms. Colour-coded.
+    - By default, with no flags, calculates the answer the program will eventually print, with the following procedure:
+      - Look for the string containing "airlock" in the program
+      - Looks at what address is printed right before the string containing "airlock" is printed
+      - Looks for a function that writes a constant value to that address (that function writes the constant 0 to clear it in preparation for doing real work with it)
+      - Inside that function, looks for the multiplication of two numbers to form a reference value. Remembers that value and its address.
+      - Looks for a function that performs any comparison operation against the reference value by address.
+      - Looks for the base of the array used within that comparison function.
+      - Computes the answer using that array and the reference value.
+      - Yes, I know that the relevant addresses are actually the same for all inputs, but I dislike having too many magic numbers in my file without any explanation of where those numbers came from. Thus, having the code perform the above-listed operations serves as documentation for me for what the program is doing.
+    - With the -m flag, lets you play the game manually. The game is enhanced with the following additional commands:
+      - "sa <savename>" (short for "save") saves your current state.</savename>
+      - "l <savename>" (short for "load") loads the named state. Note that there is a save named "auto" created every time you successfully move from one room to another.</savename>
+      - "i" shows all items and their current location (whether that be in your inventory, or in some room), much like the -i flag.
+      - "r" shows the rooms, much like the -r flag, with your current location in red, and shows the sequence of movements you must take to reach any particular room
+      - "ft <room>" (short for fast travel) travels to the named room by providing the correct movement commands that would do so. You can be pretty imprecise with the room specification; first it tries substring matching, then it tries <em>subsequence</em> matching.</room>
+      - "ta" or "takea" or "take a" (short for take all) picks up all items that do not execute a function when they are picked up, by providing the correct movement commands that move to the room they are in plus the "take" action. No optimisation of routing is performed; the items are simply taken in the order they appear in the program.
+      - "b" brute-forces the pressure pad, showing its progress as it goes.
+
+    Since everyone likes screenshots, [nice screenshot showing the colour-coded outputs](https://i.redd.it/whzl7y6g34741.png). (I censored out my answer)
+
+    Ruby: [25\_cryostasis.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/25_cryostasis.rb)
+  :replies: []
+- :author: rsthau
+  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fbzpb4q/
+  :body: |-
+    Ruby: [Code](https://topaz.github.io/paste/#XQAAAQAoBwAAAAAAAAA5GUqKNoFH6SMqVwZFsYYqxh4ExTaLbtf8Alp69UGP9KkSBesmiuVUTdimvKqEHp35RFKztzBU/3FuJv5lldOij8/JmL+Q2WHcQ2y5zCd3FMTB2QOR4oSaHdfg68+rfvTp3WjqEKnUngRyjKlgsL8NxEnXKOBDpzriYeY3qRCQqNNxt1jdGMjJWGzttNCPEZAWwT9c20OyEVP/dmRGJPRlbp9komCqWOQNtHmpFu6v10Qb2awX767abSGKOT3Qui5YZ8EaPN7IvMQCdZPtlN2qfHKzb6TmFeqm6p1WlNCr/2E5o8eR9SEmBALNYIbosLTThyg1JsTaJzTM+dt9gHkG1E3lX0T+vwtVNuXqipmD7jBg4/WZSNDymSifBwjuWg7mflb09TjZdE4lOj+Lu5qS3+IizAdQJ0+YxES3tzBn6qbKOvmTpKh9/NZwW6Bi2yFAoVTOW/VnNBacDOFs8vDG9FE2S6+yKnwWQjnn6DhHDqP2spqMwnJadQgKXz5WQz5YLC4CBnjD4OmQ3HraPN2ioGzjG1dAHCnh22Nx86gNXGD0RHe7Y47TwPgrfXRz64gilLnYH6uTGIMa0Y2JiPLauN6xgaulVWD1sxonlBg8nBU4p9ZXmrI5Jeue3sY6LR7SFEQtJDuB/FlfJpEfNIo6TmHe0RxUzHRQBwOAS5Ao6fQ/1yQX9BRIuIxGnxtLC6Kiz8Yy+P4JtZuqn/0zV1tMZnTN/I9jJdTSlMiY/nv7mUtmLTTelcukouy9b6WvStQqdozCfNoL8df3veLO4sKGzPKCFJaJw0eLspdeCN6FbXo/om+aif3mndfsaJm43ulZPGeGJGg7ZvPZDL/7sroAqYUjlK78jAtQBlsRghtWYqdV1sgaH4HqSr9EwgMnWvjDNiG5X4+P5udHFeeZJu/1jO34jzBYl7XUPFjoFAgqCl2hUA3L6+J7jfCy9jnj6ffaUuPq6ClGqIAMHVU17ru3XhzUkKU+j99wJNH+tfjYZKGp3Y65aB768VqS)
+
+    I manually mapped the ship collecting every item which wasn't fatal to touch ("take infinite loop"... #$@%#%@#%), but once I got them all to the security checkpoint, sorting through the pile to find the right items wasn't my idea of fun, so I automated that. (Note that the code which does this is particular to the set of items in my input; from what I see here, your mileage _will_ vary, but replacing my list with anybody else's should be straightforward.)
+
+    To facilitate debugging this, and also for all the usual adventure-game reasons, I also wound up implementing "save" and "restore" commands. When my command-reader sees these commands, it doesn't send them to the Intcode machine, but rather invokes code which either writes its state out to a file, or restores it. A third meta-command ("dance") initiates the pile-sorting process.
+  :replies: []

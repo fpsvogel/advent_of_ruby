@@ -1,0 +1,184 @@
+---
+- :author: Krakhan
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfrw3ms/
+  :body: |-
+    # Ruby
+
+    Knew that the second part was a number theory based one, didn't think it would be one right out of one inspired from the Chinese Remainder Theorem though. I got tired and lazy, since it was 5am by the time I thought of coding up an algorithm for it by hand, so found one from rosetta code that had it. I guess I could have done it the other sieving way that the wikipedia article mentions [in this section](https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Search_by_sieving), but hey, at least this way solves it more or less instantly, though I'm sure the sieving way would have done it in under a minute too at least.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQAYBwAAAAAAAAAnE8bNrcUaSC1RPLSslbg3C3mUhvgred777SJtxMUlLYkrtfCu151ao31yyyD8usLO9czk+cI2fDLKqVTt2oetB67KB0VGUVGo6zp2PZQn63Qyn/NGS3/c1hTo734IXYgBWXS6ZLltXzaHhfLEeahYanci5X8hcf4/vKW2FH6TTmJrIejunfUIoxOO3MPsQYVDI33EbFIHQXAzp/LEvPFDL+SIL9K0bmzYEtQwF7EL0SG3DBRvoR0qcdHG08yKABs/AS1ha78kfAKRWBUfDv6TywDCT3k8k6JlJBPionqsVfa/sng6hEwskfxiZeDo661eSzKxVU58vuwDOJsBaAYGApDh+cAzxnA9E0Dpn7ygvXX8XKVqsaLp6nyRRjCc0OQjoSM6hRCqnqdI4AtIE/q1oHNmdiih6WjRlE88mqp30hmn6TlTSv/WsShDHG7etbqxUuowg/wVljBERK65sWf0y8g/60Cd8RfpKifIaq4N8MHH2JC72lakOKPI0w4O3G8pZQ+NAt8xrlxu/XGUWXw3rH7dLd9LRjl/ilw1fru1Bf6Nhpx7s73HgAH6O9IJphxG0bag5HNd7BixjcMFnUHU+TcVfRdfmARir2t1DTR1YISUbey7tgT5vA79KX3BqvrC91xQiHANPyhU0IHSkVhqHk4mcYMmjncsOW0MccbMKnLSHXA4Xjae4cCM7DHXvkcH4IjJ9TO4dBJBn0O7ldLVBLz/wfvAgjR6ca6P7+aJOee4xca+NouqzYJrvhyX//IDh+jpycHf3TYPwdG+WcfaNgUUH4ADcXbU8C0uTyudP0oyzSOnNFgnISmyM2tMvM7P4Ms8nBVaLIhHl4LBRE/ztM6RiBT1mBr3FqStwlGJXkMNRaqbrv/BBfDYgG+CZtV6DbJMwifWy8q1DIfMGvuj0FZJHnUBvZl1aU8hFpZQprw2mHkBluyxTpMGS5DSWe7FBO03FSucOQMjS9JYqvsO3JKOfWwPzR6YQj4CIaOwgyhT6vsQf7oxBkCHhHnkDIEK37kyEKDNeipgNDlOmL7LLXI+vbvJIF6KZwpXLbXtMqdoqY+Yo/ROKjUn8A12WDi0ACaP00TitigSABRIVHF7Ketf/K6rOnIp1WJPCe7yxbBsUNpsYYK/kf66HeA=)
+  :replies: []
+- :author: adjudicator
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfra3pk/
+  :body: |-
+    OO Ruby part b, with both iterative and recursive implentations of the same solution.
+
+    The iterative is about 20x faster, coming in at around 43 microseconds, while the recursive takes almost a whole millisecond.
+
+    Interestingly, the whole thing is about twice as fast on WSL2 (Linux 4.19) as it is using Windows MinGW ruby.
+
+    https://nopaste.xyz/?9b0e91305941a03c#3o68g4zxLknXSoPY6XsRyZYak7JVz6cvQ6cMGV7dYaKf
+  :replies: []
+- :author: "[deleted]"
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfr2njd/
+  :body: |-
+    # Ruby
+
+    I'm moderately happy with this.
+
+    ```ruby
+    # input = DATA.readlines
+    input = open('inputs/13.txt').readlines
+
+    $start = input[0].to_i
+    $busses = input[1].scan(/\d+/).map(&:to_i)
+    $positions = input[1].split(',').each_with_index.reject { |t, i| t == 'x' }.map(&:last)
+
+    def part_1
+      time = ($start..).find { |t| $busses.any? { |n| (t % n).zero? } }
+      bus = $busses.find { |n| (time % n).zero? }
+      (time - $start) * bus
+    end
+
+    def part_2
+      remainders = $busses.zip($positions).map { |bus, pos| bus - (pos % bus) }
+      product = $busses.reduce(:*)
+
+      multiples = $busses.map do |num|
+        base = product / num
+        multiplier = (1..).find { |n| (n * base) % num == 1 }
+        multiplier * base
+      end
+
+      multiples.each_with_index.map { |m, i| m * remainders[i] }.sum % product
+    end
+
+    p part_1
+    p part_2
+
+    __END__
+    939
+    7,13,x,x,59,x,31,19
+    ```
+  :replies: []
+- :author: Karl_Marxxx
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfqych1/
+  :body: |-
+    # Ruby
+
+    ```ruby
+    input = ARGF
+    input = input.readlines(chomp: true)
+    target = input[0].to_i
+    busses = input[1].split(",").map.with_index {|e, idx|
+        next if e == "x"
+        e = e.to_i
+        [e, (e-idx) % e] # bus, wait time
+    }.compact
+
+    # part 1
+    wait, bus = busses.map {|b, _| b - (target % b)}.each_with_index.min
+    p wait * busses[bus][0]
+
+    # part 2
+    timestamp = busses[0][1]
+    offset = busses[0][0]
+    i = 0
+    while i < busses.size - 1
+        next_bus = busses[i+1][0]
+        next_bus_wait = busses[i+1][1]
+        until timestamp % next_bus == next_bus_wait
+            timestamp += offset
+        end
+        offset = offset * next_bus
+        i += 1
+    end
+    puts timestamp
+    ```
+  :replies: []
+- :author: parentheses-of-doom
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnmkkd/
+  :body: |-
+    [Ruby](https://github.com/Prajjwal/advent-of-code/blob/master/2020/ruby/day_13.rb)
+
+    Not a huge fan of today's problem, because anyone that didn't know about the Chinese Remainder Theorem didn't really stand a chance of solving it. Pretty artificial in terms of difficulty.
+  :replies:
+  - :author: MimHufford
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfoi0qx/
+    :body: |-
+      I solved it without knowing CRT.
+
+      The brute force solution is to check every t minutes (where t is your first bus) and then check each subsequent bus divides by t + bus offset. if it doesn't, jump to next t.
+
+      But, instead of jumping t every time you can potentially jump massive t values. I.e. if you know the first two buses matched you can jump bus1 \* bus2 minutes because you know that will be the next time they are synchronised. Then when you find 3 you can jump even larger steps.
+
+      [Here's mine](https://github.com/mimhufford/AdventOfCode/blob/master/2020/13.jai)
+    :replies: []
+  - :author: spookywooky_FE
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnr8gq/
+    :body: |-
+      I had, again, big problems to parse the problem statement, and to parse the problem input. For part2 I did read about [diophantine equations](https://cp-algorithms.com/algebra/linear-diophantine-equation.html) for like 20 minutes.
+
+      Then I realized that these do not really help, but that we can find a solution for two busses fairly simple, and combine this principle to all busses. [part2](https://gitlab.com/FrankEndriss/aoc2019/-/blob/master/src2020/13b.cc)
+
+      I heard of CRT before, but was never able to memoize how it works.
+    :replies:
+    - :author: Dementati
+      :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggu6foy/
+      :body: They did help me. I modelled the problem as a system of Diophantine equations and used a library to solve it.
+      :replies:
+      - :author: spookywooky_FE
+        :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggvj6pm/
+        :body: Well, a system of diophantine equations is more or less CRT. However, of course they can help ;) But they did not help me, because I did not get how to apply them.
+        :replies:
+        - :author: Dementati
+          :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggw9sgh/
+          :body: In what sense are they CRT? CRT seems completely different to me, not least because it requires the divisors to be coprime. And yeah, the way you phrased your comment made it sound like you were saying that Diophantine equations don't help in general.
+          :replies: []
+  - :author: Hydroxon1um
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfq7uu2/
+    :body: |-
+      Actually some basic number theory (modular arithmetic and prime numbers) was sufficient to derive the sieving algorithm.
+
+      BusIDs were all prime, so one must simply add a multiple of the product of the previous BusIDs to maintain the same remainder mod all the previous BusIDs, such that the sum has a correct remainder mod the current BusID.
+
+      [https://en.wikipedia.org/wiki/Chinese\_remainder\_theorem#Search\_by\_sieving](https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Search_by_sieving)
+    :replies: []
+- :author: frontpageminus
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnjtw8/
+  :body: |-
+    Ruby 911/1809. I've never heard of the Chinese Remainder Theorem, so I cheated and looked here after about an hour of struggling with the math. And then I cheated some more by copying a CRT solver from Rosetta Code.
+
+    [paste](https://topaz.github.io/paste/#XQAAAQDjAgAAAAAAAAARiAqGkkN7pUjVWW5O/8kAHtqieaDJW/x6fZAz4dPiQJToiDdFET3JIRXOC1zTFN8lrRTYtBiOuM94vK3SDrc+EyQY/mtgIi57X6SacUcFQ7OxrHgtHERfN996gXIXrNl7uMAjllAJGHaoC+er6HZC9pBmSAwW/Rub7ZdQPcvwPatBWiTNsY/S67wDftjTA5uzND80YFd6bMC5KwMXQBs68thKgzE9cITifEa28H48s/nU9To8v0iSas7T88Errs+8CzEuLDiwPh4mH9i+gTB16zvomGABL4gigPrxbZh0B0Ck/nbLp0R4rA2QXzaLbgtPVk5W3E+s8H+K5u/OH91C1aczTUs2d0GoMgQGdv8t0XIZdyJOxl1HEStcG9nJxDErhFzoPOqo5wsySgVAvxgNDOthpvcnBULYCFE50Fe2PB0Og7X6yqHoMsDhaiiVWopZoXJhdf7nhEKy7mnDOC0S/w2F35fGhCMROEaztYL/EEJVCkvbz8cakuu1Q7atprBmMgS6h96jaTukGd1j+hoYjvOLZuG6XJxi3RvWkxIbP2fSXCS/Jd5pggwIPlIJdayq/+g3cKz/6CH7nQ==)
+  :replies: []
+- :author: gurgeous
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnm3g1/
+  :body: |-
+    Ruby, 18/1577
+
+    The first part was easy, at least for me. The second part was virtually impossible since I have never heard of the CRT and had no clue how to solve it. As you can see in my code, I was able to get it eventually by noticing patterns in partial solutions. Took me quite a while to figure it out.
+
+    https://gist.github.com/gurgeous/045938641f5373a06b702faf3297eb1f
+  :replies: []
+- :author: CodeIsTheEnd
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnpua3/
+  :body: |-
+    **Ruby:** 7:00/24:19, 737/289
+
+    Here's a [recording](https://youtu.be/jKOrFXbxfrI) of me solving it, and the code is [here](https://github.com/PaulJuliusMartinez/advent-of-code/blob/00692f04b7319944762d227205386b22cafb8842/2020/dec13.rb). (I'm streaming myself solving the problems right when they come out on [Twitch](https://twitch.tv/codeistheend)!)
+
+    Problems are getting harder! Part 1 could have gone a little better, but I'm reasonably pleased with how Part 2 went, given how much my rank increased.
+  :replies: []
+- :author: petercooper
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfpdmjs/
+  :body: |-
+    # Ruby
+
+    I was mostly a fan of my part 1 solution here because it had good golfing potential. Keen to know if it can be golfed further though:
+
+    ```ruby
+    $<.to_a.tap {|e,rs|p rs.split(',').map(&:to_i).reject(&:zero?).map{|r|[r,r-(e.to_i%r)]}.min_by(&:last).inject(:*)}
+    ```
+
+    For part two.. I didn't know or need any Chinese theory or whatever. Instead, I monitored intervals between successes as I increased the number of columns I was checking for and changed my counter increment to that value. Gets the eventual solution in about 0.6s: https://gist.github.com/peterc/4e6140461cd3c83b3cea03d514e5c8cc
+  :replies: []
