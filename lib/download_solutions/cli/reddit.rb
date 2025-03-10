@@ -1,51 +1,13 @@
 module DownloadSolutions
   module Cli
     def self.reddit(year: nil, day: nil, languages: ["ruby"], force: false)
-      if day
-        if year.nil?
-          raise InputError, "Year must be specified when day is specified."
-        end
-        if !day.between?(1, 25) && Date.new(year, 12, day) > Date.today
-          raise InputError, "Day must be between 1 and 25, and <= today."
-        end
-      end
-      if year && !year.between?(2015, Date.today.year)
-        raise InputError, "Year must be between 2015 and this year."
-      end
-
-      force_description = PASTEL.red("FORCE ") if force
-      year_description = year.nil? ? "all years" : "#{year}"
-      day_description = day.nil? ? "" : "##{day.to_s.rjust(2, "0")}"
-      time_description = PASTEL.blue("#{year_description}#{day_description}")
-      language_names = PASTEL.blue(languages.join(", "))
-
-      puts "#{force_description}Downloading Reddit solutions from #{time_description} for #{language_names}..."
-      puts
-
-      reddit_api_keys = %w[
-        REDDIT_CLIENT_ID
-        REDDIT_CLIENT_SECRET
-        REDDIT_USERNAME
-        REDDIT_PASSWORD
-      ]
-
-      Dotenv.load
-      Dotenv.require_keys(reddit_api_keys)
-
-      reddit_api_kwargs = %i[client_id client_secret username password]
-        .zip(reddit_api_keys.map { ENV[it] })
-        .to_h
-
-      reddit_api = Api::Reddit.new(**reddit_api_kwargs)
-
-      max_year, max_day = if Date.today.year == year && Date.today.month == 12
-        [Date.today.year, Date.today.day]
-      else
-        [Date.today.year - 1, 25]
-      end
+      validate_year_and_day(year, day)
+      output_initial_message(year, day, languages, force)
 
       language_directory = File.join("data", "solutions", "reddit", languages.join("-"))
       Dir.mkdir(language_directory) unless Dir.exist?(language_directory)
+
+      max_year, max_day = max_year_and_day(year, day)
 
       (year || 2015).upto(year || max_year) do |current_year|
         year_directory = File.join("data", "solutions", "reddit", languages.join("-"), current_year.to_s)
@@ -102,6 +64,59 @@ module DownloadSolutions
 
         #{replies unless replies.empty?}
       COMMENT
+    end
+
+    private_class_method def self.validate_year_and_day(year, day)
+      if day
+        if year.nil?
+          raise InputError, "Year must be specified when day is specified."
+        end
+        if !day.between?(1, 25) && Date.new(year, 12, day) > Date.today
+          raise InputError, "Day must be between 1 and 25, and <= today."
+        end
+      end
+      if year && !year.between?(2015, Date.today.year)
+        raise InputError, "Year must be between 2015 and this year."
+      end
+    end
+
+    private_class_method def self.max_year_and_day(year, day)
+      if Date.today.year == year && Date.today.month == 12
+        [Date.today.year, Date.today.day]
+      else
+        [Date.today.year - 1, 25]
+      end
+    end
+
+    private_class_method def self.output_initial_message(year, day, languages, force)
+      force_description = PASTEL.red("FORCE ") if force
+      year_description = year.nil? ? "all years" : "#{year}"
+      day_description = day.nil? ? "" : "##{day.to_s.rjust(2, "0")}"
+      time_description = PASTEL.blue("#{year_description}#{day_description}")
+      language_names = PASTEL.blue(languages.join(", "))
+
+      puts "#{force_description}Downloading Reddit solutions from #{time_description} for #{language_names}..."
+      puts
+    end
+
+    private_class_method def self.reddit_api
+      return @reddit_api if @reddit_api
+
+      reddit_api_keys = %w[
+        REDDIT_CLIENT_ID
+        REDDIT_CLIENT_SECRET
+        REDDIT_USERNAME
+        REDDIT_PASSWORD
+      ]
+
+      Dotenv.load
+      Dotenv.require_keys(reddit_api_keys)
+
+      reddit_api_kwargs = %i[client_id client_secret username password]
+        .zip(reddit_api_keys.map { ENV[it] })
+        .to_h
+
+      @reddit_api = Api::Reddit.new(**reddit_api_kwargs)
     end
   end
 end

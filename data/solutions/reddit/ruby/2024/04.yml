@@ -62,7 +62,7 @@
     Happy with my solution for part 2. I think this is about as tight as I can get it.
 
     ```ruby
-    crosses = [["M", "M", "S", "S"], ["S", "M", "M", "S"],
+      crosses = [["M", "M", "S", "S"], ["S", "M", "M", "S"],
                  ["S", "S", "M", "M"], ["M", "S", "S", "M"]]
       (1..(data.size-2)).sum { |x|
         (1..(data[0].size-2)).count { |y|

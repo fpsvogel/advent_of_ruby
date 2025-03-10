@@ -21,7 +21,7 @@
   :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcic7ki/
   :body: |-
     ```ruby
-    ins, map = File.read('input.txt').split("\n\n")
+      ins, map = File.read('input.txt').split("\n\n")
 
       graph = map.scan(/[A-Z]+/).each_slice(3).map{|label, l, r| [label, l, r]}
       ins = ins.chars
