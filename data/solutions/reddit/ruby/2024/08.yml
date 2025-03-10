@@ -165,7 +165,7 @@
     Pretty straightforward one today but I got hit hard by reading comprehension. I totally missed that the antennas themselves became antinodes in part 2. After I was done I went back and tightened my code up and realized this whole thing becomes really simple if you represent the x,y coordinates as complex numbers.
 
     ```ruby
-    antenna.each.with_object(Set.new) { |coords, antinodes|
+      antenna.each.with_object(Set.new) { |coords, antinodes|
         coords.permutation(2).each { |a, b|
           (0..).each { |step|
             c = a + step*(b - a)

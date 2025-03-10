@@ -518,7 +518,7 @@
     with golfed solutions
 
     ```ruby
-    $;=?,
+      $;=?,
     execute(1) do |lines|
       lines.map(&:split).map do |elf_1, elf_2|
         elf_1_start, elf_1_end = elf_1.split('-').map(&:to_i)

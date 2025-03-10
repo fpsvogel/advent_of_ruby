@@ -245,4 +245,12 @@
     __END__
     [input here]
     ```
-  :replies: []
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3eqwj9/
+    :body: "[removed]"
+    :replies:
+    - :author: Mon_Ouie
+      :url: https://www.reddit.com/r/adventofcode/comments/1hkgj5b/2024_day_23_solutions/m3er960/
+      :body: Why is this case sensitive though?
+      :replies: []

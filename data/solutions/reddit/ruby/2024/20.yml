@@ -79,7 +79,7 @@
     Advent of the Grid! Quick bfs to get the shortest path. It wasn't immediately obvious to me that there was only one path through, so I wasted time trying to tweak my bfs at first. My find\_path function returns a hash of all the points on the grid and their step counts. For part 1, I went to every point and checked if 1 or 2 steps in any direction would let me short circuit the path. For part 2, this was slow, but worked just changing it to 20 steps in any direction. I cut part 2 down from 7 seconds to 4 by instead testing every point in the grid with every later point to see if it was less than the cheat distance away from the first point. This technique slowed down part 1 quite a bit. I'm curious if anyone found faster solutions.
 
     ```ruby
-    maxCheat = 20
+      maxCheat = 20
       stepCnt = find_path()
       points = stepCnt.keys.to_set
       stepCnt.to_a.sum { |pos1, step1|
