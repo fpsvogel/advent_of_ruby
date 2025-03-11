@@ -20,8 +20,8 @@ describe DownloadSolutions::Cli do
         DownloadSolutions::Cli.reddit(year:, day:)
       }.to output(
         include_ignoring_colors_and_spacing("Downloading Reddit solutions from #{year}##{day_str} for ruby...")
-        .and include_ignoring_colors_and_spacing("Fetching comments for #{year}##{day_str}...")
-        .and include_ignoring_colors_and_spacing("Saved #{year}##{day_str} to data/solutions/reddit/ruby/#{year}/#{day_str}.yml")
+        .and(include_ignoring_colors_and_spacing("Fetching comments for #{year}##{day_str}...")
+        .and(include_ignoring_colors_and_spacing("Saved #{year}##{day_str} to data/solutions/reddit/ruby/#{year}/#{day_str}.yml")))
       ).to_stdout
 
       file_path = File.join("data", "solutions", "reddit", "ruby", year.to_s, "#{day_str}.yml")
