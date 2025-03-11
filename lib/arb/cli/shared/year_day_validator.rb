@@ -21,11 +21,12 @@ module Arb
               year, day = Git.last_committed_puzzle(year:)
 
               if day && !default_to_untracked_or_last_committed
-                if day == "25"
-                  day = :end
-                else
-                  day = day.next
-                end
+                day =
+                  if day == "25"
+                    :end
+                  else
+                    day.next
+                  end
               end
 
               if !day || day == :end
@@ -34,12 +35,12 @@ module Arb
                 bootstrap_year_prompt = nil
 
                 committed = Git.committed_by_year
-                total_committed = committed.values.sum { _1.values.count(&:itself) }
+                total_committed = committed.values.sum { it.values.count(&:itself) }
                 if total_committed.zero?
                   bootstrap_year_prompt = "What year's puzzles do you want to start with? (default: #{default_year})"
                 else
                   earliest_year_with_fewest_committed = committed
-                    .transform_values { _1.values.count(&:itself) }
+                    .transform_values { it.values.count(&:itself) }
                     .sort_by(&:last).first.first
                   default_year = earliest_year_with_fewest_committed
                   default_day = committed[default_year].values.index(false)

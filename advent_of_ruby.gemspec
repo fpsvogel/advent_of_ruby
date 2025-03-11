@@ -1,14 +1,14 @@
 require_relative "lib/arb/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "advent_of_ruby"
-  spec.version       = Arb::VERSION
-  spec.authors       = ["Felipe Vogel"]
-  spec.email         = ["fps.vogel@gmail.com"]
+  spec.name = "advent_of_ruby"
+  spec.version = Arb::VERSION
+  spec.authors = ["Felipe Vogel"]
+  spec.email = ["fps.vogel@gmail.com"]
 
-  spec.summary       = "CLI for Advent of Code in Ruby, via the `arb` command."
-  spec.homepage      = "https://github.com/fpsvogel/advent_of_ruby"
-  spec.license       = "MIT"
+  spec.summary = "CLI for Advent of Code in Ruby, via the `arb` command."
+  spec.homepage = "https://github.com/fpsvogel/advent_of_ruby"
+  spec.license = "MIT"
   spec.required_ruby_version = "~> #{File.read(".ruby-version").strip}"
 
   spec.add_runtime_dependency "benchmark", "~> 0.4"

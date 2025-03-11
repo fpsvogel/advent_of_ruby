@@ -1,6 +1,7 @@
 module DownloadSolutions
   module Api
     class Reddit
+      # A parameter object that is passed into each step within Reddit#get_comments.
       class Params
         attr_reader :year, :day, :languages, :connection, :megathread_path, :thread_id
         attr_accessor :initial_response, :original_comments, :more_childrens, :comments

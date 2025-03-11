@@ -31,7 +31,7 @@ module Arb
         files_created = []
 
         existing_dotenv = Dotenv.parse(".env")
-        unless ENV_KEYS.all? { existing_dotenv.has_key?(_1) }
+        unless ENV_KEYS.all? { existing_dotenv.has_key?(it) }
           create_dotenv!(existing_dotenv)
           files_created << :dotenv
         end

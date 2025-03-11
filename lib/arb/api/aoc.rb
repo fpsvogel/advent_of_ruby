@@ -8,7 +8,7 @@ module Arb
           url: "https://adventofcode.com",
           headers: {
             "Cookie" => "session=#{cookie}",
-            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com",
+            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com"
           }
         )
       end
@@ -29,7 +29,7 @@ module Arb
         logged_in {
           connection.post(
             "/#{year}/day/#{day.delete_prefix("0")}/answer",
-            "level=#{part}&answer=#{answer}",
+            "level=#{part}&answer=#{answer}"
           )
         }
       end

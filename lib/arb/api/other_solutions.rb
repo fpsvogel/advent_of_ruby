@@ -21,7 +21,7 @@ module Arb
           if part == "1"
             [
               "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}.rb",
-              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}a.rb",
+              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}a.rb"
             ]
           elsif part == "2"
             ["adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}b.rb"]
@@ -42,13 +42,13 @@ module Arb
             .captures
             .first
             .downcase
-            .gsub(" ", "_")
+            .tr(" ", "_")
 
           ["adventofcode/tree/master/#{year}/#{day}_#{puzzle_name}.rb"]
         },
         "erikw" => ->(year:, day:, part:) {
           ["advent-of-code-solutions/tree/main/#{year}/#{day}/part#{part}.rb"]
-        },
+        }
       }
 
       EDITS = {
@@ -63,14 +63,14 @@ module Arb
         "erikw" => ->(file_str) {
           # Remove the first 3 lines (boilerplate).
           file_str.lines[3..].join
-        },
+        }
       }
 
       def initialize
         @connection = Faraday.new(
           url: "https://raw.githubusercontent.com",
           headers: {
-            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com",
+            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com"
           }
         )
       end
@@ -78,7 +78,7 @@ module Arb
       def other_solutions(year:, day:, part:)
         "# #{year} Day #{day} Part #{part}\n\n" +
           PATHS
-          .map { |username, path_builder|
+            .map { |username, path_builder|
             actual_path = nil
             solution = nil
             paths = path_builder.call(year:, day:, part:)
@@ -103,9 +103,9 @@ module Arb
               SOLUTION
             end
           }
-          .compact
-          .join
-          .strip + "\n"
+            .compact
+            .join
+            .strip + "\n"
       end
     end
   end

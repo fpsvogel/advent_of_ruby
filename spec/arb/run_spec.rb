@@ -22,7 +22,7 @@ describe Arb::Cli do
       end
     end
 
-    def run_with(options: {}, outputs:, not_outputs: [])
+    def run_with(outputs:, options: {}, not_outputs: [])
       expect {
         Arb::Cli.run(year: nil, day: nil, options:)
       }.to output(
@@ -80,7 +80,7 @@ describe Arb::Cli do
           OUT
           "Submit solution? (Y/n)",
           "That's the right answer! You are one gold star closer to debugging the printer.",
-          "Downloaded instructions for Part Two.",
+          "Downloaded instructions for Part Two."
         ]
 
         expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
@@ -111,7 +111,7 @@ describe Arb::Cli do
             1152
           OUT
           "Submit solution? (Y/n)",
-          "That's the right answer! You are one gold star closer to debugging the printer.",
+          "That's the right answer! You are one gold star closer to debugging the printer."
         ]
 
         expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
@@ -140,7 +140,7 @@ describe Arb::Cli do
             Result for 2017#01.2:
             ✅ 1152
           OUT
-          "You've already submitted the answers to both parts.",
+          "You've already submitted the answers to both parts."
         ]
 
         run_with(outputs:)
@@ -170,7 +170,7 @@ describe Arb::Cli do
             Result for 2017#01.2:
             ✅ 1152
           OUT
-          "You've already submitted the answers to both parts.",
+          "You've already submitted the answers to both parts."
         ]
 
         run_with(outputs:)
@@ -193,7 +193,7 @@ describe Arb::Cli do
             Result for 2017#01.1:
             ✅ 1182
           OUT
-          <<~OUT,
+          <<~OUT
             Result for 2017#01.2:
             ✅ 1152
           OUT
@@ -218,11 +218,11 @@ describe Arb::Cli do
             Result for 2017#01.1:
             ✅ 1182
           OUT
-          "You've already submitted the answers to both parts.",
+          "You've already submitted the answers to both parts."
         ]
         not_outputs = [
           "Specs passed!",
-          <<~OUT,
+          <<~OUT
             Result for 2017#01.2:
             ✅ 1152
           OUT
@@ -247,11 +247,11 @@ describe Arb::Cli do
             Result for 2017#01.2:
             ✅ 1152
           OUT
-          "You've already submitted the answers to both parts.",
+          "You've already submitted the answers to both parts."
         ]
         not_outputs = [
           "Specs passed!",
-          <<~OUT,
+          <<~OUT
             Result for 2017#01.1:
             ✅ 1182
           OUT
@@ -287,7 +287,7 @@ describe Arb::Cli do
             Result for 2017#01.2:
             ✅ 1152
           OUT
-          "You've already submitted the answers to both parts.",
+          "You've already submitted the answers to both parts."
         ]
 
         run_with(outputs:)
@@ -341,11 +341,11 @@ describe Arb::Cli do
         class Day01
           def part_1(input_file)
             captcha = input_file.read.chomp.chars.map(&:to_i)
-              .then { [*_1, _1.first] } # append first element to simulate a circular list
+              .then { [*it, it.first] } # append first element to simulate a circular list
 
             captcha
               .chunk_while { _1 == _2 }
-              .map { _1.drop(1) }
+              .map { it.drop(1) }
               .flatten
               .sum
           end
@@ -393,7 +393,7 @@ describe Arb::Cli do
 
             captcha
               .chunk_while { _1 == _2 }
-              .map { _1.drop(1) }
+              .map { it.drop(1) }
               .flatten
               .sum
           end
@@ -446,13 +446,13 @@ describe Arb::Cli do
 
             captcha
               .chunk_while { _1 == _2 }
-              .map { _1.drop(1) }
+              .map { it.drop(1) }
               .flatten
               .sum
           end
 
           def part_1_golf(input_file)
-            input_file.read.chomp.chars.map(&:to_i).tap { _1 << _1.first }.each_cons(2).sum { _1 == _2 ? _1 : 0 }
+            input_file.read.chomp.chars.map(&:to_i).tap { it << it.first }.each_cons(2).sum { _1 == _2 ? _1 : 0 }
           end
 
           def part_2(input_file)

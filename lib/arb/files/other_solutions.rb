@@ -6,7 +6,7 @@ module Arb
         Dir.mkdir("others") unless Dir.exist?("others")
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-        file_paths = %w[1 2].map do |part|
+        %w[1 2].map do |part|
           file_path = File.join(year_directory, "#{day}_#{part}.rb")
 
           if File.exist?(file_path)
@@ -18,8 +18,6 @@ module Arb
 
           file_path
         end
-
-        file_paths
       end
     end
   end

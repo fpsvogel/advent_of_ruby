@@ -96,7 +96,15 @@
     - y velocity outside [[y\_min](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L48-L50), [-y\_min-1](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb#L14-L18)] will never be in range.
 
     Curiously ended up submitting the answer for some other input in part 2 at one point when my search space was too small...
-  :replies: []
+  :replies:
+  - :author: "[deleted]"
+    :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how8snj/
+    :body: "[removed]"
+    :replies:
+    - :author: firetech_SE
+      :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howfmtg/
+      :body: If it makes you feel better, I didn't realize that until I read it here :P
+      :replies: []
 - :author: dtinth
   :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovpzcn/
   :body: |-

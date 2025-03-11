@@ -39,24 +39,13 @@ module DownloadSolutions
       # @raise [MultipleMoreChildrensError] if there are multiple "more children"
       #   nodes for the thread or a comment; only one at a time is expected.
       def get_comments(year:, day:, languages:)
-        params = Params.new(
-          year:,
-          day:,
-          languages:,
-          connection:
-        )
+        params = Params.new(year:, day:, languages:, connection:)
 
-        initial_response = GetInitialResponse.call(params:)
-        params.initial_response = initial_response
-
+        params.initial_response = GetInitialResponse.call(params:)
         # Keep unfetched replies ("more children" nodes) separate so that after
         # filtering, the replies to filtered-in comments can then be fetched.
-        original_comments, more_childrens = GetSerialComments.call(params:)
-        params.original_comments = original_comments
-        params.more_childrens = more_childrens
-
-        filtered_comments = FilterByLanguage.call(params:)
-        params.comments = filtered_comments
+        params.original_comments, params.more_childrens = GetSerialComments.call(params:)
+        params.comments = FilterByLanguage.call(params:)
 
         # These operations modify params#comments in place.
         AddMissingReplies.call(params:)

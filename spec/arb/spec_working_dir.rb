@@ -7,7 +7,7 @@ module Arb
           AOC_COOKIE=stubbed_session_cookie
         FILE
         **Arb::Cli::WorkingDirectory::FILES,
-        ".rspec" => "--require spec_helper\n",
+        ".rspec" => "--require spec_helper\n"
       }
     end
 

@@ -33,12 +33,10 @@ module Arb
       def self.last_committed_puzzle(year: nil, exclude_year: nil)
         if exclude_year
           output = `git log -n 1 --diff-filter=A --name-only --pretty=format: -- src spec ':!src/#{exclude_year}' ':!spec/#{exclude_year}'`
+        elsif year && !Dir.exist?(File.join("src", year))
+          return nil
         else
-          if year && !Dir.exist?(File.join("src", year))
-            return nil
-          else
-            output = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")} #{File.join("spec", year || "")}`
-          end
+          output = `git log -n 1 --diff-filter=A --name-only --pretty=format: #{File.join("src", year || "")} #{File.join("spec", year || "")}`
         end
 
         return nil if output.empty?
@@ -54,25 +52,27 @@ module Arb
       def self.committed_by_year
         committed_solution_files = `git log --diff-filter=A --name-only --pretty=format: src`
 
-        previous_days = (2015..Date.today.year - 1).map { [_1, (1..25).to_a] }.to_h
-        previous_days.merge!(Date.today.year => (1..Date.today.day)) if Date.today.month == 12
+        previous_days = (2015..Date.today.year - 1).map { [it, (1..25).to_a] }.to_h
+        if Date.today.month == 12
+          previous_days[Date.today.year] = (1..Date.today.day)
+        end
 
         committed_days = committed_solution_files
           .split("\n")
           .reject(&:empty?)
           .map {
-            match = _1.match(/(?<year>\d{4})\/(?<day>\d\d).rb$/)
+            match = it.match(/(?<year>\d{4})\/(?<day>\d\d).rb$/)
             year, day = match[:year], match[:day]
             [year.to_i, day.to_i]
           }
           .group_by(&:first)
-          .transform_values { _1.map(&:last) }
+          .transform_values { it.map(&:last) }
 
         previous_days.map { |year, days|
           days_hash = days.map { |day|
             [
               day.to_s.rjust(2, "0"),
-              committed_days.has_key?(year) && committed_days[year].include?(day),
+              committed_days.has_key?(year) && committed_days[year].include?(day)
             ]
           }.to_h
 
