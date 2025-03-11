@@ -384,7 +384,7 @@
     edit: for only one pass
 
     `puts data.reduce([0,0]) { |acc, line| pw = Pw.new(line); [acc[0] + (pw.valid_a? ? 1:0), acc[1] + (pw.valid_b? ? 1:0)] }`
-  :replies: []
+  :replies:
   - :author: jtgorn
     :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecpa3j/
     :body: |-

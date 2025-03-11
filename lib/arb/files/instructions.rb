@@ -24,7 +24,7 @@ module Arb
           markdown_instructions = markdown_instructions
             .sub(/\nTo play, please identify yourself via one of these services:.+/m, "")
             .sub(/\nTo begin, \[get your puzzle input\].+/m, "")
-            .sub(/\n\<form method="post".+/m, "")
+            .sub(/\n<form method="post".+/m, "")
             .sub(/\nAt this point, you should \[return to your Advent calendar\].+/m, "")
             .concat("\n#{url}\n")
 

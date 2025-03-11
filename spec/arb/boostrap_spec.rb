@@ -21,7 +21,7 @@ describe Arb::Cli do
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
           include("✅ Initial files created and committed to a new Git repository.")
-          .and include("🤘 Bootstrapped #{year}##{day}")
+          .and(include("🤘 Bootstrapped #{year}##{day}"))
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -45,7 +45,7 @@ describe Arb::Cli do
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
           include("🤘 Bootstrapped #{year}##{day}")
-          .and not_include("✅ Initial files created and committed to a new Git repository.")
+          .and(not_include("✅ Initial files created and committed to a new Git repository."))
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -69,7 +69,7 @@ describe Arb::Cli do
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
           include("🤘 Bootstrapped #{year}##{day}")
-          .and not_include("✅ Initial files created and committed to a new Git repository.")
+          .and(not_include("✅ Initial files created and committed to a new Git repository."))
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -93,7 +93,7 @@ describe Arb::Cli do
           Arb::Cli.bootstrap(year: input_year, day: input_day)
         }.to output(
           include("🤘 Bootstrapped #{year}##{day}")
-          .and not_include("✅ Initial files created and committed to a new Git repository.")
+          .and(not_include("✅ Initial files created and committed to a new Git repository."))
         ).to_stdout
 
         expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -119,7 +119,7 @@ describe Arb::Cli do
         Arb::Cli.bootstrap(year: input_year, day: input_day)
       }.to output(
         include("🤘 Bootstrapped #{year}##{day}")
-        .and not_include("✅ Initial files created and committed to a new Git repository.")
+        .and(not_include("✅ Initial files created and committed to a new Git repository."))
       ).to_stdout
 
       expect_puzzle_files_to_have_correct_contents(year:, day:)
@@ -137,7 +137,7 @@ describe Arb::Cli do
   end
 
   def expect_puzzle_files_to_have_correct_contents(year:, day:)
-    contents = puzzle_files(year:, day:).transform_values { File.read _1 }
+    contents = puzzle_files(year:, day:).transform_values { File.read(it) }
 
     expect(contents.values).to all not_be_empty
     expect(contents[:instructions]).to start_with("## --- Day #{day.delete_prefix("0")}: ")
@@ -151,7 +151,6 @@ describe Arb::Cli do
       else
         expect(File.read(filename)).to eq contents
       end
-
     end
 
     expect(`git log -n 1 --pretty=format:%s`).to eq "Initial commit"
@@ -166,7 +165,7 @@ describe Arb::Cli do
       input: File.join("input", year, "#{day}.txt"),
       solution: File.join("src", year, "#{day}.rb"),
       spec: File.join("spec", year, "#{day}_spec.rb"),
-      instructions: File.join("instructions", year, "#{day}.md"),
+      instructions: File.join("instructions", year, "#{day}.md")
     }
   end
 end

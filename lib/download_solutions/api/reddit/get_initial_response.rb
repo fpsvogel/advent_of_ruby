@@ -2,7 +2,8 @@ module DownloadSolutions
   module Api
     class Reddit
       class GetInitialResponse
-        # Equivalent to the initial page load of a Reddit thread.
+        # Equivalent to the initial page load of a Reddit thread, which loads
+        # some comments, but (if the thread has many comments) not all of them.
         #
         # @param params [Reddit::Params]
         # @return [Faraday::Response]

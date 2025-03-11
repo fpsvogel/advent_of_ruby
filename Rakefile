@@ -11,13 +11,13 @@ task :build do
   `gem build #{gem_name}.gemspec`
 end
 
-task :install => :build do
+task install: :build do
   `gem install #{gem_name}-#{Arb::VERSION}.gem`
   `rm -rf pkg`
   `rm *.gem`
 end
 
-task :publish => :build do
+task publish: :build do
   `gem push #{gem_name}-#{Arb::VERSION}.gem`
   `rm -rf pkg`
   `rm *.gem`

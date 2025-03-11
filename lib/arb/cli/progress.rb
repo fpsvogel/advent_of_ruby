@@ -7,12 +7,12 @@ module Arb
 
       total_count = committed.values.sum(&:count)
       my_counts_by_year = committed
-        .transform_values { _1.values.count(&:itself) }
+        .transform_values { it.values.count(&:itself) }
         .reject { |k, v| v.zero? }
       my_total_count = my_counts_by_year.values.sum
 
       total_percent = (my_total_count.to_f / total_count * 100).round(1)
-      total_percent = total_percent == total_percent.to_i ? total_percent.to_i : total_percent
+      total_percent = (total_percent == total_percent.to_i) ? total_percent.to_i : total_percent
 
       puts "You have completed:"
       puts
@@ -20,11 +20,12 @@ module Arb
       puts
 
       my_counts_by_year.each do |year, my_count|
-        if year.to_i == Date.today.year
-          year_count = this_year_count
-        else
-          year_count = 25
-        end
+        year_count =
+          if year.to_i == Date.today.year
+            this_year_count
+          else
+            25
+          end
 
         year_percent = (my_count.to_f / year_count * 100).round
 

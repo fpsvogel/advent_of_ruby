@@ -25,7 +25,7 @@ module DownloadSolutions
           comments = reddit_api.get_comments(
             year: current_year,
             day: current_day,
-            languages:,
+            languages:
           )
 
           File.write(path, comments.to_yaml(line_width: -1))

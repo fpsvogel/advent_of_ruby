@@ -18,9 +18,9 @@ module ReverseMarkdown
       # Override #treat as proposed in https://github.com/xijo/reverse_markdown/pull/69
       def treat(node, state)
         case node.name
-        when 'code', 'text'
+        when "code", "text"
           node.text.chomp # CHANGED from node.text.strip
-        when 'br'
+        when "br"
           "\n"
         else
           super
@@ -33,11 +33,11 @@ module ReverseMarkdown
       end
 
       def language_from_highlight_class(node)
-        node.parent['class'].to_s[/highlight-([a-zA-Z0-9]+)/, 1]
+        node.parent["class"].to_s[/highlight-([a-zA-Z0-9]+)/, 1]
       end
 
       def language_from_confluence_class(node)
-        node['class'].to_s[/brush:\s?(:?.*);/, 1]
+        node["class"].to_s[/brush:\s?(:?.*);/, 1]
       end
     end
 

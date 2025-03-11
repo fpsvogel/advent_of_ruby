@@ -48,7 +48,7 @@ module Arb
             puts
           end
 
-          answers_2 = Runner.run_part(year:, day:, part: "2",correct_answer: correct_answer_2)
+          answers_2 = Runner.run_part(year:, day:, part: "2", correct_answer: correct_answer_2)
         end
       rescue Runner::SolutionFileNotFoundError
         puts PASTEL.red("Solution file not found. Make sure this file exists: #{PASTEL.bold("./src/#{year}/#{day}")}")
@@ -84,7 +84,11 @@ module Arb
       puts
 
       if submit == "y" || submit == ""
-        options_part = options[:one] ? "1" : (options[:two] ? "2" : nil)
+        options_part = if options[:one]
+          "1"
+        else
+          (options[:two] ? "2" : nil)
+        end
         inferred_part = correct_answer_1.nil? ? "1" : "2"
         aoc_api = Api::Aoc.new(cookie: ENV["AOC_COOKIE"])
 

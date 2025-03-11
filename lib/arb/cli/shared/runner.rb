@@ -10,9 +10,9 @@ module Arb
         solution_class = solution_class(year:, day:)
         base_method_name = "part_#{part}"
         variant_method_names = solution_class
-            .instance_methods(false)
-            .filter { _1.to_s.start_with?(base_method_name)}
-            .sort
+          .instance_methods(false)
+          .filter { it.to_s.start_with?(base_method_name) }
+          .sort
 
         if variant_method_names.empty?
           raise SolutionMethodNotFoundError

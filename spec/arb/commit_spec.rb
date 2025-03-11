@@ -26,18 +26,18 @@ describe Arb::Cli do
 
         outputs = [
           "Puzzle #{year}#01 (modified) committed",
-          "Puzzle #{year}#02 (modified) committed",
+          "Puzzle #{year}#02 (modified) committed"
         ]
         commit_messages = [
           "Improve #{year}#01",
-          "Improve #{year}#02",
+          "Improve #{year}#02"
         ]
 
         expect {
           Arb::Cli.commit
         }.to output(
           include(outputs[0])
-          .and include(outputs[1])
+          .and(include(outputs[1]))
         ).to_stdout
 
         expect(last_two_commit_messages).to eq commit_messages.reverse
@@ -58,18 +58,18 @@ describe Arb::Cli do
 
         outputs = [
           "Puzzle #{year}#01 committed",
-          "Puzzle #{year}#02 committed",
+          "Puzzle #{year}#02 committed"
         ]
         commit_messages = [
           "Solve #{year}#01",
-          "Solve #{year}#02",
+          "Solve #{year}#02"
         ]
 
         expect {
           Arb::Cli.commit
         }.to output(
           include(outputs[0])
-          .and include(outputs[1])
+          .and(include(outputs[1]))
         ).to_stdout
 
         expect(last_two_commit_messages).to eq commit_messages.reverse

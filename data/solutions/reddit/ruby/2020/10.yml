@@ -106,25 +106,6 @@
 
       For part one, let me help you simplify yours :) To count the differences between numbers, you can use `each_cons(2)` and subtract them. Then if you are using a newer Ruby, use `.tally` to do the count (otherwise you can do `group_by(&:itself).values.map(&:size)`). Turns part one into a one-liner.
     :replies: []
-  - :author: backtickbot
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd23z6/
-    :body: |-
-      [Fixed formatting.](https://np.reddit.com/r/backtickbot/comments/kaw6bh/httpsnpredditcomradventofcodecommentska8z8x2020/)
-
-      Hello, ACProctor: code blocks using triple backticks (```) don't work on all versions of Reddit!
-
-      Some users see [this](https://stalas.alm.lt/backformat/gfd237l.png) / [this](https://stalas.alm.lt/backformat/gfd237l.html) instead.
-
-      To fix this, **indent every line with 4 spaces** instead.
-
-      [FAQ](https://www.reddit.com/r/backtickbot/wiki/index)
-
-      ^(You can opt out by replying with backtickopt6 to this comment.)
-    :replies:
-    - :author: ACProctor
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd31yk/
-      :body: good bot
-      :replies: []
 - :author: Krakhan
   :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfci2wh/
   :body: |-
@@ -351,26 +332,7 @@
       g[ns.max] = 1
       p ns.reverse[1..-1].map { |k| g[k] = g[k].sum { |d| g[d] } }.last
       ```
-    :replies:
-    - :author: backtickbot
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9ovdb/
-      :body: |-
-        [Fixed formatting.](https://np.reddit.com/r/backtickbot/comments/kadxf1/httpsnpredditcomradventofcodecommentska8z8x2020/)
-
-        Hello, petercooper: code blocks using triple backticks (```) don't work on all versions of Reddit!
-
-        Some users see [this](https://stalas.alm.lt/backformat/gf9ouwx.png) / [this](https://stalas.alm.lt/backformat/gf9ouwx.html) instead.
-
-        To fix this, **indent every line with 4 spaces** instead.
-
-        [FAQ](https://www.reddit.com/r/backtickbot/wiki/index)
-
-        ^(You can opt out by replying with backtickopt6 to this comment.)
-      :replies:
-      - :author: petercooper
-        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9p19n/
-        :body: I think this bot is fine, but would be useful if it only commented a few minutes after the original comment as I always catch and fix the solution as soon as I see the comment ;-)
-        :replies: []
+    :replies: []
 - :author: Robert-Damoc
   :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9nvaj/
   :body: |-
