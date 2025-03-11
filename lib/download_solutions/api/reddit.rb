@@ -18,27 +18,6 @@ module DownloadSolutions
         2015 => %w[3uyl7s 3v3w2f 3v8roh 3vdn8a 3viazx 3vmltn 3vr4m4 3vw32y 3w192e 3w6h3m 3wbzyv 3wh73d 3wm0oy 3wqtx2 3wwj84 3x1i26 3x6cyr 3xb3cj 3xflz8 3xjpp2 3xnyoi 3xspyl 3xxdxt 3y1s7f 3y5jco]
       }
 
-      MARKDOWN_PARSER = Redcarpet::Markdown.new(Redcarpet::Render::HTML, fenced_code_blocks: true)
-
-      # @param year [Integer]
-      # @param day [Integer]
-      def self.megathread_path(year:, day:)
-        if year == 2015 && day == 1
-          return "/r/programming/comments/#{MEGATHREAD_IDS[2015][0]}/daily_programming_puzzles_at_advent_of_code.json"
-        end
-
-        slug = "day_#{day.to_i}_solutions"
-        slug = "#{year.to_i}_#{slug}" if year > 2015
-
-        "/r/adventofcode/comments/#{megathread_id(year:, day:)}/#{slug}.json"
-      end
-
-      # @param year [Integer]
-      # @param day [Integer]
-      def self.megathread_id(year:, day:)
-        MEGATHREAD_IDS[year.to_i][day - 1]
-      end
-
       private attr_reader :user_agent, :client_id, :client_secret, :username, :password
 
       def initialize(client_id:, client_secret:, username:, password:)
@@ -52,292 +31,44 @@ module DownloadSolutions
       # @param year [Integer]
       # @param day [Integer]
       # @param languages [Array<String>] e.g. ["ruby"]
+      # @return [Array<Hash>]
+      #
+      # @raise [MaxSleepCountReachedError] if Reddit seemingly throttled for an
+      #   unusually long time, "seemingly" because the only sign is an empty
+      #   JSON response body after loading additional comments.
+      # @raise [MultipleMoreChildrensError] if there are multiple "more children"
+      #   nodes for the thread or a comment; only one at a time is expected.
       def get_comments(year:, day:, languages:)
-        thread_id = "t3_#{self.class.megathread_id(year:, day:)}"
-        initial_response = get_initial_response(year:, day:)
+        params = Params.new(
+          year:,
+          day:,
+          languages:,
+          connection:
+        )
 
-        # Keep unfetched replies (children) separate so that after filtering
-        # (below), the replies to filtered-in comments can then be fetched.
-        comments, more_childrens = get_serial_comments(thread_id:, initial_response:)
+        initial_response = GetInitialResponse.call(params:)
+        params.initial_response = initial_response
 
-        filtered_comments = filter_by_language(comments:, languages:)
+        # Keep unfetched replies ("more children" nodes) separate so that after
+        # filtering, the replies to filtered-in comments can then be fetched.
+        original_comments, more_childrens = GetSerialComments.call(params:)
+        params.original_comments = original_comments
+        params.more_childrens = more_childrens
 
-        filtered_comments.each do |comment|
-          add_missing_replies!(comment, comments, more_childrens, thread_id, languages)
-        end
+        filtered_comments = FilterByLanguage.call(params:)
+        params.comments = filtered_comments
 
-        filtered_comments.reject! do |comment|
-          comment[:parent_id] != thread_id
-        end
+        # These operations modify params#comments in place.
+        AddMissingReplies.call(params:)
+        RejectUnwantedReplies.call(params:)
+        CleanBodies.call(params:)
+        RemoveLanguageTags.call(params:)
+        RemoveIds.call(params:)
 
-        filtered_comments.each do |comment|
-          reject_unwanted_replies!(comment)
-        end
-
-        filtered_comments.each do |comment|
-          clean_body!(comment, languages)
-        end
-
-        filtered_comments.each do |comment|
-          remove_language_tag!(comment, languages)
-        end
-
-        filtered_comments.each do |comment|
-          remove_ids!(comment)
-        end
-
-        filtered_comments
+        params.comments
       end
 
       private
-
-      # Equivalent to the initial page load of a thread.
-      def get_initial_response(year:, day:)
-        initial_response = nil
-
-        loop do
-          initial_response = connection.get(self.class.megathread_path(year:, day:))
-
-          if initial_response.body.empty?
-            puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 60 seconds...")
-            sleep 60
-          else
-            puts "Fetching comments for #{year}##{day.to_s.rjust(2, "0")}..."
-            break
-          end
-        end
-
-        initial_response
-      end
-
-      # TODO move into separate class, along with #simplify_comments and #simplify_comment and #simplify_replies
-      # Equivalent to repeatedly pressing "View more comments" in a thread's top
-      # level (or the "+" below a comment) until reaching the end. "Serial"
-      # because this doesn't fetch all replies; many (not all) replies are in
-      # "more children" nodes and not yet fetched.
-      #
-      # @param thread_id [String] e.g. "t3_1h3vp6n".
-      # @param parent_id [String] a comment (e.g. "t1_g1a2b3c") or by default the thread_id.
-      # @param initial_response [Faraday::Response] if for the top level.
-      # @param initial_more_children [Hash] if for a comment.
-      def get_serial_comments(thread_id:, parent_id: thread_id, initial_response: nil, initial_more_children: nil)
-        more_children = initial_more_children
-        comments = []
-
-        loop do
-          if initial_response
-            comments += simplify_comments(
-              JSON.parse(initial_response.body).dig(-1, "data", "children")
-            )
-          else
-            response = nil
-            sleep_count = 0
-            max_sleep_count = 10
-            loop do
-              # POST because a GET request would sometimes be too long.
-              response = connection.post(
-                "/api/morechildren.json",
-                "link_id=#{thread_id}" \
-                  "&children=#{more_children[:children].join(",")}"
-              )
-
-              if response.body.empty?
-                if sleep_count < max_sleep_count
-                  puts PASTEL.bright_black("Throttled by Reddit. Sleeping for 60 seconds...")
-                  sleep_count += 1
-                  sleep 60
-                else
-                  raise MaxSleepCountReachedError
-                end
-              else
-                puts "Continuing to fetch comments..." if sleep_count > 1
-                break
-              end
-            end
-
-            comments += simplify_comments(
-              JSON.parse(response.body).dig("jquery", 10, 3, 0)
-            )
-          end
-
-          initial_response = nil
-
-          more_top_level_childrens, comments = comments.partition { it[:children] && it[:parent_id] == parent_id }
-
-          break unless more_top_level_childrens.any?
-
-          # Only one "more children" node for the top level (or the comment) is
-          # expected at any one time. If there are ever more, this algorithm
-          # will need to change from a simple (serial) loop to recursion.
-          raise MultipleMoreChildrensError if more_top_level_childrens.count > 1
-
-          # Loop again to fetch more if there are more top-level comments.
-          more_children = more_top_level_childrens.first
-        end
-
-        more_childrens, comments = comments.partition { it[:children] }
-
-        [comments, more_childrens]
-      end
-
-      def simplify_comments(raw_comments)
-        raw_more_childrens, raw_comments = raw_comments.partition { it["kind"] == "more" }
-
-        comments = raw_comments.map { |raw_comment|
-          simplify_comment(raw_comment, raw_more_childrens)
-        }
-
-        more_childrens = raw_more_childrens.filter_map {
-          if it["data"]["children"].any?
-            {
-              children: it["data"]["children"],
-              parent_id: it["data"]["parent_id"]
-            }
-          end
-        }
-
-        comments + more_childrens
-      end
-
-      def simplify_comment(raw_comment, raw_more_childrens)
-        {
-          author: raw_comment["data"]["author"],
-          url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
-          body: raw_comment["data"]["body"],
-          id: raw_comment["data"]["name"],
-          parent_id: raw_comment["data"]["parent_id"],
-          replies: simplify_replies(raw_comment, raw_more_childrens)
-        }
-      end
-
-      def simplify_replies(raw_comment, raw_more_childrens)
-        return [] if raw_comment["data"]["replies"].nil? || raw_comment["data"]["replies"].empty?
-
-        raw_comment.dig("data", "replies", "data", "children").filter_map { |child|
-          if child["kind"] == "more"
-            # Move "more children" nodes (listing additional replies that are
-            # not yet fetched) out to an array that is appended onto the
-            # upper-level comments (see #simplify_comments), so that they can
-            # all be dealt with together by #add_missing_replies!
-            raw_more_childrens << child
-            next nil
-          end
-
-          simplify_comment(child, raw_more_childrens)
-        }
-      end
-
-      def filter_by_language(comments:, languages:)
-        comments.filter { |comment|
-          comment_body = comment[:body]&.downcase
-          next unless comment_body
-
-          language_specified = comment_body.match?(/\[[[:punct:]]*language:/i)
-
-          if language_specified
-            languages.any? { |language|
-              comment_body.match?(/\[[[:punct:]]*language:\s*#{language}/i)
-            }
-          else
-            languages.any? { |language|
-              # "sh:" because of "<pre class=\"brush:ruby", see:
-              # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
-              comment_body.match?(/(?<!```|sh:)#{language}/i)
-            }
-          end
-        }
-      end
-
-      def add_missing_replies!(comment, comments, more_childrens, thread_id, languages)
-        more_childrens_for_comment = more_childrens.select { it[:parent_id] == comment[:id] }
-        more_childrens_for_comment.each do |more_children|
-          comments_from_more_children, more_children_from_more_children =
-            get_serial_comments(thread_id:, parent_id: comment[:id], initial_more_children: more_children)
-          comments += comments_from_more_children
-          comments += more_children_from_more_children
-        end
-
-        children = comments.filter { it[:parent_id] == comment[:id] }
-
-        comment[:replies] += children
-
-        children.each do |child|
-          add_missing_replies!(child, comments, more_childrens, thread_id, languages)
-        end
-
-        comment[:replies].uniq!
-      end
-
-      def reject_unwanted_replies!(comment)
-        comment[:replies].each do |reply|
-          reject_unwanted_replies!(reply)
-        end
-
-        comment[:replies].reject! do
-          (it[:body].strip == "[removed]" && it[:replies].empty?) ||
-            %w[AutoModerator daggerdragon backtickbot].include?(it[:author])
-        end
-      end
-
-      def clean_body!(comment, languages)
-        precleaned_body = comment[:body]
-          .tr("\u00a0", " ") # Non-breaking space
-          # Zero-width space (unintentional); do not remove "\u200b" (intentional, e.g. Unihedron's poems in 2019)
-          .gsub("#x200B;", "")
-          .gsub("&amp;", "&")
-          # Mysterious ampersand, on Reddit an empty paragraph
-          .gsub("\n\n&\n\n", "\n\n")
-          .delete_suffix("\n\n&")
-          .gsub("&lt;", "<")
-          .gsub("&gt;", ">")
-          .gsub("&#39;", "'")
-          # Convert one or two backticks on their own line, to three for a code block.
-          .gsub(
-            /\\?`(?:\\?`)?(?:#{languages.first})?\n(.+?)\n\\?`(?:\\?`)?(?=\n|\z)/m,
-            "\n\n```\n\\1\n```\n"
-          )
-          .gsub(/    ```.*/, "") # Superfluous backticks (already indented)
-          # Add an empty line above code blocks, if missing.
-          .gsub(/\n{0,2}```(?:#{languages.first})?/, "\n\n```")
-
-        body_html = MARKDOWN_PARSER.render(precleaned_body)
-
-        body_markdown = body_html
-          # https://github.com/xijo/reverse_markdown/blob/14d53d5f914fd926b49e6492fd7bd95e62ef541a/lib/reverse_markdown/converters/pre.rb#L37
-          .gsub("<pre>", "<pre class=\"brush:#{languages.first};\">")
-          .gsub(/<pre><code class=([^>]+)>/, "<pre class=\\1><code>")
-          .then { |cleaned_raw_body|
-            ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
-          }
-          .gsub(/ +\n/, "\n") # Strip trailing spaces
-
-        comment[:body] = body_markdown
-
-        comment[:replies].each do |reply|
-          clean_body!(reply, languages)
-        end
-      end
-
-      def remove_language_tag!(comment, languages)
-        languages.each do |language|
-          comment[:body].sub!(/\[[[:punct:]]*language:\s*#{language}[[:punct:]]*\]/i, "")
-        end
-
-        comment[:body].strip!
-
-        comment[:replies].each do |reply|
-          remove_language_tag!(reply, languages)
-        end
-      end
-
-      def remove_ids!(comment)
-        comment.delete(:id)
-        comment.delete(:parent_id)
-
-        comment[:replies].each do |reply|
-          remove_ids!(reply)
-        end
-      end
 
       def connection
         @connection ||= Faraday.new(
@@ -358,8 +89,6 @@ module DownloadSolutions
       end
 
       def auth_token
-        return @auth_token if @auth_token
-
         connection = Faraday.new(
           url: "https://www.reddit.com",
           headers: {
@@ -375,7 +104,7 @@ module DownloadSolutions
           "grant_type=password&username=#{username}&password=#{password}"
         )
 
-        @auth_token = response.body["access_token"]
+        response.body["access_token"]
       end
     end
   end
