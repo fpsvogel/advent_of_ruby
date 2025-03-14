@@ -15,6 +15,18 @@ class DownloadSolutionsApp < Thor
   def reddit
     DownloadSolutions::Cli.reddit(**options.slice(:year, :day, :languages, :force).transform_keys(&:to_sym))
   end
+
+  desc "github", "Downloads solutions from the GitHub repos specified in " \
+    "lib/download_solutions/github/repos, optionally from one author (-a) " \
+    "optionally only for the given year (-y) and day (-d), and optionally " \
+    "force (-f) overwriting existing files."
+  method_option :year, type: :numeric, aliases: "-y"
+  method_option :day, type: :numeric, aliases: "-d"
+  method_option :author, type: :string, aliases: "-a"
+  method_option :force, type: :boolean, aliases: "-f", default: false
+  def github
+    DownloadSolutions::Cli.github(**options.slice(:year, :day, :author, :force).transform_keys(&:to_sym))
+  end
 end
 
 DownloadSolutionsApp.start

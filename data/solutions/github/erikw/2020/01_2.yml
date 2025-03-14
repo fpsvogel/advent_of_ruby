@@ -1,0 +1,17 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/01
+  :solution: |-
+    require 'set'
+
+    SUM = 2020
+
+    expenses = ARGF.each_line.map(&:to_i).to_set
+
+    expenses.to_a.combination(2) do |exp1, exp2|
+      exp3 = SUM - exp1 - exp2
+      if expenses.include?(exp3)
+        puts exp1 * exp2 * exp3
+        exit
+      end
+    end

@@ -1,0 +1,17 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/01
+  :solution: |-
+    require 'set'
+
+    SUM = 2020
+
+    expenses = ARGF.each_line.map(&:to_i).to_set
+
+    expenses.each do |expense|
+      complement = SUM - expense
+      if expenses.include?(complement)
+        puts expense * complement
+        exit
+      end
+    end

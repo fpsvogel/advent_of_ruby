@@ -1,0 +1,8 @@
+---
+- :name: 01_report_repair.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    input = DATA.readlines.map(&:to_i)
+
+    p input.combination(2).find { |x| x.sum == 2020 }.reduce(:*)
+    p input.combination(3).find { |x| x.sum == 2020 }.reduce(:*)
