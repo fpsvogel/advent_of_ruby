@@ -1,0 +1,33 @@
+---
+- :name: 14_space_stoichiometry.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    ONE_TRILLION = 1_000_000_000_000
+
+    def parse(s)
+      q, n = s.split
+      [q.to_i, n]
+    end
+
+    REACTIONS = DATA.each_line.map { |l|
+      chemicals, product = l.split(" => ")
+      q, n = parse(product)
+      [n, [q, chemicals.split(", ").map { |c| parse(c) }]]
+    }.to_h
+
+    def ore(fuel)
+      c = Hash.new(0)
+      c["FUEL"] = fuel
+
+      while (n, q = c.find { |n, q| n != "ORE" && q > 0 })
+        o = REACTIONS[n][0]
+        t = (1.0 * q / o).ceil
+        c[n] -= o * t
+        REACTIONS[n][1].each { |qq, nn| c[nn] += qq * t }
+      end
+
+      c["ORE"]
+    end
+
+    p ore(1)
+    p (1..).bsearch { |f| ore(f) > ONE_TRILLION } - 1

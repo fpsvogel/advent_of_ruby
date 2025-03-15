@@ -1,0 +1,20 @@
+---
+- :name: '09_stream_processing.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).gsub(/!./, "")
+
+    score = 0
+    level = 0
+    garbage = 0
+
+    input.gsub(/<([^>]*)>/) { garbage += $1.size }
+         .each_char { |c|
+      level += 1 if c == "{"
+      if c == "}"
+        score += level
+        level -= 1
+      end
+    }
+
+    p score, garbage

@@ -1,0 +1,18 @@
+---
+- :name: day-06-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-06
+  :solution: |-
+    fishes = input.split(",").map(&:to_i).sort.tally
+
+    fishes.default = 0
+
+    256.times do
+      fishes.transform_keys! { |k| k - 1 }
+
+      fishes[6] += fishes[-1]
+      fishes[8] = fishes[-1]
+
+      fishes[-1] = 0
+    end
+
+    puts fishes.values.inject(&:+)

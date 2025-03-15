@@ -34,7 +34,7 @@ module DownloadSolutions
               path = File.join(year_directory, "#{current_day.to_s.rjust(2, "0")}_#{part}.yml")
 
               if File.exist?(path) && !force
-                puts PASTEL.yellow("Skipping #{author} #{current_year}##{current_day.to_s.rjust(2, "0")}-#{part} as it already exists.")
+                puts PASTEL.yellow("Skipping #{PASTEL.yellow.bold("#{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}")} by #{author} as it already exists.")
                 next
               end
 
@@ -48,7 +48,7 @@ module DownloadSolutions
               if solutions.nil?
                 next
               elsif solutions.empty?
-                puts PASTEL.red("No solution found for #{author} #{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}.")
+                puts PASTEL.red("#{PASTEL.red.bold("#{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}")} by #{author} not found.")
                 next
               end
 

@@ -1,0 +1,27 @@
+---
+- :name: 10_syntax_scoring.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    OPPOSITES = { ?) => ?(, ?] => ?[, ?} =>   ?{, ?> =>    ?< }
+    CORRUPTED = { ?) =>  3, ?] => 57, ?} => 1197, ?> => 25137 }
+    COMPLETES = { ?( =>  1, ?[ =>  2, ?{ =>    3, ?< =>     4 }
+
+    corrupted = 0
+    completes = []
+
+    DATA.each { |l|
+      s = []
+
+      next if !l.chomp.chars { |c|
+        if COMPLETES[c]
+          s << c
+        elsif OPPOSITES[c] != s.pop
+          corrupted += CORRUPTED[c]
+          break
+        end
+      }
+
+      completes << s.reverse.reduce(0) { |a, c| a * 5 + COMPLETES[c] }
+    }
+
+    p corrupted, completes.sort[completes.size / 2]

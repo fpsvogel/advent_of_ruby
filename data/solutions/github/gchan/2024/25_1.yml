@@ -1,0 +1,21 @@
+---
+- :name: day-25-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-25
+  :solution: |-
+    schematics = input.split("\n\n")
+      .map(&:split)
+
+    locks = schematics.select { _1.first.include?(?#) }
+    keys  = schematics.select { _1.last.include?(?#) }
+
+    locks = locks.map { |lock|
+      lock.map(&:chars).transpose.map { _1.count { |col| col.include? ?# } - 1 }
+    }
+
+    keys = keys.map { |key|
+      key.map(&:chars).transpose.map { _1.count { |col| col.include? ?# } - 1 }
+    }
+
+    keys.product(locks)
+      .count { |key, lock| key.zip(lock).all? { _1 + _2 <= 5 } }
+      .tap { p _1 }

@@ -1,0 +1,31 @@
+---
+- :name: 15_chiton.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    require_relative "priority_queue"
+
+    M = DATA.map { _1.chomp.chars.map &:to_i }
+    R = M.flatten
+    H = M.size
+    W = M[0].size
+    HH = H * 5
+    WW = W * 5
+    E = HH * WW - 1
+
+    d = Hash.new(1.0 / 0)
+    q = PriorityQueue.new
+    q.push(0, d[0] = 0)
+
+    r = -> y, x { 1 + (R[(y % H) * W + x % W] + y / H + x / W - 1) % 9 }
+
+    while c = q.pop
+      y, x = c.divmod(WW)
+      n = []
+      n << [c - WW, r[y - 1, x]] if y > 0
+      n << [c + WW, r[y + 1, x]] if y < HH - 1
+      n << [c -  1, r[y, x - 1]] if x > 0
+      n << [c +  1, r[y, x + 1]] if x < WW - 1
+      n.each { q.push(_1, d[_1] = d[c] + _2) if d[_1] > d[c] + _2 }
+    end
+
+    p d[(H-1)*WW+W-1], d[E]

@@ -1,0 +1,38 @@
+---
+- :name: 11_monkey_in_the_middle.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    monkeys = []
+    operations = []
+    throws = []
+    inspections = []
+
+    n = 1
+
+    DATA.read.split("\n\n").each { |monkey|
+      _, s, o, t, a, b = monkey.lines
+      t = t[/(\d+)/, 1].to_i
+      a = a[/(\d+)/, 1].to_i
+      b = b[/(\d+)/, 1].to_i
+      n *= t
+      monkeys << s.scan(/\d+/).map(&:to_i)
+      operations << eval("-> (old) { #{o[o.index(?=) + 1..]} }")
+      throws << -> (n) { n % t == 0 ? a : b }
+      inspections << 0
+    }
+
+    round = -> (&worry) {
+      monkeys.size.times.each { |m|
+        while item = monkeys[m].shift
+          w = worry.call operations[m][item]
+          monkeys[throws[m][w]] << w
+          inspections[m] += 1
+        end
+      }
+    }
+
+    #20.times { round[] { _1 / 3 } }
+    #p inspections.max(2).reduce :*
+
+    10000.times { round[] { _1 % n } }
+    p inspections.max(2).reduce :*

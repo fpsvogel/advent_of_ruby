@@ -1,0 +1,28 @@
+---
+- :name: 03_crossed_wires.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    require "set"
+
+    wires = [{}, {}]
+
+    DATA.read.each_line.with_index { |line, index|
+      s, x, y = 0, 0, 0
+      line.scan(/(.)(\d+)/).each { |d, t|
+        t.to_i.times {
+          case d
+          when "R" then x += 1
+          when "L" then x -= 1
+          when "U" then y += 1
+          when "D" then y -= 1
+          end
+          s += 1
+          wires[index][[x, y]] ||= s
+        }
+      }
+    }
+
+    intersections = wires[0].keys.to_set & wires[1].keys.to_set
+
+    p intersections.map { |(x, y)| x.abs + y.abs }.min
+    p intersections.map { |p| wires.sum { |s| s[p] }}.min

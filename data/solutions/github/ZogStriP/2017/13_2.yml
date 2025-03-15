@@ -1,0 +1,8 @@
+---
+- :name: 13_packet_scanners.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    layers = DATA.readlines.map { |l| l.split(":").map(&:to_i) }.to_h
+
+    p layers.keys.sum { |i| i % (2 * (layers[i] - 1)) == 0 ? i * layers[i] : 0  }
+    p 0.step.find { |d| layers.keys.all? { |i| (i + d) % (2 * (layers[i] - 1)) > 0 } }

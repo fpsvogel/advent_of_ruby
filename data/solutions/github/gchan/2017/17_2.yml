@@ -1,0 +1,18 @@
+---
+- :name: day-17-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-17
+  :solution: |-
+    steps = input.to_i
+    pos = 0
+
+    size = 1
+    val = nil
+
+    50000000.times do |i|
+      pos = (pos + steps) % size + 1
+
+      val = i + 1 if pos == 1
+      size += 1
+    end
+
+    puts val

@@ -1,0 +1,14 @@
+---
+- :name: 7a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    equations = $<.map { it.split(/\D+/).map(&:to_i).then { |res, *operands| [res, operands] } }
+
+    p equations.select { |result, operands|
+      %i[+ *].repeated_permutation(operands.size-1).any? { |operators|
+        operands.inject { |r, n| r.send(operators.shift, n) } == result
+      }
+    }.sum(&:first)
+- :name: 7a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p$<.sum{e,*n=it.split(/\D+/).map &:to_i;%i[+ *].repeated_permutation(n.size-1).any?{|o|n.inject{_1.send o.shift,_2}==e}?e:0}

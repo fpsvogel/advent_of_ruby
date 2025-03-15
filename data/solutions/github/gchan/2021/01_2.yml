@@ -1,0 +1,9 @@
+---
+- :name: day-01-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-01
+  :solution: |-
+    depths = input.split("\n").map(&:to_i)
+
+    puts depths.each_cons(4).count do |a, b, c, d|
+      (b + c + d) > (a + b + c)
+    end

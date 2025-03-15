@@ -1,0 +1,20 @@
+---
+- :name: 13_point_of_incidence.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    def diffs(m)
+      l, r = [m[0]], m[1..]
+      (1...m.size).map { |i|
+        d = l.zip(r).sum { |a, b| b ? a.zip(b).count { _1 != _2 } : 0 }
+        l.unshift r.shift
+        [d, i]
+      }
+    end
+
+    puts DATA.each_line($/*2).with_object([0, 0]) { |m, s|
+      h = m.split.map &:chars
+      v = h.transpose
+      d = diffs(h).each { _1[1] *= 100 } + diffs(v)
+      s[0] += d.find { _1[0] == 0 }[1]
+      s[1] += d.find { _1[0] == 1 }[1]
+    }

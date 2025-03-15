@@ -1,0 +1,26 @@
+---
+- :name: 07.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2019
+  :solution: |-
+    require_relative "shared/intcode"
+
+    def amplify(phase_settings)
+      signal = 0
+      amplifiers = phase_settings.map do |setting|
+        Computer.new(INTCODE).tap { |cpu| cpu.run(inputs: [setting]) }
+      end
+
+      loop do
+        amplifiers.each { |amplifier| signal = amplifier.run(inputs: [signal]).last }
+        break if amplifiers.none?(&:running?)
+      end
+
+      signal
+    end
+
+    def optimal_signal(phases)
+      phases.permutation.to_a.map { |phase_settings| amplify(phase_settings) }.max
+    end
+
+    solve!("The maximum thruster signal is:", optimal_signal([0, 1, 2, 3, 4]))
+    solve!("The maximum feedback loop thruster signal is:", optimal_signal([5, 6, 7, 8, 9]))

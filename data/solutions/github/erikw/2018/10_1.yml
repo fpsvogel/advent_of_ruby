@@ -1,0 +1,12 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/10
+  :solution: |-
+    require_relative 'lib'
+
+    points = ARGF.each_line.map do |line|
+      x, y, vx, vy = line.scan(/-?\d+/).map(&:to_i)
+      [[x, y], [vx, vy]]
+    end
+
+    print_message(search_message(points)[0])

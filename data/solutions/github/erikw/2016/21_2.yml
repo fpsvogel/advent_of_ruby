@@ -1,0 +1,10 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2016/21
+  :solution: |-
+    require_relative 'scrambler'
+
+    # PW_INIT = 'decab'
+    PW_INIT = 'fbgdceah'
+
+    puts Scrambler.new(ARGF.readlines.map(&:chomp)).unscramble(PW_INIT)

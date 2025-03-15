@@ -1,0 +1,53 @@
+---
+- :name: 05_sunny_with_a_chance_of_asteroids.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    @mem = DATA.read.split(",").map(&:to_i)
+
+    def read(address, mode)
+      mode == 1 ? @mem[address] : @mem[@mem[address]]
+    end
+
+    def write(address, value)
+      @mem[@mem[address]] = value
+    end
+
+    def int_code
+      pc = 0
+
+      loop do
+        mode, opcode = @mem[pc].divmod(100)
+        m = mode.digits
+        a = read(pc + 1, m[0])
+        b = read(pc + 2, m[1])
+
+        case opcode
+        when 1
+          write(pc + 3, a + b)
+          pc += 4
+        when 2
+          write(pc + 3, a * b)
+          pc += 4
+        when 3
+          write(pc + 1, gets.to_i)
+          pc += 2
+        when 4
+          puts a
+          pc += 2
+        when 5
+          a != 0 ? pc = b : pc += 3
+        when 6
+          a == 0 ? pc = b : pc += 3
+        when 7
+          write(pc + 3, a < b ? 1 : 0)
+          pc += 4
+        when 8
+          write(pc + 3, a == b ? 1 : 0)
+          pc += 4
+        when 99
+          break
+        end
+      end
+    end
+
+    int_code

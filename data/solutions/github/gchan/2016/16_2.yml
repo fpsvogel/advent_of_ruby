@@ -1,0 +1,41 @@
+---
+- :name: day-16-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-16
+  :solution: |-
+    goal = 35651584
+
+    a = input.chars.map(&:to_i)
+
+    while a.length < goal
+      b = a.reverse.map do |bit|
+        if bit == 0
+          1
+        else
+          0
+        end
+      end
+
+      a << 0
+      a.concat b
+    end
+
+    a = a[0..(goal-1)]
+    puts a.length
+
+    sum = a
+
+    while sum.length % 2 == 0
+      next_sum = []
+
+      sum.each_slice(2) do |x, y|
+        if x == y
+          next_sum << 1
+        else
+          next_sum << 0
+        end
+      end
+
+      sum = next_sum
+    end
+
+    puts sum.join

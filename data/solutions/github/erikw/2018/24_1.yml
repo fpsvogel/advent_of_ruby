@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/24
+  :solution: |-
+    require_relative 'lib'
+
+    groups = parse_input
+    puts battle(groups)[0]

@@ -1,0 +1,9 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2019/10
+  :solution: |-
+    require_relative 'lib'
+
+    asteroids = read_input
+    _mon_asteroid, detectable = best_monitoring_asteroid(asteroids)
+    puts detectable

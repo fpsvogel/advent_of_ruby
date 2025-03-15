@@ -1,0 +1,44 @@
+---
+- :name: 20_trench_map.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    algorithm, image = DATA.read.split("\n\n")
+
+    image = image.split("\n")
+
+    min = -1
+    ymax = image.size + 1
+    xmax = image[0].size + 1
+
+    W = xmax + 100
+
+    pixels = Hash.new(0)
+
+    image.each_with_index { |l, y|
+      l.each_char.with_index { |c, x|
+        pixels[y * W + x] = 1 if c[?#]
+      }
+    }
+
+    N = [-1,0,1].product([-1,0,1])
+
+    puts [2, 48].map {
+      _1.times { |t|
+        new = Hash.new(algorithm[0][?#] ? (t % 2) ^ 1 : 0)
+
+        (min...ymax).each { |y|
+          (min...xmax).each { |x|
+            index = N.map { |dy, dx| pixels[(y + dy) * W + x + dx] }.join.to_i(2)
+            new[y * W + x] = algorithm[index][?#] ? 1 : 0
+          }
+        }
+
+        pixels = new
+
+        min  -= 1
+        xmax += 1
+        ymax += 1
+      }
+
+      pixels.values.tally[1]
+    }

@@ -1,0 +1,21 @@
+---
+- :name: day-02-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-02
+  :solution: |-
+    boxes = input.split("\n")
+
+    boxes.first.length.times do |column|
+      counts = Hash.new(0)
+
+      boxes.map do |box|
+        id = box[0...column] + box[(column + 1)..-1]
+        counts[id] += 1
+      end
+
+      counts = counts.invert
+
+      if counts[2]
+        puts counts[2]
+        break
+      end
+    end

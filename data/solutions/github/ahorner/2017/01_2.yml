@@ -1,0 +1,18 @@
+---
+- :name: 01.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2017
+  :solution: |-
+    SEQUENCE = INPUT.chars.map(&:to_i)
+
+    def sum(sequence, gap = 1)
+      sum = 0
+      sequence.each_with_index do |i, j|
+        comparison = (j + gap) % sequence.length
+        sum += i if i == sequence[comparison]
+      end
+
+      sum
+    end
+
+    solve!("The sum of matching numbers is:", sum(SEQUENCE))
+    solve!("The sum of matching numbers (with a gap) is:", sum(SEQUENCE, SEQUENCE.length / 2))

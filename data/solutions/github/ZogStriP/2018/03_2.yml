@@ -1,0 +1,25 @@
+---
+- :name: 03_no_matter_how_you_slice_it.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    input = DATA.read.each_line.map { |l| l.scan(/\d+/).map(&:to_i) }
+
+    fabric = Array.new(1000) { Array.new(1000, 0) }
+
+    input.each { |_, l, t, w, h|
+      w.times { |a|
+        h.times { |b|
+          fabric[l + a][t + b] += 1
+        }
+      }
+    }
+
+    p fabric.flatten.count { |v| v > 1 }
+
+    p input.find { |_, l, t, w, h|
+      w.times.all? { |a|
+        h.times.all? { |b|
+          fabric[l + a][t + b] == 1
+        }
+      }
+    }[0]

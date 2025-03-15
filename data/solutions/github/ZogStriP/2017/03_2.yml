@@ -1,0 +1,28 @@
+---
+- :name: 03_spiral_memory.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = ARGV[0]&.to_i || 361527
+
+    def spiral
+      c = [0, 0]
+      d = [0, 1]
+      l = 1
+
+      Enumerator.new { |e|
+        e << c
+        loop {
+          l.times { e << (c = [c[0] + d[0], c[1] + d[1]]) }
+          d = [-d[1], d[0]]
+          l += 1 if d[0] == 0
+        }
+      }
+    end
+
+    # part 1
+    p spiral.take(input)[-1].sum(&:abs)
+
+    # part 2
+    N = [-1, 0, 1].product([-1, 0, 1])
+    m = { [0, 0] => 1 }
+    p m[spiral.find { |c| (m[c] = N.sum { |n| m[[c[0] + n[0], c[1] + n[1]]] || 0 } ) > input }]

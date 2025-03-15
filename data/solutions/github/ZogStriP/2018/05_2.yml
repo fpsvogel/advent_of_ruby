@@ -1,0 +1,14 @@
+---
+- :name: 05_alchemical_reduction.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    polymer = DATA.read.strip
+
+    def react(polymer)
+      result = []
+      polymer.each_char { |c| c == result[-1]&.swapcase ? result.pop : result << c }
+      result.size
+    end
+
+    p react(polymer)
+    p ("a".."z").map { |u| react(polymer.tr(u + u.upcase, "")) }.min

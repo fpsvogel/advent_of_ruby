@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2019/14
+  :solution: |-
+    require_relative 'lib'
+
+    inv_reactions = inv_reactions_from_input
+    puts fuel_cost(inv_reactions, 1)

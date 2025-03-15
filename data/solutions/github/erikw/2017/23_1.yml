@@ -1,0 +1,9 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/23
+  :solution: |-
+    require_relative 'computer'
+
+    instructions = ARGF.readlines.map { |l| l.chomp.split }
+    computer = Computer.new
+    puts computer.execute(instructions).registers['muls']

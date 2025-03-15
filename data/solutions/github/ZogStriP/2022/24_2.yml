@@ -1,0 +1,54 @@
+---
+- :name: 24_blizzard_basin.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    blizzards = DATA.each_line.flat_map.with_index { |line, y|
+      line.each_char.filter_map.with_index { |char, x|
+        case char
+        when ?<; [y - 1, x - 1, 0, -1]
+        when ?>; [y - 1, x - 1, 0, +1]
+        when ?^; [y - 1, x - 1, -1, 0]
+        when ?v; [y - 1, x - 1, +1, 0]
+        end
+      }
+    }
+
+    Y = blizzards.map { _1[0] }.max + 1
+    X = blizzards.map { _1[1] }.max + 1
+    C = Y.lcm(X)
+
+    blizzards_at = C.times.map { |m|
+      blizzards.to_h { |y, x, dy, dx|
+        yy = (y + m * dy) % Y
+        xx = (x + m * dx) % X
+        [yy * X + xx, true]
+      }
+    }
+
+    minutes = -> (start, goal, m = 0) {
+      q = [start]
+
+      until q.include?(goal)
+        q = q.flat_map { |c|
+          y, x = c.divmod(X)
+
+          [
+            (c - X if y > 0 || (y == 0 && x == 0)),
+            (c + X if y < Y - 1 || (y == Y - 1 && x == X - 1)),
+            (c - 1 if y < Y && x > 0),
+            (c + 1 if y >= 0 && x < X - 1),
+            c,
+          ].select { _1 && !blizzards_at[(m + 1) % C][_1] }
+        }.uniq
+
+        m += 1
+      end
+
+      m
+    }
+
+    a = -X
+    b = Y * X + X - 1
+
+    p t = minutes[a, b]
+    p minutes[a, b, minutes[b, a, t]]

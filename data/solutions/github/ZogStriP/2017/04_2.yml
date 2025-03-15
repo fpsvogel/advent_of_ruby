@@ -1,0 +1,7 @@
+---
+- :name: 04_high_entropy_passphrases.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).split("\n").map(&:split)
+
+    [input, input.map { |l| l.map { |w| w.chars.sort } }].each { |l| p l.count { |w| w == w.uniq } }

@@ -1,0 +1,11 @@
+---
+- :name: 10_elves_look_elves_say.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    sequence = "1113122113"
+
+    40.times { sequence.gsub!(/(.)\1*/) { "#{$&.size}#{$1}" } }
+    p sequence.size
+
+    10.times { sequence.gsub!(/(.)\1*/) { "#{$&.size}#{$1}" } }
+    p sequence.size

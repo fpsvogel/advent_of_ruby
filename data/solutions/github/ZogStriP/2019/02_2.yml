@@ -1,0 +1,34 @@
+---
+- :name: 02_1202_program_alarm.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    program = DATA.read.split(",").map(&:to_i)
+
+    def int_code(program, noun, verb)
+      program[1] = noun
+      program[2] = verb
+
+      pc = 0
+
+      loop do
+        case program[pc]
+        when 1
+          program[program[pc + 3]] = program[program[pc + 1]] + program[program[pc + 2]]
+        when 2
+          program[program[pc + 3]] = program[program[pc + 1]] * program[program[pc + 2]]
+        when 99
+          break
+        end
+        pc += 4
+      end
+
+      program[0]
+    end
+
+    p int_code(program.dup, 12, 1)
+
+    99.times { |noun|
+      99.times { |verb|
+        puts 100 * noun + verb if int_code(program.dup, noun, verb) == 19690720
+      }
+    }

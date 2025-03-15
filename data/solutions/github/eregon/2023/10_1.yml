@@ -1,0 +1,86 @@
+---
+- :name: 10a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    map = {}
+    $<.each_with_index do |row,y|
+      row.chomp.chars.each_with_index { |c,x|
+        map[x + y.i] = c unless c == '.'
+      }
+    end
+
+    dirs = { ?L => [1,-1i], ?J => [-1,-1i], ?7 => [-1,1i], ?F => [1,1i], ?- => [-1,1], ?| => [-1i,1i] }
+
+    start = map.key('S')
+    map[start] = dirs.key([1,-1,1i,-1i].filter_map { |d| d if map[start+d] and dirs[map[start+d]].any? { -_1==d } })
+
+    pos = start + dirs[map[start]][0]
+
+    enum = Enumerator.produce([start, pos]) do |prev, pos|
+      a, b = dirs[map[pos]]
+      if pos + a != prev
+        [pos, pos + a]
+      else
+        [pos, pos + b]
+      end
+    end
+
+    p (enum.find_index { _2 == start }+1)/2
+- :name: 10a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    m={}
+    $<.zip(1..){|r,y|r.chars.zip(1..){|c,x|m[x+y.i]=c if c!=?.}}
+    d={?L=>[1,-1i],?J=>[-1,-1i],?7=>[-1,1i],?F=>[1,1i],?-=>[-1,1],?|=>[-1i,1i]}
+    s=m.key'S'
+    m[s]=d.key [1,-1,1i,-1i].filter_map{|e|e if d[m[s+e]]&.any? -e}
+    o,c=s,1
+    p=s+d[m[s]][0]
+    until p==s
+    a,b=d[m[p]]
+    g=p+a!=o ?a:b
+    o=p
+    p+=g
+    c+=1
+    end
+    p c/2
+- :name: 10a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    board = $<.map { |row|
+      row.chomp
+    }
+
+    pp board
+    sr = board.index { _1.index('S') }
+    start = [sr,board[sr].index('S')]
+
+    dirs = { ?L => [1,-1i], ?J => [-1,-1i], ?7 => [-1,1i], ?F => [1,1i], ?- => [-1,1], ?| => [-1i,1i] }
+
+    map[start] = dirs.key([1,-1,1i,-1i].filter_map { |d| d if map[start+d] and dirs[map[start+d]].any? { -_1==d } })
+
+    pos = start + dirs[map[start]][0]
+
+    enum = Enumerator.produce([start, pos]) do |prev, pos|
+      a, b = dirs[map[pos]]
+      if pos + a != prev
+        [pos, pos + a]
+      else
+        [pos, pos + b]
+      end
+    end
+
+    p (enum.find_index { _2 == start }+1)/2
+- :name: 10a_golf3.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    m=$<.read
+    w=(m=~/$/)
+    m.tr!"\n",''
+    s=m.index'S'
+    d={?L=>[1,-w],?J=>[-1,-w],?7=>[-1,w],?F=>[1,w],?-=>[-1,1],?|=>[-w,w]}
+    m[s]=d.key [1,-1,w,-w].filter_map{|e|e if d[m[s+e]]&.any? -e}
+    p=s+d[m[s]][0];z=[s,p];loop{a,b=d[m[p]];p+=z.any?(p+a)?b:a;break if z.any?(p);z<<p};p z.size/2
+- :name: 10a_golf4.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: m=$<.read;w=m=~/$/;m.tr!"\n",'';s=m.index'S';d={?L=>[1,-w],?J=>[-1,-w],?7=>[-1,w],?F=>[1,w],?-=>[-1,1],?|=>[-w,w]};m[s]=d.key [1,-1,w,-w].filter_map{|e|e if d[m[s+e]]&.any? -e};o,c,p=s,1,s+d[m[s]][0];(a,b=d[m[p]];o,p=p,p+a!=o ?p+a:p+b;c+=1)until p==s;p c/2

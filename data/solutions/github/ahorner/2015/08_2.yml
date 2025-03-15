@@ -1,0 +1,21 @@
+---
+- :name: '08.rb'
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2015
+  :solution: |-
+    LINES = INPUT.split("\n")
+
+    def evaluated_difference(line)
+      line.length - eval(line).length
+    end
+
+    total = LINES.map { |line| evaluated_difference(line) }.sum
+
+    solve!("The original strings are longer by:", total)
+
+    def escaped_difference(line)
+      line.inspect.length - line.length
+    end
+
+    total = LINES.map { |line| escaped_difference(line) }.sum
+
+    solve!("The escaped strings are longer by:", total)

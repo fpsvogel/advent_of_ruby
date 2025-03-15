@@ -1,0 +1,14 @@
+---
+- :name: day-02-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2023/day-02
+  :solution: |-
+    input
+      .each_line
+      .sum {
+        blue  = _1.scan(/(\d+) b/).flatten.map(&:to_i).max
+        red   = _1.scan(/(\d+) r/).flatten.map(&:to_i).max
+        green = _1.scan(/(\d+) g/).flatten.map(&:to_i).max
+
+        blue * red * green
+      }
+      .tap { puts _1 }

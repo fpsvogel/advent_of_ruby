@@ -1,0 +1,23 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2015/10
+  :solution: |-
+    seq = ARGF.readline.chomp.split('')
+
+    50.times do
+      nseq = []
+      digit = seq.first
+      count = 1
+      (1...seq.length).each do |i|
+        if seq[i] == digit
+          count += 1
+        else
+          nseq << count.to_s << digit
+          digit = seq[i]
+          count = 1
+        end
+      end
+      nseq << count.to_s << digit
+      seq = nseq
+    end
+    puts seq.length

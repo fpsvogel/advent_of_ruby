@@ -1,0 +1,17 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/18
+  :solution: |-
+    require_relative 'lib'
+
+    MINUTES = 10
+
+    acres = ARGF.each_line.map(&:chomp)
+
+    MINUTES.times do
+      acres = iterate_acres(acres)
+    end
+
+    wood = acres.join.chars.count(SYM_TREES)
+    lumber = acres.join.chars.count(SYM_LUMBER)
+    puts wood * lumber

@@ -1,0 +1,51 @@
+---
+- :name: 23_unstable_diffusion.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    require "set"
+
+    elves = DATA.each_line.flat_map.with_index { |line, y|
+      line.each_char.filter_map.with_index { |char, x|
+        x + y * 1i if char[?#]
+      }
+    }.to_set
+
+    D = [-1i, +1i, -1, +1]
+    N = [-1 - 1i, -1i, 1 - 1i, -1, +1, -1 + 1i, +1i, 1 + 1i]
+    M = {
+      -1i => [-1 - 1i, -1i, 1 - 1i],
+      +1i => [-1 + 1i, +1i, 1 + 1i],
+      -1  => [-1 - 1i, -1, -1 + 1i],
+      +1  => [+1 - 1i, +1, +1 + 1i],
+    }
+
+    p 1.step { |t|
+      proposed = Hash.new { |h, k| h[k] = [] }
+
+      elves.each { |elve|
+        next if N.none? { elves.include?(elve + _1) }
+
+        D.each { |d|
+          break proposed[elve + d] << elve if M[d].none? { elves.include?(elve + _1) }
+        }
+      }
+
+      still = true
+
+      proposed.each { |to, froms|
+        next if froms.size > 1
+        elves.delete(froms[0])
+        elves.add(to)
+        still = false
+      }
+
+      break t if still
+
+      if t == 10
+        xmin, xmax = elves.map(&:real).minmax
+        ymin, ymax = elves.map(&:imag).minmax
+        p (xmax - xmin + 1) * (ymax - ymin + 1) - elves.size
+      end
+
+      D.rotate!(1)
+    }

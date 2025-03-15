@@ -1,0 +1,10 @@
+---
+- :name: 04_scratchcards.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    I = DATA.map { _1.split(/[:|]/)[1..].map(&:split).reduce(&:&).size }
+    p I.sum { 1 << _1 - 1 }
+
+    c = I.map { 1 }
+    I.each.with_index { |v, i| (i+1).upto(i+v) { c[_1] += c[i] } }
+    p c.sum

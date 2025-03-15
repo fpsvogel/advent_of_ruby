@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/19
+  :solution: |-
+    require_relative 'lib'
+
+    diagram = ARGF.each_line.map(&:chomp)
+    puts traverse_routing(diagram)[0].join

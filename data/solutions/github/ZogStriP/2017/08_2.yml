@@ -1,0 +1,14 @@
+---
+- :name: '08_i_heard_you_like_registers.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    max = 0
+    registers = Hash.new(0)
+
+    DATA.readlines.map(&:split).each { |r1, op, v, _, r2, t, c|
+      next unless registers[r2].send(t, c.to_i)
+      r = registers[r1] += v.to_i * (op["inc"] ? 1 : -1)
+      max = r if r > max
+    }
+
+    p registers.values.max, max

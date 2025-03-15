@@ -1,0 +1,45 @@
+---
+- :name: 25_sea_cucumber.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    require "set"
+
+    SEAFLOOR = DATA.read.split("\n")
+
+    H = SEAFLOOR.size
+    W = SEAFLOOR[0].size
+
+    east  = Set.new
+    south = Set.new
+
+    SEAFLOOR.each.with_index { |l, y|
+      l.each_char.with_index { |c, x|
+        east  << y * W + x if c[?>]
+        south << y * W + x if c[?v]
+      }
+    }
+
+    p 1.step { |step|
+      e = Set.new
+      all = east | south
+
+      east.each { |n|
+        y, x = n.divmod(W)
+        p = y * W + (x + 1) % W
+        e << (all.include?(p) ? n : p)
+      }
+
+      s = Set.new
+      all = e | south
+
+      south.each { |n|
+        y, x = n.divmod(W)
+        p = ((y + 1) % H) * W + x
+        s << (all.include?(p) ? n : p)
+      }
+
+      break step if e == east && s == south
+
+      east = e
+      south = s
+    }

@@ -1,0 +1,8 @@
+---
+- :name: 6b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    time, record = $<.readlines.map { |line| line.scan(/\d+/).reduce(:+).to_i }
+    p (1...time).count { |t|
+      (time - t) * t > record
+    }

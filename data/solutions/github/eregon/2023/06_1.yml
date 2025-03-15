@@ -1,0 +1,13 @@
+---
+- :name: 6a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    races = $<.readlines.map { |line| line.scan(/\d+/).map(&:to_i) }.reduce(:zip)
+    p races.map { |time, record|
+      (1...time).count { |t|
+        (time - t) * t > record
+      }
+    }.reduce(:*)
+- :name: 6a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: p$<.map{_1.split[1..].map(&:to_i)}.transpose.map{|t,r|t.times.count{(t-_1)*_1>r}}.reduce(:*)

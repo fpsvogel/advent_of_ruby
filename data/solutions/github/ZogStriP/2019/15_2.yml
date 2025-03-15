@@ -1,0 +1,126 @@
+---
+- :name: 15_oxygen_system.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    program = DATA.read.split(?,).map(&:to_i)
+
+    class IntCode
+
+      def initialize(mem, pc: 0, base: 0)
+        @pc = pc
+        @base = base
+        @input = []
+        @mem = Array === mem ? mem.map.with_index { |m, i| [i, m] }.to_h : mem.dup
+        @mem.default = 0
+      end
+
+      def read(address, mode)
+        case mode.to_i
+        when 0 then @mem[@mem[address]]
+        when 1 then @mem[address]
+        when 2 then @mem[@mem[address] + @base]
+        end
+      end
+
+      def write(address, mode, value)
+        case mode.to_i
+        when 0 then @mem[@mem[address]] = value
+        when 2 then @mem[@mem[address] + @base] = value
+        end
+      end
+
+      def run(input = nil)
+        @input.push(input) if input
+
+        loop do
+          mode, opcode = @mem[@pc].divmod(100)
+          m = mode.digits
+          a = read(@pc + 1, m[0])
+          b = read(@pc + 2, m[1])
+
+          case opcode
+          when 1
+            write(@pc + 3, m[2], a + b)
+            @pc += 4
+          when 2
+            write(@pc + 3, m[2], a * b)
+            @pc += 4
+          when 3
+            write(@pc + 1, m[0], @input.shift)
+            @pc += 2
+          when 4
+            @pc += 2
+            return a
+          when 5
+            a != 0 ? @pc = b : @pc += 3
+          when 6
+            a == 0 ? @pc = b : @pc += 3
+          when 7
+            write(@pc + 3, m[2], a < b ? 1 : 0)
+            @pc += 4
+          when 8
+            write(@pc + 3, m[2], a == b ? 1 : 0)
+            @pc += 4
+          when 9
+            @base += a
+            @pc += 2
+          when 99
+            return
+          else
+            throw "Unknown opcode: #{opcode}"
+          end
+        end
+      end
+
+      def clone
+        self.class.new(@mem, pc: @pc, base: @base)
+      end
+
+    end
+
+    START = [0, 0]
+
+    DIR = [
+      nil,
+      [ 0,  1], # north
+      [ 0, -1], # south
+      [-1,  0], # west
+      [ 1,  0], # east
+    ]
+
+    def explore(program)
+      grid = { START => 1 }
+      queue = [START]
+      droids = { START => IntCode.new(program) }
+
+      while c = queue.pop
+        (1..4).each { |d|
+          p = [c[0] + DIR[d][0], c[1] + DIR[d][1]]
+          next if grid[p]
+          grid[p] = (droids[p] ||= droids[c].clone).run(d)
+          queue << p if grid[p] > 0
+        }
+      end
+
+      grid
+    end
+
+    def distances(grid, start)
+      dists = { start => 0 }
+      queue = [start]
+
+      while c = queue.pop
+        (1..4)
+          .map { |d| [c[0] + DIR[d][0], c[1] + DIR[d][1]] }
+          .select { |p| grid[p] > 0 && !dists[p] }
+          .each { |p| dists[p] = dists[c] + 1; queue << p }
+      end
+
+      dists
+    end
+
+    grid = explore(program)
+    oxygen = grid.find { |_, v| v == 2 }[0]
+
+    p distances(grid, START)[oxygen]
+    p distances(grid, oxygen).values.max

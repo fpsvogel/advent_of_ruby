@@ -1,0 +1,11 @@
+---
+- :name: 05.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2019
+  :solution: |-
+    require_relative "shared/intcode"
+
+    outputs = Computer.new(INTCODE).run(inputs: [1])
+    solve!("The diagnostic code for the air conditioner unit is:", outputs.last)
+
+    outputs = Computer.new(INTCODE).run(inputs: [5])
+    solve!("The diagnostic code for the thermal radiator controller is:", outputs.last)

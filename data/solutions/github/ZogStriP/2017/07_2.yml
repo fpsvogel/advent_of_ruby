@@ -1,0 +1,27 @@
+---
+- :name: 07_recursive_circus.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    children = {}
+    tower_weights = {}
+
+    DATA.readlines.each { |line|
+      _, n, w, c = *line.match(/(\w+) \((\d+)\)(?: -> ([\w, ]+))?/)
+      tower_weights[n] = w.to_i
+      children[n] = (c || "").split(", ")
+    }
+
+    puts tower = (tower_weights.keys - children.values.flatten)[0]
+
+    total_weights = {}
+    target_weight = 0
+
+    compute_weight = -> (n) { total_weights[n] ||= tower_weights[n] + children[n].sum { |c| compute_weight[c] } }
+    compute_weight[tower]
+
+    while (weights = children[tower].group_by { |c| total_weights[c] }).size > 1
+      tower = weights.select { |_, v| v.size == 1 }.values[0][0]
+      target_weight = weights.select { |_, v| v.size > 1 }.keys[0]
+    end
+
+    p tower_weights[tower] - (total_weights[tower] - target_weight)

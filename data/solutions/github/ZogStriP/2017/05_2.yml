@@ -1,0 +1,21 @@
+---
+- :name: 05_a_maze_of_twisty_trampolines_all_alike.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).split.map(&:to_i)
+
+    def jumps(offsets)
+      steps = 0
+      index = 0
+
+      while offset = offsets[index]
+        offsets[index] += yield offset
+        index += offset
+        steps += 1
+      end
+
+      steps
+    end
+
+    p jumps(input.dup) { |o| 1 }
+    p jumps(input.dup) { |o| o < 3 ? 1 : -1 }

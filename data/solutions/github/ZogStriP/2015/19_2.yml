@@ -1,0 +1,28 @@
+---
+- :name: 19_medicine_for_rudolph.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    replacements, molecule = DATA.read.strip.split("\n\n")
+    replacements = replacements.split("\n").map { _1.scan(/\w+/) }
+
+    molecules = {}
+
+    replacements.each { |from, to|
+      molecule.scan(from) { molecules[$` + to + $'] = true }
+    }
+
+    p molecules.size
+
+    p loop {
+      s = 0
+      m = molecule.dup
+      r = replacements.shuffle
+
+      loop {
+        e = true
+        r.each { |from, to| m.gsub!(to) { e = false; s += 1; from } }
+        break if e
+      }
+
+      break s if m == "e"
+    }

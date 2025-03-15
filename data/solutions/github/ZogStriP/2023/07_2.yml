@@ -1,0 +1,22 @@
+---
+- :name: 07_camel_cards.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    S = "23456789TJQKA"
+    J = S.index ?J
+
+    hjb = DATA.map { |l|
+      c, b = l.split
+      [c.chars.map { S.index _1 }, c.count(?J), b.to_i]
+    }
+
+    def s(r, j)
+      s = r.tally.values.sort.reverse + [0]
+      s[0] += j
+      s
+    end
+
+    def w(h) = h.each.with_index(1).sum { |(_, _, b), i| b * i }
+
+    p w hjb.sort_by { |h, _, _| [s(h, 0), h] }
+    p w hjb.sort_by { |h, j, _| [s(h - [J], j), h.map { _1 == J ? -1 : _1 }] }

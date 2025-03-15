@@ -1,0 +1,35 @@
+---
+- :name: 14_regolith_reservoir.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    grid = Hash.new { |h, k| h[k] = {} }
+
+    DATA.each { |line|
+      line.scan(/\d+/).map(&:to_i).each_slice(2).each_cons(2) { |(a, b), (x, y)|
+        a == x ?
+          ([b, y].min..[b, y].max).each { grid[_1][a] = true } :
+          ([a, x].min..[a, x].max).each { grid[b][_1] = true }
+      }
+    }
+
+    rested = 0
+    abyss = grid.keys.max + 1
+    first = false
+
+    grid[abyss + 1] = Hash.new(true)
+
+    sand = -> (y, x) {
+      return if grid[y][x]
+
+      (first = true; p rested) if y >= abyss && !first
+
+      sand[y + 1, x]
+      sand[y + 1, x - 1]
+      sand[y + 1, x + 1]
+
+      rested += 1
+      grid[y][x] = true
+    }
+
+    sand[0, 500]
+    p rested

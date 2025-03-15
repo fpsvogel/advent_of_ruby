@@ -1,0 +1,139 @@
+---
+- :name: 17_set_and_forget.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    require "set"
+    require "matrix"
+
+    program = DATA.read.split(?,).map(&:to_i)
+
+    class IntCode
+
+      def initialize(mem, input = [])
+        @pc = 0
+        @base = 0
+        @input = input
+        @mem = mem.map.with_index { |m, i| [i, m] }.to_h
+        @mem.default = 0
+      end
+
+      def read(address, mode)
+        case mode.to_i
+        when 0 then @mem[@mem[address]]
+        when 1 then @mem[address]
+        when 2 then @mem[@mem[address] + @base]
+        end
+      end
+
+      def write(address, mode, value)
+        case mode.to_i
+        when 0 then @mem[@mem[address]] = value
+        when 2 then @mem[@mem[address] + @base] = value
+        end
+      end
+
+      def run
+        loop do
+          mode, opcode = @mem[@pc].divmod(100)
+          m = mode.digits
+          a = read(@pc + 1, m[0])
+          b = read(@pc + 2, m[1])
+
+          case opcode
+          when 1
+            write(@pc + 3, m[2], a + b)
+            @pc += 4
+          when 2
+            write(@pc + 3, m[2], a * b)
+            @pc += 4
+          when 3
+            write(@pc + 1, m[0], @input.shift)
+            @pc += 2
+          when 4
+            @pc += 2
+            return a
+          when 5
+            a != 0 ? @pc = b : @pc += 3
+          when 6
+            a == 0 ? @pc = b : @pc += 3
+          when 7
+            write(@pc + 3, m[2], a < b ? 1 : 0)
+            @pc += 4
+          when 8
+            write(@pc + 3, m[2], a == b ? 1 : 0)
+            @pc += 4
+          when 9
+            @base += a
+            @pc += 2
+          when 99
+            return
+          else
+            throw "Unknown opcode: #{opcode}"
+          end
+        end
+      end
+
+    end
+
+    ROBOTS = "^>v<"
+
+    DIRS = [
+      Vector[ 0, -1],
+      Vector[ 1,  0],
+      Vector[ 0,  1],
+      Vector[-1,  0],
+    ]
+
+    map = ""
+    ascii = IntCode.new(program)
+
+    while o = ascii.run
+      map << o.chr
+    end
+
+    grid = map.split("\n").flat_map.with_index { |r, y|
+      r.chars.map.with_index { |c, x|
+        [Vector[x, y], c]
+      }
+    }.to_h
+
+    p grid.select { |k, v| v == ?# && DIRS.all? { |n| grid[k + n] == ?# }}.sum { |k, _| k[0] * k[1] }
+
+    path = ""
+    pos, robot = grid.find { |_, v| ROBOTS[v] }
+    dir = DIRS[ROBOTS.index(robot)]
+
+    left  = -> (p) { Vector[p[1], -p[0]] }
+    right = -> (p) { Vector[-p[1], p[0]] }
+    steps = -> (p, d) { (1..).find { |s| grid[p + d * s] != ?# } - 1 }
+
+    loop {
+      if grid[pos + left[dir]] == ?#
+        dir = left[dir]
+        s = steps[pos, dir]
+        pos += dir * s
+        path << ?L << s.to_s
+      elsif grid[pos + right[dir]] == ?#
+        dir = right[dir]
+        s = steps[pos, dir]
+        pos += dir * s
+        path << ?R << s.to_s
+      else
+        break
+      end
+    }
+
+    a, b, c = /^(.{1,11})\1*(.{1,11})(?:\1|\2)*(.{1,11})(?:\1|\2|\3)*$/.match(path).captures
+    m = path.gsub(a, ?A).gsub(b, ?B).gsub(c, ?C)
+    v = ?n
+
+    input = [m, a, b, c, v].flat_map { |i|
+      i.scan(/[a-z]|\d+/i).join(?,).bytes << 10
+    }
+
+    program[0] = 2
+    ascii = IntCode.new(program, input)
+
+    while o = ascii.run
+      p o if o > 255
+    end

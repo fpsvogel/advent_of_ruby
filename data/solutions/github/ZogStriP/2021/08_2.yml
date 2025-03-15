@@ -1,0 +1,26 @@
+---
+- :name: '08_seven_segment_search.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    INPUT = DATA.map { |l| l.split(?|).map { |i| i.split.map { _1.chars.sort } } }
+
+    p INPUT.sum { |s, v| v.count { [2, 3, 4, 7].include? _1.size } }
+
+    p INPUT.sum { |s, v|
+      s = s.group_by &:size
+
+      one   = s[2][0]
+      seven = s[3][0]
+      four  = s[4][0]
+      eight = s[7][0]
+      nine  = s[6].delete s[6].find { four & _1 == four }
+      zero  = s[6].delete s[6].find { one & _1 == one }
+      six   = s[6][0]
+      three = s[5].delete s[5].find { one & _1 == one }
+      five  = s[5].delete s[5].find { (six - _1).size == 1 }
+      two   = s[5][0]
+
+      segments = [zero, one, two, three, four, five, six, seven, eight, nine].map.with_index { |s, i| [s.join, i] }.to_h
+
+      v.map { segments[_1.join] }.join.to_i
+    }

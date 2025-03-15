@@ -1,0 +1,37 @@
+---
+- :name: 06_universal_orbit_map.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    o = Hash.new { |h, k| h[k] = [] }
+    t = Hash.new { |h, k| h[k] = [] }
+
+    DATA.read.split("\n").each { |l|
+      a, b = l.split(")")
+      o[a] << b
+      t[a] << b; t[b] << a
+    }
+
+    d = { "COM" => 0 }
+    q = ["COM"]
+
+    while c = q.pop
+      o[c]&.each { |n|
+        q << n
+        d[n] = d[c] + 1
+      }
+    end
+
+    p d.values.sum
+
+    d = { "YOU" => 0 }
+    q = ["YOU"]
+
+    while c = q.pop
+      t[c]&.each { |n|
+        next if d[n]
+        q << n
+        d[n] = d[c] + 1
+      }
+    end
+
+    p d["SAN"] - 2

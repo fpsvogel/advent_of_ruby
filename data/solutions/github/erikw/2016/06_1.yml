@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2016/06
+  :solution: |-
+    msg = ARGF.readlines.map { |l| l.chomp.split('') }.transpose.map do |chars|
+      chars.tally.max_by(&:last).first
+    end.join
+    puts msg

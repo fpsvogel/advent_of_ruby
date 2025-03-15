@@ -1,0 +1,48 @@
+---
+- :name: 14_disk_defragmentation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = "xlqgujun"
+
+    def knot_hash(input)
+      bytes = input.bytes + [17, 31, 73, 47, 23]
+      list = (0..255).to_a
+      position = 0
+      skip = 0
+
+      64.times {
+        bytes.each { |length|
+          list.rotate!(position)
+          list[0, length] = list[0, length].reverse
+          list.rotate!(-position)
+          position += length + skip
+          skip += 1
+        }
+      }
+
+      list.each_slice(16).map { |b| b.reduce(0, :^).to_s(2).rjust(8, "0") }.join
+    end
+
+    grid = 128.times.map { |i| knot_hash("#{input}-#{i}").chars.map { |b| b == "1" } }
+
+    p grid.sum { |r| r.count(true) }
+
+    DIRECTIONS = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+    marked = Array.new(128) { Array.new(128) { false } }
+    regions = 0
+
+    128.times { |x|
+      128.times { |y|
+        next if !grid[x][y] || marked[x][y]
+        regions += 1
+        queue = [[x, y]]
+
+        while (c = queue.pop)
+          DIRECTIONS.map { |dx, dy| [c[0] + dx, c[1] + dy] }
+                    .select { |a, b| (0...128) === a && (0...128) === b && grid[a][b] && !marked[a][b] }
+                    .each { |a, b| queue << [a, b]; marked[a][b] = true }
+        end
+      }
+    }
+
+    p regions

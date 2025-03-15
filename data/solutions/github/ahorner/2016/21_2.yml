@@ -1,0 +1,94 @@
+---
+- :name: 21.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2016
+  :solution: |-
+    SWAP_POSITION_PATTERN = /swap position (?<x>\d) with position (?<y>\d)/
+    SWAP_LETTER_PATTERN = /swap letter (?<x>\w) with letter (?<y>\w)/
+    ABSOLUTE_ROTATE_PATTERN = /rotate (?<direction>\w+) (?<steps>\d+) step/
+    RELATIVE_ROTATE_PATTERN = /rotate based on position of letter (?<char>\w)/
+    REVERSE_POSITIONS_PATTERN = /reverse positions (?<x>\d) through (?<y>\d)/
+    MOVE_POSITIONS_PATTERN = /move position (?<x>\d) to position (?<y>\d)/
+
+    def act(chars, command)
+      chars = chars.dup
+
+      case command
+      when SWAP_POSITION_PATTERN
+        matches = command.match(SWAP_POSITION_PATTERN)
+        x = matches[:x].to_i
+        y = matches[:y].to_i
+        char = chars[x]
+        chars[x] = chars[y]
+        chars[y] = char
+      when SWAP_LETTER_PATTERN
+        matches = command.match(SWAP_LETTER_PATTERN)
+        x = chars.index(matches[:x])
+        y = chars.index(matches[:y])
+        char = chars[x]
+        chars[x] = chars[y]
+        chars[y] = char
+      when ABSOLUTE_ROTATE_PATTERN
+        matches = command.match(ABSOLUTE_ROTATE_PATTERN)
+        dir = matches[:direction]
+        steps = matches[:steps].to_i
+        chars.rotate!((dir == "left") ? steps : -steps)
+      when RELATIVE_ROTATE_PATTERN
+        matches = command.match(RELATIVE_ROTATE_PATTERN)
+        char = matches[:char]
+        shift = chars.index(char)
+        additional = ((shift >= 4) ? 1 : 0)
+        chars.rotate!(-1 - shift - additional)
+      when REVERSE_POSITIONS_PATTERN
+        matches = command.match(REVERSE_POSITIONS_PATTERN)
+        x = matches[:x].to_i
+        y = matches[:y].to_i
+        tmp = chars[x..y]
+        tmp.reverse.each_with_index do |c, i|
+          chars[x + i] = c
+        end
+      when MOVE_POSITIONS_PATTERN
+        matches = command.match(MOVE_POSITIONS_PATTERN)
+        x = matches[:x].to_i
+        y = matches[:y].to_i
+        char = chars.delete_at(x)
+        chars.insert(y, char)
+      end
+
+      chars
+    end
+
+    def undo(result, command)
+      chars = result.dup
+
+      case command
+      when SWAP_POSITION_PATTERN, SWAP_LETTER_PATTERN, REVERSE_POSITIONS_PATTERN
+        chars = act(chars, command)
+      when ABSOLUTE_ROTATE_PATTERN
+        matches = command.match(ABSOLUTE_ROTATE_PATTERN)
+        dir = matches[:direction]
+        steps = matches[:steps].to_i
+        chars.rotate!((dir == "left") ? -steps : steps)
+      when RELATIVE_ROTATE_PATTERN
+        chars.rotate!(1) while result != act(chars, command)
+      when MOVE_POSITIONS_PATTERN
+        matches = command.match(MOVE_POSITIONS_PATTERN)
+        x = matches[:x].to_i
+        y = matches[:y].to_i
+        char = chars.delete_at(y)
+        chars.insert(x, char)
+      end
+
+      chars
+    end
+
+    SCRAMBLE ||= %w[a b c d e f g h].freeze
+    chars = SCRAMBLE
+    INPUT.split("\n").each { |line| chars = act(chars, line) }
+
+    solve!("Your scrambled password is:", chars.join)
+
+    UNSCRAMBLE ||= %w[f b g d c e a h].freeze
+    chars = UNSCRAMBLE
+    INPUT.split("\n").reverse_each { |line| chars = undo(chars, line) }
+
+    solve!("Your unscrambled password is:", chars.join)

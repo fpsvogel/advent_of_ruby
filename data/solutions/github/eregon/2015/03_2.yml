@@ -1,0 +1,83 @@
+---
+- :name: 3b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    require 'set'
+    map = Set.new
+    robot = [0, 0]
+    santa = [0, 0]
+    map << santa.dup.freeze
+    ARGF.read.chomp.each_char.each_slice(2) { |s,r|
+      [santa, robot].zip([s,r]) { |i,c|
+        case c
+        when '<'
+          i[0] -= 1
+        when '>'
+          i[0] += 1
+        when '^'
+          i[1] -= 1
+        when 'v'
+          i[1] += 1
+        else
+          raise c
+        end
+        map << i.dup.freeze
+      }
+      #p({santa: santa, robot: robot})
+    }
+    p map.size
+- :name: 3bf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    require 'set'
+    map = Set.new
+
+    give_gifts = -> move {
+      map << (x, y = 0, 0)
+      loop {
+        case move
+        when '<' then x -= 1
+        when '>' then x += 1
+        when '^' then y -= 1
+        when 'v' then y += 1
+        else raise move
+        end
+        map << [x, y]
+        move = Fiber.yield
+      }
+    }
+
+    n = Integer(ARGV[0] || 1)
+    santas = n.times.map { Fiber.new(&give_gifts) }
+
+    STDIN.read.chomp.each_char.each_slice(n) { |moves|
+      santas.zip(moves) { |santa, move| santa.resume(move) }
+    }
+    p map.size
+- :name: 3f.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    require 'set'
+    map = Set.new
+
+    give_gifts = -> move {
+      map << (x, y = 0, 0)
+      loop {
+        case move
+        when '<' then x -= 1
+        when '>' then x += 1
+        when '^' then y -= 1
+        when 'v' then y += 1
+        else raise move
+        end
+        map << [x, y]
+        move = Fiber.yield
+      }
+    }
+
+    santa = Fiber.new(&give_gifts)
+
+    ARGF.read.chomp.each_char { |move|
+      santa.resume(move)
+    }
+    p map.size

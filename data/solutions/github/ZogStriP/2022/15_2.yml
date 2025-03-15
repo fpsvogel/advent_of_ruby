@@ -1,0 +1,47 @@
+---
+- :name: 15_beacon_exclusion_zone.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    Y = 2_000_000
+    M = Y * 2
+
+    beacons = {}
+
+    sensors = DATA.map {
+      sx, sy, bx, by = _1.scan(/-?\d+/).map &:to_i
+      beacons[bx] = true if by == Y
+      [sx, sy, (sx - bx).abs + (sy - by).abs]
+    }
+
+    ranges = sensors.filter_map { |sx, sy, r|
+      d = (sy - Y).abs
+      (sx - r + d) .. (sx + r - d) if d <= r
+    }
+
+    min = ranges.map(&:min).min
+    max = ranges.map(&:max).max
+
+    p max - min - beacons.size + 1
+
+    # y = mx + c
+    # m = either 1 or -1
+    # only keep track of unique c
+
+    pos, neg = [1, -1].map { |m|
+      sensors.map { |x, y, r| x + m * y - r - 1 } &
+      sensors.map { |x, y, r| x + m * y + r + 1 }
+    }
+
+    # check intersections between positive and negative slopes
+
+    pos.product(neg).filter_map { |c_pos, c_neg|
+      xx = c_pos + c_neg
+      next if xx.odd?
+      x = xx / 2
+      next if x < 0 || x > M
+      y = c_pos - x
+      next if y < 0 || y > M
+      [x, y]
+    }.find { |x, y|
+      sensors.none? { |sx, sy, r| (sx - x).abs + (sy - y).abs <= r }
+    }.tap { |x, y| p x * 4_000_000 + y }

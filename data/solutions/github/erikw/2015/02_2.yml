@@ -1,0 +1,11 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2015/02
+  :solution: |-
+    ribbon = ARGF.each_line.map { |l| l.split('x').map(&:to_i) }.map do |l, w, h|
+      lw = 2 * l + 2 * w
+      wh = 2 * w + 2 * h
+      hl = 2 * h + 2 * l
+      [lw, wh, hl].min + l * w * h
+    end.sum
+    puts ribbon

@@ -1,0 +1,7 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2021/01
+  :solution: |-
+    measurements = ARGF.each_line.map(&:to_i)
+    count = (1...measurements.length).count { |i| measurements[i] > measurements[i - 1] }
+    puts count

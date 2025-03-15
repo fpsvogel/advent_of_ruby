@@ -1,0 +1,23 @@
+---
+- :name: 14_reindeer_olympics.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    T = 2503
+
+    reindeers = DATA.map {
+      name, speed, duration, rest = _1.scan(/(\w+) can fly (\d+) km\/s for (\d+) seconds, but then must rest for (\d+)/)[0]
+      r = [speed.to_i] * duration.to_i + [0] * rest.to_i
+      [name, r * (T / r.size + 1)]
+    }
+
+    p reindeers.map { _2[..T].sum }.max
+
+    dists  = Hash.new(0)
+    points = Hash.new(0)
+
+    T.times { |t|
+      reindeers.each { |k, v| dists[k]  += v[t] }
+      reindeers.each { |k, _| points[k] += 1 if dists[k] == dists.values.max }
+    }
+
+    p points.values.max

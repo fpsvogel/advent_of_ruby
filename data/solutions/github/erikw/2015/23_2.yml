@@ -1,0 +1,8 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2015/23
+  :solution: |-
+    require_relative 'computer'
+
+    program = ARGF.readlines.map { |line| line.chomp.gsub(/,/, '').split }
+    puts Computer.new({ 'a' => 1, 'b' => 0 }).execute(program).registers['b']

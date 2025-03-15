@@ -1,0 +1,50 @@
+---
+- :name: 18_duet.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    def step(ops, regs, i, r, s)
+      get = -> (v) { Integer === v ? v : regs[v] }
+
+      case (op = ops[i])[0]
+      when :set then regs[op[1]]  = get[op[2]]
+      when :add then regs[op[1]] += get[op[2]]
+      when :mul then regs[op[1]] *= get[op[2]]
+      when :mod then regs[op[1]] %= get[op[2]]
+      when :jgz then i += get[op[2]] - 1 if get[op[1]] > 0
+      when :snd then s << get[op[1]]
+      when :rcv
+        return if r.empty? # wait
+        regs[op[1]] = r.shift
+      end
+
+      i += 1
+    end
+
+    ops = DATA.readlines.map { |l| l.split.map { |v| v[/\d+/] ? v.to_i : v.to_sym } }
+
+    registers = [Hash.new(0), Hash.new(0)]
+    queues    = [[], []]
+    pointers  = [0, 0]
+    sent      = 0
+    first_rcv = nil
+
+    registers[1][:p] = 1
+
+    loop {
+
+      loop {
+        first_rcv ||= queues[1][-1] if ops[pointers[0]][0] == :rcv
+        break unless p = step(ops, registers[0], pointers[0], queues[0], queues[1])
+        pointers[0] = p
+      }
+
+      loop {
+        sent += 1 if ops[pointers[1]][0] == :snd
+        break unless p = step(ops, registers[1], pointers[1], queues[1], queues[0])
+        pointers[1] = p
+      }
+
+      break if queues.all?(&:empty?)
+    }
+
+    p first_rcv, sent

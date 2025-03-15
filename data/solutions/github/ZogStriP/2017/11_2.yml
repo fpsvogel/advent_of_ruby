@@ -1,0 +1,27 @@
+---
+- :name: 11_hex_ed.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).split(",")
+
+    x = 0
+    y = 0
+    max = 0
+
+    def distance(x, y)
+      (x.abs + y.abs + (x - y).abs) / 2
+    end
+
+    input.each { |d|
+      case d
+      when "n"  then x -= 1; y -= 1
+      when "ne" then y -= 1
+      when "se" then x += 1
+      when "s"  then x += 1; y += 1
+      when "sw" then y += 1
+      when "nw" then x -= 1
+      end
+      max = [max, distance(x, y)].max
+    }
+
+    p distance(x, y), max

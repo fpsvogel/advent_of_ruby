@@ -1,0 +1,31 @@
+---
+- :name: '09_rope_bridge.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    y = x = 0
+
+    pos = DATA.flat_map { |line|
+      d, l = line.split
+      l.to_i.times.map {
+        d[?U] && y -= 1
+        d[?D] && y += 1
+        d[?L] && x -= 1
+        d[?R] && x += 1
+        [y, x]
+      }
+    }
+
+    visited = 9.times.map {
+      y = x = 0
+      pos = pos.filter_map { |yy, xx|
+        dy = yy - y
+        dx = xx - x
+        next if dy.abs <= 1 && dx.abs <= 1
+        y += dy.abs == 1 ? dy : dy / 2
+        x += dx.abs == 1 ? dx : dx / 2
+        [y, x]
+      }
+      (pos | [[0, 0]]).uniq.size
+    }
+
+    p visited[0], visited[-1]

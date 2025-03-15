@@ -1,0 +1,8 @@
+---
+- :name: 25_full_of_hot_air.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    s = ""
+    n = DATA.sum { |l| l.chop.chars.reduce(0) { _1 * 5 + "=-012".index(_2) - 2 } }
+    (n, r = n.divmod(5); s = "012=-"[r] + s; r > 2 && n += 1) while n > 0
+    puts s

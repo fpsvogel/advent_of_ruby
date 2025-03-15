@@ -1,0 +1,8 @@
+---
+- :name: 06_signals_and_noise.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    columns = DATA.read.split("\n").map(&:chars).transpose.map(&:tally)
+
+    puts columns.map { |c| c.max_by{_2}[0] }.join
+    puts columns.map { |c| c.min_by{_2}[0] }.join

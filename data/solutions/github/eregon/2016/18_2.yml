@@ -1,0 +1,27 @@
+---
+- :name: 18golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    n = 40
+    n = 400_000
+    r="...^^^^^..^...^...^^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^^^.^^......^^^^"
+    f=false;t=0;b=r.bytes.map{|e|e==94};n.times{t+=b.count(f);b=[f,*b,f].each_cons(3).map{|a,_,c|a!=c}};p t
+
+
+    # (a && b && !c) ||
+    # (!a && b && c) ||
+    # (a && !b && !c) ||
+    # (!a && !b && c)
+- :name: 18goruby.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    n = 40
+    # n = 400_000
+    r="...^^^^^..^...^...^^^^^^...^.^^^.^.^.^^.^^^.....^.^^^...^^^^^^.....^.^^...^^^^^...^.^^^.^^......^^^^"
+    f=false;t=0;b=r.y.m{|e|e==94};n.ti{t+=b.ct(f);b=[f,*b,f].e_(3).m{|a,_,c|a!=c}};p t
+
+
+    # (a && b && !c) ||
+    # (!a && b && c) ||
+    # (a && !b && !c) ||
+    # (!a && !b && c)

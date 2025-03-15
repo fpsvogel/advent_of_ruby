@@ -1,0 +1,8 @@
+---
+- :name: 01_the_tyranny_of_the_rocket_equation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    input = DATA.read.each_line.map(&:to_i)
+
+    p input.sum { |m| m / 3 - 2 }
+    p input.sum { |m| Enumerator.new { |e| e << m while (m = m / 3 - 2) > 0 }.sum }

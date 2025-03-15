@@ -1,0 +1,26 @@
+---
+- :name: 25_snowverload.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    G = Hash.new { _1[_2] = [] }
+
+    DATA.each { |l|
+      l, *rs = l.scan(/\w+/)
+      rs.each { |r|
+        G[l] << r
+        G[r] << l
+      }
+    }
+
+    start = G.keys.sample
+
+    left = { start => true }
+    bridges = G[start].to_h { [[start, _1], true] }
+
+    while bridges.size > 3
+      add = bridges.keys.map(&:last).uniq.min_by { |u| G[u].sum { |v| left[v] ? -1 : 1 } }
+      left[add] = true
+      G[add].each { |v| left[v] ? bridges.delete([v, add]) : bridges[[add, v]] = true }
+    end
+
+    p left.size * (G.size - left.size)

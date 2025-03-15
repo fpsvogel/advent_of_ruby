@@ -1,0 +1,19 @@
+---
+- :name: 9a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    p $<.sum { |l|
+      series = l.split.map { Integer _1 }
+      rows = [series]
+      until series.all?(0)
+        series = series.each_cons(2).map { _2 - _1 }
+        rows << series
+      end
+
+      rows.last << 0
+      rows.reverse_each.each_cons(2) { _2 << _2[-1] + _1[-1] }
+      rows.first.last
+    }
+- :name: 9a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: p$<.sum{|l|r=[s=l.split.map(&:to_i)];r<<s=s.each_cons(2).map{_2-_1}until s.all?0;r.sum(&:last)}

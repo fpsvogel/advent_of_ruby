@@ -1,0 +1,34 @@
+---
+- :name: 6a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    map = {}
+    $<.map(&:chomp).each_with_index { |row,y|
+      row.chars.each_with_index { |c,x|
+        map[x+y.i] = c
+      }
+    }
+
+    dirs = [-1i, 1, 1i, -1] * 2
+
+    pos = map.key('^')
+    dir = dirs[0]
+    while map[pos]
+      map[pos] = 'X'
+      while map[pos + dir] == '#'
+        dir = dirs[dirs.index(dir)+1]
+      end
+      pos += dir
+    end
+    p map.values.count('X')
+- :name: 6a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    e=[d=-(w=((m=$<.read)=~/$/)+1),1,w,-1].cycle
+    p=m.index'^'
+    ok=->c{m[c]if c>=0&&m[c]!=?\n}
+    (m[p]=?X;d=e.next while ok[p+d]==?#;p+=d)while ok[p]
+    p m.count'X'
+- :name: 6a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: e=[d=-(w=((m=$<.read)=~/$/)+1),1,w,-1].cycle;p=m.index'^';loop{m[p]=?X;d=e.next while((z=m[c=p+d])&&c>=0&&z!=?\n||(p m.count'X';exit))&&z==?#;p=c}

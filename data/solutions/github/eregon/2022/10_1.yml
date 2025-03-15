@@ -1,0 +1,28 @@
+---
+- :name: 10a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2022
+  :solution: |-
+    require_relative 'lib'
+
+    instructions = File.readlines('10.txt', chomp: true)
+    x = 1
+    cycle = 1
+    x_values = [nil]
+
+    clock = -> {
+      x_values[cycle] = x
+      cycle += 1
+    }
+
+    instructions.each { |instruction|
+      case instruction
+      in /^noop$/
+        clock.()
+      in /^addx (-?\d+)$/
+        clock.()
+        clock.()
+        x += Integer($1)
+      end
+    }
+
+    p (20..220).step(40).sum { x_values.fetch(_1) * _1 }

@@ -1,0 +1,31 @@
+---
+- :name: day-20-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-20
+  :solution: |-
+    ranges = input.split("\n").map do |range|
+      range.split("-").map(&:to_i)
+    end
+
+    ranges.sort!
+
+    merged_ranges = [ranges.shift]
+
+    ranges.each do |range|
+      prev_range = merged_ranges.first
+
+      if prev_range[1] >= range[0] - 1
+        prev_range[1] = [prev_range[1], range[1]].max
+      else
+        merged_ranges.unshift(range)
+      end
+    end
+
+    merged_ranges.sort!
+
+    allowed_count = 0
+
+    merged_ranges.each_cons(2) do |range_one, range_two|
+      allowed_count += [range_two[0] - range_one[1] - 1, 0].max
+    end
+
+    puts allowed_count

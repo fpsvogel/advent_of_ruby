@@ -1,0 +1,284 @@
+---
+- :name: 17b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    _, _, _, *program = $<.read.scan(/\d+/).map(&:to_i)
+    program.freeze
+
+    run = -> n {
+      a = n
+      b, c = 0, 0
+      ip = 0
+      out = []
+
+      literal = :itself.to_proc
+
+      combo = -> x {
+        case x
+        in 0..3 then x
+        in 4 then a
+        in 5 then b
+        in 6 then c
+        end
+      }
+
+      instructions = [
+        -> x { a /= (2 ** combo[x]) }, # adv
+        -> x { b ^= literal[x] }, # bxl
+        -> x { b = combo[x] % 8 }, # bst
+        -> x { ip = literal[x] - 2 unless a == 0 }, # jnz
+        -> x { b ^= c }, # bxc
+        -> x { out << combo[x] % 8 }, # out
+        -> x { b = a / (2 ** combo[x]) }, # bdv
+        -> x { c = a / (2 ** combo[x]) }, # cdv
+      ]
+
+      while opcode = program[ip]
+        instructions[opcode][program[ip + 1]]
+        ip += 2
+      end
+
+      out
+    }
+
+    p (0..).find { |n| run[n] == program }
+- :name: 17b2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    _, _, _, *program = $<.read.scan(/\d+/).map(&:to_i)
+    program.freeze
+
+    a, b, c = 0, 0, 0
+    ip = 0
+    out = []
+
+    literal = :itself.to_proc
+
+    combo = -> x {
+      case x
+      in 0..3 then x
+      in 4 then a
+      in 5 then b
+      in 6 then c
+      end
+    }
+
+    instructions = [
+      -> x { a /= (2 ** combo[x]) }, # adv
+      -> x { b ^= literal[x] }, # bxl
+      -> x { b = combo[x] % 8 }, # bst
+      -> x { ip = literal[x] - 2 unless a == 0 }, # jnz
+      -> x { b ^= c }, # bxc
+      -> x { out << combo[x] % 8 }, # out
+      -> x { b = a / (2 ** combo[x]) }, # bdv
+      -> x { c = a / (2 ** combo[x]) }, # cdv
+    ]
+
+    compiled = program.each_slice(2).map { |opcode, operand|
+      instr = instructions.fetch(opcode)
+      -> { instr[operand] }
+    }
+
+    run = -> n {
+      a = n
+      b, c = 0, 0
+      ip = 0
+      out = []
+
+      while op = compiled[ip / 2]
+        op.()
+        ip += 2
+      end
+
+      out
+    }
+
+    p (0..).find { |n| run[n] == program }
+- :name: 17b3.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    _, _, _, *program = $<.read.scan(/\d+/).map(&:to_i)
+
+    compiled = []
+
+    compiled << <<~RUBY.chomp
+    def run(n)
+      a = n
+      b, c = 0, 0
+      ip = 0
+      out = []
+      -> {
+    RUBY
+
+    combo = -> x {
+      case x
+      in 0..3 then x
+      in 4 then "a"
+      in 5 then "b"
+      in 6 then "c"
+      end
+    }
+
+    program.each_slice(2) { |opcode, x|
+      compiled << " " * 4 + case %i[adv bxl bst jnz bxc out bdv cdv][opcode]
+      in :adv then "a = a / (2 ** #{combo[x]})"
+      in :bxl then "b ^= #{x}"
+      in :bst then "b = #{combo[x]} % 8"
+      in :jnz then
+        raise "jnz #{x}" unless x == 0
+        "redo unless a == 0"
+      in :bxc then "b ^= c"
+      in :out then "out << #{combo[x]} % 8"
+      in :bdv then "b = a / (2 ** #{combo[x]})"
+      in :cdv then "c = a / (2 ** #{combo[x]})"
+      end
+    }
+
+    compiled << <<~RUBY
+      }.()
+      out
+    end
+    RUBY
+
+    compiled = compiled.join("\n")
+
+    puts compiled
+    eval compiled
+
+    $n = 0
+
+    Thread.new {
+      loop {
+        sleep 1
+        p $n
+      }
+    }
+
+    p (0..).find { |n|
+      $n = n
+      run(n) == program
+    }
+- :name: 17b4.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    _, _, _, *PROGRAM = $<.read.scan(/\d+/).map(&:to_i)
+
+    compiled = []
+
+    compiled << <<~RUBY.chomp
+    def run(n)
+      a = n
+      b, c = 0, 0
+      ip = 0
+      out = []
+      -> {
+    RUBY
+
+    combo = -> x {
+      case x
+      in 0..3 then x
+      in 4 then "a"
+      in 5 then "b"
+      in 6 then "c"
+      end
+    }
+
+    PROGRAM.each_slice(2) { |opcode, x|
+      compiled << " " * 4 + case %i[adv bxl bst jnz bxc out bdv cdv][opcode]
+      in :adv then "a = a / (2 ** #{combo[x]})"
+      in :bxl then "b ^= #{x}"
+      in :bst then "b = #{combo[x]} % 8"
+      in :jnz then
+        raise "jnz #{x}" unless x == 0
+        "redo unless a == 0"
+      in :bxc then "b ^= c"
+      in :out then
+        "out << #{combo[x]} % 8; return false unless out.last == PROGRAM[out.size-1]"
+      in :bdv then "b = a / (2 ** #{combo[x]})"
+      in :cdv then "c = a / (2 ** #{combo[x]})"
+      end
+    }
+
+    compiled << <<~RUBY
+      }.()
+      out
+    end
+    RUBY
+
+    compiled = compiled.join("\n")
+
+    puts compiled
+    eval compiled
+
+    $n = 0
+
+    Thread.new {
+      loop {
+        sleep 1
+        p $n
+      }
+    }
+
+    p (0..).find { |n|
+      $n = n
+      run(n) == PROGRAM
+    }
+- :name: 17b5.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    # Copied from 17b4.rb output
+    def run(n)
+      a = n
+      b, c = 0, 0
+      ip = 0
+      out = []
+      -> {
+        b = a % 8
+        b ^= 1
+        c = a / (2 ** b)
+        b ^= 4
+        b ^= c
+
+        a /= 8
+
+        out << b % 8
+        return false unless out.last == Program[out.size-1]
+
+        redo unless a == 0
+      }.()
+      out
+    end
+
+    Program = [2,4,1,1,7,5,1,4,0,3,4,5,5,5,3,0]
+
+    def iter(a)
+      b = a % 8
+      b ^= 1
+      c = a / (2 ** b)
+      b ^= 4
+      b ^= c
+
+      a /= 8
+
+      b % 8
+    end
+
+    FOUND = []
+
+    def find(i, a)
+      if i < 0
+        FOUND << a
+      else
+        d = Program[i]
+        (0...8).each { |n|
+          v = n + (a << 3)
+          if iter(v) == d
+            find(i-1, v)
+          end
+        }
+      end
+    end
+
+    find(Program.size - 1, 0)
+    p run(FOUND.min)
+    p FOUND.min

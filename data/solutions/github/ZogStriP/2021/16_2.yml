@@ -1,0 +1,56 @@
+---
+- :name: 16_packet_decoder.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    int = -> b { b.join.to_i(2) }
+
+    parse = -> bits {
+      version = int[bits.shift(3)]
+      type_id = int[bits.shift(3)]
+
+      if 4 == type_id
+        b = []
+
+        loop {
+          stop = bits.shift
+          b.concat bits.shift(4)
+          break if stop[?0]
+        }
+
+        return [type_id, version, int[b]]
+      end
+
+      length_type_id = bits.shift
+
+      packets = if length_type_id[?0]
+        length = int[bits.shift(15)]
+        b = bits.shift(length)
+        p = []
+        p << parse[b] while b.size > 0
+        p
+      else
+        count = int[bits.shift(11)]
+        count.times.map { parse[bits] }
+      end
+
+      [type_id, version, packets]
+    }
+
+    vn = -> t { t[0] == 4 ? t[1] : t[1] + t[2].sum { vn[_1] } }
+
+    ev = -> t {
+      case t[0]
+      when 0; t[2].map { ev[_1] }.sum
+      when 1; t[2].map { ev[_1] }.reduce(:*)
+      when 2; t[2].map { ev[_1] }.min
+      when 3; t[2].map { ev[_1] }.max
+      when 4; t[2]
+      when 5; ev[t[2][0]]  > ev[t[2][1]] ? 1 : 0
+      when 6; ev[t[2][0]]  < ev[t[2][1]] ? 1 : 0
+      when 7; ev[t[2][0]] == ev[t[2][1]] ? 1 : 0
+      end
+    }
+
+    T = parse[DATA.each_char.map { "%04b" % _1.hex }.join.chars]
+
+    p vn[T], ev[T]

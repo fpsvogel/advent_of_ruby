@@ -1,0 +1,45 @@
+---
+- :name: 18_settlers_of_the_north_pole.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    adjacents = [
+      [-1, -1], [ 0, -1], [ 1, -1],
+      [-1,  0],           [ 1,  0],
+      [-1,  1], [ 0,  1], [ 1,  1],
+    ]
+
+    maps = {}
+    map  = DATA.each_line.map { |l| l.chomp.chars }
+
+    minutes = 0.step { |m|
+      break m if maps[map]
+      maps[map] = m
+
+      map = map.map.with_index { |r, y|
+        r.map.with_index { |c, x|
+          adj = adjacents
+                  .map { |a, b| [x + a, y + b] }
+                  .select { |xx, yy| xx >= 0 && xx < r.size && yy >= 0 && yy < map.size }
+                  .map { |xx, yy| map[yy][xx] }
+
+          t = adj.count("|")
+          l = adj.count("#")
+
+          if c["."] && t >= 3
+            "|"
+          elsif c["|"] && l >= 3
+            "#"
+          elsif c["#"] && (t == 0 || l == 0)
+            "."
+          else
+            c
+          end
+        }
+      }
+    }
+
+    m = maps.key(10)
+    p m.sum { |r| r.count("#") } * m.sum { |r| r.count("|") }
+
+    m = maps.key(1_000_000_000 % (minutes - maps[map]) + maps[map])
+    p m.sum { |r| r.count("#") } * m.sum { |r| r.count("|") }

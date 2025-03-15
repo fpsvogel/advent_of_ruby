@@ -1,0 +1,10 @@
+---
+- :name: 03_squares_with_three_sides.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    triangles = DATA.map { _1.split.map &:to_i }
+
+    tri = -> a, b, c { a + b > c }
+
+    p triangles.count { tri[*_1.sort] }
+    p triangles.transpose.flatten.each_slice(3).count { tri[*_1.sort] }

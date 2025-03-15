@@ -1,0 +1,4 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/01
+  :solution: puts ARGF.each_line.map(&:to_i).sum

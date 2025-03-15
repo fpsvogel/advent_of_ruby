@@ -1,0 +1,43 @@
+---
+- :name: 7a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    hands = $<.map { |line|
+      line.split.then { [_1.tr('AKQJT', 'EDCBA').chars, _2.to_i] }
+    }
+
+    p hands.sort_by { |hand, bid|
+      tally = hand.tally
+      max = tally.values.max
+      type = case tally.size
+      in 1
+        7
+      in 2
+        if max == 4
+          6
+        else
+          raise unless max == 3
+          5
+        end
+      in 3
+        if max == 3
+          4
+        else
+          3
+        end
+      in 4
+        2
+      in 5
+        1
+      end
+      [type, *hand]
+    }.map(&:last).zip(1..hands.size).sum { _1 * _2 }
+- :name: 7a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: p$<.map(&:split).sort_by{|h,|[(t=h.chars.tally.values).max-t.size,h.tr('AKQJT','EDCBA')]}.zip(1..).sum{_1[-1].to_i*_2}
+- :name: 7a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: p$<.map(&:split).sort_by{|h,|h.tr!'AKQJT','EDCBA';[(5-s=(t=h.chars.tally.values).size)*2+(t.max==6-s ?1:0),*h]}.zip(1..).sum{_1[-1].to_i*_2}
+- :name: 7a_golf3.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: p$<.map(&:split).sort_by{|h,|[h.chars.tally.values.then{_1.max-_1.size},h.tr('AKQJT','EDCBA')]}.zip(1..).sum{_1[-1].to_i*_2}

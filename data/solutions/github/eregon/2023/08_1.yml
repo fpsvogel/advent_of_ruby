@@ -1,0 +1,22 @@
+---
+- :name: 8a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    moves, _, *routes = $<.readlines(chomp: true)
+    moves = moves.chars.cycle
+    routes = routes.to_h { |l| l.split(/ = \(|, |\)/).then { [_1, [_2, _3]] } }
+
+    p Enumerator.produce("AAA") { |pos|
+      # routes[pos][moves.next == 'L' ? 0 : 1]
+      routes[pos][moves.next.ord / ?R.ord]
+    }.find_index { |pos| pos == "ZZZ" }
+- :name: 8a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    m,_,*r=*$<
+    m=m.chop.bytes.cycle
+    r=r.to_h{a,*b=_1.scan /\w+/;[a,b]}
+    p Enumerator.produce(?A*3){|c|r[c][m.next/82]}.find_index"ZZZ"
+- :name: 8a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: m,_,*r=*$<;r=r.to_h{a,*b=_1.scan /\w+/;[a,b]};s=-1;c=r[c||?A*3][m[(s+=1)%(m.size-1)].ord/82]until c==?Z*3;p s+1

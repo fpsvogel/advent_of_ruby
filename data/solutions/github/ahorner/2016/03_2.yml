@@ -1,0 +1,32 @@
+---
+- :name: 03.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2016
+  :solution: |-
+    LINE_MATCHER = /\A\s*(\d+)\s+(\d+)\s+(\d+)\z/
+
+    def valid?(sides)
+      maximum = sides.max
+      others = sides.dup
+
+      others.delete_at(sides.index(maximum))
+      others.sum > maximum
+    end
+
+    def parse_lines
+      INPUT.split("\n").each do |line|
+        sides = line.match(LINE_MATCHER).captures
+        yield sides.map(&:to_i)
+      end
+    end
+
+    valid_count = 0
+    parse_lines { |sides| valid_count += 1 if valid?(sides) }
+
+    solve!("The number of normal triangles is:", valid_count)
+
+    rows = []
+    parse_lines { |sides| rows << sides }
+    triangles = rows.each_slice(3).flat_map { |items| items.inject(&:zip).map(&:flatten) }
+    valid_count = triangles.count { |triangle| valid?(triangle) }
+
+    solve!("The number of valid vertically-assembled triangles is:", valid_count)

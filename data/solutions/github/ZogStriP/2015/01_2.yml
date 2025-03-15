@@ -1,0 +1,11 @@
+---
+- :name: 01_not_quite_lisp.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    instructions = DATA.read
+
+    p instructions.count(?() - instructions.count(?))
+
+    floor = 0
+
+    p 0.step.find { (floor += instructions[_1][?(] ? 1 : -1) < 0 } + 1

@@ -1,0 +1,10 @@
+---
+- :name: 23_coprocessor_conflagration.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    require "prime"
+
+    p (84 - 2) ** 2
+
+    start = 84 * 100 + 100_000
+    p (start..start + 17_000).step(17).count { |n| !Prime.prime?(n) }

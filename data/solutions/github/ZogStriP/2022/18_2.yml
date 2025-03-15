@@ -1,0 +1,33 @@
+---
+- :name: 18_boiling_boulders.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    adj = -> ((x, y, z)) {
+      [
+        [x - 1, y, z],
+        [x + 1, y, z],
+        [x, y - 1, z],
+        [x, y + 1, z],
+        [x, y, z - 1],
+        [x, y, z + 1],
+      ]
+    }
+
+    cubes = DATA.to_h { [_1.split(?,).map(&:to_i), true] }
+    faces = cubes.keys.flat_map &adj
+
+    p faces.count { !cubes[_1] }
+
+    xs, ys, zs = cubes.keys.transpose.map {
+      min, max = _1.minmax
+      min - 1 .. max + 1
+    }
+
+    queue = [[0, 0, 0]]
+    air = { [0, 0, 0] => true }
+
+    while current = queue.shift
+      adj[current].each { !air[_1] && !cubes[_1] && xs === _1[0] && ys === _1[1] && zs === _1[2] && air[_1] = true && queue << _1 }
+    end
+
+    p faces.count { !cubes[_1] && air[_1] }

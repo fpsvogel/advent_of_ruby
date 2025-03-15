@@ -1,0 +1,4 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2018
+  :solution: 'p File.readlines("1.txt", chomp: true).map(&:to_i).sum'

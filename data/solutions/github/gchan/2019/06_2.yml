@@ -1,0 +1,31 @@
+---
+- :name: day-06-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-06
+  :solution: |-
+    orbits = {}
+
+    input.split("\n").each do |orbit|
+      a, b = orbit.split(")")
+
+      orbits[b] = a
+    end
+
+    def path(orbits, from)
+      path = []
+
+      while orbits[from]
+        from = orbits[from]
+        path << from
+      end
+
+      path
+    end
+
+    you_path = path(orbits, "YOU")
+    santa_path = path(orbits, "SAN")
+
+    intersect = you_path.find do |obj|
+      santa_path.include?(obj)
+    end
+
+    puts you_path.index(intersect) + santa_path.index(intersect)

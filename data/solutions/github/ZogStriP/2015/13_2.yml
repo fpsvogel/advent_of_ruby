@@ -1,0 +1,16 @@
+---
+- :name: 13_knights_of_the_dinner_table.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    people = DATA.map.with_object(Hash.new { |h, k| h[k] = Hash.new(0) }) { |l, p|
+      a, d, h, b = l.scan(/(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)/)[0]
+      p[a][b] = h.to_i * (d["gain"] ? 1 : -1)
+    }
+
+    p people.keys.permutation.map {
+      (_1 << _1[0]).each_cons(2).sum { |a, b| people[a][b] + people[b][a] }
+    }.max
+
+    p (people.keys << "me").permutation.map {
+      (_1 << _1[0]).each_cons(2).sum { |a, b| people[a][b] + people[b][a] }
+    }.max

@@ -1,0 +1,109 @@
+---
+- :name: 13_care_package.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    program = DATA.read.split(?,).map(&:to_i)
+
+    class IntCode
+
+      def initialize(mem, input: nil)
+        @pc = 0
+        @base = 0
+        @input = input
+        @mem = mem.map.with_index { |m, i| [i, m] }.to_h
+        @mem.default = 0
+      end
+
+      def read(address, mode)
+        case mode.to_i
+        when 0 then @mem[@mem[address]]
+        when 1 then @mem[address]
+        when 2 then @mem[@mem[address] + @base]
+        end
+      end
+
+      def write(address, mode, value)
+        case mode.to_i
+        when 0 then @mem[@mem[address]] = value
+        when 2 then @mem[@mem[address] + @base] = value
+        end
+      end
+
+      def run
+        loop do
+          mode, opcode = @mem[@pc].divmod(100)
+          m = mode.digits
+          a = read(@pc + 1, m[0])
+          b = read(@pc + 2, m[1])
+
+          case opcode
+          when 1
+            write(@pc + 3, m[2], a + b)
+            @pc += 4
+          when 2
+            write(@pc + 3, m[2], a * b)
+            @pc += 4
+          when 3
+            write(@pc + 1, m[0], @input.call)
+            @pc += 2
+          when 4
+            @pc += 2
+            return a
+          when 5
+            a != 0 ? @pc = b : @pc += 3
+          when 6
+            a == 0 ? @pc = b : @pc += 3
+          when 7
+            write(@pc + 3, m[2], a < b ? 1 : 0)
+            @pc += 4
+          when 8
+            write(@pc + 3, m[2], a == b ? 1 : 0)
+            @pc += 4
+          when 9
+            @base += a
+            @pc += 2
+          when 99
+            return
+          else
+            throw "Unknown opcode: #{opcode}"
+          end
+        end
+      end
+
+    end
+
+    def display(grid)
+      xs, ys = grid.keys.transpose
+      Range.new(*ys.minmax).each { |y|
+        puts Range.new(*xs.minmax).map { |x|
+          case grid[[x, y]]
+          when 0 then " "
+          when 1 then "█"
+          when 2 then "+"
+          when 3 then "="
+          when 4 then "@"
+          end
+        }.join
+      }
+      puts
+    end
+
+    def play(program, quarters)
+      grid = {}
+      ball = paddle = 0
+      program[0] = quarters
+      game = IntCode.new(program, input: ->() { ball <=> paddle })
+
+      loop {
+        x, y, tile = game.run, game.run, game.run
+        break if x.nil? || y.nil? || tile.nil?
+        grid[[x, y]] = tile
+        paddle = x if tile == 3
+        ball = x   if tile == 4
+      }
+
+      grid
+    end
+
+    p play(program, 1).values.count(2)
+    p play(program, 2)[[-1, 0]]

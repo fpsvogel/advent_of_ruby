@@ -1,0 +1,29 @@
+---
+- :name: 21_fractal_art.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    rules = {}
+
+    DATA.readlines.each { |line|
+      a, b = line.strip.split(" => ").map { |r| r.split("/").map(&:chars) }
+      rules[a] = b
+      rules[a.reverse] = b
+      rules[a.reverse.map(&:reverse)] = b
+      rules[a.map(&:reverse)] = b
+      rules[a.transpose] = b
+      rules[a.transpose.reverse] = b
+      rules[a.transpose.map(&:reverse)] = b
+      rules[a.transpose.reverse.map(&:reverse)] = b
+    }
+
+    g = [".#.", "..#", "###"]
+
+    18.times { |i|
+      p g.join.count("#") if i == 5
+      k = g.size.even? ? 2 : 3
+      g = g.each_slice(k)
+           .map { |s| s.map { |s| s.chars.each_slice(k).to_a }.transpose }
+           .map { |s| s.map { |s| rules[s] }.transpose.map(&:join) }.flatten(1)
+    }
+
+    p g.join.count("#")

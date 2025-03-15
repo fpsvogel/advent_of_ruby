@@ -1,0 +1,12 @@
+---
+- :name: day-10-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-10
+  :solution: |-
+    numbers = input.chars.map(&:to_i)
+
+    50.times do
+      numbers = numbers.slice_when { |before, after| before != after }.
+        flat_map { |numbers| [numbers.count, numbers.first] }
+    end
+
+    puts numbers.length

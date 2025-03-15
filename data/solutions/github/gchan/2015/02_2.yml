@@ -1,0 +1,16 @@
+---
+- :name: day-02-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-02
+  :solution: |-
+    total = 0
+
+    presents.each do |present|
+      sides = present.split("x").map(&:to_i)
+
+      # Wrap
+      total += sides.sort.min(2).inject(:+) * 2
+      # Bow
+      total += sides.inject(:*)
+    end
+
+    puts total

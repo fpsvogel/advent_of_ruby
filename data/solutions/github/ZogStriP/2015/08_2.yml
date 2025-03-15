@@ -1,0 +1,8 @@
+---
+- :name: '08_matchsticks.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    strings = DATA.read.split("\n")
+
+    p strings.sum(&:size) - strings.sum { eval(_1).size }
+    p strings.sum { _1.inspect.size } - strings.sum(&:size)

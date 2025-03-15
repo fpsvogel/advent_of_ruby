@@ -1,0 +1,27 @@
+---
+- :name: 12_digital_plumber.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    require "set"
+
+    pipes = DATA.readlines.map { |line|
+      left, right = line.split("<->")
+      [left.to_i, right.split(",").map(&:to_i)]
+    }.to_h
+
+
+    puts 0.step { |i|
+      break i if pipes.empty?
+
+      visited = Set.new
+      queue = [pipes.keys[0]]
+
+      while c = queue.pop
+        next unless visited.add?(c)
+        queue.concat(pipes[c])
+      end
+
+      puts visited.size if visited.include?(0)
+
+      pipes.delete_if { |k, _| visited.include?(k) }
+    }

@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/05
+  :solution: |-
+    require_relative 'lib'
+
+    polymer = ARGF.readline.chomp.chars
+    puts react(polymer).length

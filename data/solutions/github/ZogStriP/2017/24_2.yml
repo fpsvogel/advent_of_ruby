@@ -1,0 +1,21 @@
+---
+- :name: 24_electromagnetic_moat.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    components = DATA.readlines.map { |l| l.split("/").map(&:to_i) }
+
+    def bridges(port, bridge, strength, left, &block)
+      left.select { |c| c.include?(port) }.each { |c|
+        b = bridge + [c]
+        s = strength + c.sum
+        yield [b, s]
+        bridges(c[0] == port ? c[1] : c[0], b, s, left.select { |x| x != c }, &block)
+      }
+    end
+
+    possible_bridges = []
+
+    bridges(0, [], 0, components) { |b| possible_bridges << b }
+
+    p possible_bridges.max_by { |b| b[1] }[1]
+    p possible_bridges.max_by { |b| [b[0].size, b[1]] }[1]

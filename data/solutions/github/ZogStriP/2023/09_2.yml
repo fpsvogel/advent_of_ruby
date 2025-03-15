@@ -1,0 +1,18 @@
+---
+- :name: '09_mirage_maintenance.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    puts DATA.map.with_object([0, 0]) { |l, s|
+      h = l.split.map &:to_i
+      l, r, m = 0, 0, 1
+
+      until h.all? 0
+        l += h[0] * m
+        r += h[-1]
+        m = -m
+        h = h.each_cons(2).map { _2 - _1 }
+      end
+
+      s[0] += r
+      s[1] += l
+    }

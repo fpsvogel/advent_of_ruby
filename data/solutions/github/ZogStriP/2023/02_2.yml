@@ -1,0 +1,11 @@
+---
+- :name: 02_cube_conundrum.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    puts DATA.each.with_object([0, 0]) { |l, s|
+      c = {}
+      game, cubes = l.split ?:
+      cubes.scan(/(\d+) (\w)/) { c[_2] = [c[_2], _1].map(&:to_i).max }
+      s[0] += game[5..].to_i if c[?r] <= 12 && c[?g] <= 13 && c[?b] <= 14
+      s[1] += c.values.reduce :*
+    }

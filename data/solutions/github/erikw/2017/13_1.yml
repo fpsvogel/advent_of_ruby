@@ -1,0 +1,12 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/13
+  :solution: |-
+    require_relative 'lib'
+
+    layers = []
+    ARGF.each_line do |line|
+      layers << line.split(': ').map(&:to_i)
+    end
+
+    puts severeties(layers).sum

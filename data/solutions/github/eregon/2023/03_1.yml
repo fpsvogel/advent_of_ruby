@@ -1,0 +1,33 @@
+---
+- :name: 3a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    map = {}
+    $<.each_with_index{ |line,y|
+      line.chomp.chars.each_with_index { |c,x| map[x+y.i] = c }
+    }
+
+    numbers = map.each_pair.chunk { |p,c| [!!c[/\d/], p.imag] }.select { |(d,_),| d }.map(&:last)
+    numbers = numbers.select do |number|
+      number.any? { |p,_|
+        [p-1i, p-1i+1, p+1, p+1+1i, p+1i, p+1i-1, p-1, p-1-1i].any? { map[_1] =~ /[^0-9.]/ }
+      }
+    end
+    p numbers.sum { _1.map(&:last).sum('').to_i }
+- :name: 3a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    s=$<.read
+    w=(s=~/$/)+1
+    s.scan(/\d+/){|n|$.+=n.to_i if Range.new(*$~.offset(0),1).any?{|i|[i-w,i,i+w].any?{(_1>0?s[_1-1,3]:s[_1,2])=~/[^\d\s.]/}}}
+    p $.
+- :name: 3a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    s=$<.read
+    w=(s=~/$/)+1
+    s.scan(/\d+/){|n|$.+=n.to_i if Range.new(*$~.offset(0),1).any?{|i|[i-w,i,i+w].any?{(s[_1-1,3]if _1>0)=~/[^\d\s.]/}}}
+    p $.
+- :name: 3a_golf3.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: s=$<.read;w=s=~/$/;s.scan(/\d+/){|n|i=$`.size;$.+=n.to_i if[i-w-2,i-1,i+w].any?{_1>=0&&s[_1,2+n.size]=~/[^\d\s.]/}};p$.

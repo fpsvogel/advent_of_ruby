@@ -1,0 +1,12 @@
+---
+- :name: day-06-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2023/day-06
+  :solution: |-
+    time, distance = input.split("\n")
+
+    time = time.scan(/\d+/).join.to_i
+    record = distance.scan(/\d+/).join.to_i
+
+    time.times
+      .count { _1 * (time - _1) > record }
+      .tap { puts _1 }

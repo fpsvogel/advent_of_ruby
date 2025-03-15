@@ -1,0 +1,7 @@
+---
+- :name: 01_sonar_sweep.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    d = DATA.map &:to_i
+
+    p [2, 4].map { d.each_cons(_1).count { |a, *, b| b > a } }

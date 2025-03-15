@@ -1,0 +1,8 @@
+---
+- :name: 02_i_was_told_there_would_be_no_math.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    boxes = DATA.map { _1.split(?x).map(&:to_i).sort }
+
+    p boxes.sum { |a, b, c| 3*a*b + 2*a*c + 2*b*c }
+    p boxes.sum { |a, b, c| 2*(a+b) + a*b*c}

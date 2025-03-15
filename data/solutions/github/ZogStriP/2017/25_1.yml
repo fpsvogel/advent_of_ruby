@@ -1,0 +1,23 @@
+---
+- :name: 25_the_halting_problem.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    rules = {
+      A: [[1,  1, :B], [0, -1, :F]],
+      B: [[0,  1, :C], [0,  1, :D]],
+      C: [[1, -1, :D], [1,  1, :E]],
+      D: [[0, -1, :E], [0, -1, :D]],
+      E: [[0,  1, :A], [1,  1, :C]],
+      F: [[1, -1, :A], [1,  1, :A]],
+    }
+
+    tape   = Hash.new(0)
+    state  = :A
+    cursor = 0
+
+    12994925.times {
+      tape[cursor], direction, state = rules[state][tape[cursor]]
+      cursor += direction
+    }
+
+    p tape.values.sum

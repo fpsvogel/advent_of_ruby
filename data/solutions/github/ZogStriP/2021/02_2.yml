@@ -1,0 +1,12 @@
+---
+- :name: 02_dive.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    h = d = a = 0
+
+    DATA.each {
+      x = _1[-2].to_i
+      _1[?f] ? (h += x; d += a * x) : a += x * (?e <=> _1)
+    }
+
+    p h * a, h * d

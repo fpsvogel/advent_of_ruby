@@ -1,0 +1,52 @@
+---
+- :name: 16_proboscidea_volcanium.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    N = {}
+    R = {}
+
+    DATA.each {
+      from, *tos = _1.scan(/[A-Z]{2}/)
+      N[from] = tos
+      R[from] = _1[/(\d+)/, 1].to_i
+    }
+
+    R.filter! { _2 > 0 }
+
+    bfs = -> from {
+      queue = [from]
+      steps = { from => 0 }
+
+      while current = queue.shift
+        N[current].each { |n| !steps[n] && queue << n && steps[n] = steps[current] + 1 }
+      end
+
+      steps
+    }
+
+    graph = Hash.new { |h, k| h[k] = {} }
+
+    (R.keys + ["AA"]).each { |a|
+      bfs[a].each { |b, d| a != b && R[b] && graph[a][b] = graph[b][a] = d }
+    }
+
+    ids = R.each_key.with_index.to_h
+
+    best = Hash.new(0)
+
+    dfs = -> (minutes, valve = "AA", open = {}, pressure = 0) {
+      k = open.keys.sum { 1 << ids[_1] }
+      best[k] = [best[k], pressure].max
+      return if minutes <= 2
+      graph[valve].each { |n, d| n != "AA" && !open[n] && minutes > d && dfs[minutes - d - 1, n, open.merge(n => true), pressure + R[n] * (minutes - d - 1)] }
+    }
+
+    dfs[30]
+
+    p best.values.max
+
+    best = Hash.new(0)
+
+    dfs[26]
+
+    p best.keys.combination(2).select { _1 & _2 == 0 }.map { best[_1] + best[_2] }.max

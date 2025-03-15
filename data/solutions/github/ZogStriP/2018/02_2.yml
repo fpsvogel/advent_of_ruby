@@ -1,0 +1,19 @@
+---
+- :name: 02_inventory_management_system.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    require "set"
+
+    input = DATA.read.each_line
+
+    counts = input.map { |i| i.each_char.with_object(Hash.new(0)) { |c, h| h[c] += 1 }.values }
+    p counts.count { |c| c.include?(2) } * counts.count { |c| c.include?(3) }
+
+    seen = Set.new
+
+    input.each { |l|
+      l.size.times { |i|
+        r = [l[0...i], l[(i + 1)..-1]]
+        puts r.join if !seen.add?(r)
+      }
+    }

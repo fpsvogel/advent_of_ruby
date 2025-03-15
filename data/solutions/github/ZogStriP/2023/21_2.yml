@@ -1,0 +1,40 @@
+---
+- :name: 21_step_counter.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    M = DATA.map &:chomp
+    Y, X = M.size, M[0].size
+    N = [[-1, 0], [0, -1], [0, 1], [1, 0]]
+
+    M.each_with_index { |l, y|
+      l.each_char.with_index { |c, x|
+        S = [y, x] if c[?S]
+      }
+    }
+
+    t, x0 = 26_501_365.divmod X
+    x1 = x0 + X
+    x2 = x1 + X
+
+    q = [S]
+    s = Set.new
+    r = Array.new(x2 + 1, 0)
+
+    (1..x2).each { |d|
+      q = q.flat_map { |y, x|
+        N.filter_map { |dy, dx|
+          n = ny = y + dy, nx = x + dx
+          s.add?(n) && !M[ny % Y][nx % X][?#] && n
+        }
+      }
+      r[d] = q.size + r[d - 2]
+    }
+
+    p r[64]
+
+    y0, y1, y2 = r[x0], r[x1], r[x2]
+
+    vel = y1 - y0
+    acc = y2 - 2 * y1 + y0
+
+    p y0 + (vel * t) + (acc * t * (t - 1) / 2)

@@ -1,0 +1,41 @@
+---
+- :name: 25_four-dimensional_adventure.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    # https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+    class DisjointSet
+      def initialize(values)
+        @parent = values.zip(values).to_h
+        @rank = values.map { |v| [v, 0] }.to_h
+      end
+
+      def find(x)
+        x, @parent[x] = @parent[x], @parent[@parent[x]] while @parent[x] != x
+        x
+      end
+
+      def union(x, y)
+        x_root = find(x)
+        y_root = find(y)
+
+        return if x_root == y_root
+
+        x_root, y_root = y_root, x_root if @rank[x_root] < @rank[y_root]
+        @parent[y_root] = x_root
+        @rank[x_root] += 1 if @rank[x_root] == @rank[y_root]
+      end
+
+      def size
+        @parent.keys.count { |k| find(k) == k }
+      end
+    end
+
+    points = DATA.each_line.map { |l| l.split(",").map(&:to_i) }
+
+    ds = DisjointSet.new(points)
+
+    points.combination(2).each { |a, b|
+      ds.union(a, b) if a.zip(b).sum { |x, y| (x - y).abs } <= 3
+    }
+
+    p ds.size

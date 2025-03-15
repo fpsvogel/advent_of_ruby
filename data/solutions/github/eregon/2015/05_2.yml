@@ -1,0 +1,8 @@
+---
+- :name: 5b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    p ARGF.each_line.count { |line|
+      word = line.chomp
+      word =~ /(..).*\1/ and word =~ /(.).\1/
+    }

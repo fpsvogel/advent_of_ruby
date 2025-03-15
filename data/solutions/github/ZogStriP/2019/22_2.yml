@@ -1,0 +1,76 @@
+---
+- :name: 22_slam_shuffle.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    SHUFFLES = DATA.read.split("\n")
+
+    p = 2019
+    n = 10007
+
+    SHUFFLES.each { |s|
+      case s
+      when /deal with increment (\d+)/
+        p = ( p * $1.to_i) % n
+      when /cut (-?\d+)/
+        p = ( p - $1.to_i) % n
+      when /deal into new stack/
+        p = (-p - 1) % n
+      end
+    }
+
+    p p
+
+    # part 2 is totally stolen from https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/
+
+    p = 2020
+    n = 119315717514047
+    r = 101741582076661
+
+    # f(x) = ax + b
+    # g(x) = cx + d
+
+    # g(f(x))
+    #   = c(f(x)) + d
+    #   = c(ax + b) + d
+    #   = cax + cb + d
+
+    a = 1
+    b = 0
+
+    SHUFFLES.each { |s|
+      case s
+      when /deal with increment (\d+)/
+        c = $1.to_i
+        d = 0
+      when /cut (-?\d+)/
+        c = 1
+        d = -$1.to_i
+      when /deal into new stack/
+        c = -1
+        d = -1
+      end
+      a = (c * a) % n
+      b = (c * b + d) % n
+    }
+
+    # instead of doing
+
+    # c, d = a, b
+    # a, b = 1, 0
+    #
+    # r.times {
+    #   a = (c * a) % n
+    #   b = (c * b + d) % n
+    # }
+
+    # we compute
+
+    # a = (a ** r) % n
+    # b = ... + a ** 2 * b + a * b + b = b * (a ** (r - 1) + a ** (r) + ... + a + 1) = b * (a ** r - 1) / (a - 1)
+
+    inv = -> (a, b) { a.pow(b - 2, b) }
+
+    aa = a.pow(r, n)
+    bb = (b * (aa - 1) * inv[a - 1, n]) % n
+
+    p ((p - bb) * inv[aa, n]) % n

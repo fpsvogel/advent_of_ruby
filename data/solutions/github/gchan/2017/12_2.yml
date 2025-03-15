@@ -1,0 +1,35 @@
+---
+- :name: day-12-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-12
+  :solution: |-
+    input     = File.read(file_path)
+
+    programs = Hash.new { |h,k| h[k] = [] }
+
+    input.split("\n").each do |line|
+      from, *to = line.split(/<->|,/).map(&:to_i)
+      programs[from].concat to
+    end
+
+    groups = 0
+
+    while programs.any?
+      group = Set.new
+
+      queue = [programs.keys.first]
+
+      while queue.any?
+        pg = queue.pop
+        group.add(pg)
+
+        queue += programs[pg].reject { |pro| group.include?(pro) }
+      end
+
+      group.each do |pg|
+        programs.delete(pg)
+      end
+
+      groups += 1
+    end
+
+    puts groups

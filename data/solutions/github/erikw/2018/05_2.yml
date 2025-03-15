@@ -1,0 +1,16 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/05
+  :solution: |-
+    require_relative 'lib'
+
+    polymer = ARGF.readline.chomp.chars
+    units = polymer.map(&:downcase).uniq
+
+    shortest = Float::INFINITY
+    units.each do |unit|
+      polymer_fixed = polymer.reject { |p| [unit, unit.upcase].include? p }
+      len = react(polymer_fixed).length
+      shortest = [shortest, len].min
+    end
+    puts shortest
