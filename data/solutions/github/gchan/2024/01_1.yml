@@ -1,0 +1,14 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-01
+  :solution: |-
+    puts input.split(/\s+/)
+      .map(&:to_i)
+      .each_slice(2)
+      .to_a
+      .transpose
+      .map(&:sort)
+      .transpose
+      .map { _1.inject(&:-) }
+      .map(&:abs)
+      .sum

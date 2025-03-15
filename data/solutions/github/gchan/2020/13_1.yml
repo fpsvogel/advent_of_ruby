@@ -1,0 +1,17 @@
+---
+- :name: day-13-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2020/day-13
+  :solution: |-
+    earliest, buses = input.split("\n")
+
+    earliest = earliest.to_i
+    buses = buses.split(",").reject { |id| id == ?x }.map(&:to_i)
+
+    depart, id = buses.map { |id|
+      [
+        (earliest.to_f / id).ceil * id,
+        id
+      ]
+    }.min
+
+    puts (depart - earliest) * id

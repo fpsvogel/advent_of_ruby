@@ -29,33 +29,39 @@ module DownloadSolutions
           year_directory = File.join(author_directory, current_year.to_s)
           Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-          (day || 1).upto(day || max_day) do |current_day|
-            1.upto(2) do |part|
-              path = File.join(year_directory, "#{current_day.to_s.rjust(2, "0")}_#{part}.yml")
+          existing_solutions = Dir.entries(year_directory)
+            .filter_map {
+              it.delete_suffix(".yml").split("_").map(&:to_i) if it.end_with?(".yml")
+            }.sort
 
-              if File.exist?(path) && !force
-                puts PASTEL.yellow("Skipping #{PASTEL.yellow.bold("#{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}")} by #{author} as it already exists.")
-                next
-              end
+          solutions = github_api.get_solutions(
+            author:,
+            year: current_year,
+            input_day: day,
+            max_day:,
+            force:,
+            existing_solutions:
+          )
 
-              solutions = github_api.get_solutions(
-                author:,
-                year: current_year,
-                day: current_day,
-                part:
-              )
+          skipped_list = solutions[:skipped].sort.map { it.join(".") }.join(", ")
+          if solutions[:skipped].any?
+            puts "#{PASTEL.yellow("Skipping")} from #{author} #{current_year}, already existing: #{PASTEL.yellow(skipped_list)}"
+          end
 
-              if solutions.nil?
-                next
-              elsif solutions.empty?
-                puts PASTEL.red("#{PASTEL.red.bold("#{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}")} by #{author} not found.")
-                next
-              end
+          not_found_list = solutions[:not_found].sort.map { it.join(".") }.join(", ")
+          if solutions[:not_found].any?
+            puts "#{PASTEL.red("Not found")} from #{author} #{current_year}: #{PASTEL.red(not_found_list)}"
+          end
 
-              File.write(path, solutions.to_yaml(line_width: -1))
-
-              puts "Saved #{PASTEL.blue("#{current_year}##{current_day.to_s.rjust(2, "0")}-#{part}")} to #{path}"
+          if solutions[:new].any?
+            solutions[:new].each do |(day, part), content|
+              path = File.join(year_directory, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
+              File.write(path, content.to_yaml(line_width: -1))
             end
+
+            new_list = solutions[:new].keys.sort.map { it.join(".") }.join(", ")
+            puts "#{PASTEL.blue("Saved")} from #{author} #{current_year}: #{PASTEL.blue(new_list)}"
+            puts PASTEL.blue("Saved to #{year_directory}")
           end
         end
 

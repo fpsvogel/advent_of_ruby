@@ -1,0 +1,30 @@
+---
+- :name: day-05-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-05
+  :solution: |-
+    lines = []
+
+    input.split("\n").each do |line|
+      lines << line.split(/,| -> /).map(&:to_i)
+    end
+
+    size = lines.flatten.max + 1
+
+    grid = Array.new(size) { Array.new(size, 0) }
+
+    lines.each do |(x1, y1, x2, y2)|
+      y2, y1 = y1, y2 if y2 < y1
+      x2, x1 = x1, x2 if x2 < x1
+
+      if x1 == x2
+        (y1..y2).each do |y|
+          grid[y][x1] += 1
+        end
+      elsif y1 == y2
+        (x1..x2).each do |x|
+          grid[y1][x] += 1
+        end
+      end
+    end
+
+    puts grid.flatten.count { |x| x >= 2 }

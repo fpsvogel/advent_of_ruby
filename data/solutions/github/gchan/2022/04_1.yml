@@ -1,0 +1,11 @@
+---
+- :name: day-04-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2022/day-04
+  :solution: |-
+    puts input.each_line.count { |pair|
+      pair = pair.strip.split(',')
+        .map { |section| section.split('-').map(&:to_i) }
+        .map { |section| Range.new(*section) }
+
+      pair[0].cover?(pair[1]) || pair[1].cover?(pair[0])
+    }

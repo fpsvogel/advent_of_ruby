@@ -1,0 +1,26 @@
+---
+- :name: day-11-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-11
+  :solution: |-
+    stones = input.split.map(&:to_i)
+
+    blinks = 25
+
+    blinks.times {
+      stones = stones.flat_map {
+        if _1 == 0
+          1
+        elsif _1.to_s.chars.count.even?
+          digits = _1.to_s.chars
+          length = digits.size
+          [
+            digits[0..length/2 - 1].join.to_i,
+            digits[(length/2)..-1].join.to_i
+          ]
+        else
+          _1 * 2024
+        end
+      }
+    }
+
+    puts stones.count

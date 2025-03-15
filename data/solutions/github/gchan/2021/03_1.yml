@@ -1,0 +1,20 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-03
+  :solution: |-
+    numbers = input.split("\n")
+
+    gamma = numbers.map(&:chars).transpose.map do |bits|
+      count = bits.select.count { |bit| bit == "0" }
+
+      if count > bits.size / 2
+        "0"
+      else
+        "1"
+      end
+    end
+
+    gamma = gamma.join.to_i(2)
+    epsilon = gamma ^ (2**12 - 1)
+
+    puts gamma * epsilon

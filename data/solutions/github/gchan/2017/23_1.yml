@@ -1,0 +1,36 @@
+---
+- :name: day-23-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-23
+  :solution: |-
+    reg = Hash.new(0)
+
+    cmds = input.split("\n")
+    idx = 0
+    count = 0
+
+    until idx >= cmds.length
+      a, b, c = cmds[idx].split(" ")
+
+      if c =~ /\d/
+        c = c.to_i
+      else
+        c = reg[c]
+      end
+
+      case a
+      when 'set'
+        reg[b] = c
+      when 'sub'
+        reg[b] -= c
+      when 'mul'
+        reg[b] *= c
+        count += 1
+      when 'jnz'
+        b = b =~ /\d/ ? b.to_i : reg[b]
+        idx += (c - 1) if b != 0
+      end
+
+      idx += 1
+    end
+
+    puts count

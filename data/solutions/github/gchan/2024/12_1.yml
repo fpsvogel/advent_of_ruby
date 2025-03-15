@@ -1,0 +1,63 @@
+---
+- :name: day-12-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-12
+  :solution: |-
+    grid = input.split.map(&:chars)
+
+    height = grid.length
+    width = grid[0].length
+
+    visited = Set.new
+
+    groups = Hash.new { |h, k| h[k] = [] }
+
+    while visited.size < width * height
+      i = (width * height).times.find { |i|
+        x = i % width
+        y = i / width
+
+        !visited.include?([x, y])
+      }
+
+      x = i % width
+      y = i / width
+
+      visited.add([x, y])
+
+      plant = grid[y][x]
+      groups[plant] << Set.new([[x, y]])
+
+      queue = []
+      queue << [x, y]
+
+      while queue.any?
+        x, y = queue.shift
+
+        plant = grid[y][x]
+
+        [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]
+          .reject { _1 < 0 || _2 < 0 || _1 >= width || _2 >= height }
+          .select { plant == grid[_2][_1] }
+          .each {
+            next if visited.include?([_1, _2])
+
+            queue << [_1, _2]
+            visited.add([_1, _2])
+            groups[plant][-1].add([_1, _2])
+          }
+      end
+    end
+
+    groups.values.flatten
+      .map { |group|
+        fence = group
+          .map { |x, y|
+            [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]
+              .reject { group.include?(_1) }
+              .count
+          }
+          .sum
+
+        fence * group.count
+      }
+      .tap { puts _1.sum }

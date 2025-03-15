@@ -1,0 +1,7 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-03
+  :solution: |-
+    triangles = input.split("\n").map { |triangle| triangle.split.map(&:to_i).sort }
+
+    puts triangles.count { |sides| sides[0] + sides[1] > sides[2] }

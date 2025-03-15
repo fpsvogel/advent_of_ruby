@@ -1,0 +1,15 @@
+---
+- :name: day-05-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-05
+  :solution: |-
+    strings.reject! { |string| string =~ /ab|cd|pq|xy/ }
+
+    strings.reject! do |string|
+      string.chars.select { |char| %w(a e i o u).include?(char) }.count < 3
+    end
+
+    strings.select! do |string|
+      string.chars.each_cons(2).any? { |a, b| a == b }
+    end
+
+    puts strings.count

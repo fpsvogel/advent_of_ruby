@@ -1,0 +1,33 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-01
+  :solution: |-
+    dir = 0
+
+    x = 0
+    y = 0
+
+    input.gsub(",", "").split.each do |cmd|
+      if cmd[0] == "L"
+        dir -= 1
+      else # R
+        dir += 1
+      end
+
+      dir %= 4
+
+      blocks = cmd[1..-1].to_i
+
+      case dir
+      when 0
+        y += blocks
+      when 1
+        x += blocks
+      when 2
+        y -= blocks
+      when 3
+        x -= blocks
+      end
+    end
+
+    puts x.abs + y.abs

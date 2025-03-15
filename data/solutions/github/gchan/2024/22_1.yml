@@ -1,0 +1,17 @@
+---
+- :name: day-22-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-22
+  :solution: |-
+    input.split.map(&:to_i)
+      .sum {
+        s = _1
+
+        2000.times {
+          s = s.*(64).^(s).%(16777216)
+          s = s./(32).^(s).%(16777216)
+          s = s.*(2048).^(s).%(16777216)
+        }
+
+        s
+      }
+      .tap { p _1 }

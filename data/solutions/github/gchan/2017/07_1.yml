@@ -1,0 +1,17 @@
+---
+- :name: day-07-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-07
+  :solution: |-
+    programs = input.split("\n")
+
+    parents = []
+    children = []
+
+    programs.each do |disc|
+      next unless disc.include?("->")
+
+      parents << disc.split(" ").first
+      children += disc.split("->").last.gsub!(",", "").split(" ")
+    end
+
+    puts parents - children

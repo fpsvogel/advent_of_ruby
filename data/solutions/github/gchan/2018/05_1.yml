@@ -1,0 +1,20 @@
+---
+- :name: day-05-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-05
+  :solution: |-
+    loop do
+      prev_length = input.length
+
+      input.gsub!(/([A-z])\1+/i) do |match|
+        chr = match[0]
+        pattern = chr.downcase + chr.upcase
+
+        match
+          .gsub(pattern, "")
+          .gsub(pattern.reverse, "")
+      end
+
+      break if input.length == prev_length
+    end
+
+    puts input.length

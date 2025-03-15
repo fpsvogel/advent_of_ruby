@@ -1,0 +1,15 @@
+---
+- :name: day-15-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2023/day-15
+  :solution: |-
+    input
+      .strip
+      .split(",")
+      .sum {
+        _1.chars.inject(0) { |val, chr|
+          val += chr.ord
+          val *= 17
+          val %= 256
+        }
+      }
+      .tap { puts _1 }

@@ -1,0 +1,22 @@
+---
+- :name: day-10-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-10
+  :solution: |-
+    lengths = input.split(",").map(&:to_i)
+
+    size = 256
+    list = (0..(size - 1)).to_a
+
+    idx = 0
+    skip = 0
+
+    lengths.each do |length|
+      list.rotate!(idx)
+      list[0, length] = list[0, length].reverse
+      list.rotate!(-idx)
+
+      idx = (idx + length + skip) % size
+      skip += 1
+    end
+
+    puts list[0] * list[1]

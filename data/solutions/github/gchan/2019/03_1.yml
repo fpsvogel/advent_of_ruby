@@ -1,0 +1,40 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-03
+  :solution: |-
+    input     = File.read(file_path)
+
+    def walk(path)
+      visited = Set.new
+      x, y = 0, 0
+
+      path.split(",").each do |instr|
+        dir = instr[0]
+        steps = instr[1..].to_i
+
+        steps.times do
+          case dir
+          when "U"
+            y += 1
+          when "D"
+            y -= 1
+          when"L"
+            x -= 1
+          when "R"
+            x += 1
+          end
+
+          visited.add [x,y]
+        end
+      end
+
+      visited
+    end
+
+    path_one, path_two = input.split("\n")
+
+    intersection = walk(path_one) & walk(path_two)
+
+    puts intersection.
+      map { |x, y| x.abs + y.abs }.
+      min

@@ -1,0 +1,29 @@
+---
+- :name: day-11-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-11
+  :solution: |-
+    x = 0
+    y = 0
+
+    input.split(",").each do |dir|
+      case dir
+      when "ne"
+        x += 1
+      when "sw"
+        x -= 1
+      when "se"
+        x += 1
+        y += 1
+      when "nw"
+        x -= 1
+        y -= 1
+      when "s"
+        y += 1
+      when "n"
+        y -= 1
+      end
+    end
+
+    steps = 0
+
+    puts [x.abs, y.abs, (x - y).abs].max

@@ -1,0 +1,7 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2022/day-01
+  :solution: |-
+    puts input.split("\n\n")
+      .map{ |calories| calories.split.map(&:to_i).sum }
+      .max

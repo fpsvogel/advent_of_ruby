@@ -1,0 +1,21 @@
+---
+- :name: day-02-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-02
+  :solution: |-
+    twos = 0
+    threes = 0
+
+    input.split("\n").each do |row|
+      counts = Hash.new(0)
+
+      row.chars.each do |char|
+        counts[char] += 1
+      end
+
+      counts = counts.invert
+
+      twos += 1 if counts[2]
+      threes += 1 if counts[3]
+    end
+
+    puts twos * threes

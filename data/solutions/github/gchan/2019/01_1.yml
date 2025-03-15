@@ -1,0 +1,13 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-01
+  :solution: |-
+    fuel = 0
+
+    modules = input.split("\n").map(&:to_i)
+
+    modules.each do |mass|
+      fuel += mass / 3 - 2
+    end
+
+    puts fuel

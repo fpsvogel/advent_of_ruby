@@ -1,0 +1,28 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-03
+  :solution: |-
+    input     = File.read(file_path)
+
+    x = 0
+    y = 0
+
+    homes = Set.new
+    homes.add("#{x},#{y}")
+
+    input.chars.each do |direction|
+      case direction
+      when '>'
+        x += 1
+      when '<'
+        x -= 1
+      when '^'
+        y -= 1
+      when 'v'
+        y += 1
+      end
+
+      homes.add("#{x},#{y}")
+    end
+
+    puts homes.count

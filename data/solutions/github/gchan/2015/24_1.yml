@@ -1,0 +1,23 @@
+---
+- :name: day-24-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-24
+  :solution: |-
+    presents.map!(&:to_i)
+
+    groups = 3
+    target = presents.inject(:+) / groups
+    min_qe = nil
+
+    1.upto(presents.size / groups) do |group_size|
+      groups = presents.combination(group_size).
+        select { |group| group.inject(:+) == target }
+
+      groups.each do |group|
+        qe = group.inject(:*)
+        min_qe = [qe, min_qe].compact.min
+      end
+
+      break if min_qe
+    end
+
+    puts min_qe

@@ -1,0 +1,18 @@
+---
+- :name: day-02-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-02
+  :solution: |-
+    total = 0
+
+    presents.each do |present|
+      sides = present.split("x").map(&:to_i)
+
+      areas = sides.combination(2).map do |side_one, side_two|
+        side_one * side_two
+      end
+
+      total += areas.inject(:+) * 2
+      total += areas.min
+    end
+
+    puts total

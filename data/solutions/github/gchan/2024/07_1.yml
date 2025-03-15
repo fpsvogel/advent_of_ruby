@@ -1,0 +1,25 @@
+---
+- :name: day-07-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-07
+  :solution: |-
+    input.split(?\n)
+      .map(&:split)
+      .map { _1.map(&:to_i) }
+      .select { |target, *nums|
+        operators = nums.size - 1
+
+        (0..(2**operators - 1)).find {
+          ops = _1.to_s(2).rjust(operators, ?0).tr("01", "*+").chars
+
+          total = nums.first
+
+          nums[1..].each.with_index { |num, idx|
+            total = total.send(ops[idx], num)
+          }
+
+          total == target
+        }
+      }
+      .map { _1.first }
+      .sum
+      .tap { puts _1 }

@@ -1,0 +1,24 @@
+---
+- :name: day-14-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-14
+  :solution: |-
+    scores = [3, 7]
+
+    one = 0
+    two = 1
+
+    target = input.to_i
+
+    while scores.length < (target + 10) do
+      sum = scores[one] + scores[two]
+
+      scores.concat(sum.to_s.chars.map(&:to_i))
+
+      one += 1 + scores[one]
+      two += 1 + scores[two]
+
+      one %= scores.length
+      two %= scores.length
+    end
+
+    puts scores[-10..-1].join

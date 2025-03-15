@@ -15,67 +15,84 @@ module DownloadSolutions
       # @param author [String]
       # @param year [Integer]
       # @param day [Integer]
-      # @param part [Integer]
-      # @return [Array<Hash>, nil] nil if REPOS does not specify the given part.
-      def get_solutions(author:, year:, day:, part:)
-        return nil if day == 25 && part == 2
+      # @param max_day [Integer]
+      # @param force [Boolean]
+      # @param existing_solutions [Array<Array(Integer, Integer)>]
+      # @return [Array<Hash>, nil] nil if the year directory doesn't exist for the author.
+      def get_solutions(author:, year:, input_day: nil, max_day: 25, force: false, existing_solutions: [])
+        # return nil if day == 25 && part == 2
+        solutions = {new: {}, skipped: [], not_found: []}
 
-        part_path = (REPOS[author][:either_part] unless part == 1 && day != 25 && REPOS[author][:part_2]) ||
-          REPOS[author][:"part_#{part}"] ||
-          (REPOS[author][:part_2] if day == 25 && part == 1)
-        return nil unless part_path
+        year_directory = (REPOS[author][:year_directory] || "%<year>d") % {year:}
+        year_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}")
+        return nil if year_response.status == 404
+        year_files = JSON.parse(year_response.body)
 
-        if part_path[:exact_path]
-          exact_path = part_path[:exact_path] % {year:, day:, part:}
-          # Fall back to :part_2 exact path if :either_part exact path not found.
-          # This is for cases where there is a single file for both parts
-          # by an author who ordinarily has separate files for each part,
-          # e.g. https://github.com/gchan/advent-of-code-ruby/tree/main/2023/day-17
-          fallback_exact_path = REPOS.dig(author, :part_2, :exact_path) % {year:, day:} if REPOS.dig(author, :part_2, :exact_path)
-          response = get_response(author:, path: exact_path, fallback_path: fallback_exact_path)
+        (input_day || 1).upto(input_day || max_day) do |day|
+          if REPOS[author][:day_directory]
+            day_directory = REPOS[author][:day_directory] % {day:}
+            day_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}/#{day_directory}")
+            if day_response.status == 404
+              solutions[:not_found] << [day, 1]
+              solutions[:not_found] << [day, 2] unless day == 25
+              next
+            end
+            day_files = JSON.parse(day_response.body)
+          end
 
-          JSON.parse(response.body)
-            .then { simplify_response(it, author) }
-            .then { [it] }
-        else # :files (regex)
-          response = get_response(author:, path: year)
+          1.upto(2) do |part|
+            next if day == 25 && part == 2
 
-          files_regex = part_path[:files].call(year:, day:, part:)
-          JSON.parse(response.body)
-            .select {
-              # If :files regex is specified (rather than :exact_path), then the
-              # assumption is that :part_1 and/or :part_2 are specified, rather
-              # than :either_part.
-              part_1_path = REPOS[author][:part_1]
-              if part == 2 && part_1_path
-                part_1_files_regex = part_1_path[:files].call(year:, day:, part: 1)
-                it["name"].match?(files_regex) && !it["name"].match?(part_1_files_regex)
-              else
-                it["name"].match?(files_regex)
+            if !force && existing_solutions.include?([day, part])
+              solutions[:skipped] << [day, part]
+            else
+              solution = get_solution(author:, year:, day:, part:, year_files:, day_files:)
+
+              if solution && solution.empty?
+                solutions[:not_found] << [day, part]
+              elsif solution
+                solutions[:new][[day, part]] = solution
               end
-            }
-            .map { simplify_response(it, author) }
+            end
+          end
         end
-      rescue NotFoundResponseError
-        []
+
+        solutions
       end
 
       private
 
-      def get_response(author:, path:, fallback_path: nil)
-        response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{path}")
+      def get_solution(author:, year:, day:, part:, year_files:, day_files: nil)
+        exact_path = (REPOS[author][:"part_#{part}"] || REPOS[author][:both_parts]).is_a?(String)
 
-        if response.status == 404
-          if fallback_path
-            response = get_response(author:, path: fallback_path)
-          else
-            raise NotFoundResponseError
-          end
-        elsif response.status != 200
-          raise UnexpectedResponseError, "Unexpected HTTP status: #{it["status"]}. Response: #{response}"
+        if exact_path
+          (day_files || year_files)
+            .select {
+              if REPOS[author][:both_parts] && it["name"] == REPOS[author][:both_parts] % {year:, day:}
+                return nil if part == 1 # both_parts will be saved in part 2
+                true
+              elsif REPOS[author][:"part_#{part}"]
+                it["name"] == REPOS[author][:"part_#{part}"] % {year:, day:}
+              end
+            }
+            .map { simplify_response(it, author) }
+        else # regex-matched paths
+          (day_files || year_files)
+            .select {
+              if REPOS[author][:both_parts] && it["name"].match?(REPOS[author][:both_parts].call(day:))
+                return nil if part == 1 # both_parts will be saved in part 2
+                true
+              elsif REPOS[author][:part_1] && REPOS[author][:part_2]
+                if part == 2
+                  it["name"].match?(REPOS[author][:part_2].call(day:)) &&
+                    !it["name"].match?(REPOS[author][:part_1].call(day:))
+                else
+                  it["name"].match?(REPOS[author][:part_1].call(day:))
+                end
+              end
+            }
+            .map { simplify_response(it, author) }
         end
-
-        response
       end
 
       def simplify_response(response, author)

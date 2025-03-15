@@ -4,29 +4,23 @@ module DownloadSolutions
       REPOS = {
         "ahorner" => {
           repo: "advent-of-code",
-          part_2: {
-            exact_path: "lib/%<year>d/%<day>.2d.rb"
-          }
+          year_directory: "lib/%<year>d",
+          both_parts: "%<day>.2d.rb"
         },
         "eregon" => {
           repo: "adventofcode",
-          part_1: {
-            files: ->(year:, day:, part:) {
-              /\A#{day}(?:a.*)?\.rb\z/
-            }
+          part_1: ->(day:) {
+            /\A#{day}(?:a.*)?\.rb\z/
           },
-          part_2: {
-            files: ->(year:, day:, part:) {
-              /\A#{day}(?:b.*|\D*)\.rb\z/
-            }
+          part_2: ->(day:) {
+            /\A#{day}(?:b.*|\D*)\.rb\z/
           }
-
         },
         "erikw" => {
           repo: "advent-of-code-solutions",
-          either_part: {
-            exact_path: "%<year>d/%<day>.2d/part%<part>d.rb"
-          },
+          day_directory: "%<day>.2d",
+          part_1: "part1.rb",
+          part_2: "part2.rb",
           edits: ->(file_contents) {
             # Remove the first 3 lines (boilerplate).
             file_contents.lines[3..].join
@@ -34,12 +28,11 @@ module DownloadSolutions
         },
         "gchan" => {
           repo: "advent-of-code-ruby",
-          either_part: {
-            exact_path: "%<year>d/day-%<day>.2d/day-%<day>.2d-part-%<part>d.rb"
-          },
-          part_2: {
-            exact_path: "%<year>d/day-%<day>.2d/day-%<day>.2d-part-1-and-2.rb"
-          },
+          day_directory: "day-%<day>.2d",
+          part_1: "day-%<day>.2d-part-1.rb",
+          part_2: "day-%<day>.2d-part-2.rb",
+          # rarely, e.g. https://github.com/gchan/advent-of-code-ruby/tree/main/2023/day-17
+          both_parts: "day-%<day>.2d-part-1-and-2.rb",
           edits: ->(file_contents) {
             # Remove the first 5 lines (boilerplate).
             file_contents.lines[5..].join
@@ -47,10 +40,8 @@ module DownloadSolutions
         },
         "ZogStriP" => {
           repo: "adventofcode-old",
-          part_2: {
-            files: ->(year:, day:, part:) {
-              /\A#{day.to_s.rjust(2, "0")}_.+\.rb\z/
-            }
+          both_parts: ->(day:) {
+            /\A#{day.to_s.rjust(2, "0")}_.+\.rb\z/
           },
           edits: ->(file_contents) {
             # Remove input at the end of the file.

@@ -1,0 +1,17 @@
+---
+- :name: day-08-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-08
+  :solution: |-
+    height = 6
+    width = 25
+
+    area = height * width
+
+    layers = input.chars.map(&:to_i).each_slice(area)
+
+    layer = layers.min_by do |layer|
+      layer.count { |pixel| pixel.zero? }
+    end
+
+    puts layer.count { |pixel| pixel == 1 } *
+      layer.count { |pixel| pixel == 2 }

@@ -1,0 +1,36 @@
+---
+- :name: day-10-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-10
+  :solution: |-
+    CHARS = {
+      '(' => ')',
+      '{' => '}',
+      '[' => ']',
+      '<' => '>'
+    }
+
+    POINTS = {
+      ')' => 3,
+      ']' => 57,
+      '}' => 1197,
+      '>' => 25137
+    }
+
+    points = 0
+
+    input.split("\n").map do |line|
+      expectations = []
+
+      line.chars.each do |char|
+        if CHARS.include?(char)
+          expectations << CHARS[char]
+        elsif expectations.last == char
+          expectations.pop
+        else
+          points += POINTS[char]
+          break
+        end
+      end
+    end
+
+    puts points

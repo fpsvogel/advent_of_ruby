@@ -1,0 +1,17 @@
+---
+- :name: day-15-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-15
+  :solution: |-
+    a, b = input.scan(/\d+$/).map(&:to_i)
+
+    count = 0
+    mask = 2 ** 16 - 1
+
+    40_000_000.times do
+      a = (a * 16807) % 2147483647
+      b = (b * 48271) % 2147483647
+
+      count += 1 if (a ^ b) & mask == 0
+    end
+
+    puts count

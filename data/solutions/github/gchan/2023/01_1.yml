@@ -1,0 +1,8 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2023/day-01
+  :solution: |-
+    input
+      .split("\n")
+      .sum { _1.scan(/\d/).values_at(0, -1).join.to_i }
+      .tap { puts _1 }

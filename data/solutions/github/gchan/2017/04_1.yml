@@ -1,0 +1,7 @@
+---
+- :name: day-04-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-04
+  :solution: |-
+    puts input.split("\n").count { |pw|
+      pw.split(" ").uniq.length == pw.split(" ").length
+    }

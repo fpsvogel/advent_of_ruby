@@ -1,0 +1,10 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-01
+  :solution: |-
+    up   = input.scan(/\(/).count
+    down = input.scan(/\)/).count
+
+    floor = up - down
+
+    puts floor

@@ -1,0 +1,17 @@
+---
+- :name: day-07-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-07
+  :solution: |-
+    positions = input.split(",").map(&:to_i)
+
+    min, max = positions.minmax
+
+    fuel_totals = Array.new(max + 1, 0)
+
+    positions.each do |pos|
+      (min..max).each do |x|
+        fuel_totals[x] += (pos - x).abs
+      end
+    end
+
+    puts fuel_totals.min

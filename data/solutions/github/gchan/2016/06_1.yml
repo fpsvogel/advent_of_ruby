@@ -1,0 +1,19 @@
+---
+- :name: day-06-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-06
+  :solution: |-
+    lines = input.split("\n")
+
+    message = Array.new(lines.first.length) {
+      Hash.new { |h, k| h[k] = 0 }
+    }
+
+    lines.each do |line|
+      line.chars.each.with_index do |char, index|
+        message[index][char] += 1
+      end
+    end
+
+    puts message.map { |chars|
+      chars.sort_by { |char, count| count }.last.first
+    }.join

@@ -1,0 +1,19 @@
+---
+- :name: day-04-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2023/day-04
+  :solution: |-
+    input.each_line.sum {
+      _, winners, numbers = _1.split(/[:|]/)
+
+      winners = winners.scan(/\d+/)
+      numbers = numbers.scan(/\d+/)
+
+      matches = (winners & numbers).count
+
+      if matches > 0
+        2**(matches - 1)
+      else
+        0
+      end
+    }
+    .tap { puts _1 }

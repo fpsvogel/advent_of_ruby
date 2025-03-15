@@ -1,0 +1,7 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-01
+  :solution: |-
+    depths = input.split("\n").map(&:to_i)
+
+    puts depths.each_cons(2).count { |a, b| b > a }

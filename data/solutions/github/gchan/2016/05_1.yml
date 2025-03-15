@@ -1,0 +1,19 @@
+---
+- :name: day-05-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-05
+  :solution: |-
+    input     = File.read(file_path)
+
+    i = 0
+
+    pw = []
+
+    while pw.length < 8 do
+      digest = Digest::MD5.hexdigest(input + i.to_s)
+
+      pw << digest[5] if digest.start_with?("00000")
+
+      i += 1
+    end
+
+    puts pw.join

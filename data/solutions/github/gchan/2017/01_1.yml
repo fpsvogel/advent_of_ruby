@@ -1,0 +1,13 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-01
+  :solution: |-
+    digits = input.chars
+
+    digits << digits.first
+
+    puts digits.each_cons(2).to_a
+      .select { |a, b| a == b }
+      .map(&:first)
+      .map(&:to_i)
+      .inject(:+)

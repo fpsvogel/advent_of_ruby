@@ -1,0 +1,22 @@
+---
+- :name: day-06-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-06
+  :solution: |-
+    orbits = {}
+
+    input.split("\n").each do |orbit|
+      a, b = orbit.split(")")
+
+      orbits[b] = a
+    end
+
+    count = 0
+
+    orbits.each do |obj, _|
+      while orbits[obj]
+        obj = orbits[obj]
+        count += 1
+      end
+    end
+
+    puts count

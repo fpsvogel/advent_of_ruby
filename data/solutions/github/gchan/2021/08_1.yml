@@ -1,0 +1,8 @@
+---
+- :name: day-08-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2021/day-08
+  :solution: |-
+    puts input.split("\n")
+      .map { |line| line.split("|").last }
+      .flat_map(&:split)
+      .count { |x| [2, 3, 4, 7].include?(x.length) }

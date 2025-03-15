@@ -1,0 +1,15 @@
+---
+- :name: day-17-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-17
+  :solution: |-
+    steps = input.to_i
+
+    buffer = [0]
+    pos = 0
+
+    2017.times do |i|
+      pos = (pos + steps) % buffer.size + 1
+      buffer.insert(pos, i + 1)
+    end
+
+    puts buffer[pos + 1]

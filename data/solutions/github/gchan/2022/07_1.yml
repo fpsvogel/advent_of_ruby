@@ -1,0 +1,26 @@
+---
+- :name: day-07-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2022/day-07
+  :solution: |-
+    directories = Hash.new { |h, k| h[k] = [] }
+
+    current_dir = []
+
+    input.each_line do |line|
+      case line.split
+      in [/\d+/ => size, _file]
+        directories[current_dir.clone] << size.to_i
+      in ["dir", /\w+/ => dir]
+        new_dir = current_dir.clone.append(dir)
+        directories[current_dir.clone] << directories[new_dir]
+      in ["$", "cd", ".."]
+        current_dir.pop
+      in ["$", "cd", /.+/ => dir]
+        current_dir << dir
+      else # ls
+      end
+    end
+
+    puts directories.map { |_k, v| v.flatten.sum }
+      .select { |size| size <= 100_000 }
+      .sum

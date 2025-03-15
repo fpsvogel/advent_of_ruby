@@ -1,0 +1,4 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-01
+  :solution: puts input.split("\n").map(&:to_i).inject(:+)
