@@ -1,0 +1,24 @@
+---
+- :name: 21_allergen_assessment.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    require "set"
+
+    foods = DATA.read.split(?\n).map { |line|
+      line =~ /(.+) \(contains (.+)\)/
+      [$1.split, $2.split(", ")].map(&:to_set)
+    }
+
+    ingredients = foods.map(&:first).reduce(:|)
+    allergens   = foods.map(&:last).reduce(:|)
+    unsafe      = allergens.to_h { |a| [a, foods.select { _1[1] === a }.map(&:first).reduce(:&)] }
+    safe        = ingredients - unsafe.values.reduce(:|)
+
+    p foods.sum { (_1[0] & safe).size }
+
+    while unsafe.any? { _2.size > 1 }
+      known = unsafe.values.select { _1.size == 1 }.reduce(:|)
+      unsafe.transform_values! { _1.size > 1 ? _1 - known : _1 }
+    end
+
+    puts unsafe.sort_by(&:first).map { _2.first }.join(?,)

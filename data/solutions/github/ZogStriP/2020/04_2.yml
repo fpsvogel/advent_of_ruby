@@ -1,0 +1,20 @@
+---
+- :name: 04_passport_processing.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    passports = DATA.read.split(/\n\n/).map { |t| t.scan(/(\w+):(\S+)/).to_h }
+
+    KEYS = %w{byr iyr eyr hgt hcl ecl pid}
+
+    p passports.count { |p| (KEYS & p.keys).size == KEYS.size }
+
+    p passports.count { |p|
+      (KEYS & p.keys).size == KEYS.size &&
+      (1920..2002) === p["byr"][/^\d{4}$/].to_i &&
+      (2010..2020) === p["iyr"][/^\d{4}$/].to_i &&
+      (2020..2030) === p["eyr"][/^\d{4}$/].to_i &&
+      (h, u = p["hgt"].scan(/^(\d+)(cm|in)$/)[0]) && u && (u["cm"] ? (150..193) : (59..76)) === h.to_i &&
+      p["hcl"][/^#\h{6}$/] &&
+      p["ecl"][/^(amb|blu|brn|gry|grn|hzl|oth)$/] &&
+      p["pid"][/^\d{9}$/]
+    }

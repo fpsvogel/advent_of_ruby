@@ -1,0 +1,11 @@
+---
+- :name: 10_adapter_array.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    adapters = DATA.readlines.map(&:to_i).sort
+
+    p adapters.each_cons(2).map { |a, b| b - a }.tally.values.map(&:succ).reduce(:*)
+
+    ways = [1]
+    adapters.each { |a| ways[a] = (1..[a, 3].min).sum { |x| ways[a - x].to_i } }
+    p ways[-1]

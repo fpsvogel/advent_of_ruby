@@ -1,0 +1,12 @@
+---
+- :name: 18_operation_order.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    class Integer
+      alias :/ :+
+      alias :- :*
+    end
+
+    lines = DATA.read.split(?\n)
+    p lines.sum { |l| eval l.tr(?+, ?/) }
+    p lines.sum { |l| eval l.tr('+*', '/-') }

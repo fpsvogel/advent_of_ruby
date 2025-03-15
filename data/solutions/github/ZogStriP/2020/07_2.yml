@@ -1,0 +1,18 @@
+---
+- :name: 07_handy_haversacks.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    bags = Hash.new { |h, k| h[k] = [] }
+
+    DATA.readlines.each { |l|
+      container, contents = l.split(" bags contain ")
+      contents.scan(/(\d+) (\w+ \w+) bag/) { |n, content| bags[container] << [n.to_i, content] }
+    }
+
+    s = {}
+    search = -> (bag) { s[bag] ||= bags[bag].any? { |_, b| b["shiny gold"] || search[b] == :t } ? :t : :f }
+    p bags.keys.count { |bag| search[bag] == :t }
+
+    w = {}
+    weight = -> (bag) { w[bag] ||= bags[bag].sum { |n, b| n * (1 + weight[b]) } }
+    p weight["shiny gold"]

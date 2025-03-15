@@ -1,0 +1,40 @@
+---
+- :name: '08_handheld_halting.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    require "set"
+
+    program = DATA.each_line.map { |l| [l[0..2], l[4..].to_i] }
+
+    def run(code)
+      ip  = 0
+      acc = 0
+      ran = Set.new
+
+      while (op, arg = code[ip])
+        return [:loop, acc] if !ran.add?(ip)
+
+        case op
+        when "acc"
+          acc += arg
+          ip += 1
+        when "jmp"
+          ip += arg
+        when "nop"
+          ip += 1
+        end
+      end
+
+      [:done, acc]
+    end
+
+    p run(program)[1]
+
+    p program.each_with_index { |(op, arg), i|
+      next if op["acc"]
+
+      code = program[0...i] + [[op["nop"] ? "jmp" : "nop", arg]] + program[i + 1..-1]
+
+      result, acc = run(code)
+      break acc if result == :done
+    }

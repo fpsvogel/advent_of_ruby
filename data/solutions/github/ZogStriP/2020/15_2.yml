@@ -1,0 +1,18 @@
+---
+- :name: 15_rambunctious_recitation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    last  = 0
+    turns = []
+
+    init = DATA.read.split(?,).map(&:to_i)
+    init.each.with_index(1) { |n, i| turns[n] = i }
+
+    (init.size + 1...30000000).each { |t|
+      p last if t == 2020
+      tt = turns[last]
+      turns[last] = t
+      last = t - (tt || t)
+    }
+
+    p last

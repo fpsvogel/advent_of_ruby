@@ -1,0 +1,20 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/06
+  :solution: |-
+    require 'set'
+
+    group = nil
+    total = 0
+    ARGF.each_line.map(&:chomp).each do |answer|
+      if answer.empty?
+        total += group.count
+        group = nil
+      else
+        chars = Set.new(answer.chars)
+        group = group.nil? ? chars : group & chars
+      end
+    end
+    total += group.count
+
+    puts total

@@ -1,0 +1,13 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/24
+  :solution: |-
+    require_relative 'lib'
+
+    tiles = Hash.new(TILE_WHITE) # [cube_coord] -> tile_color
+    ARGF.each_line do |line|
+      coord = track_path(tiles, parse_directions(line.chomp))
+      tiles[coord] = !tiles[coord]
+    end
+
+    puts tiles.values.count { |v| v == TILE_BLACK }

@@ -1,0 +1,39 @@
+---
+- :name: 12_rain_risk.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    instructions = DATA.readlines.map { |l| [l[0], l[1..].to_i] }
+
+     x,  y = 0, 0
+    dx, dy = 1, 0 # EAST
+
+    instructions.each { |action, value|
+      case action
+      when "N" then y += value
+      when "S" then y -= value
+      when "E" then x += value
+      when "W" then x -= value
+      when "L" then (value / 90).times { dx, dy = -dy, dx }
+      when "R" then (value / 90).times { dx, dy = dy, -dx }
+      when "F" then x += dx * value; y += dy * value
+      end
+    }
+
+    p x.abs + y.abs
+
+     x,  y =  0, 0
+    dx, dy = 10, 1
+
+    instructions.each { |action, value|
+      case action
+      when "N" then dy += value
+      when "S" then dy -= value
+      when "E" then dx += value
+      when "W" then dx -= value
+      when "L" then (value / 90).times { dx, dy = -dy, dx }
+      when "R" then (value / 90).times { dx, dy = dy, -dx }
+      when "F" then x += dx * value; y += dy * value
+      end
+    }
+
+    p x.abs + y.abs

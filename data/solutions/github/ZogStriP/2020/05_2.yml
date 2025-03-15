@@ -1,0 +1,8 @@
+---
+- :name: 05_binary_boarding.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    ids = DATA.readlines.map { |l| l.tr("FLBR", "0011").to_i(2) }
+
+    min, max = ids.minmax
+    p max, *[*min..max] - ids

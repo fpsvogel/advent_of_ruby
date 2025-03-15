@@ -1,0 +1,28 @@
+---
+- :name: 19_monster_messages.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    rules, messages = DATA.read.split("\n\n").map { _1.split(?\n) }
+
+    rules = rules.to_h { |line|
+      id, rule = line.split(": ")
+      content = rule[?"] ? rule[1] : rule.split(" | ").map { _1.split.map(&:to_i) }
+      [id.to_i, content]
+    }
+
+    _rule = {}
+
+    rule = -> (id) {
+      _rule[id] ||= String === rules[id] ? rules[id] : "(?:#{rules[id].map { _1.map { |r| rule[r] }.join }.join(?|) })"
+    }
+
+    rule_0 = /^#{rule[0]}$/
+    p messages.count { _1[rule_0] }
+
+    _rule = {
+       8 => "(?:#{rule[42]})+",
+      11 => "(#{rule[42]}(?:\\g<1>)*#{rule[31]})",
+    }
+
+    rule_0 = /^#{rule[0]}$/
+    p messages.count { _1[rule_0] }

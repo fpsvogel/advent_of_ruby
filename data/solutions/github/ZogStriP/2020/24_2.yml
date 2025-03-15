@@ -1,0 +1,44 @@
+---
+- :name: 24_lobby_layout.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    tiles = {}
+
+    DATA.each_line { |l|
+      x, y = 0, 0
+
+      l.scan(/[ns]?[ew]/) { |d|
+        case d
+        when  "e"; x += 1
+        when "se"; y += 1
+        when "sw"; x -= 1; y += 1
+        when  "w"; x -= 1
+        when "nw"; y -= 1
+        when "ne"; x += 1; y -= 1
+        end
+      }
+
+      tiles[[x, y]] = !tiles[[x, y]]
+    }
+
+    blacks = tiles.filter_map { |pos, black| pos if black }
+
+    p blacks.size
+
+    100.times {
+      count = Hash.new(0)
+
+      blacks.each { |x, y|
+        count[[x, y]] += 1
+        count[[x + 1, y]] += 2
+        count[[x - 1, y]] += 2
+        count[[x, y + 1]] += 2
+        count[[x, y - 1]] += 2
+        count[[x + 1, y - 1]] += 2
+        count[[x - 1, y + 1]] += 2
+      }
+
+      blacks = count.filter_map { |pos, n| pos if (3..5) === n }
+    }
+
+    p blacks.size

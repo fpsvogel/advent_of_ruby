@@ -1,0 +1,16 @@
+---
+- :name: '09_encoding_error.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    numbers = DATA.readlines.map(&:to_i)
+
+    p key = numbers.each_cons(26).find { |*n, c| n.none? { |k| n.include?(c - k) }}[-1]
+
+    l, r = 0, 2
+
+    p loop {
+      sum = numbers[l..r].sum
+      break numbers[l..r].minmax.sum if sum == key
+      r += 1 if sum < key
+      l += 1 if sum > key
+    }

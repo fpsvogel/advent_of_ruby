@@ -1,0 +1,18 @@
+---
+- :name: 13_shuttle_search.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    min   = DATA.readline.to_i
+    buses = DATA.readline.split(?,).map.with_index { |b, i| b[?x] ? nil : [b.to_i, i] }.compact
+
+    p buses.map { |b, _| [-min % b, b] }.min_by(&:first).reduce(:*)
+
+    step = 1
+    timestamp = 100000000000000
+
+    buses.each { |b, i|
+      timestamp += step until (timestamp + i) % b == 0
+      step *= b
+    }
+
+    p timestamp

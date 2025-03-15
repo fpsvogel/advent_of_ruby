@@ -1,0 +1,142 @@
+---
+- :name: 20_jurassic_jigsaw.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    def top(tile)
+      tile[0]
+    end
+
+    def bottom(tile)
+      tile[-1]
+    end
+
+    def left(tile)
+      tile.map { _1[0] }.join
+    end
+
+    def right(tile)
+      tile.map { _1[-1] }.join
+    end
+
+    def borders(tile)
+      [
+        top(tile),
+        bottom(tile),
+        left(tile),
+        right(tile),
+      ]
+    end
+
+    def all_borders(tile)
+      b = borders(tile)
+      b + b.map(&:reverse)
+    end
+
+    def borderless(tile)
+      tile[1...-1].map { _1[1...-1] }
+    end
+
+    def rotate(tile)
+      transpose(tile).reverse
+    end
+
+    def flip_v(tile)
+      tile.reverse
+    end
+
+    def flip_h(tile)
+      tile.map(&:reverse)
+    end
+
+    def transpose(tile)
+      tile.map(&:chars).transpose.map(&:join)
+    end
+
+    def transformations(tile)
+      [
+        tile,
+        flip_v(tile),
+        flip_h(tile),
+        flip_h(flip_v(tile)),
+        transpose(tile),
+        transpose(flip_v(tile)),
+        transpose(flip_h(tile)),
+        transpose(flip_h(flip_v(tile))),
+      ]
+    end
+
+    @tiles = DATA.read.split("\n\n").to_h { |lines|
+      id, *tile = lines.split(?\n)
+      [id[/\d+/].to_i, tile]
+    }
+
+    @borders_match = Hash.new { |h, k| h[k] = [] }
+
+    @tiles.each { |id, tile|
+      all_borders(tile).each { |border|
+        @borders_match[border] << id
+      }
+    }
+
+    corners = @tiles.select { |_, tile| borders(tile).sum { @borders_match[_1].size - 1 } == 2 }
+    p corners.keys.reduce(:*)
+
+    top_left_id   = corners.keys[0]
+    top_left_tile = @tiles[top_left_id]
+    top_left_tile = rotate(top_left_tile) until @borders_match[left(top_left_tile)].size == 1 && @borders_match[top(top_left_tile)].size == 1
+
+    N = Integer.sqrt(@tiles.size)
+
+    grid = Array.new(N) { Array.new(N) }
+    grid[0][0] = [top_left_id, top_left_tile]
+
+    def match(id, border, other_border)
+      m_id   = @borders_match[border].find { _1 != id }
+      m_tile = transformations(@tiles[m_id]).find { border == send(other_border, _1) }
+      [m_id, m_tile]
+    end
+
+    N.times { |r|
+      if r > 0
+        top_id, top_tile = grid[r - 1][0]
+        grid[r][0] = match(top_id, bottom(top_tile), :top)
+      end
+
+      (1...N).each { |c|
+        left_id, left_tile = grid[r][c - 1]
+        grid[r][c] = match(left_id, right(left_tile), :left)
+      }
+    }
+
+    img = grid.flat_map { |r| r.map { borderless(_2) }.transpose.map(&:join) }
+
+    MONSTER = [
+      [0, 18],
+      [1, 0],
+      [1, 5],
+      [1, 6],
+      [1, 11],
+      [1, 12],
+      [1, 17],
+      [1, 18],
+      [1, 19],
+      [2, 1],
+      [2, 4],
+      [2, 7],
+      [2, 10],
+      [2, 13],
+      [2, 16],
+    ]
+
+    Y = img.size - MONSTER.map(&:first).max
+    X = img[0].size - MONSTER.map(&:last).max
+
+    p transformations(img).each { |img|
+      monsters = Y.times.sum { |y|
+        X.times.count { |x|
+          MONSTER.all? { |yy, xx| img[y + yy][x + xx][?#] }
+        }
+      }
+
+      break img.join.count(?#) - MONSTER.size * monsters if monsters > 0
+    }

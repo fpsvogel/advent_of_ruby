@@ -1,0 +1,71 @@
+---
+- :name: 11_seating_system.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    DIRS = [-1, 0, 1].product([-1, 0, 1]) - [[0, 0]]
+
+    grid = DATA.read.split
+    ymax = grid.size
+    xmax = grid[0].size
+    grid = grid.join.chars
+
+    adjacents = grid.size.times.map { |s|
+      next if grid[s] == ?.
+
+      y, x = s.divmod(xmax)
+
+      DIRS.filter_map { |dx, dy|
+        xx, yy = x + dx, y + dy
+        n = yy * xmax + xx
+        next if xx < 0 || xx >= xmax || yy < 0 || yy >= ymax
+        n if grid[n] == ?L
+      }
+    }
+
+    visibles = grid.size.times.map { |s|
+      next if grid[s] == ?.
+
+      y, x = s.divmod(xmax)
+
+      DIRS.filter_map { |dx, dy|
+        1.step { |m|
+          xx, yy = x + dx * m, y + dy * m
+          n = yy * xmax + xx
+          break if xx < 0 || xx >= xmax || yy < 0 || yy >= ymax
+          break n if grid[n] == ?L
+        }
+      }
+    }
+
+    def run(grid, neighbors, threshold:)
+      occupied = {}
+      seats = grid.size.times.select { |s| grid[s] != ?. }
+
+      loop {
+        same = true
+        counts = [0] * grid.size
+
+        occupied.each_key { |s|
+          neighbors[s].each { |n|
+            counts[n] += 1
+          }
+        }
+
+        seats.each { |s|
+          if grid[s] == ?L && counts[s] == 0
+            same = false
+            occupied[s] = true
+            grid[s] = ?#
+          elsif grid[s] == ?# && counts[s] >= threshold
+            same = false
+            occupied.delete(s)
+            grid[s] = ?L
+          end
+        }
+
+        return occupied.size if same
+      }
+    end
+
+    p run(grid.dup, adjacents, threshold: 4)
+    p run(grid.dup, visibles, threshold: 5)

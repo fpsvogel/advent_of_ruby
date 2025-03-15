@@ -1,0 +1,13 @@
+---
+- :name: 18b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    using Module.new {
+      refine(defined?(Fixnum) ? Fixnum : Integer) do
+        alias_method :**, :+
+      end
+    }
+
+    p File.readlines('18.txt', chomp: true).sum { |line|
+      eval(line.gsub('+', '**'))
+    }

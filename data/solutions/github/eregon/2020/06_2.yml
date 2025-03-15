@@ -1,0 +1,8 @@
+---
+- :name: 6b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    p File.read('6.txt').split(/\n{2,}/).sum { |group|
+      persons = group.lines.size
+      group.gsub("\n", "").chars.tally.count { |q,c| c == persons }
+    }

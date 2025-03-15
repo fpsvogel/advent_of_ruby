@@ -1,0 +1,8 @@
+---
+- :name: 06_custom_customs.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    forms = DATA.read.split("\n\n").map { |l| l.split.map(&:chars) }
+
+    p forms.sum { |f| f.reduce(:|).size }
+    p forms.sum { |f| f.reduce(:&).size }

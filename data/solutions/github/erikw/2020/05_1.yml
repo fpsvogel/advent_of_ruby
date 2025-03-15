@@ -1,0 +1,7 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/05
+  :solution: |-
+    require_relative 'lib'
+
+    puts ARGF.each_line.map { |l| seat_id(*calc_row_col(l.chomp)) }.max
