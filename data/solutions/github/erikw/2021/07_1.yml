@@ -1,0 +1,9 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2021/07
+  :solution: |-
+    require_relative 'array'
+
+    positions = gets.split(',').map(&:to_i)
+    median = positions.median
+    puts positions.map { |pos| (pos - median).abs }.sum.to_i

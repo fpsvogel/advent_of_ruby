@@ -1,0 +1,29 @@
+---
+- :name: day-03-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-03
+  :solution: |-
+    regex = /
+      (
+        mul\(
+          (\d+),
+          (\d+)
+        \)
+      |
+        do[n't]*\(\)
+      )
+    /x
+
+    sum = 0
+    enabled = true
+
+    input.scan(regex).each do |instruction, a, b|
+      if instruction == "do()"
+        enabled = true
+      elsif instruction == "don't()"
+        enabled = false
+      end
+
+      sum += a.to_i * b.to_i if enabled
+    end
+
+    puts sum

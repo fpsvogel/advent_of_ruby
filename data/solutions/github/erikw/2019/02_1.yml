@@ -1,0 +1,10 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2019/02
+  :solution: |-
+    require_relative 'computer'
+
+    intcode = ARGF.readline.split(',').map(&:to_i)
+    intcode[IP_NOUN] = 12
+    intcode[IP_VERB] = 2
+    puts Computer.new.execute(intcode).memory[0]

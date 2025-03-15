@@ -1,0 +1,26 @@
+---
+- :name: '08_treetop_tree_house.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    trees = DATA.map { _1.chop.chars }
+
+    height = trees.size
+    width = trees[0].size
+
+    p height.times.sum { |y|
+      width.times.count { |x|
+        (x-1).downto(0).all? { trees[y][_1] < trees[y][x] } ||
+        (x+1...width).all? { trees[y][_1] < trees[y][x] } ||
+        (y-1).downto(0).all? { trees[_1][x] < trees[y][x] } ||
+        (y+1...height).all? { trees[_1][x] < trees[y][x] }
+      }
+    }
+
+    p height.times.map { |y|
+      width.times.map { |x|
+        ((x-1).downto(0).find_index { trees[y][_1] >= trees[y][x] }&.succ || x) *
+        ((x+1...width).find_index { trees[y][_1] >= trees[y][x] }&.succ || (width - x - 1)) *
+        ((y-1).downto(0).find_index { trees[_1][x] >= trees[y][x] }&.succ || y) *
+        ((y+1...height).find_index { trees[_1][x] >= trees[y][x] }&.succ || (height - y - 1))
+      }.max
+    }.max

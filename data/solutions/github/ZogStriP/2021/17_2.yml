@@ -1,0 +1,4 @@
+---
+- :name: 17_trick_shot.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: "X, Y = DATA.read.scan(/-?\\d+\\.\\.-?\\d+/).map { eval _1 }\n\nfire = -> dx, dy {\n    \U0001F4A5, x, y, ymax = false, 0, 0, 0\n\n    loop {\n      x += dx; dx -= 1 if dx > 0\n      y += dy; dy -= 1\n      ymax = [ymax, y].max\n      break \U0001F4A5 = true if X === x && Y === y\n      break if y <= Y.min\n    }\n\n    [\U0001F4A5, ymax]\n}\n\nhits = [*(1..X.max)].product([*(Y.min..-Y.min)]).map { fire[_1, _2] }.filter &:first\n\np hits.map(&:last).max, hits.size"

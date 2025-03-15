@@ -1,0 +1,22 @@
+---
+- :name: 24_it_hangs_in_the_balance.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    weights = DATA.map &:to_i
+
+    groups = 3 # 4 for part 2
+    sum = weights.sum / groups
+
+    quantum = -> w, g {
+      (1..w.size).each { |s|
+        w.combination(s).each { |c|
+          if c.sum == sum
+            return true if g == 2
+            return quantum[w - c, g - 1] if g < groups
+            return c.reduce(:*) if quantum[w - c, g - 1]
+          end
+        }
+      }
+    }
+
+    p quantum[weights, groups]

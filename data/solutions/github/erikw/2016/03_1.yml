@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2016/03
+  :solution: |-
+    valid = ARGF.each_line.map { |l| l.split.map(&:to_i) }.count do |a, b, c|
+      a + b > c && a + c > b && b + c > a
+    end
+    puts valid

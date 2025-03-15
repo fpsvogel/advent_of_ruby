@@ -1,0 +1,21 @@
+---
+- :name: 12_subterranean_sustainability.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    rules = DATA.each_line.map { |l| [l[0, 5].chars, l[9]] }.to_h
+
+    index = 0
+    empty = "....".chars
+    state = "###.#..#..##.##.###.#.....#.#.###.#.####....#.##..#.#.#..#....##..#.##...#.###.#.#..#..####.#.##.#".chars
+
+    sums = []
+
+    loop {
+      state = (empty + state + empty).each_cons(5).map(&rules)
+      index -= 2
+      sums << state.zip(index.step).sum { |c, i| c["#"] ? i : 0 }
+      break if sums.size > 2 && sums[-3..-1].each_cons(2).map { |a, b| a - b }.uniq.size == 1
+    }
+
+    p sums[19]
+    p (50_000_000_000 - sums.size) * (sums[-1] - sums[-2]) + sums[-1]

@@ -1,0 +1,10 @@
+---
+- :name: day-02-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-02
+  :solution: |-
+    puts input.split("\n")
+      .map { |row| row.split(" ").map(&:to_i).sort }
+      .map { |row| row.combination(2) }
+      .map { |row| row.find { |a, b| b % a == 0 } }
+      .map { |a, b| b / a }
+      .inject(:+)

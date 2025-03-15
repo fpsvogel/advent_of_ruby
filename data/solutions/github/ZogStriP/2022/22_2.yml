@@ -1,0 +1,84 @@
+---
+- :name: 22_monkey_map.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    DIRS = [[0, 1], [1, 0], [0, -1], [-1, 0]] # [r, c]
+
+    RIGHT = 0
+    DOWN = 1
+    LEFT = 2
+    UP = 3
+
+    map, code = DATA.read.split("\n\n")
+
+    map = map.split("\n").map { _1.ljust(150) }
+
+    c = map[0].index ?.
+
+    walk = -> r, c, d, fold {
+      code.scan(/\d+|[LR]/).each {
+        case _1
+        when ?L; d = (d - 1) % DIRS.size
+        when ?R; d = (d + 1) % DIRS.size
+        else
+          _1.to_i.times {
+            nd = d
+            if fold
+              nr, nc = r + DIRS[d][0], c + DIRS[d][1]
+              case d
+              when RIGHT
+                if nc == 150 && (0..49) === nr
+                  nr, nc, nd = 149 - nr, 99, LEFT
+                elsif nc == 100 && (50..99) === nr
+                  nr, nc, nd = 49, nr + 50, UP
+                elsif nc == 100 && (100..149) === nr
+                  nr, nc, nd = 149 - nr, 149, LEFT
+                elsif nc == 50 && (150..199) === nr
+                  nr, nc, nd = 149, nr - 100, UP
+                end
+              when DOWN
+                if nr == 50 && (100..149) === nc
+                  nr, nc, nd = nc - 50, 99, LEFT
+                elsif nr == 150 && (50..99) === nc
+                  nr, nc, nd = nc + 100, 49, LEFT
+                elsif nr == 200 && (0..49) === nc
+                  nr, nc = 0, nc + 100
+                end
+              when LEFT
+                if nc < 50 && (0..49) === nr
+                  nr, nc, nd = 149 - nr, 0 , RIGHT
+                elsif nc < 50 && (50..99) === nr
+                  nr, nc, nd = 100, nr - 50, DOWN
+                elsif nc < 0 && (100..149) === nr
+                  nr, nc, nd = 149 - nr, 50, RIGHT
+                elsif nc < 0 && (150..199) === nr
+                  nr, nc, nd = 0, nr - 100, DOWN
+                end
+              when UP
+                if nr < 0 && (50..99) === nc
+                  nr, nc, nd = nc + 100, 0, RIGHT
+                elsif nr < 0 && (100..149) === nc
+                  nr, nc = 199, nc - 100
+                elsif nr < 100 && (0..49) === nc
+                  nr, nc, nd = nc + 50, 50, RIGHT
+                end
+              end
+            else
+              nr, nc = r, c
+              loop {
+                nr = (nr + DIRS[d][0]) % map.size
+                nc = (nc + DIRS[d][1]) % map[0].size
+                break if map[nr][nc] != " "
+              }
+            end
+
+            break if map[nr][nc][?#]
+            r, c, d = nr, nc, nd
+          }
+        end
+      }
+
+      1000 * (r + 1) + 4 * (c + 1) + d
+    }
+
+    p walk[0, c, 0, false], walk[0, c, 0, true]

@@ -1,0 +1,85 @@
+---
+- :name: 22_mode_maze.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    require "algorithms"
+
+    DEPTH  = 11394
+    MOUTH  = [0, 0]
+    TARGET = [7, 701]
+
+    @level  = Hash.new { |h, k| h[k] = [] }
+    @index  = Hash.new { |h, k| h[k] = [] }
+    @region = Hash.new { |h, k| h[k] = [] }
+
+    def level(x, y)
+      @level[x][y] ||= (index(x, y) + DEPTH) % 20183
+    end
+
+    def index(x, y)
+      @index[x][y] ||= begin
+        if (x == 0 && y == 0) || (x == TARGET[0] && y == TARGET[1])
+          0
+        elsif x == 0
+          y * 48271
+        elsif y == 0
+          x * 16807
+        else
+          level(x - 1, y) * level(x, y - 1)
+        end
+      end
+    end
+
+    def region(x, y)
+      @region[x][y] ||= level(x, y) % 3
+    end
+
+    p (0..TARGET[1]).sum { |y| (0..TARGET[0]).sum { |x| region(x, y) } }
+
+    NEITHER = 0
+    TORCH = 1
+    CLIMBING_GEAR = 2
+
+    adjacents = -> ((x, y), t) {
+      adj = []
+      adj << [[x - 1, y], t, 1] if x > 0 && t != region(x - 1, y)
+      adj << [[x, y - 1], t, 1] if y > 0 && t != region(x, y - 1)
+      adj << [[x + 1, y], t, 1] if t != region(x + 1, y)
+      adj << [[x, y + 1], t, 1] if t != region(x, y + 1)
+      adj << [[x, y], 3 - region(x, y) - t, 7]
+      adj
+    }
+
+    heuristic = -> ((x, y), t) {
+      (x - TARGET[0]).abs + (y - TARGET[1]).abs + (t == TORCH ? 0 : 7)
+    }
+
+    start  = [MOUTH, TORCH]
+    target = [TARGET, TORCH]
+
+    f = Hash.new(1.0 / 0)
+    g = Hash.new(1.0 / 0)
+
+    f[start] = heuristic[*start]
+    g[start] = 0
+
+    open = Containers::PriorityQueue.new { |a, b| a < b }
+    open.push(start, f[start])
+
+    closed = {}
+
+    while c = open.pop
+      break if c == target
+      closed[c] = true
+
+      adjacents[*c].each { |adj, t, cost|
+        n = [adj, t]
+        next if closed[n]
+        next if (gg = g[c] + cost) >= g[n]
+        g[n] = gg
+        f[n] = gg + heuristic[adj, t]
+        open.push(n, f[n])
+      }
+    end
+
+    p g[target]

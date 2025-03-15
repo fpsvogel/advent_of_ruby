@@ -1,0 +1,33 @@
+---
+- :name: day-11-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-11
+  :solution: |-
+    def increasing_straight?(password)
+      password.chars.each_cons(3).any? do |a, b, c|
+        a.ord + 1 == b.ord && a.ord + 2 == c.ord
+      end
+    end
+
+    def two_pairs?(password)
+      password.scan(/(.)\1/).count >= 2
+    end
+
+    def excludes_confusing_characters(password)
+      password.scan(/[iol]/).empty?
+    end
+
+    def valid_password?(password)
+      increasing_straight?(password) &&
+        two_pairs?(password) &&
+        excludes_confusing_characters(password)
+    end
+
+    next_password = 2
+
+    while next_password != 0
+      password.succ!
+
+      next_password -= 1 if valid_password?(password)
+    end
+
+    puts password

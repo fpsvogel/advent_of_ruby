@@ -1,0 +1,21 @@
+---
+- :name: day-17-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-17
+  :solution: |-
+    containers.map!(&:to_i)
+    liters = 150
+
+    combinations = []
+
+    1.upto(containers.count) do |container_count|
+      combos = containers.combination(container_count).select do |combination|
+        combination.inject(:+) == liters
+      end
+
+      combinations.concat combos
+    end
+
+    counts    = combinations.map(&:count)
+    min_count = counts.min
+
+    puts counts.select { |count| count == min_count }.count

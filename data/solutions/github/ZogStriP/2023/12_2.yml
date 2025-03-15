@@ -1,0 +1,36 @@
+---
+- :name: 12_hot_springs.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    @cache = {}
+
+    arrangements = -> (springs, groups, g = -1) {
+      @cache[[springs, groups, g]] ||= begin
+        if springs.empty?
+          return groups.empty? && g <= 0 ? 1 : 0
+        end
+
+        case springs[0]
+        when ?.
+          return 0 if g > 0
+          arrangements[springs[1..], groups, -1]
+        when ?#
+          return 0 if g == 0
+          if g < 0
+            groups.empty? ? 0 : arrangements[springs[1..], groups[1..], groups[0] - 1]
+          else
+            arrangements[springs[1..], groups, g - 1]
+          end
+        when ??
+          arrangements[?. + springs[1..], groups, g] +
+          arrangements[?# + springs[1..], groups, g]
+        end
+      end
+    }
+
+    puts DATA.map.with_object([0, 0]) { |line, p|
+      a, b = line.split
+      b = b.split(?,).map &:to_i
+      p[0] += arrangements[a, b]
+      p[1] += arrangements[([a] * 5) * ??, b * 5]
+    }

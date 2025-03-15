@@ -1,0 +1,14 @@
+---
+- :name: 10b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    n = 50
+    str = ARGV.first
+
+    n.times {
+      # fun fact: :+ instead of :<< makes it quadratic there and never ends ...
+      str = str.each_char.chunk { |c| c }.map { |c,g| "#{g.size}#{c}" }.reduce(:<<)
+    }
+
+    #puts str
+    p str.size

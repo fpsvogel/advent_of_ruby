@@ -1,0 +1,4 @@
+---
+- :name: 1b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p $<.map { it.split.map(&:to_i) }.transpose.then { |l,r| l.sum { |n| n * r.count(n) } }

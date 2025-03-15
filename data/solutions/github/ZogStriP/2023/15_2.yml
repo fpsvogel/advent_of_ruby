@@ -1,0 +1,23 @@
+---
+- :name: 15_lens_library.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    steps = DATA.read.split ?,
+
+    def h(s) = s.chars.reduce(0) { (_1 + _2.ord) * 17 % 256 }
+
+    p steps.sum { h _1 }
+
+    boxes = Hash.new { _1[_2] = {} }
+
+    steps.each {
+      if _1[?=]
+        l, f = _1.split ?=
+        boxes[h l][l] = f.to_i
+      else
+        l = _1[...-1]
+        boxes[h l].delete l
+      end
+    }
+
+    p boxes.sum { |box, lenses| (box + 1) * lenses.each_value.with_index(1).sum { _1 * _2 } }

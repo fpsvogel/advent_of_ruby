@@ -1,0 +1,4 @@
+---
+- :name: 2b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2019
+  :solution: "input = File.read('2.txt')\ncode = input.chomp.split(',').map { |e| Integer(e) }.freeze\n\ndef interpreter(memory, input1, input2)\n  memory = memory.dup\n  memory[1] = input1\n  memory[2] = input2\n\n  ip = 0\n  while opcode = memory[ip] and opcode != 99\n    case opcode\n    when 1\n      a, b, out = memory[ip+1, 3]\n      memory[out] = memory[a] + memory[b]\n      ip += 4\n    when 2\n      a, b, out = memory[ip+1, 3]\n      memory[out] = memory[a] * memory[b]\n      ip += 4\n    else\n      raise \"Unknown opcode: #{opcode}\"\n    end\n  end\n  \n  memory[0]\nend\n\n100.times { |noun|\n  100.times { |verb|\n    if interpreter(code, noun, verb) == 19690720\n      p 100 * noun + verb\n      exit\n    end\n  }\n}"

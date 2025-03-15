@@ -1,0 +1,17 @@
+---
+- :name: 01_chronal_calibration.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    require "set"
+
+    input = DATA.read.each_line.map(&:to_i)
+
+    p input.sum
+
+    f = 0
+    s = Set.new
+
+    p input.cycle { |n|
+      f += n
+      break f if !s.add?(f)
+    }

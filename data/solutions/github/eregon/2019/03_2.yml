@@ -1,0 +1,4 @@
+---
+- :name: 3b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2019
+  :solution: "input = File.readlines('3.txt')\n\nclass Complex\n  def distance\n    real.abs + imag.abs\n  end\nend\n\nDIRS = { U: 1i, R: 1, D: -1i, L: -1 }\npassing = Hash.new { |h,k| h[k] = [nil] * input.size }\n\ninput.map.with_index { |wire, i|\n  pos = 0 + 0i\n  steps = 0\n  wire.chomp.split(',').each { |segment|\n    dir = DIRS.fetch(segment[0].to_sym)\n    n = Integer(segment[1..-1])\n    n.times {\n      pos += dir\n      steps += 1\n      passing[pos][i] ||= steps\n    }\n  }  \n}\n\np passing.each_pair.select { |pos, steps|\n  steps.all?\n}.min_by { |pos, steps| steps.sum }.last.sum"

@@ -1,0 +1,8 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2021/24
+  :solution: |-
+    require_relative 'lib'
+
+    constraints = find_constraints(ARGF)
+    puts solve(constraints)[1]

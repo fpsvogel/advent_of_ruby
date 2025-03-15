@@ -1,0 +1,28 @@
+---
+- :name: '08_two-factor_authentication.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    screen = Array.new(6) { Array.new(50) }
+
+    DATA.each { |l|
+      case l
+      when /rect (\d+)x(\d+)/
+        $1.to_i.times { |x|
+          $2.to_i.times { |y|
+            screen[y][x] = true
+          }
+        }
+      when /rotate row y=(\d+) by (\d+)/;
+        screen[$1.to_i].rotate!(-$2.to_i)
+      when /rotate column x=(\d+) by (\d+)/;
+        x = $1.to_i
+        c = screen.map { _1[x] }.rotate(-$2.to_i)
+        screen.zip(c) { _1[x] = _2 }
+      end
+    }
+
+    p screen.flatten.count(true)
+
+    screen.each { |r|
+      puts r.map { _1 ? ?█ : " " }.join
+    }

@@ -1,0 +1,11 @@
+---
+- :name: 06_wait_for_it.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    times, distances = DATA.map { _1.split[1..].map &:to_i }
+
+    p times.size.times.map { |i| (1...times[i]).count { _1 * (times[i] - _1) > distances[i] } }.reduce :*
+
+    time, distance = [times, distances].map { _1.join.to_i }
+
+    p (1..time).count { _1 * (time - _1) > distance }

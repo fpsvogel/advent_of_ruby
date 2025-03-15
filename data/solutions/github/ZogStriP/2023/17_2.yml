@@ -1,0 +1,40 @@
+---
+- :name: 17_clumsy_crucible.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    require_relative "priority_queue"
+
+    M = DATA.map { _1.chomp.chars.map &:to_i }
+    Y, X = M.size, M[0].size
+    TY, TX = Y - 1, X - 1
+    N = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+
+    heat_loss = -> (min, max) {
+      v = Set.new
+      q = PriorityQueue.new
+      q.push [0, 0, 0, 0, 0, 0], 0
+
+      while c = q.pop
+        h, y, x, dy, dx, t = c
+
+        return h if y == TY && x == TX
+
+        next unless v.add?([y, x, dy, dx, t])
+
+        if t < max && [dy, dx] != [0, 0]
+          ny, nx = y + dy, x + dx
+          q.push([h + M[ny][nx], ny, nx, dy, dx, t + 1], h + M[ny][nx]) if ny >= 0 && ny < Y && nx >= 0 && nx < X
+        end
+
+        if t >= min || [dy, dx] == [0, 0]
+          N.each { |ndy, ndx|
+            next if [ndy, ndx] == [dy, dx] || [-ndy, -ndx] == [dy, dx]
+            ny, nx = y + ndy, x + ndx
+            q.push([h + M[ny][nx], ny, nx, ndy, ndx, 1], h + M[ny][nx]) if ny >= 0 && ny < Y && nx >= 0 && nx < X
+          }
+        end
+      end
+    }
+
+    p heat_loss[1, 3]
+    p heat_loss[4, 10]

@@ -1,0 +1,30 @@
+---
+- :name: 24_arithmetic_logic_unit.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    lines = DATA.read.split("\n")
+    pairs = 14.times.map { |i| [lines[i * 18 + 5][6..].to_i, lines[i * 18 + 15][6..].to_i] }
+    stack = []
+    links = {}
+
+    pairs.each_with_index { |(a, b), i|
+      if a > 0
+        stack << [i, b]
+      else
+        j, bb = stack.pop
+        links[i] = [j, a + bb]
+      end
+    }
+
+    max = {}
+    min = {}
+
+    links.each { |i, (j, delta)|
+      max[i] = [9, 9 + delta].min
+      max[j] = [9, 9 - delta].min
+      min[i] = [1, 1 + delta].max
+      min[j] = [1, 1 - delta].max
+    }
+
+    puts 14.times.map { max[_1] } * ""
+    puts 14.times.map { min[_1] } * ""

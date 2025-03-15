@@ -1,0 +1,39 @@
+---
+- :name: 18_like_a_gif_for_your_yard.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    grid = DATA.flat_map { |l| l.chomp.chars.map { _1[?#] ? 1 : 0 } }
+
+    step = -> lights {
+      l = []
+
+      10000.times { |i|
+        y, x = i.divmod(100)
+        n  = 0
+        n += lights[(y-1)*100+x-1] if x > 0 && y > 0
+        n += lights[(y-1)*100+x]   if y > 0
+        n += lights[(y-1)*100+x+1] if x < 99 && y > 0
+        n += lights[y*100+x-1]     if x > 0
+        n += lights[y*100+x+1]     if x < 99
+        n += lights[(y+1)*100+x-1] if x > 0 && y < 99
+        n += lights[(y+1)*100+x]   if y < 99
+        n += lights[(y+1)*100+x+1] if x < 99 && y < 99
+        l[i] = n == 3 || (lights[i] == 1 && n == 2) ? 1 : 0
+      }
+
+      l
+    }
+
+    lights = grid.dup
+
+    100.times { lights = step[lights] }
+    p lights.count(1)
+
+    grid[0] = grid[99] = grid[99*100] = grid[100*100-1] = 1
+
+    100.times {
+      grid = step[grid]
+      grid[0] = grid[99] = grid[99*100] = grid[100*100-1] = 1
+    }
+
+    p grid.count(1)

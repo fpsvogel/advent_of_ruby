@@ -1,0 +1,4 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2019/01
+  :solution: puts ARGF.each_line.map { |l| l.to_i / 3 - 2 }.sum

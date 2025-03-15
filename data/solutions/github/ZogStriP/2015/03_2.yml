@@ -1,0 +1,29 @@
+---
+- :name: 03_perfectly_spherical_houses_in_a_vacuum.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    require "matrix"
+
+    DIRS = {
+      ?> => Vector[1,0],
+      ?< => Vector[-1,0],
+      ?^ => Vector[0,1],
+      ?v => Vector[0,-1],
+    }
+
+    directions = DATA.read.chomp
+
+    santa = Vector[0,0]
+    presents = {}
+
+    directions.each_char { presents[santa += DIRS[_1]] = true }
+
+    p presents.size
+
+    santa = Vector[0,0]
+    robot = Vector[0,0]
+    presents = {}
+
+    directions.each_char.with_index { _2.odd? ? presents[santa += DIRS[_1]] = true : presents[robot += DIRS[_1]] = true }
+
+    p presents.size

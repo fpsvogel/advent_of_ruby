@@ -1,0 +1,11 @@
+---
+- :name: 2a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: |-
+    p $<.map { it.split.map(&:to_i) }.count { |levels|
+      levels.each_cons(2).all? { _2.between?(_1+1, _1+3) } ||
+      levels.each_cons(2).all? { _1.between?(_2+1, _2+3) }
+    }
+- :name: 2a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p$<.count{l=it.split.map &:to_i;a,b=l;l.reverse!if a>b;l.each_cons(2).all?{_2>_1&&_2<_1+4}}

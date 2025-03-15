@@ -1,0 +1,54 @@
+---
+- :name: 10_pipe_maze.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    map = DATA.map { _1.chomp.chars }
+
+    sy = sx = 0
+
+    map.each_with_index { |row, y|
+      row.each_with_index { |cell, x|
+        (sy = y; sx = x) if cell[?S]
+      }
+    }
+
+    q = [[sy, sx]]
+    d = { [sy, sx] => 0 }
+    Y, X = map.size, map[0].size
+    N = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+    M = {
+      ?- => { [0, -1] => "-LF", [0, 1] => "-J7" },
+      ?| => { [-1, 0] => "|F7", [1, 0] => "|LJ" },
+      ?L => { [0, 1] => "-J7", [-1, 0] => "|7F" },
+      ?J => { [0, -1] => "-LF", [-1, 0] => "|7F" },
+      ?F => { [0, 1] => "-J7", [1, 0] => "|LJ" },
+      ?7 => { [0, -1] => "-LF", [1, 0] => "|LJ" },
+    }
+
+    map[sy][sx] = ?J if sy > 0 && "|F7"[map[sy - 1][sx]] && sx > 0 && "-LF"[map[sy][sx - 1]]
+    map[sy][sx] = ?L if sy > 0 && "|F7"[map[sy - 1][sx]] && sx < X - 1 && "-J7"[map[sy][sx + 1]]
+    map[sy][sx] = ?7 if sy < Y - 1 && "|LJ"[map[sy + 1][sx]] && sx > 0 && "-LF"[map[sy][sx - 1]]
+    map[sy][sx] = ?F if sy < Y - 1 && "|LJ"[map[sy + 1][sx]] && sx < X - 1 && "-J7"[map[sy][sx + 1]]
+
+    while c = q.shift
+      y, x = c
+      N.each { |dy, dx|
+        yy, xx = y + dy, x + dx
+        n = yy, xx
+        (0...Y) === yy && (0...X) === xx && !d[n] && M[map[y][x]]&.[]([dy, dx])&.[](map[yy][xx]) && q << n && d[n] = d[c] + 1
+      }
+    end
+
+    p d.values.max
+
+    inside = -> y, x {
+      ys, xs = (y + 1...Y), (x + 1...X)
+      l = [ys.size, xs.size].min
+      ys.min(l).zip(xs.min(l)).count { d[[_1, _2]] && "-|FJ"[map[_1][_2]] }.odd?
+    }
+
+    p Y.times.sum { |y|
+      X.times.count { |x|
+        !d[[y, x]] && inside[y, x]
+      }
+    }

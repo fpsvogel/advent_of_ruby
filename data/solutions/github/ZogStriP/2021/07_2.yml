@@ -1,0 +1,9 @@
+---
+- :name: 07_the_treachery_of_whales.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    C = DATA.read.split(?,).map &:to_i
+
+    a, b = C.minmax
+    p (a..b).map { |x| C.sum { (_1 - x).abs } }.min
+    p (a..b).map { |x| C.sum { (_1 - x).abs * (1 + (_1 - x).abs) } }.min

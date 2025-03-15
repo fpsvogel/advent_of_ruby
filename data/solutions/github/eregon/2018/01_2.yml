@@ -1,0 +1,15 @@
+---
+- :name: 1b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2018
+  :solution: |-
+    require 'set'
+
+    frequency = 0
+    history = Set.new
+
+    p File.readlines("1.txt", chomp: true).map(&:to_i).cycle.find { |df|
+      frequency += df
+      unless history.add?(frequency)
+        break frequency
+      end
+    }

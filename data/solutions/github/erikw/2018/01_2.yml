@@ -1,0 +1,15 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/01
+  :solution: |-
+    require 'set'
+
+    seen = Set.new
+    ARGF.each_line.map(&:to_i).cycle.inject do |freq, df|
+      if seen.include?(freq)
+        puts freq
+        break
+      end
+      seen << freq
+      freq + df
+    end

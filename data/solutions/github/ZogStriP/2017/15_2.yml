@@ -1,0 +1,28 @@
+---
+- :name: 15_dueling_generators.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    A = ARGV[0]&.to_i || 783
+    B = ARGV[1]&.to_i || 325
+
+    AF = 16807
+    BF = 48271
+    D  = 2147483647
+
+    a = A
+    b = B
+
+    p 40_000_000.times.count {
+      a = a * AF % D
+      b = b * BF % D
+      a & 0xFFFF == b & 0xFFFF
+    }
+
+    a = A
+    b = B
+
+    p 5_000_000.times.count {
+      loop { a = a * AF % D; break if a % 4 == 0 }
+      loop { b = b * BF % D; break if b % 8 == 0 }
+      a & 0xFFFF == b & 0xFFFF
+    }

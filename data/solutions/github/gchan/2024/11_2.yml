@@ -1,0 +1,33 @@
+---
+- :name: day-11-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2024/day-11
+  :solution: |-
+    blinks = 75
+
+    stones = {}
+    input.split.map(&:to_i).each { stones[_1] = 1 }
+
+    blinks.times {
+      new_stones = Hash.new { |h, k| h[k] = 0 }
+
+      stones.each { |stone, count|
+        if stone == 0
+          new_stones[1] += count
+        elsif stone.to_s.chars.count.even?
+          digits = stone.to_s.chars
+          length = digits.size
+
+          left = digits[0..length/2 - 1].join.to_i
+          right = digits[(length/2)..-1].join.to_i
+
+          new_stones[left] += count
+          new_stones[right] += count
+        else
+          new_stones[stone * 2024] += count
+        end
+      }
+
+      stones = new_stones
+    }
+
+    puts stones.values.sum

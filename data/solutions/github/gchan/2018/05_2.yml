@@ -1,0 +1,31 @@
+---
+- :name: day-05-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-05
+  :solution: |-
+    shortest = nil
+
+    ('a'..'z').each do |char|
+      test = input.gsub(/#{char}/i, "")
+
+      loop do
+        prev_length = test.length
+
+        test.gsub!(/([A-z])\1+/i) do |match|
+          chr = match[0]
+          pattern = chr.downcase + chr.upcase
+
+          match
+            .gsub(pattern, "")
+            .gsub(pattern.reverse, "")
+        end
+
+        break if test.length == prev_length
+      end
+
+
+      if shortest.nil? || test.length < shortest
+        shortest = test.length
+        puts char
+        puts shortest
+      end
+    end

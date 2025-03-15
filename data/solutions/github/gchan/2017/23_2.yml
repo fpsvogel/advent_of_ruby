@@ -1,0 +1,9 @@
+---
+- :name: day-23-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-23
+  :solution: |-
+    c = b + 17000
+
+    puts (b..c).step(17).count { |b|
+      (2..(Math.sqrt(b))).any? { |e| b % e == 0 }
+    }

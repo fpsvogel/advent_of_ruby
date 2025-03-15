@@ -1,0 +1,17 @@
+---
+- :name: 12_jsabacusframework_io.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    require "json"
+
+    json = DATA.read
+
+    p json.scan(/-?\d+/).sum &:to_i
+
+    s = -> v {
+      return v.values.include?("red") ? 0 : v.sum { s[_2] } if Hash === v
+      return v.sum { s[_1] } if Array === v
+      v.to_i
+    }
+
+    p s[JSON.parse json]

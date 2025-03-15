@@ -1,0 +1,24 @@
+---
+- :name: 15_science_for_hungry_people.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    T = 100
+
+    max = maxx = 0
+
+    T.times { |a|
+      (T - a).times { |b|
+        (T - a - b).times { |c|
+          d = T - a - b - c
+          capacity   = 5*a - b - d
+          durability = -a + 3*b - c
+          flavor     = 4*c
+          texture    = 2*d
+          score = [0, capacity].max * [0, durability].max * [0, flavor].max * [0, texture].max
+          max   = score if score > max
+          maxx  = score if score > maxx && 5*a + b + 6*c + 8*d == 500
+        }
+      }
+    }
+
+    p max, maxx

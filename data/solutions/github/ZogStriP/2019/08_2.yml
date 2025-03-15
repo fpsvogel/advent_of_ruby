@@ -1,0 +1,13 @@
+---
+- :name: '08_space_image_format.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    layers = DATA.read.strip.chars.each_slice(25 * 6).to_a
+
+    layer = layers.min_by { |l| l.count(?0) }
+    p layer.count(?1) * layer.count(?2)
+
+    layers
+      .transpose
+      .map { |l| l.find { |p| p != ?2 } }
+      .each_slice(25) { |r| puts r.join.tr("01", " █") }

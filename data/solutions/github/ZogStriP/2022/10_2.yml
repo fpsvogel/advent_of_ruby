@@ -1,0 +1,20 @@
+---
+- :name: 10_cathode-ray_tube.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    x = 1
+
+    signals = [1] + DATA.flat_map { |line|
+      case line.split
+      in ["noop"]; [x]
+      in ["addx", v]; [x, x += v.to_i]
+      end
+    }
+
+    p 20.step(220, 40).sum { _1 * signals[_1 - 1] }
+
+    signals.each_slice(40) { |row|
+      puts row.map.with_index { |signal, x|
+        (signal - x).abs <= 1 ? "#" : " "
+      }.join
+    }

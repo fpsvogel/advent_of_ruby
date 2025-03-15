@@ -1,0 +1,37 @@
+---
+- :name: day-19-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-19
+  :solution: |-
+    molecule     = input.pop(2).last
+    replacements = {}
+
+    input.each do |replacement|
+      element     = replacement.scan(/\A\w*/).first
+      new_element = replacement.strip.scan(/\w*\z/).first
+
+      replacements[new_element] = element
+    end
+
+    # Brute force by randomly performing replacements
+    molecule_dup = molecule.dup
+    while !molecule_dup.match(/e+/)
+      steps        = 0
+      molecule_dup = molecule.dup
+      exhausted    = false
+
+      # Keep on trying until we run out of replacement options
+      while !exhausted
+        exhausted = true
+
+        replacements.keys.shuffle.each do |element|
+          if molecule_dup.scan(element).any?
+            molecule_dup.sub!(element, replacements[element])
+            steps     += 1
+            exhausted = false
+            break
+          end
+        end
+      end
+    end
+
+    puts steps

@@ -1,0 +1,15 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2015/17
+  :solution: |-
+    # TARGET = 25
+    TARGET = 150
+
+    containers = ARGF.each_line.map(&:to_i)
+    (1..containers.length).each do |n|
+      nbr = containers.combination(n).map(&:sum).select { |s| s == TARGET }.count
+      unless nbr.zero?
+        puts nbr
+        break
+      end
+    end

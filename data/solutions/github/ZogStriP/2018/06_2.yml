@@ -1,0 +1,42 @@
+---
+- :name: 06_chronal_coordinates.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    points = DATA.each_line.map { |l| l.scan(/\d+/).map(&:to_i) }
+
+    xmin, xmax = points.map(&:first).minmax
+    ymin, ymax = points.map(&:last).minmax
+
+    areas = Hash.new(0)
+    edges = {}
+    safe  = 0
+
+    (xmin..xmax).each { |x|
+      (ymin..ymax).each { |y|
+        best_p = nil
+        best_d = Float::INFINITY
+        total  = 0
+
+        points.each { |p|
+          d = (p[0] - x).abs + (p[1] - y).abs
+          total += d
+
+          if d < best_d
+            best_p = p
+            best_d = d
+          elsif d == best_d
+            best_p = nil
+          end
+        }
+
+        safe += 1 if total < 10_000
+
+        next unless best_p
+
+        edges[best_p] ||= x == xmin || x == xmax || y == ymin || y == ymax
+        areas[best_p] += 1
+      }
+    }
+
+    p points.select { |p| !edges[p] }.map { |p| areas[p] }.max
+    p safe

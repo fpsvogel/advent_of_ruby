@@ -1,0 +1,6 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/03
+  :solution: |-
+    # From https://oeis.org/A141481
+    puts 363_010

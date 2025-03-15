@@ -1,0 +1,4 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2021/23
+  :solution: puts 1_434_974_250

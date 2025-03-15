@@ -1,0 +1,65 @@
+---
+- :name: 23_a_long_walk.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    map = DATA.map &:chomp
+    X = map[0].size
+    map *= ""
+    S, G = map.index(?.), map.rindex(?.)
+    N = [-1, 1, -X, X]
+
+    neighbors = -> l {
+      n = []
+      n << l - X if map[l - X] != ?# && (map[l] == ?. || map[l] == ?<)
+      n << l - 1 if map[l - 1] != ?# && (map[l] == ?. || map[l] == ?^)
+      n << l + 1 if map[l + 1] != ?# && (map[l] == ?. || map[l] == ?>)
+      n << l + X if map[l + X] != ?# && (map[l] == ?. || map[l] == ?v)
+      n
+    }
+
+    best = 0
+    dfs_1 = -> current, visited = [], distance = 0 {
+      best = [best, distance].max if current == G
+      neighbors[current].each { |n|
+        next if visited[n]
+        visited[n] = true
+        dfs_1[n, visited, distance + 1]
+        visited[n] = false
+      }
+    }
+
+    dfs_1[S]
+    p best
+
+    distances = Hash.new { _1[_2] = [] }
+    intersections = [S] | (S..G).filter_map { !map[_1][?#] && neighbors[_1].size > 2 && _1 } | [G]
+
+    intersections.each { |l|
+      q = [l]
+      s = [l].to_set
+      d = 0
+      while q.any?
+        d += 1
+        qq = []
+        q.each { |c|
+          N.each {
+            n = c + _1
+            map[n] && map[n] != ?# && s.add?(n) && (intersections.include?(n) ? distances[l] << [d, n] : qq << n)
+          }
+        }
+        q = qq
+      end
+    }
+
+    dfs_2 = -> current, visited = [], distance = 0 {
+      best = [best, distance].max if current == G
+      distances[current].each { |d, n|
+        next if visited[n]
+        visited[n] = true
+        dfs_2[n, visited, distance + d]
+        visited[n] = false
+      }
+    }
+
+    dfs_2[S]
+    p best

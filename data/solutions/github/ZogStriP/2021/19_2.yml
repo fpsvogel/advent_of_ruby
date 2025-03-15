@@ -1,0 +1,46 @@
+---
+- :name: 19_beacon_scanner.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    scanners = DATA.read.split("\n\n").map { |b| b.lines[1..].map { _1.split(?,).map &:to_i } }
+
+    sub = -> a, b { [a[0]-b[0], a[1]-b[1], a[2]-b[2]] }
+
+    rotate = -> x, y, z {
+      [
+        [ x, y, z], [ y, z, x], [ z, x, y], [ z, y,-x], [ y, x,-z], [ x, z,-y],
+        [ x,-y,-z], [ y,-z,-x], [ z,-x,-y], [ z,-y, x], [ y,-x, z], [ x,-z, y],
+        [-x, y,-z], [-y, z,-x], [-z, x,-y], [-z, y, x], [-y, x, z], [-x, z, y],
+        [-x,-y, z], [-y,-z, x], [-z,-x, y], [-z,-y,-x], [-y,-x,-z], [-x,-z,-y],
+      ]
+    }
+
+    match = -> s1, s2 {
+      24.times { |r|
+        s3 = s2.map { rotate[*_1][r] }
+        s1.each { |a|
+          s3.each { |b|
+            offset = sub[b, a]
+            c = s3.map { sub[_1, offset] }
+            return [c, offset] if (s1 & c).size >= 12
+          }
+        }
+      }
+      nil
+    }
+
+    matched, *unmatched = scanners
+    locations = [[0,0,0]]
+
+    while scanner = unmatched.shift
+      if r = match[matched, scanner]
+        m, l = r
+        matched |= m
+        locations << l
+      else
+        unmatched << scanner
+      end
+    end
+
+    p matched.size
+    p locations.combination(2).map { |a, b| b.zip(a).sum { (_1 - _2).abs } }.max

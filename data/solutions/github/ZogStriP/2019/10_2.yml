@@ -1,0 +1,20 @@
+---
+- :name: 10_monitoring_station.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    map = DATA.read.split("\n").map(&:chars)
+
+    asteroids = [*0...map.size].product([*0...map[0].size]).select { |x, y| map[x][y] == ?# }
+
+    visible = asteroids.map { |x, y|
+      asteroids
+        .reject { |xx, yy| xx == x && yy == y }
+        .sort_by { |xx, yy| (xx - x) ** 2 + (yy - y) ** 2 }
+        .group_by { |xx, yy| -Math.atan2(yy - y, xx - x) }
+    }
+
+    best = visible.max_by(&:size)
+    p best.size
+
+    x, y = best.sort_by(&:first)[199][1][0]
+    p y * 100 + x

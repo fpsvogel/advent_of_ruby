@@ -1,0 +1,23 @@
+---
+- :name: 11a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    board = $<.readlines(chomp: true).map(&:chars)
+
+    2.times do
+      empty = board.zip(0..).filter_map { |row,i| i if row.all?('.') }
+      empty.reverse.each { |i| board[i..i] = [board[i], board[i]] }
+      board = board.transpose
+    end
+
+    galaxies = []
+    board.each_with_index do |row,y|
+      row.each_with_index { |c,x|
+        galaxies << x + y.i if c == '#'
+      }
+    end
+
+    p galaxies.combination(2).sum { |a,b| (a-b).rect.sum(&:abs) }
+- :name: 11a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: b,g=$<.map{_1.chomp.chars},[];2.times{((b=b.transpose).size-1).downto(0){|i|b[i,0]=[b[i]]if b[i].all? ?.}};b.zip(0..){|r,y|r.zip(0..){g<<_2+y.i if _1==?#}};p g.combination(2).sum{(_1-_2).rect.sum(&:abs)}

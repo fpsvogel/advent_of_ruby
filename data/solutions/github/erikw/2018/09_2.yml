@@ -1,0 +1,11 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/09
+  :solution: |-
+    require_relative 'lib'
+
+    FACTOR = 100
+
+    players, marbles = ARGF.readline.scan(/\d+/).map(&:to_i)
+    scores = marble_game(players, marbles * FACTOR)
+    puts scores.max

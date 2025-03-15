@@ -1,0 +1,21 @@
+---
+- :name: 03_gear_ratios.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    parts = {}
+    gears = Hash.new { _1[_2] = [] }
+
+    DATA.each { _1.scan(/\d+|[^.\n]/) { parts[[$., $~.begin(0)]] = $& } }
+
+    p parts.sum { |(y, x), c|
+      next 0 if (n = c.to_i) == 0
+
+      (y - 1 .. y + 1).any? { |yy|
+        (x - 1 .. x + c.size).any? { |xx|
+          parts[[yy, xx]] == ?* && gears[[yy, xx]] << n
+          (yy != y || xx != x) && parts[[yy, xx]]&.size == 1
+        }
+      } ? n : 0
+    }
+
+    p gears.sum { _2.size == 2 ? _2.reduce(:*) : 0 }

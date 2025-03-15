@@ -1,0 +1,11 @@
+---
+- :name: 07_internet_protocol_version_7.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    ABBA = /(.)(?!\1)(.)\2\1/
+    BRACKETS = /\[([^\]]+)\]/
+
+    ips = DATA.map { [_1.gsub(BRACKETS, ?-), _1.scan(BRACKETS).join(?-)] }
+
+    p ips.count { |s, h| s[ABBA] && !h[ABBA] }
+    p ips.count { |s, h| s.chars.each_cons(3).any? { |a, b, c| a == c && a != b && h[b + a + b] } }

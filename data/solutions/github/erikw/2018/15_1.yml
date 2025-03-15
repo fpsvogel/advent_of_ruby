@@ -1,0 +1,9 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2018/15
+  :solution: |-
+    require_relative 'game'
+
+    map = read_input
+    units = create_units(map)
+    puts play_game(map, units)

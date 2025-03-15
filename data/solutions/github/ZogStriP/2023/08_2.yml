@@ -1,0 +1,23 @@
+---
+- :name: '08_haunted_wasteland.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    directions, moves = DATA.read.split $/*2
+
+    moves = moves.split($/).to_h { a, l, r = _1.scan(/\w{3}/); [a, ?L => l, ?R => r] }
+
+    position = "AAA"
+
+    p 0.step { |s|
+      position = moves[position][directions[s % directions.size]]
+      break s + 1 if position == "ZZZ"
+    }
+
+    periods = []
+    positions = moves.keys.filter { _1.end_with? ?A }
+
+    p 0.step { |s|
+      positions.map! { moves[_1][directions[s % directions.size]] }
+      positions.delete_if { periods << s + 1 if _1.end_with? ?Z }
+      break periods if positions.empty?
+    }.reduce :lcm

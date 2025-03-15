@@ -1,0 +1,48 @@
+---
+- :name: 19_aplenty.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    rules, parts = DATA.read.split($/*2).map &:lines
+
+    W = rules.to_h { _1[/(.+)\{(.+)\}/]; [$1, $2.split(?,)] }.merge(?A => [?A], ?R => [?R])
+    parts.map! { _1.scan(/\d+/).map &:to_i }
+
+    def p1(rules, values)
+      rules.each {
+        case _1
+        when ?A
+          return ?A
+        when ?R
+          return ?R
+        when /(.)(<|>)(\d+):(.+)/
+          i, v = "xmas".index($1), $3.to_i
+          return p1(W[$4], values) if $2[?<] ? values[i] < v : values[i] > v
+        else
+          return p1(W[_1], values)
+        end
+      }
+    end
+
+    def p2(rules, ranges)
+      current, *rest = rules
+
+      case current
+      when ?A
+        ranges.map(&:size).reduce :*
+      when ?R
+        0
+      when /(.)(<|>)(\d+):(.+)/
+        i, v = "xmas".index($1), $3.to_i
+
+        r, left, right = ranges[i], ranges.dup, ranges.dup
+        left[i] = $2[?<] ? r.begin..v-1 : v+1..r.end
+        right[i] = $2[?<] ? v..r.end : r.begin..v
+
+        p2(W[$4], left) + p2(rest, right)
+      else
+        p2(W[current], ranges)
+      end
+    end
+
+    p parts.sum { p1(W["in"], _1)[?A] ? _1.sum : 0 }
+    p p2(W["in"], [1..4000] * 4)

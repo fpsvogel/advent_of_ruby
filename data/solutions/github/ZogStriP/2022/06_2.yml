@@ -1,0 +1,7 @@
+---
+- :name: 06_tuning_trouble.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    message = DATA.read.chars
+
+    puts [4, 14].map { |s| s + message.each_cons(s).find_index { _1.uniq == _1 } }

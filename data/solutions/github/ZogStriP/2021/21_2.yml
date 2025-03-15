@@ -1,0 +1,44 @@
+---
+- :name: 21_dirac_dice.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    i = 1
+    p = [8, 2]
+    s = [0, 0]
+    m = (1..100).lazy.cycle.each_slice(3).map(&:sum)
+
+    p 1.step.find { |r|
+      s[i ^= 1] += p[i] = (p[i] + m.next - 1) % 10 + 1
+      break r * 3 * s[1 - i] if s[i] >= 1000
+    }
+
+    w = {}
+    d = Hash.new(0)
+
+    [1,2,3].each { |d1|
+      [1,2,3].each { |d2|
+        [1,2,3].each { |d3|
+          d[d1 + d2 + d3] += 1
+        }
+      }
+    }
+
+    wins = -> p0, p1, s0=0, s1=0 {
+      w[[p0, p1, s0, s1]] ||= begin
+        win = [0, 0]
+        d.each { |r, c|
+          p = (p0 + r - 1) % 10 + 1
+          s = s0 + p
+          if s >= 21
+            win[0] += c
+          else
+            w1, w0 = wins[p1, p, s1, s]
+            win[0] += w0 * c
+            win[1] += w1 * c
+          end
+        }
+        win
+      end
+    }
+
+    p wins[8, 2].max

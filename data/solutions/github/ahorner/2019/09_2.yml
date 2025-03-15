@@ -1,0 +1,8 @@
+---
+- :name: '09.rb'
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2019
+  :solution: |-
+    require_relative "shared/intcode"
+
+    solve!("The BOOST keycode is:", Computer.new(INTCODE).run(inputs: [1]))
+    solve!("The distress signal coordinates are:", Computer.new(INTCODE).run(inputs: [2]))

@@ -1,0 +1,11 @@
+---
+- :name: 01_inverse_captcha.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).chars.map(&:to_i)
+
+    def solve(input, n)
+      input.zip(input.rotate(n)).sum { |a, b| a == b ? a : 0 }
+    end
+
+    p [1, input.size / 2].map { |n| solve(input, n) }

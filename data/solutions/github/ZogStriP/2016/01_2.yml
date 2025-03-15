@@ -1,0 +1,29 @@
+---
+- :name: 01_no_time_for_a_taxicab.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    require "set"
+    require "matrix"
+
+    DIRS = [
+      Vector[ 0,  1],
+      Vector[ 1,  0],
+      Vector[ 0, -1],
+      Vector[-1,  0],
+    ]
+
+    d = 0
+    p = Vector[0, 0]
+    s = Set.new([p])
+    t = nil
+
+    DATA.read.scan(/(\w)(\d+)/).each {
+      d += _1[?R] ? 1 : -1
+      d %= DIRS.size
+      _2.to_i.times {
+        p += DIRS[d]
+        t ||= p if !s.add?(p)
+      }
+    }
+
+    p p.sum(&:abs), t.sum(&:abs)

@@ -1,0 +1,26 @@
+---
+- :name: 16_aunt_sue.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    SUE = {
+      children: 3,
+      cats: 7,
+      samoyeds: 2,
+      pomeranians: 3,
+      akitas: 0,
+      vizslas: 0,
+      goldfish: 5,
+      trees: 3,
+      cars: 2,
+      perfumes: 1,
+    }
+
+    sues = DATA.map { eval "{#{_1.split(?:,2)[1]}}" }
+
+    p sues.index { _1.all? { |k, v| SUE[k] == v } } + 1
+
+    p sues.index { _1.all? { |k, v|
+      k == :cats || k == :trees ? SUE[k] < v :
+      k == :pomeranians || k == :goldfish ? SUE[k] > v :
+      SUE[k] == v
+    } } + 1

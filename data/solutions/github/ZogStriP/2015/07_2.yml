@@ -1,0 +1,24 @@
+---
+- :name: 07_some_assembly_required.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    OPS = {
+      "AND"     => "&",
+      "OR"      => "|",
+      "NOT"     => "~",
+      "LSHIFT"  => "<<",
+      "RSHIFT"  => ">>",
+    }
+
+    circuit = DATA
+      .read
+      .gsub(Regexp.union(OPS.keys), OPS)
+      .gsub(/(.+) -> (\w+)/) { "%2s = #{$1}" % $2 }
+      .gsub(/([a-z]+)/, "_\\1")
+      .split("\n")
+      .sort
+      .rotate
+      .join("\n")
+
+    p a = eval(circuit)
+    p eval(circuit.sub(/_b = \d+/, "_b = #{a}"))

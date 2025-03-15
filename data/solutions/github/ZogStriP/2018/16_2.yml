@@ -1,0 +1,60 @@
+---
+- :name: 16_chronal_classification.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    samples, program = DATA.read.split("\n\n\n\n")
+
+    instructions = {
+      addr: ->(a, b, c, r) { r[c] = r[a] + r[b] },
+      addi: ->(a, b, c, r) { r[c] = r[a] + b },
+      mulr: ->(a, b, c, r) { r[c] = r[a] * r[b] },
+      muli: ->(a, b, c, r) { r[c] = r[a] * b },
+      banr: ->(a, b, c, r) { r[c] = r[a] & r[b] },
+      bani: ->(a, b, c, r) { r[c] = r[a] & b },
+      borr: ->(a, b, c, r) { r[c] = r[a] | r[b] },
+      bori: ->(a, b, c, r) { r[c] = r[a] | b },
+      setr: ->(a, b, c, r) { r[c] = r[a] },
+      seti: ->(a, b, c, r) { r[c] = a },
+      gtir: ->(a, b, c, r) { r[c] = a > r[b] ? 1 : 0 },
+      gtri: ->(a, b, c, r) { r[c] = r[a] > b ? 1 : 0 },
+      gtrr: ->(a, b, c, r) { r[c] = r[a] > r[b] ? 1 : 0 },
+      eqir: ->(a, b, c, r) { r[c] = a == r[b] ? 1 : 0 },
+      eqri: ->(a, b, c, r) { r[c] = r[a] == b ? 1 : 0 },
+      eqrr: ->(a, b, c, r) { r[c] = r[a] == r[b] ? 1 : 0 },
+    }
+
+    names = Array.new(instructions.size) { instructions.keys }
+
+    p samples.split("\n\n").count { |sample|
+      before, instruction, after = sample.split("\n")
+      before = eval before[8..-1]
+      opcode, a, b, c = instruction.split.map(&:to_i)
+      after = eval after[8..-1]
+
+      possibles = instructions.select { |_, instr|
+        r = before.dup
+        instr[a, b, c, r]
+        r == after
+      }
+
+      names[opcode] &= possibles.keys
+      possibles.size >= 3
+    }
+
+    opcodes = [nil] * instructions.size
+
+    until opcodes.all?
+      op = names.index { |n| n.size == 1 }
+      name = names[op][0]
+      opcodes[op] = instructions[name]
+      names.each { |n| n.delete(name) }
+    end
+
+    r = [0, 0, 0, 0]
+
+    program.split("\n").each { |l|
+      opcode, a, b, c = l.split.map(&:to_i)
+      opcodes[opcode][a, b, c, r]
+    }
+
+    p r[0]

@@ -1,0 +1,35 @@
+---
+- :name: 22_sand_slabs.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    bricks = DATA.map { _1.scan(/\d+/).map &:to_i }.sort_by { _1[2] }
+
+    def all(x1, y1, z1, x2, y2, z2) = [*x1..x2].product([*y1..y2], [*z1..z2])
+
+    grid = bricks.flat_map { |b| all(*b).map { |x, y, z| [[x, y, z], b] } }.to_h
+
+    bricks.each { |b|
+      while b[2] > 1
+        points = all(*b)
+        break if points.any? { |x, y, z| grid[[x, y, z - 1]] && grid[[x, y, z - 1]] != b }
+        points.each { |x, y, z| grid.delete([x, y, z]); grid[[x, y, z - 1]] = b }
+        b[2] -= 1
+        b[5] -= 1
+      end
+    }
+
+    above = bricks.to_h { |b| [b, all(*b).map { |x, y, z| grid[[x, y, z + 1]] if grid[[x, y, z + 1]] && grid[[x, y, z + 1]] != b }.compact.to_set] }
+    below = bricks.to_h { |b| [b, all(*b).map { |x, y, z| grid[[x, y, z - 1]] if grid[[x, y, z - 1]] && grid[[x, y, z - 1]] != b }.compact.to_set] }
+
+    p bricks.count { |b| above[b].all? { below[_1].size > 1 } }
+
+    p bricks.sum { |b|
+      fallen = [b].to_set
+      q = above[b].to_a
+
+      while c = q.shift
+        below[c].all? { fallen.include?(_1) } && fallen.add?(c) && q += above[c].to_a
+      end
+
+      fallen.size - 1
+    }

@@ -1,0 +1,26 @@
+---
+- :name: '09_marble_mania.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    def play(players, marbles)
+      scores   = [0] * players
+      nexts    = [nil] * (marbles + 1)
+      nexts[0] = current = 0
+
+      (1..marbles).each { |m|
+        if m % 23 == 0
+          n = nexts[m - 5]
+          scores[m % players] += m + n
+          current = nexts[m - 5] = nexts[n]
+        else
+          nexts[m] = nexts[nexts[current]]
+          nexts[nexts[current]] = m
+          current = m
+        end
+      }
+
+      scores.max
+    end
+
+    p play(430, 71_588)
+    p play(430, 71_588 * 100)

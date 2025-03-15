@@ -1,0 +1,12 @@
+---
+- :name: 7a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2021
+  :solution: |-
+    require_relative 'lib'
+
+    crabs = File.read('7.txt').chomp.split(',').map(&Integer)
+
+    p Range.new(*crabs.minmax).map { |pos|
+      cost = crabs.sum { |i| (i - pos).abs }
+      [cost, pos]
+    }.min.first

@@ -1,0 +1,123 @@
+---
+- :name: 12a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    M = {
+      "a" => 0,
+      "b" => 0,
+      "c" => 0,
+      "d" => 0,
+    }
+    R = /[abcd]/
+
+    commands = ARGF.readlines.map(&:chomp)
+    max = commands.size
+    pc = 0
+
+    while pc < max
+      command = commands[pc]
+      opc = pc
+      pc += 1
+      case command
+      when /^cpy (\d+|#{R}) (#{R})$/
+        src, dst = $1, $2
+        val = R =~ src ? M[src] : src.to_i
+        M[dst] = val
+      when /^inc (#{R})$/
+        M[$1] += 1
+      when /^dec (#{R})$/
+        M[$1] -= 1
+      when /^jnz (\d+|#{R}) (-?\d+)$/
+        test, move = $1, $2
+        val = R =~ test ? M[test] : test.to_i
+        unless val == 0
+          pc = opc + move.to_i
+        end
+      else
+        raise command
+      end
+    end
+
+    p M["a"]
+- :name: 12a2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    M = [0, 0, 0, 0]
+    R = /[abcd]/
+
+    def reg2idx(reg)
+      reg.ord - "a".ord
+    end
+
+    commands = ARGF.readlines.map(&:chomp)
+    max = commands.size
+    pc = 0
+
+    while pc < max
+      command = commands[pc]
+      opc = pc
+      pc += 1
+      case command
+      when /^cpy (\d+|#{R}) (#{R})$/
+        src, dst = $1, $2
+        val = R =~ src ? M[reg2idx(src)] : src.to_i
+        M[reg2idx(dst)] = val
+      when /^inc (#{R})$/
+        M[reg2idx($1)] += 1
+      when /^dec (#{R})$/
+        M[reg2idx($1)] -= 1
+      when /^jnz (\d+|#{R}) (-?\d+)$/
+        test, move = $1, $2
+        val = R =~ test ? M[reg2idx(test)] : test.to_i
+        unless val == 0
+          pc = opc + move.to_i
+        end
+      else
+        raise command
+      end
+    end
+
+    p M[reg2idx("a")]
+- :name: 12a3.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    M = [0, 0, 0, 0]
+    R = /[abcd]/
+
+    def reg2idx(reg)
+      reg.ord - "a".ord
+    end
+
+    commands = ARGF.readlines.map { |command|
+      cmd, arg1, arg2 = command.split
+      cmd = cmd.to_sym
+      [cmd, arg1, arg2]
+    }
+    max = commands.size
+    pc = 0
+
+    while pc < max
+      command, arg1, arg2 = commands[pc]
+      opc = pc
+      pc += 1
+      case command
+      when :cpy
+        src, dst = arg1, arg2
+        val = R =~ src ? M[reg2idx(src)] : src.to_i
+        M[reg2idx(dst)] = val
+      when :inc
+        M[reg2idx(arg1)] += 1
+      when :dec
+        M[reg2idx(arg1)] -= 1
+      when :jnz
+        test, move = arg1, arg2
+        val = R =~ test ? M[reg2idx(test)] : test.to_i
+        unless val == 0
+          pc = opc + move.to_i
+        end
+      else
+        raise command
+      end
+    end
+
+    p M[reg2idx("a")]

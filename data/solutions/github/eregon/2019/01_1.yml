@@ -1,0 +1,4 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2019
+  :solution: p File.readlines('1.txt').sum { |line| Integer(line) / 3 - 2 }

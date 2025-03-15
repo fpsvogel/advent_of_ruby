@@ -1,0 +1,32 @@
+---
+- :name: 16_flawed_frequency_transmission.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    signal  = DATA.read.strip.chars.map(&:to_i)
+    offset  = signal.take(7).join.to_i
+    message = (signal * 10_000).drop(offset)
+
+    def fft(s)
+      s.size.times { |i|
+        sum = [0, 0]
+        len = i + 1
+
+        (i..s.size).step(len * 2).each.with_index { |o, d|
+          sum[d % 2] += s[o, len].sum
+        }
+
+        s[i] = (sum[0] - sum[1]).abs % 10
+      }
+    end
+
+    100.times { fft(signal) }
+    puts signal.take(8).join
+
+    def fftt(s)
+      (s.size - 1).downto(0).each { |i|
+        s[i] = ((s[i + 1] || 0) + s[i]) % 10
+      }
+    end
+
+    100.times { fftt(message) }
+    puts message.take(8).join

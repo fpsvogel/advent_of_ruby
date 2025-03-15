@@ -1,0 +1,15 @@
+---
+- :name: '09_explosives_in_cyberspace.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    file = DATA.read.chomp
+
+    decompress = -> file, deep {
+      return file.size unless marker = file =~ /\((\d+)x(\d+)\)/
+      size, chars, times = $&.size, $1.to_i, $2.to_i
+      offset = marker + size
+      f = file[offset, chars]
+      marker + (deep ? decompress[f, deep] : f.size) * times + decompress[file[offset + chars..], deep]
+    }
+
+    puts [false, true].map { decompress[file, _1] }

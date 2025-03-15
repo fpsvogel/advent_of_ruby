@@ -1,0 +1,12 @@
+---
+- :name: day-03-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2022/day-03
+  :solution: |-
+    priorities = input.each_line.each_slice(3).map { |group|
+      error = group.map(&:strip).map(&:chars).inject(:&).first
+
+      priority = error.downcase != error ? 26 : 0
+      priority += error.downcase.ord - 'a'.ord + 1
+    }
+
+    puts priorities.sum

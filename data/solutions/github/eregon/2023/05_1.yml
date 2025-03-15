@@ -1,0 +1,27 @@
+---
+- :name: 5a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    seeds, *maps = $<.read.split("\n\n")
+    seeds = seeds[/:(.+)/, 1].split.map { Integer _1 }
+
+    maps = maps.map do |map|
+      map.lines[1..].map { |line|
+        dest, src, len = line.split.map { Integer _1 }
+        [(src...src+len), dest]
+      }.sort_by { _1[0].begin }.to_h
+    end
+
+    p seeds.map { |seed|
+      maps.reduce(seed) { |v, map|
+        range = map.keys.find { |range| range === v }
+        if range
+          map[range] + (v - range.begin)
+        else
+          v
+        end
+      }
+    }.min
+- :name: 5a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: a,*b=$<.read.split"\n\n";p a.split[1..].map(&:to_i).map{|v|b.each{_1.lines[1..].each{|l|d,s,z=l.split.map(&:to_i);break v+=d-s if v>=s&&v<s+z}};v}.min

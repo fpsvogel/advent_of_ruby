@@ -1,0 +1,16 @@
+---
+- :name: day-13-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-13
+  :solution: |-
+    layers = {}
+
+    input.split("\n").each do |layer|
+      depth, range = layer.split(':').map(&:to_i)
+      layers[depth] = range
+    end
+
+    puts (0..Float::INFINITY).find { |delay|
+      layers.none? do |pos, range|
+        (pos + delay) % ((range - 1) * 2) == 0
+      end
+    }

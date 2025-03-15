@@ -1,0 +1,27 @@
+---
+- :name: day-16-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2019/day-16
+  :solution: |-
+    digits = input.chars.map(&:to_i) * 10000
+
+    offset = digits[0, 7].join.to_i
+
+    digits = digits[offset..]
+
+    100.times do |time|
+      result = []
+
+      # Bottom half digits is a triangular matrix.
+      # From the offset, we are certainly in the bottom half.
+      sum = digits.inject(:+)
+
+      digits.length.times do |i|
+        result << sum.abs % 10
+
+        sum -= digits[i]
+      end
+
+      digits = result
+    end
+
+    puts digits[0, 8].join

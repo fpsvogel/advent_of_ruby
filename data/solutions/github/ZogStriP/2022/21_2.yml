@@ -1,0 +1,4 @@
+---
+- :name: 21_monkey_math.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: "monkeys = DATA.to_h { _1.split ?: }.transform_values { _1[/\\d/] ? _1.to_i : _1.split }\n\ndef \U0001F9EE(monkeys)\n  Hash.new { |h, k|\n    v = monkeys[k]\n    h[k] = Integer === v ? v : h[v[0]].send(v[1], h[v[2]])\n  }\nend\n\np \U0001F9EE(monkeys)[\"root\"]\n\nl, _, r = monkeys[\"root\"]\n\np (0..).bsearch { \U0001F9EE(monkeys.merge(\"humn\" => _1))[l] <=> \U0001F9EE(monkeys)[r] }"

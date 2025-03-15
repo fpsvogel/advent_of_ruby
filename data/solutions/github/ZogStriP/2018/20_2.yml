@@ -1,0 +1,45 @@
+---
+- :name: 20_a_regular_map.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    DIRECTIONS = {
+      "N" => [ 0, -1],
+      "S" => [ 0,  1],
+      "E" => [ 1,  0],
+      "W" => [-1,  0],
+    }
+
+    map = Hash.new { |h, k| h[k] = [] }
+    stack = []
+    position = [0, 0]
+    instructions = DATA.read.chomp.chars
+
+    while i = instructions.shift
+      if d = DIRECTIONS[i]
+        n = [position[0] + d[0], position[1] +  d[1]]
+        map[n] << position
+        map[position] << n
+        position = n
+      elsif i == "("
+        stack << position
+      elsif i == ")"
+        stack.pop
+      elsif i == "|"
+        position = stack[-1]
+      end
+    end
+
+    start = [0, 0]
+    queue = [start]
+    distances = { start => 0 }
+
+    while c = queue.shift
+      map[c].each { |n|
+        next if distances[n]
+        distances[n] = distances[c] + 1
+        queue << n
+      }
+    end
+
+    p distances.values.max
+    p distances.values.count { |d| d >= 1000 }

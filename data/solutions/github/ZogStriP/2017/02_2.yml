@@ -1,0 +1,8 @@
+---
+- :name: 02_corruption_checksum.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    input = (ARGV.empty? ? DATA.read.strip : ARGV[0]).split("\n").map { |line| line.split.map(&:to_i) }
+
+    p -input.sum { |line| line.minmax.reduce(:-) }
+    p  input.sum { |line| line.permutation(2).find { |a, b| a % b == 0 }.reduce(:/) }

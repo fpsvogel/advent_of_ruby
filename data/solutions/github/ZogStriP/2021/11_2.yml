@@ -1,0 +1,36 @@
+---
+- :name: 11_dumbo_octopus.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    N = [-1,0,1].product([-1,0,1]) - [[0,0]]
+    Y = X = (0..9)
+
+    def step(energy)
+      flashed = {}
+
+      Y.each { |y| X.each { |x| energy[y][x] += 1 } }
+
+      loop {
+        changed = false
+        Y.each { |y|
+          X.each { |x|
+            next if energy[y][x] < 10 || flashed[[y, x]]
+
+            energy[y][x] = 0
+            flashed[[y, x]] = true
+            changed = true
+
+            N.map { |dy, dx| [y + dy, x + dx] }
+             .each { |yy, xx| Y === yy && X === xx && !flashed[[yy, xx]] && energy[yy][xx] += 1 }
+          }
+        }
+        break if !changed
+      }
+
+      [energy, flashed.size]
+    end
+
+    energy = DATA.map { _1.chomp.chars.map &:to_i }
+
+    p 100.times.sum { energy, flashes = step(energy); flashes }
+    p 101.step.find { energy, flashes = step(energy); flashes == 100 }

@@ -1,0 +1,17 @@
+---
+- :name: 2a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    max = %w[red green blue].zip(12..14).to_h
+    p File.readlines('2.txt').sum { |line|
+      game = line[/^Game (\d+): (.+)$/, 1].to_i
+      $2.split('; ').all? { |pick|
+        pick.split(', ').all? {
+          _1[/^(\d+) (\w+)$/]
+          $1.to_i <= max.fetch($2)
+        }
+      } ? game : 0
+    }
+- :name: 2a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: 'p$<.sum{|l|l.scan(/(\d+) (\w+)/).all?{_1.to_i<%w[red green blue].index(_2)+13}?l[/\d+/].to_i: 0}'

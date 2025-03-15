@@ -1,0 +1,20 @@
+---
+- :name: 11_cosmic_expansion.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    galaxies = DATA.flat_map.with_index { |row, y|
+      row.gsub(/#/).map { [y, $~.begin(0)] }
+    }
+
+    ys = galaxies.map &:first
+    xs = galaxies.map &:last
+
+    yy = (0..ys.max).filter { !ys.include? _1 }
+    xx = (0..xs.max).filter { !xs.include? _1 }
+
+    puts [2, 1_000_000].map { |t|
+      galaxies
+        .map { |y, x| [y + yy.count { _1 < y } * (t - 1), x + xx.count { _1 < x } * (t - 1)] }
+        .combination(2)
+        .sum { |(y1, x1), (y2, x2)| (y1 - y2).abs + (x1 - x2).abs }
+    }

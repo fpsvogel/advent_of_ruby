@@ -1,0 +1,11 @@
+---
+- :name: 25_let_it_snow.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    ROW  = 3010
+    COL  = 3019
+    BASE = 252533
+    MOD  = 33554393
+    EXP  = (ROW + COL - 2) * (ROW + COL - 1) / 2 + COL - 1
+
+    p 20151125 * BASE.pow(EXP, MOD) % MOD

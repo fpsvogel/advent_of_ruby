@@ -1,0 +1,102 @@
+---
+- :name: 18_many-worlds_interpretation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    require_relative "priority_queue"
+
+    input = DATA.read.split("\n")
+
+    @map = input.join
+    @height = input.size
+    @width = input[0].size
+
+    @keys = {}
+    @gates = {}
+    @start = nil
+    @sources = []
+
+    input.each.with_index { |r, y|
+      r.bytes.each.with_index { |c, x|
+        p = y * @width + x
+        if 65 <= c && c <= 90
+          @gates[p] = 1 << (c - 65)
+        elsif 97 <= c && c <= 122
+          @keys[p] = 1 << (c - 97)
+          @sources << p
+        elsif c == 64
+          @start = p
+          @sources << p
+        end
+      }
+    }
+
+    @all_keys = (1 << @keys.size) - 1
+
+    @bfs = {}
+
+    def bfs(from)
+      @bfs[from] ||= begin
+        d = { from => 0 }
+        q = [from]
+        p = {}
+
+        while c = q.shift
+          [c - @width, c + @width, c - 1, c + 1]
+            .select { |n| !d[n] && @map[n] != ?# }
+            .each { |n| d[n] = d[c] + 1; p[n] = c; q << n }
+        end
+
+        @sources.select { |s| d[s] }.map { |s|
+          k = @keys[s].to_i
+          g = 0
+          n = s
+
+          while n = p[n]
+            k |= @keys[n]  if @keys[n]
+            g |= @gates[n] if @gates[n]
+          end
+
+          [k, g, s, d[s]]
+        }
+      end
+    end
+
+    def dijkstra(froms)
+      score = Hash.new(1.0 / 0)
+      open = PriorityQueue.new
+      closed = {}
+
+      start = [froms, 0]
+      score[start] = 0
+      open.push(start, 0)
+
+      while c = open.pop
+        return score[c] if c[1] == @all_keys
+
+        closed[c] = true
+
+        c[0].each.with_index { |r, i|
+          bfs(r).each { |keys, gates, position, steps|
+            next if c[1] & keys  == keys
+            next if c[1] & gates != gates
+            cc = c[0].dup
+            cc[i] = position
+            n = [cc, c[1] | keys]
+            next if closed[n]
+            next if (s = score[c] + steps) >= score[n]
+            open.push(n, score[n] = s)
+          }
+        }
+      end
+    end
+
+    p dijkstra([@start])
+
+    @bfs = {}
+
+    [@start, @start + 1, @start - 1, @start + @width, @start - @width].each { |p| @map[p] = ?# }
+
+    starts = [@start - 1 - @width, @start - 1 + @width, @start + 1 - @width, @start + 1 + @width ]
+    starts.each { |p| @sources << p }
+
+    p dijkstra(starts)

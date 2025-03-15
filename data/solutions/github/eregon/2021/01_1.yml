@@ -1,0 +1,8 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2021
+  :solution: |-
+    require_relative 'lib'
+
+    data = File.readlines('1.txt').map(&Integer)
+    p data.each_cons(2).count { _1 < _2 }

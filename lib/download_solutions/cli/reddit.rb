@@ -20,7 +20,7 @@ module DownloadSolutions
           path = File.join("data", "solutions", "reddit", languages.join("-"), year.to_s, "#{current_day.to_s.rjust(2, "0")}.yml")
 
           if File.exist?(path) && !force
-            puts PASTEL.yellow("Skipping #{current_year}##{current_day.to_s.rjust(2, "0")} as it already exists.")
+            puts PASTEL.yellow("Skipping #{PASTEL.yellow.bold("#{current_year}##{current_day.to_s.rjust(2, "0")}")} as it already exists.")
             puts
             next
           end

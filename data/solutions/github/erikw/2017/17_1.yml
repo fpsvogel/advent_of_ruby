@@ -1,0 +1,15 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/17
+  :solution: |-
+    VALUES = 2018
+
+    steps = ARGF.readline.to_i
+
+    buffer = [0]
+    i = 0
+    (1...VALUES).each do |v|
+      i = (i + steps) % buffer.length + 1
+      buffer.insert(i, v)
+    end
+    puts buffer[(i + 1) % buffer.length]

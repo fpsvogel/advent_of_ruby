@@ -1,0 +1,38 @@
+---
+- :name: day-07-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2016/day-07
+  :solution: |-
+    lines = input.split("\n")
+
+    def aba(text)
+      result = []
+
+      text.chars.each_cons(3) do |chars|
+        str = chars.join
+
+        result << str if str[0] == str[2]
+      end
+
+      result
+    end
+
+    def bab(text)
+      aba(text).map do |aba|
+        aba[1] + aba[0] + aba[1]
+      end
+    end
+
+    ssl = lines.select { |line|
+      strings = line.split(/\[|\]/)
+
+      sequences, hypernets = strings.partition.with_index do |str, idx|
+        idx.even?
+      end
+
+      abas = sequences.flat_map { |str| aba(str) }
+      babs = hypernets.flat_map { |str| bab(str) }
+
+      (abas & babs).any?
+    }
+
+    puts ssl.count

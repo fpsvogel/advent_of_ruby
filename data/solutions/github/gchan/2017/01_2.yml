@@ -1,0 +1,12 @@
+---
+- :name: day-01-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-01
+  :solution: |-
+    digits = input.chars
+
+    length = digits.length
+
+    puts digits.select
+      .with_index { |d, idx| digits[(idx + length / 2) % length] == d }
+      .map(&:to_i)
+      .inject(:+)

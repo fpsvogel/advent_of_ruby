@@ -1,0 +1,23 @@
+---
+- :name: 06_probably_a_fire_hazard.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    instructions = DATA.read.split("\n")
+
+    W = H = 1000
+
+    lights = [0] * W * H
+    brightness = [0] * W * H
+
+    instructions.each {
+      a, b, c, d = _1.scan(/\d+/).map &:to_i
+
+      case _1
+      when /off/; (a..c).each { |y| (b..d).each { |x| lights[y * W + x] = 0; brightness[y * W + x] > 0 && brightness[y * W + x] -= 1 } }
+      when /on/; (a..c).each { |y| (b..d).each { |x| lights[y * W + x] = 1; brightness[y * W + x] += 1 } }
+      when /toggle/; (a..c).each { |y| (b..d).each { |x| lights[y * W + x] ^= 1; brightness[y * W + x] += 2 } }
+      end
+    }
+
+    p lights.count(1)
+    p brightness.sum

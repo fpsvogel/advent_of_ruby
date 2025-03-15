@@ -1,0 +1,28 @@
+---
+- :name: 05_if_you_give_a_seed_a_fertilizer.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    seeds, *maps = DATA.read.split($/*2)
+
+    seeds = seeds.split[1..].map(&:to_i)
+    maps = maps.map { |m| m.split[2..].map(&:to_i).each_slice(3).map { [_2.._2 + _3 - 1, _1 - _2] } }
+
+    p maps.reduce(seeds) { |seeds, map| seeds.map { |s| s + map.find { |r, _| r === s }&.[](1).to_i } }.min
+
+    seeds = seeds.each_slice(2).map { _1.._1 + _2 - 1 }
+
+    p maps.reduce(seeds) { |seeds, map|
+      seeds.flat_map { |s|
+        m = map.filter_map { |r, d| [[s.min, r.min].max..[s.max, r.max].min, d] if s.min <= r.max && r.min <= s.max }
+        if m.empty?
+          s
+        else
+          a = m.map(&:first).map(&:min).min
+          b = m.map(&:first).map(&:max).max
+          r = m.map { |r, d| r.min + d .. r.max + d }
+          r << (s.min..a - 1) if s.min < a
+          r << (b + 1..s.max) if b < s.max
+          r
+        end
+      }
+    }.map(&:min).min

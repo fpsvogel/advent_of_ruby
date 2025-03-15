@@ -1,0 +1,11 @@
+---
+- :name: 04_security_through_obscurity.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2016
+  :solution: |-
+    rooms = DATA.map { |l|
+      name, sector, checksum = l.scan(/(.+)-(\d+)\[(.+)\]/)[0]
+      [name.tr(?-,""), sector.to_i, checksum]
+    }
+
+    p rooms.sum { |n, s, c| c == n.chars.tally.sort_by { [-_2, _1] }[..4].map(&:first).join ? s : 0 }
+    p rooms.find { |n, s, _| n.tr("a-z", [*(?a..?z)].rotate(s).join)["northpole"] }[1]

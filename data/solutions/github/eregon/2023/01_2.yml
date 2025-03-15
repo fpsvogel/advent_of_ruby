@@ -1,0 +1,18 @@
+---
+- :name: 1b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    digits = (%w[one two three four five six seven eight nine].zip(1..9) + ('0'..'9').zip(0..9)).to_h
+    digit = digits.keys.join '|'
+    p File.readlines('1.txt').sum { /(#{digit})(?:.*(#{digit}))?/o =~ _1 and digits[$1] * 10 + digits[$2 || $1] }
+- :name: 1b_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    a=[*?0..?9,*%w[0 one two three four five six seven eight nine]].zip([*0..9]*2).to_h
+    d=[*a]*?|
+    p$<.sum{_1[/(#{d})(.*(#{d}))?/]&&a[$1]*10+a[$3||$1]}
+- :name: 1b_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2023
+  :solution: |-
+    a=[*?0..?9]+%w[0 one two three four five six seven eight nine]
+    p$<.sum{_1[/(#{a*?|})(.*(#{a*?|}))?/]&&a.index($1)%10*10+a.index($3||$1)%10}

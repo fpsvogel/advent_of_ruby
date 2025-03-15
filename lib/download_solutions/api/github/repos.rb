@@ -37,6 +37,9 @@ module DownloadSolutions
           either_part: {
             exact_path: "%<year>d/day-%<day>.2d/day-%<day>.2d-part-%<part>d.rb"
           },
+          part_2: {
+            exact_path: "%<year>d/day-%<day>.2d/day-%<day>.2d-part-1-and-2.rb"
+          },
           edits: ->(file_contents) {
             # Remove the first 5 lines (boilerplate).
             file_contents.lines[5..].join

@@ -1,0 +1,11 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2019/05
+  :solution: |-
+    require_relative 'computer'
+
+    intcode = ARGF.readline.split(',').map(&:to_i)
+    computer = Computer.new
+    computer.stdin << 5
+    computer.execute(intcode)
+    puts computer.stdout.last

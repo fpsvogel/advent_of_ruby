@@ -1,0 +1,28 @@
+---
+- :name: 12_the_n-body_problem.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    moons = DATA.each_line.map { |l| [l.scan(/-?\d+/).map(&:to_i), [0, 0, 0]] }
+    start = moons.map(&:first).transpose
+
+    1000.times {
+      moons = moons.map { |p, v|
+        vv = v.zip(*moons.map { |pp, _| pp.zip(p).map { |a, b| a <=> b }}).map(&:sum)
+        [p.zip(vv).map(&:sum), vv]
+      }
+    }
+
+    p moons.sum { |p, v| p.sum(&:abs) * v.sum(&:abs) }
+
+    def period(a)
+      v = [0] * a.size
+
+      (1..).each { |t|
+        g = a.map { |b| a.sum { |c| c <=> b }}
+        v = v.zip(g).map(&:sum)
+        a = a.zip(v).map(&:sum)
+        return t * 2 if v.all?(&:zero?)
+      }
+    end
+
+    p start.map { |a| period(a) }.reduce(1, :lcm)

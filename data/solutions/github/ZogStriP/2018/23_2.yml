@@ -1,0 +1,39 @@
+---
+- :name: 23_experimental_emergency_teleportation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    require "algorithms"
+
+    nanobots = DATA.each_line.map { |line| line.scan(/-?\d+/).map(&:to_i) }
+
+    def in_range?(a, b)
+      3.times.sum { |i| (a[i] - b[i]).abs } <= a[3]
+    end
+
+    strongest = nanobots.max_by { |n| n[3] }
+
+    p nanobots.count { |n| in_range?(strongest, n) }
+
+    q = Containers::PriorityQueue.new { |a, b| (a <=> b) == -1 }
+
+    nanobots.each { |x, y, z, r|
+      dist  = x.abs + y.abs + z.abs
+      start = [0, dist - r].max
+      _end  = dist + r + 1
+      q.push([start,  1], start)
+      q.push([_end, -1], _end)
+    }
+
+    max   = 0
+    count = 0
+    dist  = 0
+
+    while c = q.pop
+      count += c[1]
+      if count > max
+        max  = count
+        dist = c[0]
+      end
+    end
+
+    p dist

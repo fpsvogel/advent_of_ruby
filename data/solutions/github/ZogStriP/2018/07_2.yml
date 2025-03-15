@@ -1,0 +1,41 @@
+---
+- :name: 07_the_sum_of_its_parts.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    s = {}
+
+    DATA.each_line { |l|
+      a, b = l.scan(/[A-Z]/).drop(1)
+      s[a] ||= []
+      s[b] ||= []
+      s[b] << a
+    }
+
+    d = Marshal.load(Marshal.dump(s))
+    until d.empty?
+      c = d.select { |_, v| v.empty? }.keys.sort[0]
+      d.delete(c)
+      d.each { |_, v| v.delete(c) }
+      putc c
+    end
+
+    puts
+
+    w = {}
+    d = Marshal.load(Marshal.dump(s))
+
+    p 0.step { |t|
+      w.delete_if { |k, v|
+       v == 1 && (d.delete(k); d.each { |_, v| v.delete(k) }; true)
+      }
+
+      d.select { |_, v| v.empty? }.keys.sort.each { |c|
+        if w[c]
+          w[c] -= 1
+        elsif w.size < 5
+          w[c] = c.ord - 4
+        end
+      }
+
+      break t if d.empty?
+    }

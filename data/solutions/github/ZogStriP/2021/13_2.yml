@@ -1,0 +1,30 @@
+---
+- :name: 13_transparent_origami.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    require "set"
+
+    dots = Set.new
+    fold = -> v, a { v > a ? a * 2 - v : v }
+    folded = false
+
+    DATA.each { |l|
+      if l[?,]
+        dots << l.scan(/\d+/).map(&:to_i)
+      elsif l[?=]
+        axis, a = l.scan(/([xy])=(\d+)/)[0]
+        a = a.to_i
+        axis[?x] ? dots.map! { [fold[_1, a], _2] } : dots.map! { [_1, fold[_2, a]] }
+        (p dots.size; folded = true) unless folded
+      end
+    }
+
+    X = dots.map(&:first).max + 1
+    Y = dots.map(&:last).max + 1
+
+    Y.times { |y|
+      X.times { |x|
+        putc dots === [x, y] ? ?█ : " "
+      }
+      puts
+    }

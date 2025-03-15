@@ -1,0 +1,13 @@
+---
+- :name: '08_memory_maneuver.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    tree = DATA.read.split.map(&:to_i)
+
+    def process(t, &b)
+      c, m = t.shift(2)
+      yield c.times.map { process(t, &b) }, t.shift(m)
+    end
+
+    p process(tree.dup) { |c, m| c.sum + m.sum }
+    p process(tree.dup) { |c, m| c.empty? ? m.sum : m.sum { |i| c[i - 1] || 0 } }

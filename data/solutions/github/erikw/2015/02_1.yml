@@ -1,0 +1,11 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2015/02
+  :solution: |-
+    paper = ARGF.each_line.map { |l| l.split('x').map(&:to_i) }.map do |l, w, h|
+      lw = l * w
+      wh = w * h
+      hl = h * l
+      2 * lw + 2 * wh + 2 * hl + [lw, wh, hl].min
+    end.sum
+    puts paper

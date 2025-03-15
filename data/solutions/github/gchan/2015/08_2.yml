@@ -1,0 +1,8 @@
+---
+- :name: day-08-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2015/day-08
+  :solution: |-
+    code_characters    = lines.map(&:length).inject(:+)
+    encoded_characters = lines.map(&:inspect).map(&:length).inject(:+)
+
+    puts encoded_characters - code_characters

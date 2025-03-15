@@ -1,0 +1,22 @@
+---
+- :name: 19_a_series_of_tubes.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2017
+  :solution: |-
+    map = DATA.readlines.map(&:chomp)
+
+    DIRECTIONS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+
+    p = [0, map[0].index("|")]
+    d = [1, 0]
+
+    p 0.step.with_object("") { |n, letters|
+      case m = map[p[0]][p[1]]
+      when "+"
+        d = DIRECTIONS[d[0].abs * 2, 2].find { |dir| map[p[0] + dir[0]]&.[](p[1] + dir[1]) =~ /[A-Z\-\|]/ }
+      when /[A-Z]/
+        letters << m
+      when " "
+        break [letters, n]
+      end
+      p = [p[0] + d[0], p[1] + d[1]]
+    }

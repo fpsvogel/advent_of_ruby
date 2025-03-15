@@ -1,0 +1,4 @@
+---
+- :name: 6b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2019
+  :solution: "lines = File.readlines('6.txt')\n\nclass Body\n  attr_reader :name, :parent\n  def initialize(name)\n    @name = name\n  end\n\n  def parent=(parent)\n    raise if @parent\n    @parent = parent\n  end\n  \n  def depth\n    if @name == 'COM' and @parent.nil?\n      0\n    else\n      @parent.depth + 1\n    end\n  end\nend\n\nbodies = Hash.new { |h,k| h[k] = Body.new(k) }\n\nlines.each { |line|\n  parent, child = line.chomp.split(')', 2)\n  bodies[child].parent = bodies[parent]\n}\n\na = bodies.fetch('YOU').parent\nb = bodies.fetch('SAN').parent\n\nsteps = 0\nwhile a != b\n  da, db = a.depth, b.depth\n\n  if da >= db\n    a = a.parent\n    steps += 1\n  end\n\n  if da <= db\n    b = b.parent\n    steps += 1\n  end\nend\np steps"

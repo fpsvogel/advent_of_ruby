@@ -1,0 +1,4 @@
+---
+- :name: 13_distress_signal.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: "pairs = DATA.read.split(\"\\n\\n\").map { |l| l.split.map { eval _1 } }\n\ndef \U0001F680(a, b)\n  case [a, b]\n  in [Integer, Integer]\n    a <=> b\n  in [Array, Array]\n    [a.size, b.size].min.times {\n      r = \U0001F680(a[_1], b[_1])\n      return r if r != 0\n    }\n    a.size <=> b.size\n  else\n    \U0001F680([a].flatten(1), [b].flatten(1))\n  end\nend\n\np pairs.each.with_index(1).sum { |(l, r), i| \U0001F680(l, r) < 0 ? i : 0 }\n\ndividers = [[[2]], [[6]]]\npairs = (pairs.flatten(1) + dividers).sort &method(:\U0001F680)\n\np dividers.map { pairs.index(_1) + 1 }.reduce :*"

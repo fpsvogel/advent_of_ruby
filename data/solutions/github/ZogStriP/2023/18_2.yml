@@ -1,0 +1,19 @@
+---
+- :name: 18_lavaduct_lagoon.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2023
+  :solution: |-
+    D = { ?R => 0, ?D => 1, ?L => 2, ?U => 3 }
+    N = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+    I = DATA.map {
+      _1 =~ /(.) (\d+) \(#(\h{5})(\h)\)/
+      [[N[D[$1]], $2.to_i], [N[$4.to_i], $3.hex]]
+    }
+
+    def area(vs)
+      y = x = 0
+      v = vs.map { |(dy, dx), s| [y += dy * s, x += dx * s] }
+      (vs.sum { _2 } + v.each_cons(2).sum { |(y1, x1), (y2, x2)| x1 * y2 - y1 * x2 }) / 2 + 1
+    end
+
+    p area I.map &:first
+    p area I.map &:last

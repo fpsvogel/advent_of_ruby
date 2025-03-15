@@ -1,0 +1,49 @@
+---
+- :name: 17_pyroclastic_flow.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    WIDTH = 7
+
+    ROCKS = [
+      [[0, 0], [1, 0], [2, 0], [3, 0]],
+      [[1, 0], [0, 1], [1, 1], [2, 1], [1, 2]],
+      [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2]],
+      [[0, 0], [0, 1], [0, 2], [0, 3]],
+      [[0, 0], [1, 0], [0, 1], [1, 1]],
+    ].map { [_1, _1.map(&:first).max, _1.map(&:last).max] }.cycle
+
+    JETS = DATA.read.chomp.chars.map { _1[?<] ? -1 : 1 }.cycle
+
+    y_max = 0
+    stopped = Hash.new { |h, k| h[k] = {} }
+    ys = []
+
+    5000.times { |t|
+      rock, width, height = ROCKS.next
+      left = 2
+      bottom = y_max + 3
+
+      loop {
+        # move
+        jet = JETS.next
+        left += jet if left + jet >= 0 && left + jet + width < WIDTH && rock.all? { !stopped[_1 + left + jet][_2 + bottom] }
+        # fall
+        if bottom == 0 || rock.any? { stopped[_1 + left][_2 + bottom - 1] }
+          rock.each { stopped[_1 + left][_2 + bottom] = true }
+          ys << y_max = [y_max, bottom + height + 1].max
+          p y_max if t == 2021
+          break
+        else
+          bottom -= 1
+        end
+      }
+    }
+
+    p 2000.downto(0) { |size|
+      a = ys[-1 - size, size]
+      b = ys[-1 - size * 2, size]
+      diff = a[0] - b[0]
+      next if a.zip(b).any? { _1 - _2 != diff }
+      complete, incomplete = (1000000000000 - 5000).divmod(size)
+      break y_max + complete * diff + a[incomplete] - a[0]
+    }

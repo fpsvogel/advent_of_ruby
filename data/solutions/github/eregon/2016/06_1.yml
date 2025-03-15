@@ -1,0 +1,6 @@
+---
+- :name: 6a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2016
+  :solution: |-
+    p ARGF.readlines.map { |line| line.chomp.chars }
+      .transpose.map { |col| col.max_by { |e| col.count(e) } }.join

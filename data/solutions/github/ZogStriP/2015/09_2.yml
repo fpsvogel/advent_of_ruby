@@ -1,0 +1,21 @@
+---
+- :name: '09_all_in_a_single_night.rb'
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    distances = Hash.new { |h, k| h[k] = Hash.new(0) }
+
+    DATA.each {
+      a, b, d = _1.scan(/(.+) to (.+) = (.+)/)[0]
+      distances[a][b] = distances[b][a] = d.to_i
+    }
+
+    min = 1.0 / 0
+    max = 0
+
+    distances.keys.permutation.each { |path|
+      d = path.each_cons(2).sum { distances[_1][_2] }
+      min = [min, d].min
+      max = [max, d].max
+    }
+
+    p min, max

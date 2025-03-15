@@ -1,0 +1,36 @@
+---
+- :name: day-14-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2018/day-14
+  :solution: |-
+    scores = [3, 7]
+
+    one = 0
+    two = 1
+
+    target = input.chars.map(&:to_i)
+
+    last = []
+
+    loop do
+      sum = scores[one] + scores[two]
+
+      sum.to_s.chars.map(&:to_i).each do |a|
+        scores << a
+        last << a
+
+        if last.length == target.length && last == target
+          puts scores.length - target.length
+          exit
+        elsif last.length >= target.length
+          last.shift
+        end
+      end
+
+      one += 1 + scores[one]
+      two += 1 + scores[two]
+
+      one %= scores.length
+      two %= scores.length
+
+      puts scores.length if scores.length % 1_000_000 == 0
+    end

@@ -1,0 +1,28 @@
+---
+- :name: 22_reactor_reboot.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    steps = DATA.map { |l| [!l[?f], *l.scan(/-?\d+/).each_slice(2).map{_1.to_i.._2.to_i}] }
+
+    size = -> a, b, c { a && b && c ? a.size * b.size * c.size : 0 }
+    ❎ = -> a, b { a.begin <= b.end && b.begin <= a.end && ([a.begin, b.begin].max..[a.end, b.end].min) }
+
+    cubes = Hash.new(0)
+
+    steps.each { |on, x, y, z|
+      changes = Hash.new(0)
+
+      cubes.each { |(xx, yy, zz), m|
+        ix = ❎[x, xx]
+        iy = ❎[y, yy]
+        iz = ❎[z, zz]
+        changes[[ix, iy, iz]] -= m if ix && iy && iz
+      }
+
+      changes[[x, y, z]] += 1 if on
+      cubes.merge!(changes) { _2 + _3 }
+      cubes.select! { _2 != 0 }
+    }
+
+    p cubes.sum { |c, m| size[*c.map{❎[_1,-50..50]}] * m }
+    p cubes.sum { |c, m| size[*c] * m }

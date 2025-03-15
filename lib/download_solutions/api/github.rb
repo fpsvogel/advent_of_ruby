@@ -1,6 +1,9 @@
 module DownloadSolutions
   module Api
     class Github
+      UnexpectedResponseError = Class.new(StandardError)
+      NotFoundResponseError = Class.new(StandardError)
+
       private attr_reader :user_agent, :auth_token
 
       # @param auth_token [String]
@@ -17,23 +20,29 @@ module DownloadSolutions
       def get_solutions(author:, year:, day:, part:)
         return nil if day == 25 && part == 2
 
-        part_path = REPOS[author][:"part_#{part}"] ||
-          REPOS[author][:either_part] ||
+        part_path = (REPOS[author][:either_part] unless part == 1 && day != 25 && REPOS[author][:part_2]) ||
+          REPOS[author][:"part_#{part}"] ||
           (REPOS[author][:part_2] if day == 25 && part == 1)
         return nil unless part_path
 
         if part_path[:exact_path]
           exact_path = part_path[:exact_path] % {year:, day:, part:}
-          response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{exact_path}")
+          # Fall back to :part_2 exact path if :either_part exact path not found.
+          # This is for cases where there is a single file for both parts
+          # by an author who ordinarily has separate files for each part,
+          # e.g. https://github.com/gchan/advent-of-code-ruby/tree/main/2023/day-17
+          fallback_exact_path = REPOS.dig(author, :part_2, :exact_path) % {year:, day:} if REPOS.dig(author, :part_2, :exact_path)
+          response = get_response(author:, path: exact_path, fallback_path: fallback_exact_path)
+
           JSON.parse(response.body)
-            .tap { return [] if it["status"] == "404" }
             .then { simplify_response(it, author) }
             .then { [it] }
-        else
-          response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year}")
+        else # :files (regex)
+          response = get_response(author:, path: year)
+
           files_regex = part_path[:files].call(year:, day:, part:)
           JSON.parse(response.body)
-            .select { |it|
+            .select {
               # If :files regex is specified (rather than :exact_path), then the
               # assumption is that :part_1 and/or :part_2 are specified, rather
               # than :either_part.
@@ -47,9 +56,27 @@ module DownloadSolutions
             }
             .map { simplify_response(it, author) }
         end
+      rescue NotFoundResponseError
+        []
       end
 
       private
+
+      def get_response(author:, path:, fallback_path: nil)
+        response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{path}")
+
+        if response.status == 404
+          if fallback_path
+            response = get_response(author:, path: fallback_path)
+          else
+            raise NotFoundResponseError
+          end
+        elsif response.status != 200
+          raise UnexpectedResponseError, "Unexpected HTTP status: #{it["status"]}. Response: #{response}"
+        end
+
+        response
+      end
 
       def simplify_response(response, author)
         solution = raw_connection.get(response["download_url"]).body

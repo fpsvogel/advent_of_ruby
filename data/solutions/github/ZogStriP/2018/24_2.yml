@@ -1,0 +1,83 @@
+---
+- :name: 24_immune_system_simulator_20xx.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    Group = Struct.new(:immune, :units, :hp, :damage, :attack_type, :initiative, :target, :targeted, :weak_to, :immune_to) do
+      def effective_power
+        damage * units
+      end
+
+      def damage_taken(group)
+        if immune_to&.include?(group.attack_type)
+          0
+        elsif weak_to&.include?(group.attack_type)
+          group.effective_power * 2
+        else
+          group.effective_power
+        end
+      end
+
+      def defeated?
+        units <= 0
+      end
+    end
+
+    immune = true
+    base_groups = []
+
+    DATA.each_line { |line|
+      if line["Infection"]
+        immune = false
+      elsif line[/\d+/]
+        units, hp, misc, damage, attack_type, initiative = line.scan(/(\d+) units each with (\d+) hit points (.*)with an attack that does (\d+) (\w+) damage at initiative (\d+)/)[0]
+
+        group = Group.new(immune, units.to_i, hp.to_i, damage.to_i, attack_type, initiative.to_i)
+
+        if misc.size > 0
+          misc = misc[1..-3].split("; ")
+          if w = misc.find { |m| m["weak to "] }
+            group.weak_to = w["weak to ".size..-1].split(", ")
+          end
+          if i = misc.find { |m| m["immune to "] }
+            group.immune_to = i["immune to ".size..-1].split(", ")
+          end
+        end
+
+        base_groups << group
+      end
+    }
+
+    0.step { |boost|
+      groups = base_groups.map(&:dup)
+      groups.select(&:immune).each { |g| g.damage += boost }
+
+      while groups.map(&:immune).uniq.size > 1
+        groups.reject!(&:defeated?)
+        groups.each { |g| g.target = g.targeted = nil }
+
+        total_units_lost = 0
+
+        # target selection
+        groups.sort_by { |g| [-g.effective_power, -g.initiative] }.each { |group|
+          target = groups.select { |g| g.immune != group.immune && !g.targeted && g.damage_taken(group) > 0 }
+                         .max_by { |g| [g.damage_taken(group), g.effective_power, g.initiative] }
+          if target
+            group.target = target
+            target.targeted = true
+          end
+        }
+
+        # attacking
+        groups.sort_by { |g| -g.initiative }.each { |group|
+          next if group.defeated? || !group.target
+          units_lost = group.target.damage_taken(group) / group.target.hp
+          total_units_lost += units_lost
+          group.target.units -= units_lost
+        }
+
+        break if groups.count(&:defeated?) == 0 && total_units_lost == 0
+      end
+
+      p groups.sum(&:units) if boost == 0
+      break p groups.sum(&:units) if groups.all?(&:immune)
+    }

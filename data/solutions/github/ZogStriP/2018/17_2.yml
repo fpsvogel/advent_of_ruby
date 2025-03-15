@@ -1,0 +1,59 @@
+---
+- :name: 17_reservoir_research.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    CLAY = "#"
+    FLOW = "|"
+    REST = "~"
+
+    @map = Hash.new { |h, k| h[k] = {} }
+
+    DATA.each_line { |l|
+      v = l.scan(/\d+/).map(&:to_i)
+      l[0] == "x" ?
+        (v[1]..v[2]).each { |y| @map[y][v[0]] = CLAY } :
+        (v[1]..v[2]).each { |x| @map[v[0]][x] = CLAY }
+    }
+
+    @ymin, @ymax = @map.keys.minmax
+
+    def spread(xx, yy, d)
+      (xx + d).step(by: d) { |x|
+        return [false, x] if @map[yy + 1][x] != CLAY && @map[yy + 1][x] != REST
+        return [true, x]  if @map[yy][x] == CLAY
+      }
+    end
+
+    def flood(xx, yy, flooded)
+      return if flooded[[xx, yy]]
+      flooded[[xx, yy]] = true
+
+      unless b = (yy..@ymax).find { |y| @map[y][xx] == CLAY || @map[y][xx] == REST }
+        (yy..@ymax).each { |y| @map[y][xx] = FLOW }
+        return
+      end
+
+      (yy..b - 1).each { |y| @map[y][xx] = FLOW }
+
+      (b - 1).step(by: -1) { |y|
+        lw, lx = spread(xx, y, -1)
+        rw, rx = spread(xx, y,  1)
+
+        if lw && rw
+          (lx..rx).each { |x| @map[y][x] = REST unless @map[y][x] == CLAY }
+        else
+          (lx..rx).each { |x| @map[y][x] = FLOW unless @map[y][x] == CLAY }
+          flood(lx, y, flooded) unless @map[y][lx] == CLAY
+          flood(rx, y, flooded) unless @map[y][rx] == CLAY
+          break
+        end
+      }
+    end
+
+    flood(500, 0, {})
+
+    rest = (@ymin..@ymax).sum { |y| @map[y].values.count(REST) }
+    flow = (@ymin..@ymax).sum { |y| @map[y].values.count(FLOW) }
+
+    p rest + flow
+    p rest

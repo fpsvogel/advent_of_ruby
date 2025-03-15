@@ -1,0 +1,9 @@
+---
+- :name: day-04-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2017/day-04
+  :solution: |-
+    puts input.split("\n").count { |pw|
+      words = pw.split(" ").map { |word| word.chars.sort.join }
+
+      words.uniq.length == words.length
+    }

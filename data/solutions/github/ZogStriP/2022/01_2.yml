@@ -1,0 +1,7 @@
+---
+- :name: 01_calorie_counting.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    calories = DATA.read.split("\n\n").map { _1.lines.sum &:to_i }.max 3
+
+    p calories[0], calories.sum

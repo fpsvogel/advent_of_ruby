@@ -1,0 +1,14 @@
+---
+- :name: 17_no_such_thing_as_too_much.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    C = DATA.map &:to_i
+    W = [0] * C.size
+
+    (1...C.size).each { |n|
+      C.combination(n).each { |c|
+        W[c.size] += 1 if c.sum == 150
+      }
+    }
+
+    p W.sum, W.find{_1>0}

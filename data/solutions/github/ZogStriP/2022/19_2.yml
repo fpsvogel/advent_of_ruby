@@ -1,0 +1,63 @@
+---
+- :name: 19_not_enough_minerals.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    def most(time, ore_ore, clay_ore, obsidian_ore, obsidian_clay, geode_ore, geode_obsidian)
+      best = 0
+      q = [[time, 0, 0, 0, 0, 1, 0, 0, 0]]
+      seen = {}
+      max_ore = [ore_ore, clay_ore, obsidian_ore, geode_ore].max
+
+      while current = q.shift
+        t, ore, clay, obsidian, geode, ore_bots, clay_bots, obsidian_bots, geode_bots = current
+
+        best = [best, geode].max
+
+        next if t <= 0
+
+        tt = t - 1
+
+        ore_bots = [ore_bots, max_ore].min
+        clay_bots = [clay_bots, obsidian_clay].min
+        obsidian_bots = [obsidian_bots, geode_obsidian].min
+
+        ore = [ore, t * max_ore - tt * ore_bots].min
+        clay = [clay, t * obsidian_clay - tt * clay_bots].min
+        obsidian = [obsidian, t * geode_obsidian - tt * obsidian_bots].min
+
+        k = t | ore << 5 | clay << 10 | obsidian << 15 | geode << 20 | ore_bots << 25 | clay_bots << 30 | obsidian_bots << 35 | geode_bots << 40
+
+        next if seen[k]
+        seen[k] = true
+
+        o = ore + ore_bots
+        c = clay + clay_bots
+        ob = obsidian + obsidian_bots
+        g = geode + geode_bots
+
+        q << [tt, o, c, ob, g, ore_bots, clay_bots, obsidian_bots, geode_bots]
+        q << [tt, o - ore_ore, c, ob, g, ore_bots + 1, clay_bots, obsidian_bots, geode_bots] if ore >= ore_ore
+        q << [tt, o - clay_ore, c, ob, g, ore_bots, clay_bots + 1, obsidian_bots, geode_bots] if ore >= clay_ore
+        q << [tt, o - obsidian_ore, c - obsidian_clay, ob, g, ore_bots, clay_bots, obsidian_bots + 1, geode_bots] if ore >= obsidian_ore && clay >= obsidian_clay
+        q << [tt, o - geode_ore, c, ob - geode_obsidian, g, ore_bots, clay_bots, obsidian_bots, geode_bots + 1] if ore >= geode_ore && obsidian >= geode_obsidian
+      end
+
+      best
+    end
+
+    p1 = 0
+    p2 = 1
+
+    DATA.each.with_index(1) {
+      w = _1.split
+
+      ore_ore = w[6].to_i
+      clay_ore = w[12].to_i
+      obsidian_ore, obsidian_clay = w[18].to_i, w[21].to_i
+      geode_ore, geode_obsidian = w[27].to_i, w[30].to_i
+
+      p1 += _2 * most(24, ore_ore, clay_ore, obsidian_ore, obsidian_clay, geode_ore, geode_obsidian)
+      p2 *= most(32, ore_ore, clay_ore, obsidian_ore, obsidian_clay, geode_ore, geode_obsidian) if _2 <= 3
+    }
+
+    p p1, p2

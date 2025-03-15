@@ -1,0 +1,8 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2022
+  :solution: |-
+    require_relative 'lib'
+
+    elfs = File.read('1.txt').split("\n\n").map { _1.lines.map(&Int) }
+    p elfs.max_by(&:sum).sum

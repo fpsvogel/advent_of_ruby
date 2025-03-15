@@ -1,0 +1,104 @@
+---
+- :name: 21_springdroid_adventure.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    PROGRAM = DATA.read.split(?,).map(&:to_i).freeze
+
+    class IntCode
+
+      def initialize(mem)
+        @pc = 0
+        @base = 0
+        @mem = mem.map.with_index { |m, i| [i, m] }.to_h
+        @mem.default = 0
+      end
+
+      def read(address, mode)
+        case mode.to_i
+        when 0 then @mem[@mem[address]]
+        when 1 then @mem[address]
+        when 2 then @mem[@mem[address] + @base]
+        end
+      end
+
+      def write(address, mode, value)
+        case mode.to_i
+        when 0 then @mem[@mem[address]] = value
+        when 2 then @mem[@mem[address] + @base] = value
+        end
+      end
+
+      def run(input)
+        loop do
+          mode, opcode = @mem[@pc].divmod(100)
+          m = mode.digits
+          a = read(@pc + 1, m[0])
+          b = read(@pc + 2, m[1])
+
+          case opcode
+          when 1
+            write(@pc + 3, m[2], a + b)
+            @pc += 4
+          when 2
+            write(@pc + 3, m[2], a * b)
+            @pc += 4
+          when 3
+            write(@pc + 1, m[0], input.shift)
+            @pc += 2
+          when 4
+            @pc += 2
+            return a if a > 255
+          when 5
+            a != 0 ? @pc = b : @pc += 3
+          when 6
+            a == 0 ? @pc = b : @pc += 3
+          when 7
+            write(@pc + 3, m[2], a < b ? 1 : 0)
+            @pc += 4
+          when 8
+            write(@pc + 3, m[2], a == b ? 1 : 0)
+            @pc += 4
+          when 9
+            @base += a
+            @pc += 2
+          when 99
+            return
+          else
+            throw "Unknown opcode: #{opcode}"
+          end
+        end
+      end
+
+    end
+
+    # ..............
+    # ..@...........
+    # ###ABCD#######
+
+    # !A || (!C && D)
+    walk = <<~SCRIPT
+    NOT C J
+    AND D J
+    NOT A T
+    OR T J
+    WALK
+    SCRIPT
+
+    p IntCode.new(PROGRAM).run(walk.bytes << 10)
+
+    # ..............
+    # ..@...........
+    # ###ABCDEFGHIJ.
+
+    # D && !(A && B && (C OR !H))
+    run = <<~SCRIPT
+    NOT H J
+    OR C J
+    AND A J
+    AND B J
+    NOT J J
+    AND D J
+    RUN
+    SCRIPT
+
+    p IntCode.new(PROGRAM).run(run.bytes << 10)

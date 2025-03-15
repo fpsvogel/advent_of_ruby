@@ -1,0 +1,51 @@
+---
+- :name: 20_grove_positioning_system.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    Node = Struct.new(:v, :l, :r)
+
+    def decrypt(s, t)
+      z = nil
+
+      s.size.times { |i|
+        s[i].l = s[(i - 1) % s.size]
+        s[i].r = s[(i + 1) % s.size]
+      }
+
+      t.times {
+        s.each { |n|
+          next z = n if n.v == 0
+
+          n.l.r = n.r
+          n.r.l = n.l
+
+          r = n.v % (s.size - 1)
+          l = s.size - 1 - r
+
+          if r <= l
+            k = n.r
+            r.times { k = k.r }
+            n.r = k
+            n.l = k.l
+          else
+            k = n.l
+            l.times { k = k.l }
+            n.l = k
+            n.r = k.r
+          end
+
+          n.r.l = n
+          n.l.r = n
+        }
+      }
+
+      3.times.sum { 1000.times { z = z.r }; z.v }
+    end
+
+    s = DATA.map { Node.new(_1.to_i) }
+
+    p decrypt(s, 1)
+
+    s.each { _1.v *= 811589153 }
+
+    p decrypt(s, 10)

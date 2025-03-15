@@ -1,0 +1,90 @@
+---
+- :name: 20_donut_maze.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2019
+  :solution: |-
+    require_relative "priority_queue"
+
+    @donut = DATA.read.split("\n")
+    @height = @donut.size
+    @width = @donut.map(&:size).max
+
+    AA_ZZ = /[A-Z]{2}/
+    N = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+
+    @portals = {}
+    @levels = {}
+    @wraps = {}
+
+    (2..@height - 2).each { |y|
+      (2..@width - 2).each { |x|
+        next if @donut[y][x] != ?.
+        @portals[[x, y]] = @donut[y][x - 2, 2] if @donut[y][x - 2, 2][AA_ZZ]
+        @portals[[x, y]] = @donut[y][x + 1, 2] if @donut[y][x + 1, 2][AA_ZZ]
+        @portals[[x, y]] = @donut[y - 2][x] + @donut[y - 1][x] if (@donut[y - 2][x].to_s + @donut[y - 1][x])[AA_ZZ]
+        @portals[[x, y]] = @donut[y + 1][x] + @donut[y + 2][x] if (@donut[y + 1][x] + @donut[y + 2][x].to_s)[AA_ZZ]
+      }
+    }
+
+    @max_depth = @portals.size - 2
+
+    @portals.each { |k, _| @levels[k] = k[0] == 2 || k[1] == 2 || k[0] == @width - 3 || k[1] == @height - 3 ? -1 : 1 }
+
+    @portals.group_by(&:last).each { |_, v|
+      w = v.map(&:first)
+      @wraps[w[0]] = w[1]
+      @wraps[w[1]] = w[0]
+    }
+
+    @_bfs = {}
+
+    def bfs(start)
+      @_bfs[start] ||= begin
+        d = { start => 0 }
+        q = [start]
+
+        while c = q.shift
+          N.map { |n| [c[0] + n[0], c[1] + n[1]] }
+           .select { |n| !d[n] && @donut[n[1]][n[0]] == ?. }
+           .each { |n| q << n; d[n] = d[c] + 1 }
+        end
+
+        @portals.select { |k, _| d[k] && d[k] > 0 }.map { |k, _| [k, d[k]] }
+      end
+    end
+
+    def dijkstra(from, to, deep = 0)
+      score = Hash.new(1.0 / 0)
+      open = PriorityQueue.new
+      closed = {}
+
+      start = [from, 0]
+      score[start] = 0
+      open.push(start, 0)
+
+      while c = open.pop
+        position, depth = c
+
+        return score[c] if position == to && depth == 0
+
+        closed[c] = true
+
+        bfs(position).each { |p, steps|
+          d = depth
+          if @wraps[p]
+            d += @levels[p] * deep
+            p = @wraps[p]
+            steps += 1
+          end
+          next if d < 0 || d > @max_depth
+          n = [p, d]
+          next if closed[n]
+          next if (s = score[c] + steps) >= score[n]
+          open.push(n, score[n] = s)
+        }
+      end
+    end
+
+    src = @portals.key("AA")
+    dst = @portals.key("ZZ")
+
+    p dijkstra(src, dst), dijkstra(src, dst, 1)

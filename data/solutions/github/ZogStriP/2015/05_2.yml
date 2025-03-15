@@ -1,0 +1,8 @@
+---
+- :name: 05_doesn_t_he_have_intern_elves_for_this.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2015
+  :solution: |-
+    strings = DATA.read.split("\n")
+
+    p strings.count { |l| l.count("aeiou") > 2 && l[/(.)\1/] && !l[/ab|cd|pq|xy/] }
+    p strings.count { |l| l[/(..).*\1/] && l[/(.).\1/] }

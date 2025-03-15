@@ -1,0 +1,4 @@
+---
+- :name: 1.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: p ARGF.read.strip.each_char.inject(0) { |f,c| f + { '(' => 1, ')' => -1 }[c] }

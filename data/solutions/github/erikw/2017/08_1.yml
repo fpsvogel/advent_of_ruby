@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2017/08
+  :solution: |-
+    require_relative 'computer'
+
+    program = ARGF.readlines.map(&:chomp)
+    puts Computer.new.execute(program).registers.values.max

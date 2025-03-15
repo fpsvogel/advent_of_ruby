@@ -1,0 +1,7 @@
+---
+- :name: 21.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2015
+  :solution: |-
+    boss_health = 104
+    boss_damage = 8
+    boss_armor = 1

@@ -1,0 +1,8 @@
+---
+- :name: 04_camp_cleanup.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2022
+  :solution: |-
+    pairs = DATA.map { |l| l.split(?,).map { eval _1.sub(?-, "..") } }
+
+    p pairs.count { _1.cover?(_2) || _2.cover?(_1) }
+    p pairs.count { (_1.to_a & _2.to_a).any? }

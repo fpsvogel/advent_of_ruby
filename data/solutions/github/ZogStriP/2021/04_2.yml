@@ -1,0 +1,20 @@
+---
+- :name: 04_giant_squid.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2021
+  :solution: |-
+    numbers, *boards = DATA.read.split("\n\n")
+
+    numbers = numbers.split(?,).map &:to_i
+    boards.map! { |b| b.split("\n").map { _1.split.map &:to_i } }
+
+    scores = []
+
+    numbers.each { |n|
+      boards.reject! { |b|
+        b.each { |r| r.map! { _1 == n ? 0 : _1 } }
+        scores << n * b.flatten.sum if won = [b, b.transpose].any? { |r| r.any? { _1.sum == 0 } }
+        won
+      }
+    }
+
+    p scores[0], scores[-1]

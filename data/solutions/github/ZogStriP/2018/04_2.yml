@@ -1,0 +1,23 @@
+---
+- :name: 04_repose_record.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2018
+  :solution: |-
+    guards = Hash.new { |h, k| h[k] = Hash.new(0) }
+    guard  = nil
+    asleep = nil
+
+    DATA.each_line.sort.each do |l|
+      if l["Guard"]
+        guard = l[/#(\d+)/, 1].to_i
+      elsif l["falls asleep"]
+        asleep = l[/:(\d+)/, 1].to_i
+      elsif l["wakes up"]
+        awake = l[/:(\d+)/, 1].to_i
+        (asleep...awake).each { |m| guards[guard][m] += 1 }
+      end
+    end
+
+    %i(sum max).each { |f|
+      g, m = guards.max_by { |_, m| m.values.send(f) }
+      p g * m.max_by(&:last)[0]
+    }

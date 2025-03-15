@@ -1,0 +1,10 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p $<.map { it.split.map(&:to_i) }.transpose.map(&:sort).transpose.sum { (_1-_2).abs }
+- :name: 1a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p$<.read.scan(/(\d+)\s+(\d+)/).transpose.map{it.map(&:to_i).sort}.then{_1.zip(_2)}.sum{(_1-_2).abs}
+- :name: 1a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2024
+  :solution: p$<.map(&:split).transpose.map{it.map(&:to_i).sort}.transpose.sum{(_1-_2).abs}
