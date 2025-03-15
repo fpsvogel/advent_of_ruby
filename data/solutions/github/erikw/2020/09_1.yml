@@ -1,0 +1,8 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/09
+  :solution: |-
+    require_relative 'lib'
+
+    numbers = ARGF.each_line.map(&:to_i)
+    puts first_invalid(numbers)

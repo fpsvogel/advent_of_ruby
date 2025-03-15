@@ -15,13 +15,18 @@ module DownloadSolutions
       # @param part [Integer]
       # @return [Array<Hash>, nil] nil if REPOS does not specify the given part.
       def get_solutions(author:, year:, day:, part:)
-        part_path = REPOS[author][:"part_#{part}"] || REPOS[author][:either_part]
+        return nil if day == 25 && part == 2
+
+        part_path = REPOS[author][:"part_#{part}"] ||
+          REPOS[author][:either_part] ||
+          (REPOS[author][:part_2] if day == 25 && part == 1)
         return nil unless part_path
 
         if part_path[:exact_path]
           exact_path = part_path[:exact_path] % {year:, day:, part:}
           response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{exact_path}")
           JSON.parse(response.body)
+            .tap { return [] if it["status"] == "404" }
             .then { simplify_response(it, author) }
             .then { [it] }
         else

@@ -1,0 +1,12 @@
+---
+- :name: 03_toboggan_trajectory.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    grid = DATA.read.split
+
+    trees = -> (x, y) {
+      (0...grid.size).step(y).with_index.count { |r, i| grid[r][(i * x) % grid[r].size]["#"] }
+    }
+
+    p trees[3, 1]
+    p [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]].map { |x, y| trees[x, y] }.reduce(:*)

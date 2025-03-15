@@ -1,0 +1,10 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/15
+  :solution: |-
+    require_relative 'lib'
+
+    NTH_NUMBER = 2020
+
+    nums_start = ARGF.readline.split(',').map(&:to_i)
+    puts nth_spoken(nums_start, NTH_NUMBER)

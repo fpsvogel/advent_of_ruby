@@ -1,0 +1,13 @@
+---
+- :name: day-06-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2020/day-06
+  :solution: |-
+    groups = input.split("\n\n")
+
+    puts groups.map { |g|
+      qs = g.gsub(/\s/, '').chars.uniq
+
+      qs.count do |q|
+        g.split("\n").all? { |line| line.include?(q) }
+      end
+    }.sum

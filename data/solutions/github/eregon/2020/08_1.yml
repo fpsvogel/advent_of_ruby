@@ -1,0 +1,70 @@
+---
+- :name: 8a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    instructions = File.readlines('8.txt', chomp: true).map { |line|
+      line.split.then { [_1.to_sym, Integer(_2)] }
+    }
+
+    cpu = Enumerator.produce([0, 0]) { |pc, accumulator|
+      case instructions.fetch(pc)
+      in [:nop, _]
+        [pc + 1, accumulator]
+      in [:acc, n]
+        [pc + 1, accumulator + n]
+      in [:jmp, offset]
+        [pc + offset, accumulator]
+      end
+    }
+
+    visited = [false] * instructions.size
+    p cpu.find { |pc, acc| visited[pc] or (visited[pc] = true and next) }.last
+- :name: 8a_case_when.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    instructions = File.readlines('8.txt', chomp: true).map { |line|
+      line.split.then { [_1.to_sym, Integer(_2)] }
+    }
+
+    cpu = Enumerator.produce([0, 0]) { |pc, accumulator|
+      operation, argument = instructions.fetch(pc)
+      case operation
+      when :nop
+        [pc + 1, accumulator]
+      when :acc
+        [pc + 1, accumulator + argument]
+      when :jmp
+        [pc + argument, accumulator]
+      else
+        raise operation
+      end
+    }
+
+    visited = [false] * instructions.size
+    p cpu.find { |pc, acc| visited[pc] or (visited[pc] = true and next) }.last
+- :name: 8a_while.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    instructions = File.readlines('8.txt', chomp: true).map { |line|
+      line.split.then { [_1.to_sym, Integer(_2)] }
+    }
+
+    visited = [false] * instructions.size
+    pc, accumulator = 0, 0
+
+    until visited[pc]
+      visited[pc] = true
+      operation, argument = instructions.fetch(pc)
+      case operation
+      when :nop
+      when :acc
+        accumulator += argument
+      when :jmp
+        next pc += argument
+      else
+        raise operation
+      end
+      pc += 1
+    end
+
+    p accumulator

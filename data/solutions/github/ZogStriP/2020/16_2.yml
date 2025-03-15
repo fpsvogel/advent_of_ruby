@@ -1,0 +1,29 @@
+---
+- :name: 16_ticket_translation.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    input  = DATA.read.split("\n\n").map { |i| i.split(?\n) }
+    fields = input[0].map { |l| l.scan(/\d+/).map(&:to_i) }
+    mine   = input[1][1].split(?,).map(&:to_i)
+    theirs = input[2][1..].map { |t| t.split(?,).map(&:to_i) }
+    rules  = fields.map { |f| f.each_slice(2).map { |a, b| (a..b) } }
+
+    invalid, valid = theirs.partition { |t| t.any? { |v| rules.none? { |r| r[0] === v || r[1] === v } } }
+
+    candidates = rules.size.times.map { |i|
+      rules.size.times.select { |r|
+        valid.all? { |t| rules[r][0] === t[i] || rules[r][1] === t[i] }
+      }
+    }
+
+    indexes = []
+
+    rules.size.times {
+      idx = candidates.index { |c| c.size == 1 }
+      m = candidates[idx]
+      indexes[m[0]] = idx
+      candidates.map! { |c| c - m }
+    }
+
+    p invalid.sum { |t| t.select { |v| rules.none? { |r| r[0] === v || r[1] === v } }.sum }
+    p indexes[0, 6].map { |i| mine[i] }.reduce(:*)

@@ -1,0 +1,10 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/03
+  :solution: |-
+    require_relative 'lib'
+
+    SLOPE = 1 + 3i
+
+    map = read_input
+    puts trees_hit(map, SLOPE)

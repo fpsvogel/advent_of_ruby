@@ -1,0 +1,19 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2020/day-03
+  :solution: |-
+    map = input.split("\n").map { |line| line.split('') }
+
+    x, y, trees = 0, 0, 0
+    dx = 3
+    dy = 1
+
+    while y < map.length - 1
+      x += dx
+      x %= map[0].length
+      y += dy
+
+      trees += 1 if map[y][x] == '#'
+    end
+
+    puts trees

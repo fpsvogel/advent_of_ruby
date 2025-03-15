@@ -1,0 +1,14 @@
+---
+- :name: part2.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/02
+  :solution: |-
+    INPUT_PATTERN = /(?<lo>\d+)-(?<hi>\d+) (?<char>\w)/
+
+    valid = ARGF.each_line.count do |line|
+      rule, password = line.chomp.split(': ')
+      m = INPUT_PATTERN.match(rule)
+      present1 = password[m[:lo].to_i - 1] == m[:char]
+      present2 = password[m[:hi].to_i - 1] == m[:char]
+      present1 ^ present2
+    end
+    puts valid

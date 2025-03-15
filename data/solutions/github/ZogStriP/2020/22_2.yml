@@ -1,0 +1,49 @@
+---
+- :name: 22_crab_combat.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    require "set"
+
+    decks = DATA.read.split("\n\n").map { _1.lines[1..].map(&:to_i) }
+
+    def combat(one, two)
+      until one.empty? || two.empty?
+        o, t = one.shift, two.shift
+        o > t ? one << o << t : two << t << o
+      end
+
+      one.empty? ? two : one
+    end
+
+    def recursive_combat(one, two, first: false)
+      return -1 if !first && one.max > two.max
+
+      seen = Set.new
+
+      loop {
+        return first ? one : -1 unless seen.add?((one + [0] + two).pack("c*"))
+
+        o, t = one.shift, two.shift
+
+        winner = if one.size >= o && two.size >= t
+          recursive_combat(one[...o], two[...t])
+        else
+          t <=> o
+        end
+
+        if winner < 0
+          one << o << t
+          return first ? one : -1 if two.empty?
+        else
+          two << t << o
+          return first ? two :  1 if one.empty?
+        end
+      }
+    end
+
+    def score(deck)
+      deck.reverse_each.with_index(1).sum { _1 * _2 }
+    end
+
+    p score combat(*decks.map(&:dup))
+    p score recursive_combat(*decks.map(&:dup), first: true)

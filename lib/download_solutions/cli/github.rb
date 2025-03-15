@@ -18,16 +18,18 @@ module DownloadSolutions
         end
       end
 
+      max_year, max_day = max_year_and_day(year:, day:)
+
       authors = repos.keys
       authors.each do |author|
         author_directory = File.join(github_directory, author)
         Dir.mkdir(author_directory) unless Dir.exist?(author_directory)
 
-        (year || 2015).upto(year || Date.today.year) do |current_year|
+        (year || 2015).upto(year || max_year) do |current_year|
           year_directory = File.join(author_directory, current_year.to_s)
           Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-          (day || 1).upto(day || Date.today.day) do |current_day|
+          (day || 1).upto(day || max_day) do |current_day|
             1.upto(2) do |part|
               path = File.join(year_directory, "#{current_day.to_s.rjust(2, "0")}_#{part}.yml")
 
@@ -56,6 +58,8 @@ module DownloadSolutions
             end
           end
         end
+
+        puts
       end
     rescue InputError => e
       puts PASTEL.red(e.message)

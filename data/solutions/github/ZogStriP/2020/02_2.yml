@@ -1,0 +1,8 @@
+---
+- :name: 02_password_philosophy.rb
+  :url: https://github.com/ZogStriP/adventofcode-old/blob/master/2020
+  :solution: |-
+    input = DATA.readlines.map { |line| line.scan(/(\d+)-(\d+) (\w): (\w+)/)[0] }
+
+    p input.count { |a, b, letter, password| (a.to_i..b.to_i) === password.count(letter) }
+    p input.count { |a, b, letter, password| password[a.to_i - 1][letter] != password[b.to_i - 1][letter] }

@@ -1,0 +1,22 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/06
+  :solution: |-
+    require 'set'
+
+    answers = ARGF.each_line.map(&:chomp)
+
+    group = Set.new
+    total = 0
+    answers.each_with_index do |answer, i|
+      last = i == (answers.length - 1)
+      if answer.empty? || last
+        group += Set.new(answer.chars) if last
+        total += group.count
+        group.clear
+      else
+        group += Set.new(answer.chars)
+      end
+    end
+
+    puts total

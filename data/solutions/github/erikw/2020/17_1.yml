@@ -1,0 +1,15 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/17
+  :solution: |-
+    require_relative 'lib'
+
+    cubes = Hash.new(false) # [x, y, z] -> state
+    ARGF.each_line.with_index do |line, x|
+      line.chomp.each_char.with_index do |char, y|
+        cubes[[x, y, 0]] = char == SYM_ACTIVE
+      end
+    end
+
+    run(cubes, BOOT_CYCLES)
+    puts cubes.values.count { |s| s }

@@ -1,0 +1,9 @@
+---
+- :name: part1.rb
+  :url: https://github.com/erikw/advent-of-code-solutions/blob/main/2020/20
+  :solution: |-
+    require_relative 'lib'
+
+    tiles, edges = read_input
+    corners = find_corner_tiles(tiles, edges)
+    puts corners.inject(&:*)

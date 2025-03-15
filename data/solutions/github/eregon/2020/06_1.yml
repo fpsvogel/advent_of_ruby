@@ -1,0 +1,7 @@
+---
+- :name: 6a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2020
+  :solution: |-
+    p File.read('6.txt').split(/\n{2,}/).sum { |group|
+      group.gsub("\n", "").chars.uniq.size
+    }
