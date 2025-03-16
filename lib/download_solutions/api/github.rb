@@ -20,34 +20,14 @@ module DownloadSolutions
       # @param existing_solutions [Array<Array(Integer, Integer)>]
       # @return [Array<Hash>, nil] nil if the year directory doesn't exist for the author.
       def get_solutions(author:, year:, input_day: nil, max_day: 25, force: false, existing_solutions: [])
-        # return nil if day == 25 && part == 2
         solutions = {new: {}, skipped: [], not_found: []}
 
         year_directory = (REPOS[author][:year_directory] || "%<year>d") % {year:}
-        year_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}")
-        if year_response.status == 404
-          solutions[:not_found] = (1..max_day).flat_map { |day|
-            [[day, 1], ([day, 2] unless day == 25)]
-          }.compact
-          return solutions
-        end
-        year_files = JSON.parse(year_response.body)
+        year_files = get_year_files!(solutions:, year_directory:, author:, year:) || (return solutions)
 
         (input_day || 1).upto(input_day || max_day) do |day|
           if REPOS[author][:day_directory]
-            if !force && existing_solutions.any? { |existing_day, _existing_part| existing_day == day }
-              solutions[:skipped] << [day, 1]
-              solutions[:skipped] << [day, 1] unless day == 25
-              next
-            end
-            day_directory = REPOS[author][:day_directory] % {day:}
-            day_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}/#{day_directory}")
-            if day_response.status == 404
-              solutions[:not_found] << [day, 1]
-              solutions[:not_found] << [day, 2] unless day == 25
-              next
-            end
-            day_files = JSON.parse(day_response.body)
+            day_files = get_day_files!(solutions:, year_directory:, author:, year:, day:, force:, existing_solutions:) || next
           end
 
           1.upto(2) do |part|
@@ -56,7 +36,7 @@ module DownloadSolutions
             if !force && existing_solutions.include?([day, part])
               solutions[:skipped] << [day, part]
             else
-              solution = get_solution(author:, year:, day:, part:, year_files:, day_files:)
+              solution = get_part(author:, year:, day:, part:, year_files:, day_files:)
 
               if solution.empty?
                 solutions[:not_found] << [day, part]
@@ -72,7 +52,40 @@ module DownloadSolutions
 
       private
 
-      def get_solution(author:, year:, day:, part:, year_files:, day_files: nil)
+      def get_year_files!(solutions:, year_directory:, author:, year:)
+        year_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}")
+
+        if year_response.status == 404
+          solutions[:not_found] = (1..max_day).flat_map { |day|
+            [[day, 1], ([day, 2] unless day == 25)]
+          }.compact
+
+          return nil
+        end
+
+        JSON.parse(year_response.body)
+      end
+
+      def get_day_files!(solutions:, year_directory:, author:, year:, day:, force:, existing_solutions:)
+        if !force && existing_solutions.any? { |existing_day, _existing_part| existing_day == day }
+          solutions[:skipped] << [day, 1]
+          solutions[:skipped] << [day, 1] unless day == 25
+          return nil
+        end
+
+        day_directory = REPOS[author][:day_directory] % {day:}
+        day_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}/#{day_directory}")
+
+        if day_response.status == 404
+          solutions[:not_found] << [day, 1]
+          solutions[:not_found] << [day, 2] unless day == 25
+          return nil
+        end
+
+        JSON.parse(day_response.body)
+      end
+
+      def get_part(author:, year:, day:, part:, year_files:, day_files: nil)
         exact_path = (REPOS[author][:"part_#{part}"] || REPOS[author][:both_parts]).is_a?(String)
 
         if exact_path
