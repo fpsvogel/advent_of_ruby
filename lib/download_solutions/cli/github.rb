@@ -47,21 +47,23 @@ module DownloadSolutions
             existing_solutions:
           )
 
-          skipped_list = solutions[:skipped].sort.map { it.join(".") }.join(", ")
+          skipped_list = solutions_str(solutions[:skipped])
           if solutions[:skipped].any?
-            puts "#{PASTEL.yellow("Skipping")} from #{author} #{current_year}, already existing: #{PASTEL.yellow(skipped_list)}"
+            puts "#{PASTEL.yellow.bold("Skipping")} from #{author} #{current_year}, already existing: #{PASTEL.yellow(skipped_list)}"
           end
 
-          not_found_list = solutions[:not_found].sort.map { it.join(".") }.join(", ")
-          if solutions[:not_found].any? && solutions[:not_found].size < 49
-            # Save empty files for not found solutions, so that they won't be
-            # attempted to be downloaded again.
-            Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
-            solutions[:not_found].each do |(day, part)|
-              path = File.join(year_directory, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
-              File.write(path, [].to_yaml)
+          not_found_list = solutions_str(solutions[:not_found])
+          if solutions[:not_found].any?
+            puts "#{PASTEL.red.bold("Not found")} from #{author} #{current_year}: #{PASTEL.red(not_found_list)}"
+            if solutions[:not_found].size < 49
+              # Save empty files for not found solutions, so that they won't be
+              # attempted to be downloaded again.
+              Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
+              solutions[:not_found].each do |(day, part)|
+                path = File.join(year_directory, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
+                File.write(path, [].to_yaml)
+              end
             end
-            puts "#{PASTEL.red("Not found")} from #{author} #{current_year}: #{PASTEL.red(not_found_list)}"
           end
 
           if solutions[:new].any?
@@ -71,9 +73,9 @@ module DownloadSolutions
               File.write(path, content.to_yaml(line_width: -1))
             end
 
-            new_list = solutions[:new].keys.sort.map { it.join(".") }.join(", ")
-            puts "#{PASTEL.blue("Saved")} from #{author} #{current_year}: #{PASTEL.blue(new_list)}"
-            puts PASTEL.blue("Saved to #{year_directory}")
+            new_list = solutions_str(solutions[:new].keys)
+            puts "#{PASTEL.blue.bold("Saved")} from #{author} #{current_year}: #{PASTEL.blue(new_list)}"
+            puts "Saved to #{year_directory}"
           end
         end
 
@@ -81,6 +83,14 @@ module DownloadSolutions
       end
     rescue InputError => e
       puts PASTEL.red(e.message)
+    end
+
+    private_class_method def self.solutions_str(solutions)
+      if solutions.count == 49
+        "all"
+      else
+        solutions.sort.map { it.join(".") }.join(", ")
+      end
     end
 
     def comment_to_markdown(comment, level: 0)

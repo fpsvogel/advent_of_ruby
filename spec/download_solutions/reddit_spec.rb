@@ -6,7 +6,7 @@ describe DownloadSolutions::Cli do
 
   describe "::reddit" do
     before(:all) do
-      create_working_dir!
+      create_working_dir!(service: :reddit)
     end
 
     after(:all) do
@@ -26,7 +26,7 @@ describe DownloadSolutions::Cli do
 
       file_path = File.join("data", "solutions", "reddit", "ruby", year.to_s, "#{day_str}.yml")
       existing_file_contents = File.read(File.join(@original_dir, file_path))
-      new_file_contents = File.read(File.join(file_path))
+      new_file_contents = File.read(file_path)
 
       expect(new_file_contents).to eq(existing_file_contents)
     end

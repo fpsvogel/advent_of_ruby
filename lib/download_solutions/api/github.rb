@@ -78,12 +78,10 @@ module DownloadSolutions
         if exact_path
           (day_files || year_files)
             .select {
-              if REPOS[author][:both_parts]
-                if it["name"] == REPOS[author][:both_parts] % {year:, day:}
-                  next if part == 1 # both_parts will be saved in part 2
-                  true
-                end
-              else
+              if REPOS[author][:both_parts] && it["name"] == REPOS[author][:both_parts] % {year:, day:}
+                next if part == 1 && day != 25 # both_parts will be saved in part 2
+                true
+              elsif REPOS[author][:"part_#{part}"]
                 it["name"] == REPOS[author][:"part_#{part}"] % {year:, day:}
               end
             }
@@ -91,16 +89,16 @@ module DownloadSolutions
         else # regex-matched paths
           (day_files || year_files)
             .select {
-              if REPOS[author][:both_parts]
-                if it["name"].match?(REPOS[author][:both_parts].call(day:))
-                  next if part == 1 # both_parts will be saved in part 2
-                  true
+              if REPOS[author][:both_parts] && it["name"].match?(REPOS[author][:both_parts].call(day:))
+                next if part == 1 && day != 25 # both_parts will be saved in part 2
+                true
+              elsif REPOS[author][:part_1] && REPOS[author][:part_2]
+                if part == 2
+                  it["name"].match?(REPOS[author][:part_2].call(day:)) &&
+                    !it["name"].match?(REPOS[author][:part_1].call(day:))
+                else
+                  it["name"].match?(REPOS[author][:part_1].call(day:))
                 end
-              elsif part == 2
-                it["name"].match?(REPOS[author][:part_2].call(day:)) &&
-                  !it["name"].match?(REPOS[author][:part_1].call(day:))
-              else
-                it["name"].match?(REPOS[author][:part_1].call(day:))
               end
             }
             .map { simplify_response(it, author) }

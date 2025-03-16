@@ -1,6 +1,7 @@
 module DownloadSolutions
   module SpecWorkingDir
-    def create_working_dir!
+    # @param service [Symbol] :github or :reddit
+    def create_working_dir!(service:)
       @original_dir = Dir.pwd
       # Not nested in @original_dir (gem root) because in Arb::SpecWorkingDir
       # it needs to be a separate Git repo.
@@ -13,17 +14,23 @@ module DownloadSolutions
       Dir.mkdir(@working_dir)
       Dir.chdir(@working_dir)
 
-      dotenv = <<~FILE.chomp
-        REDDIT_CLIENT_ID=stubbed_reddit_client_id
-        REDDIT_CLIENT_SECRET=stubbed_reddit_client_secret
-        REDDIT_USERNAME=fpsvogel
-        REDDIT_PASSWORD=stubbed_reddit_password
-      FILE
+      if service == :github
+        dotenv = <<~FILE.chomp
+          GITHUB_TOKEN=stubbed_github_token
+        FILE
+      elsif service == :reddit
+        dotenv = <<~FILE.chomp
+          REDDIT_CLIENT_ID=stubbed_reddit_client_id
+          REDDIT_CLIENT_SECRET=stubbed_reddit_client_secret
+          REDDIT_USERNAME=fpsvogel
+          REDDIT_PASSWORD=stubbed_reddit_password
+        FILE
+      end
       File.write(".env", dotenv)
 
       Dir.mkdir("data")
       Dir.mkdir(File.join("data", "solutions"))
-      Dir.mkdir(File.join("data", "solutions", "reddit"))
+      Dir.mkdir(File.join("data", "solutions", service.to_s))
     end
 
     def remove_working_dir!
