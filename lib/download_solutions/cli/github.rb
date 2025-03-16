@@ -27,12 +27,16 @@ module DownloadSolutions
 
         (year || 2015).upto(year || max_year) do |current_year|
           year_directory = File.join(author_directory, current_year.to_s)
-          Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
-          existing_solutions = Dir.entries(year_directory)
-            .filter_map {
-              it.delete_suffix(".yml").split("_").map(&:to_i) if it.end_with?(".yml")
-            }.sort
+          existing_solutions =
+            if Dir.exist?(year_directory)
+              Dir.entries(year_directory)
+                .filter_map {
+                  it.delete_suffix(".yml").split("_").map(&:to_i) if it.end_with?(".yml")
+                }.sort
+            else
+              []
+            end
 
           solutions = github_api.get_solutions(
             author:,
@@ -49,11 +53,19 @@ module DownloadSolutions
           end
 
           not_found_list = solutions[:not_found].sort.map { it.join(".") }.join(", ")
-          if solutions[:not_found].any?
+          if solutions[:not_found].any? && solutions[:not_found].size < 49
+            # Save empty files for not found solutions, so that they won't be
+            # attempted to be downloaded again.
+            Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
+            solutions[:not_found].each do |(day, part)|
+              path = File.join(year_directory, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
+              File.write(path, [].to_yaml)
+            end
             puts "#{PASTEL.red("Not found")} from #{author} #{current_year}: #{PASTEL.red(not_found_list)}"
           end
 
           if solutions[:new].any?
+            Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
             solutions[:new].each do |(day, part), content|
               path = File.join(year_directory, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
               File.write(path, content.to_yaml(line_width: -1))

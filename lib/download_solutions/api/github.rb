@@ -25,11 +25,21 @@ module DownloadSolutions
 
         year_directory = (REPOS[author][:year_directory] || "%<year>d") % {year:}
         year_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}")
-        return nil if year_response.status == 404
+        if year_response.status == 404
+          solutions[:not_found] = (1..max_day).flat_map { |day|
+            [[day, 1], ([day, 2] unless day == 25)]
+          }.compact
+          return solutions
+        end
         year_files = JSON.parse(year_response.body)
 
         (input_day || 1).upto(input_day || max_day) do |day|
           if REPOS[author][:day_directory]
+            if !force && existing_solutions.any? { |existing_day, _existing_part| existing_day == day }
+              solutions[:skipped] << [day, 1]
+              solutions[:skipped] << [day, 1] unless day == 25
+              next
+            end
             day_directory = REPOS[author][:day_directory] % {day:}
             day_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}/#{day_directory}")
             if day_response.status == 404
@@ -48,9 +58,9 @@ module DownloadSolutions
             else
               solution = get_solution(author:, year:, day:, part:, year_files:, day_files:)
 
-              if solution && solution.empty?
+              if solution.empty?
                 solutions[:not_found] << [day, part]
-              elsif solution
+              else
                 solutions[:new][[day, part]] = solution
               end
             end
@@ -68,10 +78,12 @@ module DownloadSolutions
         if exact_path
           (day_files || year_files)
             .select {
-              if REPOS[author][:both_parts] && it["name"] == REPOS[author][:both_parts] % {year:, day:}
-                return nil if part == 1 # both_parts will be saved in part 2
-                true
-              elsif REPOS[author][:"part_#{part}"]
+              if REPOS[author][:both_parts]
+                if it["name"] == REPOS[author][:both_parts] % {year:, day:}
+                  next if part == 1 # both_parts will be saved in part 2
+                  true
+                end
+              else
                 it["name"] == REPOS[author][:"part_#{part}"] % {year:, day:}
               end
             }
@@ -79,16 +91,16 @@ module DownloadSolutions
         else # regex-matched paths
           (day_files || year_files)
             .select {
-              if REPOS[author][:both_parts] && it["name"].match?(REPOS[author][:both_parts].call(day:))
-                return nil if part == 1 # both_parts will be saved in part 2
-                true
-              elsif REPOS[author][:part_1] && REPOS[author][:part_2]
-                if part == 2
-                  it["name"].match?(REPOS[author][:part_2].call(day:)) &&
-                    !it["name"].match?(REPOS[author][:part_1].call(day:))
-                else
-                  it["name"].match?(REPOS[author][:part_1].call(day:))
+              if REPOS[author][:both_parts]
+                if it["name"].match?(REPOS[author][:both_parts].call(day:))
+                  next if part == 1 # both_parts will be saved in part 2
+                  true
                 end
+              elsif part == 2
+                it["name"].match?(REPOS[author][:part_2].call(day:)) &&
+                  !it["name"].match?(REPOS[author][:part_1].call(day:))
+              else
+                it["name"].match?(REPOS[author][:part_1].call(day:))
               end
             }
             .map { simplify_response(it, author) }
