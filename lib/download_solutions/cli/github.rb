@@ -93,21 +93,6 @@ module DownloadSolutions
       end
     end
 
-    def comment_to_markdown(comment, level: 0)
-      replies = comment[:replies].map { |reply|
-        comment_to_str(reply, level: level + 1)
-      }.join("\n\n")
-
-      <<~COMMENT.gsub(/(?:\n\s*){3,}/, "\n\n")
-        #{"#" * (level + 1)} #{"↳" * level}#{level.zero? ? "Solution by" : "Reply by"} #{comment[:author]}
-        #{comment[:url]}
-
-        #{comment[:body]}
-
-        #{replies unless replies.empty?}
-      COMMENT
-    end
-
     private_class_method def self.github_api
       return @github_api if @github_api
 

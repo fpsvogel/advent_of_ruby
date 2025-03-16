@@ -13,6 +13,7 @@ PATH
       rspec (~> 3.0)
       thor (~> 1.0)
       vcr (~> 6.0)
+      yaml (~> 0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -75,6 +76,7 @@ GEM
     uri (0.13.1)
     vcr (6.3.1)
       base64
+    yaml (0.4.0)
 
 PLATFORMS
   aarch64-linux

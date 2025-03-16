@@ -160,8 +160,8 @@ describe Arb::Cli do
 
   def puzzle_files(year:, day:)
     {
-      others_1: File.join("others", year, "#{day}_1.rb"),
-      others_2: File.join("others", year, "#{day}_2.rb"),
+      others_1: File.join("others", year, "#{day}_1.md"),
+      others_2: File.join("others", year, "#{day}_2.md"),
       input: File.join("input", year, "#{day}.txt"),
       solution: File.join("src", year, "#{day}.rb"),
       spec: File.join("spec", year, "#{day}_spec.rb"),

@@ -7,6 +7,7 @@ require "open3"
 require "pastel"
 require "reverse_markdown"
 require "rspec/core"
+require "yaml"
 
 module Arb
   InputError = Class.new(StandardError)

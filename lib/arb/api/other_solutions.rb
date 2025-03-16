@@ -1,111 +1,92 @@
-# TODO
-# Add https://github.com/ZogStriP/adventofcode-old
-# Convert into a separate app that downloads all of a year's solutions for any language.
-#   - each of the transformations in PATHS will become an executable script
-#     so that the user can add scripts for repos containing solutions for their
-#     own chosen languge.
-# Use GitHub API to get all filenames then select on day/part.
-#   - e.g. to get all variants https://github.com/eregon/adventofcode/tree/master/2024
-#   - and e.g. to avoid having to match the exact name for ZogStriP/adventofcode-old
-# Get solutions from Reddit too https://www.reddit.com/dev/api/oauth#GET_comments_{article}
-#   - similar project: https://github.com/rpalo/aoc_language_bot
 module Arb
   module Api
     class OtherSolutions
-      UI_URI = "https://github.com"
+      private attr_reader :year, :day, :part, :gem_directory
 
-      private attr_reader :connection
-
-      PATHS = {
-        "eregon" => ->(year:, day:, part:) {
-          if part == "1"
-            [
-              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}.rb",
-              "adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}a.rb"
-            ]
-          elsif part == "2"
-            ["adventofcode/tree/master/#{year}/#{day.delete_prefix("0")}b.rb"]
-          end
-        },
-        "gchan" => ->(year:, day:, part:) {
-          ["advent-of-code-ruby/tree/main/#{year}/day-#{day}/day-#{day}-part-#{part}.rb"]
-        },
-        "ahorner" => ->(year:, day:, part:) {
-          return [] if part == "1"
-          ["advent-of-code/tree/main/lib/#{year}/#{day}.rb"]
-        },
-        "ZogStriP" => ->(year:, day:, part:) {
-          return [] if part == "1"
-
-          puzzle_name = File.read(Files::Instructions.path(year:, day:))
-            .match(/## --- Day \d\d?: (.+)(?= ---)/)
-            .captures
-            .first
-            .downcase
-            .tr(" ", "_")
-
-          ["adventofcode/tree/master/#{year}/#{day}_#{puzzle_name}.rb"]
-        },
-        "erikw" => ->(year:, day:, part:) {
-          ["advent-of-code-solutions/tree/main/#{year}/#{day}/part#{part}.rb"]
-        }
-      }
-
-      EDITS = {
-        "gchan" => ->(file_str) {
-          # Remove the first 5 lines (boilerplate).
-          file_str.lines[5..].join
-        },
-        "ZogStriP" => ->(file_str) {
-          # Remove input at the end of the file.
-          file_str.split("\n__END__").first
-        },
-        "erikw" => ->(file_str) {
-          # Remove the first 3 lines (boilerplate).
-          file_str.lines[3..].join
-        }
-      }
-
-      def initialize
-        @connection = Faraday.new(
-          url: "https://raw.githubusercontent.com",
-          headers: {
-            "User-Agent" => "github.com/fpsvogel/advent_of_ruby by fps.vogel@gmail.com"
-          }
-        )
+      def initialize(year:, day:, part:)
+        @year = year
+        @day = day
+        @part = part
+        @gem_directory = Gem.loaded_specs["advent_of_ruby"].gem_dir
       end
 
-      def other_solutions(year:, day:, part:)
-        "# #{year} Day #{day} Part #{part}\n\n" +
-          PATHS
-            .map { |username, path_builder|
-            actual_path = nil
-            solution = nil
-            paths = path_builder.call(year:, day:, part:)
+      def other_solutions
+        unless File.exist?(reddit_file_path)
+          return no_solutions_for_year_message
+        end
 
-            paths.each do |path|
-              next if solution
-              response = connection.get("/#{username}/#{path.sub("/tree/", "/")}")
-              next if response.status == 404
+        "#{year} Day #{day.to_i} Part #{part}\n\n" \
+          "#{github_solutions}" \
+          "#{reddit_solutions if part.to_i == 2}".rstrip + "\n"
+      end
 
-              actual_path = path
-              solution = (EDITS[username] || :itself.to_proc).call(response.body)
-            end
+      private
 
-            if solution
-              <<~SOLUTION
-                # ------------------------------------------------------------------------------
-                # #{username}: #{UI_URI}/#{username}/#{actual_path}
-                # ------------------------------------------------------------------------------
+      def no_solutions_for_year_message
+        "Solutions for #{year} Day #{day.to_i} were not found. Run `gem update " \
+          "advent_of_ruby` and try again. If that doesn't work, and it's been " \
+          "more than a few days since the end of this year's Advent of Code, " \
+          "open an issue at https://github.com/fpsvogel/advent_of_ruby/issues/new" \
+          "?labels=bug&title=Add+#{year}+solutions" \
+          "&body=Solutions+for+#{year}+need+to+be+added+to+the+gem."
+      end
 
-                #{solution}
+      def github_solutions
+        github_directory = File.join(gem_directory, "data", "solutions", "github")
 
-              SOLUTION
-            end
+        Dir.children(github_directory)
+          .select { |child| File.directory?(File.join(github_directory, child)) }
+          .map { |author|
+            file_path = File.join(github_directory, author, year.to_s, "#{day.to_s.rjust(2, "0")}_#{part}.yml")
+            # The year subdirectory doesn't exist, if the author has no solutions for the year.
+            next "" unless File.exist?(file_path)
+
+            solutions = YAML.load_file(file_path)
+            next "" if solutions.empty? # if the author has no solutions for the day
+
+            "# #{(solutions.count > 1) ? "Solutions" : "Solution"} by #{author}\n" +
+              solutions
+                .map { |solution|
+                  <<~SOLUTION
+                    #{"## #{solution[:name]}\n" if solutions.count > 1}#{solution[:url]}
+
+                    ```ruby
+                    #{solution[:solution]}
+                    ```
+
+                  SOLUTION
+                }
+                .join
           }
-            .compact
-            .join
-            .strip + "\n"
+          .compact
+          .join
+      end
+
+      def reddit_file_path
+        File.join(gem_directory, "data", "solutions", "reddit", "ruby", year.to_s, "#{day.to_s.rjust(2, "0")}.yml")
+      end
+
+      def reddit_solutions
+        comments = YAML.load_file(reddit_file_path)
+
+        comments.map { |comment|
+          reddit_comment_to_markdown(comment)
+        }.join
+      end
+
+      def reddit_comment_to_markdown(comment, level: 0)
+        replies = comment[:replies].map { |reply|
+          reddit_comment_to_markdown(reply, level: level + 1)
+        }.join("\n\n")
+
+        <<~COMMENT.gsub(/(?:\n\s*){3,}/, "\n\n")
+          #{"#" * (level + 1)} #{"↳" * level}#{level.zero? ? "Solution by" : "Reply by"} #{comment[:author]}
+          #{comment[:url]}
+
+          #{comment[:body]}
+
+          #{replies unless replies.empty?}
+        COMMENT
       end
     end
   end

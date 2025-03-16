@@ -37,36 +37,8 @@ module DownloadSolutions
           puts
         end
       end
-
-      # TODO separately in Arb module, transform to Markdown:
-      #
-      # comments = YAML.load_file(...)
-      #
-      # comments_markdown = comments.map { |comment|
-      #   comment_to_markdown(comment)
-      # }.join
-      #
-      # File.write(
-      #   ...,
-      #   comments_markdown,
-      # )
     rescue InputError => e
       puts PASTEL.red(e.message)
-    end
-
-    def comment_to_markdown(comment, level: 0)
-      replies = comment[:replies].map { |reply|
-        comment_to_str(reply, level: level + 1)
-      }.join("\n\n")
-
-      <<~COMMENT.gsub(/(?:\n\s*){3,}/, "\n\n")
-        #{"#" * (level + 1)} #{"↳" * level}#{level.zero? ? "Solution by" : "Reply by"} #{comment[:author]}
-        #{comment[:url]}
-
-        #{comment[:body]}
-
-        #{replies unless replies.empty?}
-      COMMENT
     end
 
     private_class_method def self.reddit_api
