@@ -83,7 +83,7 @@ describe Arb::Cli do
           "Downloaded instructions for Part Two."
         ]
 
-        expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
+        expect($stdin).to receive(:gets).once.and_return("\n") # default "Y" to submit
         instructions_file_path = File.join("instructions", year, "#{day}.md")
         expect(described_class).to receive(:`).with("code #{instructions_file_path}")
 
@@ -114,7 +114,7 @@ describe Arb::Cli do
           "That's the right answer! You are one gold star closer to debugging the printer."
         ]
 
-        expect(STDIN).to receive(:gets).once.and_return("\n") # default "Y" to submit
+        expect($stdin).to receive(:gets).once.and_return("\n") # default "Y" to submit
 
         run_with(outputs:)
       ensure

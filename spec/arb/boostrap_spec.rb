@@ -13,9 +13,9 @@ describe Arb::Cli do
         create_working_dir!(create_files: false)
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
-        expect(STDIN).to receive(:gets).once.and_return("\n") # accept default editor
-        expect(STDIN).to receive(:gets).once.and_return("stubbed_session_cookie\n")
-        expect(STDIN).to receive(:gets).once.and_return("#{year}\n") # year to start with
+        expect($stdin).to receive(:gets).once.and_return("\n") # accept default editor
+        expect($stdin).to receive(:gets).once.and_return("stubbed_session_cookie\n")
+        expect($stdin).to receive(:gets).once.and_return("#{year}\n") # year to start with
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)
@@ -87,7 +87,7 @@ describe Arb::Cli do
         create_fake_solutions!(year: "2016", days: "01".."25")
 
         expect_puzzle_files_will_be_opened_in_editor(year:, day:)
-        expect(STDIN).to receive(:gets).once.and_return("#{year}\n") # year to do next
+        expect($stdin).to receive(:gets).once.and_return("#{year}\n") # year to do next
 
         expect {
           Arb::Cli.bootstrap(year: input_year, day: input_day)

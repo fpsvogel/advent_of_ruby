@@ -41,7 +41,7 @@ module Arb
                 else
                   earliest_year_with_fewest_committed = committed
                     .transform_values { it.values.count(&:itself) }
-                    .sort_by(&:last).first.first
+                    .min_by(&:last).first
                   default_year = earliest_year_with_fewest_committed
                   default_day = committed[default_year].values.index(false)
 
@@ -52,7 +52,7 @@ module Arb
                 loop do
                   puts bootstrap_year_prompt
                   print PASTEL.green("> ")
-                  year_input = STDIN.gets.strip
+                  year_input = $stdin.gets.strip
                   puts
                   puts
 

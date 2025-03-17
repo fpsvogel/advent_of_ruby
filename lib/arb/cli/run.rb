@@ -80,7 +80,7 @@ module Arb
 
       puts "Submit solution? (Y/n)"
       print PASTEL.green("> ")
-      submit = STDIN.gets.strip.downcase
+      submit = $stdin.gets.strip.downcase
       puts
 
       if submit == "y" || submit == ""

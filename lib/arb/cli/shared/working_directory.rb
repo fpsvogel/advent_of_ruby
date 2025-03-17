@@ -70,7 +70,7 @@ module Arb
         unless existing_dotenv.has_key?("EDITOR_COMMAND")
           puts "What's the shell command to start your editor? (default: #{DEFAULT_EDITOR_COMMAND})"
           print PASTEL.green("> ")
-          editor_command = STDIN.gets.strip
+          editor_command = $stdin.gets.strip
           editor_command = DEFAULT_EDITOR_COMMAND if editor_command.empty?
           new_dotenv["EDITOR_COMMAND"] = editor_command
         end
@@ -95,7 +95,7 @@ module Arb
           puts PASTEL.dark.white("  Chrome: Developer Tools ⇨ Application tab ⇨ Cookies")
           print PASTEL.green("> ")
 
-          aoc_cookie = STDIN.gets.strip
+          aoc_cookie = $stdin.gets.strip
 
           puts
           puts
