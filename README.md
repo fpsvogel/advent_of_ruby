@@ -19,9 +19,13 @@ gem install advent_of_ruby
 
 In a directory where you want to store your solutions, run the command `arb` and follow the prompts.
 
-Here's a demo. (Not pictured: perusing other people's solutions for each part, `01_1.rb` and `01_2.rb`.)
+Here's a demo.
 
 https://github.com/user-attachments/assets/e9a868c5-1867-4704-9da5-79aa3b0def89
+
+And here's what it looks like to peruse other people's solutions. (Sources of solutions [are listed below](#arb-bootstrap-year-day).)
+
+![image](https://github.com/user-attachments/assets/1c2330e8-ff57-4669-bfe0-dcb05ae89bea)
 
 ## Commands
 
@@ -35,7 +39,7 @@ Shortcuts:
 
 - Downloads the input and instructions files for the given day.
 - Creates a solution file and a spec file for the given day.
-- Downloads other people's solutions, from these repos:
+- Downloads other people's solutions, from [/r/adventofcode](https://www.reddit.com/r/adventofcode) and these repos:
   - <https://github.com/ahorner/advent-of-code>
   - <https://github.com/eregon/adventofcode>
   - <https://github.com/erikw/advent-of-code-solutions>
