@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["source_code_uri"] = "https://github.com/fpsvogel/advent_of_ruby"
-  spec.metadata["changelog_uri"] = "https://github.com/fpsvogel/avent_of_ruby/blob/main/CHANGELOG.md"
+  spec.metadata["changelog_uri"] = "https://github.com/fpsvogel/advent_of_ruby/blob/main/CHANGELOG.md"
 
   spec.files = Dir["lib/**/*.rb", "data/**/*"]
   spec.bindir = "bin"
