@@ -41,7 +41,7 @@ module Arb
       def logged_in(&block)
         while (response = block.call.body) == LOGGED_OUT_RESPONSE
           Cli::WorkingDirectory.refresh_aoc_cookie!
-          initialize(ENV["AOC_COOKIE"])
+          initialize(cookie: ENV["AOC_COOKIE"])
         end
 
         response
