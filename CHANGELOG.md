@@ -1,3 +1,7 @@
+## [0.3.1] - 2025-03-18
+
+- Fixed bugs in refreshing the AoC cookie.
+
 ## [0.3.0] - 2025-03-18
 
 - Added solutions from Reddit (pre-downloaded).
