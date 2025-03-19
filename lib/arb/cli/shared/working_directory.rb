@@ -50,7 +50,9 @@ module Arb
         print "Uh oh, your Advent of Code session cookie has expired or was " \
           "incorrectly entered. "
         ENV["AOC_COOKIE"] = input_aoc_cookie
-        File.write(".env", generate_dotenv)
+        new_dotenv = Dotenv.parse(".env").dup
+        new_dotenv["AOC_COOKIE"] = ENV["AOC_COOKIE"]
+        File.write(".env", generate_dotenv(new_dotenv))
       end
 
       private_class_method def self.generate_dotenv(new_dotenv)
