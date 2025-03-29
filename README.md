@@ -41,7 +41,7 @@ Shortcuts:
 
 - Downloads the input and instructions files for the given day.
 - Creates a solution file and a spec file for the given day.
-- Downloads other people's solutions, from [/r/adventofcode](https://www.reddit.com/r/adventofcode) and these repos:
+- Creates two files (one for each puzzle part) with other people's solutions from [/r/adventofcode](https://www.reddit.com/r/adventofcode) and these repos:
   - <https://github.com/ahorner/advent-of-code>
   - <https://github.com/eregon/adventofcode>
   - <https://github.com/erikw/advent-of-code-solutions>
