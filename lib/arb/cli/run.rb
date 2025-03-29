@@ -132,7 +132,7 @@ module Arb
     end
 
     private_class_method def self.run_specs_only(year:, day:)
-      spec_filename =	File.join("spec", year, "#{day}_spec.rb")
+      spec_filename = File.join("spec", year, "#{day}_spec.rb")
 
       # Running RSpec from within RSpec causes problems, so in the test environment
       # run RSpec in a subprocess.
@@ -144,7 +144,7 @@ module Arb
     end
 
     private_class_method def self.run_specs_before_real(year:, day:)
-      spec_filename =	File.join("spec", year, "#{day}_spec.rb")
+      spec_filename = File.join("spec", year, "#{day}_spec.rb")
 
       # Running RSpec from within RSpec causes problems, so in the test environment
       # run RSpec in a subprocess.
