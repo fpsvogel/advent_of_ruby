@@ -1,6 +1,6 @@
 ---
 - :author: David_tabnine
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyzy5t0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyzy5t0
   :body: |-
     Here some [ruby](https://github.com/David06110/AdventOfCode2022)
 
@@ -93,7 +93,7 @@
     p results.sum
   :replies: []
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iytck23/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iytck23
   :body: |-
     Ruby
 
@@ -102,7 +102,7 @@
     Second day of learning Ruby. Used precomputed hashes instead of solving each step.
   :replies: []
 - :author: DanZuko420
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypxni9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypxni9
   :body: |-
     Ruby, already learning a lot from doing this and seeing other peoples' solutions!
 
@@ -135,7 +135,7 @@
     ```
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynv99i/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynv99i
   :body: |-
     **Ruby, 78 bytes**
 
@@ -146,7 +146,7 @@
     ```
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyo3lse/
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyo3lse
     :body: |-
       I knew there was a way to solve this without layers of hashes, but I couldn't quite figure it out. Your golfing solution appears to get at that, so I started unpacking it. Not so different from a hash afterall, but choosing the left side is neat. Was A,B,C point values obvious to you as a golfer, or did you have to think about it a while?
 
@@ -155,7 +155,7 @@
       Additionally, I'd love to hear your flow of thought getting here in the first place. Nice solve!
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyoxrm4/
+      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyoxrm4
       :body: |-
         I realized that I forgot to replace `?@.ord` with `64`, and edited right before y our comment :P
 
@@ -176,7 +176,7 @@
         Fun stuff :) I'm sure there's lots more to golf down tbh.
       :replies:
       - :author: ignurant
-        :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyq1pj3/
+        :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyq1pj3
         :body: |-
           > I then realized I could calculate the score from the opponent's move instead of mine.
 
@@ -185,7 +185,7 @@
           Thanks for replying with such a thoughtful response!
         :replies: []
 - :author: OlivarTheLagomorph
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylipw4/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylipw4
   :body: |-
     **Ruby**
 
@@ -194,7 +194,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQDqAwAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1esX3bYBQaQw4Yq24fnRbvIuY5xAO/buG72ZT/Ps3xh7zPw4djDxAWY1s9gzYsEBGualT5UQ4o1OeUvVSxmS1zj5dRrps5XIfNcEzOis5CE6cDPw/XFzCkpo2Q/YZe0Sjz+jUchVqiF5WzA2s++HxFW9wOqnyp+J71KKx2iti2Si/M/Bf6QQzuOqEDVEcxDDZUEPP0scEwIRle/Yf9qbABqxYogm4hwvuN5Iutdg+Fe7uSgPNdivjYAGdz1/JfZRHwqitJ80nWm3+EwUS47t3bseF0luNM7uDl1YlMJ9pzxFHUBtnk9YV1tM1NA7kBFX0t9nM1bGY+gClQpyeDc24HjUf+DGet8SuSEe+8bR3NvVDzb9+uyOzxYk1enA/m+mNW8bQuvYijk8hkie3BhrG5PUc3T+d9m+NsXl/Gwzu3SUbgY3StSMf/1d35bhNpHOCUJ7iQPttXnU0fKYU5heDgCxZQyfK1+QbT4cBV/f/ZvbCX6w4qEL9iQmJ)
   :replies: []
 - :author: MeckiSpaghetti
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyltbxr/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyltbxr
   :body: |-
     **Ruby** (Part I)
 
@@ -211,7 +211,7 @@
     ```
   :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym061y/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym061y
   :body: |-
     Ruby
 
@@ -230,15 +230,15 @@
     ```
   :replies:
   - :author: radiales
-    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym81jg/
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym81jg
     :body: That's genius
     :replies:
     - :author: antoniotto
-      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymcesh/
+      :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymcesh
       :body: "Too kind of you. I am just a beginner. \U0001F60A"
       :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym0inf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iym0inf
   :body: |-
     Ruby
 
@@ -251,7 +251,7 @@
     [https://github.com/hdf1986/advent-of-code/blob/master/2022/2/2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/2/2.rb)
   :replies: []
 - :author: nithinbekal
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylkffy/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylkffy
   :body: |-
     **Ruby**
 
@@ -319,14 +319,14 @@
     ```
   :replies: []
 - :author: Helk16
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylquuh/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylquuh
   :body: |-
     Ruby : it would be necessary to refacto a little but it works
 
     https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_2
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylys3x/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iylys3x
   :body: |-
     Ruby
 
@@ -335,7 +335,7 @@
     Walkthrough Video: https://youtu.be/xOBDPcArRno
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymwgn0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iymwgn0
   :body: |-
     # Ruby
 
@@ -362,18 +362,18 @@
     ```
   :replies:
   - :author: maxverse
-    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynviyv/
+    :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iynviyv
     :body: I'm using AOC to better my Ruby, and I learned a few things from your solution. Thanks!
     :replies: []
 - :author: MammothFlow
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyn6v0h/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyn6v0h
   :body: |-
     My solution using ruby:
 
     https://i.4cdn.org/g/1669961230103649.png
   :replies: []
 - :author: tom_collier2002
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyneq6z/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iyneq6z
   :body: |-
     [Ruby](https://github.com/tcollier/aoc_solutions/blob/main/2022/02/main.rb), using complex numbers
 
@@ -382,7 +382,7 @@
     ```
   :replies: []
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypgbo9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zac2v2/2022_day_2_solutions/iypgbo9
   :body: |-
     Ruby solution! Not pretty but I'm tired.
 

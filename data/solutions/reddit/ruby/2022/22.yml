@@ -1,6 +1,6 @@
 ---
 - :author: Elavid
-  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17o4by/
+  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17o4by
   :body: |-
     ## Ruby, 546/476
 
@@ -19,11 +19,11 @@
     When I didn't get the right answer for part 2, I added a **sanity check** : after doing one of these special cases I made sure that I could turn around and get back to the location where I was previously (and be facing the opposite direction). The sanity check revealed two or three bugs and allowed me to get the right answer. This one was the longest one yet, I think! Took me 110 minutes to finish and it was very repetitive.
   :replies:
   - :author: silxikys
-    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17os2m/
+    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17os2m
     :body: I tried this and it helped me debug my part2! I had a `x` where I should have put a `y`...
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17l4fq/
+  :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17l4fq
   :body: |-
     **Ruby** (16/50)
 
@@ -49,6 +49,6 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17ng8x/
+    :url: https://www.reddit.com/r/adventofcode/comments/zsct8w/2022_day_22_solutions/j17ng8x
     :body: oh, incrementing both in one go is clever, I wish I had thought of that.
     :replies: []

@@ -1,6 +1,6 @@
 ---
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4sfe/
+  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4sfe
   :body: |-
     # irb (26th, 23rd)
 
@@ -54,7 +54,7 @@
     ```
   :replies:
   - :author: BumpitySnook
-    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5bmx/
+    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5bmx
     :body: |-
       > I am solving this problem interatively in the Ruby’s REPL.
 
@@ -65,18 +65,18 @@
       Coming from Python: Grrrr :-(.
     :replies:
     - :author: dtinth
-      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5w2a/
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5w2a
       :body: |-
         I actually wrote the code in the text editor, and I setup a hotkey (Cmd+Enter) to send the current line into the Terminal. Like what Lisp people like to do ;).
 
         If I accidentally exited the REPL, I would just reopen it and send each line from the editor to it.
       :replies:
       - :author: BumpitySnook
-        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6515/
+        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6515
         :body: That sounds a lot less stressful :-).
         :replies: []
     - :author: znuxor
-      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk695e/
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk695e
       :body: |-
         > Coming from Python: Grrrr :-(.
 
@@ -85,11 +85,11 @@
         > old_pattern_key2 = tuple(map(tuple, old\_pattern2))
       :replies:
       - :author: BumpitySnook
-        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk7p9y/
+        :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk7p9y
         :body: Yes, I used the same trick. Still, I'd rather not have to :-).
         :replies:
         - :author: dtinth
-          :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drm9ov7/
+          :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drm9ov7
           :body: |-
             When you use an array (or any other object) as a hash key, you must make sure not to mutate the key. Otherwise, really weird things happen. **The hash code of the key changes** causing lookups to fail.
 
@@ -108,7 +108,7 @@
             I think it is very reasonable for Python to disallow this. :)
           :replies:
           - :author: BumpitySnook
-            :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drn4jl1/
+            :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drn4jl1
             :body: |-
               I understand that, but Python could reasonably handle this in a number of less obnoxious ways:
 
@@ -117,18 +117,18 @@
               3. Automatically deepcopy / intern mutable hash keys
             :replies: []
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5cq9/
+    :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk5cq9
     :body: "`5.times{data=nx[data]}` might be easier to write than that, by the way."
     :replies:
     - :author: dtinth
-      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6dm0/
+      :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk6dm0
       :body: |-
         I avoided mutating `data`, that’s why I didn’t overwrite the `data` variable. I also did it manually to avoid off-by-one errors (e.g. it ran 4 times or 6 times instead due to logic error).
 
         If I was in a less hurry, I would have written `5.times.reduce(data) { |c, _| nx[c] }` instead :).
       :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4r6h/
+  :url: https://www.reddit.com/r/adventofcode/comments/7l78eb/2017_day_21_solutions/drk4r6h
   :body: |-
     Ruby; 25/21. I think I got a headache from this, but I managed to get back on the board after a streak of fails, so I'm happy. Functional programming was being a helpful friend day.
 

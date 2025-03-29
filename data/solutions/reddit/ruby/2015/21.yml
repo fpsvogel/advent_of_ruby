@@ -1,6 +1,6 @@
 ---
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6c2ec/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6c2ec
   :body: |-
     **Ruby (#93)** Started 10 minutes late due to lunch going over, then tried guess-and-check for 20 minutes before giving that up and using a half-code, half-mental-math solution. I manually figured out the cheapest cost for each of damage and armor (4-9 for damage, 0-5 for armor), then brute-forced from there. It's an ugly solution, but only took about 10 minutes of mental math and coding once.
 
@@ -33,7 +33,7 @@
     ```
   :replies: []
 - :author: Axsuul
-  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6cm0u/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6cm0u
   :body: |-
     Ruby with OOP approach
 
@@ -166,7 +166,7 @@
     ```
   :replies: []
 - :author: SomebodyTookMyHandle
-  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6s8k0/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cy6s8k0
   :body: |-
     Oh man, very fun challenge today! (They're always fun, but this is the first time I've gotten to program something like this.) Object-oriented Ruby using an iffy version of #cycle to simulate the battle, because it's fun to do so despite not being mathematically necessary. Comments and advice welcome...
 
@@ -316,7 +316,7 @@
     ```
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cye7r83/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xnyoi/day_21_solutions/cye7r83
   :body: |-
     Very verbose Ruby code
 

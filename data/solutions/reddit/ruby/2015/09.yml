@@ -1,6 +1,6 @@
 ---
 - :author: gareve
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtgagf/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtgagf
   :body: |-
     Ruby solution for both parts of the problem :)
 
@@ -16,18 +16,18 @@
     ```
   :replies:
   - :author: a_dollar_sign_texas
-    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtqbtb/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtqbtb
     :body: |-
       I am in absolute awe of this. And I'm even familiar with the whole notation matters story of knuth vs. shell script: http://www.leancrew.com/all-this/2011/12/more-shell-less-egg/.
 
       Wow. Just ... that is brilliant. May I ask why you approached the problem in such a way? I thought that TSP was going to have significant code, even for just a brute force solution.
     :replies:
     - :author: gareve
-      :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtz4l1/
+      :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtz4l1
       :body: Thanks, let's thank Ruby :) I started with the traditional solution and cleaned up the parts that I was uncomfortable with. The last improvement was the [x, y].sort
       :replies: []
 - :author: _jonah
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskk63/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskk63
   :body: |-
     Ruby:
 
@@ -48,7 +48,7 @@
     ```
   :replies: []
 - :author: SnacksOnAPlane
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsivkf/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsivkf
   :body: |-
     **Ruby**
 
@@ -93,7 +93,7 @@
     ```
   :replies:
   - :author: dubokk15
-    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsmv3h/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsmv3h
     :body: |-
       Here's the same solution with lots of Ruby shortcuts:
 
@@ -120,7 +120,7 @@
       ```
     :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsixwb/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsixwb
   :body: |-
     Leveraging Ruby's permutation method...
 
@@ -147,7 +147,7 @@
     ```
   :replies: []
 - :author: fnoco_xandy
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsj2td/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxsj2td
   :body: |-
     brute force crystal/ruby solution, $find\_shortest with true for part 1, false for part 2.
 
@@ -188,7 +188,7 @@
     ```
   :replies: []
 - :author: tremendo
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskeec/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxskeec
   :body: |-
     Another Ruby, brute force (permutation) solution. My delay was I was trying to close the loop, assuming Santa had to return to the starting point
 
@@ -226,7 +226,7 @@
     ```
   :replies: []
 - :author: HorizonShadow
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxt5zzn/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxt5zzn
   :body: |-
     Ruby (All of my solutions [here](https://github.com/HorizonShadow/Advent-of-Code)):
 
@@ -292,7 +292,7 @@
     ```
   :replies: []
 - :author: mushy_plushy
-  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtahil/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w192e/day_9_solutions/cxtahil
   :body: |-
     Ruby brute force. Yields lowest value. For highest value 'min' is replaced by 'max' at end.
 

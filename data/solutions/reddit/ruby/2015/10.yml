@@ -1,6 +1,6 @@
 ---
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsxjs/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsxjs
   :body: |-
     Ruby solution using the new (as of 2.2.0) slice\_when enum method.
 
@@ -14,11 +14,11 @@
     ```
   :replies:
   - :author: tomb0y
-    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxttgxo/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxttgxo
     :body: love the slice\_when! you could also use chars instead of split("") :)
     :replies: []
 - :author: tomb0y
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvjq/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvjq
   :body: |-
     Being on the leaderboard feels awesome :)
 
@@ -31,7 +31,7 @@
     ```
   :replies: []
 - :author: reacher
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsc40/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsc40
   :body: |-
     My Ruby solution. I finally made the leaderboard!
 
@@ -62,7 +62,7 @@
     ```
   :replies: []
 - :author: Axsuul
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvn9/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtsvn9
   :body: |-
     Recursive Ruby solution
 
@@ -103,7 +103,7 @@
     ```
   :replies:
   - :author: Axsuul
-    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtt00p/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtt00p
     :body: |-
       I also like to write specs
 
@@ -128,7 +128,7 @@
       ```
     :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtthdu/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtthdu
   :body: |-
     My initial (braindead) copy finished the first part in a few seconds. The second run is still going, 15 minutes in. In fact, it took long enough for me to remember something vague about there being a difference in speed between various methods of string concatenation in ruby, look it up, copy my program, change two instances of += to \<\<, run the modified script, get the right answer, and finish the challenge.
 
@@ -169,19 +169,19 @@
     I'll reply to this with the total time the first copy takes (if it ever finishes).
   :replies:
   - :author: gnuconsulting
-    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuvnr/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuvnr
     :body: Almost exactly an hour! Vs. 5 seconds using \<\<
     :replies: []
   - :author: dalfgan
-    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuxzx/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuxzx
     :body: 'ahah I did the same thing (but I used "#{x}#{y}"). After 2 or 3 min, I was like something is not correct. What about doing this in your code: final \<\< count.to\_s \<\< current'
     :replies:
     - :author: gnuconsulting
-      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtv7xw/
+      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtv7xw
       :body: No noticeable change. Still takes about 5.5 seconds for 50 iterations. I believe it's because it does the right-hand concat first (between `count.to_s` and `current`) which are both tiny strings, before appending the result onto `final` (the death-blow if you use `+=`).
       :replies: []
 - :author: segfaultvicta
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuu0n/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtuu0n
   :body: |-
     Golang - there's probably a slightly cleaner way to do this.
 
@@ -219,7 +219,7 @@
     ```
   :replies:
   - :author: metamatic
-    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwhtoh/
+    :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwhtoh
     :body: |-
       > Ruby or Perl would have made the solution obvious and a nice clean one-liner, I think, but honestly one of the reasons I'm doing these in golang is deliberately to run into these sort of issues
 
@@ -228,14 +228,14 @@
       Anyhow, I guessed that speed was going to be an issue, so I checked and read that [byte buffers are the way to do character appends in Go](http://golang-examples.tumblr.com/post/86169510884/fastest-string-contatenation). I went that route and the code finishes in half a second. You might want to compare your code's speed with a byte buffer version?
     :replies:
     - :author: segfaultvicta
-      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwymqg/
+      :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwymqg
       :body: |-
         Huh, neat, thanks for the link! I think I will try that sometime and speed-compare just for funsies.
 
         Writing to a byte buffer is definitely a lot cleaner-looking, to me, too, so.
       :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtw6vi/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxtw6vi
   :body: |-
     **Ruby solution**
 
@@ -269,7 +269,7 @@
     ```
   :replies: []
 - :author: tremendo
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxu2gu7/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxu2gu7
   :body: |-
     **Ruby**
 
@@ -307,7 +307,7 @@
     ```
   :replies: []
 - :author: vanderzee94
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxub4t6/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxub4t6
   :body: |-
     My solution in ruby
 
@@ -322,7 +322,7 @@
     ```
   :replies: []
 - :author: zacwaz
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxuxeku/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxuxeku
   :body: |-
     Simple, functional **Ruby** solution:
 
@@ -336,7 +336,7 @@
     ```
   :replies: []
 - :author: talkb1nary
-  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwr955/
+  :url: https://www.reddit.com/r/adventofcode/comments/3w6h3m/day_10_solutions/cxwr955
   :body: |-
     Late to party, but i liked my result in Ruby
 

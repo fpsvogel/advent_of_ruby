@@ -1,6 +1,6 @@
 ---
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbb5xbi/
+  :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbb5xbi
   :body: |-
     Ruby. I made the search into a generator which yields all the paths in the order they are found. Then I could call `first` and `max` on the same object to get the answers for part 1 and 2 respectively.
 
@@ -48,7 +48,7 @@
     ```
   :replies: []
 - :author: yjerem
-  :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbarvjw/
+  :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbarvjw
   :body: |-
     Ruby, 13/11!
 
@@ -85,7 +85,7 @@
     ```
   :replies:
   - :author: mperham
-    :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbbbt1b/
+    :url: https://www.reddit.com/r/adventofcode/comments/5isvxv/2016_day_17_solutions/dbbbt1b
     :body: |-
       Recursion will clean up your code alot.
 

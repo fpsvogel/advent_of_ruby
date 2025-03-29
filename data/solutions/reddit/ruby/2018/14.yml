@@ -1,6 +1,6 @@
 ---
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr5ufg/
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr5ufg
   :body: |-
     ## CARD The Christmas/Advent Research & Development (C.A.R.D.) department at AoC, Inc. just published a new white paper on Elf Chocolate Recipes.
 
@@ -42,7 +42,7 @@
     ```
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr3em5/
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebr3em5
   :body: |-
     [Card] [image](https://i.imgur.com/w5qydaR.png)
 
@@ -102,7 +102,7 @@
     ```
   :replies: []
 - :author: _liquidlemon
-  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebrask4/
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebrask4
   :body: |-
     **Ruby**
 
@@ -152,7 +152,7 @@
     ```
   :replies:
   - :author: kamireri
-    :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebvh39s/
+    :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebvh39s
     :body: |-
       There's a small bug in the last if/else statement in the block. When the next digit doesn't match the one that we're expecting in the pattern, it might be the first digit of the pattern. I've put a revised version below. It now produces the correct result for the '01245' test input.
 
@@ -199,7 +199,7 @@
       ```
     :replies: []
 - :author: jtgorn
-  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebtfakm/
+  :url: https://www.reddit.com/r/adventofcode/comments/a61ojp/2018_day_14_solutions/ebtfakm
   :body: |-
     I love ruby
 

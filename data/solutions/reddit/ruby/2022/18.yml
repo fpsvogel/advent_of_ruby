@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0uweyj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0uweyj
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/2L8gHiNnZ9w)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0s1vh0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0s1vh0
   :body: |-
     Ruby, part 2. But it is annoyingly slow–takes about 12 minutes on my machine. Is it possible to speed it up without changing the approach?
 
@@ -72,11 +72,11 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ti4hn/
+    :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ti4hn
     :body: 'Ok, to speed up 100 times: use a set to store cubes instead of an array.'
     :replies: []
 - :author: whezya
-  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ryg57/
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0ryg57
   :body: |-
     **Ruby**
 
@@ -87,7 +87,7 @@
     I never used a flood algorithm before, so this is my first attempt, benchmark gave me 2 sec on my computer. [Readme](https://github.com/rbellec/advent_of_code_2022/blob/main/README.md) explain how to use it. Would be happy to discuss about it.
   :replies: []
 - :author: SwampThingTom
-  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0qht6f/
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0qht6f
   :body: |-
     I'm solving each of this year's problems in a different language, roughly in the order in which I learned them.
 
@@ -96,7 +96,7 @@
     https://github.com/SwampThingTom/AoC2022/tree/main/18-BoilingBoulders
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0op0zl/
+  :url: https://www.reddit.com/r/adventofcode/comments/zoqhvy/2022_day_18_solutions/j0op0zl
   :body: |-
     _Ruby_
 

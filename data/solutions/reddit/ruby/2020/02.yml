@@ -1,6 +1,6 @@
 ---
 - :author: Wattswing
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ggzhsf4/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ggzhsf4
   :body: |-
     My solution in Ruby
 
@@ -44,7 +44,7 @@
     ```
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geojqux/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geojqux
   :body: |-
     **Ruby**
 
@@ -77,7 +77,7 @@
     ```
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecg3rg/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecg3rg
   :body: |-
     Solution in Ruby. Tried to edit it to work with old reddit code blocks, not sure if successfully so...
 
@@ -106,7 +106,7 @@
     ```
   :replies: []
 - :author: infov0re
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecuxoa/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecuxoa
   :body: |-
     **Ruby** : an anti-golf solution for part 2. (Part 1 is highly similar, with minor differences to the `valid?` method. (I'll take readability over line count). I chose not to use regex because, frankly, then I have two problems (and the line syntax is not complex enough to demand it IMO).
 
@@ -157,7 +157,7 @@
     ```
   :replies: []
 - :author: avoxdesign
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged2s8x/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged2s8x
   :body: |-
     My solutions in pure Ruby:
 
@@ -198,7 +198,7 @@
     ```
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged428s/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged428s
   :body: |-
     **Ruby**
 
@@ -211,15 +211,15 @@
     EDIT: I've updated the boolean operator in part 2 to be a XOR by suggestion of u/chunes
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged51aq/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged51aq
     :body: "[deleted]"
     :replies:
     - :author: hdf1986
-      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged6ynd/
+      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged6ynd
       :body: That really makes sense, ~~will update it later to include that~~ I've just updated the code to use it. Thank you!
       :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeadpy/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeadpy
   :body: |-
     Ruby
 
@@ -243,7 +243,7 @@
     ```
   :replies: []
 - :author: bacon-supreme
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geegd88/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geegd88
   :body: |-
     Using this to re-learn Ruby; wherein one does not know that `array.count(obj)` exists:
 
@@ -292,7 +292,7 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec97gd/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec97gd
   :body: |-
     Ruby 84/373
 
@@ -313,7 +313,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecalhe/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecalhe
   :body: |-
     ### [Ruby (706/418)](https://github.com/Sharparam/advent-of-code/blob/master/2020/day2/solution.rb)
 
@@ -355,7 +355,7 @@
     ```
   :replies: []
 - :author: lunarfyr3
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gech0k6/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gech0k6
   :body: |-
     Another Ruby solution
 
@@ -386,7 +386,7 @@
     `puts data.reduce([0,0]) { |acc, line| pw = Pw.new(line); [acc[0] + (pw.valid_a? ? 1:0), acc[1] + (pw.valid_b? ? 1:0)] }`
   :replies:
   - :author: jtgorn
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecpa3j/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecpa3j
     :body: |-
       > puts data.reduce(0) { |acc, pw| Pw.new(pw).valid\_a? ? acc+1 : acc } # part 1
 
@@ -397,7 +397,7 @@
       ```
     :replies: []
   - :author: Piggelinmannen
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecqnjd/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecqnjd
     :body: |-
       I like the small class! The reduce calls can be replaced by count, like so:
 
@@ -406,11 +406,11 @@
       `puts data.count { |pw| Pw.new(pw).valid_b? } # part 2`
     :replies:
     - :author: lunarfyr3
-      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeziap/
+      :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geeziap
       :body: I like that, much more readable than reduce!
       :replies: []
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecr4qd/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecr4qd
     :body: |-
       My solution, using some other Ruby language features.
 
@@ -435,7 +435,7 @@
       ```
     :replies: []
 - :author: jtgorn
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecq4a4/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gecq4a4
   :body: |-
     Ruby
 
@@ -457,11 +457,11 @@
     ```
   :replies:
   - :author: jura0011
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gectl55/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gectl55
     :body: I like the `(min..max) === pwd.count(ch)`, better than my solution.
     :replies: []
 - :author: DropkickFish
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged1xbp/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/ged1xbp
   :body: |-
     Ruby. Not the best, but a quick one before work. Hopefully, I'll get chance to improve it and try pt 2 this evening. I need to go back and look at docs for better handling file inputs. Looking forward to seeing what wonderful new string/array/whatever message I learn from other people today
 
@@ -488,7 +488,7 @@
     ```
   :replies:
   - :author: DropkickFish
-    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geecawt/
+    :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geecawt
     :body: |-
       Ruby Pt 2 - did this after work and checked other solutions. I couldn't for the life of me think how best to reduce the size and run time, but then checked other answers and now I know `.captures` exists and there might be a better way to read the input amongst other things.
 
@@ -519,7 +519,7 @@
       ```
     :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gedbp0i/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gedbp0i
   :body: |-
     [Ruby](https://github.com/odlp/advent-of-code-2020/blob/main/day-2/passwords.rb):
 
@@ -550,7 +550,7 @@
     ```
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec9ugj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gec9ugj
   :body: |-
     Ruby. Messed up my interpreter settings and lots lots of minutes fixing that :'(
 
@@ -565,7 +565,7 @@
     ```
   :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geem9m8/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/geem9m8
   :body: |-
     Ruby :)
 
@@ -633,7 +633,7 @@
     ```
   :replies: []
 - :author: OutofPlaceStuff
-  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gef04ld/
+  :url: https://www.reddit.com/r/adventofcode/comments/k52psu/2020_day_02_solutions/gef04ld
   :body: |-
     Done part 1 in Ruby and in Python. Python is my "native" language. I'm just now picking up Ruby for a potential job. Always open to feedback.
 

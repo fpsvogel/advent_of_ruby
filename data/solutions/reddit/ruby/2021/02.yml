@@ -1,6 +1,6 @@
 ---
 - :author: lo-crawfish
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hp7qf8l/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hp7qf8l
   :body: |-
     I'm late to the party, but here's my Ruby solution:
 
@@ -53,14 +53,14 @@
     ```
   :replies: []
 - :author: thedjotaku
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn0aelt/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn0aelt
   :body: |-
     My [Ruby solution](https://github.com/djotaku/adventofcode/blob/857a34910ea29720298c3eb4b8d9b5065d6f433b/2021/Day_02/Ruby/solution.rb)
 
     Today was easy enough that I was able to do Ruby, too! All in one function.
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc4t3/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc4t3
   :body: |-
     ## **Ruby** (426/627)
 
@@ -86,18 +86,18 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwd562/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwd562
     :body: |-
       Oh, that is nice! Sweet evaling, my friend. +1
 
       And sweet use of one line methods. +1
     :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwctyv/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwctyv
     :body: woah that's clever
     :replies: []
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzly8c/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzly8c
     :body: |-
       I golfed your solution down to 115 chars.
 
@@ -113,7 +113,7 @@
       the eval is hilariously clever
     :replies:
     - :author: Sharparam
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn1bdwk/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn1bdwk
       :body: |-
         Nice one :D
 
@@ -122,15 +122,15 @@
         Edit: [2020 day 18](https://github.com/Sharparam/advent-of-code/blob/main/2020/18/solution.rb) was another fun one.
       :replies:
       - :author: snowe2010
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn1jsjo/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn1jsjo
         :body: That’s awesome. I’ll need to unlearn some good habits to start seeing things that way lol. I need to go back and finish all the years I started and never completed.
         :replies: []
   - :author: Chrinkus
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwg6mk/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwg6mk
     :body: LOL 'depth is also aim'! I didn't pick up on that while working it out but something DID bug me about 'aim'. Well done!
     :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdm4d/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdm4d
   :body: |-
     **Ruby 78 bytes.**
 
@@ -143,7 +143,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwhtpk/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwhtpk
     :body: |-
       > `n=_1[-2..].to_i`
 
@@ -152,11 +152,11 @@
       In that case, can we save a few bytes by `n=_1[-2].to_i` ?
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxzhgx/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxzhgx
       :body: I did that originally, but the last line doesn't have a newline character :( So on every line but the last line, it's [-2], but for the last line it's [-1]. [-2..] works because it simply includes the space before the number in the last line.
       :replies: []
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzhmak/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzhmak
     :body: |-
       dang, that's good. Mine was a few characters longer and I assume I've already got the lines as an array.
 
@@ -169,11 +169,11 @@
       completely forgot you could multiple assign like that, and not splitting the lines saves you a lot. Glad I came to the same `k[?f]` solution as you though, I thought I was really smart lol.
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzszxu/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzszxu
       :body: Nice, yours is pretty great too!! Using the ternary operator is a very ugly but effective solution to to save some characters as well :)
       :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmze5ma/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmze5ma
   :body: |-
     # Ruby
 
@@ -226,7 +226,7 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmy7i73/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmy7i73
   :body: |-
     Part 2, Awk.
 
@@ -243,11 +243,11 @@
     My main solution was Ruby, I just wrote this for fun
   :replies:
   - :author: campingD
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyamyd/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyamyd
     :body: looks so clean
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwa7uc/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwa7uc
   :body: |-
     Ruby, 251 / 155
 
@@ -256,7 +256,7 @@
     I got slowed down by duplicate variable names. **Note to self:** Next time, stick with the names given by problem. Don’t shorten `horizontal position` down to `x` because it clashes with the input `x` in the problem, try something like `hpos` instead.
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwa95c/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwa95c
   :body: |-
     **Ruby** , 546/993 (you guys are fast!!)
 
@@ -274,60 +274,60 @@
     ```
   :replies:
   - :author: AbdussamiT
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwaixp/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwaixp
     :body: From where do you see that you ranked 546 and 993 respectively?
     :replies:
     - :author: MasterMedo
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwapci/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwapci
       :body: When you submit the solution it tells your rank, but you can also check it on the stats -\> personal stats page :)
       :replies:
       - :author: heroBrauni
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwbdlu/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwbdlu
         :body: |-
           It is under Leaderboard -\> Personal Stats, in case someone else can't find it:
 
           https://adventofcode.com/2021/leaderboard/self
         :replies:
         - :author: AbdussamiT
-          :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc0k7/
+          :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc0k7
           :body: Found it, thanks! Thanks to you too u/MasterMedo
           :replies: []
       - :author: TransdermalHug
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwaxlb/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwaxlb
         :body: It only tells you if you're in the top 1000. Otherwise, you have to look at the personal stats page.
         :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwciod/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwciod
   :body: |-
     ## Ruby
 
     https://github.com/zsarge/advent-of-code-2021/blob/main/solutions/02/solve2.rb
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwcr3x/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwcr3x
     :body: Yup, mine was similar. Haven't found a way to do it without massive `case` statements, yet.
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdjn3/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdjn3
       :body: |-
         [Take a look at this person's solution using eval](https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwc4t3)
 
         edit: nevermind, i guess you saw it :)
       :replies:
       - :author: '442401'
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwjwsj/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwjwsj
         :body: "Yup, pretty sweet. \U0001F44D"
         :replies: []
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdsa8/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdsa8
       :body: This works if you can read it https://www.reddit.com/r/adventofcode/comments/r6zd93/comment/hmwdm4d/?utm_source=share&utm_medium=web2x&context=3
       :replies:
       - :author: '442401'
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwkcla/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwkcla
         :body: Nice! I can just about follow that. It's amazing how flexible Ruby is, it can be as beautiful, or as ugly, as you choose. Whatever brings most joy! (Thank you, Matz)
         :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdh94/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwdh94
   :body: |-
     **Ruby** : 1:36/2:50, 87/82!
 
@@ -336,21 +336,21 @@
     Made the leaderboard! Missing the '=' in a '+=' cost me 10 seconds on Part 2 and about 20 leaderboard spots.
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwktpz/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwktpz
     :body: |-
       _cough_ 26 seconds _cough_
 
       Great effort though. I love your postmortems. Subscribed!
     :replies: []
 - :author: LyleiLanar
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwuhu5/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwuhu5
   :body: |-
     Here's my solution:
 
     [I love unnecessary long code in Ruby :D](https://github.com/LyleiLanar/advent-of-code/blob/main/2021/day_2.rb)
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwgy43/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwgy43
   :body: |-
     ### Ruby
 
@@ -383,11 +383,11 @@
     ```
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzh21n/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzh21n
     :body: interesting solution
     :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwtdow/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmwtdow
   :body: |-
     My solution for part 2 in Ruby. Any advice warmly welcome. Thanks.
 
@@ -430,25 +430,25 @@
     ```
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzgswt/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzgswt
     :body: |-
       for your instructions, you can use regex, but it's much simpler to just split the string, and then use multiple assignments to assign each value.
 
       `direction, quantity = instruction.split`
     :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxb66r/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxb66r
   :body: |-
     My Solution in Ruby is here: [https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day02/solution.rb](https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day02/solution.rb)
 
     Pretty straightforward. Happy to hear criticism of my code.
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzdq2m/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmzdq2m
     :body: "looks good! easy to read I like it! I golfed mine so mine is completely unreadable \U0001F605"
     :replies: []
 - :author: dirtydave0221
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxoq54/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxoq54
   :body: |-
     [Day 2 Solution via SnapLogic IIP](https://imgur.com/6iVSWgn)
 
@@ -461,14 +461,14 @@
     [All Solutions](https://imgur.com/a/t02e0dA)
   :replies: []
 - :author: roundscribehector5
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxsizh/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmxsizh
   :body: |-
     [OOP Ruby Solution(refactored for part 2)](https://topaz.github.io/paste/#XQAAAQAZBQAAAAAAAAA5GUqKNoFH6SMnPH0B27EPe3NVv6DkupK7fPy5HX6q3gJULAlCRfWhi77KvRbNPpJROieHwkSIeYOkK5d9tLdEte6puwksCa3gAUZ1KWv2nahRgEEcme1gUjTMmgKr5rGLzUgHS3vnNeJL8WwOiGN4U8PRpt7nkTCl6jRTkwk/AUsrjx0EAEarywoCKb7Curm5fD5yqJW6wZ11XeDjHxocXesS5TZDJIRZX9orjbujOvRgGUpvHaIKw1nA+7RXZ03JHVLTW/JX58KzzxRD8IgARU3dnnmIUubpYDX0u47qRnbp/pd3Nlojz2hXo3ARbG9V3+g2indp1N4WjY5lqz349xBDvc0XPTbEz5wyWhtuu5gqV+DVCDpOAOgDjI9XCPwd4WtdvkUgicfJa/bCz1Udqralz7LXXx39aeHupR0g5yHbt9yTc1VD0h18XwSyJnnzxdUv5MiprCa3k5zIHU59oeuw0lYC97/qGBsl/t2DhGER4GrFCZ8yDhqzzKvbRacUE31qO31Uy4eLFQFZ/1wtu7XCKiqYDbVN0j1xu52YG+Nskc3dPP/3m9yh)
 
     I'd appreciate any feedback.
   :replies:
   - :author: tsroelae
-    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyodzn/
+    :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyodzn
     :body: |-
       Nice, but to me, looks a bit focused on the problem at hand, maybe consider a more public API.
 
@@ -479,14 +479,14 @@
       Though I kept converting instructions to method calls out of the class.
     :replies:
     - :author: roundscribehector5
-      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn2lmmd/
+      :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn2lmmd
       :body: |-
         Thank you, I appreciate the feedback.
 
         I think I get the gist of what you're saying. Have the methods do less and combine them to solve the problem? Can you go into a little more detail of what you mean by public API?
       :replies:
       - :author: tsroelae
-        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn7lkhw/
+        :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hn7lkhw
         :body: |-
           Sure, so the public API is the the way how you interact with an object from the outside.
 
@@ -497,6 +497,6 @@
           But of course such things are unnecessary for actually solving advent of code, as strictly speaking you alway have one puzzle input and two outputs that you need. So from that perspective it's completely fine. I may be overdoing the OOP part for puzzles, but I like the practice. For day 4 I had 4 classes, a Parser, a Game and a Board class.
         :replies: []
 - :author: maattdd
-  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyaqgp/
+  :url: https://www.reddit.com/r/adventofcode/comments/r6zd93/2021_day_2_solutions/hmyaqgp
   :body: 'Functional Ruby : https://gist.github.com/maattdd/09ad91d44cf337857ed0d58f6a4d7be7'
   :replies: []

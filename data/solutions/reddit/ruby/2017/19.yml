@@ -1,6 +1,6 @@
 ---
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgjw1m/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgjw1m
   :body: |-
     # Ruby (28th, 22nd)
 
@@ -51,7 +51,7 @@
     ```
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgk54d/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kr2ac/2017_day_19_solutions/drgk54d
   :body: |-
     Ruby; My sanity decays further as more debugging effort was required. Today's bug was fall-through statements. Almost made it to the leaderboards though :p (~120)
 

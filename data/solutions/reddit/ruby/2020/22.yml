@@ -1,24 +1,24 @@
 ---
 - :author: whereflamingosfly
-  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggpsp86/
+  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggpsp86
   :body: |-
     [Ruby](https://pastebin.com/HVSAYhnT)
 
     I feel pretty good about this solution. At first I was storing the full decks for the recursive rounds in part two and had a solution that took over two minutes to run. I decided to hash the combined arrays instead which _significantly_ optimized things, and then I shaved off a bit more time using a set instead of an array for the previous rounds. Now my solution for part two takes just over 6 seconds, which feels acceptable for a Ruby implementation.
   :replies:
   - :author: waferthinner
-    :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggq0i3l/
+    :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggq0i3l
     :body: Using hash was a nice trick.
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggp3oou/
+  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggp3oou
   :body: |-
     Object oriented ruby approach again! This was a nice, straightforward problem. I enjoyed working through the bugs to get to the final solution.
 
     [paste](https://topaz.github.io/paste/#XQAAAQAtDwAAAAAAAAARiEJHiiMzw3cPM/1Y611SZZzCokqVQwRwyl1Nd0tAtOAWiRIn5ZSurc+2/XZZwdLFzVXpd/FcrKfmMWZIPV2UnFVdxhTQxt/ebU9zXTfvZ+rTSqFhE8jECd87SC4YgMWgxv0yJDws9eMV4m/v0gEmOTeZpsopAr/VHZiJJ51zav3UWUfiNXaqlgdzrTi0acWB9gDiY8BSBdpMBas/Zns7vSJneZ6E21AWetzkqKzPI/W8p0+Bp1u/Do/qGDMtaHC7yjgLYQeuj2blqrY9HJbxZ0N6qoSQ04HghGo9D9kugw3eYvYZgS28b9A0k+SCWZXRSbxAGnEGkzTvkgZrEEzfYzbcIztcxE48zjUfKRIknMB8ikAQBdVRkLfRVQ52SrQJ/YVvDHu29Y01rwB5jXbgGEOhWzJTPcghIuDQds9irRJ7JgcXADVbhXqz3uR1HCNqfedAH1Fwq2+2HcP/DFPSHAO5XFnzZdg4kvKaQzKBVSTfuIhrJ4EDlFhKHkYTWdgE0eo0WKr0lDwc1senuxfdx7oP8ekqo2wSwqkG60VFVTnZhhKwKdGMeXc/7C22lZGnNTLozq0LMz2o8HAAYBKD9OLg9qPeCN8KNXjd9I3ThVFps62hIXIalroNVRtygFX7ZXWGwaN1WW0eOfM8d6ORSspItgp88uQg1qtEbIDPSABoXz4CF78w6Kgi/AD8reiz/XvS8TQZUIrUhfFr98VQEAZFwuNGvtehidpHeUmQGScNLtOW8NZqfmm4wTrDPRP+V3dqlSY9c+QhlSAlUsKZWlapLv5Xj6x6S3ScoTjnWY6XO12W2ThRfCw2SecCHkG7OAn6lvX5cIWN4f1vtk11rtdydBPI2M6xxEyZwgDl5Gq5j9XjAHNQg7H3+sVcULhDVFDqCrI6M2xe7ojn0jK3/GeQ6oATMhGcsBwXXSHwzlAX4EtG8Wq0rSTg9YTuxhS5Na9T2FBV1TPJMo0i7TwckvsUoWCA6gd8F3mjilDnbuWYALztle7CAQj/mfc1JkHUjm2SVg+lCaGWgpS9P3G4mfAbmgjLONl/oNSUDDxWElDQOC5APAVg7D7euG8foR3ybFcNMYT/eZmYvtP4sR9EMeaQYBjHwMnd1OSiMohrikgCQnfVd5mH6gVK4Wk8WKNFMKH63JrAmX4Wj/3TjpYLIgDDR33uPxTgRgu+BLXfVHQEwWfbyBvNOZVxaacrbAEDDaSCNtIbsg2CjN6VC29whOIS78IWkMEQoJeClgNXg9wN1BoXImqpFEnwT+nGODtJeWqoQM9ROIKwiKSG/jSemdeMje0AZNv5zoLy0xWPnV50tvc+eZ4aR8DBUuedGbXr66DNup/B7L0ghzND2V/4jpvxc7nDlwCzrYRkVQs54Gx1crDBK4XnvgXdfVUPR9fJmGVm1ALmOV6/wsHIvrWoqcycDdmuc5FF8SrVropBRkaUhKD1ArjlhRx709KM2xiUGJHdaPrR2+9Mcm4L8LMp1VlO+qvzPpH8g4jBZeS8tST+8p4avczS0iQ0K1Wk+djc1rotKTxfZVAy3SSysK/XdOya4mLfEBDIyPAuFsgfUIYYd89bxNa0i/3QJR7zuuLNDFnM3uKN9WjOpCbbjQ2ynRb4uWm9J048oxNajaDerJIUyxsy7r1iIZariPeL2tZCXnN31NQBLEa/1QBfAY7cqsNTDP/3G3tr)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggo1pa4/
+  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggo1pa4
   :body: |-
     Ruby 1579/1095
 
@@ -27,19 +27,19 @@
     https://gist.github.com/gurgeous/4fd48093861a129455f2c2c19b1b2196
   :replies:
   - :author: DmitryShvetsov
-    :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggolq1o/
+    :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggolq1o
     :body: Looks like a Hash performs much better as the `seen` data structure than a Set
     :replies:
     - :author: DmitryShvetsov
-      :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggom061/
+      :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggom061
       :body: "... actually not \U0001F914"
       :replies:
       - :author: gurgeous
-        :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggrilu5/
+        :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggrilu5
         :body: Yeah, in most languages set is just a wrapper around hash. Pretty sure that's the case with Ruby - https://github.com/ruby/ruby/blob/master/lib/set.rb
         :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggo3uq9/
+  :url: https://www.reddit.com/r/adventofcode/comments/khyjgv/2020_day_22_solutions/ggo3uq9
   :body: |-
     **Ruby:** 3:30/24:24, 30/171
 

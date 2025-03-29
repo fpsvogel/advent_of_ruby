@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnm5sc/
+  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnm5sc
   :body: |-
     Part 1 was not too bad, especially since Ruby has `rotate` function on arrays.
 
@@ -20,14 +20,14 @@
     Haskell: [22_slam_shuffle.hs](https://github.com/petertseng/adventofcode-hs-2019/blob/master/bin/22_slam_shuffle.hs)
   :replies:
   - :author: Fyvaproldje
-    :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbqp1xv/
+    :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbqp1xv
     :body: |-
       In my input, there are no 2 adjacent shuffles of the same type. Are there in yours?
 
       At first, I also tried the repetitions route...
     :replies: []
 - :author: tckmn
-  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnilun/
+  :url: https://www.reddit.com/r/adventofcode/comments/ee0rqi/2019_day_22_solutions/fbnilun
   :body: |-
     ruby (plus some mathematica) 91/18
 

@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4digq/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4digq
   :body: |-
     Ruby, reporting in.
 
@@ -34,7 +34,7 @@
     Edit: Yeah okay, after reading others' solutions, I get it, a less wasteful way to do it would be to add letters left-to-right and therefore I know I only need to delete from the right end of the string. Let this be a lesson on there being a huge difference between what I write if I want to go as fast as possible versus what I might write if I actually have time to think about it.
   :replies:
   - :author: Karl_Marxxx
-    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb576m4/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb576m4
     :body: |-
       As someone learning ruby for the first time, this is an excellent code snippet to study. Mind if I ask a few questions?
 
@@ -51,7 +51,7 @@
       Sorry for the noob q's but this language is fascinating.
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5mrpo/
+      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5mrpo
       :body: |-
         Hey there, don't hesitate to ask any more question if you have any!
 
@@ -80,11 +80,11 @@
         That would be because of the `if` afterward. You may see this used in some pieces of code like `raise SomeError if something`. It would be "unfortunate" if that raised an error every time. Thus, it doesn't happen unless the condition is true. For more information you could read about "modifier if"
       :replies: []
   - :author: _liquidlemon
-    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t4em/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t4em
     :body: I'm also solving in Ruby and I have to say that I absolutely love your solutions. They're all really smart and checking out your solution is as interesting as solving it on my own, because every day you seem to include something that I didn't even know existed in the language (like taking array slices with `[x, y]`, symbol arrays in the form of `%i()`, the safe navigation operator that you had in your refined solution for today, `Hash#to_proc`, being able to group statements in parentheses to use the modifier syntax). I really appreciate that you're publishing all your solutions so that others can learn from them. Even if I end up refactoring my solutions so that they end up looking a little bit too much like yours ;)
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6c82q/
+      :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6c82q
       :body: |-
         Thanks for writing in. Indeed one of my hopes is that I can show some interesting things that can be done in the language.
 
@@ -93,14 +93,14 @@
         Just some interesting thoughts when I consider how others might make use of my code.
       :replies:
       - :author: _liquidlemon
-        :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6e4d6/
+        :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb6e4d6
         :body: |-
           They did stand out to me as well but I think in this kind of scenario where concise code is valued they are perfectly fine. Especially the second one I've used before and not felt too bad about it. Being able to save a value while using it at the same time can be really useful at times. Heck, even Python introduced a way to do that recently (although it didn't happen without controversy).
 
           I look forward to seeing your future solutions (and hope I can still understand them :P). Good luck with staying on top of the leaderboard!
         :replies: []
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4fpde/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4fpde
   :body: |-
     Ruby
 
@@ -148,7 +148,7 @@
     ```
   :replies: []
 - :author: jazzido
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4ec3w/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4ec3w
   :body: |-
     Part 1, in Ruby:
 
@@ -168,15 +168,15 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4g72j/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4g72j
     :body: Ooh clever use of character codes!
     :replies: []
   - :author: reacher
-    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4i3ms/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4i3ms
     :body: This is a nice solution, but it breaks when the first 2 characters have matching polarity. adding "and !stack.empty?" to that first condition fixes it
     :replies: []
 - :author: charismotron
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4j96r/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4j96r
   :body: |-
     **Ruby**
 
@@ -240,7 +240,7 @@
     ```
   :replies: []
 - :author: Schaulustiger
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t6ic/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb5t6ic
   :body: |-
     **Ruby from the command line**
 
@@ -249,7 +249,7 @@
     ```
   :replies: []
 - :author: morfi717
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb60kp7/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb60kp7
   :body: |-
     Ruby
 
@@ -267,7 +267,7 @@
     ```
   :replies: []
 - :author: juzmark
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/ec71qi0/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/ec71qi0
   :body: |-
     Ruby - Looking for feedback. Thank you!
 
@@ -306,7 +306,7 @@
     ​
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4d97q/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3912m/2018_day_5_solutions/eb4d97q
   :body: |-
     Had two bugs... Fixed one, couldn't find the other one fast enough :p Ruby
 

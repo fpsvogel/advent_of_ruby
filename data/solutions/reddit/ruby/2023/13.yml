@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kdb034y/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kdb034y
   :body: |-
     A day late but still going, this was tough!
 
@@ -9,14 +9,14 @@
     [Video Walkthrough](https://youtu.be/ng88PiHxLCo)
   :replies: []
 - :author: grimlyforming
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd9sbam/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd9sbam
   :body: |-
     [https://pastebin.com/iwbrMUac](https://pastebin.com/iwbrMUac)
 
     I tried the brute-force method of changing every character in the graph, wasn't getting the answer, and it was too cumbersome to debug. Then I realized that instead of changing every char and looking for a reflection, look for a modified reflection. The wrapper around the code is too full of print stmts etc, but I'm happy with the core solution.
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd5o37o/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd5o37o
   :body: |-
     No clever tricks needed today, simply brute-force.
 
@@ -73,11 +73,11 @@
     https://github.com/glebm/advent-of-code
   :replies: []
 - :author: Various_Frosting4888
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6hozf/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6hozf
   :body: "[https://pastebin.com/gRvQvrWx](https://pastebin.com/gRvQvrWx)"
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6j5b3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd6j5b3
   :body: |-
     My initial code was horrible, after cleanup it actually looks quite nice.
 
@@ -125,7 +125,7 @@
     ```
   :replies: []
 - :author: Unhappy_Adeptness_93
-  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd72ekb/
+  :url: https://www.reddit.com/r/adventofcode/comments/18h940b/2023_day_13_solutions/kd72ekb
   :body: |-
     Finding hamming distance in part 2 was easy after using int representations of the rows/columns for debugging on part 1.
 

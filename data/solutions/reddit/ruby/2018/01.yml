@@ -1,6 +1,6 @@
 ---
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau8pho/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau8pho
   :body: |-
     Another Ruby.
 
@@ -18,30 +18,30 @@
     ```
   :replies:
   - :author: tbuehlmann
-    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhm5m/
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhm5m
     :body: There's also Set#add? which will add the argument and return the set if it wasn't included before. Returns `nil` if the argument was already included.
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav6n3j/
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav6n3j
       :body: Thanks! I changed it. One line less!
       :replies: []
   - :author: Karl_Marxxx
-    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav37m4/
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eav37m4
     :body: |-
       > puts data.sum
 
       Is this not a standard ruby thing? I get `undefined method sum for array`
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviujt/
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviujt
       :body: "[deleted]"
       :replies:
       - :author: Karl_Marxxx
-        :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviwk1/
+        :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaviwk1
         :body: Ah I'm on 2.0. Thanks.
         :replies: []
     - :author: vanderzee94
-      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaz6nsv/
+      :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaz6nsv
       :body: |-
         you can also do
 
@@ -52,7 +52,7 @@
         instead of sum
       :replies: []
 - :author: antigrapist
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau5j8f/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau5j8f
   :body: |-
     Ruby, my puzzle input is in var a.
 
@@ -84,7 +84,7 @@
     ```
   :replies:
   - :author: Cyanogen101
-    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eb27ot2/
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eb27ot2
     :body: |-
       Hey I was doing something similiar but with an Array instead of a hash, can you look over mine and help explain why it didnt work? (I took out the breaks just to try get at least an output)
 
@@ -117,7 +117,7 @@
       ```
     :replies: []
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauu4rn/
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauu4rn
     :body: |-
       Had almost the same solution for part 1, but golfed that down to this:
 
@@ -126,7 +126,7 @@
       It gets the whole input file in a string, splits that (on whitespace), converts to integers and reduces the array by adding all the values.
     :replies: []
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau7m1y/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eau7m1y
   :body: |-
     Ruby
 
@@ -161,7 +161,7 @@
     ```
   :replies: []
 - :author: alienpirate5
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaubge7/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaubge7
   :body: |-
     Ruby part 2:
 
@@ -194,7 +194,7 @@
     ```
   :replies: []
 - :author: captainkari
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauei50/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauei50
   :body: |-
     Solution in Ruby for part one:
 
@@ -253,11 +253,11 @@
     (pardon formatting issues, idk how to do formatting and it's 4am)
   :replies:
   - :author: DaDiscoBeat
-    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhjk2/
+    :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhjk2
     :body: Add 4 spaces in front of each lines :)
     :replies: []
 - :author: tbuehlmann
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhvyh/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eauhvyh
   :body: |-
     Ruby:
 
@@ -288,11 +288,11 @@
     ```
   :replies: []
 - :author: omegaxLoL
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaunrqb/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eaunrqb
   :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day1.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
   :replies: []
 - :author: lindgrenj6
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavk971/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavk971
   :body: |-
     This is my first time doing advent of code. I'm a bit rusty as I've been doing consulting rather than coding for the last year, nevertheless heres my implmentation in ruby:
 
@@ -370,7 +370,7 @@
     ```
   :replies: []
 - :author: compdog
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavxq3s/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eavxq3s
   :body: |-
     **Ruby**
 
@@ -434,7 +434,7 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eawbkkd/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/eawbkkd
   :body: |-
     Wanted to brush up on Ruby and compare with Perl (which I don't know yet)
 
@@ -563,7 +563,7 @@
     ```
   :replies: []
 - :author: shvetsovdm
-  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/ebbq2nh/
+  :url: https://www.reddit.com/r/adventofcode/comments/a20646/2018_day_1_solutions/ebbq2nh
   :body: |-
     **Day 1 Part 2** solution in **Ruby**
 

@@ -1,6 +1,6 @@
 ---
 - :author: InitiativeRight6576
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcu1j81/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcu1j81
   :body: |-
     `source = File.readlines('input.txt').map(&:strip)`
 
@@ -31,7 +31,7 @@
     `puts "Sum of extrapolated values is #{ next_values.reduce(&:+) }"`
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclkv7e/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclkv7e
   :body: |-
     371/438
 
@@ -51,7 +51,7 @@
     ```
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmiwxh/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmiwxh
   :body: |-
     For my input I could just sum the differences and check for zero, but I realize that for some inputs this might not work.`delta.uniq.size == 1` was my way to go here but I found a silly shortcut for my golf version to detect if I reached the end. Spoiler: `dont.` They will be empty anyways at some point
 
@@ -73,7 +73,7 @@
     ```
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmw0n5/
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmw0n5
     :body: |-
       I'm currently golfing my solution so thought I'd see if anyone else was so neat to see your post! :) I'm currently at 123 bytes:
 
@@ -84,7 +84,7 @@
       Going to look at yours now though as you have some different approaches. I also think mine is very brittle, but it's fine on the input.
     :replies:
     - :author: tenderlove
-      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnpqjr/
+      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnpqjr
       :body: |-
         I am not a very good golfer. Got it to 144:
 
@@ -96,11 +96,11 @@
         ```
       :replies:
       - :author: eregontp
-        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnsmky/
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnsmky
         :body: Nice, that's both parts in one solution
         :replies: []
       - :author: petercooper
-        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcopx9z/
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcopx9z
         :body: |-
           You might really dig this. Benoit Daloze got it to 95 bytes!
 
@@ -109,14 +109,14 @@
           (Part one only, so yours is better in terms of solutions per byte ;-))
         :replies: []
     - :author: Symbroson
-      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcn0y5d/
+      :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcn0y5d
       :body: |-
         Your parsing seems a bit more compact than mine. The operations have to be done twice on a reversed and unreversed array
 
         I also thought about smth like `p 2.times.map{d[s.reverse!]}}.reverse` but I havent had the time to experimebt with it yet
       :replies:
       - :author: eregontp
-        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnnwgd/
+        :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnnwgd
         :body: |-
           I got to 95 bytes:
 
@@ -127,15 +127,15 @@
           The key part was to not append anything but just sum the last element of each row.
         :replies:
         - :author: Symbroson
-          :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnrrzp/
+          :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnrrzp
           :body: is that one or both parts?
           :replies:
           - :author: eregontp
-            :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcns172/
+            :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcns172
             :body: Ah my bad, I should have specified that's only part 1.
             :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmksf/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmksf
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day09.rb)
 
@@ -144,7 +144,7 @@
     _Edit:_ Doh, I meant to reference [Pascal's triangle](https://en.wikipedia.org/wiki/Pascal's_triangle?useskin=vector) instead.
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmu4r/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclmu4r
   :body: |-
     Short and sweet today:
 
@@ -162,7 +162,7 @@
     Confusingly easy for a day 9 that is _also_ on the weekend.
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllzap/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllzap
   :body: |-
     1736/1266
 
@@ -195,7 +195,7 @@
     ```
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclpmil/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclpmil
   :body: |-
     ```ruby
     class Sequence
@@ -221,22 +221,22 @@
     [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-09/part_2.rb)
   :replies:
   - :author: coderhs
-    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclqpp6/
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclqpp6
     :body: This is a beauty. I been trying to do recursion, but this approach makes more sense.
     :replies: []
   - :author: yourparadigm
-    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclulr5/
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclulr5
     :body: "`#each_cons` is the MVP here. I'd totally forgotten it existed."
     :replies: []
 - :author: comforttiger
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmsy4k/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmsy4k
   :body: |-
     https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day9.rb
 
     im glad today was easier than yesterday. but im ready for tomorrow to be super hard
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmuc1v/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmuc1v
   :body: |-
     To determine if the end condition was met, I first used "line.sum != 0" instead of "line.uniq != [0]". Took a long time to figure out because works fine on the test input and only two lines in the real input eventually reduce to an array that sums to 0 but isn't all zeros. Doh!! Don't do that.
 
@@ -260,7 +260,7 @@
     ```
   :replies:
   - :author: RelativeLead5
-    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnk4qf/
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnk4qf
     :body: |-
       or the recursive 1 liner if you prefer:
 
@@ -271,7 +271,7 @@
       ```
     :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllm00/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcllm00
   :body: |-
     I found today really easy thankfully. Hardest part was remembering the language features haha
 
@@ -330,7 +330,7 @@
     ```
   :replies: []
 - :author: dhruvasagar
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclne6v/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclne6v
   :body: |-
     ```ruby
     def diffs(sequence)
@@ -357,11 +357,11 @@
     ```
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclnwfi/
+    :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclnwfi
     :body: each\_cons made this day silly easy, and yet your solution is still somehow so much simpler than mine lol
     :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclut62/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kclut62
   :body: |-
     [Language: Ruby
 
@@ -384,7 +384,7 @@
     ```
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm07xz/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm07xz
   :body: |-
     ```ruby
     input = File.read("input2.txt").split("\n").map(&:split).map{|l| l.map(&:to_i)}
@@ -403,14 +403,14 @@
     ```
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmaqvk/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmaqvk
   :body: |-
     Build a rather large algorithm for 1. Then one for 2. Then I noticed 2 was simply 1 with reversed inputs. And then I noticed 1 was simply a matter of summing differences...
 
     [Link to github](https://github.com/jlugner/2023-aoc/blob/master/solutions/day9/solution.rb)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmeyu3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmeyu3
   :body: |-
     Nice problem today, almost the exact same code for parts 1 and 2!
 
@@ -419,7 +419,7 @@
     [Video Walkthrough](https://youtu.be/Yl8J0-gKAEA)
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmg4iz/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcmg4iz
   :body: |-
     An "easy" day I guess, really happy with the solution.
 
@@ -461,7 +461,7 @@
     ```
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcno6po/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcno6po
   :body: |-
     Part 1
 
@@ -504,7 +504,7 @@
     ```
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcll05x/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcll05x
   :body: |-
     Doing it explicitly bottom-up:
 
@@ -563,7 +563,7 @@
     ```
   :replies: []
 - :author: lycheejuice225
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm01va/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcm01va
   :body: |-
     ```ruby
     ans = 0
@@ -585,7 +585,7 @@
     It was quite simple today even though I thought it'd be of good level.
   :replies: []
 - :author: tenderlove
-  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnisgp/
+  :url: https://www.reddit.com/r/adventofcode/comments/18e5ytd/2023_day_9_solutions/kcnisgp
   :body: |-
     Took me a while to realize that rows have negative numbers and the sum can be zero without all numbers being zero \>\_\<
 

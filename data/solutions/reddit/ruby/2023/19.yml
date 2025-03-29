@@ -1,6 +1,6 @@
 ---
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke5y75c/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke5y75c
   :body: |-
     (Part 2)
 
@@ -37,11 +37,11 @@
     ```
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ked1kfe/
+    :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ked1kfe
     :body: This is what I have been trying to do but couldn't work out how. Good job.
     :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2pze2/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2pze2
   :body: |-
     Fun one today, similar appraoch to contract large numbers using ranges as was used in a previous solution this year.
 
@@ -50,7 +50,7 @@
     [Video Walkthrough](https://youtu.be/ck-owPcU5pA)
   :replies: []
 - :author: grimlyforming
-  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2bt2u/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke2bt2u
   :body: |-
     I know an instruction-set emulation with conjunction/disjunction problem when I see it, but I needed about 2 hours to figure out what to do. The key insight came when I jotted down the constraints, hoping for an inductive epiphany.
 
@@ -75,7 +75,7 @@
     https://pastebin.com/rn1VWhG4
   :replies: []
 - :author: GMarshal
-  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke06v22/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke06v22
   :body: |-
     1855/1545
 
@@ -84,7 +84,7 @@
     A pretty neat solution involving range math. Its very verbose but I like that its understandable. Essentially each \> or \< is a split operation that divides the range.
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke0czap/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ltr8m/2023_day_19_solutions/ke0czap
   :body: |-
     I nearly leapt from my chair when my part 2 worked first try (well, after it parsed cleanly). Skimming around here, I worry I might've over-complicated it, but I went with a DP-like solution where I explored every path that got me to an A, trimming down my 'xmas' ranges as I passed through each piece of each rule. And it came out pretty readable for me, so I'm happy with it.
 

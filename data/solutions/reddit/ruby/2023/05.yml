@@ -1,13 +1,13 @@
 ---
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2h3a5/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2h3a5
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day05.rb)
 
     I went with the optimised solution for today's problem rather than brute force, although the latter probably would have been more efficient in terms of getting to bed sooner :) I found Ruby's `Range` class to be disappointingly Spartan for this problem: it may be worth writing some more extension methods in anticipation of future days. Regardless, taking advantage of the fact that \>!mapping ranges are contiguous!\< made the range maintenance decently reasonable.
   :replies:
   - :author: glebm
-    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2ji8h/
+    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2ji8h
     :body: |-
       Yeah Ruby should really add at least an `intersection` method for Ranges. Wanna submit a proposal?
 
@@ -16,18 +16,18 @@
       `Range#empty?` was rejected 2 months ago but may be accepted in the future. https://bugs.ruby-lang.org/issues/13933
     :replies:
     - :author: HAEC_EST_SPARTA
-      :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2k8sb/
+      :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2k8sb
       :body: 'That''s a fair suggestion! It looks like someone already [submitted a proposal](https://bugs.ruby-lang.org/issues/16757) for `Range#intersection` a while back: I may set aside some free time in the coming days to advocate for that issue. Cheers!'
       :replies:
       - :author: Symbroson
-        :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2vwdz/
+        :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2vwdz
         :body: |-
           would love to see this. Ruby has so many useful helper methods. Just found `tally` or `each_cons` recently and was like wtf this is a thing?
 
           But ranges didn't get much of this love which is why I had to [implement it on my own](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/helper.rb) as well. Why can something so simple not make it into the std lib? Only takes two lines of ruby code for an intersection after all...
         :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2t49x/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2t49x
   :body: |-
     For part 2 I extended the range class by some [helper methods](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/helper.rb) to make the code more concise and it will probably help in the future :D
 
@@ -71,7 +71,7 @@
     ```
   :replies: []
 - :author: PassifloraCaerulea
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc31r60/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc31r60
   :body: |-
     [part 1](https://pastebin.com/zYqDRR0J)
 
@@ -80,11 +80,11 @@
     I originally brute-forced the solution, manually splitting it up by seed range, but was unhappy. I went down a blind alley trying to reverse search with recursion, then I was inspired to iterate over a work queue of ranges, splitting and merging as appropriate. The last version is commented and IMO pretty readable, so I'm posting it here in case it helps anyone even though it's not the way I originally solved it.
   :replies: []
 - :author: Educational_Pie7376
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc3392l/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc3392l
   :body: https://github.com/severeduck/adventofcode/blob/main/tasks/day5/main.rb
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bwhb/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bwhb
   :body: |-
     Well, that was not fun at all! Got there in the end but nearly broke my brain getting the logic right.
 
@@ -93,7 +93,7 @@
     [Video Walkthrough](https://youtu.be/hlmF_LICYTM)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bxgz/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc4bxgz
   :body: |-
     Well, that was not fun at all! Got there in the end but nearly broke my brain getting the logic right.
 
@@ -102,18 +102,18 @@
     [Video Walkthrough](https://youtu.be/hlmF_LICYTM)
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc5b6ay/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc5b6ay
   :body: |-
     [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_1.rb)
 
     [LANGUAGE: Crystal] [Part 2 (not optimized ~3ish seconds execution time)](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_2.cr)
   :replies:
   - :author: SleepingInsomniac
-    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc6v08s/
+    :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc6v08s
     :body: "[LANGUAGE: Crystal] [Part 2 - Optimized](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-05/part_2_optimized.cr)"
     :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2g7yu/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2g7yu
   :body: |-
     Part 1:
 
@@ -203,7 +203,7 @@
     All my solutions: https://github.com/glebm/advent-of-code
   :replies: []
 - :author: lycheejuice225
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2lald/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc2lald
   :body: |-
     Both parts are optimized to be done within couple hundred of millseconds.
 
@@ -212,6 +212,6 @@
     https://github.com/Animeshz/AdventOfCode2023/blob/main/day5\_b.rb
   :replies: []
 - :author: KULKING
-  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc33uyt/
+  :url: https://www.reddit.com/r/adventofcode/comments/18b4b0r/2023_day_5_solutions/kc33uyt
   :body: 'Part 1 & Part 2: https://github.com/kashif-umair/adventofcode/tree/main/2023/5%20-%20Seed%20Fertilizer'
   :replies: []

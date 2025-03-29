@@ -1,6 +1,6 @@
 ---
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h3vio/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h3vio
   :body: |-
     Part 1, Transposing and slanting to scan 4 ways
 
@@ -11,7 +11,7 @@
     [edit: Extracted another lambda, because who doesn't love lambdas?]
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g5ote/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g5ote
   :body: |-
     ```ruby
     input = File
@@ -49,15 +49,15 @@
     ```
   :replies:
   - :author: minikomi
-    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0giiu6/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0giiu6
     :body: Very clean!
     :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g4w98/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0g4w98
   :body: "[https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day04.rb](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day04.rb)"
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c086a/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c086a
   :body: |-
     Happy with my solution for part 2. I think this is about as tight as I can get it.
 
@@ -76,7 +76,7 @@
     ```
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c84rt/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c84rt
   :body: |-
     part 1 golfed: 157 bytes
 
@@ -95,21 +95,21 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h5ews/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0h5ews
     :body: |-
       Can you substitute `length` for `size`?
 
       That would shave 4 bytes off each.
     :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0bzj4f/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0bzj4f
   :body: |-
     [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day04.rb)
 
     I'm fairly pleased with how concise this solution ended up being: it's fairly brute-force, but the expression of the core parameters for both searches in just two lines of code is quite satisfying :)
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0brrii/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0brrii
   :body: |-
     happy I keep a Grid class around, I've typoed a 9-sized square too many times. I wasted a lot of time in part 2 since I didn't draw the right squares tho
 
@@ -164,7 +164,7 @@
     ```
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c8udf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0c8udf
   :body: |-
     After trying for some time to get something working with array transposition and skewing I went for the KISS approach:
 
@@ -216,14 +216,14 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0cle3b/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0cle3b
   :body: |-
     Easier part 2 than part 1, how odd!
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/4](https://github.com/careyi3/aoc_2024/tree/master/solutions/4)
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0dswek/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0dswek
   :body: |-
     Absolutely nothing fancy after getting bit by trying to do day 2 in O(n). I have a feeling that we will use this Grid class again
 
@@ -232,14 +232,14 @@
     I am becoming a fan
   :replies: []
 - :author: clonewolf
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0e9gr2/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0e9gr2
   :body: |-
     Part 2: Detect all diagonal "MAS"s, then find how many "A"s overlap
 
     [https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day04.rb)
   :replies: []
 - :author: The_Jare
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ekpzj/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ekpzj
   :body: |-
     ```ruby
     $input = ARGF.each.to_a
@@ -272,7 +272,7 @@
     ```
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ep1gh/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0ep1gh
   :body: |-
     Part 1
 
@@ -324,11 +324,11 @@
     ```
   :replies:
   - :author: Ill_Information_9522
-    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0eqn1b/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0eqn1b
     :body: Wow nice. I just finished my Ruby solutions and they're way longer. I just started learning Ruby a week or so ago. Would you mind explaining your code here, for educational purposes? Thanks!
     :replies:
     - :author: _tfa
-      :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0f05g0/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0f05g0
       :body: |-
         Thank you! Sure I can try to explain.
 
@@ -341,6 +341,6 @@
         Hope this helps.
       :replies:
       - :author: Ill_Information_9522
-        :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0p5vuq/
+        :url: https://www.reddit.com/r/adventofcode/comments/1h689qf/2024_day_4_solutions/m0p5vuq
         :body: Great, thanks for that. I'm going to use complex numbers for other grid problems and see how they work. Nice little trick indeed!
         :replies: []

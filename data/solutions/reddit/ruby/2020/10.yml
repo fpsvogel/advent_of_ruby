@@ -1,13 +1,13 @@
 ---
 - :author: blafunke
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfhhpxr/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfhhpxr
   :body: |-
     [Ruby](https://pastebin.com/33r1dfnx)
 
     Fairly efficient in both space and time I think. Sorting is the worst part.
   :replies: []
 - :author: Markavian
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfdzoe0/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfdzoe0
   :body: |-
     Here's my node js solution for Day 10. It's not the best.
 
@@ -18,7 +18,7 @@
     Roll on day 11...
   :replies: []
 - :author: ACProctor
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd237l/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfd237l
   :body: |-
     ## Ruby
 
@@ -100,14 +100,14 @@
     ```
   :replies:
   - :author: SnooEagles6377
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/ghah2my/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/ghah2my
     :body: |-
       Thanks for the thorough discussion of part 2, it helped me simplify my solution.
 
       For part one, let me help you simplify yours :) To count the differences between numbers, you can use `each_cons(2)` and subtract them. Then if you are using a newer Ruby, use `.tally` to do the count (otherwise you can do `group_by(&:itself).values.map(&:size)`). Turns part one into a one-liner.
     :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfci2wh/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfci2wh
   :body: |-
     # Ruby
 
@@ -116,7 +116,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQAhBAAAAAAAAAAwmQhJeBEoRoycf4oaE6QWXYzfGQaKTTe+cU2mAjnDZZItrEaWBFPT3hHlTOWkxk6YOPCJEnKolvO7Ow+6ckmMp5BV9q+olHDzGgr2rZwcmYbSYEeLWBGusH9v/96/Q3ULKOZlj844B/25KTOxdHmL5xtk45Tn4/snm7Tou+uusWsNu6QgT6Xs22yTiuzQFEea9w9bESJraONWuhJq/SQYHCP0DZd8sfpE4ZCY2DMM6AorXNmG4hb6Yi6V04n1bcJ0wvxdNHj0G/3pL79OqrQL1GZjRnV1vRGE0Owc0p/GslWn/SSUFjwKhwU6GiurE0OVPrgyHVpi5qymZ7eexe+rrVguBV58hvO7GJdHEUtI/xEg0TbONZsOy1NDZ1AyIVyoLLR9bKT4EGfRbnv8CVwM+BB/WSoeSSC66wCGO3YvQbWkWgf7du1+QclxpJoW/ODcwc0A7wn035rKz3ClexwwPTjHqqMlf7rWlNVJ0q2yixzmvfsFPc4R9JrZeoyCtt9MF5XBlh03veR5vYej33f6RnupqkSRO1FLMCbEpx/BmjWDREdmIsQLx0u8BjOyxgjeBL+6Qrmsu568QUfzpbWFmmWVKuf+y0ynnSn1AK1izUYAUAOpIM4XUOHnrgRhfp67yQj7pDErG8usgmVW64M02usd0WAr/z4TNwA=)
   :replies: []
 - :author: jtgorn
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcaf2q/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcaf2q
   :body: |-
     Has anyone seen this solutions? Ruby:
 
@@ -131,7 +131,7 @@
     ```
   :replies:
   - :author: mattaman101
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffj2jv/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffj2jv
     :body: |-
       > c = [nil,nil,nil,1]
       >
@@ -140,19 +140,19 @@
       Man, nice work. I recognized it was a dp question, and started memorizing, and then switched to tabulation but I couldn't get it to work. I had the idea, but this made it so much easier to realize.
     :replies: []
   - :author: Karl_Marxxx
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcw7sb/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfcw7sb
     :body: Can you explain the logic of part 1 to me? Also, how does part 2 work? Isn't i a value from the input (not an index)?
     :replies:
     - :author: jtgorn
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg6ak2/
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg6ak2
       :body: Sorry, I do not understand your question about part 2.
       :replies:
       - :author: Karl_Marxxx
-        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkp7c4/
+        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkp7c4
         :body: I was confused because you are using the value from a as an index into c. This confused me because I assumed you would quickly run into an indexing out-of-bounds error. Another user pointed out that ruby simply backfills nils up until the needed index, which I hadn't known before.
         :replies: []
     - :author: jtgorn
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg65zs/
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfg65zs
       :body: |-
         Part 1 actually assumes that there are no differencies of 2. With such assumptions: imagine the list of differencies. It only consists of 3s and 1s. The total sum of that list should give input joltage of your device (a.max+3). If there are A 3s and B 1s, the total sum is A\*3+B. You know how many differencies there are (a.count+1) which gives you two equasions:
 
@@ -164,11 +164,11 @@
         it is easy to calculate A and B from that and calculate A\*B.
       :replies:
       - :author: Karl_Marxxx
-        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkosty/
+        :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfkosty
         :body: Awesome, thanks!
         :replies: []
     - :author: '442401'
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffkzmv/
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gffkzmv
       :body: |-
         This is quite beautiful.
 
@@ -179,7 +179,7 @@
         In part 2, yes `i` is the value from the input but it is also being used as an index into the array. `a.each { |i| c[i+3] = c[i..i+2].compact.sum }` says that every time an adaptor with a value 1 greater than the previous is added to the collection, the number of possible arrangements will increase by the sum of the previous 3 possible arrangements whereas adding an adaptor with a value 3 greater than the previous maximum will not alter the number of possible arrangements.
       :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90tw1/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90tw1
   :body: |-
     Ruby, 265/382, after cleanup:
 
@@ -201,7 +201,7 @@
     ```
   :replies: []
 - :author: hltk
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91xad/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91xad
   :body: |-
     Ruby. Part 2 uses the hash table's constructor (recursively) for building the dp.
 
@@ -220,7 +220,7 @@
     ```
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9oykp/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9oykp
   :body: |-
     # Ruby
 
@@ -234,7 +234,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfamvp0/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfamvp0
   :body: |-
     # Ruby
 
@@ -279,14 +279,14 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90ccm/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf90ccm
   :body: |-
     Ruby 500/359. Probably could make this fancier, but the memoization got part two under a second.
 
     [paste](https://topaz.github.io/paste/#XQAAAQCSAwAAAAAAAAARiAqGkkN7pUjVWW5Qxng6Sa5RIpX45F8jD+UzAnG94fGsw92jqpPvt0f0lNYaCwwDk7adI7w0p58gIuu0WGbp0gmxYNjQhRjLVp0BOJ0lsE6giFORUZUludzYZM7a4FlFlc+5/guuelyungcIh33yxUBBjWlPJ0U05V+eQYrAbgbA6GiLxvwnwFe1QFaagyl0KD/pkR5uhPQfcdeX0VuKuqHU/5jrkF7j4UMryIm5CXIg/zVRrO99t/j+wONt0KJnBfDup9zbXYVG2/MJRFoByudziiUXK3oTtYxfzWKxF2/dUGhWsDnm8IIix3J4qF/aC0tnAIKPwisdRD+zqyvW0mTdtYK+B2uev0kwa6/0Jd6Ps8bMxsDgPUdu6g6ws3b+XEwvuPnitlqe9fzhGYmj9z3DYM3wAYPhxY21gJytiK/mHUREK+OOLkApZgntdpj77ZIkWN4ClUwy7vqmMgJRjxBncMSoLy3/1aVvzQ==)
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91536/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf91536
   :body: |-
     Ruby 149/44.
 
@@ -309,7 +309,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9cr2t/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9cr2t
   :body: |-
     **Ruby:** 8:06/29:01, 1409/1335
 
@@ -320,7 +320,7 @@
     Part 2 didn't go much better. I spent a while implementing a recursive solution, which I eventually got written "correctly" only to then realize that it wouldn't never finish in time. (It was only at this point I read the comment about "more than a trillion"...) Rather than switch to a dynamic programming/memoization method, I broke up the input into "chunks" where the end of one chunk was separated by the start of the next chunk by 3, indicating that both adapters HAD to be used. Then I could compute how many different chains there were in each shorter chunk, using the same solution I had already come up with, then multiple those all together.
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9ouwx/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9ouwx
     :body: |-
       Part 2 of this one totally beat me too for a while. I failed to notice the "over a trillion" comment and wrote a very naive recursive search (though over a graph) and went down the same rabbit hole you did! :-D
 
@@ -334,7 +334,7 @@
       ```
     :replies: []
 - :author: Robert-Damoc
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9nvaj/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9nvaj
   :body: |-
     You can also find the solution in the following link: [Day 10 Solution in Ruby](https://github.com/robert-damoc/Advent-of-Code/blob/master/2020/Day10/day10.rb) - This repo includes solutions for past days too.
 
@@ -387,14 +387,14 @@
     ```
   :replies: []
 - :author: AmazedAlligator
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfag6bj/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfag6bj
   :body: |-
     Super Simple **Ruby** solution for part 2 which counts paths in a directed graph. Not nearly as succinct as the other one but hopefully it's easy to understand.
 
     [https://github.com/m7rk/adventofcode2020/blob/master/10.rb](https://github.com/m7rk/adventofcode2020/blob/master/10.rb)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfb338j/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfb338j
   :body: |-
     Ruby
 
@@ -429,7 +429,7 @@
     ```
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbq4f4/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfbq4f4
   :body: |-
     # Ruby
 
@@ -455,7 +455,7 @@
     ```
   :replies:
   - :author: theGalation
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc5lbn/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc5lbn
     :body: |-
       THANK YOU
 
@@ -464,15 +464,15 @@
       If I get this in a whiteboard I am eating the markers.
     :replies:
     - :author: Karl_Marxxx
-      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc641m/
+      :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc641m
       :body: It's a dynamic programming approach. Lemme know if you'd like me to help break it down!
       :replies: []
   - :author: theGalation
-    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc7gp1/
+    :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gfc7gp1
     :body: This is some good ruby magic.
     :replies: []
 - :author: anericod
-  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9dsvd/
+  :url: https://www.reddit.com/r/adventofcode/comments/ka8z8x/2020_day_10_solutions/gf9dsvd
   :body: |-
     # Ruby
 

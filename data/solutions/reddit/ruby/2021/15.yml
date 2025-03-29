@@ -1,13 +1,13 @@
 ---
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homktk6/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homktk6
   :body: |-
     Ruby Dijkstra solution
 
     [Part One](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day15/kiril/solve.rb)
   :replies: []
 - :author: kateba72
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honpqzq/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honpqzq
   :body: |-
     **Ruby** (the second time I'm posting this, because the first solution didn't work for all inputs)
 
@@ -63,7 +63,7 @@
     Full code [here](https://github.com/Kateba72/advent_of_code/blob/main/2021/15.rb) if someone is interested
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honys08/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/honys08
   :body: |-
     [Pretty straightforward A\* in Ruby](https://github.com/daniero/code-challenges/blob/master/aoc2021/ruby/15.rb#L5) using PQueue.
 
@@ -84,7 +84,7 @@
     ```
   :replies: []
 - :author: groys
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homgp6o/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homgp6o
   :body: |-
     [Ruby Solution without Dijsktra](https://github.com/groys/AOC/blob/main/2021/day15.rb)
 
@@ -99,11 +99,11 @@
     4. mind the 0, 0 vertex to not add its cost
   :replies:
   - :author: Tankznor
-    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homl7qa/
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homl7qa
     :body: I was thinking to start at the end, but does it really matter? Ended up with a dynamic programming solution starting at the top.
     :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homt4gf/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homt4gf
   :body: |-
     [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/15/chitons.rb) (295/399)
 
@@ -112,7 +112,7 @@
     \*) Yes, I know that implementation isn't super effective, but it does the job. Not much slower than other implementations I've tried, and it doesn't require any external libraries.
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/hom7063/
+  :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/hom7063
   :body: |-
     **Ruby** : 14:12/59:50, 703/1949
 
@@ -123,14 +123,14 @@
     Initial dynamic programming for Part 1 went not very well, and then my Djikstra half-implementation went even worse - wasn't really sure how to use a heap in Ruby.
   :replies:
   - :author: four_father
-    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homacx8/
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homacx8
     :body: recording works but the github is a 404. did you forget to push?
     :replies:
     - :author: CodeIsTheEnd
-      :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homhn7l/
+      :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homhn7l
       :body: Oops, thanks, fixed.
       :replies: []
   - :author: phord
-    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homjx56/
+    :url: https://www.reddit.com/r/adventofcode/comments/rgqzt5/2021_day_15_solutions/homjx56
     :body: I noticed the part 1 example was solveable with only right and down, but I assumed that was because of the size and the easing us in. I knew part 2 was going to bring the variety. Actually I was worried they were going to add diagonals.
     :replies: []

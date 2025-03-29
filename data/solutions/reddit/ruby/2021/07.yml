@@ -1,6 +1,6 @@
 ---
 - :author: arnoldboy123
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnnkebn/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnnkebn
   :body: |-
     # Ruby Solution
 
@@ -39,7 +39,7 @@
     This is my quick and dirty solution. Not trying to code something perfect but just good enough to do the job of giving me the result in console.
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk9rkd/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk9rkd
   :body: |-
     Ruby:
 
@@ -75,22 +75,22 @@
     ```
   :replies:
   - :author: bunceandbean
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnka1xd/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnka1xd
     :body: I think this has to be on purpose, as the median and mean worked for me as well. I think it probably might be tailored for computer science in the sense that converting (casting) doubles to ints floors the value?
     :replies:
     - :author: KT421
-      :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkfzp0/
+      :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkfzp0
       :body: That's actually dependent on language. R will round to the nearest even number unless you explicitly use `floor()` or `ceiling()`. Other languages floor it.
       :replies: []
   - :author: marshalofthemark
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkbq1j/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkbq1j
     :body: |-
       If N crabs are to your right and M crabs are to your left, then every step to the right will decrease your fuel needed by N - M. So if you plot fuel needed (y-axis) vs. horizontal position (x-axis) on a Cartesian x-y graph, it will have a slope of N - M.
 
       The global minimum occurs when slope is 0, where there are an equal number of crabs on both sides ... and by definition that happens at the median.
     :replies: []
 - :author: ACProctor
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlnn23/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlnn23
   :body: |-
     I'll be honest, I forgot about Gauss. But for anyone else thinking that today is just a one-trick solution, here's how I optimized using recursion with memoization.
 
@@ -129,15 +129,15 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk3yry/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk3yry
   :body: "```ruby\n# Ruby, 54 / 13\ncrabs = gets.split(',').map(&:to_i)\np (0..1000).map { |u| crabs.sum { |x| (x-u).abs } }.min\np (0..1000).map { |u| crabs.sum { |x| n = (x-u).abs; (n*(n+1))/2 } }.min\n```\n\nThe number 1000 was arbitrarily chosen, it was a total fluke that it worked \U0001F605"
   :replies:
   - :author: gurgeous
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6jpv/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6jpv
     :body: Ha, mine is nearly identical! Only difference is that I used \_1 and crabs.max instead of 1000.
     :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk59fl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk59fl
   :body: |-
     **Ruby** 79 bytes
 
@@ -147,7 +147,7 @@
     ```
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6ds2/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6ds2
   :body: |-
     **Ruby (only runs in 3.0+)**
 
@@ -161,7 +161,7 @@
     ```
   :replies:
   - :author: ni3t
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk9cny/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk9cny
     :body: |-
       You could use `map(&:to_i)` and `min_by` to shorten these up:
 
@@ -173,7 +173,7 @@
       ```
     :replies: []
 - :author: clarabellum
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnmfaet/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnmfaet
   :body: |-
     Came here feeling like "ugh this is inelegant but at least it worked, let's see what other people did" and now I feel validated because it doesn't sound like any of you are super happy with your solutions either haha
 
@@ -184,14 +184,14 @@
     I hit my head against the wall trying to figure out why sometimes the answer was the mean and sometimes the answer was the mean + 1... so I ended up just doing a brute force search within 3 squares of the mean
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk5fjn/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk5fjn
   :body: |-
     Ruby 1712/1304
 
     [paste](https://topaz.github.io/paste/#XQAAAQB/AQAAAAAAAAARiAqGkkN7pUjVWW5QYxj2CIMqqYvXYJRPYP/bLEpwScA00QMIIzV3y5DQ9XZf+B8zWbGmR8IAPA65zDdVORbjm13caysTw9my+BdK8Rc+SFE0v/r7OwT6/8tktIMeNGOJGmZBxLpMnK21YV+uhweGcwXsY64TkluTP9YGNd+VbPVbBdxmLNF4dlQFFLm0KNRU/9cQxXGAzqWQprhZ/8sHZbg72ffmgmLtbD9WYfJXk5n7ZsX/sWOBwA==)
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk90t4/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk90t4
   :body: |-
     ### Ruby
 
@@ -210,11 +210,11 @@
     ```
   :replies: []
 - :author: madethemcry
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkbxsh/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkbxsh
   :body: "# RUBY\n\n[georgiee/advent-of-code-2021/day-07 (GitHub)](https://github.com/georgiee/advent-of-code-2021/tree/main/day-07)\n\n# Notes\n\nOk I was SUPER fast for part 1 (well not fast enough for the leaderboard, ~10mins or so) but then part 2 got me like Day 6 got me: It was running forever. This time I had no immediate clue what was wrong. I tinkered around with the range which I calculated as `range = (input.min..input.max)` so covering the entire x-axis where the crabs are hanging around. In part 1 I was lucky and I could use `input.compact.uniq` instead but this is not working here as we might miss some ideal positions (like the `5` from the example).\n\nSo what now? Let's optimize in a classical way, maybe the code runs slow for all the given permutations. I was using `key.downto(1).inject(:+)` to add up the numbers. That's expensive so what do you do ? Cache it. I used the great `default_proc` fucntionality of the ruby hash. That's a proc invoked for not existing keys. That way I can calculate values for a new key and return previous calculations directly without calculation.`TRIANGLE_CACHE.default_proc = proc { |hash, key| hash[key] = key.downto(1).inject(:+) }`\n\nThis was the first time it worked with painful 6 or so seconds.\n\nI submitted the result but I wanted to see if I can bring that number down. When I searched for `factorial but with addition` I came across the triangle numbers which are familiar to me from statistics (but my mind did not conclude this before google). So instead of adding up all numbers manually I can shortcut and do the math with `n*(n+1)/2` \U0001F918 I removed the cache and replaced it with the direct calculation. It's now 2.7 seconds.\n\nIf I bring back the hash cache, I can shave another 0.75s probably because of the shear amount of permutations I'm processing. I had some ideas for precalculate all permutations to remove duplicates, then calculate and the group the results back to the specific positions to add them up again. But my stamina is gone for this day.\n\nSo it's 1.9s.\n\n# CODE (part 2 only)\n\n```ruby\nrequire 'benchmark'\n\npath = File.join( __dir__ , 'input.txt')\ninput = File.read(path).split(',').map(&:to_i)\n\nrange = (input.min..input.max)\n\n# create a cache for the calculation of the triangle number, saves 0.7s\nTRIANGLE_CACHE = {}\nTRIANGLE_CACHE.default_proc = proc do |hash, key|\n  hash[key] = triangle_number(key)\nend\n\n# search for factorial but with addition\n# and got my hands on the name of the \"algorithm\"\ndef triangle_number(n)\n  n*(n+1)/2\nend\n\ndef cost_to_align(input, position)\n  input.inject(0) do |memo, value|\n    memo + TRIANGLE_CACHE[(value - position).abs]\n  end\nend\n\n# 1.922631 0.008752 1.931383 ( 1.942595)\nputs Benchmark.measure {\n  result = range.to_a.map do |position|\n    fuel = cost_to_align(input, position)\n    [position, fuel]\n  end\n\n  puts result.min_by { _1[1]}[1]\n}\n```"
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkg35y/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkg35y
   :body: |-
     I'm happy with the brute force ruby solution for part 2. I think one can be faster if instead of computing all values and doing #min you just terminate early when the previous value is smaller than the current one but I can't express that in a short way :)
 
@@ -232,7 +232,7 @@
     ```
   :replies:
   - :author: lygaret
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkh3r7/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkh3r7
     :body: |-
       how to go from O(n) to O(log n)? binary search!
 
@@ -263,7 +263,7 @@
       ```
     :replies: []
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkk3ah/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkk3ah
   :body: |-
     I did this in Ruby: For part one ([full code](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day07/kiril/partone.rb)) the least fuel is at the median - def median(input) sorted = input.sort len = sorted.length (sorted[(len - 1) / 2] + sorted[len / 2]) / 2 end
 
@@ -302,7 +302,7 @@
     ```
   :replies: []
 - :author: bobtom8482
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlholw/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlholw
   :body: |-
     Continuing trying to learn Ruby for my first job (!).
 
@@ -311,7 +311,7 @@
     [linky](https://topaz.github.io/paste/#XQAAAQCKAwAAAAAAAAAxmwhIY/U9T3vi0RAbnIXPKO8G25aDTAtzs9PptRokuGsXXB+f8iGcRzobqJqEdB6RdPjOtf4bhTtlr/VEsbh9/Gj2J7g/UNSTfusRq973DNk7ZVkoRWqHamdfPjmc2YjbVZ0XsPgJINxElHlW2wNkTTPSvi8QqBkV68QSBTvQhsP7U9PX9U1YIDK266jldcHbnJ1eetuH5hX0krMpWHnln2eSxWKywWBRHobhzKB4IiZS8DFP7K18hO29FjLcPHRO3TCXJGCVOzYiFHxLQLYHIMdsIGAQHg7b4Ur5HnJKTfaBxfU4kUPrjO40jsRTbu6Xtb9YwX0MqrVBWOyfhbch8orUGDooYIRBsGyCTgVMJEfs2R4H0GP3llStQbh5bsMA9kBPu/GF3ve4E7XP2Pq82/lObN+Jbw59I3LXAskX8jszr8lkf5eHZy+wbP27K/qzsZs4IQZ1F8X0HKzUizgdrSAukiBoZ92yzoJsuz58wrgpHvRkRnGV1nu0wkILfm6oH+TAKEwr/kUetBusfEaLJvwCPTqLDzJ+RE6c8/+C/Gf2)
   :replies: []
 - :author: BramboraSK
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlqz8g/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnlqz8g
   :body: |-
     My **Ruby** solution
 
@@ -342,7 +342,7 @@
     ```
   :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6ssa/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk6ssa
   :body: |-
     # Ruby
 
@@ -376,7 +376,7 @@
     ```
   :replies:
   - :author: zxywx
-    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnka24h/
+    :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnka24h
     :body: |-
       I realise now I could replace my brute-force fuel calculation with this:
 
@@ -387,7 +387,7 @@
       ```
     :replies: []
 - :author: Archer_Winter
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk7o4d/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnk7o4d
   :body: |-
     Ruby Solution
 
@@ -400,14 +400,14 @@
     # part 2sums[i] = numbers.map { |num| (0..(num - i).abs).sum }.sump iendp sums.min`
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnklwsw/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnklwsw
   :body: |-
     Ruby: [https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day7/main.rb](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2021/day7/main.rb)
 
     Elixir: https://github.com/sreedevk/advent-of-code/blob/main/elixir/lib/twenty21/day7.ex
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkmx1t/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkmx1t
   :body: |-
     **Ruby** : 5:00/10:26
 
@@ -416,7 +416,7 @@
     Tried to outsmart Part 1 and jumped to using the average instead of just being inefficient and computing everything. Turns out that'd be useful for Part 2, but I had just rounded the average, it still would've been incorrect! I messed up computing triangle numbers too (did squares first). Just bad all around.
   :replies: []
 - :author: ldhmachin
-  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkqmt1/
+  :url: https://www.reddit.com/r/adventofcode/comments/rar7ty/2021_day_7_solutions/hnkqmt1
   :body: |-
     **Ruby**
 

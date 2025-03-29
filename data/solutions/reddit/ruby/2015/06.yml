@@ -1,6 +1,6 @@
 ---
 - :author: bluishness
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp12nt/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp12nt
   :body: |-
     Anyone up for golf? This is my attempt in Ruby, 268 characters.
 
@@ -16,18 +16,18 @@
     ```
   :replies:
   - :author: de_Selby
-    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpch3e/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpch3e
     :body: "/u/geocar has you beaten easily using K [in this comment](https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxoziw1)"
     :replies:
     - :author: bluishness
-      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpjfzr/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpjfzr
       :body: |-
         Oh wow, that is rather terse, and I don't even have a clue what's going on there. Always great to see how much there is yet to learn.
 
         I'm always aiming for something that'll fit into a tweet, but that might be impossible with all the logic in this one.
       :replies:
       - :author: geocar
-        :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxq3g45/
+        :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxq3g45
         :body: |-
           This isn't golf: There are a few easy ways to make it smaller, but this is the first thing that came out of my head, so _I_ could not have coded something else faster in another language.
 
@@ -100,11 +100,11 @@
           If this is something you want to try, [download](http://kx.com/software-download.php) the free version of KDB. You can press [backslash](http://code.kx.com/wiki/Reference/BackSlash#toggle_q.2Fk) to switch from q (the default very wordy language) and k (much more terse and easier to write).
         :replies: []
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpoveo/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpoveo
       :body: '"Beaten" sizewise, maybe.'
       :replies: []
 - :author: fnoco_xandy
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxov2ms/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxov2ms
   :body: |-
     ugly crystal (and i guess ruby) solution for part 2. part1 is just some changes in the case when statement. a lot could be improved but thats the code that got me to place 67
 
@@ -143,7 +143,7 @@
     ```
   :replies: []
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovasv/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovasv
   :body: |-
     Not my night. Interruptions, fatigue and a few stupid mistakes (like setting the point to 1 for OFF, or not clearing the grid after correcting that mistake) conspired to make this take way too long.
 
@@ -215,7 +215,7 @@
     ```
   :replies:
   - :author: wdomburg
-    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxowpgt/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxowpgt
     :body: |-
       Since a few people were posting benchmarks on their Ruby code:
 
@@ -224,7 +224,7 @@
       (For both answers).
     :replies: []
 - :author: miftrim
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovm2p/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxovm2p
   :body: |-
     My Ruby solution. This takes like a solid three minutes to run. There must be faster ways to do it.
 
@@ -342,7 +342,7 @@
     ```
   :replies: []
 - :author: jjshanks
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxow7d6/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxow7d6
   :body: |-
     Ruby solution using dictionary of keys approach. String keys "#{x},#{y}" took ~40 seconds, int keys x \* 1000 + y took ~15 seconds. This is part 1 but part 2 is basically the same except I use a hash table instead of a set.
 
@@ -387,7 +387,7 @@
     ```
   :replies: []
 - :author: jchook
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxox2z0/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxox2z0
   :body: |-
     Ruby, object-oriented solution
 
@@ -455,7 +455,7 @@
     ```
   :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp3btf/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxp3btf
   :body: |-
     Here's my Ruby solution for part 2. I looked through the other ones posted here and thought mine was different enough to merit posting. It's pretty minimalist and easy to read. Enjoy!
 
@@ -479,7 +479,7 @@
     ```
   :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpvbp2/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxpvbp2
   :body: |-
     Phew! By far the hardest day yet, this non-programmer took about an hour with lots of print-variable debugging and head scratching.
 
@@ -631,7 +631,7 @@
     I'm scared for tomorrow's puzzle...
   :replies: []
 - :author: AnchorText
-  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxqg7s8/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vmltn/day_6_solutions/cxqg7s8
   :body: |-
     Straightforward Ruby solution with just 3 methods and 3 Procs! Please note that in my `directions.txt` I've changed "turn on" and "turn off" to "turnon" and "turnoff" respectively for easier splitting.
 

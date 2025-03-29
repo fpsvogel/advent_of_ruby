@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhw73s/
+  :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhw73s
   :body: |-
     Those compatible pairs that we were asked to print out in part 1? [You know something funny about them?](#s "They all involve the empty disk!!!"). So this game devolves into "how can we move the data with only one disk empty at a time?", sort of like those [sliding tile puzzles](https://en.wikipedia.org/wiki/15_puzzle).
 
@@ -111,25 +111,25 @@
     ```
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwjaw/
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwjaw
     :body: |-
       > They all involve the empty disk.
 
       Could it be a clue?!
     :replies: []
   - :author: pedrosorio
-    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwe0d/
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwe0d
     :body: |-
       > Those compatible pairs that we were asked to print out in part 1? They all involve the empty disk.
 
       That's it, from now on in advent of code, if asked about number of things X, I am always going to print the list of things X :P
     :replies:
     - :author: topaz2078
-      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx3so/
+      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx3so
       :body: That is a _really_ good strategy. Many of the puzzles' part 1 is just a stepping stone to make sure you're on-track for part 2.
       :replies: []
   - :author: BumpitySnook
-    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwvxz/
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhwvxz
     :body: |-
       Your solution arrives at 225 steps for my input, as does /u/drysle 's. My solution and hand solution get 224. The website says neither is correct. /u/topaz2078 , help? Input is here: http://dpaste.com/0JHB11A
 
@@ -169,22 +169,22 @@
       ```
     :replies:
     - :author: topaz2078
-      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx0cw/
+      :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhx0cw
       :body: For part two, I get 225, and that's also what the site is expecting.
       :replies:
       - :author: BumpitySnook
-        :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhxarn/
+        :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhxarn
         :body: I swear I entered 225 into the site and got 'Wrong'. Doh. Must have typoed it.
         :replies:
         - :author: "[deleted]"
-          :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbiew3r/
+          :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbiew3r
           :body: Did you get the right answer? I counted yours and got 232. Is it right?
           :replies:
           - :author: BumpitySnook
-            :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbif5yn/
+            :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbif5yn
             :body: As topaz says, 225 is correct.
             :replies: []
   - :author: Quick_Question404
-    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhww4u/
+    :url: https://www.reddit.com/r/adventofcode/comments/5jor9q/2016_day_22_solutions/dbhww4u
     :body: I immediately thought of the sliding tile puzzle when seeing this problem, but couldn't think of any way to programatically solve it.
     :replies: []

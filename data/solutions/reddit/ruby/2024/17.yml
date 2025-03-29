@@ -1,6 +1,6 @@
 ---
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2t16pp/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2t16pp
   :body: |-
     late to the party, because I didn't think my approach through the end
 
@@ -13,14 +13,14 @@
     The full ruby code is available [here](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2024/17.rb) and there is also C++ version also available [here](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2024/17.cpp)
   :replies: []
 - :author: eggselent_folk
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2pnlcb/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2pnlcb
   :body: |-
     [Code](https://topaz.github.io/paste/#XQAAAQBeCQAAAAAAAAARiAqHodvKIwHSvNw9kKWn/nYvsilVuEqA02Yvh73BCxyQtWtpitgBJEp5hJogQfXndNsYMoivkyHhpWNZLlIYputlxm3To4bk40Bv6y7Xub1USc6R5yr0jAlIK62Z9OZy0fhCy4JMLwcaDZlNf2Rdm1ryPwCNBC5/7aXJMlKROh3BfSyBI+Uy5tYoXczafdX4cY+hAC57q+y6ODUHpUg6U+wf3ZmCJEMaadzeP2ViPskDmHi7JF3F/2/+wpWHjY+FtSjwFp/K8SbptL2PxGvGiJ9sbtLlfEuNHoPF6zEOBbdElRt4JaPkVJJv1pkX+d8TlP6sKymTXnKG+yJVqCB9kuqDov6a/0S8ViCjplymRnJDIZFWD96wZTqjrBSmbG74+Dqe8uCkhyJGkGaLSzp5ne1o9gxwDe8x13lwVC52uil+uAz15ounMtqpvmQhlCk+aW0GG8TEqXQv5rkGp6LkLoKh6JIqfoXH3XJPAosaX04x1IN2PVyIoGG9xqDCMPYbeAtTiDowz75M+KQJ3BF/e03A4B0PiuSe+bu7TVGeGbJYEsJ/vjHILw/8HswDJxQ0Q441Il7K15TfrYU7lMNGtBKJINtsyKuwIpGradRE9hWXTp/8cSpYNlKv9NHnug2Qdw3+HNpWgoZ8+HeNxG5NooyU2hz7P+UeQfZnZWRK5eKxze6I2DZMKJR8nG+W/wYF0fYQq53tj7xbC0XGycJ0WcxWODHPGzpeRsIzf/MdidIZ94MZaoH7qowOOZPScXy82wwDZYI938R1fJswWAQftyBpkXGG7P6hl3AdBB5UKu0UWpDTAiwi/qge7jTHtsaoyziO6sJ4y9pKZBRXijqDDAfKNZ6dWo0OfNXFeqZ4eVWHhJ0R918GUCRE+CvrCPlNLbeZ2wX6dCaw3JkxyrlsKRVnk5nnYy3a6UFyn7A8tTZurpvt3jqm1HODTFkKm2tqOE4ZP1vmizqOMYssotD6OL64ZRSrI1W3PFN9zBavriIBsqzfcDy4chlEAPsPeqhKyICd0fiZcQpTk7HPY+EgbmkDcbWJOI1fIN5wRlPpIaYarji0myUt7usEWao/saqGr/9D9zsA)
 
     This one is super challenging. I had already reverse-engineered the instructions since yesterday because brute forcing is not possible, but I could not figure out how to quickly remove the impossible cases. I need to come back the next day and have a read on Reddit comments ☺️, to finally realize my wrong approach to test the register A number.
   :replies: []
 - :author: jafuentest
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2ns6ah/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2ns6ah
   :body: |-
     Got part 2 to run in ~0.090s
 
@@ -35,7 +35,7 @@
     [Here's the code](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-17-2.rb)
   :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvvae/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvvae
   :body: |-
     [LANGUAGE: Ruby + Go]
 
@@ -46,7 +46,7 @@
     [Ruby](https://github.com/phene/advent-of-code/blob/main/2024/17/17.rb) and [Go](https://github.com/phene/advent-of-code/blob/main/2024/17/17.go)
   :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvu0c/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kvu0c
   :body: |-
     [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day17/day17.rb)
 
@@ -59,7 +59,7 @@
     Edit: So, I am almost certain everyone has the 0, 3 instruction in their chain because that is the only operation that can change A, in other words, you can use that to your advantage because once you know A, the other values should be determinable programmatically even if you dont what your program's routine is
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kubku/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2kubku
   :body: |-
     [part1](https://topaz.github.io/paste/#XQAAAQDCBwAAAAAAAAARiArGwlYyUY4y4+WXcBMx4AslbmwFSidMZ9Hevh3xVA2dW72YBXGMPfL/wI7RP69L7aVaWqtyPOxw2CanNE1oQ80boojjqwC7+uN804+FxmmMONZpbzehJAU4wRQLn73839CWEtvaxc2pYLBommamF4lPyzcqzCwA61hoXkOlhzg3QvYjnCNXElBbjKUh1h/ZRZxbXrV+rmqAsgxe+Vm3YMwoTw/CJHgoBn9eCRqLmnlweORtd/72b3/WvJDe7acD5pNlIn15NVh3LecKCoBptKyKC53JXC4NWF9fwMM/C1eVbEboPaYfcsoDeLIuO6Xew9ynnWK4Hd4ETU3Z2nbkYQlDZTaHSc+JhlrLaohnVa3/Ymv2ya2/Xadl5gRZqzHlftF3P9kg+yT8jDmCGNqBsAGBMUY209WBDlC1eWWQe4oGcrktTqP7T8a9Kp5tSUgHeCVSwppftAzF3EqdMmgEIhxe7in408mSz7im/XJxUfJrFRHqa9VdiOGnu+f0oTcoyINxT6U/EaMmc/Sd7Mt3W5C6MyRnIFE3dbtUNtUi6E6fEXMqxopvf10ffTVwIKAAWs0PEzh3ntBSy29JLJFNRRidGsqE4hrFH0Sg+6pxnuLQDeB8jqhU83gSsOOi5J8DQxJU0bgbk+7SVa09UiPhK97PKeKz28LqqbJ8S7+72Ctxwf13SEeHMYswCgjrCnq3fChj6WOz5CqsTvxItQg/ptxZxbmvWYtqiTJ2lm7ilVrUwhQuGZEtPeTOwdq/wpwvqL1y52iJTj1vD1frPw5R3gmgARhlE/0Y/kkxPHFHZ0HRwuzspyq0BNzeF+6elwKIRdLx7uhD5Ke0JjW9DNFXRaOPEmsQLP3sMCGdkYvK7NAi+PpvyK5fSwviCaM4ym6dBUOpZQxl1G3CaEixj6P/8OLDVg==)
 
@@ -68,25 +68,25 @@
     Just my implementation of a (reverse) assembler and a simulator for today's insturction set. For part 2 I tried to understand the program but cannot produce desired behavior consistently. Ended up just doing a reverse search which ran very quickly due to low branching factor.
   :replies: []
 - :author: iwanttoseeyourcatpls
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k254j/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k254j
   :body: |-
     Once I understood what part 2 was asking for, it worked itself out, but it took me a long time to get to that point. The lightbulb moment for me was realizing that the computer would eat one three-bit-chunk to produce each output, so instead of looking for an integer I really was looking for a string (that represented an integer in base 8)
 
     [github](https://github.com/ggggbbybby/aoc2024/blob/master/day17.rb#L135-L160)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2imo9r/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2imo9r
   :body: |-
     Part 2 was very tricky, I didn't have a good instinct on it until I went looking for a hint on the subreddit. I wouldn't have made the mental leap on my own, even after I understood it, coding it took me a little while, I tied myself up in knots thinking about how to match what I had done to the result. Got there in the end, fun puzzle!
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/17](https://github.com/careyi3/aoc_2024/tree/master/solutions/17)
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2h27ko/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2h27ko
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day17.rb)"
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2jgi69/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2jgi69
   :body: |-
     First brute-forcing the right half of A, then the left one.
 
@@ -135,7 +135,7 @@
     ```
   :replies:
   - :author: _tfa
-    :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k6onx/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hg38ah/2024_day_17_solutions/m2k6onx
     :body: |-
       Stupid me! Why do I program two loops from 0 to 16777215 when I could do also with 16 loops from 0 to 7? Okay, it's a bit more than that, but now it takes only a few milliseconds...
 

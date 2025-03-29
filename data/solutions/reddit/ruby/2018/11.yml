@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjsc3u/
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjsc3u
   :body: |-
     Hello. Ruby, runs in 1 second, using https://en.wikipedia.org/wiki/Summed-area\_table, that would make it O(n^3 )
 
@@ -64,11 +64,11 @@
     ```
   :replies:
   - :author: beached
-    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebll01x/
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebll01x
     :body: In C++ using summed area tables is \<8ms. One of the few times storing data vs a simple calculation is faster
     :replies: []
   - :author: WikiTextBot
-    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjscbq/
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjscbq
     :body: |-
       **Summed-area table**
 
@@ -79,7 +79,7 @@
       ^[[^PM](https://www.reddit.com/message/compose?to=kittens_from_space) ^| [^Exclude ^me](https://reddit.com/message/compose?to=WikiTextBot&message=Excludeme&subject=Excludeme) ^| [^Exclude ^from ^subreddit](https://np.reddit.com/r/adventofcode/about/banned) ^| [^FAQ ^/ ^Information](https://np.reddit.com/r/WikiTextBot/wiki/index) ^| [^Source](https://github.com/kittenswolf/WikiTextBot) ^] ^Downvote ^to ^remove ^| ^v0.28
     :replies: []
 - :author: ChronJob
-  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjppk9/
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjppk9
   :body: |-
     Ruby
 
@@ -120,15 +120,15 @@
     ```
   :replies:
   - :author: d4be4st
-    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebleudd/
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebleudd
     :body: Is there a reason you only took 20 points for the width of the biggest square?
     :replies:
     - :author: ChronJob
-      :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebllv6c/
+      :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebllv6c
       :body: Nope. It was an arbitrary cut-off based on how long I was willing to spend searching at that time :P.
       :replies: []
 - :author: oezi13
-  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbnj/
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbnj
   :body: |-
     Based on my puzzle input - Largest square at 231, 135 with gridsize 8:
 
@@ -200,7 +200,7 @@
     ```
   :replies:
   - :author: imguralbumbot
-    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbx4/
+    :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebjrbx4
     :body: |-
       ^(Hi, I'm a bot for linking direct images of albums with only 1 image)
 
@@ -209,7 +209,7 @@
       ^^[Source](https://github.com/AUTplayed/imguralbumbot) ^^| ^^[Why?](https://github.com/AUTplayed/imguralbumbot/blob/master/README.md) ^^| ^^[Creator](https://np.reddit.com/user/AUTplayed/) ^^| ^^[ignoreme](https://np.reddit.com/message/compose/?to=imguralbumbot&subject=ignoreme&message=ignoreme) ^^| ^^[deletthis](https://np.reddit.com/message/compose/?to=imguralbumbot&subject=delet%20this&message=delet%20this%20ebjrbx4)
     :replies: []
 - :author: HeyItsBATMANagain
-  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebk9m8w/
+  :url: https://www.reddit.com/r/adventofcode/comments/a53r6i/2018_day_11_solutions/ebk9m8w
   :body: |-
     # Crystal
 

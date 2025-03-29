@@ -1,6 +1,6 @@
 ---
 - :author: jafuentest
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2x6w5g/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2x6w5g
   :body: |-
     Filtering down the patterns really helped, specially on part 2, ex:
 
@@ -9,15 +9,15 @@
     [Part 1](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-1.rb), [Part 2](https://raw.githubusercontent.com/jafuentest/advent-of-code/refs/heads/main/2024/solution-19-2.rb)
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m4qoaf6/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m4qoaf6
     :body: Very impressed with your solution. Had you used it for some other problem before?
     :replies:
     - :author: jafuentest
-      :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m5rgbud/
+      :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m5rgbud
       :body: Thanks! Filtering usually works to reduce execution time when complexity is quadratic or worse
       :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2widl9/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2widl9
   :body: |-
     ```ruby
     input = File.read('input19.txt').split("\n\n")
@@ -44,11 +44,11 @@
     After writing separate functions for part 1 and part 2 I realized only part 2 is needed to solve both parts. This can probably go faster but the code is already so minimal I don't really see where improvements can be found
   :replies:
   - :author: eggselent_folk
-    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2wtil3/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2wtil3
     :body: "I was stuck because my implementation was trying to seek through the design string back-and-forth, instead of using each towel as the start of the search. I realized the problem is I did not consider the uniqueness of some of the possible arrangements. Just realized this after reading your solution.\n\nNice and well-written. \U0001F44D"
     :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2uyv5y/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2uyv5y
   :body: |-
     [day19 git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day19/day19.rb)
 
@@ -59,7 +59,7 @@
     Then you drop in your memoization to optimize because you will be encountering repeated patterns of words and indexes.
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sv7i7/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sv7i7
   :body: |-
     golfed both parts: 143 bytes.
 
@@ -74,7 +74,7 @@
     ```
   :replies: []
 - :author: Mon_Ouie
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s3zyk/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s3zyk
   :body: |-
     Nothing special about the recursive search for part 2, but part 1 was solved using the cute `Regexp.union` method.
 
@@ -110,7 +110,7 @@
     ```
   :replies:
   - :author: whyrememberpassword
-    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sa7kd/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sa7kd
     :body: |-
       yeah this (along with the equivalent python version) doesn't work on my input. here's a minimized test case that breaks your solution
 
@@ -121,11 +121,11 @@
       ```
     :replies: []
   - :author: globalreset
-    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sbkg8/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sbkg8
     :body: Nice, that is cute!
     :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2tfq1q/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2tfq1q
   :body: |-
     ```ruby
     t, p = File.read("input.txt").split("\n\n")
@@ -142,7 +142,7 @@
     ```
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sc76v/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sc76v
   :body: |-
     I'm scared for tomorrow. Part 1, I started off with a simple "select all the patterns that work for the start of the current design, then check if any recursions on the substring after that pattern get us to the end of string". Part 2 was just change the .any? on that second part to .sum and adding memoization so we could complete in reasonable time. I later went back and adjusted my part 1 to use a regex trick that I learned here so hopefully I'll remember it for next time.
 
@@ -168,11 +168,11 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sdi3m/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sdi3m
     :body: ah I love part 1!
     :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sco2c/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sco2c
   :body: |-
     basic recursion and memoization. For some reason the Memoist library has decided not to work at the top level anymore, which I'm sure it did at some time, so I need to define a useless class but eh, it works and solve each part in 1s (could do both together, but I usually don't)
 
@@ -212,14 +212,14 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sxxpi/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2sxxpi
   :body: |-
     Straight forward today, I did a recursive solution which finds matches for the start of the string, then chomps off the ones that match from the string and trys again. Part 1, short circuit to return true if it finds any valid combo. Part 2, remove ths short circuit return logic so that we check each path, but add a cache to speed it up.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/19](https://github.com/careyi3/aoc_2024/tree/master/solutions/19)
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s6hju/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hhlb8g/2024_day_19_solutions/m2s6hju
   :body: |-
     665/869
 

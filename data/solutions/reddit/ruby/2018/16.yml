@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7asl/
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7asl
   :body: |-
     A very fun logic puzzle!
 
@@ -92,22 +92,22 @@
     ```
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7nrw/
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7nrw
     :body: |-
       > raise 'You forgot an instruction...' if instructions.size != 16
 
       I wish I'd written this, would have saved me a lot of time!!
     :replies:
     - :author: sigacuckoo
-      :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx88wi/
+      :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx88wi
       :body: Hahaha :( I lost so much time because i forgot to add one of the commands to the list.
       :replies: []
   - :author: ButItMightJustWork
-    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebwdjta/
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebwdjta
     :body: 'regarding your spoiler/hint: I just assuned that this was the case and implemented the necessary code.'
     :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7hzj/
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw7hzj
   :body: |-
     Ruby, #117/127. Somehow skipped over the binary OR instructions in part 1, and had brain lag trying to figure out part 2. But overall happy with the solution!
 
@@ -189,7 +189,7 @@
     ```
   :replies: []
 - :author: nuvan
-  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw8q6u/
+  :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebw8q6u
   :body: |-
     **Ruby** 177/321
 
@@ -308,6 +308,6 @@
     ```
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx06fa/
+    :url: https://www.reddit.com/r/adventofcode/comments/a6mf8a/2018_day_16_solutions/ebx06fa
     :body: Tabs?! In Ruby?! HERESY!
     :replies: []

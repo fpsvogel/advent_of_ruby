@@ -1,6 +1,6 @@
 ---
 - :author: lo-crawfish
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hqleezb/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hqleezb
   :body: |-
     Both part 1 & 2 in Ruby:
 
@@ -69,70 +69,70 @@
     ```
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hnmrn32/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hnmrn32
   :body: |-
     **Ruby**
 
     Many days late, but just because I haven't seen anyone else do this approach and because it's particularly short compared to others I've seen: [Gist](https://gist.github.com/peterc/d6e1272a9ba9707e8bde17f04491d119)
   :replies: []
 - :author: LyleiLanar
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hngnphq/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hngnphq
   :body: |-
     My Day3 Ruby solution:
 
     [I love unnecessary long code in Ruby :D](https://github.com/LyleiLanar/advent-of-code/blob/main/2021/day_3.rb)
   :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7o0iy/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7o0iy
   :body: |-
     [Ruby Solution](https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day03/solution.rb)
 
     I got part 1 done quickly and then got stuck on part 2 for a long time because I didn't read carefully and wasn't updating the most common bits part after each run through the list.
   :replies:
   - :author: Mountain_Ad_9551
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn95e39/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn95e39
     :body: I did the exact same thing, definitely spent way more time than I should have - lesson learned.
     :replies: []
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xyvk/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xyvk
     :body: |-
       What led you to know `report[0].length.times { masks.push(2**_1) }` would be a good move? A friend did this in elixir yesterday and used a similar move, just hardcoded: `(1 <<< 12) - 1` for max, then max - gamma for epsilon.
 
       What was your thought process for solving? I feel like I’m in a place where I can recognize certain tools could be handy, but don’t know enough about it to do anything.
     :replies:
     - :author: jeffers0n
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7zqft/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7zqft
       :body: Mostly laziness and not wanting to write different code to handle the sample input and the real input since they were different lengths. I was a computer science student a long time ago (never graduated) but my intro classes were in C and we spend a good amount of time working with numbers in binary to really hammer home how computers see numbers so I think a lot of that knowledge is still in the back of my mind.
       :replies: []
   - :author: greatfool66
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xufd/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xufd
     :body: Thank you! In hindsight if I had read the example calculations it would've been clear, but it would have been nice to say "be sure to dynamically update the common bits each time you change position of which bit you're looking at"
     :replies:
     - :author: la_nirna
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn8psle/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn8psle
       :body: thank you. you are the only person I read so far that explained clearly what was causing the weird behavior I observed. I knew I was doing something wrong but... THANK YOU.
       :replies: []
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7vr0i/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7vr0i
     :body: Lovely! I look forward to picking this apart. I knew there was some but masking stuff that could be applied, but don’t really know how. I was trying to take an approach where I was iterating per column for gamma and epsilon, and thought to use a bit array for masking the valid candidates for 02 and c02 at the same time. I’m not really sure if that would have worked like I wanted it to, but your solution is next level of what I was considering. You can see what I came up with [here](https://www.reddit.com/r/adventofcode/comments/r7r0ff/comment/hn4r52b/). Sadly, it’s confusing af. Thanks for sharing!
     :replies:
     - :author: jeffers0n
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xzsu/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn7xzsu
       :body: Thanks! Feel free to reach out if you have any questions. Part 1 I was able to make sense of in my head and code it out pretty smoothly. Part 2 was a different story since I didn't read it properly at first and ended up just fixing spaghetti code for the final working solution. I'd think it has potential be be less clunky.
       :replies: []
 - :author: Remarkable_Stick4000
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn716s4/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn716s4
   :body: "**Ruby - Part 2 with transpose**\n\n[https://gist.github.com/kenzan100/797b993d5c6bff16ccf068c23e27ab2b](https://gist.github.com/kenzan100/797b993d5c6bff16ccf068c23e27ab2b)\n\nlet me know what you think about it \U0001F64F"
   :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn6z195/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn6z195
   :body: |-
     # Ruby
 
     https://github.com/antoniotto71/Advent\_of\_Code\_2021/blob/master/Day%203/day3.rb
   :replies: []
 - :author: tom_collier2002
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn46c7o/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn46c7o
   :body: |-
     Ruby, part 1 only
 
@@ -153,7 +153,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5kkk7/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5kkk7
     :body: |-
       formatted for us old folk on old reddit
 
@@ -174,11 +174,11 @@
       ```
     :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hnotpsy/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hnotpsy
     :body: H... how?
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn17c3c/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn17c3c
   :body: |-
     Ruby, 28 / 79
 
@@ -191,7 +191,7 @@
     ```
   :replies:
   - :author: dtinth
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn17g51/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn17g51
     :body: |-
       To find the most common, I used the group-then-count technique:
 
@@ -208,11 +208,11 @@
       EDIT: u/ni3t and u/gurgeous [recommended](https://www.reddit.com/r/adventofcode/comments/r7r0ff/comment/hn1hqag/?utm_source=reddit&utm_medium=web2x&context=3) [`Enumerable#tally`](https://ruby-doc.org/core-2.7.0/Enumerable.html#method-i-tally), which is new in Ruby 2.7.
     :replies:
     - :author: gurgeous
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1evv8/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1evv8
       :body: Also see `tally`. I like the count solution, though, since (unlike tally) it returns 0 if the value isn't present.
       :replies: []
     - :author: ni3t
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1hqag/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1hqag
       :body: |-
         I used tally:
 
@@ -221,15 +221,15 @@
         ```
       :replies:
       - :author: dtinth
-        :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1mulo/
+        :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1mulo
         :body: "Awesome, TIL about `Enumerable#tally` introduced in Ruby 2.7.\n\nMy Ruby knowledge is so 2.0. \U0001F972 Thank you, doing Advent of Code is a great way to learn new Ruby features."
         :replies:
         - :author: ni3t
-          :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1zb2s/
+          :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1zb2s
           :body: The numbered default positional params (\_1, \_2, etc) were introduced in 2.7 as well!
           :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn18m07/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn18m07
   :body: |-
     Ruby, 408/58. I always use strings for binary puzzles.
 
@@ -270,7 +270,7 @@
     ```
   :replies: []
 - :author: madethemcry
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ewz3/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ewz3
   :body: |-
     **Ruby** Naturally I recognized the opportunities for bitwise opertations. I know about bit planes and such. I even recognized that I can flip the bits in part 1 to get epsilon. Part 2 required to update epsilon and gamma after each turn (which I forget the first time). My mind constantly nagged me to make it beautiful with bitwise operations and such but this would have opened yet another rabbit hole I didn't want. So here we are with some naive solution. I'm happy I can move on.
 
@@ -349,11 +349,11 @@
     ```
   :replies:
   - :author: masterinthecage
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1f2ne/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1f2ne
     :body: This is so nice, I did everything manually lol
     :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1bcqb/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1bcqb
   :body: |-
     **Ruby** : 4:28/12:10, 360/182
 
@@ -362,15 +362,15 @@
     Having a function to convert a string of 1s and 0s is a must of any coding competition, huh. I tried to outsmart Part 2 but it didn't work. That cost me some time, but I don't think it would have gotten me on the leaderboard.
   :replies:
   - :author: siebharinn
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1dr66/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1dr66
     :body: binarystring.to\_i(2) will convert a binary string to an integer. No need to write your own.
     :replies:
     - :author: CodeIsTheEnd
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3k7it/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3k7it
       :body: Oh, wow! I didn't know that! Thanks for the tip.
       :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ea53/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ea53
   :body: |-
     **Ruby**
 
@@ -410,14 +410,14 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5q21z/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5q21z
     :body: |-
       I normally do the one's compliment while the data is still still a String
 
       `"100101".tr("01", "10") # => "011010"`
     :replies: []
 - :author: Darth5harkie
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ke7f/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1ke7f
   :body: |-
     ## Rust
 
@@ -426,14 +426,14 @@
     Learnings today: \* Trying to mix string and integral representations is a disaster. Pick one and use it. \* Re-implementing [from_str_radix](https://doc.rust-lang.org/std/primitive.u32.html#method.from_str_radix) isn't hard, but it's unnecessary. \* Iterators have lots of fun methods. I used partition, while others used retain. \* Bit shifts look nicer than `2u32.pow(bit)`... \* Rust ranges remind me of Ruby ranges, but I like the `..=` version!
   :replies: []
 - :author: roundscribehector5
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3bg24/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3bg24
   :body: |-
     [WET mess in Ruby](https://topaz.github.io/paste/#XQAAAQBaCQAAAAAAAAA5GUqKNoFH6SMnPH0B27EPe2miWFK6m8EZRtBouhvTjCYQJvou4Gfr/FLDUcNQ7hIiDLTf8/+t7QhPhBRZrmC5tIzUIK8riVbsmcmBxHmncTbFiX0h0fv/wBkVsBXz2VYS4f26lTSB2J1Fu0BWxlL7DdH4DdeSYLjXnDo3cC9yYK5pWJgx9HyjjNiq2hR9v+DBnMo+njcYq001k6aOJ0bD4sWO3w6wo7xJ0678fGm7+HudymArdQXKMNYhdHdb9r9fnv96xNUiAf+htKYOaCtNDlkLhJvMxMjOU5ZYKPUXz8wcQ+qnmVinIyP7ZHMjYkK4QJpihaolGuElUJ+kKeWvRLz2x9RjY4Zl+BPF8X+TL8N/jX5ym0OToKtWbqXAfEWrCSyyeukoEqQWsOcgCYBXVXATQC7d0a1hcPTSzWdVcnXfQ1iXgaWkfpC4mdRRYpQUNhyGr530lBxnCQTvx4AtyexLWpRoPXurW+0aM16TmmoqRT/A0fJ9//xHJ4IzpYECpYQKNB0M3Agn7ElBwdz0FyoPLga1BncaOvxsKUNGrZ3utbuVK8gBl0QZOZQJe0C2gSoJYrJnHqcSi+OyCCK+8gFOQRneoFxpPcDw2S/eDXnrW79AYvN++mCnmkp5go03lmLfiKz4qXWa+J1bu9ZhY+gwJ6HxJzJru0FWgywaxyLQlrelmcdyVUnvbW3PRI8RzarOGNCAd6woM6W5LHKbAXmAkl+E7x5sqigUpLsm+aSwhPNm/hj7nvbHl8t7EMmANwLWLiMwGMQvy22qc48v7AH97iSUjTclA4+jkmR7X6WGDmE1i2o4AlD9y/Ng4n7fTtCS+HcDN47MXAvQmO/+ah2cbErt1ULzv7r+/pA1)
 
     Any feedback is welcome.
   :replies: []
 - :author: johnboker
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3r5jp/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3r5jp
   :body: |-
     Just learning some ruby
 
@@ -442,30 +442,30 @@
     Comments welcome.
   :replies:
   - :author: J-Swift
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3yi23/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn3yi23
     :body: Small thing, but `for i in 0...length` is the same thing as `for i in 0..length - 1`
     :replies:
     - :author: johnboker
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn43m8h/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn43m8h
       :body: Thanks!
       :replies: []
   - :author: BertZZ
-    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5bduo/
+    :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5bduo
     :body: |-
       This is a really cool solution, I hope you don't mind I heavily borrowed yours to help me with stage 1, I was having a nightmare. As thanks let me help you with your stage 2 refactor by sharing a method I wrote to find the oxygen value
 
       https://gist.github.com/BertZZ/1993cec70a282c8223c0ed0fc065a004
     :replies:
     - :author: johnboker
-      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5gsh0/
+      :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5gsh0
       :body: I don’t mind at all. Looking at your method I see a couple things I’ve not seen before.
       :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn4r52b/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn4r52b
   :body: My [Ruby solution](https://tzarnal.github.io/Opal/#XQAAAQABDQAAAAAAAAAxmwhIY/U9UKqMaKWbe6Flsjc1zTEY2+ua+vLboCxGNrQpGt0SFHrtoPmMM5vR5wJxgdvXzC+p5NGFMc3S6/qHLqYJNwfHDuxrMWueJHbAxiyJhXPXck3Fjv0ZSzfetcRwFTQ9iBhfIx5kv5NP0n8nRZb4j71B927wRLGt9RItQ4qrH2z0Bf2QA5GaxrUKPy4dxBwGi2vmkYubJ+Fd8bO5Gg9L8fYAE4L9ynH5yO3qGTJR02SAR/a61gtEOL2gI9qRSQinKyP/NU1LXbAs1hSTfN7sDuDjlu+1YloukkqeS+uJ1lhVxFWmehpYiU6pocB0FuFSD4LiAmDLkyUtpoJv2+iZorkSkC7lGzYD8RVpicM8GsJ3e5L7Qpn57LHmsU+NGfmolVf4S0PsXXwCqJKPr6akJKanGXA4ZMCJKQtFTw0UMET6nJPcc14bNZn4NNRkaFmkEvcbtxgWKgAHgyYWO0cvzrXXWod1q4sc4oz3gDCXG7U4F0x22jnOAWsjpx1JBkIEx3opfRhnqalj3uDRzpKr7Dls9oEr9Ao5Vkyy1mf6+rwSJ61B5BUNd8wi9UpNoJDoP/wW0Os3Y2Z+T3YWyEq5BlUv4fpek94d49tsxlQvU6itZWWgASCS0FS0qVaktASYaVQMfrJ30hJQvXz90B5yMLwLaiLBw8tivbKh0Oc9OxCpZvXcVNPSaIunTeRcZv3Ixyr2za92xwtBuINu+sy290BIxqsZNl28rU4T7vJfbgCXzVD48qti1NqwIewywhgA3t77ctNmrITVFmAE9oICrl3ZMnCMgrTaxN1Ob+LM6XqUWDoLjZtSdIz+MUEhDCNRGAg3DKfs+huMPSNY50mfOUlDiCYOql+c5vwO0me8F1s4wOe5TrUPhTtZRz2ehguYAG5fvUk1PTasZTbn4ATxgoizlXw3SYsSoN2UYHF5Z8E/9qSHckPOrQ4zdwGol0EUZXDsY4KqC+yg2RTKmyPlvcjry1mN4cwBkGqkjy/V9UtWC1uEQN+R8jpUmjqG4Rva+MXZBsVOlm15YsbENmmbNNMsNi7TRcTpO9bQRZoJpVB99Z1oQYhdrqT2fET8FgDYqt/RWx2pwoc8u4CkvdPc1hmnwzC9IkTO/VtWL7JOMsrR/yfNVkdQkklTQPCWZFoheZrm6OoWq8VrJ/WlKYqD+7C2oswK++J2+cuR/Woj95dVupjEF0zcndNEU2Bv7+NXdVTsc2qJdOEKW7nAI1/4i68YlhvcO2N7toLU1Eph5qpVSEMWTyRv7np2I6LJ0gME/mIolc94ootdpfxNYUKTab9XrMkoUzBqC4Q6jM4iVoBHiPY+3Y/GxAJl3V2ijlbie8lh3bDstZpc70G+RhMewSOKSoAClBA5VynVqPLOcKRFnK+XbgAIGh7/sw3bYcFUWAxbmcJeXmcBtcjMjntQajqen/vRlUGZxWZiDKOtPIk3qxLO0i2Zj4oRtpFIaG09l+IrF0/EFMEW0aw33K6s+JS7XVEg1DtrFVq4szZPJTkjZMecHF+VI8HK0+FVLphxGyv09vmztIT/fDidAA==). After seeing your guys' moves... man, alive.
   :replies: []
 - :author: EIykris
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5jp9y/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn5jp9y
   :body: |-
     # Ruby, rb
 
@@ -491,7 +491,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1h3p8/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1h3p8
   :body: |-
     ### Ruby
 
@@ -538,7 +538,7 @@
     ```
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1i9zq/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1i9zq
   :body: |-
     Ruby:
 
@@ -562,7 +562,7 @@
     ```
   :replies: []
 - :author: StMonty
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1m7c7/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn1m7c7
   :body: |-
     Ruby Part 1: This is pretty hacky, still learning but was fun
 
@@ -579,7 +579,7 @@
     ```
   :replies: []
 - :author: lucianoq
-  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn2enf9/
+  :url: https://www.reddit.com/r/adventofcode/comments/r7r0ff/2021_day_3_solutions/hn2enf9
   :body: |-
     Ruby, part1:
 

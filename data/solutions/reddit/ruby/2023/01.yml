@@ -1,41 +1,41 @@
 ---
 - :author: apollo701
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kdcicgh/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kdcicgh
   :body: |-
     Took an OOP approach with tests
 
     https://github.com/JasonDorn/advent-of-code/tree/master/day1-trebuchet
   :replies: []
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9npbc/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9npbc
   :body: |-
     Not sure whether to be proud or ashamed of this solution.
 
     > ruby -e "require 'strscan';d={'one'=\>'1','two'=\>'2','three'=\>'3','four'=\>'4','five'=\>'5','six'=\>'6','seven'=\>'7','eight'=\>'8','nine'=\>'9','1'=\>'1','2'=\>'2','3'=\>'3','4'=\>'4','5'=\>'5','6'=\>'6','7'=\>'7','8'=\>'8','9'=\>'9'};re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);(0..l.length).inject([]){|o,p| ss.pos=p;ss.scan(re)&&o\<\<d[ss.matched];o}.values\_at(0,-1).join.to\_i}.inject(:+)" day01.dat
   :replies:
   - :author: wdomburg
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kcabi8h/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kcabi8h
     :body: |-
       It annoyed me I couldn't fit my solution into a tweet, even without the require statement, so I made it a bit smaller
 
       > require 'strscan';n=(1..9).map{|s|s.to\_s};d=(n+%w{one two three four five six seven eight nine}).zip(n\*2).to\_h;r=Regexp.union(d.keys);p ARGF.each.map{|l|s=StringScanner.new(l);l.size.times.filter\_map{|i|s.pos=i;d[s.scan(r)]}.values\_at(0,-1).join.to\_i}.inject(:+)
     :replies: []
   - :author: wdomburg
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9pbre/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9pbre
     :body: |-
       Just realized I could have cut about 259 characters from my solution by populating the hash like this:
 
       d=Hash[\*%w{one 1 two 2 three 3 four 4 five 5 six 6 seven 7 eight 8 nine 9 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9}]
     :replies:
     - :author: wdomburg
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9xecd/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc9xecd
       :body: |-
         Okay, down to 267 characters, including the requires.
 
         ruby -e "require 'strscan';n=(1..9).map{|s|s.to\_s};d=(n+%w{one two three four five six seven eight nine}).zip(n\*2).to\_h;re=Regexp.union(d.keys);p ARGF.each.map{|l|ss=StringScanner.new(l);l.size.times.map{|i|ss.pos=i;d[ss.scan(re)]}.compact.values\_at(0,-1).join.to\_i}.inject(:+)" day01.dat
       :replies:
       - :author: RichGuk
-        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kg6rsmn/
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kg6rsmn
         :body: |-
           I like a bit of Ruby golf.
 
@@ -46,7 +46,7 @@
           188 :)
         :replies:
         - :author: wdomburg
-          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kghmn1r/
+          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kghmn1r
           :body: |-
             > d=['one','two','three','four','five','six','seven','eight','nine'];p ARGF.readlines.map{|l|l.scan(/\d|#{d.join('|')}/).values\_at(0,-1).map{|v|Integer(v) rescue d.index(v)+1}.join.to\_i}.sum
 
@@ -67,7 +67,7 @@
             > require 'strscan';d=%w{\d one two three four five six seven eight nine};p $\<.map{|l|ss=StringScanner.new(l);(0..l.size).map{|p|ss.pos=p;ss.scan(/#{d.join('|')}/)&&(m=ss.matched;d.index(m)||m)}.compact.values\_at(0,-1).join.to\_i}.sum
           :replies:
           - :author: azzal07
-            :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/khzrfrs/
+            :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/khzrfrs
             :body: |-
               You can also replace `arr.map{fun}.sum` with just `arr.sum{fun}`
 
@@ -79,11 +79,11 @@
               ```
             :replies:
             - :author: wdomburg
-              :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/ki4l5o3/
+              :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/ki4l5o3
               :body: Oh! I should have thought to look and see if there was something like that. Thanks!
               :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiptap/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiptap
   :body: |-
     Using the lookahead trick to get overlapping matches with regex.
 
@@ -112,11 +112,11 @@
     ([GitHub link](https://github.com/Sharparam/advent-of-code/blob/main/src/2023/01/solve.rb))
   :replies:
   - :author: dznqbit
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqt98/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqt98
     :body: Super clean, nice trick with the lookahead
     :replies: []
   - :author: spr00ge
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj5yhs/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj5yhs
     :body: |-
       I searched for an overlapping solution for a while and could not find anything. Can you explain your solution a bit more in detail?
 
@@ -129,7 +129,7 @@
       ```
     :replies:
     - :author: Sharparam
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjv1t1/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjv1t1
       :body: |-
         The lookahead is a bit of a hack but it allows for catching the overlaps since it will check the lookahead part (`(?=(\d|...))`) without consuming the string (since the main part of the regex (outside the lookahead) is empty which matches everything/anything).
 
@@ -138,15 +138,15 @@
         Hopefully my explanation is understandable! Positive/negative lookahead/-behind can be really useful so it's a good thing to learn, you can read more about it here: https://www.regular-expressions.info/lookaround.html
       :replies:
       - :author: spr00ge
-        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboo5if/
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboo5if
         :body: So the lookahead is not captured, thus does not consume, but you group it, so it does capture, but does not consume?
         :replies:
         - :author: Sharparam
-          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbs8pqb/
+          :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbs8pqb
           :body: Yep. It's a neat little "trick".
           :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbivf6n/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbivf6n
   :body: |-
     ```ruby
     # frozen_string_literal: true
@@ -183,7 +183,7 @@
     ```
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboikqz/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboikqz
   :body: |-
     PART 1
 
@@ -223,7 +223,7 @@
     ```
   :replies: []
 - :author: Potential-Series-105
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbovuqu/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbovuqu
   :body: |-
     143 bytes solution
 
@@ -232,7 +232,7 @@
     ```
   :replies:
   - :author: eregontp
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbqg6sl/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbqg6sl
     :body: |-
       Nice! I learned the $\< trick, $\< is ARGF and that's still Enumerable in lines like IO in the old days. Also cute trick to use index + the extra 0. I golfed my solution with these 2 tricks and funny enough it's 143 bytes too:
 
@@ -250,7 +250,7 @@
       ```
     :replies:
     - :author: Potential-Series-105
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzis2a/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzis2a
       :body: |-
         I sat down with a colleague and now we are down to 133 bytes
 
@@ -259,11 +259,11 @@
         ```
       :replies:
       - :author: eregontp
-        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzu2vy/
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzu2vy
         :body: Neat! I was also thinking about using to\_i but that returns 0 for letters, but swapping and doing the index first fixes it nicely.
         :replies: []
 - :author: vikingly56
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqa9h/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbiqa9h
   :body: |-
     ```ruby
     pt 1.
@@ -308,25 +308,25 @@
     ```
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbnj78f/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbnj78f
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day01.rb)
 
     TIL about [`Array#values_at`](https://docs.ruby-lang.org/en/3.2/Array.html#method-i-values_at), which allows for multiple indices to be extracted from an array with a single function call. Very convenient for writing semi-point-free code!
   :replies:
   - :author: Sensanaty
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo2695/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo2695
     :body: |-
       Could you explain the `_1` you're using, not sure I understand where that's coming from or what exactly it's doing?
 
       Is it something to do with `Enumerable`, where `_1` accesses the first argument of the block without having to do the usual `{ |arg| arg }` thing? So in this case `arg == _1`? If so could you point me to the docs somewhere where this is outline, can't say I've ever seen it before in Ruby code
     :replies:
     - :author: HAEC_EST_SPARTA
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp9nte/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp9nte
       :body: Ah, that's a [numbered block argument](https://zverok.space/blog/2023-10-11-syntax-sugar1-numeric-block-args.html), which does indeed work as you've explained. Regrettably, I can't find any actual documentation on this feature, but the linked blog post gives a good summary.
       :replies: []
 - :author: framsberg
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbil2hi/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbil2hi
   :body: |-
     ```ruby
         $numarr = ['one','two','three','four','five','six','seven','eight','nine']
@@ -356,14 +356,14 @@
     ```
   :replies: []
 - :author: spr00ge
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj4ple/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj4ple
   :body: |-
     I tripped over the overlapping matches with my regex solution :/
 
     [paste](https://topaz.github.io/paste/#XQAAAQC1AwAAAAAAAAAQaJUMpn+lCZflRBwxodKX//AEf+EAnsY4VEwo5ziNF87EhpHoNhV4NbzaWwAFuuaAvPWppUim00GJ/4+40YBs0yvm4GWMrVF0S+yDpQo+lpD5OZfomphc+csJ8LH1MnntHzdIZZQBir75b2n/JoVs+eTwu6gqB/aonuAAjLm9qW1XwzGLm8xHOhp4qxWMpYQPb8dXBwjqr2PibvtHsBMcE83XlTNW4Uqr7I5TfDA301epVGCkxwn234pvcVNBHony93+mR0zMYTWVpyfwcODsYDntlS2uDkUdcb9S1j79edg6GpCAe8zPE1g1HrIjo7J6H+7VCcxlXQBZ8ELIBkzO10gJV2WJm4pBJz6mHYf8x2IS4hZO5ha05WYoIXS0yrAjnrfgAo9EfgaDmUgZbKwiaxrQzbGdRmEiVxf/eIVs5EV4MtSwPgoY43bic7cQFSL93ibLGGiXQLqyf09Ip2l+exIOHcHwb3MK+IozDf90BxKJ5e4YwSrcnWYRIlTSHodBTBmpPEdHi3UqIp+GD4jxolnaQiv/Ms+4AA==)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjylt/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjylt
   :body: |-
     Little bit tricky today for a day 1 puzzle!
 
@@ -372,7 +372,7 @@
     [Walkthrough Video](https://youtu.be/0LcOCg6YgXQ)
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbk2qvm/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbk2qvm
   :body: |-
     [Allez Cuisine!]
 
@@ -386,7 +386,7 @@
     ```
   :replies: []
 - :author: csrcordeiro
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkvci9/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkvci9
   :body: |-
     Part of it was "inspired" by someone in this megathread but I couldn't find the comment to say thanks. So... here it is:
 
@@ -425,11 +425,11 @@
     ```
   :replies:
   - :author: JelloRough
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl89ae/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl89ae
     :body: '"(?="'
     :replies: []
 - :author: 6f937f00-3166-11e4-8
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl79zx/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbl79zx
   :body: |-
     ```ruby
     def part_one(file)
@@ -452,7 +452,7 @@
     ```
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbld1qf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbld1qf
   :body: |-
     Part 1
 
@@ -547,7 +547,7 @@
     ```
   :replies: []
 - :author: Papitz
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kblg77b/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kblg77b
   :body: |-
     ```ruby
     WRITTEN_NUMBERS = {
@@ -575,14 +575,14 @@
     ```
   :replies: []
 - :author: cwby_bbop
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmxtpw/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmxtpw
   :body: |-
     I cannot get the syntax highlighting to format properly:
 
     [https://github.com/ealvar3z/aoc-2023/blob/master/day01.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day01.rb)
   :replies: []
 - :author: TevePinch
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmyafg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbmyafg
   :body: |-
     ```ruby
     total = 0
@@ -604,15 +604,15 @@
     ```
   :replies:
   - :author: chizel999
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbn0d1a/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbn0d1a
     :body: damn thats some compact solution. nice
     :replies: []
   - :author: Sensanaty
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboi0x2/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboi0x2
     :body: Really cool solution
     :replies: []
 - :author: Sensanaty
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo5p4v/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbo5p4v
   :body: |-
     [LANGUAGE: Ruby 3.2.1]
 
@@ -625,7 +625,7 @@
     [Raw Text](https://raw.githubusercontent.com/Sensanaty/aoc2023-ruby/master/days/1/main.rb)
   :replies: []
 - :author: TailorSubstantial863
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzr6nv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbzr6nv
   :body: |-
     A bit late to the party, but I like to refactor into something professional looking before submitting. I was able to combine both parts into a single method and pass in the correct regex to make it work like a charm.
 
@@ -668,15 +668,15 @@
     ```
   :replies:
   - :author: Educational-Sky-1560
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc2w00e/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc2w00e
     :body: Do you have had input data as csv file or?
     :replies:
     - :author: TailorSubstantial863
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc41vix/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kc41vix
       :body: I just included it as a text file and read it in as is. Nothing fancy.
       :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbixl2s/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbixl2s
   :body: |-
     First time ruby, day 1 solutionMy initial part two solution was way uglier - this is the line optimized version
 
@@ -698,7 +698,7 @@
     ```
   :replies: []
 - :author: maxforasteiro
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj9wm2/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbj9wm2
   :body: |-
     I love one-liners:
 
@@ -717,7 +717,7 @@
     ```
   :replies: []
 - :author: PassifloraCaerulea
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjhsq9/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjhsq9
   :body: |-
     ```ruby
     to_digit = %w(one two three four five six seven eight nine).
@@ -739,7 +739,7 @@
     ```
   :replies: []
 - :author: ldhmachin
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjvyg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbjjvyg
   :body: |-
     Ruby:
 
@@ -776,7 +776,7 @@
     ```
   :replies: []
 - :author: the_notic
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkldbv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbkldbv
   :body: |-
     ```ruby
     def get_first_and_last_number(str)
@@ -787,14 +787,14 @@
     ```
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbksrlj/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbksrlj
   :body: |-
     ```ruby
     p ARGF.read.split.map { |l| l.scan(/\d/).values_at(0, -1).join.to_i }.sum
     ```
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboj47u/
+  :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboj47u
   :body: |-
     Part 1:
 
@@ -838,14 +838,14 @@
     ```
   :replies:
   - :author: dafarmerz
-    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbouhpm/
+    :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbouhpm
     :body: Did you get the star for the Part 2 with this code? I am asking because I got the same result with your code that I had running mine.....However, I get no star for Part 2 because the response is incorrect.
     :replies:
     - :author: glebm
-      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboxbzw/
+      :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kboxbzw
       :body: Yeah I did, odd that you didn't, perhaps something is wrong with your input file?
       :replies:
       - :author: dafarmerz
-        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp76l5/
+        :url: https://www.reddit.com/r/adventofcode/comments/1883ibu/2023_day_1_solutions/kbp76l5
         :body: Well...its the same from Part 1 so it should be good. I just messaged the MODs
         :replies: []

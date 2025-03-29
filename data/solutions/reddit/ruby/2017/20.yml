@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dridara/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dridara
   :body: |-
     Ruby; strong language warning
 
@@ -9,7 +9,7 @@
     [highlight](https://i.stack.imgur.com/PyJNQ.png)
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dricrsg/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/dricrsg
   :body: |-
     Silly mistake. Forgot to include negative signs in my input parser. Still got correct answer for part 1, but delayed part 2 significantly since I assumed part 1 correct meant my input parser was correct. Shouldn't happen again...
 
@@ -60,15 +60,15 @@
     ```
   :replies:
   - :author: phongvis
-    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drie3nr/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drie3nr
     :body: Same here! Feel so strange that no duplicated coordinates are found! Finally got it when printed the coordinates in each iteration and compare with the input.
     :replies: []
   - :author: ephemient
-    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drigydv/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drigydv
     :body: This space intentionally left blank.
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drijgdu/
+      :url: https://www.reddit.com/r/adventofcode/comments/7kz6ik/2017_day_20_solutions/drijgdu
       :body: |-
         I feel like it should be possible to do something along the lines of... for every pair of particles, calculate their _potential_ collision time by solving for t where position are equal, then we can just just take the maximum t found. Not excited about having to do it against all pairs, but not seeing a better way right now. But I think this way can be done one-time at the beginning, instead of having to recalculate for all pairs at every tick.
 

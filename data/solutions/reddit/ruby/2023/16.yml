@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdn3qv8/
+  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdn3qv8
   :body: |-
     Simple enough one for today, relatively easy part 2 aswell!
 
@@ -9,42 +9,42 @@
     [Video Walkthrough](https://youtu.be/v6RRjYtKZp0)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdku2vm/
+  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdku2vm
   :body: |-
     I had to visualize in order to debug my implementation, as always. Fun vector math in there.
 
     [paste](https://topaz.github.io/paste/#XQAAAQBtAwAAAAAAAAARiAtiSZmv5W81CEWn2ldCAgetNtQcNTWMJW3x9RERU/qSgOgOyl0i2EBY2pG2rjun37SjK/wfQuoGDrY0vbfaYJlby+LJV3hN04Vzt7BkwuWUXe0hvtn0T3oedYSccPBPc/EquONkD0ayk2xic/8FQU+MC9qv0E+H+A8M6MGXUoqY0gQrfBT6DOgx4CYECRm7MuGpsJ2ustySNRuaAJJVmE6bptToK0/b/KwkzChYrUxzjPmNtA4v/zBSykwYkNlu3Yge/12O+TX4VIzwFr/fiovveuMItj/Y3o1TG+d3RemXhHdLHOvjTfeVp+30c7DVWXb9s/p4Ac1KZirbOLMfvuxDk7X+UhZmpObQja54oaxrEtwqykMRsUtaH6TMEm7QT5jf3i7jpopy3RSyzRvZBHBB+H9b/B5zYNA1ULULbgKaLGOtoRdfvPW0yVKtXjzbFAjiCfoYam/x4gsH4FNvam/SHHOwefPJl7+GWMx0RiMtilg2BQ2wlRlKsczt46+ozrHIykZbNF/gvt3eXayEYii3e4LGNdgs2xXTnqw/s6Jjb4nOCnoqHXZ0ycv2auM/Zti9BHDi22aBHX5b2QET/b3OvA==)
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdl0q2i/
+  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdl0q2i
   :body: |-
     Spent so long debugging this. I was immediately very happy with my solution. Short and efficient enough. But I had a bug in part 1 until I figured out that I should start one space off the map for how my routine was written. Then in part 2 it turned out that starting one space off the map made a lot of sense.
 
     [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/16/solution.rb)
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdmb639/
+  :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdmb639
   :body: |-
     PARTS 1 & 2
 
     [pastebin](https://pastebin.com/E60df0LL)
   :replies:
   - :author: selbysaurus_
-    :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdmvwl4/
+    :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdmvwl4
     :body: How fast was this for part 1?
     :replies:
     - :author: RelativeLead5
-      :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdngqru/
+      :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdngqru
       :body: Around 10-12 milliseconds on my mac m1.
       :replies:
       - :author: selbysaurus_
-        :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdoc3nc/
+        :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdoc3nc
         :body: |-
           Yikes! Mine was taking just over 10 seconds, and after much refactoring I realised the difference was your use of `Set` instead of an array for storing the visited points. One quick change and I'm faster by a factor of 1000.
 
           Time to go and read up about sets, I think!
         :replies:
         - :author: RelativeLead5
-          :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdouu7f/
+          :url: https://www.reddit.com/r/adventofcode/comments/18jjpfk/2023_day_16_solutions/kdouu7f
           :body: Yep, quite the difference and the number of visited nodes isn't even that large but searching arrays is pretty slow.
           :replies: []

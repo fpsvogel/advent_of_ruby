@@ -1,6 +1,6 @@
 ---
 - :author: brushbox
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyyybi/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyyybi
   :body: |-
     # Ruby
 
@@ -15,18 +15,18 @@
     input.each_cons(3).map(&:sum).each_cons(2).select { |a,b| a \< b }.count
   :replies:
   - :author: waitingformsfs2020
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hqtops0/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hqtops0
     :body: I was learning ruby and now I will start college so i gotta learn C. I hate how complicated C is.
     :replies:
     - :author: brushbox
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hquu30n/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hquu30n
       :body: |-
         C may be complicated but it is worth learning for many reasons. Not least is that many other languages are implemented in C (including Ruby). It helps you appreciate the work that has been put in to make your favourite language so pleasant to use.
 
         Good luck in college!
       :replies: []
   - :author: zloth
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hoswr4d/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hoswr4d
     :body: |-
       copy/paste typo perhaps?
 
@@ -35,7 +35,7 @@
       ```
     :replies: []
 - :author: retro__grade
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmylktx/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmylktx
   :body: |-
     **Ruby (part 1):**
 
@@ -56,11 +56,11 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrf5u4/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrf5u4
   :body: "```ruby\n# Ruby, 1381 / 452\np $<.read.split.map(&:to_i).each_cons(2).count{|a,b|b>a}\np $<.read.split.map(&:to_i).each_cons(3).map(&:sum).each_cons(2).count{|a,b|b>a}\n```\n\nI made 2 silly mistakes (e.g. forgot to convert to int and used the wrong comparison operator). Next time I will remember to test with example data first \U0001F604\n\nEdit: Thanks to the suggestions by u/gurgeous, u/BluFoot, u/442401, the above can be improved like this:\n\n```ruby\np $<.each_cons(2).count{_2.to_i>_1.to_i}\np $<.map(&:to_i).each_cons(3).each_cons(2).count{_2.sum>_1.sum}\n```"
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrgkpw/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrgkpw
     :body: |-
       Nice, I golfed mine down to the same thing with a couple extra simplifications. The `.read.split` isn't necessary
 
@@ -69,14 +69,14 @@
       ```
     :replies:
     - :author: '442401'
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrhejm/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrhejm
       :body: |-
         Save a few bytes by not mapping
 
         `p $<.map(&:to_i).each_cons(3).each_cons(2).count{|a,b|a.sum<b.sum}`
       :replies:
       - :author: BluFoot
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlbs0/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlbs0
         :body: |-
           And I upgrade to ruby 3 just to save a few more! Down to **63 bytes** , pretty good.
 
@@ -85,7 +85,7 @@
           ```
         :replies:
         - :author: '442401'
-          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmryop9/
+          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmryop9
           :body: |-
             edit: **48 bytes**
 
@@ -96,34 +96,34 @@
             `p $<.map(&:to_i).each_cons(4).count{_1[0]<_1[3]}`
           :replies:
           - :author: BluFoot
-            :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmszy2s/
+            :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmszy2s
             :body: |-
               What is this sorcery??
 
               Edit: ahhh, the middle ones cancel out, makes sense.
             :replies: []
     - :author: dtinth
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrh40r/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrh40r
       :body: 'Thanks! TIL: `$\<` is an Enumerable that yields each line from stdin.'
       :replies:
       - :author: "[deleted]"
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrslua/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrslua
         :body: i think it's the same as ARGF
         :replies:
         - :author: dtinth
-          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms8pys/
+          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms8pys
           :body: I just checked, you're right, `$<` is `ARGF`. I didn't know until today that `ARGF` is also an Enumerable.
           :replies: []
   - :author: gurgeous
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmri8mc/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmri8mc
     :body: Also try using \_1 and \_2 instead of a & b. Added in 2.7. Once you start using numbered params you'll never go back!
     :replies:
     - :author: dtinth
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrl0yo/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrl0yo
       :body: That’s another TIL. My Ruby is so rusty.
       :replies: []
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrnyjp/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrnyjp
     :body: |-
       Like you, I also wasted an awful lot of time by not converting to int. But, I don't understand why the result would differ? (For me, it was off by 1)
 
@@ -132,11 +132,11 @@
       (Part 2 would have got us in the end anyway)
     :replies:
     - :author: dtinth
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms8uoh/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms8uoh
       :body: Probably because `'120' < '50'` but `120 > 50`.
       :replies:
       - :author: '442401'
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9dlv/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9dlv
         :body: |-
           Ahhh! Of course!
 
@@ -147,7 +147,7 @@
           Thank you.
         :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrkw73/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrkw73
   :body: |-
     **Ruby** : 1:37/3:44, 370/280
 
@@ -156,15 +156,15 @@
     Pretty standard Day 1. Might've made the leaderboard for Part 1 if I didn't get a 504, who knows though. Definitely not for Part 2.
   :replies:
   - :author: _jstanley
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrn4y5/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrn4y5
     :body: Rotten luck on the 504s! Nice work.
     :replies: []
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms181y/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms181y
     :body: "Wow!\n\nThanks for sharing.\n\nIt's this type of thinking that blows my mind every year. Here's me doing `each_cons(3).each_cons(2).count{...}` and you're just like \"nah, as long as the one 4 in front is bigger, we're good\"\n\n\U0001F92F"
     :replies: []
 - :author: damyvv
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms968d/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms968d
   :body: |-
     # Ruby
 
@@ -175,7 +175,7 @@
     ```
   :replies:
   - :author: Initial_Soil_9261
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9h99/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9h99
     :body: |-
       similar to mine:
 
@@ -186,11 +186,11 @@
       ```
     :replies:
     - :author: damyvv
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsae2s/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsae2s
       :body: Nice one! I didn't actually think about comparing the outer values of the sliding window. Good find.
       :replies: []
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsgjyv/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsgjyv
     :body: |-
       Just for the sake of anyone who finds it interesting, you can now also do this in Ruby 3.0+:
 
@@ -201,15 +201,15 @@
       I imagine some may prefer or not prefer this - definitely a matter of taste!
     :replies: []
   - :author: SadBunnyNL
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9ae6/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9ae6
     :body: I really gotta start learning that stuff... It always looks so powerful and generally purposeful, yet I never get around to it! Thanks for your solution.
     :replies:
     - :author: damyvv
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9v1q/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms9v1q
       :body: Hallo mede-Nederlander ;). Thanks for your comment, I will post all my solutions [here]([https://github.com/damyvv/advent-of-code-2021](https://github.com/damyvv/advent-of-code-2021)). And you can find all my solutions from last year [here]([https://github.com/damyvv/AoC\_2020](https://github.com/damyvv/AoC_2020)). Ruby is so powerful, I truly enjoy coding with it. If you have any questions about Ruby, let me know, I'll be happy to answer them if I can.
       :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrfgli/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrfgli
   :body: |-
     Ruby. I was fast, but not as fast as you guys!
 
@@ -219,7 +219,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrh2io/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrh2io
     :body: |-
       Nice.
 
@@ -228,37 +228,37 @@
       `p data.each_cons(3).each_cons(2).count { _1.sum < _2.sum }`
     :replies: []
   - :author: flwyd
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmri827/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmri827
     :body: Whoa, I didn't realize Ruby had implicit block parameters (which is what I assume `_1` is). Is that a relatively new feature?
     :replies:
     - :author: gurgeous
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrih3f/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrih3f
       :body: Added in 2.7 and quite handy! I use it everywhere now, both at work and for advent. I appreciate not having to make up silly param names for simple code.
       :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrsexd/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrsexd
     :body: why do you need the `.map` in `.map.each_cons`?
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrky8s/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrky8s
   :body: |-
     Ruby
 
     https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day1/main.rb
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlox0/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrlox0
     :body: |-
       Nice.
 
       No need to `select` & `count`, just `count` ;-)
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrmjlk/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrmjlk
       :body: Thank you! :D Updated!
       :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrmz20/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrmz20
   :body: |-
     ### Ruby
 
@@ -276,11 +276,11 @@
     Yes this solution actually works. No you don't need to tell me [the better way to do it](https://github.com/petertseng/adventofcode-rb-2021/blob/master/01_sonar_sweep.rb), thanks :)
   :replies:
   - :author: jenneh03
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrpxy4/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrpxy4
     :body: Can someone explain this to me? I'm not too familiar with Ruby
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrtf4p/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrtf4p
       :body: |-
         Try on the example input. Result of annotating each element with its index, and then sorting them by (value ascending, index descending):
 
@@ -306,15 +306,15 @@
         For part 2 it's: No, no, no, no, no, yes, yes, yes, yes, yes, for an answer of 5.
       :replies:
       - :author: jenneh03
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrtprz/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrtprz
         :body: "Thank you for the explanation. I love this \U0001F601"
         :replies: []
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrqazv/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrqazv
     :body: "\U0001F92F"
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrq8km/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrq8km
   :body: |-
     ## Ruby
 
@@ -333,7 +333,7 @@
     ```
   :replies: []
 - :author: mddubey
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmwgxfw/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmwgxfw
   :body: |-
     Love ruby and how rich it is in terms of different methods.
 
@@ -342,7 +342,7 @@
     (https://github.com/mddubey/AoC/blob/main/2021/001/solution.rb)
   :replies: []
 - :author: joeyGibson
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmu09qs/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmu09qs
   :body: |-
     I'm doing it all in Python this year, after doing it all in Ruby last year. Here's today's solution.
 
@@ -377,7 +377,7 @@
     ```
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv10v7/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv10v7
   :body: |-
     Ruby:
 
@@ -413,7 +413,7 @@
     I've modified the kotlin one quite a number of times using discoveries from this thread.
   :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrr4l8/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrr4l8
   :body: |-
     # Ruby
 
@@ -436,15 +436,15 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrsn0t/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrsn0t
     :body: you don't need `chomp`, as `"1\n".to_i` is the same as `"1".to_i` . Also, you can use `.count` rather than `inject` :)
     :replies:
     - :author: zxywx
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrt8gk/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrt8gk
       :body: Good call! Thanks
       :replies: []
     - :author: zxywx
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms0thz/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms0thz
       :body: |-
         Refactored ... much tidier, thanks!
 
@@ -472,14 +472,14 @@
         ```
       :replies: []
 - :author: LyleiLanar
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms2ee2/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hms2ee2
   :body: |-
     My ruby solution: [[2021 Day 1]](https://github.com/LyleiLanar/advent-of-code/blob/main/2021/day_1.rb)
 
     Not the best, but Ruby is very new for me.
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsqyxj/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsqyxj
   :body: |-
     # Ruby (4644/4137)
 
@@ -496,11 +496,11 @@
     ```
   :replies:
   - :author: Albeit-it-does-move
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hq6rjd9/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hq6rjd9
     :body: I like the idea but if this code is giving you the right answer it might be by pure luck... Since you are reading triplets for part 2 it means neither will the last b will be compared to c, nor the last c to the last d for part 1. So if the two last values of your input are increases over previous values then the final count for part 1 will be two lower than it should be.
     :replies: []
 - :author: KennyEvil
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsrqka/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsrqka
   :body: |-
     Day 1 Ruby (I loaded the values into an array called depths)
 
@@ -517,15 +517,15 @@
     puts increase\_count
   :replies:
   - :author: oantolin
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsui9j/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmsui9j
     :body: Avoiding computing the sums of the sliding windows in the second part is clever!
     :replies:
     - :author: KennyEvil
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmt32ch/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmt32ch
       :body: Thanks. It was just something I realised when I was working it out in my head, that the difference between the first and fourth input was ultimately what mattered. Meant I could keep it to one line as well.
       :replies: []
   - :author: oantolin
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmt3jqm/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmt3jqm
     :body: |-
       My Ruby is rusty, but I think there is a count method that would let you eliminate the increase\_count variable:
 
@@ -534,32 +534,32 @@
       ```
     :replies: []
   - :author: ywecur
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmto3j9/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmto3j9
     :body: |-
       Ruby has `each_cons` which implements the sliding window method
 
       https://apidock.com/ruby/Enumerable/each\_cons
     :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmtw0cl/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmtw0cl
   :body: 'Got a late start today but here''s my solution in ruby: https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day01/solution.rb'
   :replies: []
 - :author: roundscribehector5
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmxrx3s/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmxrx3s
   :body: |-
     [OOP Ruby Solution](https://topaz.github.io/paste/#XQAAAQD/BAAAAAAAAAA5GUqKNoFH6SMnPH0B27EPd7phjZ68/oO/XvGYmYMktKdLulbGgcNEq/E84SnUm1E0wSzPmrFBBtb4l860QuYAXUa0V1ZoR3tERaCFhLQxpDPGY0kSeBv9tfnd5kV9ZhqpO/Zz4Mi7w3Sw2u8hFBScffCn2eLyc6NeS7ui1/J9OXx4t1yqxGelCWouCPTaW1Qe4WnHz24r+hSmMa4zXqoho94I9f/HW5X2+jrjCU/jDL3fHgC+dugtCUAGg+B3sfeLg9s6FMGa0NSbSNzV0cBJV4LzMUHI5ToaK1k8r0gscf2zqieY3xAmJmqhNC0l1YoeocPd13/sFQYlkTQf3bJSCtFcJWAjhPW5A3Ce8PLVEc/F/+zWKxwj4KhqhDPrTj7Kw4MMcKKhCPpia8y+Z9IYu0oEIDj+iS4e0qIieI/DC792ipEUtWIyUaulWckc84PSFLg2p+68x/asb2H5qFuwCb/MatJXaETHQyHZt83LVdgAGmQaV5mNt5uTEbHluHBXtw+oURed5fCK/FI/TFi+UxmKhawHMebxwLNqMw276noz1bXgeCuxEahvgKwmahh4W7Op6doHZmD8c8blHP/7gaEY)
 
     I'd appreciate any feedback.
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrel8t/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmrel8t
   :body: |-
     Ruby 930/626
 
     [paste](https://topaz.github.io/paste/#XQAAAQDLAQAAAAAAAAARiAqGkkN7pOxE/i+5OLDe05IXgS2qncloTxIqhlc9i6FuSU224aGk++UCtFvqS/pAFLhmHr2+ryAX6wkyWrE/xAWAY66qogr6zl3OnESY8FEIXZBLlC+f3MD8UmbUkyCP4SHfO7irP0dTJAEOvviNiuYn5/O4GzFfwnmGduXdbaAvR3qH1uTDzkkb4C+B+dUq7cYkcSXT+OHYBOtnQDTDZWQ4fDVHZRFtYitXRg0RHtn9SCXFngt4Id39RhiVxQeoY0wOUQBMFuAOZi4rvMYWPrnmwM0WQgh1CGD+9T+7Aw==)
   :replies: []
 - :author: Happy_Laulo_33
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmu2d91/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmu2d91
   :body: |-
     In ruby :
 
@@ -586,37 +586,37 @@
     count
   :replies: []
 - :author: Robert_TT
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmuc4p0/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmuc4p0
   :body: |-
     [Part1(Ruby)](https://imgur.com/a/OBn7fA1)
 
     [Part2[Ruby]](https://imgur.com/a/dPwGJT0)
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv4m2n/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv4m2n
     :body: |-
       can you indent your code so it's put in code blocks?
 
       also, have you seen the ruby method [`each_cons`](https://ruby-doc.org/core-3.0.2/Enumerable.html#method-i-each_cons)?
     :replies:
     - :author: Robert_TT
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmwcpgg/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmwcpgg
       :body: I did, I am extremely sorry, I did it like 5 times and it doesn't work in the reddit code blocks for some reason :(. Sorry
       :replies:
       - :author: snowe2010
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmydf36/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmydf36
         :body: You have to add 4 spaces before every line, and you also have to have blank lines before and after your code.
         :replies:
         - :author: Robert_TT
-          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyf4r0/
+          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyf4r0
           :body: thank you for explaining !
           :replies: []
     - :author: Robert_TT
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyf3ht/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmyf3ht
       :body: I haven't used the each cons method yet, thank you for the suggestion!
       :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmucq9b/
+  :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmucq9b
   :body: |-
     This is my solution in Ruby:
 
@@ -637,7 +637,7 @@
     answer2 = increments\_by3.count('increased')
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv1anu/
+    :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmv1anu
     :body: |-
       several suggestions for shortening your code and making it a bit more readable
 
@@ -648,22 +648,22 @@
       Here's my solution if you care. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2021/day01/day01.rb
     :replies:
     - :author: '442401'
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmve0d5/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmve0d5
       :body: I haven't tested it, but I'm confident part 2 works. Summing is not necessary. The middle 2 values cancel each other out.
       :replies:
       - :author: snowe2010
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvgddu/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvgddu
         :body: I learned that from another comment, thank you. Wouldn’t you need to each\_cons(4) though?
         :replies:
         - :author: '442401'
-          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvs6r3/
+          :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvs6r3
           :body: |-
             I would imagine that if OP posted it here, it works.
 
             I really don't want to look at it any longer than possible though, because the absence of formatting makes my eyes hurt.
           :replies: []
     - :author: antoniotto
-      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvef6w/
+      :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvef6w
       :body: |-
         Thank you for your suggestions, I realize now the second part should be, in my original style, like:
 
@@ -678,6 +678,6 @@
         Still have to try the count block option.
       :replies:
       - :author: snowe2010
-        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvgwlt/
+        :url: https://www.reddit.com/r/adventofcode/comments/r66vow/2021_day_1_solutions/hmvgwlt
         :body: Somebody actually pointed out that you don’t actually have to do any summing, which means you were actually almost right the first time. I think you just have to each\_cons(4) instead.
         :replies: []

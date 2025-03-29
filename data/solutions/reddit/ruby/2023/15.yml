@@ -1,13 +1,13 @@
 ---
 - :author: Alkyonios
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdjwijt/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdjwijt
   :body: |-
     [Solution](https://topaz.github.io/paste/#XQAAAQBVBwAAAAAAAAAxmwhIY/VDibXTN1fVPjOQKOvNhTjhh6MlGoy6ibz1iEMOgACrQ5UT6jZCV2MNYRyRjfcPzt7zUln0NoxniFxfK850joUc7UXz65mcQykbFCHKmeB61AlecR4ZUlQWWWT5eePwbOgiMawUdgPMHezxMAPYChpDRZ/18RsF1kYif2mAW7rsyEgP+UPKjWdJC74VBzSlGDTZDhK1wqGSa6+uCaZApJ8LmfyHImGYOYTxTLpigPYtwUceSRKpR3dDeKUD2wruV9tPiMV5ffbcH/yeV4AvkxgQ9FzG7L5oiyNhyytH8ZdeM0cekBIaR7UYumuD+8L2UPCvNowUppzTrzaVynz+K89qyeBizCH9TuoMFPt1IccNJbe7rQSH848ec8FniInEUdSImWUpuFG5YWaKLq3JMBCUAnclPMOIxWF8M7F1L5V9AOJP1dT6jiEqejOT/gvuwVUM0lbyUntFRgCnRHBYml7uCGQwlu17rGIO+om4mqhWctvmj7132imC8Ks+zbGeGVhVxfJmZLoY+zWT5Bvn+vbHI/GjUPd9anMiMXU33GDBUnPbUBmgMAxmTXqNbIM08uJCXqYgLk4bfQIJEtKgXiG4jW79DRcvHVo+s3e60h0Z8QFpKUxeqsv6xtdAMY5PGfEoGZaOO7m9jP1c1RJVJXlv9lkaYs2gmZMagoG0d+KQ57epRi88OYvkW5P2SPhOXpssz1jyDH5W+mLF9dcNE1hQocbMkQlhQefFxLiWjGhNPZqay9LsUYpwf+4MMgf0vtLaUDkS9l1bAwLLt67egX7s/0g0nQA=)
 
     It took an embarrasing amount of time to figure out what "relevant box" meant in part 2, otherwise smooth sailing.
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdj3gsa/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdj3gsa
   :body: |-
     [Part 2](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-15/part_2.rb)
 
@@ -43,7 +43,7 @@
     Is it cheating to use a hash map in the hash map implementation? haha.
   :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfzzzq/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfzzzq
   :body: |-
     Already put up a solution, but this one deserves its own comment
 
@@ -73,7 +73,7 @@
     `.scan` finds all matches of the regex. For example, `"aa=1 aa=2 aa- os=4 aa=6 os=5"` becomes `[["os", "5"], ["aa", "6"], ["os", "5"]]`. `.uniq` preserves order of the first instance of each element, deleting the second `["os", "5"]`, but the first one already has the `"5"` due to the positive lookahead. All the `aa`s before the `aa-` get ignored due to the negative lookahead.
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfea3e/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfea3e
   :body: |-
     Part 1 Solution
 
@@ -96,7 +96,7 @@
     ```
   :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfpx7r/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfpx7r
   :body: |-
     Easy half-punchcard day again
 
@@ -113,7 +113,7 @@
     - Ruby guarantees Hashes stay in order, so no extra ordering code needed for that part of the problem statement.
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdg8a2m/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdg8a2m
   :body: |-
     Mercifully easier than the last few days!
 
@@ -122,7 +122,7 @@
     [Video Walkthrough](https://youtu.be/cVG4S9MZ_pg)
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgbuzp/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgbuzp
   :body: |-
     ```ruby
     input = $<.read.tr("\r\n", '').split(',')
@@ -141,7 +141,7 @@
     ```
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgoi4d/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdgoi4d
   :body: |-
     PARTS 1 & 2
 
@@ -177,28 +177,28 @@
     ```
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfg60v/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfg60v
   :body: |-
     This was straight-up a reading comprehension problem. I probably wasted 2 minutes on part 1 because I couldn't accept how easy it was. And another 10 minutes on part 2 because I had no clue what it was trying to say with the boxes and focal lengths. I eventually got there.
 
     [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/15/solution.rb)
   :replies: []
 - :author: Unhappy_Adeptness_93
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk34a/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk34a
   :body: |-
     [Github solution](https://github.com/andyAtChime/advent_of_code/blob/solutions-2023/2023/code/day_15.rb)
 
     This was real easy, once I grokked the prompt. Bummed there's no scale problem to solve today, but nbd, off to bed!
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk8om/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfk8om
   :body: |-
     Pretty straightforward IMO. Only took a few minutes and got it right on the first try, which is rare for me. Ruby makes these problems real easy.
 
     [paste](https://topaz.github.io/paste/#XQAAAQDwAQAAAAAAAAAyGUj/TxK9OVMABPZ1+6kdVpmDcy636sJnvuQ9xEHSh/N4El930DvPBYXafRaInATDNw2+ta4UMyG+hWEGO6MiAJhm2q6S+1NEgtkb+fLJFq4o5ckQ4k7+Tx+GYY8nM2FwbmHCyI2LkahpnEkJQjXbe0JAuXfY5374G/77MhHYKWaGolc3iin/X3Juh/aZYZM1yZxV1Cvz2xxtcSq4eKaTmn6DShqcO2cSrBb/xY9sMP1AnEqkGoinghLyKAzAAT1/4vuPQgFy2s27VtuA1Mpv5u26wChELg8o3Ugu47DSK01+fv3cj4JOMMIKECz8IhA9gne+/5VybgP0aLo0pUbtPBeA/+2vhcNVnqqACmP67NCHRChqsN083MIUHf1Nec97XNVTlQy3WkYhwyfgDJqT/uSOF1VVjJAZm53mmWj7tQY0dVCP+0JlpA==)
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdftvfj/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdftvfj
   :body: |-
     ```ruby
     # frozen_string_literal: true
@@ -236,7 +236,7 @@
     ```
   :replies: []
 - :author: stanimirov
-  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfxje1/
+  :url: https://www.reddit.com/r/adventofcode/comments/18isayp/2023_day_15_solutions/kdfxje1
   :body: |-
     part 1 (76 characters):
 

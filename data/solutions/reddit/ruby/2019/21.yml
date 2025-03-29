@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbllkye/
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbllkye
   :body: |-
     The story behind this solution is, as usual, twofold:
 
@@ -18,7 +18,7 @@
     Now it runs in about 0.7 seconds, which is within my goal. There could be many more possibilities for the custom opcode, but they require further study of the program before I am able to take advantage of them.
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbjrxiz/
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbjrxiz
   :body: |-
     Haven't gotten to part 2 yet, just wanted to share how nicely it works with Ruby's heredoc strings to blend intcode and jumpcode:
 
@@ -51,7 +51,7 @@
     Haven't looked at other solutions yet, but I solved part 1 manually. The logic is "if there is a hole on either A B or C, but not on D, then jump". Does onviously not work for part 2, so I'll have to work that one out.
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbiol6c/
+  :url: https://www.reddit.com/r/adventofcode/comments/edll5a/2019_day_21_solutions/fbiol6c
   :body: |-
     ## [**Ruby** (366/249)](https://github.com/Sharparam/advent-of-code/blob/master/2019/day21/solution.rb)
 

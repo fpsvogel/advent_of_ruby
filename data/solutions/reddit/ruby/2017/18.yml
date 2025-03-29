@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretcuj/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretcuj
   :body: |-
     That was a really fun puzzle, I like the part 2 twist and thought "uh oh, how am I going to do this...". This is good, I hope there are more of these.
 
@@ -117,7 +117,7 @@
     ```
   :replies:
   - :author: p_tseng
-    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drevge6/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drevge6
     :body: |-
       > do it the right way later
 
@@ -234,11 +234,11 @@
       ```
     :replies: []
   - :author: rdc12
-    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreube7/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreube7
     :body: Probably a real fast way to code it up thou
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretil2/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dretil2
   :body: |-
     # Part 2: JavaScript
 
@@ -308,7 +308,7 @@
     ```
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreu6sz/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/dreu6sz
   :body: |-
     Ruby. I've caught more bugs today than in the last five months! Needless to say, I was drastically far from today's leaderboards. Top 200 though!
 
@@ -364,7 +364,7 @@
     Notable moments: 1. Ruby really loves giving % additional meaning, such as %w[string string2 string3], which tripped my syntax highlighting even though the code was fine, it drove me in circles for a while, 2. if you're using regex global variables like $2, they get overwritten if you use it again!!! 3. did not anticipate an integer in jump operation, since part 1 solved fine, ended up watching my program run for four minutes before my hinch of something wrong catching up...
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drg10dq/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drg10dq
   :body: |-
     Ruby, using the builtin deadlock detection mechanism to solve part2 and printing the answer in `ensure`:
 
@@ -385,6 +385,6 @@
     Full solution: https://github.com/eregon/adventofcode/commit/a7de4896d493b2be92bba400734d9d1ef7a58f8f
   :replies:
   - :author: oantolin
-    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drldvv2/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kj35s/2017_day_18_solutions/drldvv2
     :body: Oh, I didn't know about the deadlock detection, cool!
     :replies: []

@@ -1,6 +1,6 @@
 ---
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bi93k/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bi93k
   :body: |-
     ```ruby
     require 'matrix'
@@ -37,7 +37,7 @@
     Today felt quite easy, probably because this type of problem has occurred several times in years past.
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bxurp/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bxurp
   :body: |-
     Reused once more my grid class to get neighbors. I misunderstood part 1 and solved it as part1, so it took nothing to to part2 after I finally did part1 :D
 
@@ -68,7 +68,7 @@
     ```
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bgwpx/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1bgwpx
   :body: |-
     Man, I was feeling good about this one. Thought I went so fast. I accidentally got the sample data result for part 2 while I was doing part 1 because I forgot to check my 'visited' set. So just had to comment out that line and part 2 was correct on first try. About a minute between part 1 completion and part 2.
 
@@ -103,15 +103,15 @@
     ```
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cnys0/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cnys0
   :body: "[https://gist.github.com/thofoer/88bb2c1308a3beb5f822229c999bcd73](https://gist.github.com/thofoer/88bb2c1308a3beb5f822229c999bcd73)"
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cpkyf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cpkyf
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day10.rb)"
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cvcfo/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1cvcfo
   :body: |-
     Frustrated myself by misreading the problem and overcomplicating it. It was actually a fairly simple recursive path finding algorithm. No real clever optimisations, runs in a few miliseconds.
 
@@ -120,7 +120,7 @@
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/10](https://github.com/careyi3/aoc_2024/tree/master/solutions/10)
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1dok13/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1dok13
   :body: |-
     Yea I fell into the solve part 2 before part 1 trap because I did not read the question carefully. Initial hunch was to BFS from 0s but backtracking from 9s is much easier to implement.
 
@@ -153,7 +153,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1du98p/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1du98p
   :body: |-
     I, too, accidentally solved part 2 before part 1.
 
@@ -184,7 +184,7 @@
     ```
   :replies: []
 - :author: Infinite-Club4374
-  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1chhwm/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1chhwm
   :body: |-
     (the%20best%20duh)
 

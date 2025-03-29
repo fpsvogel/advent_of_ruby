@@ -1,6 +1,6 @@
 ---
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfzhjm/
+  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfzhjm
   :body: |-
     **Ruby** , #30/#24
 
@@ -125,7 +125,7 @@
     ```
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfz1y9/
+  :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecfz1y9
   :body: |-
     **Ruby,** 74/48. Loved this one!
 
@@ -224,10 +224,10 @@
     ```
   :replies:
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecg1wzj/
+    :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecg1wzj
     :body: "`0.upto(Float::INFINITY)` can be rewritten to `0.step` for generalization; `.step` with no arguments provided will go on indefinitely with `step=1` (thus allowing lazy enumerable operations)."
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecgh61w/
+      :url: https://www.reddit.com/r/adventofcode/comments/a91ysq/2018_day_24_solutions/ecgh61w
       :body: Thank you! That's great.
       :replies: []

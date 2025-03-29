@@ -1,6 +1,6 @@
 ---
 - :author: RazarTuk
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ynz5p/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ynz5p
   :body: |-
     These isn't enough Ruby on this subreddit, so I may as well start posting _my_ solutions. Also, this is very intentionally only part _1_, in case anyone reading wants to practice by extending it for part 2. And I know it would probably be easier to just tokenize each line as I'm reading them in, but I'm using that first line as boilerplate so I don't have to think about input.
 
@@ -32,7 +32,7 @@
     EDIT: Oh, and it executes in ~100ms
   :replies: []
 - :author: SwagosaurusFlex
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8enb/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8enb
   :body: |-
     I'm having trouble figuring out why my solution isn't passing for Part 2. It works on Part 1 and the example case, but it's giving too high of an answer on Part 2. Any help appreciated, thanks
 
@@ -73,19 +73,19 @@
     ```
   :replies:
   - :author: thereal_peasant
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uabou/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uabou
     :body: 'What happens when your `runningTotal` is equal to the `total` but there are still numbers left in `parts`? For example, take the input `''100: 10 10 3''`. Does this return `true`? Should it?'
     :replies:
     - :author: SwagosaurusFlex
-      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ucr4t/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ucr4t
       :body: Ah that makes sense, can't believe I missed that! Thanks, finally got the star
       :replies: []
     - :author: ASteelyDan
-      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uf841/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uf841
       :body: Ah, had the same problem, thank you!
       :replies: []
 - :author: NullT3rminated
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tr6lg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tr6lg
   :body: |-
     970/553
 
@@ -94,22 +94,22 @@
     First time getting top 1000, which is exciting for me! Definitely not the fastest solution though.
   :replies:
   - :author: FCBStar-of-the-South
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttgnx/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttgnx
     :body: |-
       Oh and I was excited to be the first Ruby in the megathread haha
 
       What is your runtime like? I only started learning ruby by doing AoC this year so I will really appreciate it if you can give me some feedback on my solution!
     :replies:
     - :author: NullT3rminated
-      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuf38/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuf38
       :body: I get about 3 seconds on my laptop. Just slow enough to make me start to worry and start thinking about optimizations before it completed. YJIT speeds it up by about 300ms.
       :replies:
       - :author: FCBStar-of-the-South
-        :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tv98q/
+        :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tv98q
         :body: I think the only difference between our implementation is how we do ||. You use string concatenation and I use the logarithm. Will have to benchmark your way tmr
         :replies:
         - :author: NullT3rminated
-          :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8m8s/
+          :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u8m8s
           :body: |-
             Ok I changed mine to use log10 instead of string concatenation, and I went from 2.781s with YJIT to 1.549s with YJIT, so log is definitely faster.
 
@@ -132,7 +132,7 @@
             ```
           :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tyk8p/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tyk8p
   :body: |-
     [LANGUAGE: Go]
 
@@ -143,7 +143,7 @@
     [Ruby Solution](https://github.com/phene/advent-of-code/blob/main/2024/07/7.rb) runs in about 2s and [Go Solution](https://github.com/phene/advent-of-code/blob/main/2024/07/7.go) runs in 1s.
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uc4nt/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0uc4nt
   :body: |-
     Part 1
 
@@ -176,18 +176,18 @@
     ```
   :replies:
   - :author: Ill_Information_9522
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m1b2e92/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m1b2e92
     :body: This is great... very idiomatic. Still learning-- hadn't though of adding a bar operator to Integer. Love the built-in permutation methods though, quite handy. Not sure if other languages have such powerful stdlibs.
     :replies: []
 - :author: fredster231
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vh0np/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vh0np
   :body: |-
     10 seconds lol, fun anonymous recursive pattern tho
 
     https://gist.github.com/scockram/3ce5efc10cad27bf08c78bca4bcffd5f
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vm2bo/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vm2bo
   :body: |-
     Tight on time today, brute force did the job!
 
@@ -196,7 +196,7 @@
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/7](https://github.com/careyi3/aoc_2024/tree/master/solutions/7)
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tt4k6/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tt4k6
   :body: |-
     ```ruby
     require_relative 'utils'
@@ -240,15 +240,15 @@
     Edit: not using a set cuts this down to barely a second
   :replies:
   - :author: yourparadigm
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u05oy/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0u05oy
     :body: You'd save a lot of time and memory by not saving all the possible results.
     :replies:
     - :author: FCBStar-of-the-South
-      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0xtael/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0xtael
       :body: Eh this morning I just said what if I don’t do any deduplication with sets. Cut it right down to barely over a second and that’s good enough for me
       :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttkxm/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0ttkxm
   :body: |-
     today was ... easy? I wasted some time on part 1 cause I tried to build the result down by subtracting and dividing instead of building it up, which didn't work. Also on part two I thought brute force would take a while, but turned out I was brute forcing \*the whole input as a single line\* which, well, didn't go anywhere.
 
@@ -283,11 +283,11 @@
     ```
   :replies:
   - :author: phord
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuz30/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0tuz30
     :body: It never occurred to me to optimize by stopping when I exceed the target. But it ran so fast from the start, I obviously didn't need to.
     :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0usl5m/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0usl5m
   :body: |-
     Not the weekend day I feared :)
 
@@ -323,7 +323,7 @@
     ```
   :replies:
   - :author: masterarms
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0w9n1j/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0w9n1j
     :body: |-
       Going from right to left is _much_ faster.
 
@@ -367,7 +367,7 @@
       ```
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v417f/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v417f
   :body: |-
     I could smell the Dynamic Programming from far away, but this is the first time I've realized that I don't have to build up that whole double array to keep track of everything. Probably also the first time I wrote a nested `reduce` like that.
 
@@ -396,7 +396,7 @@
     ```
   :replies:
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v9d0d/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v9d0d
     :body: |-
       And a brute force solution for good measure
 
@@ -419,11 +419,11 @@
       ```
     :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v7ys7/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0v7ys7
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day07.rb)"
   :replies: []
 - :author: mpyne
-  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vjiih/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h8l3z5/2024_day_7_solutions/m0vjiih
   :body: |-
     I was doing my solutions in Rust this year, but Ruby has an iterator operator that is more or less genetically designed for this problem, `repeated_permutation`, so I wanted to throw it in and test it out.
 

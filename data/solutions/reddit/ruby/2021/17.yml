@@ -1,6 +1,6 @@
 ---
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howcwik/
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howcwik
   :body: |-
     **Ruby** (runtime: 40 us / 90 ms)
 
@@ -66,7 +66,7 @@
     \*\* Written as end-less methods, which only work in Ruby 3.0+. Earlier versions required you to end a method declaration with `end`.
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovte54/
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovte54
   :body: |-
     **Ruby** 164 bytes
 
@@ -86,7 +86,7 @@
     ```
   :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how2kzp/
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how2kzp
   :body: |-
     [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/17/trickshot.rb) (1598/1502)
 
@@ -98,15 +98,15 @@
     Curiously ended up submitting the answer for some other input in part 2 at one point when my search space was too small...
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how8snj/
+    :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/how8snj
     :body: "[removed]"
     :replies:
     - :author: firetech_SE
-      :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howfmtg/
+      :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/howfmtg
       :body: If it makes you feel better, I didn't realize that until I read it here :P
       :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovpzcn/
+  :url: https://www.reddit.com/r/adventofcode/comments/ri9kdq/2021_day_17_solutions/hovpzcn
   :body: |-
     Today is easier than the past 2 days... done by crude simulation + brute force.
 

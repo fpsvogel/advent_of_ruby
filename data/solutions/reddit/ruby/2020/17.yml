@@ -1,17 +1,17 @@
 ---
 - :author: skawid
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6savt/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6savt
   :body: "[Ruby!](https://github.com/simonbrahan/aoc2020/blob/master/day17/main.rb) Lots and lots of `for` loops."
   :replies:
   - :author: shandley256
-    :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/girz1c6/
+    :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/girz1c6
     :body: |-
       Thanks for sharing! I based a solution on yours: [https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day\_17/advent17.1.rb](https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day_17/advent17.1.rb)
 
       With a bit of recursion I folded the nested loops which means part 2 can re-use the same methods: [https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day\_17/advent17.2.rb](https://github.com/seanhandley/adventofcode2020/blob/master/ruby/day_17/advent17.2.rb)
     :replies: []
 - :author: prophetjohn
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6h0zn/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6h0zn
   :body: |-
     # Ruby
 
@@ -20,7 +20,7 @@
     Took about 40 seconds to run both 3 and 4 dimensional boards
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6900i/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg6900i
   :body: |-
     **Ruby**
 
@@ -29,7 +29,7 @@
     - [Part 2](https://github.com/odlp/advent-of-code-2020/blob/main/day-17/part2.rb)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg441pn/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg441pn
   :body: |-
     Ruby, 109/148
 
@@ -38,22 +38,22 @@
     https://gist.github.com/gurgeous/f9710ea2bf307d624091ab39089ae50f
   :replies:
   - :author: akanet
-    :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg4c2i3/
+    :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg4c2i3
     :body: 'Ruby makes it really nice to produce a solution that''s totally independent of the dimensionality of the input: https://gist.github.com/vincentwoo/40dbaa939c8622dfd739a4a716e7f4c2. Maybe you''ll enjoy.'
     :replies:
     - :author: gurgeous
-      :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/ggb69qn/
+      :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/ggb69qn
       :body: |-
         Ooh, that's really good. I always forget about product. I also like your usage zip/sum for the directions. Very nice. If only I could remember these helpful methods in the heat of the moment...
 
         A friend also reminded me about minmax, which I had forgotten.
       :replies:
       - :author: akanet
-        :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/ggc5t8h/
+        :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/ggc5t8h
         :body: oh! never knew about minmax, beautiful
         :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg4ffob/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg4ffob
   :body: |-
     **Ruby:** 9:51/12:21, 82/78
 
@@ -62,14 +62,14 @@
     Leaderboard just before my birthday!! I could have done even better but I had `map = {}` instead of `map = new_map` at the end of my loop and didn't realize for a minute.
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg502uf/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg502uf
   :body: |-
     Ruby ~10000/~9000. I’m pretty sure this is the first time I’ve ever gotten to 9 levels of indentation before! I’m only pasting part two, part one is basically the same minus the `w` layer.
 
     [paste](https://topaz.github.io/paste/#XQAAAQCjCAAAAAAAAAA2GEuY6cXZ7/uZzpDbNO7U3qiTUxzax9bflR4aP2V3CxO5RMNcOFdMcD1bxJubz5g/D2p2Nmqgs2xCvcrIHHwyvW2QgzPaACuzPoostwqAqrTT3lr0pWT/KQju94V+YvjT26BlzQgfLd0scZGehQ+hd2DY5xNFzbtTJAGMR8sTSe3tSQVyZuCvFIgFx1yV3oRO2JJyR9PWeupttsGagxwvlcWg388jnutaOLT2AFgAQcg5MoLLaz8+61grJ+W/12OKeR20poTSiOKd5Oy2oh8pUfebhD9TLPKcSWgtElJb6KQ1wI9LgLfek7osOlLLNJYfpjb0muLwVU35KxEfYPI4xEq6ehhG3HCnakXGkmWTJGl4C/Exr7j87/oKl+AtHKwZ67pm7nPKX8I7YUBjnwYvzNzKlO/3r8z3HqlcQB+1a0V2XFznQNGCydoa4iB+bZ+fMCr6HNQFw5j4aOwU4or9Za8u1beLFCp5/oujySG4BDXiAsEWdYCkcrSLCxthy9oUZXHO+5yCO3JkxlZO0DlP0bFjg40uZZA34DulrzZT2GqWV3heF34xu+StuAl6Z9XzkXkw/jqN45oS23ofSblU9XVvCa8ERqSgK8gz6B8JN3kYOmFiTHHpAUof2ST7UnvfRNzc81xKG5/PSIF2jTYiIuPHC5Cshf/gEifJb6bJf6aF6tXZiqmZkmpYbKSRY3WnjgnKvXa7f6KxkrkhoykqsYv2LpYlGxHxLIwURgaF5tfu2Kxgnx4A6Lve1GPzo5UneCyGFAOeU4eEzGJ0jtSzt2KSv+yjh3Mdxampqa1f2IWjc/Gv/6rH0aDuJBz/GSVH2gg4D9LBUF8lIyn2i/CSgon3n1UNYohhGj91inexx0qhSQ3uZ4KL/SPbnw==)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg5hdz6/
+  :url: https://www.reddit.com/r/adventofcode/comments/keqsfa/2020_day_17_solutions/gg5hdz6
   :body: |-
     Ruby, object-oriented approach: [paste](https://topaz.github.io/paste/#XQAAAQC8FAAAAAAAAAARiEJHiiMzw3cPM/1Y611SZZzCokqVQwRwyl1Nd0tAtOAWiRF+WWRZFs5wa3uzVXnVnYiky0sL6lwFW4YOzIaq4LPRJbgvFwTH3ic16lIt51zUitKTLvpWBNIOJBcQHHaGA7TqVHHXXhgRkr6zTDw2BToufD+/bJHXXEkseUruweDKqMs0wCCB2EHQ+m+1ysYkXd2NVszXTB3ovvXnKqvpMEkBeTHNGl1ajz2JfQFIyQdKvYMfacB3P4soEmbIADo59jyj/2RmlcjvB9H/wDiPh8pCLr3rGHazEOmWpfE2G77sjmsHIWyO9rfuP8zmZb1eMh4s6fTmnVDefiRps77M8OXpQR7ORhDJ3GOqivkJQCgtjMS+JBKhS6ZGLZmS+E74tY+BaHNFE3S3JOMCDuoHxDN+Cin1Vt9EcVJRb122Tw4hvWEErU4qtxgdIndHJjXZbJENJXOXKb6bkxpkbVdvvQBAUkDL26xvRYGHTJnWYlMwgHgApr2VTdepFgWsyrOg+vPCm9GNSOe7QYdiuc921H77gZP2ybw9mwRF+DrV2OEp0uIdx9nyaeoy23I7XIdbK64Fwq1sfagmeRo4v9s8GSS+slhZBDeuS2FO/3TgN8B0pcAvVJeHzP+ayRWQ1vYDT5Anm5mOVTdZwg+7DaAkTXUSk2uzQ7swj7irZgTtBm/JNJyuOorGaLn0dXFo1X8m6ejDhMOID7782VNup1JUZtMyr/XGXnXxU0FAZux9ssR0PsBfq0PqZ2IA+cuDyVnS6HvzrGxXdpdjp2DGovhX20xSD6gr/PfM/WUAf1Eaxf9+8N5YsUuO+ubY34NPk6g157oHncqGh4EQs3Skt3UvTjd1PTJZk5EH0u4m7Xt+gRnykNh1e+3KgeeY5tUGMmYIARSbEX5jY4k7lPdjGQwwBnVB7oksqzQ5fgMqZljt5jgoTCm2dE79FJrbcb4tzT2pFwyYv3dCXazGvbpgl5HeOJ8MlHXperbJgs9CLvlnLU4QWndygUPaCei8qL8THd/CtmoZ7uNrzKrIYdTZS4NYjIojv0cD+t0Vurpag9smJDdQzKknBfALm/pOLaXCSle4ApWuLxz3GdLURCFJayHCZ7FZaG3z/MB6Sq5hfNzIcp2J1T8O5V1CuW9KP7B8mx1ObcwzZFKA3bOmM9WhNbvRRIzEGSWJzfvljq6e5CgHR95+JmHqXAZ0kUcElUTBbo+0jHeJjsJqT2LRVMqBU6LSvuk/iSOSZXEYunRrsRkj1CW3qPwtkuyRIqdbTdBTe0khV30crPIxmZXsTWLJ/A+uKYZ1md+Y4Taq3eckvd9NRfLUeXLhq5D6V65iR4n57b6krXMVHh14hUb0PXIS7GBV+8+vy7V/zQQBH0S0rRwGy2/Ys9KgHff81xbwRaJLc1AGEmV25bZiUnCv0QlsGDI+5hOoODFuMUGjxUtX+YlZJ/sUKsima7V1H5sGs4nt3Wka1eOxi4cms+S1Qp7BiAdEuxYZHsfSoxjbjL5NV6zIc7XNwqZjnPhI4EUeRkDIim8vR/OFLuN68fcmVLrq5ATEOp5f+Y1GSbCLdH/bQS2kzmVBvxb1A6bb4iVy10708JrGQjRk4DDe6JQDt5VsBAjcZXO6xv6JrWCG0kEoW8S6PDzKo3cTHW7SlmyNv03/2mEV/g==)
 

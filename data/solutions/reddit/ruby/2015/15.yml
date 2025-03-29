@@ -1,17 +1,17 @@
 ---
 - :author: lannonbr
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzhu3m/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzhu3m
   :body: 'It seems that everyone was going brute force for this problem. I would be interested to see one that wasn''t. Anyway here''s my solution in Ruby: [day15.rb](https://github.com/lannonbr/AdventOfCode/blob/master/day15/day15.rb)'
   :replies:
   - :author: r_sreeram
-    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzl0u2/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzl0u2
     :body: |-
       > everyone was going brute force for this problem. I would be interested to see one that wasn't.
 
       https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzkxzn
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzit7z/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzit7z
   :body: |-
     Finally made the leaderboard!!!! :)
 
@@ -71,7 +71,7 @@
     ```
   :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzkgnc/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzkgnc
   :body: |-
     Non-brute-forced solution to the first half in Ruby. Since I figured a greedy algorithm would work right out the gate, I decided to write that instead of brute-force. It's not pretty, and I had to switch to a brute-force method to get #90 on the leaderboard for part 2, but here it is.
 
@@ -112,7 +112,7 @@
     ```
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzrq92/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzrq92
   :body: |-
     Ruby, part 2. Couldn't find a way to dynamically generate the combinations, so went for a hardcoded nested for loop.
 
@@ -253,7 +253,7 @@
     ```
   :replies: []
 - :author: Phakx
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzszqn/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzszqn
   :body: |-
     Solution in **Ruby** after some iterations...
 
@@ -349,11 +349,11 @@
     ```
   :replies:
   - :author: JurgenKesker
-    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzyqtc/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxzyqtc
     :body: Nice use of `repeated_combination`. Didn't know that one.
     :replies: []
 - :author: razr_69
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxztug8/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cxztug8
   :body: |-
     My solution in Ruby.
 
@@ -421,7 +421,7 @@
     Appreciate your feedback on the solution :)
   :replies: []
 - :author: Herathe
-  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cy26spt/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wwj84/day_15_solutions/cy26spt
   :body: |-
     Ruby part 1 using repeated\_combination
 

@@ -1,6 +1,6 @@
 ---
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zmy7o/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zmy7o
   :body: |-
     767/751
 
@@ -9,11 +9,11 @@
     [Github](https://github.com/phene/advent-of-code/blob/main/2024/08/8.rb)
   :replies:
   - :author: FCBStar-of-the-South
-    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zs1g0/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zs1g0
     :body: Ah this is a nice implementation. I should've thought about passing the range of search as a parameter instead of just duplicating my part 1 code with some extra logic haha
     :replies: []
 - :author: NullT3rminated
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zn5lg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zn5lg
   :body: |-
     1460/1044
 
@@ -22,15 +22,15 @@
     perhaps the worst code I've ever written. But it works.
   :replies:
   - :author: yourparadigm
-    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znay2/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znay2
     :body: Fellow fan of `Array#permutation` I see! Could have just used `Array#combination`, though.
     :replies:
     - :author: NullT3rminated
-      :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znlsy/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0znlsy
       :body: I think they should add `Array#digg` to the standard library
       :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10ymdx/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10ymdx
   :body: |-
     ```ruby
     input = File.read("input.txt").split("\n")
@@ -69,18 +69,18 @@
     ```
   :replies:
   - :author: Ill_Information_9522
-    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m1b1zz8/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m1b1zz8
     :body: I've been using your complex number trick for grids... thanks again, works like a charm! Need to catch up on your solutions after spending the last day catching up myself on the puzzles. How much harder will it get? :p
     :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zrsv3/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zrsv3
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQCWBwAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8e/jkEufM3yoDFdhZ+yEf8qLEaYbQkVMczFDglBo54Df7x04iyapFESymP4RpA8pK7/Oo81GULm0seNo4p2lgswLwoNgGrdZhMabcEyYWZIT4KUpQErXdOPoKse6pKtT3JZL0rB1tPM2EkwStv2DpPpJo+GKSP9yHTrSm9ZneZ+KYGmUTRxErhBtg93jpclModLhQSpnwYneVUFMFQiCrkqDGmefi8uKhKQ88epNB0Tncu4DKTPI8YoXaPXuHPsbsntKZGWQaj7wAXSBNEMAf9DV6sn5/VtUy6wrVNIHfnJFjsNXb7+T5Y76WZ0sC1cSadqiooQ6syScsmSrKQ3nxYn0uSWlZzv2DILX4sEXAosmJXvjRGXdMlynUjmqvxz7XMi6vvhpvcf7gTbUIckFKkEV1PDWV+U91MaX4ZgkX13RB8RIRsbrA2m4/1WtjB9ymoJd+5QzhxwTyYsRXg4+S1l8rb4n5oa3p8S5HB+PekoacUxxCnMdFGEBR+e+dkcKd/Boqm788e+/5YS6p19zjz0UIweVnSOOSGO7VJoTmWeKQI9kI7g4/y+jfN4ThSSz3cJVxbw9Trl6Zt/At5DRknhmggN3EIev3B/11n0YEgQ6U/t3/OsBHvlh4DXMxjcYL0HlqvNy2QdAlPNHuFd9bCKsELx3HpPjRg7YsIASS01aViLS3PEsi4cYg/ldcZgIHNYE09pTe5EMBnvGL4BTGlSvDc7zqy1HM7PUCGxywfdCeH57c8n+C3HfE8lRLT3f/EkIJNkE+MCtBaC2KBBGJO9P+gYOQVjaVf+X5Ujf05SsiIUbPSnOV0xPZ6i9J/+v5axI=)
 
     Abuse of Ruby map and not my proudest code
   :replies: []
 - :author: alexbaguette1
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zsyz0/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m0zsyz0
   :body: |-
     Suprised it worked this easily.
 
@@ -91,7 +91,7 @@
     [Part 2](https://topaz.github.io/paste/#XQAAAQBaAgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYpRrZq3oCFpfxXu9nP0lKhMM6pt8OBX3NbPRuatlL47kGgI+ZTKskiShBT3sxm24XXUTwUH9yfPPOQGUeUudn/tXPSUVxzv9ThJ5G/RRixgnwBWorLUqr1mm99Ia1IzKBJTQyDdXDkIePw1MRehVyM+daRqSRKfiVxilt2RkzP3lWzxE1uaql2iSOyz40jXQsa6h+btA4+MX2s/vTr3Gi3emXq9WNzcpGDbecGD0QnDECukkKO206GNETwJaH60N6ilAoUmk/BHSxCUFHjtX1+jcMCE1Odp/zGCV8OitbdBRgy6WB881aE0qXcq5LZ7rgrEUeaE7HSyJV+ryMwNWqqXdpR9FTHdn/mDvbtFVS7xh6J2pg3YXAc4T3qR72QURNe+3JNGbKSBUlQqlsk6SvDsOBvV3fpotIxajopInM2QHToU1ozeC1Seqfg/7eXukKhqjbb5BqmZEhAP/4Ehvh)
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10n7o3/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10n7o3
   :body: |-
     ```ruby
     input = File.readlines('input08.txt').map(&:chomp)
@@ -127,11 +127,11 @@
     ```
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11b8pf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11b8pf
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day08.rb)"
   :replies: []
 - :author: fredster231
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11jdl1/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11jdl1
   :body: |-
     Full code: https://gist.github.com/scockram/7749109cfd64074051dd33b69817222d
 
@@ -153,14 +153,14 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11vdbe/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m11vdbe
   :body: |-
     Took longer to code this than I thought, but it was pretty straight forward, my initial instinct worked perfectly and the change for part 2 was trivial. Manhatten distance and some algebra. Solution runs in a few milisecond.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/8](https://github.com/careyi3/aoc_2024/tree/master/solutions/8)
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m104v61/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m104v61
   :body: |-
     Pretty straightforward one today but I got hit hard by reading comprehension. I totally missed that the antennas themselves became antinodes in part 2. After I was done I went back and tightened my code up and realized this whole thing becomes really simple if you represent the x,y coordinates as complex numbers.
 
@@ -179,7 +179,7 @@
     [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/08/solution.rb)
   :replies: []
 - :author: RivtenGray
-  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10dpu8/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h9bdmp/2024_day_8_solutions/m10dpu8
   :body: |-
     [Github](https://github.com/rivten/aoc-2024/blob/main/08/rivten/08.rb)Learning Ruby for this year's AoC, I like how I get more comfortable with Ruby and the code is reducing in size while keeping clarity (or so I think !)
 

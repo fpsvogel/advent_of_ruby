@@ -1,6 +1,6 @@
 ---
 - :author: jtbandes
-  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uj0t/
+  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uj0t
   :body: |-
     Today's a great day for [another](https://www.reddit.com/r/adventofcode/comments/3xjpp2/day_20_solutions/cy59qye/) [Mathematica one-liner](http://reference.wolfram.com/language/ref/ChineseRemainder.html):
 
@@ -35,25 +35,25 @@
     - off-by-one errors :(
   :replies:
   - :author: Wee2mo
-    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vciq/
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vciq
     :body: I had a hunch Mathematica would have an abrupt solution if you happened to know about it.
     :replies: []
   - :author: nononopotato
-    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbalad9/
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbalad9
     :body: |-
       I tried this with my input: ChineseRemainder[{10, 15, 17, 1, 0, 1}-Range[6], {13, 17, 19, 7, 5, 3}]
 
       And it gave me 388735, which wasn't the correct answer..? Anything I did wrong?
     :replies:
     - :author: jtbandes
-      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbatom5/
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/dbatom5
       :body: |-
         You missed a `-`; it should be `ChineseRemainder[-{10, 15, 17, 1, 0, 1}-Range[6], {13, 17, 19, 7, 5, 3}]`.
 
         That's because, for instance, for your first disc we want `10+t+1 = 0 (mod 13)`, or `t = -10-1 (mod 13)`.
       :replies: []
 - :author: andars_
-  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7u0fg/
+  :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7u0fg
   :body: |-
     Ruby!
 
@@ -86,7 +86,7 @@
     ```
   :replies:
   - :author: jtbandes
-    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uy6u/
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7uy6u
     :body: |-
       Quick tip that I've been using for some of these: you can use the `DATA`/` __END__ ` feature to cram everything in one file:
 
@@ -98,11 +98,11 @@
       ```
     :replies:
     - :author: andars_
-      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7v4ik/
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7v4ik
       :body: That's neat, I haven't seen that before. I'll give it a try.
       :replies: []
   - :author: mperham
-    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vnz8/
+    :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db7vnz8
     :body: |-
       I created the input manually rather than regexp'ing it. Enumerable#all? came in super-handy:
 
@@ -127,18 +127,18 @@
       ```
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db805j4/
+      :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db805j4
       :body: "[deleted]"
       :replies:
       - :author: mperham
-        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8c8jb/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8c8jb
         :body: |-
           Whoa, that first line is amazing. Kudos.
 
           Side note, I always use #detect because #find clashes with ActiveRecord::Base#find.
         :replies: []
       - :author: eregontp
-        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8qn8e/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ifn4v/2016_day_15_solutions/db8qn8e
         :body: |-
           Mine is p (0..Float::INFINITY).find { |t| disks.all? { |dt, n, pos| (t + pos + dt) % n == 0 } }
 

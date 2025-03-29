@@ -1,6 +1,6 @@
 ---
 - :author: DmitryShvetsov
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/ggz5ipr/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/ggz5ipr
   :body: |-
     # Ruby
 
@@ -13,11 +13,11 @@
     in part 2, it became obvious how to navigate the data as a tree using the depth-first search, which led to a more straightforward solution
   :replies: []
 - :author: skawid
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf3i6dx/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf3i6dx
   :body: 'Second day playing with ruby! Not sure if it''ll replace python for me, but it''s nice to try: https://github.com/simonbrahan/aoc2020/blob/master/day7/main.rb'
   :replies: []
 - :author: Ryuujinx
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf0sr0o/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf0sr0o
   :body: |-
     # Ruby
 
@@ -32,7 +32,7 @@
     Regex please, if I want to fuck my performance just let me.
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01zpu/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01zpu
   :body: |-
     # Ruby
 
@@ -89,7 +89,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01dpo/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gf01dpo
   :body: |-
     #namingThings :/
 
@@ -134,7 +134,7 @@
     ```
   :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexn7cd/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexn7cd
   :body: |-
     # Ruby
 
@@ -188,7 +188,7 @@
     ```
   :replies: []
 - :author: nilsecc
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gez6mky/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gez6mky
   :body: |-
     **Ruby:**
 
@@ -280,7 +280,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex50tj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex50tj
   :body: |-
     **Ruby:** 14:12/19:59, 470/338
 
@@ -289,7 +289,7 @@
     Slightly tricky string parsing, needing to handle bag/bags, the trailing '.' and the leading numbers. I didn't try to guess Ruby's `String#split(str, limit)` method for splitting on just the first occurrence, and instead did hack stuff with `index` and slicing the string.
   :replies: []
 - :author: blafunke
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex7a0p/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex7a0p
   :body: |-
     **Ruby**
 
@@ -347,7 +347,7 @@
     ```
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexju4z/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexju4z
   :body: |-
     # Ruby
 
@@ -385,18 +385,18 @@
     ```
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexmrpc/
+    :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexmrpc
     :body: |-
       The way I store the information about what a bag holds is unorthodox based on my reading of other solutions here.
 
       Rather than storing a quantity and a color, I store the color numerous times. So instead of [3, "red"], I'll store ["red", "red", "red"] .. this makes the code behind my eventual counting approach (essentially the hottest loop in the program) more efficient, but in a real world scenario the memory usage would be frowned upon! ;-)
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geya3as/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geya3as
   :body: No ruby yet? Then I'll share my solution [here](https://github.com/Ganon11/AdventCode/blob/master/2020/Day7/src/Day7.rb)!
   :replies: []
 - :author: jtgorn
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geyf2ul/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/geyf2ul
   :body: |-
     Did not see a short ruby yet, so here is mine:
 
@@ -431,7 +431,7 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gewyjqt/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gewyjqt
   :body: |-
     Ruby 34/51. I forgot to handle bags containing no other bags while parsing, which wasn't a problem for the first one but definitely was for the second. Oh well.
 
@@ -483,7 +483,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex26kv/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gex26kv
   :body: |-
     # Ruby
 
@@ -539,7 +539,7 @@
     ```
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexm197/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8a31f/2020_day_07_solutions/gexm197
   :body: |-
     **Ruby**
 

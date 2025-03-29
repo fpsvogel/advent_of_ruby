@@ -1,10 +1,10 @@
 ---
 - :author: oantolin
-  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpd67g2/
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpd67g2
   :body: Another nice and easy one. I represented the infinite image as a pair of the background pixel state and a 2D-array of bits for the pixels. Here's a Common Lisp [program](https://topaz.github.io/paste/#XQAAgAD//////////wAUGQimgx+p6PZhRh7uIO5BVNPIdKEN9R6L6scYP/cAtBpttmBcgWreKz63ht/gJSzjtvO4chAn6ZfcoR0DXWrYkvC8H/QG01B9a4HC8MoJR96YoTr9mETWtJrmJyK0h4tDxxZfRzcOJkqt2/lSGETvOMlvKy/yR95Gw/NQqsA8paa+UNcnqTz8QiQm3Cu0xpJsLZW39bm3IYbrY1pPW0qnEraIm7E3evFhjoQZ4/NzDUNrnfUs+5WWCYsXiHMA55NVYziJt58pcFueeeVD1VUE6EPHEdsft4pobxD/RBl9HHzrROUIWDIVzZ6EUSsygIqIVGEhC5FBIV0spVYtE9nS4qpGxeMoM9l1GfjPawkGrvtrubYnbgJag6laI2/OD4thVrIKNvAZpkEKATVBQiS/+ObhMFrOoL9QOZTkoDjJi/vqgHgS3VvI1DxD6RrRv0riTy//iFV057ir47bomGG2/LZoC13BEetVMfd8UogwunoXYIuc47m4flV/tnlvDVigafmjdgGxnTDwgWe7YPORfvMfuP81Mn9pid4WwsecPagk4GI8M3Th9VMXQF7KseVO7M2PPQtBnBjZtCsN8YJZAiGaZ+z0IiApVeN/t5JA+KqVZvh+9GlqEnOVNB8T35szNHZAfBr++DNqInj/NvxaAjjz8atmdgO5xuOVbDOGwRqnsCKx5oCPbK3bn2U4ZgeirbmS2+YQA/7+j0trTVtZwLBtfEGAPCbL+W4grzL6LS9ze99DarpORC8ueB99ckBWe0OJUnCMux/ivj/YHM62f7wLtoxynLVabMeFEBnPq0eGAExuZAM7T43BcXK596ANAbLkCSXzU9fQqMvNhqcwHO/Be0knOF45ywmwk3NiwvzRdSo=).
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9gnx3/
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9gnx3
   :body: |-
     Ruby, 27 / 48
 
@@ -24,11 +24,11 @@
       - Using `cache[key] ||= begin … end`, the pixel’s result in each layer is cached, which speeds up the calculation by a lot.
   :replies:
   - :author: Floozutter
-    :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9qaw8/
+    :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9qaw8
     :body: Kudos! I tried to do the exact same thing in Python, but I was much slower even with the help of the standard library's `functools.cache`. ([Python](https://github.com/Floozutter/aoc-2021-python/blob/9d9800c94bf66890a0123a744352bf2fd8d7105f/day20/main.py), 1680/1482)
     :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9hlzi/
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hp9hlzi
   :body: |-
     Ruby, 330/250
 
@@ -68,7 +68,7 @@
     ```
   :replies: []
 - :author: klaustopher
-  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpa1nm8/
+  :url: https://www.reddit.com/r/adventofcode/comments/rkf5ek/2021_day_20_solutions/hpa1nm8
   :body: |-
     [Ruby](https://github.com/klaustopher/advent-of-code/commit/c26699666014342b17a93d5c8fc332ce4fa6d07a)
 

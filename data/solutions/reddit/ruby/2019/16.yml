@@ -1,13 +1,13 @@
 ---
 - :author: Kache
-  :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb3zrlr/
+  :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb3zrlr
   :body: |-
     **Ruby**
 
     [Part 1 and 2](https://github.com/Kache/advent_of_code/blob/8ee09f0889873dea5d4fde32ebcd160b5a2dd8b7/2019/solutions.rb#L599), about 10 lines each, runs in 2 secs & 4 secs, respectively
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fezx2c3/
+    :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fezx2c3
     :body: |-
       > Ruby
 
@@ -24,7 +24,7 @@
       Regards
     :replies:
     - :author: Kache
-      :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/ff2c8ir/
+      :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/ff2c8ir
       :body: |-
         Unwrapping the `reduce`, the above is same as:
 
@@ -37,11 +37,11 @@
         ```
       :replies:
       - :author: craigontour
-        :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/ff39jff/
+        :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/ff39jff
         :body: Sorry, I was really after explanation of how reduce(0) works
         :replies: []
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb4e57x/
+    :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb4e57x
     :body: |-
       Woop, Rubyists unite here in the comments :-)
 
@@ -54,6 +54,6 @@
       https://github.com/peterc/aoc2019solutions/blob/master/16.rb
     :replies:
     - :author: vinc686
-      :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb5105r/
+      :url: https://www.reddit.com/r/adventofcode/comments/ebai4g/2019_day_16_solutions/fb5105r
       :body: I couldn't finish part 2 in time today, I'm really impressed by both of you, my code is a mess by comparison!
       :replies: []

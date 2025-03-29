@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge41p/
+  :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge41p
   :body: |-
     Full disclosure: Of course for the leaderboard placement I will brute force the password by trying every permutation of abcdefgh. It makes sense to do that because we have the forward process programmed and "do not have time" to make the reverse process. At least, it would probably take more time to make the reverse process than to just brute force.
 
@@ -74,14 +74,14 @@
     As far as I can tell, there is only one unique solution for any given input (please correct if I am wrong).
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge6w8/
+    :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbge6w8
     :body: |-
       > As far as I can tell, there is only one unique solution for any given input
 
       All of the functions _should_ be perfectly reversible. I tried to be quite careful about that.
     :replies:
     - :author: daniel-sd
-      :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbges98/
+      :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbges98
       :body: |-
         For size 8 this is true. But for the sample size (5), rotate around letter is not always reversible.
 
@@ -104,18 +104,18 @@
         Unfortunately practicing with the sample input was quite confusing for this one.
       :replies:
       - :author: BumpitySnook
-        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgf1py/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgf1py
         :body: Your puzzle input wasn't abcde, though. Topaz controls the inputs and the scrambling recipe.
         :replies: []
       - :author: topaz2078
-        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgfoqx/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgfoqx
         :body: For the second part, you can use the example generator you wrote in part 1. Furthermore, your input is the process, not the string - the string you're working on is the same for everyone.
         :replies: []
       - :author: bildzeitung
-        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgexsx/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbgexsx
         :body: That's the gotcha -- size 8 is key to making that rule work. Eric's mapping function is unique over that string length.
         :replies: []
       - :author: eregontp
-        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbhak5z/
+        :url: https://www.reddit.com/r/adventofcode/comments/5ji29h/2016_day_21_solutions/dbhak5z
         :body: 'And indeed, for the example output (decab), there are two valid inputs: abcde and deabc.'
         :replies: []

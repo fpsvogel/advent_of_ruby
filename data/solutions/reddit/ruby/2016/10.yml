@@ -1,6 +1,6 @@
 ---
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0v9jb/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0v9jb
   :body: |-
     Ruby.
 
@@ -41,7 +41,7 @@
     The whole thing can be found [here](https://github.com/daniero/code-challenges/blob/master/aoc2016/10.rb)
   :replies: []
 - :author: blanketandtea
-  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0p8im/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db0p8im
   :body: |-
     **Ruby** for both steps
 
@@ -177,7 +177,7 @@
     ```
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db122wz/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hijk5/2016_day_10_solutions/db122wz
   :body: |-
     Ruby, with a coroutine (Fiber) per bot:
 

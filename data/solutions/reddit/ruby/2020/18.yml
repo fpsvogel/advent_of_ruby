@@ -1,13 +1,13 @@
 ---
 - :author: billiamthesecond
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggbs034/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggbs034
   :body: |-
     # [Ruby](https://www.billiam.org/advent-of-code/18.html)
 
     I struggled a bit with part 2 and then just did it with regex in a loop that wouldn't handle other operators or rules.
   :replies: []
 - :author: damyvv
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggao1o3/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/ggao1o3
   :body: |-
     # Ruby
 
@@ -35,7 +35,7 @@
     ```
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg9xkc7/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg9xkc7
   :body: |-
     # Ruby
 
@@ -44,7 +44,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQD9BQAAAAAAAAAilgYjwtWpSjoK7ZXFJt80jYPP3IxfbZ+qKhk6siCMDvFu5qxBhCrx/N+iUTnxs5HHTt6ONcgTjliaD7X5aLtYQfDhmm+vqguU2F7qhD2VDdV/Xl3gS+lwh3kkiuk9wTrDM0WaXyZTJX5k1uskG87cSrqYHABY8tn0mapauhERx/MGiPlGES5DivZExo8dhujcZTJC0X2Nkj9Z6xvXgWDcT4cR7deW+3oaI09sY3nbbv3Er3H7YF1Ic/9UBtdEOhrCwnFrrMVY7b70KYwh0eYort2+eyugvWaLdMxopLxW3i/qUE/2gKUkqyFiAwPDZcXaf5jHWbey2p2gUSKJNjN2hth4qWeUrEuMZ1zkERFWBa7/YpIw7n59NQbPfYIc/U843p7OlqUZ7Kj/B9zFRT6QCEPh9W2oDIk8XuLy3lavOeki52mNL8UnCmEp0ARsJ5DocCoJLoPwlPK1Xj0lQDuzZmvTcOSEyyYoJoZmSP53Wnn6Ca5roK26WGnqTBSCbVErUsCYJUrxdqxTFC+NnBU7HuBZJAMBPHUYrFACWWpAoK+eqr2PzS5gEuKEkKsN7SdSirZ+WHxxqoOgJUyqDN+Mf10kb1XoGraE4RDGbVfEGfHqH1893VG8SdqvaPA6e6lyvszdSVCJJe6gKPFsOZQwZDMkMb9FFE/sHkraK1HwjW0jhrX/ThRUt4f8d/XZMFs3btqSL+bJ/b1AUo1phaSNRfzCdcOWi0VgmeInQtlARI6NQFV8PscAHf/1vrJt)
   :replies: []
 - :author: paileyq
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg812h9/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg812h9
   :body: |-
     Thankyou Ruby for letting me redefine operators!
 
@@ -63,11 +63,11 @@
     ```
   :replies:
   - :author: valtism
-    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87vt4/
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87vt4
     :body: bruh
     :replies: []
 - :author: ndnenkov
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg81ply/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg81ply
   :body: |-
     Ruby
 
@@ -99,11 +99,11 @@
     That moment when... the metaprogramming in your language is so strong that it feels like cheating. xd
   :replies:
   - :author: frontpageminus
-    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84lvj/
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84lvj
     :body: Wow, this is genius. Never would’ve thought of doing it this way.
     :replies: []
 - :author: jschulenklopper
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8nfl2/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8nfl2
   :body: |-
     **Ruby**
 
@@ -133,7 +133,7 @@
     ```
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8q2xv/
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8q2xv
     :body: |-
       A tip: That `reduce` call is the same as just doing a `sum`:
 
@@ -142,15 +142,15 @@
       ```
     :replies:
     - :author: jschulenklopper
-      :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg93mq5/
+      :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg93mq5
       :body: Yes, that's even better. Thanks. See if I can change that in the original post.
       :replies: []
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8qbpp/
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8qbpp
     :body: Hey, I did [almost the same thing](https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8oy0d?utm_source=share&utm_medium=web2x&context=3). I tried overloading the operators in Integer, but tried to swap them directly and ran into trouble when I wanted to sum them. It worked out in the end though – my ["cleaned up" version](https://github.com/daniero/code-challenges/blob/master/aoc2020/ruby/18.rb) is very similar to yours, but using `**` to correct the precedence for part 1 didn't occur to me. Nice one
     :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg82rcr/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg82rcr
   :body: |-
     Ruby 19/30
 
@@ -177,14 +177,14 @@
     ```
   :replies: []
 - :author: wholarry
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8463r/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8463r
   :body: |-
     [Ruby](https://github.com/dgokman/advent_of_code_2020/blob/main/aoc_2020_18.rb)
 
     Fun with monkey patching!
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87tvv/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg87tvv
   :body: |-
     **Ruby:** 19:55/28:52, 705/601
 
@@ -193,7 +193,7 @@
     Gah, just awful. I TA'd a compiler class in college and a whole lot of good that did me! After nine minutes I still hadn't even come up with a sensible approach and deleted my code and started over. Blah. Though I actually do like my approach for Part 2: an expression without parentheses can be evaluated by splitting on ` * `, then eval-ing the addition parts and multiplying them together.
   :replies: []
 - :author: WholeWheatBagels-
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8c4mk/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8c4mk
   :body: |-
     # Ruby
 
@@ -202,14 +202,14 @@
     https://github.com/detjensrobert/advent-of-code-2020/blob/master/day18/day18.rb
   :replies:
   - :author: meh9083
-    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8mk99/
+    :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8mk99
     :body: |-
       Ingenious!
 
       I would not have been surprised if something randomly broke even just in the few functions you still call.
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8oy0d/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg8oy0d
   :body: |-
     Quickly rejected the idea to write a grammar in Antlr and went for a quick and dirty one today
 
@@ -252,14 +252,14 @@
     ```
   :replies: []
 - :author: parentheses-of-doom
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg96kpl/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg96kpl
   :body: |-
     [Iolang](https://twitter.com/prajjwalsin/status/1339944793460199426).
 
     Inspired by the Ruby solution this is in reply to. In IO you have complete control over the operator table, so its trivial to do something like this.
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84988/
+  :url: https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg84988
   :body: |-
     Ruby ~2000, ~1200. Enjoyed this one!
 

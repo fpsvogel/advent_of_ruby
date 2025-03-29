@@ -1,6 +1,6 @@
 ---
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf6d3jz/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf6d3jz
   :body: |-
     Ruby. I found this much easier than day 07.
 
@@ -48,15 +48,15 @@
     ```
   :replies:
   - :author: rune_kg
-    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gfkdzu8/
+    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gfkdzu8
     :body: Very pretty!
     :replies: []
 - :author: tckmn
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0zdyb/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0zdyb
   :body: "[ruby 6/2](https://gist.github.com/tckmn/ba6c243bfde8d73c4e92033f7f0cabef), unedited from my part 2 submission, posting because it's pretty silly. nothing like reading the input file 635 times to avoid bugs from forgetting to copy / reset things lol"
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1nh3w/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1nh3w
   :body: |-
     # Ruby
 
@@ -100,14 +100,14 @@
     ```
   :replies: []
 - :author: Ryuujinx
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2g2b8/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2g2b8
   :body: |-
     # Ruby
 
     This one I didn't find terribly difficult, just moving some pointers around an array really. Code: https://github.com/Ryuujinx/aoc2020/tree/main/day8
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2jcsg/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf2jcsg
   :body: |-
     # Ruby
 
@@ -168,7 +168,7 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0yz10/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf0yz10
   :body: |-
     Ruby 423/218
 
@@ -221,7 +221,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf12k89/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf12k89
   :body: |-
     **Ruby:** 4:41/9:25, 348/203
 
@@ -230,7 +230,7 @@
     Forgot to increment the instruction pointer after updating the accumulator in Part 1 and lost 40 seconds waiting for the submission timeout. But otherwise pretty straightforward. Will have to clean it up before the next processor problem!
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1n8t6/
+    :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1n8t6
     :body: |-
       I took a similar approach to you, but got majorly screwed by `dup` not being a deep clone, as I was editing the inner array directly (e.g. like `new_ops[i][0] = :nop` would have been in your scenario) and screwing up my original code ;-) Wasted 10 minutes of my time debugging that one.. oops! :-)
 
@@ -243,7 +243,7 @@
       ```
     :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf159kl/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf159kl
   :body: |-
     # Ruby
 
@@ -300,14 +300,14 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf19a9e/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf19a9e
   :body: |-
     The worst possible solution in ruby:
 
     [https://github.com/sreedevk/advent-of-code/blob/master/2020/day8/main.rb](https://github.com/sreedevk/advent-of-code/blob/master/2020/day8/main.rb)
   :replies: []
 - :author: hamnixster
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1a0rj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf1a0rj
   :body: |-
     Here is my ruby solution. For part 2, using the marked up instructions from part one, it works backwards from the last intcode looking for candidates to flip that were visited in the course of executing part1. Checking these, I got the answer.
 
@@ -387,7 +387,7 @@
     ```
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf28t0s/
+  :url: https://www.reddit.com/r/adventofcode/comments/k8xw8h/2020_day_08_solutions/gf28t0s
   :body: |-
     Here's my [Ruby solution](https://github.com/odlp/advent-of-code-2020/blob/main/day-8/boot.rb):
 

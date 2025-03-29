@@ -1,6 +1,6 @@
 ---
 - :author: leio10
-  :url: https://www.reddit.com/r/adventofcode/comments/a6chwa/2018_day_15_solutions/ebvjsbq/
+  :url: https://www.reddit.com/r/adventofcode/comments/a6chwa/2018_day_15_solutions/ebvjsbq
   :body: |-
     [Ruby]
 
@@ -9,7 +9,7 @@
     My biggest problem was that I was considering the _reading order_ when choosing the next step for moving, but not doing it to choose the target adjacent square. I even passed the part 1 with this error, but not the part 2. I finally fixed adding the target to array in [https://gist.github.com/leio10/6a73c9380348a2ff57d54185d1d40d25#file-aoc-day15-rb-L85](https://gist.github.com/leio10/6a73c9380348a2ff57d54185d1d40d25#file-aoc-day15-rb-L85)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/a6chwa/2018_day_15_solutions/ebxknfq/
+  :url: https://www.reddit.com/r/adventofcode/comments/a6chwa/2018_day_15_solutions/ebxknfq
   :body: |-
     This took me a while, and my solution in **Ruby** is a bit verbose - but I tried to make it easy to follow (at least for myself) to minimize mistakes.
 

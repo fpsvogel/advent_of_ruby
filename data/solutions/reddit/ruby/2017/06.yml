@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dku/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dku
   :body: |-
     Ruby; I tried guessing what it wanted me to do (fill towards the start and loop back, instead of filling after the index of the unit) and I guessed wrong. :P
 
@@ -27,19 +27,19 @@
     ```
   :replies:
   - :author: nakilon
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqua8h9/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqua8h9
     :body: Excuse me, where is the loop?
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqub2k2/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqub2k2
       :body: The loop starts at previous counter with the same state to the current counter. `p i` prints the solution for part 1, while `h[s.to_s]` to `i` is the loop, so the size is `p i-h[s.to_s]`
       :replies:
       - :author: nakilon
-        :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquelrk/
+        :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquelrk
         :body: Oops, didn't see the markdown code block had scrollbar...
         :replies: []
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquidyd/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquidyd
     :body: |-
       My solution in Ruby, also using string representation of memory banks as key in a hash, and the cycle count of when that configuration has been seen is stored as value.
 
@@ -70,7 +70,7 @@
       ```
     :replies: []
 - :author: nakilon
-  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dry/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqu8dry
   :body: |-
     # Ruby
 
@@ -107,18 +107,18 @@
     ```
   :replies:
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudd9e/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudd9e
     :body: ~~$/=' ';a=$\<.map &:to\_i to get rid of another char.~~ (\<- I couldn't get it to put a tab character here) `until ... end` can be replaced with modifier syntax `()until ...` to get rid of 2 chars (including whitespace). Also, it doesn't really matter that `m` is initialized to zero for part 2 (end+k - start+k == end-start) so you can delete `,m ,0` and replace the two `m` references with the global variable `$.` which is the "lines read" counter (because we don't use `gets` again)
     :replies:
     - :author: nakilon
-      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquek6v/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dquek6v
       :body: |-
         There is some problem with input taken from site -- maybe that some gaps consist of two whitespace characters instead of one so `a` gets parsed incorrectly for me.
 
         The rest works fine. Thanks! -4 chars
       :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqw138x/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqw138x
   :body: |-
     **Ruby REPL** (irb) solution. The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
 
@@ -137,7 +137,7 @@
     ```
   :replies: []
 - :author: doromin
-  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudcpy/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqudcpy
   :body: |-
     **Ruby** simply using mem-string(join) instead of array of mem-arrays as comparison made it fast enough.
 
@@ -177,14 +177,14 @@
     ```
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui874/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui874
     :body: |-
       Question: would your `data.join` not be fallible for cases in which the string representation of two different arrays is equal? As in: `[1,11,0,22,2].join == [11,1,0,2,22].join` which is `true`, but the arrays clearly aren't.
 
       I think you got lucky that this case didn't appear with your input :-) A `data.join(",")` would prevent this from occurring.
     :replies: []
 - :author: disclosure5
-  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui8ho/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqui8ho
   :body: |-
     Rather than paste another boring Ruby solution, this is the sort of workload where jruby shines. Have a benchmark. Even though this horrible test included the significant warm up time, which is about six seconds on this machine.
 
@@ -196,7 +196,7 @@
     ```
   :replies:
   - :author: maxerickson
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqumy44/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqumy44
     :body: |-
       Looks like checking whether the current arrangement has already occurred is really costly there. My solution is similar to the Python solutions posted already, uses sets to check for the repeat (my computer is ancient):
 
@@ -206,17 +206,17 @@
       ```
     :replies:
     - :author: nakilon
-      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv10ll/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv10ll
       :body: I suppose he's putting arrangements to Array, not Hash. That costs him a lot but he's free of collision unlike of your solution.
       :replies: []
   - :author: nakilon
-    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv0wdf/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv0wdf
     :body: |-
       I've got 0.090s and 0.170s
 
       Is my MRI broken?
     :replies:
     - :author: disclosure5
-      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv90m8/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hvtoq/2017_day_6_solutions/dqv90m8
       :body: I'm going to guess your solution is a lot more performant!
       :replies: []

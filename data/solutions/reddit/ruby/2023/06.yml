@@ -1,6 +1,6 @@
 ---
 - :author: comforttiger
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kcauzex/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kcauzex
   :body: |-
     i started teaching myself ruby a few days ago, so i've been doing advent of code in it too.
 
@@ -9,21 +9,21 @@
     https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day6.rb
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6z2sf/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6z2sf
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day06.rb)
 
     I did some basic algebra to compute the bounds of the hold times that would result in winning distances, but I'm now seeing from other posts here that I could have just brute-forced the result. Engineers, always making everything more difficult than it needs to be :)
   :replies:
   - :author: glebm
-    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc741f1/
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc741f1
     :body: |-
       The algebraic solution also has a bug because it solves for \>= distance but the problem asks for strict inequality. Example input: time = 8, distance = 12, answer = 3.
 
       Noticed this in my own algebraic solution after seeing u/maths222 answer in https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc6y799/
     :replies:
     - :author: HAEC_EST_SPARTA
-      :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc75kx3/
+      :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc75kx3
       :body: |-
         My solution does give the correct result in this case:
 
@@ -37,7 +37,7 @@
         Thanks for the shout regardless: this comment made me do some more analysis regarding exactly why the root adjustment scheme works, which was fun to work through!
       :replies:
       - :author: glebm
-        :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76e58/
+        :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76e58
         :body: |-
           Ah, got you!
 
@@ -56,11 +56,11 @@
           by u/mebeim in https://www.reddit.com/r/adventofcode/comments/18bwe6t/comment/kc74csg/?utm_source=share&utm_medium=web2x&context=3
         :replies:
         - :author: HAEC_EST_SPARTA
-          :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76to8/
+          :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc76to8
           :body: 'Oh nice! I hadn''t thought about adjusting the roots beyond the range of the inequality: thanks for pointing that out!'
           :replies: []
 - :author: dhruvasagar
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7c7ag/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7c7ag
   :body: |-
     ```ruby
     def read_input
@@ -88,7 +88,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7zfqj/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7zfqj
   :body: |-
     Quadratic formula for the win!!
 
@@ -97,7 +97,7 @@
     [Video Walkthrough](https://youtu.be/ILMuzedm4uA)
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc806ei/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc806ei
   :body: |-
     Disclaimer: I love short and concise code while keeping it relatively readable, And I love messy golf code as well - so this post concludes my journey to the shortest golf code version for todays puzzle, collecting 5 different solving methods on the way. I applied it in ruby but I am certain that this version can be applied to most other languages as well.
 
@@ -138,7 +138,7 @@
     Thanks for reading. If you have ideas for optimizing or want to showcase your own shorties feel free to share :)
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc88ggj/
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc88ggj
     :body: |-
       Ooh, I like how you've reused the code and also included multiple approaches. I also golfed it in Ruby but was more just focused on getting the end result so it came out rather differently:
 
@@ -152,7 +152,7 @@
       Also `reduce(&:*)` can become `reduce :*`
     :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6wyz0/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6wyz0
   :body: |-
     Part 1:
 
@@ -219,7 +219,7 @@
     ```
   :replies: []
 - :author: maths222
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6y799/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6y799
   :body: |-
     3175/1794
 
@@ -228,7 +228,7 @@
     [code](https://gist.github.com/maths22/52163cd7b40e149fc35e7784b8032914)
   :replies: []
 - :author: kwitczak
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc78khj/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc78khj
   :body: |-
     Part 2, attempted the binary search approach. I feel it's overcomplicated and could be simplified/shortened. Execution time is around 0.3 ms, previous brute-force was around 3.5 seconds.
 
@@ -271,7 +271,7 @@
     ```
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc797he/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc797he
   :body: |-
     Nothing to be proud of xD.
 
@@ -302,7 +302,7 @@
     ```
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7ao5c/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7ao5c
   :body: |-
     Part 1
 
@@ -321,7 +321,7 @@
     This one was fun and easy, a nice way to start the morning in Europe :)
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7q8zq/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7q8zq
   :body: |-
     My lazy ass 6am brain did not realize you could just like _solve_ the problem like a sane person would using basic maths. `sqrt(t^2 - 4 * d)` is all it requires to solve this problem. **Or so I thought**
 
@@ -347,7 +347,7 @@
     [Edit] Improved Golf Bytecount
   :replies: []
 - :author: swhitt
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8uder/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8uder
   :body: |-
     [day06.rb](https://gist.github.com/swhitt/8b74be95824d43df030887a46e23454d)
 
@@ -356,7 +356,7 @@
     I only looked at the input file once completing my initial part 1 solution and was pleasantly surprised.
   :replies: []
 - :author: tenderlove
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8zdc2/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc8zdc2
   :body: |-
     Part 1:
 
@@ -394,7 +394,7 @@
     ```
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc98wxt/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc98wxt
   :body: |-
     ```ruby
     # Time: 51 69 98 78
@@ -415,7 +415,7 @@
     ```
   :replies: []
 - :author: Potential-Series-105
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc9pb1q/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc9pb1q
   :body: |-
     Part 1 just under a hundred bytes with 99 bytes total:
 
@@ -424,7 +424,7 @@
     ```
   :replies: []
 - :author: coderhs
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6yjzm/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc6yjzm
   :body: |-
     Considering the small size of today's input I just typed it in.
 
@@ -447,7 +447,7 @@
     ```
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc72hkn/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc72hkn
   :body: |-
     Part 2 can be optimized by searching from the middle to the first distance that is lower than the record. part 2 still takes 2.5 seconds but managable.
 
@@ -482,7 +482,7 @@
     ```
   :replies:
   - :author: Symbroson
-    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7p1t2/
+    :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc7p1t2
     :body: |-
       I noticed that the code didnt work for the test input any more. I fixed this and also shortened the code quite a bit by extracting a function and better parsing:
 
@@ -497,7 +497,7 @@
       ```
     :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc758e3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18bwe6t/2023_day_6_solutions/kc758e3
   :body: |-
     ```ruby
     times, distances = ARGF.readlines.map { _1.scan(/\d+/).map(&:to_i) }

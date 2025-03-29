@@ -1,6 +1,6 @@
 ---
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7l3v4/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7l3v4
   :body: |-
     **#16** _- Ruby_
 
@@ -11,11 +11,11 @@
     If I were to re-write it now, I'm sure it would be 1/3 the number of lines and much cleaner. Got the job done in just under an hour, though!
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cygv2kb/
+    :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cygv2kb
     :body: I was expecting it to be truly hideous when you said that. I had a look. It has some hacks, but it's not as bad as you made out!
     :replies: []
 - :author: tomb0y
-  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy86y2x/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy86y2x
   :body: |-
     [longish ruby solution](https://gist.github.com/tomb0y/577ea0f8bc17388c24a4)
 
@@ -90,7 +90,7 @@
     ```
   :replies: []
 - :author: mkigikm
-  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7lr92/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy7lr92
   :body: |-
     Some pretty gross ruby (globals, magic numbers, etc.) that does a BFS, pruning nodes that are worse than a best know solution.
 
@@ -186,7 +186,7 @@
     ```
   :replies: []
 - :author: Etsap
-  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy87l69/
+  :url: https://www.reddit.com/r/adventofcode/comments/3xspyl/day_22_solutions/cy87l69
   :body: |-
     Ruby: I like to optimize it for fewest lines of code, but no promises on readability. Runs in under 30 seconds for my input. Depth-first with pruning based on best solution found so far.
 

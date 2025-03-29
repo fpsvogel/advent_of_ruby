@@ -1,6 +1,6 @@
 ---
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izrvz8i/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izrvz8i
   :body: |-
     Part 1 in Ruby
 
@@ -40,14 +40,14 @@
     I realize it's really slow. Any suggestions wellcome.
   :replies: []
 - :author: Milo33
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izp0p5p/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izp0p5p
   :body: |-
     Few days late but my Ruby solution. Happy with this one after only starting with Ruby a week or two ago.
 
     https://gist.github.com/e-chapin/721520e42b0029665c5e57fa905a431a
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/ize38wc/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/ize38wc
   :body: |-
     Ruby
 
@@ -72,30 +72,30 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/iziubo0/
+    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/iziubo0
     :body: Super elegant.
     :replies: []
 - :author: kevinluo201
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd5hij/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd5hij
   :body: "My [Ruby version](https://github.com/kevinluo201/aoc/blob/main/2022/day8/day8.rb)\n\nI use `transpose` for easier fetching `up` and `down` values \U0001F603\n\n```ruby\n    grid = []\n    File.readlines('input').each do |line|\n      break if line == \"\\n\"\n      grid << line.chomp.split('').map(&:to_i)\n    end\n    grid_t = grid.transpose\n\n    # part1\n    ans = grid.length * 4 - 4\n    (1..grid.length - 2).each do |i|\n      (1..grid.length - 2).each do |j|\n        left = grid[i][0..j - 1].all? { |t| t < grid[i][j] }\n        right = grid[i][j + 1..-1].all? { |t| t < grid[i][j] }\n        up = grid_t[j][0..i - 1].all? { |t| t < grid[i][j] }\n        down = grid_t[j][i + 1..-1].all? { |t| t < grid[i][j] }\n        ans += 1 if left || right || up || down\n      end\n    end\n    puts ans\n\n    # part2\n    ans = 1\n    (1..grid.length - 2).each do |i|\n      (1..grid.length - 2).each do |j|\n        left = grid[i][0..j - 1].reverse.find_index { |t| t >= grid[i][j] }\n        left = left ? left + 1 : grid[i][0..j - 1].length\n        right = grid[i][j + 1..-1].find_index { |t| t >= grid[i][j] }\n        right = right ? right + 1 : grid[i][j + 1..-1].length\n        up = grid_t[j][0..i - 1].reverse.find_index { |t| t >= grid[i][j] }\n        up = up ? up + 1 : grid_t[j][0..i - 1].length\n        down = grid_t[j][i + 1..-1].find_index { |t| t >= grid[i][j] }\n        down = down ? down + 1 : grid_t[j][i + 1..-1].length\n\n        tmp = left * right * up * down\n        ans = tmp if tmp > ans\n      end\n    end\n    puts ans\n```"
   :replies:
   - :author: upboats_around
-    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd89y2/
+    :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izd89y2
     :body: Nice. `[].max < grid[i][j]` can replace your `.all?` usage in part 1, and `...` excludes the right value of a range so you can do `0...j` instead of `0..j-1`
     :replies: []
 - :author: ScaredOfMyRawr
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izehf8e/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izehf8e
   :body: "[Today's solution in Ruby](https://medium.com/@ashley-peacock/advent-of-code-2022-day-8-solution-treetop-tree-house-55717f6635bf), made a silly mistake, but glad I got there in the end! I did wonder whether depth-first or breadth-first search would be a nice way to do it, especially for the second one..."
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izei6x0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izei6x0
   :body: |-
     Ruby
 
     Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/8)Walkthrough Video: [YouTube](https://youtu.be/WDir-ZdMcK0)
   :replies: []
 - :author: arifba
-  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izdbphp/
+  :url: https://www.reddit.com/r/adventofcode/comments/zfpnka/2022_day_8_solutions/izdbphp
   :body: |-
     **Ruby**
 

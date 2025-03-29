@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keh3elw/
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keh3elw
   :body: |-
     Very slow second part, but works, the maths trick for part 2 threw me for a loop!
 
@@ -9,7 +9,7 @@
     [Video Walkthrough](https://youtu.be/99Mjs1i0JxU)
   :replies: []
 - :author: kateba72
-  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebuguk/
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebuguk
   :body: |-
     [Source](https://github.com/Kateba72/advent_of_code/blob/main/aoc/y2023/d21.rb)
 
@@ -50,11 +50,11 @@
     And after ~3 hours, I eliminated the last off-by-one error and got the correct solution
   :replies:
   - :author: Draco18s
-    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kec8yj3/
+    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kec8yj3
     :body: I ended up with a very similar diagram in [my own doodly notes](https://github.com/Draco18s/Advent-of-Code-2023/blob/main/Day21.cs#L276).
     :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebeey6/
+  :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/kebeey6
   :body: |-
     Executes in ~1.5 seconds. [link to solution](https://github.com/alex-Symbroson/Advent-of-Code/blob/master/2023/21.rb)
 
@@ -63,7 +63,7 @@
     Optimized the time by adding a cache, because each step with the same parity can be calculated from the previous step with the same parity, plus the new steps. So we only need to re-calculate the current unvisited positions.
   :replies:
   - :author: Symbroson
-    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keboy52/
+    :url: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/keboy52
     :body: |-
       I was able to optimize the quadratic formula by solving the quadratic formula equation system for `x = [-1, 0, 1]`, basically walking back in history. Halved execution time to about `650ms`
 

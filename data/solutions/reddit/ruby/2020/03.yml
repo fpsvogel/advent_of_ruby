@@ -1,6 +1,6 @@
 ---
 - :author: blafunke
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gesnj0d/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gesnj0d
   :body: |-
     Ruby
 
@@ -27,7 +27,7 @@
     ```
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geojvcd/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geojvcd
   :body: |-
     **Ruby**
 
@@ -62,7 +62,7 @@
     ```
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehbw6b/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehbw6b
   :body: |-
     My solution in [Ruby](https://github.com/odlp/advent-of-code-2020/blob/main/day-3/path.rb):
 
@@ -96,7 +96,7 @@
     ```
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geiu43e/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geiu43e
   :body: |-
     Ruby
 
@@ -127,7 +127,7 @@
     ```
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegu4yf/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegu4yf
   :body: |-
     Kind of dirty ruby solution...
 
@@ -152,7 +152,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegzjz1/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegzjz1
   :body: |-
     **Ruby:** 3:52/6:31, 345/279
 
@@ -163,7 +163,7 @@
     I'll be streaming every day on [Twitch](https://twitch.tv/codeistheend).
   :replies: []
 - :author: DropkickFish
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehbt8x/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehbt8x
   :body: |-
     Ruby part 1, I'll do part 2 after work
 
@@ -189,7 +189,7 @@
     ```
   :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehtsaw/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehtsaw
   :body: |-
     My solution in Ruby. It's a little sloppy but it got the job done.
 
@@ -235,7 +235,7 @@
     ```
   :replies: []
 - :author: DropkickFish
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geigsid/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geigsid
   :body: |-
     Ruby Pt 2, bad day edition. Silver lining: Looking at other solutions it looks like I should learn more about matrices and how to traverse them. One thing I'm loving about Advent of Code is I'm learning a lot more about gaps in my knowledge that I'd probably not have encountered in my own projects.
 
@@ -274,7 +274,7 @@
     ```
   :replies: []
 - :author: nata79
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gej2w5a/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gej2w5a
   :body: |-
     **Ruby**
 
@@ -308,7 +308,7 @@
     ```
   :replies: []
 - :author: readyready15728
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehpi47/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gehpi47
   :body: |-
     A lot of solutions seem needlessly complex. Here's how I did it in Ruby:
 
@@ -332,7 +332,7 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegiesj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegiesj
   :body: |-
     Ruby, 81/104. I wasn't sure if this code would have an off-by-one error when I submitted the answers, but I guess it worked.
 
@@ -365,7 +365,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegk1u6/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegk1u6
   :body: |-
     ### [Ruby (1525/1057)](https://github.com/Sharparam/advent-of-code/blob/master/2020/day3/solution.rb)
 
@@ -388,7 +388,7 @@
     ```
   :replies: []
 - :author: qaisjp
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegk33c/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegk33c
   :body: |-
     # Ruby
 
@@ -440,7 +440,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegkvqj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/gegkvqj
   :body: |-
     # Ruby
 
@@ -459,11 +459,11 @@
     ```
   :replies: []
 - :author: chaelcodes
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geglwgo/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geglwgo
   :body: Ruby https://github.com/ChaelCodes/Advent-of-Code-2020/pull/4
   :replies: []
 - :author: maccosmo
-  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geh8qkj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k5qsrk/2020_day_03_solutions/geh8qkj
   :body: |-
     My solution in Ruby
 

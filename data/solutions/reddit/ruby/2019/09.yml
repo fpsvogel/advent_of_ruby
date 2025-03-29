@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/faxrgkx/
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/faxrgkx
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_09
   :replies: []
 - :author: Suitable_Flounder
-  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9zrhq/
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9zrhq
   :body: |-
     **Ruby**
 
@@ -16,7 +16,7 @@
     Anway, FWIW, [Ruby code](https://topaz.github.io/paste/#XQAAAQDYAwAAAAAAAAAoHInmjW7FQ21VepncIdt88EyjWtU63IQl6JqtLHB2nLT3hJaF+dOKgtxR8uSGS7VNeLB+m6bnxV3dumUheE5ZRkr1ullBW6L/9FK38Zyagat5B8/1oc+0wsi2wV9AwlMi+QDPT7n36Y6eq5Egux+YiPCRAGk2R66MEe9PpELpaA+J63XTIYGxh7tP2hKQXkl0zXPv/U+G6XveWaJYJZcXv08Gj0hEoCVrqvL6NlH+MlLmZQrYcv37YDxzy1gXagYMRUZsPPUYGOAGAJLrQjwzhbqg9yKBgtV3lv82MmA9Bn0Eb+z7loEdZC/TeNO6XwZ2LAdZCENBRVLKnZZ4S3elhXNnzu/Ad+fxaFgbAogWY5u1Z1o5JJKFLiIYqBn2+IhIzdXLLZyg30BJgy9ywOrSM/ULzDXsiGrHIpLol7nEgqovlnCQJmIxM6uz6+d79iErf4DGM3hqIFQ0tPKWd/tIoavd1wpIk0lebXHMEJni4NKMTW8N4qugzSh+KEhX3f98ZRmQ)
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qba7/
+  :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qba7
   :body: |-
     Hi.
 
@@ -45,6 +45,6 @@
     See you next time.
   :replies:
   - :author: goliatskipson
-    :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qnei/
+    :url: https://www.reddit.com/r/adventofcode/comments/e85b6d/2019_day_9_solutions/fa9qnei
     :body: So ... Part 2 is testing a recursive function?
     :replies: []

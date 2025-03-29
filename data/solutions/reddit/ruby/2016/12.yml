@@ -1,6 +1,6 @@
 ---
 - :author: yjerem
-  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36vjr/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36vjr
   :body: |-
     This was really fun! Here's a compiler in Ruby that outputs C.
 
@@ -41,11 +41,11 @@
     ```
   :replies:
   - :author: willkill07
-    :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36zjn/
+    :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36zjn
     :body: heh, I [did mine in awk](https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db36od6/). Almost identical
     :replies: []
 - :author: brantyr
-  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db37axs/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hus40/2016_day_12_solutions/db37axs
   :body: |-
     Ruby assembunny parser. Scraped into the top 100, but have done some heavy refactoring since that
 

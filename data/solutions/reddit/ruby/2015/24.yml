@@ -1,6 +1,6 @@
 ---
 - :author: mkigikm
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9tczw/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9tczw
   :body: |-
     So proud of this ridiculous ruby. It has everything: monkey-patching basic classes, awful variable names, and the use of begin and rescue as a goto statement. It's fun to see what you can come up with when you aren't worried about a code review.
 
@@ -89,11 +89,11 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyehlh1/
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyehlh1
     :body: I've got a real think for code like this. Love it.
     :replies: []
 - :author: cort_troc
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9syc6/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9syc6
   :body: |-
     **Ruby**. Couldn't work out how to build in picking only array elements of the smallest length after the select so broke it out manually. Guessed on the ranges because it was computationally expensive. Took me 15 minutes before I realized working out the algorithm on the example inputs was much faster than doing 4..18 brute force on the full input!
 
@@ -124,7 +124,7 @@
     ```
   :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya5tre/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya5tre
   :body: |-
     **5th in 9:25 using Ruby!**
 
@@ -147,11 +147,11 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya7f1f/
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya7f1f
     :body: "[deleted]"
     :replies:
     - :author: cort_troc
-      :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyadzcw/
+      :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyadzcw
       :body: |-
         Nice! I got stuck in mine trying to select the smallest array size from multiple, because i'd put a range to loop the combinations. That's much better.
 
@@ -165,7 +165,7 @@
         ```
       :replies:
       - :author: cort_troc
-        :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeyqm/
+        :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeyqm
         :body: |-
           recursive makes it look a bit smaller. I guess it's fair to call that a one liner.
 
@@ -177,11 +177,11 @@
           ```
         :replies: []
   - :author: TheNiXXeD
-    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya81r6/
+    :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cya81r6
     :body: Nice, that's the same logic I used for my JS solution.
     :replies: []
 - :author: iodiot
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9u7wo/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cy9u7wo
   :body: |-
     **Ruby**. Simple bfs. My guess was to add the heaviest gift into initial solution.
 
@@ -233,7 +233,7 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyabdk1/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyabdk1
   :body: |-
     **Ruby**
 
@@ -280,7 +280,7 @@
     ```
   :replies: []
 - :author: SomebodyTookMyHandle
-  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeja9/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y1s7f/day_24_solutions/cyaeja9
   :body: |-
     Ruby solution that actually checks the remaining present weights for validity. More verbose than others and more dependent on doing some preliminary math beforehand. First, solutions to the first part of the problem (fewest number of packages) are generated and sorted by "quantum entanglement". Then and only then are each of these checked in order to see whether the remaining presents can be split up properly.
 

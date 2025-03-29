@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10wbf/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10wbf
   :body: |-
     Part 1 went well. Thanks to language I chose (Ruby), it is easy to code the "reverse these N elements" without error. Since I didn't want to deal with the wrap-around, I just always rotate the array so that I'm reversing the **first** N elements, and then rotate the array back when I'm done. This can be done in the various languages that allow assigning an array A1 into a subarray of another array A2, modifying multiple elements of A2 at once. For another example language, Python will do this too with `l[0:5] = reversed(l[0:5])`
 
@@ -35,15 +35,15 @@
     ```
   :replies:
   - :author: KnorbenKnutsen
-    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1bld9/
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1bld9
     :body: Did the same thing in Python, kept the list in a deque that I rotated `-(current_position + skip_steps) % len(my_deque)` every time. Kinda neat IMO.
     :replies: []
   - :author: hpzr24w
-    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1f30q/
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr1f30q
     :body: Yes, I like that idea of doing the rotation. Ended up rolling my own C++ `reverse()` rather than being able to use the Standard Library.
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr108bt/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr108bt
   :body: |-
     # irb (Ruby REPL) (41st, 16th)
 
@@ -58,11 +58,11 @@
     ```
   :replies:
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10yki/
+    :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr10yki
     :body: Ah, .each_slice! that was the library method I was missing... I've been trying to use `(0...256).group_by{|x|x/16}.map{|x,y|l[x,16].inject &:^}` and it was not giving me the right thing.
     :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr113ne/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr113ne
   :body: |-
     Ruby; Trigger warning: state approaching unsalvageable, not even I know what's happening here. I spent way too much time debugging because I used the wrong method to chop up the length-16 blocks.
 
@@ -95,7 +95,7 @@
     ```
   :replies: []
 - :author: mrstickman
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr12r55/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr12r55
   :body: |-
     Ruby 406/677: https://pastebin.com/qPtLqvzB
 
@@ -104,7 +104,7 @@
     - According to my stats page, this was some of my slowest work (counting only time spent actually working on the problem and not, say, sleeping or having a life outside of this), but I ranked higher than I ever have. This one's gonna be a weed-out problem for the masses.
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr18nn4/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr18nn4
   :body: |-
     ruby! this is the first time i've had problems with understanding the task that weren't due to reading the task too quickly. i had to stare at the part 2 task description for around 30 minutes before i could work out what was actually expected
 
@@ -157,7 +157,7 @@
     ```
   :replies: []
 - :author: skarlso
-  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr202kk/
+  :url: https://www.reddit.com/r/adventofcode/comments/7irzg5/2017_day_10_solutions/dr202kk
   :body: |-
     I'm actually happy with this _Ruby_ solution.
 

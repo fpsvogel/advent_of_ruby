@@ -1,6 +1,6 @@
 ---
 - :author: anadhdguy
-  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daocnfp/
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daocnfp
   :body: |-
     My solution for part1...
 
@@ -21,7 +21,7 @@
     ```
   :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dane3zx/
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dane3zx
   :body: |-
     Here's my pattern-matching-heavy Elixir answer for part 1! https://gist.github.com/EricDykstra/41b46c9a40bf499f97252a81ef32dd8a
 
@@ -30,7 +30,7 @@
     I used Ruby to initially to get on the leaderboard and this was my answer (slightly cleaned up and refactored). Part 2 answer changes only a couple of lines :) https://gist.github.com/EricDykstra/cbbb9b87209814d93e5bb0d252646d0d
   :replies: []
 - :author: dontfup
-  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daq39t1/
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daq39t1
   :body: |-
     Clever enough go at part 1 in ruby, but this won't do well for part 2:
 
@@ -63,7 +63,7 @@
     ```
   :replies:
   - :author: dontfup
-    :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daqq9c0/
+    :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/daqq9c0
     :body: |-
       Okay, I've adapted the same code to solve part 2
 
@@ -141,7 +141,7 @@
       ```
     :replies: []
 - :author: jchook
-  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dau2kcf/
+  :url: https://www.reddit.com/r/adventofcode/comments/5fur6q/2016_day_1_solutions/dau2kcf
   :body: |-
     Sorry I'm late to the party!
 

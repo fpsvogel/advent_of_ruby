@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc8pi3/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc8pi3
   :body: |-
     Ruby... and factoring out as much of the common code between parts 1 and 2 as is possible
 
@@ -27,11 +27,11 @@
     ```
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc9drb/
+    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc9drb
     :body: A work of art.
     :replies: []
 - :author: justjarvo
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsq2r/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsq2r
   :body: |-
     Part 1 Ruby golf:
 
@@ -45,7 +45,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcytm4/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcytm4
   :body: |-
     **Ruby** (2.5.3p105)
 
@@ -59,7 +59,7 @@
     But did [an OO approach](https://github.com/Sharparam/advent-of-code/blob/master/2018/day8/part2.rb) for part 2 as it felt more natural to me.
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc97go/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebc97go
   :body: |-
     I'm getting old... and slow :D Ruby
 
@@ -86,7 +86,7 @@
     ```
   :replies: []
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcbdl3/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcbdl3
   :body: |-
     Ruby
 
@@ -124,7 +124,7 @@
     ```
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcxwe0/
+    :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcxwe0
     :body: |-
       For your shifting, you could save a bit of space by doing
 
@@ -133,7 +133,7 @@
       ```
     :replies: []
 - :author: ShorrockIn
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsa65/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebcsa65
   :body: |-
     **Ruby** : The OO approach worked out pretty well with this one.
 
@@ -181,7 +181,7 @@
     ```
   :replies: []
 - :author: morfi717
-  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebenbhc/
+  :url: https://www.reddit.com/r/adventofcode/comments/a47ubw/2018_day_8_solutions/ebenbhc
   :body: |-
     Ruby
 

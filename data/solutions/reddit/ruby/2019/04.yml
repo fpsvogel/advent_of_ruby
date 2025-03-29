@@ -1,13 +1,13 @@
 ---
 - :author: Chibbot
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/fbxgvz7/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/fbxgvz7
   :body: |-
     Ruby solution for [Part One](https://repl.it/@Xerillius/AOC-41)
 
     Working on part two but it's giving me a lot more trouble than I thought it would.
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m0ha4/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m0ha4
   :body: |-
     Ruby - leaderboard be damned!
 
@@ -16,21 +16,21 @@
     https://github.com/ni3t/advent-2019/blob/master/4_secure_container.rb
   :replies:
   - :author: bibstha
-    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m1so2/
+    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m1so2
     :body: |-
       I had to go through the Enumerable api to find out `slice_when` which is very much similar to `chunk`. Took me way too long to find the method.
 
       https://github.com/bibstha/advent2019/blob/master/day04/soln\_test.rb
     :replies: []
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9lzhlu/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9lzhlu
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_04
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m0da5/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m0da5
   :body: |-
     Find rocket fuel requirements;
 
@@ -71,7 +71,7 @@
     Today's poem is a [chant](https://www.writersdigest.com/editor-blogs/poetic-asides/poetic-forms/chant-poems-poetic-forms). My poem sounded cooler in my head, but after having typed it I feel meh, didn't do it justice I think.
   :replies:
   - :author: nicereddy
-    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m2sn3/
+    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m2sn3
     :body: |-
       Interesting, your solution errors for me.
 
@@ -80,18 +80,18 @@
       ```
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m2ur6/
+      :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m2ur6
       :body: Thanks, there should be a `.to_s`. I recreated it from memory (since I changed the code between going into part 2, which is lost after saving), it's entirely my fault!
       :replies: []
   - :author: J-Swift
-    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m4jl1/
+    :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m4jl1
     :body: |-
       Ahhhhhhh `each_cons`. Thats what I was trying to think of before I said screw it and just did a handrolled for-loop version.
 
       Nice job
     :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m8jm9/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9m8jm9
   :body: |-
     Ruby
 
@@ -107,7 +107,7 @@
     ```
   :replies: []
 - :author: krazyito65
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9nl0xl/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9nl0xl
   :body: |-
     # RUBY
 
@@ -116,7 +116,7 @@
     Here's my Ruby solution, I've updated it, and now provides both solutions at around 1s.
   :replies: []
 - :author: Gck2702
-  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9mcb7u/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5u5fv/2019_day_4_solutions/f9mcb7u
   :body: |-
     Short & sweet Ruby solution
 

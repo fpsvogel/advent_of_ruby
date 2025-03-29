@@ -1,6 +1,6 @@
 ---
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3t5vpl/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3t5vpl
   :body: |-
     ```ruby
     # frozen_string_literal: true
@@ -41,7 +41,7 @@
     [Full repo](https://github.com/Casper-Guo/AoC-Language-Exploration)
   :replies:
   - :author: dhruvasagar
-    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3ti2an/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3ti2an
     :body: |-
       Here's my ruby solution :
 
@@ -74,7 +74,7 @@
       ```
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qm9ez/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qm9ez
   :body: |-
     I couldn't really be bothered counting the rows and all of that, so I just lay the keys and locks on top of each other and check at for each position there is at least one `'.'`
 
@@ -93,7 +93,7 @@
     ```
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qi0nw/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qi0nw
   :body: |-
     ```ruby
     input = File.read("input.txt").split("\n\n")
@@ -108,25 +108,25 @@
     ```
   :replies:
   - :author: IvanOG_Ranger
-    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qkn3f/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qkn3f
     :body: Regex is more readable than this, that's crazy
     :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qe6ck/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3qe6ck
   :body: |-
     [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day25/day25.rb)
 
     basic for loop, with a set to eliminate duplicates. Had a bit of issue of making wrong assumptions during the parsing phase, that is invalidating all rows with "#" that are filled up. Anyway simple fix, just include those and raise the limit by 2.
   :replies: []
 - :author: bigfunlx
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3plinf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3plinf
   :body: |-
     I coded it on my iPhone while waiting in the emergency room with symptoms of meningitis, for better or worse this will be my most memorable moment of AoC!
 
     [Rubist](https://imagebin.co/images/IMG_4243.png) screenshot
   :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pf0js/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pf0js
   :body: |-
     Today I will post 2 full solutions in one comment because together they still fit in half a punchcard.
 
@@ -147,15 +147,15 @@
     - You may replace `.map{ |x| x.map{ |x| x.map{ _1.` with `.map{ |x| x.map{ |x| x.map{ |x| x.` if you like fractals.
   :replies:
   - :author: 4HbQ
-    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pgl7v/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pgl7v
     :body: 'Solution #1 is so clever but sooo dirty. I love it!'
     :replies:
     - :author: Nnnes
-      :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pjpar/
+      :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pjpar
       :body: Thanks! In previous years I've abused various combinations of Regexps and `.tr` but it didn't cross my mind this year until today
       :replies: []
 - :author: birblett
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pbi5s/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3pbi5s
   :body: |-
     1023/890
 
@@ -171,20 +171,20 @@
     moderately cursed bitwise math solution...
   :replies: []
 - :author: botimoo
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3paoro/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3paoro
   :body: |-
     [Paste](https://pastebin.com/YWnevdb0)
 
     Repeating the output for part 2 here as well: `Merry Christmas! Congrats on 10 years, Eric!`
   :replies: []
 - :author: mpyne
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p6e9k/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p6e9k
   :body: |-
     [Solution](https://topaz.github.io/paste/#XQAAAQBlBQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlDHZo7bAS6PU4u3JQTaPBfElS53PuuvCNKd61mUYVeaYDdAeSC2XFVeCm8Q3FHzXZwO042pLKQpW8DpUxlQZ7m2m2ucv3ZRIB5M1n/6IP9NHaGdvFYRINgn6fTKCyfLi11w2NyW7MyWtYYcFGKPVF5qgC/CR8TFMpHMaQzfZNFBWiu4p66zeIdHVzTuvJuTkwMOVJYe6sv7FgXgvhPE6YRBKHPDxxvRxHDD8nN2lKoCzoOJA2D8A2vuo5iJ3PeE980/uGwMHe+rEanQj52YTy/Ohi8w3Gz2Se2buUnbcmaZosn+tUh37yaAtAllh79qmEGzhgoKbInKWNHuE9/DzZChFLfXW0NJ2o59kDDqHVJrCpt3y7TY5seNgkRzTxooawWc26EmweWuNRbTfKqRKZTlwCf4rM49BXzR/DfDNiLUwXWZkt1skddu6R4tw7JtXUZZTd0lDkuNhPto1O99aF4fZ+KKQt0z2d02slJOURQDNRrLAPc030efst5wOzseIHbeu+FAkHDizdXuneW2B2QDEy8tNjVdJcyv5ZjQ7MiBw/zjLpLScMH6SLOdZDpqsnRI1xoe94SzffCv73eoD/).
 
     Will probably redo it in Rust later after some sleep but not too bad for not being a competitive programmer.
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p79dr/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hlu4ht/2024_day_25_solutions/m3p79dr
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day25.rb)"
   :replies: []

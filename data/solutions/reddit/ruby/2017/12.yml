@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4fte4/
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4fte4
   :body: |-
     Ruby, silver 17 / gold 29
 
@@ -29,15 +29,15 @@
     ```
   :replies:
   - :author: Grimnur87
-    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4r78n/
+    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4r78n
     :body: Yes, I messed about with 10.times, 20.times etc myself until deciding that an until loop would be more foolproof.
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4uc90/
+      :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4uc90
       :body: What we need is a graph library like how python has networkx :)
       :replies: []
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5frta/
+    :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5frta
     :body: |-
       Line 3: No need to split each line twice, just `scan` it for number-looking things:
 
@@ -46,7 +46,7 @@
       ```
     :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4ojpx/
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr4ojpx
   :body: |-
     ruby, in some of the least idiomatic ruby possible!
 
@@ -85,7 +85,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5g0bl/
+  :url: https://www.reddit.com/r/adventofcode/comments/7j89tr/2017_day_12_solutions/dr5g0bl
   :body: |-
     # Ruby
 

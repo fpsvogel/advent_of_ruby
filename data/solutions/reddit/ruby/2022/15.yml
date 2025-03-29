@@ -1,6 +1,6 @@
 ---
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0ed50d/
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0ed50d
   :body: |-
     Ruby, Part 2.
 
@@ -60,7 +60,7 @@
     ```
   :replies: []
 - :author: kateba72
-  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0atlef/
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0atlef
   :body: |-
     ## Ruby ~13 ms
 
@@ -80,11 +80,11 @@
     [https://github.com/Kateba72/advent\_of\_code/blob/main/2022/day15.rb](https://github.com/Kateba72/advent_of_code/blob/main/2022/day15.rb)
   :replies:
   - :author: captainAwesomePants
-    :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0audhv/
+    :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0audhv
     :body: Love the diagonal coordinates!
     :replies: []
 - :author: mathem17
-  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0alfzg/
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0alfzg
   :body: |-
     [Ruby](https://github.com/jzhang113/adventofcode/blob/d95083d71d99277c0cac5b4ba2b07d6cb58df892/2022/solutions/15.rb) 953/408
 
@@ -96,11 +96,11 @@
     This mean we can work entirely with ranges, which is much faster than enumerating all the possible points. (Technically, the point could be on the edges, which would result in one range not covering the whole row, but I didn't run into that in my input)
   :replies: []
 - :author: akanet
-  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0bexon/
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0bexon
   :body: 'I spent some time trying to think of a very elegant, simple, and fast algorithm in Ruby. I''m very pleased with this result: [https://twitter.com/fulligin/status/1603369386085036032/photo/1](https://twitter.com/fulligin/status/1603369386085036032/photo/1), which basically finds the y-intercepts for all lines drawn on the map as if they were infinitely long, and then simply checks each of the rows for the missing beacon.'
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0cral9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zmcn64/2022_day_15_solutions/j0cral9
   :body: |-
     Ruby
 

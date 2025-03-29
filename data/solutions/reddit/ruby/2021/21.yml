@@ -1,20 +1,20 @@
 ---
 - :author: akanet
-  :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe3ocx/
+  :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe3ocx
   :body: |-
     [Ruby, 300 something / #40](https://gist.github.com/vincentwoo/7fa2e268e38fb4f24ff574bb7aafa5cf)
 
     This one has a really straightforward expression in Ruby and I was pleased to hit on the part 2 solution very quickly! My best time this year. Ruby's array#product + a simply DFS formulation with a good base case and memoization makes this one an execution of a classic genre of CS exercises.
   :replies:
   - :author: dtinth
-    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe4a4j/
+    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe4a4j
     :body: |-
       Wow, that was short and sweet, congrats!
 
       I got 126/208 with Ruby but overall approach is similar as yours. [part 1](https://topaz.github.io/paste/#XQAAAQBrAgAAAAAAAAARiAaHkimM1L0GLNx/znbFBIXJUq4OAYq7F5gsWSI/Zf/cROCWdXwSvBaCOGeH7dkU0VjqJgnGDcQAgrt8e8ilKTeF8Wj+TB24EBkFl5j9z7E/CQeCOIEUIChQLjvYHGsRN6mpe2K4dM8/Cykv5JSYkDXvg4dXJ8BTfIFzppQd5jOzUjAkDzPcoSKixeFnEUxyhCjXUK8hNoGsjDrTvKk3l+ZEG9HXBzYrJEm2sD16dtK7SIuy7kDO5XSLYUUr8Xcp33EmnZhfGRDcqoflZ/1QtuCad0TBoJyFdpiMhC4SuunCWEl9RpPKZA6/FQyWWOrKGohmniC1tJnTfBvnE2rwbN6kk+fGfviGaA3SngdP6xXdtdSCMSAKhHOB/+cPXGI=), [part 2](https://topaz.github.io/paste/#XQAAAQDrBgAAAAAAAAARiAaHkimM1L5fGNx/znbFBIXJUq4OAYq7F5gsWSI/ZgRsWLZU530cwM0amFHmyGStC1BzErFR7hOKRgW/uaJYbDQVuNCREoNP+iLglL5pGLhKwxlmKfT2pc4IGe2Flsd73pzSEhNk7doP3k+jTo2Gfz3gVmtGjttC363vHXtKkAWo2i+2vjzFQb+WIxm/3fFvikFewghYM/1OJB3HkzudkCmG4mvVHX9XCHDFpNo6PX8iAW8E+y8BE5LjnOly2HJz2rOpTkZ1o52fHDtw1x5ggxh46XJAupT1S7kUmZaz2sCPbHW5ZXIH+B3Kka3Ovwi0Dz/UeULdUNzZnAonH3YlbozRJlA1yT7Vc1HUn5ndA9a3YYX/YvIh50afOR/Nx9YfwpiLf5EKk/2l4EtdgVx6ZyHZEns8y3rMMq/On5Ma+cw3gAkwg2AnViOnDE5pNJ6Uv0pYBbX7qhR+EkGe3Ve+y0uO4gLIpUfNZLysEhH7A25UFoUrpcK9k5ELLxTEZtr4WeDYT7bLrVcmCxfbHOs44YYz8SVVVc7+q3HRl3EtcL/IpIXuIq0BbqR5u6YRSNZsOURHmXAPIFKHEtBTc7i8gMlTt9xyOfmyYCslbV4Nwa6yEqwOVjjShIFJ7jupallDBWbIvPOzMYRsRDNrY+95bYyOuFdyFO2SF7TgJwsVn77wuWxhVw2MtVGgBrC6pc2+ZeCO8mhrbdPFA9KBkyS+2HBuEXNe3Yzq23m7V46/5iWAqjQKeu8F0AKk1+or8+wnPktxuBPKX6cUmiKPA0TnBKy3e2xUsg89OL63CcV6gztZwR32PIVseXni//aQs/Y=)
     :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe8olo/
+  :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe8olo
   :body: |-
     Ruby 520/670
 
@@ -25,11 +25,11 @@
     I'm surprised that, unlike the clownfish day, you could still run Part 2 in a reasonable amount of time (~30s) without memoization. With memoization, it runs in 270ms, and even if you set the winning score to 50, it will spit out a 35-digit number for how many universes Player 1 wins in within 5 seconds.
   :replies:
   - :author: 1234abcdcba4321
-    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe9o8r/
+    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe9o8r
     :body: There's never been a puzzle that requires numbers larger than **53** -bit integers. So they'd definitely need to make the question ask for something different if the winning score was any higher than like, 22, unless they decide to break this restriction they've always had.
     :replies: []
   - :author: rabuf
-    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe8u42/
+    :url: https://www.reddit.com/r/adventofcode/comments/rl6p8y/2021_day_21_solutions/hpe8u42
     :body: |-
       I like your use of complex numbers for the return. I'm usually very quick to use them for other problems, surprised I didn't think of that today. About to give it a shot and see what impact it has on my performance.
 

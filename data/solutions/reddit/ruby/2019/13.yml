@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fbdyaia/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fbdyaia
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_13
   :replies: []
 - :author: Yardboy
-  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fb5loqa/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fb5loqa
   :body: |-
     # Ruby
 
@@ -16,7 +16,7 @@
     [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle13b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle13b/solution.rb)
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fapgw34/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fapgw34
   :body: |-
     **Ruby**
 
@@ -36,21 +36,21 @@
     [https://github.com/hdf1986/advent-of-code/tree/master/day13](https://github.com/hdf1986/advent-of-code/tree/master/day13)
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan7f6r/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan7f6r
   :body: |-
     [Ruby](https://github.com/vinc/adventofcode/blob/master/ruby/2019/13/)[Screenshot](https://github.com/vinc/adventofcode/blob/master/ruby/2019/13/screenshot.png)
 
     My favorite day so far, very fun! I naively tried to win the game by hand for about a minute before giving up. I also had to hack my `Computer#run` method to get the input from a block and I lost some time there because the last screen after winning the game in autoplay was not printed.
   :replies:
   - :author: ColonelMcColonel
-    :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan82qb/
+    :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan82qb
     :body: |-
       Hahaha I did the same too!
 
       I also watched it auto play, I knew I could run it much faster if I just executed the auto-player without rendering at 60FPS, but hey - it was so satisfying!
     :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan6cjr/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9zgse/2019_day_13_solutions/fan6cjr
   :body: |-
     Just for fun... of course I solved the problem the regular way at first, but that takes my poor Ruby code _an entire second_ to run, and that's just too slow.
 

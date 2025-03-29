@@ -1,6 +1,6 @@
 ---
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxm6m18/
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxm6m18
   :body: |-
     My Ruby solution.
 
@@ -53,11 +53,11 @@
     ```
   :replies:
   - :author: Monofu
-    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxnyqsk/
+    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxnyqsk
     :body: Using a cycle was genius! I would never thought to use that. Makes so much sense in hindsight...
     :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxldtie/
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxldtie
   :body: |-
     Continuing my non-programmer attempts, I kinda like my part 1 solution (mostly because at first I thought this would be super hard and then I remembered hashes) but the part 2 solution is very hacky. I don't like it at all.
 
@@ -142,7 +142,7 @@
     ```
   :replies:
   - :author: dalfgan
-    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxmhuu6/
+    :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxmhuu6
     :body: |-
       About the first part:
 
@@ -158,7 +158,7 @@
       At least, 2nd part you put ",".
     :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlh10r/
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlh10r
   :body: |-
     Cleaned-up Ruby solution using coroutines (Fiber): The first argument chooses the number of santas (or the puzzle number!)
 
@@ -191,7 +191,7 @@
     ```
   :replies: []
 - :author: haitei
-  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlmjj9/
+  :url: https://www.reddit.com/r/adventofcode/comments/3v8roh/day_3_solutions/cxlmjj9
   :body: |-
     Relearning Haskell for the nth time:
 

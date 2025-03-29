@@ -1,6 +1,6 @@
 ---
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hohjrdx/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hohjrdx
   :body: |-
     **Ruby** : _Unofficial_ 5:07/7:04, which would have been good for 49th and 21st on the leaderboard
 
@@ -11,7 +11,7 @@
     My biggest time loss was from accidentally deleting a line from my stub file.
   :replies: []
 - :author: blackbunbun
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hogogq8/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hogogq8
   :body: |-
     **Ruby**
 
@@ -49,7 +49,7 @@
     ```
   :replies: []
 - :author: tom_collier2002
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe3xs1/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe3xs1
   :body: |-
     [Ruby solution using complex numbers](https://github.com/tcollier/aoc_solutions/blob/main/2021/13/main.rb)
 
@@ -72,7 +72,7 @@
     Lots of people were struggling reading the output for part 2 when printing with `#` and `.` characters, so I wrote [my own OCR](https://github.com/tcollier/aoc_solutions/blob/main/2021/13/ocr.rb). Granted I made up a few of the characters (`M` and `W` ain't looking too hot), so I can't guarantee it'll work for every input.
   :replies:
   - :author: tom_collier2002
-    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe6461/
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe6461
     :body: |-
       The complex conjugate reflects the point around the real axis (`a + bi` become `a - bi`). The folding `axis` in my code is either purely real or purely imaginary (`a + 0i` or `0 + bi`) and `2 * axis` is effectively the far end of the paper that will be folded over.
 
@@ -81,7 +81,7 @@
       The math for folding in the `x` direction (`axis.real.between?(1, dot.real)`) is similar. However, we need to reflect the dot around the _imaginary_ axis. To accomplish this we can rotate the complex conjugate `π` radians. Multiply a complex number by `i` rotates the number by `π/2` radians, we need to do that twice (`i * i`), which is the same as multiplying by `-1`.
     :replies: []
   - :author: tom_collier2002
-    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe7evc/
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoe7evc
     :body: |-
       I wrote the OCR code after initially printing out the result using `#` and `.` characters. It felt like reading a Captcha (Is that a `U` or a `V`?! I sweat I'm not a bot!). A few coworkers also posted their part 2 results in a similar format, which gave me examples of roughly half the alphabet to "train" my OCR code with. About half of the remaining letters were pretty easy to guess at (though they could still be wrong).
 
@@ -90,7 +90,7 @@
       Edit: the OCR fails on the sample input as the `O` character has a width of 5 pixels :(
     :replies: []
 - :author: kejadlen
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociv59/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociv59
   :body: |-
     Ruby:
 
@@ -116,7 +116,7 @@
     ```
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hodvyvn/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hodvyvn
   :body: |-
     **Ruby** :
 
@@ -163,7 +163,7 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocf83u/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocf83u
   :body: |-
     Ruby, 46 / 10
 
@@ -173,11 +173,11 @@
     - I spent quite some time writing the `plot[]` function while working on part 1. Glad to see it came really handy in part 2.
   :replies: []
 - :author: dhruvasagar
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociz5m/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hociz5m
   :body: Yay! [Ruby](https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day13/day13.rb)
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocka3h/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocka3h
   :body: |-
     ### Ruby
 
@@ -209,7 +209,7 @@
     Full code at https://github.com/petertseng/adventofcode-hs-2021/blob/master/bin/13_transparent_origami.hs
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocn7yo/
+    :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocn7yo
     :body: |-
       TIL about `Hash.transform_keys`.
 
@@ -218,7 +218,7 @@
       (The commit history for that file shows a bit of how it changed since initial solve.)
     :replies: []
 - :author: scarfaceDeb
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocqo2l/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hocqo2l
   :body: |-
     **Ruby**
 
@@ -227,7 +227,7 @@
     https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day13/run.rb#L3-L80
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoctwgk/
+  :url: https://www.reddit.com/r/adventofcode/comments/rf7onx/2021_day_13_solutions/hoctwgk
   :body: |-
     **Ruby**
 

@@ -1,6 +1,6 @@
 ---
 - :author: skawid
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7vzdf/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7vzdf
   :body: |-
     Ruby!
 
@@ -9,7 +9,7 @@
     Part 2 took some head scratching to find an algorithm that didn't take forever.
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7tg41/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7tg41
   :body: |-
     **ruby**
 
@@ -22,7 +22,7 @@
     This is a brute force solution but it stops looping when it finds the target for both parts. The approximate completion time is ~5 seconds.
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7edop/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7edop
   :body: |-
     # Ruby
 
@@ -52,18 +52,18 @@
     ```
   :replies:
   - :author: zeeba_neighba
-    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7sog7/
+    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf7sog7
     :body: Nice! I didn't know about `.lazy` I want to implement that in the future
     :replies: []
 - :author: dearshrewdwit
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf79fe3/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf79fe3
   :body: |-
     Functional [Ruby](https://github.com/dearshrewdwit/adventofcode/blob/master/2020/9/cypher-functional.rb) with recursion
 
     Edit: got told off for pasting code, sorry! See link for code
   :replies: []
 - :author: kawzeg
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5pkr1/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5pkr1
   :body: |-
     **Ruby**
 
@@ -76,7 +76,7 @@
     ```
   :replies: []
 - :author: damyvv
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5q7sm/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5q7sm
   :body: |-
     **Ruby**
 
@@ -89,7 +89,7 @@
     ```
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5n55h/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5n55h
   :body: |-
     # Ruby
 
@@ -106,14 +106,14 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf51h87/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf51h87
   :body: |-
     Ruby 1507/706. I forgot to convert the input to ints before adding them, took way too long to figure out
 
     [paste](https://topaz.github.io/paste/#XQAAAQAgAwAAAAAAAAARiAqGkkN7pUjVWW5PmC0L6aBapSEWgmKw16LRnqk8MWLR0XniOEFoHImRzzHbojWP9/KPFyWlRwlf9iuxcCPOF3cwEecpGcDtvpNvX4s0TtaqjSZswu4WXzB4X+spXJnNaUo+Ps9+3O4csu9ETgBALRvcc9ZR+UPnydkXsoHeX+33uO/7/2yBUoveTl2fr3r+Jy7H+D54SKUuwx0M6/UxysDIRhXg9Dv2j2a7kq4NOtwIha7MtDbRnx6Tw3+ut++qywRaWTxfAfNSHL3oM42iMLdYMnWgjghR7j9CaieSdPBdBFVH1zbUy9/WeWaq0KyidvNc7sR7vGScKZIQPjOyuda6ArYH6YUWlUD89mOQmOQ+6VYVMWQAVnpltYDTCUQb8zy8JVeg9mRtYfIbiww3iGoYPAhPj1K8toNHLFmCm0FZShbrZRQ3ykgTWFe+UKSNaAZfqk85RfS8myg7s+sv78rxm0xyyYVHR17MWUf+VX9B0sL9v/3lUNU=)
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf546jm/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf546jm
   :body: |-
     # Ruby
 
@@ -127,15 +127,15 @@
     ```
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5msmo/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5msmo
   :body: Here's my [solution in Ruby](https://github.com/odlp/advent-of-code-2020/blob/main/day-9/solution.rb).
   :replies: []
 - :author: blafunke
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf55til/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf55til
   :body: "[**Ruby**](https://topaz.github.io/paste/#XQAAAQBpAwAAAAAAAAARiEJHiiMzw3cPM/1Y611SZZy8dLcvLPFv5CaI5QAeyDUOD9g6sOqRoHNTUi8vG310j7C40PhkIuDkIfK9LbzmPHL5jWRBHMH9yR5NOmbSsS4BF8FHwzXFHxMtBLjdmCODNvRiPMNfQOxOhHvbbHDUYEWvYg64I3tbZ81WBS4PHm35X/+55lmYBGw6YCnMN07oZ0H/AEjR3rbRTE5ymST2UKrtHL6Yh63ofbNkU2lzC7bD3iwrETmuXRjnwMjuZc7jSw9G6rLKh27rgesAUJ7g8ftT8bd5Qhl7iK0P1b+rzWXc1ZiSA+UT9Awiu/1ZWRCre6OVjiXjnkKhbMZn4nwQTO2D2WiLX2UkWIIZTr4l1YvaPKyv1bAQAOlPoq8RelGPKzWNUqWMSr2O+p2YLL2+ZKf8k4ehfC/1bgVEZSaOF1vF6ghkYmL2rZoM60T6K6Wt+fsFzr25lydHVFElzYffJYgTmXMvXBRkU4wxrSWS+/6r6mBkSCvYACeNV/63RDu0L0IwV2nuwOmHCPPjt3W5c2NbPeSN5sH5G+jLZ1fNgvoKh6mdqBn/+QQsQQ==)"
   :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf56juf/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf56juf
   :body: |-
     # Ruby Solution
 
@@ -171,7 +171,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5aq7n/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5aq7n
   :body: |-
     **Ruby:** 4:37/11:27, 345/634
 
@@ -180,11 +180,11 @@
     Gah, I tried to get fancy and it cost me! For Part 1 I was initially going to sort the previous 25 numbers so it would be easier to check if two numbers added up to the solution, before I realized that then I wouldn't know which value to remove from the sorted array. (Nevermind that you can still check if any two numbers sum to the value in linear time even with them being sorted (See Day 1), and that with the index I could easily figure out which value I needed to remove...) Then in Part 2 I initially tried to implement the linear time solution, but it didn't work, and I mistakenly thought it _couldn't_ work so switched over to the standard n^2 solution.
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5njrb/
+    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5njrb
     :body: Fellow Rubyist chiming in again :-D We ran similar times today (you just beat me overall, I was slightly ahead for part 1) but I had a very different approach this time unlike other days. I'm pretty amazed you got all of that down within that time! :-)
     :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5df5n/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5df5n
   :body: |-
     # Ruby
 
@@ -193,26 +193,26 @@
     [paste](https://topaz.github.io/paste/#XQAAAQD7AgAAAAAAAAAnFUW8WzF1WEoJx9V0hOKfg4NcZ7WDhdZEbbwcIoUqv1+y3wBBrL2nBKRx9PDu2eqWV5w7eZ8p/dHEMvzPdtqMoTg8ubrtrjtjf+6OUUPiJ/l+L7PA7kZxnaeraDwwz5V1gGClahEcV2kJenOadVBIJ49iA9X8aOwk6+7R1PQM0mZ1tbA5Y+v4uw3Ahoex/N1uRfqzZZlyC+P4dedhdXKTtribrpUo1Fddw/X+BJWtL4SsNvlu7knEoKdp/MH1xPp8+a8mO7ghXgj4sXWzCR9pgloJxk3KEgEuwzOOmt+dKoBkZG3xxrvM5ncaTP3mvDxVzDpNWNye8TAsqw37cXV71KHLNiK3Ye/6nt3K55hKxDc5PnqUoc2BUbiTW65lBEsWeLvMM/ZFp3U1TCaohJvgE6/C0y2CQpYUG8s+XPirj4NRjUQN1rqCIk9Llry2/SKcsCAAZACHGUAGzIBN3CyUXRhV9qZL9n5VU8wX8NRmV5vwCIATOmH3mtdYidbQ1wH+RD7RJf9yZbkA)
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5neve/
+    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5neve
     :body: One way is to refactor out the nested loop. `each_cons` would assist in this situation. Consider that `arr.each_cons(3)` will return an enumerator of each block of 3 elements. See my solution elsewhere on this post if you want to see it in situ.
     :replies: []
   - :author: Intro245
-    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5oq1j/
+    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf5oq1j
     :body: One solution for this problem that works in most languages is to put the loops into a separate function and use `return` to break out. So in this case, the return value could be either `contiguous_numbers` or the solution to part 2.
     :replies: []
 - :author: 2k3
-  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6hsy4/
+  :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6hsy4
   :body: |-
     Another [Ruby](https://github.com/Kyrremann/advent-of-code/blob/main/y2020/day-09.rb) solution.
 
     Most interesting for me was to use `combination()` in the first part.
   :replies:
   - :author: sky_badger
-    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6itm4/
+    :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6itm4
     :body: Interesting to see a different language (I'm doing AoC in Python). Did you know the input file is different for every competitor? So the hardcoded target in star\_2() will only work for your input. You cold make the solution more generic by storing the star\_1() result in a variable and using that as your star\_2() target instead. Just a though. Is Ruby fast?
     :replies:
     - :author: 2k3
-      :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6mkxl/
+      :url: https://www.reddit.com/r/adventofcode/comments/k9lfwj/2020_day_09_solutions/gf6mkxl
       :body: |-
         Didn't think about the different input, should use the return value for part two. Thanks!
 

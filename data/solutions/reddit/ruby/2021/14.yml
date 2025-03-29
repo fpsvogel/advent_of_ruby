@@ -1,6 +1,6 @@
 ---
 - :author: Jomy10
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hy8o0n7/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hy8o0n7
   :body: |-
     ## Ruby
 
@@ -11,7 +11,7 @@
     [Script for calculating both parts](https://github.com/Jomy10/Advent-Of-Code-2021/blob/master/day14/main.sh)
   :replies: []
 - :author: tom_collier2002
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoky675/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoky675
   :body: |-
     [Ruby solution](https://github.com/tcollier/aoc_solutions/blob/main/2021/14/main.rb) optimized (~8ms to print both parts) by precomputing 41,000 values
 
@@ -40,7 +40,7 @@
     With these counts, it's trivial to find the difference between the highest and lowest character counts.
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hokk7yj/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hokk7yj
   :body: |-
     A little late to the party, but when I read today's part 1 I just _knew_ what was comming in part 2. I'm usually not too quick at spotting a fast solution for these kinda problems, but I'm pleased that this one struck me pretty quickly. It's this year's least aesthetically pleasing code so far, though.
 
@@ -77,7 +77,7 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoh5uwe/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoh5uwe
   :body: |-
     Ruby, 45 / 60
 
@@ -86,11 +86,11 @@
     `each_cons(2)` helps quite a lot in solving this.
   :replies: []
 - :author: mxBug
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohnxwl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohnxwl
   :body: "[ruby but OOPy](https://topaz.github.io/paste/#XQAAAQAWBAAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdLcr8czW9TZUkh6Ogb11apudi2OZNyqfLGru4I+laPGJe60A1OZ+sy5KmHgPZo3L2nOHKh4zJrxOfv4igKmXz4gkuPfTPs/CmNtvCUbrYio0YiHj7G8qoywgl/zc+Kw4khjnTUe6SEHFCmNmp/R6MOtkRguw9rAScmnMqk7iSFwSr0D9ywr3M3Dhp6XInreVSl6Q2od3zq1Q3iCLPXbKY5mikOYvdUvp3QPA8YGMxy3jIFTf+Li1spvwRWj9pCEHYfzs1Y52bUzm32mL1VQXXXSmKGUbToGXRlEcByeDYdz3J5GeT+r9Npd+8ItLs/XVo68N8IQkT1mcUZN9RXfphWV/C00K4oyNkReR2+zflDyMT1FW1AvoxtlxJHlSpt9n+EaCQzWU/8s9rciVDkkMqOQXcKVN/nvs/sYnS/iVrUL1UL4WDN1EtItA6UNeNr1SuDn2XT1Tv20kq0jPLSE+5HP184vFic7FVjYyNVIXAuVCWeuhJOdi64f4YjxIKJecOtm7P2LG79zwqjswgFXAOlaEP6/5fGdgssK7M0+j/lPv98nzYA)"
   :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohtwll/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohtwll
   :body: |-
     [**Ruby**](https://topaz.github.io/paste/#XQAAAQDHAwAAAAAAAAA4G8nPaRVx/o1ZZYKycGL0SspRCXDQTQUVmHvXfVLEqraSWb0elNeZvnSclxpoFwVtzGktWmOe/XRTtEUmBAOBYzfSLnqEuShWc7DJrSu/wnPgm5XHzf4ctTUjOJhE1iC3FndYgzu3V2InBzTUhniHJP7rQreNtZQB5QWeHZ31bmzByLve13RoeaZt5XSmXhW9Pb/IE1pIlwmTIrQQSKCY0BgD+vhhAtmITSlv3PocxzxYS2LC55RCSGutN6OXlsCCDP/kZ3pIP79XYyqfnmZMgXD7W/6TXztLcx3Dup5qlr8zQxhIJ7C/D1n4o6rQSEDUS5wuY30dvfirzIjzf4pMjifsLJYeaZAyulqxCJBaIZYWP/YFfdWM4JlBKlN+RWgDJYVHvMAyMKsQ34L2HMk8vdB5U9yeFaHJwuCs9qNhumZ1SkclHblRBmB0kFBdWx/Sj/0k5+tGMKPE4+z195Mhn/p1RV9ZJt6wRcFJPo552hzd8IywsjWu+3E1iasGYKOfqHFo3mcjGyTS9IjHisWwqxbTivh6ii//tZt3Pg==)
 
@@ -99,7 +99,7 @@
     Thanks to /u/Divritenis for the [hint](https://www.reddit.com/r/adventofcode/comments/rg23lu/2021_day_14_part_2_awk_spoilers_part_2_working/hohm0kb/).
   :replies: []
 - :author: weiss_i_net
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoikmis/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoikmis
   :body: |-
     **Ruby**
 
@@ -128,7 +128,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohjjhw/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohjjhw
   :body: |-
     **Ruby** : 4:25/18:50, 63/293
 
@@ -139,7 +139,7 @@
     I felt pretty good about Part 2, but then I reused a variable name from Part 1 and so everything was broken for a while and I got pretty mixed up trying to fix that. Oh well.
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hojriug/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hojriug
   :body: |-
     Ruby
 
@@ -152,7 +152,7 @@
      Range (min … max): 151.7 ms … 291.2 ms 13 runs
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohc55j/
+  :url: https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hohc55j
   :body: |-
     ### Ruby
 

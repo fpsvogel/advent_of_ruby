@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbrxaa/
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbrxaa
   :body: |-
     This day made me so unsure what I want from Advent of Code. Yesterday, I thought "I really wish the problems made us think more, rather than a contest of who can type the fastest". Today, the problem made us think more and it did not go well: missed part 2 leaderboard because I went with the broken approach of thinking the total relative permutation from one iteration can simply be reapplied multiple times. Nope, because there are absolute permutations too. I think what I ultimately want is to continue to have problems that make us think... but for me to be better at thinking of the right solution in the heat of the moment. Oh well, next time.
 
@@ -45,7 +45,7 @@
     Note that I have since scrapped this solution in favour of one that splits up the dance into relative and absolute moves, however I will defer to https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16\_solutions/drbqb27/ to explain how that looks, since it wasn't my idea.
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbootv/
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbootv
   :body: |-
     Ruby (#23/#44); Pleasant challenge! Part 2 was a shock, but I've actually encountered [a problem with the same mechanic](https://cdn.discordapp.com/attachments/385778069098463232/391459810425700352/unknown.png) before (which handles more details), so I went to look up my solution on that site and re-implemented the relevant parts here. (Also, that problem took me an all-nighter to figure out (maths and I don't get along), so it's nice that it came back to save me here!) I was lucky to have no bugs!
 
@@ -83,7 +83,7 @@
     [postscript](https://cdn.discordapp.com/attachments/293355384436162560/391462643325599774/unknown.png)
   :replies: []
 - :author: Fluffy_ribbit
-  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbwp49/
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drbwp49
   :body: |-
     Ruby. I am like a little baby.
 
@@ -153,7 +153,7 @@
     ```
   :replies:
   - :author: Grimnur87
-    :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc03cr/
+    :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc03cr
     :body: |-
       Similar approach here, only I added my methods directly to the Array class:
 
@@ -184,7 +184,7 @@
       Bit of a waste of time but I learned something new.
     :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc3bi9/
+  :url: https://www.reddit.com/r/adventofcode/comments/7k572l/2017_day_16_solutions/drc3bi9
   :body: |-
     ruby
 

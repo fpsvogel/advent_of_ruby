@@ -1,6 +1,6 @@
 ---
 - :author: RewrittenCodeA
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gi7u5ad/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gi7u5ad
   :body: |-
     # Ruby - 1.40 s for part 2
 
@@ -44,7 +44,7 @@
     - for non-atoms, the alternatives as lists of indices: `[…, [[42], [42, 8]], …, [[42, 31], [42, 11, 31]], …]`.
   :replies:
   - :author: zxywx
-    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihahxf/
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihahxf
     :body: |-
       It's a really neat solution, and you should definitely be proud of it.
 
@@ -81,15 +81,15 @@
       Otherwise, you're golden!
     :replies:
     - :author: RewrittenCodeA
-      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlyej/
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlyej
       :body: Scanning the input data for numbers cannot really be counted though, it’s just for the initial building and not once per “real” input line....
       :replies: []
     - :author: RewrittenCodeA
-      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlqzy/
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gijlqzy
       :body: Yeah. I linked to master, and after posting that comment I got a solution using a bit of regexp that was 20x faster... I should have linked to the specific commit
       :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeajnr/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeajnr
   :body: |-
     # Ruby
 
@@ -140,14 +140,14 @@
     ```
   :replies:
   - :author: blitznep
-    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeq1x2/
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggeq1x2
     :body: |-
       Mind blown. This is fast compared to my method recursion method and is also idiomatic ruby. TIL a lot. Thank you for sharing.
 
       edit: Could you explain or point me to the documentation/links for this part of regex `\\g<r>?`
     :replies:
     - :author: el_daniero
-      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggji4s9/
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggji4s9
       :body: |-
         Thanks, glad to be of service :)
 
@@ -162,11 +162,11 @@
         \*) edit: A subexpression call doen't have to be recursive. It could also just reference a different group/subexpression. When it references itself it is recursive. With recursive subexpression calls, to stop infinite loops, `\g<r>` has to be optional; it could be suffixed with `?` or `*`, or be on one side of a `|`.
       :replies:
       - :author: blitznep
-        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkli3/
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkli3
         :body: "Thank you \U0001F64F"
         :replies: []
     - :author: petercooper
-      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggim43k/
+      :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggim43k
       :body: |-
         Look up recursive regex.
 
@@ -182,11 +182,11 @@
         You can use `\g` with numbered captures, but that wouldn't work in this solution due to all the captures in the built-up regexes.
       :replies:
       - :author: blitznep
-        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkyoe/
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggkkyoe
         :body: Thank you for the explanation.
         :replies: []
       - :author: el_daniero
-        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggjl31y/
+        :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggjl31y
         :body: |-
           `a1b2c3d4` can also be matched with a simple repetition though, `/([a-z][0-9])+/`. But if you for example wanted to match a number of non-digits followed by the exact equal amount of digits, you will need something more powerful, such as recursion
 
@@ -201,7 +201,7 @@
           edit: correction
         :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggcshz2/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggcshz2
   :body: |-
     # Ruby
 
@@ -232,14 +232,14 @@
     ```
   :replies:
   - :author: firetech_SE
-    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggd40gz/
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggd40gz
     :body: |-
       I had no idea that `\g` was a thing. Spent an hour or two rewriting [my code](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2020/19/rules.rb) (also ruby) to match and traverse "by hand", which took a few seconds to run afterwards.
 
       After seeing this, I went back and updated my Regexp based code to use `\g`, and it now finishes in milliseconds :)
     :replies: []
   - :author: cloudcyrex
-    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggegvlt/
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggegvlt
     :body: |-
       This may not work in certain situations.
 
@@ -258,7 +258,7 @@
       Having said that, I'm likely wrong given our different inputs.
     :replies: []
   - :author: zxywx
-    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihozz9/
+    :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/gihozz9
     :body: |-
       I've been playing around with this solution. As it stands, whilst it may work for your input, it returns the wrong answer for mine.
 
@@ -274,7 +274,7 @@
       - Remove the parentheses ... you don't need them
     :replies: []
 - :author: rsthau
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc3wtl/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc3wtl
   :body: |-
     Ruby -- full CFG parser. Guess I'm too groggy to figure out the easy way.
 
@@ -283,14 +283,14 @@
     [paste](https://topaz.github.io/paste/#XQAAAQDCBAAAAAAAAAA5GUqKNoFH6SMqoVC09YUYqTc3VgNgRsmA+kQ54tbkCJFH5qw6Ng5zgPQpU/pqVsXFKSruGOUtLTYF86cuAkswmrflCnL4KaxOUJ28FE9DgZ2Q9EVlMQIaQgNcUPw1bwToR7YFflS61Mhzo3mZb5WeQKWJI/56drE7mSHcDVs7Ct4JyE7uF12SfFqXgLOW3G1qLQYCsyCXh7sgZ4VTzus79AlWE7BByzMVYsdVxECEwLlDLRAcRbDZ7p26PbUe1Zp4S+WDvc+l3QjrpSsoKSbM+uJJavBlY+DI65OwZ4ecSX8oger7lI/dH9/tUFJaxaArT1eURDVux/lCy/8nbhnDk/LV9WxiTTmnj3kDeXT5B47l1MinI2CIRlgNjIlPk3Ch0e+V+h82UyutmRv4dFbefRYGeNuiBeiyNKIAq+AShP0zAI9z/KGMBpfy8bDOoQ9dPjOEurC4s7P/dGBQ+Bi+ddvO1G9drhjsAIthWRYnex+R0AiDv1yVbWqWVjTpfg/2ejnzDLJr9LkWOBtp3ClImDC2jg2I3GQVmpfULoxTbCy2F5Tlu/gcGZ/BpqLep7kmeXUpxcYnF74hsciCL2Gtq2iwAlvMqh1aaAOTucAzMcIDNrKnhl/j0wnGFYiqC6onwbWb8OCN+rThftYb9p18l1oW/8kBHrw=)
   :replies: []
 - :author: billiamthesecond
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc5xu6/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggc5xu6
   :body: |-
     # [Ruby](https://www.billiam.org/advent-of-code/19.html)
 
     Really struggled with part 2 but this worked, I guess? (big regex with non-capturing groups to bypass capture limit).
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggca0qy/
+  :url: https://www.reddit.com/r/adventofcode/comments/kg1mro/2020_day_19_solutions/ggca0qy
   :body: |-
     **Ruby:** 50:21/57:43, 1436/616
 

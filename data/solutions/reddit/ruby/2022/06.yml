@@ -1,6 +1,6 @@
 ---
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/izpec29/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/izpec29
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     Glad I didn't need to write loops
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3laxy/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3laxy
   :body: |-
     Today is Ruby’s one-liner day.
 
@@ -22,19 +22,19 @@
     ```
   :replies:
   - :author: jstanley0
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mmzh/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mmzh
     :body: I was going to post my solution but it is this, verbatim. I knew I'd seen `each_cons` before but I didn't remember what it was called and had to look it up
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3r0vl/
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3r0vl
       :body: same. it's funny how Ruby encourages us to all create roughly the same solution :)
       :replies: []
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lqnl/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lqnl
     :body: oh, find\_index! I did it with `map.with_index.find` and indeed I felt it was a mess :)
     :replies: []
 - :author: naturaln0va
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mnxg/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3mnxg
   :body: |-
     **Ruby** 5645/4803
 
@@ -59,7 +59,7 @@
     ```
   :replies:
   - :author: Thirty_Seventh
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5jdqg/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5jdqg
     :body: |-
       you can also iterate over `part` with length `target` from `chars` with a built-in!
 
@@ -68,7 +68,7 @@
       ```
     :replies:
     - :author: naturaln0va
-      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5ojsa/
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5ojsa
       :body: |-
         Thanks, I'm new to Ruby and this is so much cleaner!
 
@@ -82,7 +82,7 @@
         ```
       :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6rzwb/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6rzwb
   :body: |-
     **Ruby**
 
@@ -95,15 +95,15 @@
     I should have woke up early for this one instead of waiting until late in the evening to have a look!
   :replies:
   - :author: SolarBear
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6vyo4/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6vyo4
     :body: Whaaaaat? I wasn't aware of `each_cons`! Here I was, using `slice` like a bloody peasant...
     :replies:
     - :author: DanZuko420
-      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz7i20i/
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz7i20i
       :body: Saaame. Every time I finish an AoC challenge and look at the solutions thread, I find out about a Ruby method that could have saved me several lines of code
       :replies: []
 - :author: nithinbekal
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lasf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3lasf
   :body: |-
     ## Ruby
 
@@ -123,21 +123,21 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3ql4q/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3ql4q
     :body: |-
       Nice!
 
       If you care about performance, you might consider using [find\_index](https://apidock.com/ruby/Array/find_index) instead of calling looping twice in both `find` and `index`. If you choose to do that, you might also want to leave batches as an enumerable, rather than converting it to an array.
     :replies:
     - :author: nithinbekal
-      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3rjqv/
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3rjqv
       :body: |-
         Ooh, I really like that! I seem to be learning about new Enumerable methods every day during AOC. Thanks for sharing that. :)
 
         Refactored solution: https://github.com/nithinbekal/advent-of-code/blob/c3788728010d8bcacd1d622996ef56226ba0370a/lib/06.rb
       :replies: []
 - :author: HornedKavu
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pja6/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pja6
   :body: |-
     **Ruby**
 
@@ -150,7 +150,7 @@
     I bet it can be optimized though.
   :replies:
   - :author: HornedKavu
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pw8x/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3pw8x
     :body: |-
       Some improvements for my solution above:
 
@@ -159,29 +159,29 @@
       ```
     :replies: []
 - :author: OlivarTheLagomorph
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz44o2a/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz44o2a
   :body: |-
     Because I'm not seeing enough Ruby code xD
 
     [paste](https://topaz.github.io/paste/#XQAAAQB2BQAAAAAAAAARiAlH8dxNBu7dkgwpusw3/1N9B7LsXMI7hyVChWl1epsD2KgeM1sgjH2ytyf0NV4riAQ6oTUxVUMgoWpyCpcoNFo7GqJD0S2Sphx9rhqGhCFVjdXO4ACvt6ap1PJSVn2Rrd2GDVIDDLGmST1F2HR9a2FW1XRUP6S6qY7xOW0EPrv1ESGx/Vtp12+EnwZktm/P/7pTYmm1em+hYXtbSiKKZ2LDd7n37mNFDrTEfb+81/VfdQPrpIsllmiUUE2qtJXG7AXMFPkFr8wDBnx/yRNNUvtQ5R6V5DdoXPlgjKXxm7g3wI2x5stLwsOg6J7UTsfKg5pPQoDi5NLp/xnRMRCVQAZziwdQCtuutG9LGIHoP6vTd9bR6qMYykIAFH/WSrLLj6o4aWaG7zeaxz/rbD745k+T6FzPxKAW1pcOrgrMcZG3S0+K+q8VU3ZoEFNtLEppiHJB+Hu2lH60hHcEN/AFkneZO0se6RTw4RNPxLsoFtrzb3r9cn1x7Ts7iV6H7P0KV7JxM+p5yzVm9GIWxStnusdAZmUwQHpPbeiWslkEX9G1rLgIzuGRX8hjXxPMvYAQtDXiGhvcqcQf+BtOiwSmZ30saz/F9sLJ8FWCEljFYGjw2Tx23vmPoCe/u5oiQsPHcoK/1bLCxf2M6MF7iwmDiMr9Dz9Jpf8BGorrzRLwXWCPK6/TVruxF9elYfLX4w6BUcGpz46Q8/rEMvFUiz7MFQ5w7Nm5xybSt0TGYf+zjk1PmrcPOxzBTH8Lp31IbcH0U1hIpPaM3JXgwmoSZ2igmgdS0kZ6YNCVkhZl2HRH7vN76bizBV3Q39TJ3zI59cMgZtQdxE64foE+/Aw3PTOXWB+9r6X/tF1+k2pX4sL/+P0ANQ==)
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5nmkv/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5nmkv
   :body: "Recursive Ruby\n\n```ruby\ndef \U0001F9D0 size, input, start=0\n  return start + size if input.slice(start, size).uniq.count == size\n  \U0001F9D0 size, input, start += 1\nend\n\ninput = File.read(\"input.txt\").bytes\np \U0001F9D0 4, input\np \U0001F9D0 14, input\n```"
   :replies: []
 - :author: radiales
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5x8v3/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5x8v3
   :body: |-
     Ruby
 
     https://github.com/radiales/aoc/blob/master/D6A2.rb
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3o45q/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3o45q
   :body: "# [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day6/main.rb)"
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3sg31/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz3sg31
   :body: |-
     # Ruby
 
@@ -208,7 +208,7 @@
     ```
   :replies: []
 - :author: craigontour
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz457c6/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz457c6
   :body: |-
     # Ruby
 
@@ -227,7 +227,7 @@
     ```
   :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz46z3s/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz46z3s
   :body: |-
     **Ruby** golf 104 bytes
 
@@ -236,7 +236,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz499s2/
+    :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz499s2
     :body: |-
       91 bytes
 
@@ -245,7 +245,7 @@
       ```
     :replies:
     - :author: '442401'
-      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4gchq/
+      :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4gchq
       :body: |-
         86 bytes
 
@@ -254,19 +254,19 @@
         ```
       :replies:
       - :author: ignurant
-        :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5k2k1/
+        :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5k2k1
         :body: "Here was my golf, though it only does one part at a time unlike you cool lads. 84.\n\n```ruby\n(\U0001F3CC=->s,b,i=0{exit(p i+s) if b.slice(i,s).uniq.size==s;\U0001F3CC[s,b,i+1]})[14,$<.read.bytes]\n```\n\nEdit: Fixed. Had wrong answer, needed to add the len to the goal."
         :replies:
         - :author: '442401'
-          :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5xqua/
+          :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5xqua
           :body: "Recursive\U0001F3CC! Love it."
           :replies:
           - :author: ignurant
-            :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6736w/
+            :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6736w
             :body: It's kinda fun thinking of it like you're taking a swing every time the function runs lol. I can hear a lovely _thwack_.
             :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5fdo9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5fdo9
   :body: |-
     **Ruby**
 
@@ -286,7 +286,7 @@
     ```
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5mui4/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz5mui4
   :body: |-
     Ruby dooby doo
 
@@ -303,7 +303,7 @@
     ```
   :replies: []
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6gcok/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz6gcok
   :body: |-
     Ruby
 
@@ -312,7 +312,7 @@
     basic sliding window. found the .uniq() method instead of looping my own checker.
   :replies: []
 - :author: matas__
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz42fv2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz42fv2
   :body: |-
     Ruby:
 
@@ -333,7 +333,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47eaz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47eaz
   :body: |-
     Ruby
 
@@ -342,7 +342,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/q_OpWtu8Xes)
   :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47hv4/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz47hv4
   :body: |-
     Ruby
 
@@ -361,14 +361,14 @@
     ```
   :replies: []
 - :author: ScaredOfMyRawr
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48lcj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48lcj
   :body: |-
     [My solution](https://medium.com/@ashley-peacock/advent-of-code-2022-day-6-solution-tuning-trouble-5500951d6e59) for today's problems in Ruby.
 
     I'm sure lots of other people did a sliding window, so I did too! I'm rusty on these algorithms, so I probably could have done it more efficiently. I also think you can do it without storing perhaps the current string, but then I think it becomes less efficient...
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48oe8/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz48oe8
   :body: |-
     Ruby
 
@@ -397,7 +397,7 @@
     ```
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4d7oj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz4d7oj
   :body: |-
     Ruby
 
@@ -409,7 +409,7 @@
     ```
   :replies: []
 - :author: maxverse
-  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz55o5s/
+  :url: https://www.reddit.com/r/adventofcode/comments/zdw0u6/2022_day_6_solutions/iz55o5s
   :body: |-
     # Ruby
 

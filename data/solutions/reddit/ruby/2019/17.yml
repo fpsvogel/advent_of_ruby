@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb73yzz/
+  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb73yzz
   :body: |-
     I guess I'll throw my kinda weird solution out there, in the style of some of the weird solutions to day 13.
 
@@ -18,11 +18,11 @@
     I mostly wrote this code since I haven't properly written the code that breaks up the instruction list into three functions yet, so this is just to amuse me while I figure that out and write that...
   :replies:
   - :author: gedhrel
-    :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb8xxx5/
+    :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb8xxx5
     :body: Yup. I've been reverse engineering the intcode each day after solving the puzzle. Some nice techniques there (including self-modifying code to manage array indexing).
     :replies: []
 - :author: alienpirate5
-  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb6xeny/
+  :url: https://www.reddit.com/r/adventofcode/comments/ebr7dg/2019_day_17_solutions/fb6xeny
   :body: |-
     Ruby: 524/311
 

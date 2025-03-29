@@ -1,6 +1,6 @@
 ---
 - :author: '0x0dea'
-  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv1vx5/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv1vx5
   :body: |-
     I finally "won" one! Thanks, Ruby.
 
@@ -12,27 +12,27 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ayw/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ayw
     :body: "[deleted]"
     :replies:
     - :author: _jonah
-      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv38y5/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv38y5
       :body: "`s.succ!` is doing more magic than the regexps."
       :replies:
       - :author: KrzaQ2
-        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7ln7/
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7ln7
         :body: Not that much, I used `(n.to_i(36)+1).to_s(36).gsub('0', 'a')` to get the next string.
         :replies: []
       - :author: gfixler
-        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv44uz/
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv44uz
         :body: What's scary is knowing that these things are probably in car braking systems and pacemakers.
         :replies: []
   - :author: _jonah
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ror/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv2ror
     :body: This is beautiful. And TIL succ could be applied to str, and `!~` exists. And as long as we're golfing, you can shave off a bit by replacing your scan with `s =~ /(.)\1.*(.)\2/`
     :replies: []
   - :author: gareve
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7uat/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv7uat
     :body: |-
       Nice, I've discovered Regexp.union :) Without that I was trying with:
 
@@ -41,11 +41,11 @@
       ```
     :replies: []
   - :author: takeitonben
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvp7z6/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvp7z6
     :body: code like this is almost like magic to me.
     :replies: []
   - :author: crossbrowser
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvb4s5/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvb4s5
     :body: |-
       Doesn't this fail rule #3?
 
@@ -54,7 +54,7 @@
       Or is `"aabaa"` valid?
     :replies:
     - :author: jmorais
-      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxveg1y/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxveg1y
       :body: |-
         None of my inputs had this problem. To solve just put a uniq.
 
@@ -69,11 +69,11 @@
         ```
       :replies:
       - :author: crossbrowser
-        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvetmy/
+        :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvetmy
         :body: Nice, I was trying to do something similar but didn't know about scan. Useful.
         :replies: []
   - :author: segfaultvicta
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvcfqo/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvcfqo
     :body: |-
       > r = Regexp.union [\*?a..?z].each\_cons(3).map(&:join)
 
@@ -86,7 +86,7 @@
       How long does this take to run, out of curiosity?
     :replies: []
 - :author: tremendo
-  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv34sv/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv34sv
   :body: |-
     **Ruby**
 
@@ -113,15 +113,15 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv79ev/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv79ev
     :body: "[deleted]"
     :replies:
     - :author: tremendo
-      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvajgu/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvajgu
       :body: Indeed! thanks for that.
       :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv3oyr/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv3oyr
   :body: |-
     Ruby's .next operator for strings made this really easy. As per usual, I know my regex is bad and should feel bad, but I don't care. Also, I gotta stop with the social life - second night in a row that it cost me a spot on the board.
 
@@ -144,14 +144,14 @@
     ```
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv5hua/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv5hua
     :body: |-
       DISREGARD SOCIALIZING
 
       ACQUIRE STARS
     :replies: []
 - :author: amnn9
-  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv77ns/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxv77ns
   :body: |-
     **Ruby**
 
@@ -178,7 +178,7 @@
     My Haskell side yearned for an _iterate_ function, so that's what drove this implementation.
   :replies: []
 - :author: beefamaka
-  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvqlz7/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wbzyv/day_11_solutions/cxvqlz7
   :body: |-
     here's my solution in F#. Feeling jealous of the Ruby 'succ' function so I tried to create my own.
 

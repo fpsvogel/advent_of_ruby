@@ -1,6 +1,6 @@
 ---
 - :author: KeyboardFire
-  :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboleqg/
+  :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboleqg
   :body: |-
     ruby 2nd/1st
 
@@ -88,7 +88,7 @@
     ```
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebolgt5/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebolgt5
     :body: |-
       > ruby 2nd/1st
 
@@ -99,34 +99,34 @@
       Note to self, make a 100000-wide grid next time.
     :replies: []
   - :author: dtinth
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomfmk/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomfmk
     :body: |-
       Congrats on getting 2nd/1st!
 
       Just a bit of tip that you can sort an array by multiple values by using an Array as a sort key: `ca.sort_by!{|c|[c.y,c.x]}`
     :replies:
     - :author: KeyboardFire
-      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomq8c/
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomq8c
       :body: oh cool, i didn't know that. thanks!
       :replies: []
   - :author: jonathan_paulson
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebom43c/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebom43c
     :body: Thanks for posting. Your code for handling the rotations (`\ / +`) is really concise!
     :replies: []
   - :author: markasoftware
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomy9b/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebomy9b
     :body: Holy shit, storing x and y component velocities never crossed my mind! Absolutely brilliant!
     :replies: []
   - :author: sigacuckoo
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebose9c/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebose9c
     :body: Directions as speed vector really cleans the code up! I used the transition maps like most of the people.
     :replies: []
   - :author: tobiasvl
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboxdwy/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/eboxdwy
     :body: For me, part 2 seems to be off by one in the X coordinate (I had `54,66` while your code prints out `55\n66`).
     :replies: []
   - :author: VikeStep
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebp3lw0/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebp3lw0
     :body: |-
       Just fyi, your example above the code has the permutations switched around for the corners. It should be the following as it appears in your code:
 
@@ -136,23 +136,23 @@
       ```
     :replies:
     - :author: KeyboardFire
-      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu451/
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu451
       :body: whoops, fixed that, thanks!
       :replies: []
   - :author: jtgorn
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqm2re/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqm2re
     :body: Beautiful. What sort of syntax is it ?v ?^ etc.. ?
     :replies:
     - :author: KeyboardFire
-      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu5d6/
+      :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebqu5d6
       :body: it's sugar for single-character strings (e.g. `?v == "v"`)
       :replies:
       - :author: jtgorn
-        :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebtbonm/
+        :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebtbonm
         :body: Thanks! I have learned one thing today :)
         :replies: []
   - :author: koordinate
-    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ecgbyjm/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ecgbyjm
     :body: |-
       Nice. Thank you for sharing.
 

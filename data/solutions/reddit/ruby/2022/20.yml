@@ -1,13 +1,13 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j18nj2y/
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j18nj2y
   :body: |-
     Ruby
 
     Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/20)Video Walkthrough: [YouTube](https://youtu.be/szXQTRybPAI)
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j12cr45/
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j12cr45
   :body: |-
     **Ruby** , with rotating arrays:
 
@@ -26,7 +26,7 @@
     ```
   :replies: []
 - :author: whezya
-  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j10t1i9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j10t1i9
   :body: |-
     **Ruby**
 
@@ -37,7 +37,7 @@
     https://github.com/rbellec/advent\_of\_code\_2022/blob/main/app/daily\_problems/day\_20.rb
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xw35j/
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xw35j
   :body: |-
     # Ruby, 437/334
 
@@ -65,14 +65,14 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yin0g/
+    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yin0g
     :body: |-
       Exactly the same idea to use the number + original position.
 
       There is a guy who uses Python and often uses complex numbers to store information. I wonder if he used them today, seems to fit well :)
     :replies:
     - :author: 4HbQ
-      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yxzqw/
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0yxzqw
       :body: |-
         [Maybe](https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyug6hl/)[I](https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhzxb6/)[am](https://www.reddit.com/r/adventofcode/comments/zjnruc/2022_day_12_solutions/izw63we/)[that](https://www.reddit.com/r/adventofcode/comments/zli1rd/2022_day_14_solutions/j061f6z/)[guy](https://www.reddit.com/r/adventofcode/comments/znykq2/2022_day_17_solutions/j0kdnnj/)?
 
@@ -81,18 +81,18 @@
         In case you're interested, it does work and looks like [this](https://topaz.github.io/paste/#XQAAAQADAQAAAAAAAAA8HMAC0B10JGvJxk1ICqx0YTnnfz/f4KkcTEpfucim8ULWQSRYZBfXObTE2OdlMYGbQsY7+p1vB9dTESMHaog9kTvMa09i7wJBCx3J5GHdmWv98l/yxeHO65EExHVDflnmMdr0EygoA80iMjB2s7L6j8Tyo0WuMGummilYRJx1sJT+ptMYHKLSDQP/6DLmiXSNjNvx4HBrHWGB5W7K/8MkepJ8LYJK0gRTKP/Q5KxSJWG5b0+gBdrhpx/EqiylybH/+LazgA==).
       :replies:
       - :author: "[deleted]"
-        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0z6eiz/
+        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0z6eiz
         :body: |-
           That guy: [https://www.youtube.com/watch?v=w9Sk7lvyGZI](https://www.youtube.com/watch?v=w9Sk7lvyGZI) :)
 
           No complex numbers today, a linked list :(
         :replies: []
     - :author: jstanley0
-      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j114qpe/
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j114qpe
       :body: ooh, putting the original index in an imaginary part is delightfully perverse. I love it
       :replies: []
   - :author: Elavid
-    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xyhwz/
+    :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xyhwz
     :body: |-
       I used Ruby too! I used a doubly-linked list where each node is a hash that contains the value, and links to the previous and next nodes. Each node also contains an extra pointer to the node that was originally after it in the input ~~(I didn't realize the input numbers would be unique, like you did)~~.
 
@@ -101,15 +101,15 @@
       I thought my approach should be faster than the simple array style because it requires very little writing of data, but I guess I'm getting slowed down by having a big data structure that I have to read a whole lot. I have to traverse through nodes one at a time to find my insert positions every time I move a node.
     :replies:
     - :author: jstanley0
-      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xzk4s/
+      :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0xzk4s
       :body: My solution doesn’t depend on the numbers being unique. Are they? I just paired each number with its original position and searched for that to find which number to move. I’m sure it could have been done more efficiently but I was up very late doing the previous problem…
       :replies:
       - :author: Elavid
-        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y1df3/
+        :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y1df3
         :body: Oh yeah, you're right.
         :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y2lsg/
+  :url: https://www.reddit.com/r/adventofcode/comments/zqezkn/2022_day_20_solutions/j0y2lsg
   :body: |-
     # Ruby
 

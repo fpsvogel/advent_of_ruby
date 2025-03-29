@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhaqcb/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhaqcb
   :body: |-
     Ruby. Top 100 in both parts, yay!
 
@@ -29,22 +29,22 @@
     ```
   :replies:
   - :author: teddim
-    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhf89i/
+    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhf89i
     :body: Congrats!!
     :replies: []
   - :author: HeyItsBATMANagain
-    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjjnm/
+    :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjjnm
     :body: |-
       > if j['###### ###### #### ##### #### #### #### ###']
 
       Not a ruby dude, but doesn't this only work if you already know that this string will be part of the answer?
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjtgv/
+      :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhjtgv
       :body: Yes. I copied it from the end of part 1 since I haven't closed my terminal window yet. Calling `[other_string]` on a string will perform a match - if it exists, it allows you to write to it (e.g. `'abc'['b']='d'`) but in this case it just returns a non-nil value. I don't know how to generalize this in a fast enough way that can be done in speedcoding.
       :replies: []
 - :author: ChronJob
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhayvp/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhayvp
   :body: |-
     Ruby 196/194! It was fun to watch the animation on my terminal.
 
@@ -85,7 +85,7 @@
     ```
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhc17x/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhc17x
   :body: |-
     Ruby
 
@@ -137,7 +137,7 @@
     ```
   :replies: []
 - :author: jtgorn
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhk89a/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhk89a
   :body: |-
     I kind of like this Ruby code
 
@@ -164,7 +164,7 @@
     My heuristic was quite simple - wait until height of the cluster gets small enough and than present iterations to user and let him decide which one gives readable text.
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhawi5/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhawi5
   :body: |-
     ## Ruby (#13,#16)
 
@@ -208,7 +208,7 @@
     ```
   :replies: []
 - :author: HeyItsBATMANagain
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhr634/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebhr634
   :body: |-
     # Crystal
 
@@ -279,7 +279,7 @@
     ```
   :replies: []
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebj2o9o/
+  :url: https://www.reddit.com/r/adventofcode/comments/a4skra/2018_day_10_solutions/ebj2o9o
   :body: |-
     Ruby
 

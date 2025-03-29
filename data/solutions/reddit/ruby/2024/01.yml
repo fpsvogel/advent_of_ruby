@@ -1,13 +1,13 @@
 ---
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/m0c0fmv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/m0c0fmv
   :body: |-
     [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day01.rb)
 
     Using Ruby for this problem almost felt like cheating: between `Array#transpose` and `Enumerable#tally`, I barely had to write any code of my own :) My Ruby is definitely a bit rusty, so this was a nice opportunity to review those classes' interfaces in preparation for future days.
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzvccp8/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzvccp8
   :body: |-
     > This looks like a job for ... [Trans Pose](https://ruby-doc.org/3.3.6/Array.html#method-i-transpose)! :)
 
@@ -25,7 +25,7 @@
     ```
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztxpm4/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztxpm4
   :body: |-
     7062/1094 I could have made it to the first 1k if I didn't have to help my wife with something between the two parts :D
 
@@ -56,7 +56,7 @@
     edit: usual complaint, I hate that ruby's `Array#zip` with a block returns `nil`
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzx6a3o/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzx6a3o
   :body: |-
     ```ruby
     lines = File.readlines('input1.txt', chomp: true)
@@ -87,7 +87,7 @@
     My very first Ruby script, critiques more than welcome!
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztwobe/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lztwobe
   :body: |-
     ```ruby
     left, right = ARGF.readlines.map(&:split).map { _1.map(&:to_i) }.transpose
@@ -98,7 +98,7 @@
     Initially had a small bug in my part 2 with using `find` instead of `count`, I blame sleep deprivation!
   :replies: []
 - :author: The_Jare
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzufxbj/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzufxbj
   :body: |-
     ```ruby
     l1, l2 = ARGF.each.map(&:split).transpose.map {|x| x.map(&:to_i).sort }
@@ -107,7 +107,7 @@
     ```
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzunulz/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzunulz
   :body: |-
     ```ruby
     lists = $<.map { _1.scan(/\d+/).map(&:to_i) }.transpose
@@ -122,15 +122,15 @@
     ```
   :replies:
   - :author: stellar_opossum
-    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuqguv/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuqguv
     :body: "`left_element * right_list.count(left_element)`. Now that's `lazy`"
     :replies:
     - :author: glebm
-      :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuzfy6/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzuzfy6
       :body: That's quadratic, you're making the computer do all the work, so inconsiderate!
       :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzusygn/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzusygn
   :body: |-
     https://github.com/vinc/advent-of-code
 
@@ -149,11 +149,11 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzut10v/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzut10v
   :body: "[https://github.com/careyi3/aoc\\_2024/tree/master/solutions/1](https://github.com/careyi3/aoc_2024/tree/master/solutions/1)"
   :replies: []
 - :author: Cheswick32
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzw82qi/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzw82qi
   :body: |-
     The first day always feels like a test of "So how much thought we putting into running this thing?".
 
@@ -162,7 +162,7 @@
     [Paste](https://topaz.github.io/paste/#XQAAAQA1BQAAAAAAAAA5GUqKNoFH6SMqgz5/p0SQOJLmsq1ZB0a/1piD4YtOTl2yryMSPb8yt+HzPgs17kMK3qa5Pt4XB0i+P157YAYOjqPnnUayVBdNcP2YpHcA4r3Y+MR8fkwdqbk0WawDRDBeQKH/SQvLD4n5TgrbeiQ/D4eTIWxM62dZwygva6quKx2/9Uyy7AZBhywh5jp5z5L03KUMCcbXBCpAj7raYZaeBrU/ABVkIUOL4vo5b26uNY8YphcqbCWnmSktj3KUqxUFxqRzk1tnEawkklHFBTy9qP7wRZSC7ZAPqxZpAvJgqUWsz3nPJSNOmGSUj8xIst85XDJv1YojTeG6YIGzJCIsFTvmpE++CfYzEmsCjhct2EAixl3SPSOSJmpjNa1T7ojdJeZLsdzM19XbycmPJ1ndMUeJMsA0KZu7dZZZuW1M+jC4icyESt5m7D4lUJdHy4SPrzgI9C1SUxkM13YNcnGA8UPyqOXtespj1ltgM1AnHpKbkuEoETy/LRGGPuEH4K5dfGGFlb9jRS9NPe1ix5HeQdoEwYHbPFU/mH/odgPP6//lQ3jvSbqkxxTaKRvMvmEWWGmmBUSbmwvpTjtlnPr7YEar767MJoAONUBzHxY67Nu4zXlVVfnzfKQHT/CXvARSNBZJf8EkJStTB507isAwz9wFlZUxZ9uPXyS7BG6asaHjPmVHW+wmSTgnPFkGiZXeusyi44je3g0cEEZXA5kbKyBwN7Nip79YTaNDAcPrqUUeJzPY1L/gdZhIKi3vS6QK8+V2rx0g6xcR6uEO+82kf01Aw8hO3CdDAwr9pwqNBYgBGZYuoaraAD6DppkjnyOH/mo9RA==)
   :replies: []
 - :author: zaniwoop
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwfu9m/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwfu9m
   :body: |-
     ```ruby
     # part 1
@@ -187,7 +187,7 @@
     ```
   :replies: []
 - :author: Robowiko123
-  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwhsbr/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzwhsbr
   :body: |-
     ```ruby
     # Part 1
@@ -198,6 +198,6 @@
     ```
   :replies:
   - :author: vmaskmovps
-    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzxkt83/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h3vp6n/2024_day_1_solutions/lzxkt83
     :body: Check your post, right now everything is a code block, including the Language header
     :replies: []

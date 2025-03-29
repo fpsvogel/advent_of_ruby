@@ -1,6 +1,6 @@
 ---
 - :author: LyleiLanar
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnuv4a2/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnuv4a2
   :body: |-
     My Ruby solution
 
@@ -13,7 +13,7 @@
     (I love unnecessary long code in Ruby :D)
   :replies: []
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnr64nw/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hnr64nw
   :body: |-
     Day 4 in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day04/kiril/day4.rb)
 
@@ -67,7 +67,7 @@
     ```
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hna4l0i/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hna4l0i
   :body: |-
     # Ruby
 
@@ -141,7 +141,7 @@
     ```
   :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5wr4x/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5wr4x
   :body: |-
     [Ruby 165/328](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/04/bingo.rb)
 
@@ -156,7 +156,7 @@
     :)
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xg2l/
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xg2l
     :body: |-
       I came up with the same win check :D
 
@@ -165,11 +165,11 @@
       448/1336 on leaderboard. I had a bug for part 2 that took me forever to find and delayed that massively (I wasn't saving the marked numbers at the time board won, so each board got multiplied with the final state of marked numbers instead).
     :replies:
     - :author: firetech_SE
-      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xxa3/
+      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xxa3
       :body: I had a similar bug for part 2, making me submit one wrong answer (because I didn't test the example first). I was multiplying the unmarked numbers of the last board with the number that caused the penultimate board to win... Obviously not the right answer in hindsight. :P
       :replies: []
 - :author: MuumiJumala
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5vakq/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5vakq
   :body: |-
     Ruby 31/169
 
@@ -214,14 +214,14 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xnb6/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5xnb6
   :body: |-
     Ruby (1663/1458)
 
     [paste](https://topaz.github.io/paste/#XQAAAQBkBQAAAAAAAAA5GUqKNoFH6SMqoVC09YUYnzPWhqlH2+Hr8Fo0LWObqf/7A64y1PK3tmghdoGJvrywmmWmMpIWX+juaXZ1wcHhaQoyKpYomldzUsxTPEnSopgCgcPve52gApoUelT97axtHQbkCEsHVjaIw2W8ChFDAmNgS241pm8hq4ZuzHRMtK7DHvlLoKsFaBLZgwCdDPmmePzD4IuKDuSGoEwsjfrT6rUfMPKaIrs6/9XJLtCl+dEoHJrIZ0B5lS5FcnnQDWi0vh9FKkwV88xeArrK+LdLY9Kq/WRNL5vAzH7DzPQgu4zONrrPRfRYZEL4OPu33lYRj+drw2mDNZ2nBtXN5k/5GYfhL7p5eiy3E8i4vxJ5MkhgqY+jy0IAWkFWfqOqvv6K/STNPpIxSxdIIZhSMw/CAG1GPuNXq+RNmmgM7GPhMxoNREtUglZfZy+t4OZy4C2mcBaS8hl/LI5YTQMR/qdQHDqK4Ki9XraY3JIK+CwwBHWm2QAsOl/uClF/RmFhA/swZDR1kvG/tLuqkQXmcpWQPQys4CNZJdAzN0kOYLQ9BjUTGgGqGYHTPbqau7UMq4hTfnaFpFILB0uQ7fP1jjbPTBSwfZUWf6/jfEH6MG2YLPKRcsHTPhwDDDrozvv9P5rZw/bi0vsYR66oXoCN7mSgREw72LILWdaCBVQtD12oGY4QQc/2iKYU8O/RK7Nhc9CvoNaSRc/U3vXzxOKj0F17jSjf28A4Lq8U2dXTEszULufziZXE42ZtvFIxAoJhyyf+EWr+)
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5ynqb/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5ynqb
   :body: |-
     **Ruby 234 bytes** (331/181)
 
@@ -240,7 +240,7 @@
     ```
   :replies: []
 - :author: prafster
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn9w2v5/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn9w2v5
   :body: |-
     ## Julia
 
@@ -274,15 +274,15 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5uk84/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn5uk84
   :body: "Ruby, 103/78\n\n[paste](https://topaz.github.io/paste/#XQAAAQDKAgAAAAAAAAA3HUndk+qmj5/Fy3M/zxYA0ZSRDHVvs77FAAYy3AgE7aazPBVUel9aQhsWVG6vSOGPTWnkKEODU0AvjN6HssBAnxKHYOLUnt/hXpcGJta6dQiazS5yzvrz/GNvpXoV/zQXWnJDKsMS0C2UwMjJ4dHDE8Zta9A2BCVJOwfd+axMf+jIz9H5og04A5p7sMc3VCZjI2eZ7vNvUQoydExKAqKydz9SxjasJHKzq+5qh8QGEG/JyL2qHwglp4iQ0Oy+Eal36iZgLPlT07DLBUzpxBpN+TwhSvZtnpaL/PAccWQIPGazYXxuUHVOjUtLkklcTZdvScInNkQ90N5Hvv72Vks4BPq5Huk55S6KyvVGILVrhssIQLSzq5P9VzUSVfKaDvuyzZ4BQxvPwT9tHtFLdl03f+pJuro4I9snxe4nt2GGeoI/Mg4GAqTfyiIotxq0j7YswiOxh/gkxolo+M4EzUN8X3yWrGIptoHqlbcwQsR5v9SX+ieA617tx6v5RD/giwmnPIV/LHyp5f/AZCA+)\n\nWhen the board is received, I generated a set of numbers that, if were all called, would resulted in a winning board, which is `data + data.transpose`.\n\nWhen it comes to simulation sometimes using OOP helps me think more clearly. I tripped up because I recently learned about `_1` `_2` in Ruby, but don’t know how to nest them. \U0001F602 (Edit: [Nesting numbered parameters is not allowed](https://bugs.ruby-lang.org/issues/17167))"
   :replies:
   - :author: ni3t
-    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62qel/
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62qel
     :body: sorry for tripping you up like that!!
     :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62c6r/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62c6r
   :body: |-
     ### Ruby
 
@@ -301,14 +301,14 @@
     (board + board.transpose) opens up a whole new approach of just checking inputs, never even thought of it.
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64f25/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64f25
   :body: |-
     **Ruby**
 
     [Very straightforward boring implementation](https://tzarnal.github.io/Opal/#XQAAAQA9BQAAAAAAAAAxmwhIY/U8uCvV3MBTRcLmg+3/UZp6nzdBmHqJnigx6N8zdlE0Prd9rod6fg6O45LH2CEcTIce6Q7nzm9yIQ6Dg8/gJ45Eevtmo9v2hPx2fDjUxXAADuAr8DCXLyxRSSni9mA3GQXzpaj38zpREqz5jAdOQHXh+j02p2yYlfHhMgkweg7uZxALALEI4kRnod64/N5b/pOApEau6Plvx99C72UNH3aazlUtQGzUqUQa7Ulfm1oFpiRHQ1Bv5sROoqVYd95guiNh5/zIzE9EUqbVs+hUhFkLkgyytHBK2AZukUY6y7p7oRcSttM9Y2qYL8BzyFw9Y+k2qYoboQlHZocHer/7zqYR1UD4tDy96G2Ou/zXt9C+wLzSvp7LRBg7qM/6p4DuWfoOOoqTjFgYcS3SLHizrVLABkZMnBedFsZ9nO8DXo+xGNPsxEyqFzddnYQMsv6fwLKWUxktUMaQXKfWjgvBSTgqOCft5FQLKNly5GNrpFp6vOyEHeZOKEXO3LsYErj9u3OfnfCquUu9X2gyjCQo62Hm6MLLLikb046ttVFXdTyR56DkiEF2phIX/SpZyC/0mXMBeI2N4Oxooko2RFawgEXdQq+NKmsensxJvkjhqZ6UeuJBAzY1ceHJDP+FEBbuYkUEqADf197EaSeLHC8LEQmKHjP/0V0CJQ==) class-based kinda game thing
   :replies:
   - :author: madethemcry
-    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64wf9/
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64wf9
     :body: |-
       Very nice, very elegant. I went the same road with `transpose` and `any` but less elegant. You seem to be pretty fluent in Ruby, I'm not that fluent. I enjoy your result very much and I learned a few bits. Thank you!
 
@@ -317,21 +317,21 @@
       Edit: Your source has a wrong variable copied, find `called_number` which should be `number` in `dobb`
     :replies:
     - :author: ignurant
-      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7886b/
+      :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7886b
       :body: |-
         Thank you for the nice note! You must have grabbed that right after I posted it -- I caught that var and edited it before I saw your reply -- I thought I could sneak it through! :doh:.
 
         This is my first time participating in this kind of thing, and it's really interesting (and humbling) to look at other solutions. Often times my main take-away (particularly yesterday!) has been: I overthink things way too much.
       :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8hz4i/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8hz4i
   :body: |-
     [Ruby Solution](https://git.doublehack.me/s00ner/AoC2021/src/branch/master/day04/solution.rb)
 
     Part 2 was pretty easy after I finished part 1.
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8i7bw/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn8i7bw
   :body: |-
     Ruby
 
@@ -378,7 +378,7 @@
     ```
   :replies: []
 - :author: madethemcry
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62yi9/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn62yi9
   :body: |-
     # RUBY
 
@@ -473,7 +473,7 @@
     ```
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7af5j/
+    :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn7af5j
     :body: |-
       I like your project layout, and I think I'm going to do that from now on. The retrospective readme per problem is a nice touch!
 
@@ -482,14 +482,14 @@
       Thanks for sharing your notes -- I find it inspiring!
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64g7t/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn64g7t
   :body: |-
     Ruby
 
     https://github.com/sreedevk/advent-of-code/blob/master/ruby/2021/day4/main.rb
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn65fk0/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn65fk0
   :body: |-
     Ruby
 
@@ -521,7 +521,7 @@
     ```
   :replies: []
 - :author: l_ugray
-  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn6uuot/
+  :url: https://www.reddit.com/r/adventofcode/comments/r8i1lq/2021_day_4_solutions/hn6uuot
   :body: |-
     Ruby. The full code is at [https://github.com/lugray/advent\_of\_code/blob/main/2021/day04.rb](https://github.com/lugray/advent_of_code/blob/main/2021/day04.rb), but I'm particularly prod of how this looks:
 

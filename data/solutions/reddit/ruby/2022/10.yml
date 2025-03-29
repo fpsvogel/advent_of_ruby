@@ -1,13 +1,13 @@
 ---
 - :author: Zaorhion_
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0yt14w/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0yt14w
   :body: |-
     Ruby
 
     [My Solution](https://github.com/Eric-Philippe/Advent-Of-Code-2022/tree/master/Day10%20%5BRuby%5D%20%F0%9F%A7%A3)
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izqd2az/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izqd2az
   :body: |-
     Ruby, golfed to 118 bytes
 
@@ -20,7 +20,7 @@
     ```
   :replies:
   - :author: ulysse_bn
-    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0i98y7/
+    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/j0i98y7
     :body: |-
       With a few tweaks, I could get that to 95:
 
@@ -33,7 +33,7 @@
       ```
     :replies: []
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izq2ga7/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izq2ga7
   :body: |-
     Ruby
 
@@ -42,7 +42,7 @@
     This one was fun, and straight forward. Didn't know how to do it using TDD though.
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/iznvdim/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/iznvdim
   :body: |-
     Ruby
 
@@ -64,11 +64,11 @@
     ```
   :replies:
   - :author: f4780y
-    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izomns8/
+    :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izomns8
     :body: Very nice!
     :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izn73dg/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izn73dg
   :body: |-
     **Ruby Solution**
 
@@ -79,7 +79,7 @@
     Full Solution: [https://gist.github.com/seanhandley/0f3b78a7c17a459485913692a9296cb1](https://gist.github.com/seanhandley/0f3b78a7c17a459485913692a9296cb1)
   :replies: []
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izo3w5h/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izo3w5h
   :body: |-
     **Ruby**
 
@@ -88,7 +88,7 @@
     https://github.com/SolarBear/AdventOfCode2022/blob/main/day10.rb
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoa8oc/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoa8oc
   :body: |-
     Ruby
 
@@ -97,7 +97,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/_4BCotKM01U)
   :replies: []
 - :author: SnooConfections2453
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoqvu7/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izoqvu7
   :body: |-
     I'm having a lot of fun doing ruby one liners. Today's solution is great IMO:
 
@@ -106,14 +106,14 @@
     ```
   :replies: []
 - :author: mathem17
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmnv6i/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmnv6i
   :body: |-
     Ruby 3638/2800: [Code](https://github.com/jzhang113/adventofcode/blob/6e9fa80f9d96d88d5e9faa8867812e886c10e036/2022/solutions/10.rb)
 
     Spent a bit too long in part 1 wondering if clock edges would matter, but got rewarded in part 2 for just dumping stuff to instance variables lol
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmrrwj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmrrwj
   :body: |-
     # Ruby
 
@@ -164,14 +164,14 @@
     ```
   :replies: []
 - :author: RedWingedJerBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmww0q/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmww0q
   :body: |-
     [ruby](https://github.com/jwhite-bh/advent-of-code/blob/main/2022/advent_day_10.rb)
 
     Feel okay about this code
   :replies: []
 - :author: kwitczak
-  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmwxv0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zhjfo4/2022_day_10_solutions/izmwxv0
   :body: |-
     **Ruby**
 

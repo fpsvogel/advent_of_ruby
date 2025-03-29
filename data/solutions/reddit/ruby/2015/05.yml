@@ -1,6 +1,6 @@
 ---
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnsyn2/
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnsyn2
   :body: |-
     My Ruby solution. Took me longer than I'd like because I messed up my backreferences at first.
 
@@ -25,7 +25,7 @@
     ```
   :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnthrm/
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnthrm
   :body: |-
     My saddest code yet! Specifically, part one is the first code that I'm actually embarrassed to post. But I figure that as long as I keep getting the right answer... :-P
 
@@ -70,11 +70,11 @@
     ```
   :replies:
   - :author: Aneurysm9
-    :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnx5x0/
+    :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnx5x0
     :body: The only thing sad about part 1 is not using ([a-z])\1. I thought I knew how to use backreferences but kept on misusing them and screwing up the groupings, which certainly cost me a few spots on the board.
     :replies: []
 - :author: miftrim
-  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnuxod/
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxnuxod
   :body: |-
     Ruby!
 
@@ -111,7 +111,7 @@
     ☆_:.｡.o(≧▽≦)o.｡.:_☆
   :replies: []
 - :author: zacwaz
-  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxo8upq/
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cxo8upq
   :body: |-
     Here's another **Ruby** solution. Instead of clever one-liners, for these challenges I've been trying to focus on writing [obvious, readable code using small methods and classes](https://robots.thoughtbot.com/sandi-metz-rules-for-developers). I'd appreciate any critiques or suggestions!
 
@@ -195,7 +195,7 @@
     ```
   :replies: []
 - :author: Aeverous
-  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cy0s1pr/
+  :url: https://www.reddit.com/r/adventofcode/comments/3viazx/day_5_solutions/cy0s1pr
   :body: |-
     My newbie **Ruby** solution, had to play around with http://regexr.com/ for awhile, but it works!
 

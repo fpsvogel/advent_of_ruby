@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebm4fz5/
+  :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebm4fz5
   :body: |-
     Part 1: I got confused for a moment because I forgot to actually store the rules. You'll notice that I wrote a `fetch` which errors if the key doesn't exist, since I saw "all patterns are present" in the description. But this made me wonder whether I was missing a pattern, and I spent some time trying to figure out whether my input had accidentally gotten truncated. Then I realised, of course, 32 is in fact the correct number of lines in the input. And then I discovered I actually forgot to store the rules.
 
@@ -51,7 +51,7 @@
     ```
   :replies:
   - :author: OneParanoidDuck
-    :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebx6nm8/
+    :url: https://www.reddit.com/r/adventofcode/comments/a5eztl/2018_day_12_solutions/ebx6nm8
     :body: |-
       Finally, someone else who mentions bit patterns.. Seems like I'm the only idiot to actually do it with bitwise operations on integers. Wanted to because I feel I'm getting a bit too comfortable using fancy language constructs.
 

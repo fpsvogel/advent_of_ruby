@@ -1,13 +1,13 @@
 ---
 - :author: MintyMiku
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gg08r3p/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gg08r3p
   :body: |-
     # [Ruby](https://github.com/Ciremun/AOC-2020/blob/main/14%20-%20Ruby/14.rb)
 
     it just works 4Head
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfvx57t/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfvx57t
   :body: |-
     # Ruby
 
@@ -16,7 +16,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQA2BgAAAAAAAAAkk4as5/1fmEdghelgYMg6VrsIK/UBR2vu5GgUjeztZFOMhdNgpLgx74sjP7cfZLLgPnfjH19j93zimPOcyRiaOsNyuGVl34T27q33yI7WUCYtyV2RlViqdyqRz5NtpdJ8M/ltXHnk8kEOLgarODukYeCLCPGbwu1QIgxrm9rYyE8ANN7y3Dv9Ui1ShiEJIpbPcE+XTbtznyfGhw3WUFT0w9gDEioL/moxPa/0CAkSj29eD1GFxihtgyjXco+KGOaJZHdFmBUxgk+XNssXjMFLyelsug4QkyV5iCCG4HhrdnJFfuMi7Ae68M2+b/FGtbZdmhw+Cz9BdQHDP78I5I8VTO+QBJSLrIeM5/DYVGXNbzUOn+7SRDSa+W+OUkqUUJGAEEsH2mYUEWNHLJuTY5B+DflNw+qywtMyuwrOr0iD2whD+W1ebeBfIlWK6tjcC4YXh0ELkA7qxSHAX6HuHG8cPjZhYjUrKZwHDRJjuqeNljg85p5iy5sGkz+PhU0XdQ4vtPR/vQ6Tj7+DAFKK52MLiI5p6de3AYwp+XqrLdsZ1kygso5P9PST6EHGFqFVZDtdxe83ci+b1yl3Glkb217rnh9FHuS2RLHVsRxYVPLYjSJtvHYUciIgid2wyua3UZ3JxSmfvXegE+2Gl9daPWO2dhjMbuYD8zVb6scZGkUOYzTe/xEqxEMu+5MFep8nu+XtIXXitdar2n48YGgzL54snH3gAqXqmk+6qDuKDiSVTrLooeE7PrE8FHbNW447wqLjrLkBEURd35JPHGTqsUaIlddtKB1UwG1lazTvfmNWXX2WTEBjvBa6sYMbVR7ZCjX5tsToqrH5HyUX74nb/mpajkXBGR4fXSJioWqlA53DfYjRwlU9g0U/Nxsv1BAeZfwY/fa7kpw=)
   :replies: []
 - :author: willkill07
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfvakic/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfvakic
   :body: |-
     # Ruby
 
@@ -27,7 +27,7 @@
     I defined an abstract base class + two implementations for each part. Overall I'm pretty pleased!
   :replies: []
 - :author: adjudicator
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfuh7xh/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfuh7xh
   :body: |-
     Ruby Part 2.
 
@@ -40,14 +40,14 @@
     refactored a bit: https://pastebin.com/w4zyYfSJ
   :replies: []
 - :author: billiamthesecond
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsezb0/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsezb0
   :body: |-
     [Ruby](https://www.billiam.org/advent-of-code/14.html)
 
     Needs cleanup, but another successful use of repeated\_permutation
   :replies:
   - :author: adjudicator
-    :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfuzeql/
+    :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfuzeql
     :body: |-
       > repeated\_permutation
 
@@ -68,7 +68,7 @@
       ```
     :replies: []
 - :author: justinpaulson
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsa36z/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsa36z
   :body: |-
     Ruby 325 / 310
 
@@ -77,7 +77,7 @@
     [Github](https://github.com/justinpaulson/advent-of-code-2020/blob/master/day_14.rb)
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfszlek/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfszlek
   :body: |-
     **Ruby**
 
@@ -85,7 +85,7 @@
     - [Part 2](https://github.com/odlp/advent-of-code-2020/blob/main/day-14/part2.rb)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsa879/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsa879
   :body: |-
     Ruby, 835/440
 
@@ -94,14 +94,14 @@
     https://gist.github.com/gurgeous/eeeef7c3760ae2825d93313912ba83ab
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsctyo/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsctyo
   :body: |-
     Ruby 3481/2141. I wasted a lot of time before I realized the issue was that `x | y & z` != `(x | y) & z`.
 
     [paste](https://topaz.github.io/paste/#XQAAAQBFBgAAAAAAAAARiAqGkkN7pUjVWW5QMRJorQl/iGDTuz7z9FE7Z0PROHdaroTicEU21UyHqu+JbrZn/hZVJVA0o7+hBbTdOUtULU7YRXF8ZeND/yP8nUt4GSQfvvOXxsFQUu/S5kfezPDFrh8UVeGBywu+Tsmdm7fBw/uebQWn/OUtkuYg7pHYif7HYE7mdq8/UAD4eq2xCKQyvq2NM0CBnu3tEjr3TVSA1kOA6B7qA5WjP0tZ97QjNG2BZjb7WLwYybRXPUvvIhvTcA+BYUb/rAwCQ1xaXVeNSug586eu8fuubIYzf0bet9YM7slUvq9poS7RtWlyWGwf5jeyqVRANHxDOP2Ld7Ff7ADXIQizNkgUWLumY0EpNhaEOgJ/AOKDKZa9+LjcBFNjwUHauibFBwvf+be2oiIlh+ZjmEmpg727tnfrQv6zqPeJJbDm62MMs9OzGEUqOuledDjU2nyYBErjYW6TVg2gFSLYml9xxC+4ogHkICymn/Yfm3q8LFxLNO7eI0TigZ96KfOlhD+C5UV14iJ0VBynrG4PRs+YM82sZVUKFp04tHy3wbhp1kidYRiM2MOI2rp05732v3+EsqeodL6KHPjc3hHCjLmaRJykTDaoWv3TwoGV1M2al3YHbAvIyd8BmeU5cBd41ZTMK8uFFRlUDpCiOHD+wpC1kQ3ZQSTq7QZE4iwj/b8VoA==)
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsdyft/
+  :url: https://www.reddit.com/r/adventofcode/comments/kcr1ct/2020_day_14_solutions/gfsdyft
   :body: |-
     **Ruby:** 11:43/26:41, 489/470
 

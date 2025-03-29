@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1an1/
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1an1
   :body: |-
     Ruby; kinda late, had to rewrite a lot. I assumed the puzzle was "validate heights" (and a wrong one was provided), not "ensure balancing", based on the highlighted text. Even after I rewrote my code, it showed 2 wrong sectors, which worried me hugely. It took a long time for me to realize that I should manually dig through the input for the disc to change. Fun riddle!
 
@@ -32,18 +32,18 @@
     ```
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1kdy/
+    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw1kdy
     :body: |-
       > Also I think we're reaching the point where forfeiting readability for speed is starting to become a liability.
 
       **_yes_**
     :replies: []
   - :author: LeCrushinator
-    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqxs2mv/
+    :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqxs2mv
     :body: This looks similar to when I let my 4 year old pretend they're typing something on the keyboard. I've been programming for years and this still looks like greek to me.
     :replies: []
 - :author: arachnist
-  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw96y5/
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw96y5
   :body: |-
     Went through my pry and zsh history, and cleaned up the ruby solution i came up with in the morning
 
@@ -130,7 +130,7 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw10dq/
+  :url: https://www.reddit.com/r/adventofcode/comments/7i44pg/2017_day_7_solutions/dqw10dq
   :body: |-
     **Ruby REPL** (irb) solution. The `pbpaste` command must be available in the `$PATH`, and should return the contents in the clipboard (macOS has this command by default).
 

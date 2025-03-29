@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fbczcr4/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fbczcr4
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_11
   :replies: []
 - :author: Kache
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/faj25ci/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/faj25ci
   :body: |-
     **Ruby** shortened to 17 lines, not counting `Intcode`:
 
@@ -32,7 +32,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7sld/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7sld
   :body: |-
     Ruby again.
 
@@ -66,7 +66,7 @@
     The whole thing can be seen here: [aoc2019/ruby/11.rb](https://github.com/daniero/code-challenges/blob/master/aoc2019/ruby/11.rb)
   :replies: []
 - :author: Yardboy
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7p2m/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai7p2m
   :body: |-
     # Ruby
 
@@ -93,7 +93,7 @@
     Cause then I had the answer right
   :replies: []
 - :author: MaterialFerret
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai5kx5/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fai5kx5
   :body: |-
     # Ruby
 
@@ -102,7 +102,7 @@
     [https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day11.rb](https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day11.rb)
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fahd4f9/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fahd4f9
   :body: |-
     I did wrote my solutions on Ruby, if there's another intcode problem i'll probably separate my intcodeVM to another module/file.
 
@@ -113,7 +113,7 @@
     Part2: [https://github.com/hdf1986/advent-of-code/blob/master/day11/part2.rb](https://github.com/hdf1986/advent-of-code/blob/master/day11/part1.rb)
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fagct5o/
+  :url: https://www.reddit.com/r/adventofcode/comments/e92jm2/2019_day_11_solutions/fagct5o
   :body: |-
     Ruby [11_intcode_langtons\_ant.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/11_intcode_langtons_ant.rb) and [lib/intcode.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/lib/intcode.rb) for 96/56 today. Has been cleaned up but the idea is the same.
 

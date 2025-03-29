@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa27oma/
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa27oma
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_07
   :replies: []
 - :author: Kache
-  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa0mffc/
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/fa0mffc
   :body: |-
     Super fun! In Ruby, after refactoring and reusing `Intcode`:
 
@@ -25,7 +25,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z55xo/
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z55xo
   :body: |-
     First time using a thread in Ruby!
 
@@ -68,7 +68,7 @@
     The current Intcode Computer is here: [code-challenges/aoc2019/ruby/intcode.rb](https://github.com/daniero/code-challenges/blob/master/aoc2019/ruby/intcode.rb)
   :replies: []
 - :author: ShinobuLove
-  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z31gy/
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9z31gy
   :body: |-
     [Ruby](https://github.com/CodeGradox/advent-of-code-2019/blob/master/day07/main)
 
@@ -77,7 +77,7 @@
     I had to look up an explanation for part 2, but figured it out in the end.
   :replies: []
 - :author: tckmn
-  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wshfv/
+  :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wshfv
   :body: |-
     ruby 3rd/28th
 
@@ -107,15 +107,15 @@
     ```
   :replies:
   - :author: captainAwesomePants
-    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wv4wk/
+    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wv4wk
     :body: I thought to myself "better bundle everything in a class if I need to save the IP and the data and the inputs and such." You just returned a tuple of the whole thing. Such a fast tweak, good job!
     :replies:
     - :author: mariotacke
-      :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wzh4m/
+      :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9wzh4m
       :body: Same here. This is actually a pretty brilliant solution. Keeps the intcode function stateless.
       :replies: []
   - :author: yxhuvud
-    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9x3st6/
+    :url: https://www.reddit.com/r/adventofcode/comments/e7a4nj/2019_day_7_solutions/f9x3st6
     :body: |-
       Funnily enough, at least for me, the whole thing works using the exact same parsed entries, without even having to `dup` it. Which is quite cute considering it is self modifying code.
 

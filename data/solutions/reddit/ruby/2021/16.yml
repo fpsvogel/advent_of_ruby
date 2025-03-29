@@ -1,6 +1,6 @@
 ---
 - :author: weiss_i_net
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/houksni/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/houksni
   :body: |-
     **Ruby**
 
@@ -63,7 +63,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor34iu/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor34iu
   :body: |-
     **Ruby** : 16:44/51:50, 37/773
 
@@ -76,7 +76,7 @@
     Part 2 was pretty fun! It took me a while I needed to subtract the bits from EVERYTHING in the ancestor stack and then that I might need to pop multiple things off that stack. Great problem with a bunch of separate insights.
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor9ent/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hor9ent
   :body: |-
     **Ruby**
 
@@ -154,7 +154,7 @@
     ```
   :replies: []
 - :author: madethemcry
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosv3us/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosv3us
   :body: |-
     # RUBY
 
@@ -169,14 +169,14 @@
     After two frustrating days I had a great success today. The ruby code just reads beautiful ❤️
   :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqx7pb/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqx7pb
   :body: |-
     [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/16/decode.rb) (114/114)
 
     Personal best ranking wise today (while my day job is programming, I'm not a professional _competitive_ programmer), just 46 seconds from top 100 on part 1 and 78 seconds on part 2. :D Might be caused by my inexplicable love for parsing... :P
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqy08b/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hoqy08b
   :body: |-
     Ruby
 
@@ -235,7 +235,7 @@
     ```
   :replies: []
 - :author: erikw901
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosd6b5/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hosd6b5
   :body: |-
     # Ruby
 
@@ -243,7 +243,7 @@
     - [part2.rb](https://github.com/erikw/advent-of-code-solutions/blob/main/2021/16/part2.rb)
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hotgu7a/
+  :url: https://www.reddit.com/r/adventofcode/comments/rhj2hm/2021_day_16_solutions/hotgu7a
   :body: |-
     # [Ruby](https://github.com/daniero/code-challenges/blob/master/aoc2021/ruby/16.rb)
 

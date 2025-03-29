@@ -1,13 +1,13 @@
 ---
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1gv7tr/
+  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1gv7tr
   :body: |-
     [Ruby](https://github.com/jstanley0/advent-2022/blob/main/24.rb) 369/332
 
     This one was fun! Figuring out a trick that would let me treat this like other A\* searches I've done in the past was very rewarding. Essentially instead of operating on a fixed map, each search state stores a time value and calculates what the map will look like at decision time. Each blizzard's location is computable at any arbitrary time _t_ using modulo math. \>!it helps that there are no vertical blizzards in the entry/exit columns.!\< Maps are memoized for performance. I probably could have saved some memory had I realized the map state starts repeating, but it performs well enough (part 2 takes about 2 seconds in total).
   :replies: []
 - :author: Elavid
-  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1gwew0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1gwew0
   :body: |-
     ## [Ruby](https://github.com/DavidEGrayson/adventofcode/blob/434f2b4693f1e1b1b4add4b279c69acc4b3fde65/2022_24/advent.rb), 1107/988, 85 lines
 
@@ -20,7 +20,7 @@
     Another observation that helped me is that you should **solve part 2 by just doing the same search you did in part 1, but doing it three times with different parameters**. There are no blizzards passing through the start or end points, so you always want to reach those points as fast as possible. (You can always spend some time waiting _after_ you get there.)
   :replies:
   - :author: lbl_ye
-    :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h65q2/
+    :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h65q2
     :body: |-
       for faster code you must change to simpler algorithm
 
@@ -31,7 +31,7 @@
       it would be simpler if you stepped for each minute, and computed/fetched "phase" one time only for all states and moved all states together to time+1
     :replies:
     - :author: Elavid
-      :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h79r4/
+      :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h79r4
       :body: |-
         Wow, it's right! The code is taking about 2 seconds now if I do a simple breadth-first search:
 
@@ -51,7 +51,7 @@
         ```
       :replies: []
 - :author: sigmazero13
-  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h33hm/
+  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h33hm
   :body: |-
     **Ruby**
 
@@ -72,25 +72,25 @@
     EDIT: Forgot to mention: running part 2 takes about 4.5s. So about 1.5 seconds per leg.
   :replies:
   - :author: johnpeters42
-    :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h5vpx/
+    :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h5vpx
     :body: I tried to approach it that way, but it seemed to slow down by a lot more than what you describe, up to where I killed it and went back to the drawing board. I'm vaguely curious how far off the mark I really was (I ended up using A\* instead).
     :replies:
     - :author: sigmazero13
-      :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1j2ivm/
+      :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1j2ivm
       :body: Can you post your code? Maybe I can help see what might be slowing it down
       :replies:
       - :author: johnpeters42
-        :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1jle0s/
+        :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1jle0s
         :body: I didn't keep a copy. I think maybe I was wasting time on BFS backward from the end location at any possible blizzard state, rather than forward from t = 0.
         :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h7cxs/
+  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1h7cxs
   :body: |-
     [Ruby](https://github.com/globalreset/advent_of_code_2022/blob/main/day24/dayTwentyFour.rb)
 
     For part 1, I did a simple BFS and simulated the entire board of blizzards every minute (caching the result for that minute). In part 2, this was taking way too long. So I realized that I'm simulating the entire board when I only care about the row/col the expedition is on, plus/minus one row/col. So I rewrote it to create a lookup for all of the blizzards indexed by their row/col and their direction. Then when I wanted to check whether a position was open, I got only the relevant blizzards, shifted them by the amount of time that had passed, and checked for collision. Whole thing runs both parts in 30s.
   :replies: []
 - :author: crazywulf
-  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1hbbuv/
+  :url: https://www.reddit.com/r/adventofcode/comments/zu28ij/2022_day_24_solutions/j1hbbuv
   :body: "[Ruby](https://gist.github.com/rolfschmidt/a4cb3722b9339ea4691d586a43d09f78), 12 sec for both parts."
   :replies: []

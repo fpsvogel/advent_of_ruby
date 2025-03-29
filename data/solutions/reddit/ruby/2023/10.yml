@@ -1,6 +1,6 @@
 ---
 - :author: DietNerd
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kvufdp7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kvufdp7
   :body: |-
     [Parts 1 and 2](https://topaz.github.io/paste/#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)
 
@@ -13,7 +13,7 @@
     For the groups, I did basically the same thing, but had to first gather all of the groups, using a similar algorithm to the flood fill, letting the biggest group take over every time they intersected. Then for each group, gather the directions away between pipes, and iterate each one until it hit something. The main wrinkle is the huge group in the center. I put that off because I figured it would be more complex to handle. When I had a full solution with everything but that group, I printed the output to a file to look at it, and just decided that it was probably outside considering that it was right in the center and all of the singles and small groups around it didn't find a path to the outside. So I submitted that and it was right.
   :replies: []
 - :author: kateba72
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqkyrx/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqkyrx
   :body: |-
     331/66
 
@@ -26,7 +26,7 @@
     [https://github.com/Kateba72/advent\_of\_code/blob/main/aoc/y2023/d10.rb](https://github.com/kateba72/advent_of_code/blob/main/aoc/y2023/d10.rb)
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqw6za/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqw6za
   :body: |-
     Code shared between both parts:
 
@@ -161,37 +161,37 @@
     https://github.com/glebm/advent-of-code
   :replies:
   - :author: PassifloraCaerulea
-    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr41on/
+    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr41on
     :body: |-
       Interesting. I didn't think of part 1 as "breadth-first search" at all. After you figure out which two directions to go from 'S', you can move both directions simultaneously and stop when they meet at the farthest point(s). After 'S' you don't branch anymore because you can't backtrack while you're traversing the loop/circle/ring/whatever. But, I am not familiar with the ins and outs of graph traversal terminology.
 
       As for part 2, the only thing I'd heard of that it looked like was the even-odd rule for polygon filling, so I did a quick read-up on that and sorta worked it out on my own. Guess it's more or less the same thing.
     :replies:
     - :author: glebm
-      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4qey/
+      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4qey
       :body: |-
         Going in both directions simultaneously in Part 1 is a special case of flood fill, which itself is a special case of BFS. Since BFS is simple to implement, I went straight for it rather than implementing a custom solution. If we hit a point in BFS that we've already seen, that's the answer.
 
         For part 2, even-odd rule is exactly the same thing as the crossing number method (look like it's another name for it that I haven't heard before).
       :replies: []
     - :author: glebm
-      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr5134/
+      :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr5134
       :body: BTW, my favourite solution today is a Shoelace formula + Pick's theorem [https://www.reddit.com/r/adventofcode/comments/18evyu9/comment/kcqu687/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18evyu9/comment/kcqu687/?utm_source=share&utm_medium=web2x&context=3)
       :replies:
       - :author: PassifloraCaerulea
-        :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr7kev/
+        :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr7kev
         :body: "That sounds neat, but is too much math to wrap my head around in a reasonable amount of time \U0001F635"
         :replies:
         - :author: glebm
-          :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcruqoe/
+          :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcruqoe
           :body: I've added a solution with Shoelace + Pick to the original comment and the repo. The implementation is super simple!
           :replies:
           - :author: PassifloraCaerulea
-            :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcscih3/
+            :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcscih3
             :body: Wow that's impressive.
             :replies: []
 - :author: '0x623'
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr3hkx/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr3hkx
   :body: |-
     [LANGUAGE: Ruby + [Netpbm](https://en.wikipedia.org/wiki/Netpbm#PBM_example) + GIMP + Sublime]
 
@@ -207,7 +207,7 @@
     https://i.postimg.cc/ZnwWSfCr/eg.gif
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kct46qo/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kct46qo
   :body: |-
     This was a rough one for me today! Point in Polygon for the second part tripped me up for a while on the boundry logic. Also stack depths for recursion in the first part! I had a day of it...
 
@@ -216,7 +216,7 @@
     [Video Walkthrough](https://youtu.be/ObIshEUQmVE)
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqp5v3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqp5v3
   :body: |-
     Part 1 was pretty straightforward. I probably could have been faster had I just hard-coded the shape of the piece under the S rather than make my code infer it, but I went for the general solution. The first bit of code I wrote described which cells a piece connects to, and it was useful for both parts:
 
@@ -273,7 +273,7 @@
     ```
   :replies:
   - :author: DeadlyRedCube
-    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqq8in/
+    :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcqq8in
     :body: |-
       > If the point has exits, it is not outside the loop
       >
@@ -282,7 +282,7 @@
       oh I like the "turn every piece into a 3x3 grid" solution, that's really clever!
     :replies: []
 - :author: PassifloraCaerulea
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4zey/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcr4zey
   :body: |-
     [Part 1](https://pastebin.com/cz0W1449)
 
@@ -299,21 +299,21 @@
     Part 2 reminded me of the even-odd rule for polygon filling, so that's what I based my solution on. Hadn't heard of "point-in-polygon" before, though I see the Wikipedia page on the latter does link to the former. I of course had to try doing a simple flood fill from the outside even though the instructions told us it wouldn't work! :-P
   :replies: []
 - :author: comforttiger
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcs6838/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcs6838
   :body: |-
     https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day10.rb
 
     this one was hard!
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcudbrw/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcudbrw
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day10.rb)
 
     Well this puzzle was a bit more difficult: Part 1 was straightforward enough, but I struggled a bit to grasp the sub-unit gaps in the loop for Part 2. I ended up going with the standard line-crossing parity check for determining whether points were inside the polygon formed by the loop, but effectively resorted to trial and error to determine how the bent pipes should be handled.
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu76r9/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu76r9
   :body: |-
     Late to the party, but here is my solution. Pretty compact and I will make a golfed version too as edit.
 
@@ -355,7 +355,7 @@
     ```
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu88c1/
+  :url: https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu88c1
   :body: |-
     As promised, the golfed version of [my solution](https://www.reddit.com/r/adventofcode/comments/18evyu9/2023_day_10_solutions/kcu76r9). got it to 430 bytes:
 

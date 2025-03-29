@@ -1,6 +1,6 @@
 ---
 - :author: anadhdguy
-  :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/dap9xzs/
+  :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/dap9xzs
   :body: |-
     **Oneliner in ruby (117 characters)**:
 
@@ -10,11 +10,11 @@
     ```
   :replies:
   - :author: givdwiel
-    :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daplj48/
+    :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daplj48
     :body: I suppose this only works for part 1 and not for part 2, since there's a gap in the ASCII table between the numbers and letters
     :replies:
     - :author: anadhdguy
-      :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daqfal3/
+      :url: https://www.reddit.com/r/adventofcode/comments/5g1hfm/2016_day_2_solutions/daqfal3
       :body: |-
         yup, this solution is only for part1.
 

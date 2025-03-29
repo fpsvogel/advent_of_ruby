@@ -1,6 +1,6 @@
 ---
 - :author: tycoon177
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0xo9lk/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0xo9lk
   :body: |-
     [Part 1 and 2](https://github.com/BenMcH/advent-of-code/blob/df8325ce8e633e307b599a8e367537351c993e8b/2024/lib/day_06.rb)
 
@@ -9,7 +9,7 @@
     By re-using that previous state in this manner, I was able to shave this solution down to 1.5 seconds with ease. I'm sure I could further optimize, but I'm happy at this point.
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pdsmr/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pdsmr
   :body: |-
     Just brute force today...
 
@@ -18,62 +18,62 @@
     Edit: Optimized my solution a bit, but still takes ~17 sec for part 2.
   :replies:
   - :author: quokka70
-    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0qlk97/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0qlk97
     :body: Using a Set for @grid instead of an array will make `grid.include?` faster (unless the hashing overhead is too much).
     :replies:
     - :author: _tfa
-      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0uf1wc/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0uf1wc
       :body: You are right. That was the optimization I did after I sent the code to pastebin (couldn't edit it there)
       :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0q4x8j/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0q4x8j
   :body: |-
     Biggest thing that tripped me up was I was failing to recheck if I was facing another wall after rotating. A litreal one word change from an if statement to a while loop fix it for me.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/6](https://github.com/careyi3/aoc_2024/tree/master/solutions/6)
   :replies:
   - :author: globalreset
-    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0qdjv8/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0qdjv8
     :body: Same!
     :replies: []
 - :author: nothimofc
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ny6iz/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ny6iz
   :body: |-
     While Part 1 (counting distinct positions visited) works relatively fast, Part 2 (finding loop-causing obstacle positions) is extremely slow for large grids.
 
     [github](https://github.com/osu/advent-of-code/blob/main/day6/joe.rb)
   :replies:
   - :author: nothimofc
-    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0nywg2/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0nywg2
     :body: I would appreciate any advice from fellow ruby enjoyers I could have gotten a much better placement than 70/10 :( if it was faster.
     :replies:
     - :author: Lucky_Menu3724
-      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o4twa/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o4twa
       :body: |-
         Here is what I did. I tested your code and mine was about twice as fast, but it took me a lot longer than you to write :) 18s to run on an old laptop.
 
         [https://gist.github.com/imme5150/d51ab9746902aa1e2609bc7d1cbb3866](https://gist.github.com/imme5150/d51ab9746902aa1e2609bc7d1cbb3866)
       :replies:
       - :author: nothimofc
-        :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o6704/
+        :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o6704
         :body: Sheesh nice
         :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o89vy/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0o89vy
   :body: |-
     Got stuck for an hour on part 2 before realizing that the obstacle created a situation where you could turn away from a wall to find another wall. Tricky since I got away without handling that case in part 1. Seems like the input was constructed just to allow that mistake on part 1 and kill me on part 2. Just a matter of changing "if(grid[nextPos]=='#' || nextPos==obstructedPos)" into "while(...)".
 
     [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/06/solution.rb)
   :replies: []
 - :author: akanet
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0oma65/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0oma65
   :body: |-
     [https://gist.github.com/vincentwoo/bff280de0b1fb16d4e511d85c339879a](https://gist.github.com/vincentwoo/bff280de0b1fb16d4e511d85c339879a)
 
     Was pleased enough to find a formulation that uses the same code for both initially running through the maze as well as splitting off to see if each next step's hypothetical obstacle would generate a loop. Sharing the in-progress seen list saves quite a bit of time. 35 lines and about 2s runtime.
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ot8pg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0ot8pg
   :body: |-
     It was quickly obvious that trying a block on every empty grid position would not scale. But with 2 optimisations the runtime was tolerable.
 
@@ -134,7 +134,7 @@
     ```
   :replies:
   - :author: masterarms
-    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pa90y/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pa90y
     :body: |-
       I was not too happy with the rotation and moving logic, so I made a second version using Complex numbers as the coordinates. In that case a movement is simply an addition and a rotation of the direction a multiplication by `Complex::I`.
 
@@ -146,25 +146,25 @@
       ```
     :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pjb4l/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pjb4l
   :body: |-
     Brute force solution for part 2, runs in 40s for both parts.
 
     [Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day06.rb)
   :replies: []
 - :author: Infinite-Club4374
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0podjn/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0podjn
   :body: "Hey all! I’m having a bit of trouble locating the last edge cases, anyone have any ideas?\n\nWith my custom input my solution gives 1573 but should be 1686. Would really appreciate any insights or help \U0001F499\n\n[GitHub](https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day6/day6.rb)"
   :replies:
   - :author: ash30342
-    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0prpve/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0prpve
     :body: I think you missed that when you turn right, you can immediately encounter an obstacle again. You should keep turning until you can move on. That tripped me up :)
     :replies:
     - :author: Infinite-Club4374
-      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pse59/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0pse59
       :body: "You just saved my life!!\n\nI had a check for that initially but I only turned once instead of looping and you gave me the idea to loop until a direction was good!\n\nTHANK YOU SO MUCH INTERNET FRIEND\U0001F499\U0001F499\U0001F499\U0001F499"
       :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0sbg2g/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h7tovg/2024_day_6_solutions/m0sbg2g
   :body: "[paste](https://topaz.github.io/paste/#XQAAAQA9BwAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8e/u+sq3cCy1X/xTZynv7KRl8RXO1kbXSYEeewqIPU0fRMdhsu3XI1mrs7eplcKLDUV5gsYYjnL57KBqLKkESiAilkCA2oAYk88/KK9PDxx8gLQ8UR3fan3QjqEMmpkVn9gsXhcp76M+iRq5JO7RtciTlNresld3ohY6cDF4LkORgw1x+6070yQMPm6H73KV3/ZqetWgQsuoQGbRsIZKIJ1g1dF7+lXRk/Q2acJ9bjkLkBoB2nI3LIzyhJWhDRZaF6AITEktez3wabyinxaV6WxtS5DgefV7XzSVjD62J8lnwOs5/8bT/Q3pjLeHBqDNq7ygcMtuTRzO6H1fiVfovOq06jEFwuCgmFJc+T7+Qs9Vx+t/ah2QhVWBTg2OKP95QrtbtEgyWf/zZIm+JnGb6Mpy2tkr+Mb9JVC2GqlVwofAR9yWURwil94aW8EN4nyO7IvbCU9e2jbmqzPcw9w5wkytEmOuI++GC7i7vYkZoJwSFaIy/kv2gUO8vtmqt3jdlizWjXdV1bmq/AZtPYMl5ZRpFqYkL6G5I25oEX5bV5IzYQGz857jPbLPjhTMjmNYvZO5jr88co3qhPc3UzVPFw0zjL5C1sSn1OTDk2LnWetfwvu6BoQ5+X6R+JuEdMP/256fHSruPzd3ZURw2rZg3gzuqBPgVcHyLXQlqy0TsWJm8Sq5qwFHqcAiceCHzDIBAkq28j8mkO05HJz9pOoRTDqrkdQeyWKqVYnP9HKsC4/qf8+3KG8HVgka6pSgOSgFZ4PdcYB+IH+2z3v179uN2/uc2AGp7L/31Ylg=)"
   :replies: []

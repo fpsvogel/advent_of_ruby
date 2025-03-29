@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j1czuwm/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j1czuwm
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/8_LvF2C4myo)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j16ddx9/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j16ddx9
   :body: |-
     Ruby, part 2. The code is horrible, but I am kind of proud of myself, seeing how others used binary search, o some online equation solvers.
 
@@ -109,7 +109,7 @@
     ```
   :replies: []
 - :author: tgoesh
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j163fyh/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j163fyh
   :body: |-
     # [Ruby](https://topaz.github.io/paste/#XQAAAQCfBQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kt1xH5HTAZ5BobIVaNmvr5uBT8lIWMVDPZEFxdcpn3Nj9lGXzliPRlIkeaE/uxw0eRYNQ0wHIgpqPDGvjVfR4EKOziEs6xQZ45nkYjc9RLRFCQt6D781H8E6UUKqPEZDvik3xRVWko1Oy0Ub+/OXUWd6N4CU6dt57vEYuOkjUl+8Br7Fqb6iNscVaYLIVFAQnOBCNq58vf9S7JAMlPRPLpvMuviy3kcQA/4McodaSdOMSfK3INWV1Jn8n1kI4FAN3O0ONmLb+Qz8sMiEkcIH5qA7tU4V/Q1BQynqWFGrAvGjWTigKhdwrgdLEqtlPNXjKas/he+1UL4NDu2g2C8HznNtS4U7tr5H8TSf7SwySjWiXKvlhyqnT4MZ2hRuOwQckAmUgQYXIY1fCZyi+bZE0lcZ72p9ZnBTPnnWd7ztLjvhpNT9uvJ56pUzEMks7b/y7GtQN8do7nxva1zvKNydtg2vEkQ3JTMRi5MudW7vUzUuOObK6bPblyvnCT7rWcCTxFh/dZOS3yGTzJJvFGBYLMNme26xv923It0J8sg6+loG7WsHOnF+XJ1hNyfISyBHIxm3+DVSs4eUSVSx9Uvt4s8Hg9FmKwIVSQoN1W0U0dVOPInwIHeR4RfckEAJZfbdIsxS3tTaHP4sq4NuHF7velg9GPBjEqxU8R7EL0iXUX4EkxG/Ch5FpMGk+x+VGOOX5tNgTvLRorC9z+TduRZlbeagxryvyOawx6+YB81wA8cG38f5u5e3IxVmMKwT8vQkVdbeeG1RHagPjlSvrt+BUTtU9gvaMoyTslaNzWbamfgTLyJD9pNbRSlPu7JHB449pTr0F+wQSr7h+XgopbP8CyBOpzYq4GN8Om5021qgHC0kDHv/fWVUJ)
 
@@ -120,7 +120,7 @@
     Works great, though.
   :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j15orhb/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j15orhb
   :body: |-
     Quite pleased with my Ruby solution for part 1:
 
@@ -130,7 +130,7 @@
     ```
   :replies: []
 - :author: Elavid
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12tsyo/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12tsyo
   :body: |-
     ## Bit-based binary search!
 
@@ -163,7 +163,7 @@
     ```
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12v3v6/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12v3v6
   :body: |-
     evals galore! Ruby + Z3
 
@@ -197,7 +197,7 @@
     ```
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rghz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rghz
   :body: |-
     ## [Ruby](https://github.com/jstanley0/advent-2022/blob/main/21.rb) 540/1917
 
@@ -208,7 +208,7 @@
     I decided to solve it for real. I essentially built a binary tree for the side of the equation containing `humn` and I simplified it one step at a time. For instance if I had 3 - (...) = 5150 I turned that into (...) = -5147 and then repeated until the left side contained only `humn`
   :replies:
   - :author: mynt
-    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rmnr/
+    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12rmnr
     :body: |-
       Similar approach except wolfram Alpha worked!
 
@@ -219,11 +219,11 @@
       ((((92540050790154-(9\*(((((280+(((((((2\*(264+((516+(((660+(2\*((2\*(530+((((313+(((((3\*(615+(((8\*(915+((((246+(4\*(((483+(((((((80+(((((8\*((((3\*(789+((107+((x-745)/3))\*11)))-695)/4)-486))+570)/5)-757)/3))\*5)+411)\*2)-885)+552)+802))/2)-686)))/5)-175)/3)))-66)/2)))-319)\*2)+133)+570))/2)-955)/2)))-768)))/3)-223))/5)))-933)/5)+765)\*9)-193)\*2))/2)+689)/6)-230)))\*2)+138)/12)=5697586809113
     :replies: []
   - :author: Pakosh
-    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12sq66/
+    :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12sq66
     :body: Natural language complains for me as well but once I switch to the math input, its ok.
     :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12szc6/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j12szc6
   :body: |-
     In both Ruby and Haskell, you can define a map that's defined in terms of itself! This allows you to resolve the "monkeys might need to wait for other monkeys to compute their values" situation, without worrying about the code taking forever by repeatedly recomputing values that you've already computed in the past. In Ruby, you do this:
 
@@ -253,7 +253,7 @@
     Oh yeah I managed to just barely sneak into the top 100 for part 2 today, great. I used binary search to do part 2. The difference is that i[n Ruby binary search is built-in](https://www.rubydoc.info/stdlib/core/Array:bsearch) whereas in Haskell you have to write it yourself.
   :replies: []
 - :author: whezya
-  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j14dptm/
+  :url: https://www.reddit.com/r/adventofcode/comments/zrav4h/2022_day_21_solutions/j14dptm
   :body: |-
     [**Ruby solution**](https://github.com/rbellec/advent_of_code_2022/blob/main/app/daily_problems/day_21.rb)
 

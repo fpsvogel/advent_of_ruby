@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbc4udx/
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbc4udx
   :body: |-
     My first naive solution takes about 17 seconds to finish part 2. Once again, this is unacceptably slow.
 
@@ -81,7 +81,7 @@
     About half a second. Not as good as the compiled C code, which takes about 7 milliseconds, but it'll do.
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcb1ln/
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcb1ln
   :body: |-
     Ruby one-liner. I find it rather readable for a golfed solution.
 
@@ -90,7 +90,7 @@
     ```
   :replies: []
 - :author: johneffort
-  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcpya7/
+  :url: https://www.reddit.com/r/adventofcode/comments/5iyp50/2016_day_18_solutions/dbcpya7
   :body: |-
     Ruby, quite readable, not very fast, but doable. 30s for part 2
 

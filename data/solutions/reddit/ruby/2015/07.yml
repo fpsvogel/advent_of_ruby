@@ -1,6 +1,6 @@
 ---
 - :author: '0x0dea'
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq07ki/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq07ki
   :body: |-
     Sorting the outputs by length and then lexicographically makes this dead-simple. First place on the leaderboard could've gone to the first out-of-the-box thinker by a wide margin. :\<
 
@@ -27,33 +27,33 @@
     ```
   :replies:
   - :author: _jonah
-    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq22qk/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq22qk
     :body: Very nice. Just learned a couple new tricks from this. Thanks.
     :replies:
     - :author: '0x0dea'
-      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq24wh/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq24wh
       :body: My pleasure. I count seven things that might be considered "tricks" by an intermediate Ruby programmer. For the sake of my curiosity, would you mind sharing?
       :replies:
       - :author: _jonah
-        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2bpe/
+        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2bpe
         :body: |-
           1. Using a hash as 2nd arg to gsub
           2. Regexp.union method -- not really a trick but something I never think of
           3. ?; for golfed single char string
         :replies: []
     - :author: 5ef23132-c4a0-49a0-8
-      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2lsw/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2lsw
       :body: |-
         nice solution, I didn't event think about the replace/eval trick.
 
         This solution doesn't work for all inputs right, wouldn't `c -> b` throw a `NameError`?
       :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxr1w6y/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxr1w6y
     :body: "[deleted]"
     :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2b7s/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2b7s
   :body: |-
     I'm quickly reaching the limits of my competence. If this is the initial downslope of the rollercoaster (to borrow topaz's analogy), I'm gonna get thrown off at the first curve...
 
@@ -107,19 +107,19 @@
     For part 2 I cheated and modified my input.txt to set 'b' to the value I got for 'a'. _grin_
   :replies:
   - :author: metric152
-    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv2kz7/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv2kz7
     :body: I kind of thought recursion would have made it much better<shakes head></shakes>
     :replies:
     - :author: gnuconsulting
-      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv3n1e/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxv3n1e
       :body: I guess it depends what you mean by 'better'. ¯\_(ツ)\_/¯
       :replies:
       - :author: metric152
-        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxwnu3w/
+        :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxwnu3w
         :body: Your solution is much shorter than mine because it uses recursion. I wish I would have done the same with mine. It's around 170 lines.
         :replies: []
 - :author: fnoco_xandy
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0ec6/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0ec6
   :body: |-
     ugly crystal/ruby solution. it remembers outputs by changing the circuit. that's why i create a second circuit to calculate b. without the changes calculating a takes too long(i initially thought i had a loop)
 
@@ -216,7 +216,7 @@
     ```
   :replies: []
 - :author: epitron
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0fjh/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq0fjh
   :body: |-
     Here's a nice short Ruby version that uses `instance_eval` to generate a method for each wire:
 
@@ -254,7 +254,7 @@
     (Why reimplement a crappy verison of `eval` when you can use the real thing? :)
   :replies: []
 - :author: _jonah
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq1soj/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq1soj
   :body: |-
     Ruby:
 
@@ -280,14 +280,14 @@
     ```
   :replies: []
 - :author: dubokk15
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxskam0/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxskam0
   :body: |-
     Ruby. [Github](https://github.com/klieth/day7)
 
     I may have gone insanely overboard, but I built a full parser/tokenizer/AST and an emulator run it all.
   :replies: []
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxuw4go/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxuw4go
   :body: |-
     Not that anyone will see this, but now that I'm getting back to things, might as well post it:
 

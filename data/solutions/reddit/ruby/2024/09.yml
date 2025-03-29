@@ -1,10 +1,10 @@
 ---
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m1815dt/
+  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m1815dt
   :body: "[paste](https://topaz.github.io/paste/#XQAAAQB1BQAAAAAAAAAyGkrNYxPxU6xvuZs/8lAz4jUZdGtcxCNrBlC+wPZSIDCK+g6seBP+9oUsdbVzJL5ksqfGzfPMJiBUynSKfmWy48YAHBo3XXqY09VJhNgCNrGH4b5VkevJmdwCZ48IvIsCD4C41qLQ4TCOpq4PSwIHaAHcgyjTmp7fXbB6N+JhgKUFq4I+e3H5Tf7IpIqgJYEqikCAW7JZWjcfIcyYtAEpH8Deaa6NOC4yGDlh3SmtkTAi+5I+uhmwsoV/uygBiM5P0xx2DklvGiyGSYUr0LxxZ5ZWgaR6DV8amRFRD1OTMSs0xaCht3gm9f7PbYnsdLS/+AWidd2Vz/yFZFss3oHjCEOTYaneg9x27vCrMcdmCX9k09H/SYEIPZyJpO7og862N0n5XbUIABEmNhEuu/KHiUHRfpJ16RFPsPg0RSxJcQ36bjxRLksZsSNLXZObB2YmiSHqwYWZruEABgOGEjWn1NdF7XwLijc9evs6dadKH+CxIieymrVEpcG51j9+8aES2D5k/gjxtUAChtJsWKJDcv8jdy8KwmpQa+q7dOsRO7hLkUsbkYQnajDl7c9K1mafLwIXXGQHGN3Xs00YOnV7Kd41mqamwyEGLbHV0inapBOBK6ByHN0WH3yfUoE80E25GVeqx2/v/CivLZZ2erhIpXo0OICU+1Az7hJfwpsMOnLKOS53OmBbm0TWYGZoipp6TPapv1pOfzkaKA/4cHnZFAjqrA6c6Mgx//MJAm8=)"
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m17lx73/
+  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m17lx73
   :body: |-
     I was really proud of my part 1 approach, even though the code is not very tidy. I never expanded the filesystem but instead calculated the checksum as I go through, alternating between calculating it on a file node from the left and then popping a file off the end and trying to squeeze it into the next free space.
 
@@ -13,20 +13,20 @@
     [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/09/solution.rb)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m18upf8/
+  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m18upf8
   :body: |-
     Didn't really enjoy today, but we got it done, brute force with minor optimisations.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/9](https://github.com/careyi3/aoc_2024/tree/master/solutions/9)
   :replies: []
 - :author: Infinite-Club4374
-  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m16d4z9/
+  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m16d4z9
   :body: |-
     All of my solutions are super verbose just cuz my mind doesn’t work the same way as some of you folks but idc I’m completing them and I’m pretty happy about that
 
     https://github.com/Leftyxiv/advent_of_code/blob/main/2024/day9/day9.rb
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m16xzes/
+  :url: https://www.reddit.com/r/adventofcode/comments/1ha27bo/2024_day_9_solutions/m16xzes
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day09.rb)"
   :replies: []

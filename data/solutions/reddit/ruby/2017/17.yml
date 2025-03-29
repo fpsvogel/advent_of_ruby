@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd5y54/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd5y54
   :body: |-
     [How I did part 2](#s "zero is ALWAYS at the start of the buffer, so the only time a value after it changes is if the spinlock lands on zero"). Edit: Okay, looks like most people figured this same thing out, figures.
 
@@ -37,7 +37,7 @@
     Edit: [figured it out](https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd8b1n/)
   :replies:
   - :author: p_tseng
-    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd8b1n/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd8b1n
     :body: |-
       > Does anyone know a way to make this faster?
 
@@ -95,7 +95,7 @@
       So, correct answer for my input, but a little suspicious it may have an off-by-one error somewhere. Need to verify.
     :replies:
     - :author: if0nz
-      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drdulxd/
+      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drdulxd
       :body: |-
         I've just implemented your p2's algorithm in Java and the avg execution time is 150 **microseconds**! Kudos (:
 
@@ -117,7 +117,7 @@
         ```
       :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd600h/
+  :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd600h
   :body: |-
     Ruby, part 1
 
@@ -134,10 +134,10 @@
     Part 2 did not run in time, I'm tempted to think optimizations are needed, but I barely understand the problem to do anything. Going to let it run for a few hours to check it works before posting it.
   :replies:
   - :author: theyangmaster
-    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd62jc/
+    :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd62jc
     :body: Try observing what the first element in the list is.
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd9yx4/
+      :url: https://www.reddit.com/r/adventofcode/comments/7kc0xw/2017_day_17_solutions/drd9yx4
       :body: https://cdn.discordapp.com/attachments/293355384436162560/391855738282311681/unknown.png
       :replies: []

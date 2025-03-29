@@ -1,6 +1,6 @@
 ---
 - :author: ywgdana
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j059jee/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j059jee
   :body: |-
     **F#**
 
@@ -11,7 +11,7 @@
     [The code at github!](https://github.com/DanaL/AdventOfCode/blob/main/2022/Day13.fsx)
   :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00xujm/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00xujm
   :body: |-
     # Ruby (feat. monkey patching)
 
@@ -25,7 +25,7 @@
     Goal was to use Ruby's built-in `<=>`/`sort` with as few modifications as possible. Secondary goal was ~~a mistake~~ to minimize line count without semicolons. Unfortunately, there are some `tap` and `then` that feel a bit too much like using semicolons; anyone have ideas on how to get rid of those without adding more lines?
   :replies: []
 - :author: _liquidlemon
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00nrhb/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00nrhb
   :body: |-
     [Ruby](https://github.com/LiquidLemon/advent-of-code/blob/master/2022/13.rb) (759/701)
 
@@ -34,15 +34,15 @@
     Really happy I made a function that can be passed to `Array#sort` straight away. Also that part pretty much worked first try, I just had the semantics flipped.
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00qap2/
+    :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00qap2
     :body: Nice, I like the use of `<=>`
     :replies:
     - :author: _liquidlemon
-      :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00reu1/
+      :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00reu1
       :body: I had an if with 3 clauses but then I realized there's literally a built in operator for this thing, so why not just use it.
       :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00puac/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00puac
   :body: |-
     **Ruby** 1936/1742
 
@@ -74,14 +74,14 @@
     ```
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00pxcv/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j00pxcv
   :body: |-
     [Ruby](https://github.com/acornellier/adventofcode/blob/master/2022/13.rb)
 
     Nice use-case for pattern matching
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j01wtnt/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j01wtnt
   :body: |-
     Ruby
 
@@ -90,7 +90,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/hpd8cxPfjbY)
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j02o38q/
+  :url: https://www.reddit.com/r/adventofcode/comments/zkmyh4/2022_day_13_solutions/j02o38q
   :body: |-
     Ruby
 

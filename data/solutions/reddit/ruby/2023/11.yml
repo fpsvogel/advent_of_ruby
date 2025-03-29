@@ -1,6 +1,6 @@
 ---
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcyshi4/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcyshi4
   :body: |-
     [Part 1](https://github.com/SleepingInsomniac/adventofcode2023/blob/master/2023-12-11/part_1.rb)
 
@@ -11,7 +11,7 @@
     For part 2, I just counted how many times a galaxy pair crossed an expansion and added that to the distance.
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwuxjw/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwuxjw
   :body: |-
     I stored the galaxy coordinates as a hash from X coordinate to array of Y coordinates, and I expanded space with the following function:
 
@@ -46,14 +46,14 @@
     [Full solution](https://github.com/jstanley0/advent-2023/blob/main/11.rb)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc079/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc079
   :body: |-
     Nice easy one after last night:
 
     [paste](https://topaz.github.io/paste/#XQAAAQCpAgAAAAAAAAARiAqGkkN2w8uW9zdu4QV9huA3XtLPyAMJ+BUFIW/0tlJ05GEjbzGbpJ/rHVTmRpgeuahr+5Hp9htXWjnoQu+9zgWkc88D6vYgpVMbYUeyugJvbW3A+du35kd185oV5nxgW6/J2rVW8v5uYC0jQV5YOF2RCj5i7dO6DacK23eyXmS8fQWenB1IA+8s05eV9rHUM0WiMpIvdBH9ftZSYWJEZDMxCXLPnXDdXDqerxTKp7HwuKLeSP6Mo1tEbuQX9nePbO6W2zCP23Kcm3ySvBRW9hwXaplvlDcPfI50Ge+wczTtKOjwza+JFhwP4zd7G1F98lgiTFrJmyV3y79dTbRWZ4xNQRbipOxSKSiDnKauebwnEAa3JVSjTEDkKdf5FyXpuLoprBkj9t6MnxkJHlNNbp2HYazcreTAcniNf3rt/rassEMO2Own5/A48+qsitDoNZqSKxbBnXydIQfJ2pb3hT/+nZ9lkmyxRp3HjH5bKfYRZH5/Tkbd1eZC5DtxfQRRUd5chnH/zDNOMA==)
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc6tn/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvc6tn
   :body: |-
     Parts 1 and 2 (for part 1, change `1000000` to `2`):
 
@@ -88,7 +88,7 @@
     https://github.com/glebm/advent-of-code
   :replies: []
 - :author: Jonathan_Frias
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw0fyd/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw0fyd
   :body: |-
     I used native ranges to signify the distance between the range bounds and some fancy matrix transpose stuff :)
 
@@ -134,7 +134,7 @@
     ```
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw2i1k/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw2i1k
   :body: |-
     I'm extracting all row and col indices of empty lines
 
@@ -163,7 +163,7 @@
     ```
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw3kts/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw3kts
   :body: |-
     One day less!
 
@@ -214,14 +214,14 @@
     ```
   :replies: []
 - :author: WindyMiller2006
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw7r3p/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcw7r3p
   :body: |-
     [paste](https://pastebin.com/x6TtP1ML)
 
     Haven't seen much love for Ruby on here, so here's my solution
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwfawq/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwfawq
   :body: |-
     Nice one today, simple hash map for the points, some maths for handling expansion and then Manhattan distance!
 
@@ -230,14 +230,14 @@
     [Video Walkthrough](https://youtu.be/ccrQzihAfhU)
   :replies: []
 - :author: comforttiger
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwjgx8/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwjgx8
   :body: |-
     https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day11.rb
 
     im glad i found out about #transpose and #combination, they were useful here
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwrhp5/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcwrhp5
   :body: |-
     Update of my [previous solution](https://www.reddit.com/r/adventofcode/comments/18fmrjk/comment/kcw2i1k), which doesnt calculate on point but on the axes individually.
 
@@ -273,7 +273,7 @@
     ```
   :replies: []
 - :author: michiexile
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcx4jfv/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcx4jfv
   :body: |-
     Running time: 100ms for each part of the problem.
 
@@ -302,14 +302,14 @@
     Ruby's `Array#combination` and recognizing the Manhattan distance letting me use `(from[0]-to[0]).abs + (from[1]-to[1]).abs` for the pairwise distances wrapped it all up.
   :replies: []
 - :author: coderhs
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvdzk7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvdzk7
   :body: |-
     Took me a while to google and find this formula called Manhattan distance. Once that was found it was easy. [https://xlinux.nist.gov/dads/HTML/manhattanDistance.html](https://xlinux.nist.gov/dads/HTML/manhattanDistance.html)
 
     [https://gist.github.com/coderhs/eb4c9ff2aa5c5f71f3a7f1fd104b9bc0](https://gist.github.com/coderhs/eb4c9ff2aa5c5f71f3a7f1fd104b9bc0)
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcve1am/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcve1am
   :body: |-
     ```ruby
     require 'set'
@@ -344,7 +344,7 @@
     Part 2 took a bit to figure out :| But I like when I can combine both parts in the same code.
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvh44q/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvh44q
   :body: |-
     6825 / 6309
 
@@ -353,7 +353,7 @@
     [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/11/solution.rb)
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvj8up/
+  :url: https://www.reddit.com/r/adventofcode/comments/18fmrjk/2023_day_11_solutions/kcvj8up
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day11.rb)
 

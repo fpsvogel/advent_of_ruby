@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fc4qi6w/
+  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fc4qi6w
   :body: |-
     Solved it day-of with mostly manual playing plus machine assistance (replay a list of moves so that I don't lose all my progress, brute-force the pressure pad). I've since gone back and added some nice bells and whistles to the game player, as follows:
 
@@ -30,7 +30,7 @@
     Ruby: [25\_cryostasis.rb](https://github.com/petertseng/adventofcode-rb-2019/blob/master/25_cryostasis.rb)
   :replies: []
 - :author: rsthau
-  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fbzpb4q/
+  :url: https://www.reddit.com/r/adventofcode/comments/efca4m/2019_day_25_solutions/fbzpb4q
   :body: |-
     Ruby: [Code](https://topaz.github.io/paste/#XQAAAQAoBwAAAAAAAAA5GUqKNoFH6SMqVwZFsYYqxh4ExTaLbtf8Alp69UGP9KkSBesmiuVUTdimvKqEHp35RFKztzBU/3FuJv5lldOij8/JmL+Q2WHcQ2y5zCd3FMTB2QOR4oSaHdfg68+rfvTp3WjqEKnUngRyjKlgsL8NxEnXKOBDpzriYeY3qRCQqNNxt1jdGMjJWGzttNCPEZAWwT9c20OyEVP/dmRGJPRlbp9komCqWOQNtHmpFu6v10Qb2awX767abSGKOT3Qui5YZ8EaPN7IvMQCdZPtlN2qfHKzb6TmFeqm6p1WlNCr/2E5o8eR9SEmBALNYIbosLTThyg1JsTaJzTM+dt9gHkG1E3lX0T+vwtVNuXqipmD7jBg4/WZSNDymSifBwjuWg7mflb09TjZdE4lOj+Lu5qS3+IizAdQJ0+YxES3tzBn6qbKOvmTpKh9/NZwW6Bi2yFAoVTOW/VnNBacDOFs8vDG9FE2S6+yKnwWQjnn6DhHDqP2spqMwnJadQgKXz5WQz5YLC4CBnjD4OmQ3HraPN2ioGzjG1dAHCnh22Nx86gNXGD0RHe7Y47TwPgrfXRz64gilLnYH6uTGIMa0Y2JiPLauN6xgaulVWD1sxonlBg8nBU4p9ZXmrI5Jeue3sY6LR7SFEQtJDuB/FlfJpEfNIo6TmHe0RxUzHRQBwOAS5Ao6fQ/1yQX9BRIuIxGnxtLC6Kiz8Yy+P4JtZuqn/0zV1tMZnTN/I9jJdTSlMiY/nv7mUtmLTTelcukouy9b6WvStQqdozCfNoL8df3veLO4sKGzPKCFJaJw0eLspdeCN6FbXo/om+aif3mndfsaJm43ulZPGeGJGg7ZvPZDL/7sroAqYUjlK78jAtQBlsRghtWYqdV1sgaH4HqSr9EwgMnWvjDNiG5X4+P5udHFeeZJu/1jO34jzBYl7XUPFjoFAgqCl2hUA3L6+J7jfCy9jnj6ffaUuPq6ClGqIAMHVU17ru3XhzUkKU+j99wJNH+tfjYZKGp3Y65aB768VqS)
 

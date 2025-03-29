@@ -1,38 +1,38 @@
 ---
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izlyjk3/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izlyjk3
   :body: |-
     Ruby solution! I'm not TOO ashamed, this time.
 
     https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkb13t/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkb13t
   :body: |-
     Ruby
 
     Code: [Github](https://github.com/careyi3/aoc_2022/tree/master/solutions/9)Video Walkthrough: [YouTube](https://youtu.be/_OyCRuCSas0)
   :replies:
   - :author: TailorSubstantial863
-    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkx7wp/
+    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkx7wp
     :body: |-
       Another Ruby solution.
 
       https://github.com/JeffreyMPrice/adventofcode/blob/main/day09/day09.rb
     :replies:
     - :author: careyi4
-      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkz1zo/
+      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkz1zo
       :body: Very clean! Nice one
       :replies: []
     - :author: SolarBear
-      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izlyx66/
+      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izlyx66
       :body: |-
         Here's mine! https://github.com/SolarBear/AdventOfCode2022/blob/main/day9.rb
 
         It would need a bit of love: it kind of uses an array of knots, kind of uses knots as a linked list... it should do one or the other, but not both.
       :replies: []
 - :author: sezvar
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhuxry/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhuxry
   :body: |-
     Ruby, 1881/665
 
@@ -97,7 +97,7 @@
     ```
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi54bp/
+    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi54bp
     :body: |-
       I had a very similar `dup` deal on day 7 with
 
@@ -133,27 +133,27 @@
       As they say: Be warned kids, mutation kills.
     :replies: []
   - :author: inolongerwishtotry
-    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izm0lfe/
+    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izm0lfe
     :body: I just realized I needed to pass a block to `uniq` and it resolved my bug... THANK YOU
     :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhyetz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhyetz
   :body: "[Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2022/09/ropesnake.rb) 3006/1518\n\nFor part 2, I just split out my tail movement code to a function, then called it repeatedly for every new tail part (with the previous part as its head). When it came to test it, I ran it on the first example, got a 1, read the \"However, _be careful_\" warning, thought \"what could possibly go wrong?\", ran it on the real input and submitted the output. It turned out to be correct. First after that I realized there was a second example I could have tested...\n\nAfter writing more bugs than code yesterday, this was a breath of fresh air. Not really sure what \"new types of motion\" I accidentally covered in my part 1 solution. \U0001F605"
   :replies:
   - :author: 1234abcdcba4321
-    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhzvdo/
+    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izhzvdo
     :body: The additional types of motion are based around the tail segments that the next segment is chasing being able to move diagonally, which can create situations that a part 1 solution _might_ not account for. (Any decently well made one does account for them, though.)
     :replies:
     - :author: firetech_SE
-      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi1ko2/
+      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi1ko2
       :body: Ah, of course. Makes sense.
       :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi3fqk/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izi3fqk
   :body: "[Ruby](https://tzarnal.github.io/Opal/#XQAAAQAlBAAAAAAAAAAxmwhIY/U/ZyqQORTuuCkhUaJHymoHcK+ag4DNMs9AcDinEHOmK5LYbr2irf14mpRy7XH4aFkguAJ0VImzcC3PbG//tWeXQPunctFFU5pHUDn58H0bLGNOFQy5fk5OG5G/d6TnOoZBl2Y8BgF4PvU13h7AKHJGMak94aVLleIYywAthnkCahGktGIBTaPwOiNFcHZ6SWWhSChWdhuguBXSFxhlffvj6+GdaZzD1rVwiC/zX0+swSeP1z+A8256l9hXaVqkURcVNpox2SMo2nBKviB+DQCIbyMxTFx5ft9Xp+xeHrFRqGE8RMkXPx2kZKEHSZi5bpEHvwienEAPrVgRfatlRCIihZ7h4j0Hw4aPRkfresCHuHDJILhn4tkE4t0f2BgoMJZx5Bv28TM4Zp1oUatnw/dQsb2QZdZr1PE1F5vpggEKyvXZR8dBnkfFas7BJRgFcF82MUQ3ywmHussE20YMs0+7YbbfBEMMS8oyP366IpOlMLPNbPVE/9cczesMGl5DwVClQiBOotAjg4xEPQefUDVNl5p0m9pPmUGz5ZdbMY+LYQGsZWXK2WZTGKQoRL4p4reIVnYYrDV+7sFfLftoK+NkszYJi+CQ2c4cFMhFyxKpDh9SKhgFg3e/B2wchp6HUWpeQRocd4DD7C66QpH/UivSAA==)"
   :replies: []
 - :author: lemon-761
-  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izit8h1/
+  :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izit8h1
   :body: |-
     Don’t see too many Ruby solutions: [github](https://github.com/timle8n1/aoc/blob/main/aoc2022/day9/solve.rb)
 
@@ -162,22 +162,22 @@
     Drawing a picture of a head knot move versus what the tail know should do helped me understand better and apply clamp.
   :replies:
   - :author: f4780y
-    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izj19tz/
+    :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izj19tz
     :body: Results are out by +2 from the correct answer for both parts for my input.
     :replies:
     - :author: lemon-761
-      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izk02t5/
+      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izk02t5
       :body: Hmm works fine on both samples and my input file. I’d be happy to try your input.
       :replies:
       - :author: f4780y
-        :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkjhpl/
+        :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izkjhpl
         :body: No worries - I've messaged you my input file. Interested to hear if it passes or not, but only if you have time.
         :replies:
         - :author: lemon-761
-          :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izmqlk2/
+          :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izmqlk2
           :body: I got your same values with that input - maybe clone the repo - I'm also on an older version of ruby? shrug
           :replies: []
     - :author: lemon-761
-      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izk0ui6/
+      :url: https://www.reddit.com/r/adventofcode/comments/zgnice/2022_day_9_solutions/izk0ui6
       :body: I grabbed another account and it solved both of those parts also.
       :replies: []

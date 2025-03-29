@@ -115,7 +115,7 @@ module DownloadSolutions
         private_class_method def self.simplify_comment(raw_comment, raw_more_childrens)
           {
             author: raw_comment["data"]["author"],
-            url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}",
+            url: "https://www.reddit.com#{raw_comment["data"]["permalink"]}".delete_suffix("/"),
             body: raw_comment["data"]["body"],
             id: raw_comment["data"]["name"],
             parent_id: raw_comment["data"]["parent_id"],

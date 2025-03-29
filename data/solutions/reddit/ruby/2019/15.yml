@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/fbtloxq/
+  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/fbtloxq
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_15
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/fb2lefx/
+  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/fb2lefx
   :body: |-
     [**Ruby**](https://github.com/peterc/aoc2019solutions/blob/master/15.rb)
 
@@ -18,7 +18,7 @@
     _Update: So for part 2 I managed to avoid implementing anything. I just took my maximum distance on the entire map, took away the distance from the origin at the closest intersection to the oxygen tank, then added the length of the passage to to the oxygen tank. No path searching needed as I had the distance values already stored for every single block :-)_
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/faxs1m7/
+  :url: https://www.reddit.com/r/adventofcode/comments/eaurfo/2019_day_15_solutions/faxs1m7
   :body: |-
     [Ruby 54/52](https://github.com/acornellier/adventofcode/blob/master/2019/15.rb)
 

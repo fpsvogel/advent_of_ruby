@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqziwer/
+  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqziwer
   :body: |-
     Ruby. Tried writing a regex hack for part 1 to avoid writing a stack engine, didn't work out. Vastly disappointed by the amount of failures and ended up being penalized heavily in terms of waiting. Part 2 was shockingly easy though, feels like it could had been swapped with part 1.
 
@@ -23,7 +23,7 @@
     ```
   :replies:
   - :author: nakilon
-    :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzj539/
+    :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzj539
     :body: |-
       Wow, didn't expect solution with gsub would be that short. Here is a straight-forward state machine:
 
@@ -60,7 +60,7 @@
       ```
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzi2be/
+  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzi2be
   :body: |-
     # Ruby one-liner (16th, 15th)
 
@@ -85,11 +85,11 @@
     - `gc` garbage count
   :replies:
   - :author: nakilon
-    :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzj0zn/
+    :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzj0zn
     :body: Your definition of the term "one-liner" is wrong.
     :replies: []
 - :author: yjerem
-  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzjj37/
+  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzjj37
   :body: |-
     Ruby with regex
 
@@ -114,7 +114,7 @@
     ```
   :replies: []
 - :author: rnd4g
-  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzjrdz/
+  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dqzjrdz
   :body: |-
     Ruby. Figured out that you can drop everything that doesn't matter and eval the rest. Ugly code warning.
 
@@ -149,7 +149,7 @@
     ```
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dr04rmz/
+  :url: https://www.reddit.com/r/adventofcode/comments/7iksqc/2017_day_9_solutions/dr04rmz
   :body: |-
     ruby, i had to shake off the hangover for this one. i never thought about just gsub-ing out the exclamation mark and every next character.. i iterated over the chars and moved 2 steps forward when one was found... i'll leave it in though as a testament to try harder
 

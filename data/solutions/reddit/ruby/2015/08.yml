@@ -1,6 +1,6 @@
 ---
 - :author: SnacksOnAPlane
-  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8gpg/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8gpg
   :body: |-
     **Ruby**
 
@@ -35,19 +35,19 @@
     ```
   :replies:
   - :author: gfixler
-    :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr9142/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr9142
     :body: Do you still get the right answers without the chomps?
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr95zi/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr95zi
       :body: "[deleted]"
       :replies:
       - :author: gfixler
-        :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr9gsc/
+        :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr9gsc
         :body: If you leave them in, the delta stays the same between input and output.
         :replies: []
 - :author: packrat386
-  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8pmv/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8pmv
   :body: |-
     Roughly 12 lines of ruby, eval is fun
 
@@ -71,7 +71,7 @@
     ```
   :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8y8u/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vw32y/day_8_solutions/cxr8y8u
   :body: |-
     Wasted a bunch of time trying to do it just doing global search/replace regexes in vim, couldn't get the magic incantation right. Peeked over here, saw a python solution using eval which made a lightbulb go off and it was pretty easy from there. As per the moderator's comment, I only scrolled down to look at the answers when the leaderboard was already full. _grin_
 

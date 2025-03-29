@@ -1,13 +1,13 @@
 ---
 - :author: apollo701
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kdci5az/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kdci5az
   :body: |-
     [https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum](https://github.com/JasonDorn/advent-of-code/tree/master/day2-cube-conundrum)
 
     Took an OOP approach for part 1/2. Could use some more cleanup, would probably combine my two service classes into a GameMangement object or something that knows how to check valid games and powers
   :replies: []
 - :author: wdomburg
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kcikjcf/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kcikjcf
   :body: |-
     I was happy with how little modification there was from part 1:
 
@@ -20,7 +20,7 @@
     > It even got smaller!
   :replies: []
 - :author: Potential-Series-105
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbzji27/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbzji27
   :body: |-
     turns out part 1 can be really optimized with a perfect hash function. 83 bytes total.
 
@@ -29,7 +29,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnfoep/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnfoep
   :body: |-
     ```ruby
     input = ARGF.read.lines
@@ -64,14 +64,14 @@
     Took longer than day 1 due to not grasping all the text at first.
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnnift/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnnift
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day02.rb)
 
     Nothing particularly groundbreaking in today's solution, but I'm pretty pleased with its conciseness: being able to write the parser and solutions to both parts in single expressions is always quite satisfying.
   :replies: []
 - :author: 6f937f00-3166-11e4-8
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnqt01/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnqt01
   :body: |-
     ```ruby
     def part_one(lines)
@@ -106,7 +106,7 @@
     ```
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbqk1tn/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbqk1tn
   :body: |-
     Part 1 in 96 bytes:
 
@@ -115,11 +115,11 @@
     ```
   :replies: []
 - :author: cwby_bbop
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbneo94/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbneo94
   :body: "[https://github.com/ealvar3z/aoc-2023/blob/master/day02.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day02.rb)"
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnim17/
+    :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnim17
     :body: |-
       oh yours is really similar to mine. https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2\_solutions/kbnehwa/
 
@@ -128,32 +128,32 @@
       I took some of your ideas around scan and implemented them into my golf solution and got 133! Our solutions look super different, but came out to almost the same length. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb#L108-L112
     :replies: []
 - :author: vikingly56
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnmpb7/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnmpb7
   :body: |-
     [Part 1](https://topaz.github.io/paste/#XQAAAQBNBAAAAAAAAAAxm8nOkzLf4JvunUP6t9pRtuGOkmJHAufY4vQu0GpflVYEXt/7dXdFCFOTrbpPSYpK17U9tsOfHPM6UlFib6EkLOBdjWaElVZtLK6WFosU3zppJ/41+eDPQ0goFWQDYECR6iWYOfESZbtFUKOZar33scrvWN9/73QtlsiwEQ5suGfX2dHHSlsUUWDC/ZUC+/a2fiw2MvXnwxUQU6Bo6q2oAaeTWQTo14A5r3PrusClLkjkY1OdmJuHR3Yc1GBB/Uzk9qNgWmnKHkdYIH9TXCNLfjLTGQzgJR0QeoMF/aZAJOzZA5GIjlDYTwZu1z95TY/ZV4BFkVB3Z/Jv808+RrNXUOjCR02drI0hhShfGLgujBOE+awebvMMCfh1RijB7Sp6tC+wkeM6QwTLn07YngiGNPLzz4cVEvxvcduESLSV4MNDD0rSBVoDN9If1JugyTTQVxoUiB+hnnLYjMBEIIiHZbVpibgra7Mk3D6fuhXnGdVIzgwdmeRKCtMuRERAZnoxFMXo5VYSuPK2aJUAIOLVuLp5tAo++tJsX+p1CTMf5t8sAbNbIZpTjC4IynZhkrGIWj5+WV4Q0bxKjiOSCHckSyZcrf8y6SUA)
 
     [Part 2](https://topaz.github.io/paste/#XQAAAQB4AwAAAAAAAAAyGUj/TwpvLe0gsyFT8iZOPN9EedSymx3muo0auG1mGPtkRDoowDfNoD2XUYqR6zwVGLRBG3GC31kGTgZkOc9a8AVtoKhS6c2alQZFy/xwOjfn6C2NmLJlyJTtjXyU9KMBFRHHXapS6HDxqGc1cluKil1HJ2F1ctUIDQVnwZ9WBjNTHuPd3UYdFtbhpMvi4rV8VOxE6QigAMTxRICrrVqUzR6ToWwTpEF9T+TdFbXR1zmtPpWM8yEvdNuMFZSWNqDPEDfIf5Gc7ANiv/cIJ5fsY/oA9dun+TuC13ltdE5YezY8Ce08ZnziMRNTuAjiQmQi443fLd7z0gcjaSFq18WaUnwPNsPG0DuTTw8tcBROkAB+JH+EqpWMomt1ME1XJWGYCFAPGhN1uhsZnX8JzYrvaBAzoZjI9QuVX2daAirHnMvAEgnIDWNZxM5EDqJrmKT+v/dG17uuF/zd9f+ccaAso3fSXxcB8FYGkVxy0WJKKUAMWl//32YMhw==)
   :replies: []
 - :author: PassifloraCaerulea
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnn5hs/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnn5hs
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQBwBQAAAAAAAAAjmEmmZ0F3geH2HS941iDpkRJhWDNw+mFEzIaPDt0a7Lu2lgmr2JUWvBhN/4fVM2VA5i+470PBXuJs0lvlR02ICCg2zvy0c46svch3YBFAfPbMBJ6hX3oIVqA5e/7td2YK+LR7KxNa67+ontMR51shq87rdbVJB3sEWmgTkJd0CaRWKuSdQujZ/nTdRFCmgUJrlskroa9boPf5oxKhfQlZEubf3hdx2zJxhxI4n7aDyg3GiY99VkCvGCMOP1t44OUaaR0Qoe6bQhOAAQZWWXgHpXBQF01eRv3V46X9Z4HNARzs9qceyjFO1CMSPFuo5kpcQXMmwSCM3YKrBZQoUiuV6IUlvmipdCPfn2KHocqmxaDa3s2w82kJ4rLePrJQkRPvycBu+jaN+N+H0hgu6HMi9jZS2alcD4gGM1OCz6j+5s9sfyu2xBCXTlXX6fCtWsIQZHYyishnl2v9wZcaBCj+4NCBxayv7Mfa3VF0WcRp6JvL7P2oi3ZR26oFgBSiXm0H2iY459xzk/FNZ8IEKIAZY3FCwec6FdMQEtclN7x6z5twZqMtAVrXdRTDMghWq8Yx1p4No1nVFJUzRKCSj+8iq+g42oFvujfvUtvCSM9yKh0CPjXx3H1FZ/dTFpH7ktGHYoCh6QmqXveVYhMVcALz6Ynu5XbmVb0gUmax4SS50T/kBzrzC2WVb5P2OeAYGvoUSKvIAf1AgP1KG3OIzhHE4UX0vGYmSeTKynCGrM1fY8j3osvtrlm+b8yp5U+MCEJx6jUss/IfttLXkMxP0hb5ntmQ4y3DAmzW5s6rkQ3Alz52ydPKr/2hVsg=)
 
     Disappointingly large amount of far too conventionally structured code :-P Easier problem than yesterday even though it took me longer. Y'all are making me want to finally try out Smalltalk to work these problems, but opening up a Pharo image I'm remembering why I haven't before: such a weird interface I have a lot of trouble figuring out :(
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbozeir/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbozeir
   :body: 'Pretty straightforward but no one liner this time: https://github.com/vinc/advent-of-code/tree/master/ruby/2023/02'
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnehwa
   :body: |-
     https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day02/day02.rb
 
     Easier than day 1. I'll be adding code golf solutions to this as well over the next hour or so.
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnoh0a/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbnoh0a
   :body: |-
     Today it was an easy day, my solution is really simple and nothing to be specially proud of:
 
@@ -197,18 +197,18 @@
     ```
   :replies: []
 - :author: the_bengal_lancer
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbntjmf/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbntjmf
   :body: 'map/filter/reduce boogaloo: https://gist.github.com/andrewzah/0e71e3b9fcc0984ed1808886085960a3'
   :replies: []
 - :author: brightside_bitch
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo18su/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo18su
   :body: |-
     [paste](https://github.com/dorianamouroux/advent-of-code/blob/main/2023/day02/day02.rb)
 
     Learning Ruby. Pretty happy with my solution and the use of .scan / .match to parse
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo61gt/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbo61gt
   :body: |-
     Part 1:
 
@@ -269,7 +269,7 @@
     ```
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboke1w/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboke1w
   :body: |-
     PART 1
 
@@ -312,7 +312,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboo1la/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kboo1la
   :body: |-
     Easier than yesterday!!
 
@@ -321,7 +321,7 @@
     [Video Walkthrough](https://youtu.be/WU_OB8X7OWQ)
   :replies: []
 - :author: Sensanaty
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp3ocg/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp3ocg
   :body: |-
     [LANGUAGE: Ruby 3.2.1]
 
@@ -334,7 +334,7 @@
     [Raw Text](https://raw.githubusercontent.com/Sensanaty/aoc2023-ruby/master/days/2/main.rb)
   :replies: []
 - :author: systemnate
-  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp7a7s/
+  :url: https://www.reddit.com/r/adventofcode/comments/188w447/2023_day_2_solutions/kbp7a7s
   :body: |-
     ```ruby
     data = open("./input.txt").read.split("\n")

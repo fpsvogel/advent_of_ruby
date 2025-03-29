@@ -1,6 +1,6 @@
 ---
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/ghogxmi/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/ghogxmi
   :body: |-
     Better late than never. Kinda overengineered. Ended up using a matrix transpose for the second part.
 
@@ -9,7 +9,7 @@
     [https://github.com/izaguirrejoe/AoC2020/blob/main/Day16.rb](https://github.com/izaguirrejoe/AoC2020/blob/main/Day16.rb)
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg4h48g/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg4h48g
   :body: |-
     # Ruby
 
@@ -18,29 +18,29 @@
     [paste](https://topaz.github.io/paste/#XQAAAQAzBwAAAAAAAAA5GUqKNoFH6SMqoVC09YUYlYrjjNB8HNCAJ2iwkNLh9g1eeWZnbDThi7et4cKyVjQoO6JtbMbEDJrVZQmYsm3hDg8vXoCnlqQyqJ5kVDFYCnzWt64eTZ4sJSA+hbZ48OLbN3iBDBWJLcIANNNqeDLMqkbtdgPmdsfPvNJM3roTJy3j6SCNE9uL0HrcN02iueu6quMei4RU9sN/e2EnVw0aNQ/Zmc6KC1ePEx+HT/CAFECShK3jvhdsAlTATOYSOycse4bPVfrqiS6fECL4eAnrlyiwQKsQeXMdybRyOCKjUANTeSjQWZTsHI56tJ1Fih4/k9MbYL7bdanfTh8o5bw2/gfM5n9cszF6cGN/Wz0CtGkPiPh3sDq65ju+L/N6Pp8mLY0ZJ8xv214t+IpqPucOBu+G8lmkQZ//CxNH+jUL1LqieXY3zDyIi+hwZ1+BfnAGbKsDVCvFC29r99dSnT4vlY5EvPcYGb+p9rmbauSyl5gGCzDyQPdbg69EpFsnp4/fO3xy5WHMnzYNOE4v7dYcqWYmQpXYU9zDWGwmt+CopNeqAIKAkg6ydPdZFQ9OrclQP0VmB+XaqBSeG5BZwUAfyPJTId5Tjrn6lgnQpVc9ov0L0TJ+/xxE3vnSz7mcfx8n6qdqgvvBp5NfsmEZhybkmnFgtwMH84cs7tdTA7QBnV29SELe+hrYmRK0Ng7ubJdeszpHy2cPVuBZ9GZSIzSU52bOEOFZ2XeEnqQZl+57tvNhgaYRtR2Ngi39jEI82aqxE4VT6tvVcY+8Bl34y1xCs43Zo/81R7uf59hzPFKRsvI04CaiOs7It5OXqy7R/MHaimh+231dovIbCP4ER/dbg83rDb5NA3c9TKRodvMjUP4prETflGoq76bDKiZe3Hh0MlRJp+PUrpeuHSeh9jeIsM24oIa/yb2wuYhSrFnDab3RD02Hd0ZXo7uS5jRlbsB08jHnKfsLhoz0ZWixWwd7zTcYl716qEmUX1icupyBszDydaOESbBHpqes7txypkBO6AM2YoUZn+2Cv37grC0tgUAGQI6DUecCBpPRK5hgI8UxgqsAOxD6X6wYgqX/2WXxSA==)
   :replies:
   - :author: ForkInBrain
-    :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gglge3m/
+    :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gglge3m
     :body: I think you just got lucky. I instrumented mine and it had to retry about 90 times. Looking at your code, I think we had a similar algorithm.
     :replies: []
 - :author: mattaman101
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg35lfy/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg35lfy
   :body: |-
     # [RUBY](https://www.codepile.net/pile/Vm7EWVY9) Part 2
 
     Using hashes with a key of the rule (route, price etc) and a value of sets containing indexes in the ticket that it cannot be. A pattern emerged and these sets were of length 19 - 18 - 17- 16- 15 etc etc. You look at the length 19 set and see what index is missing, and assign that as the correct index of that sets key in a new hash, and then add that missing number to all of the sets, since now none of them can be at that index. Keep checking the length 19 set (since the length 18 one is now 19, and the former 19 one is now 20) and eventually, you get all of the correct indexes.
   :replies: []
 - :author: skawid
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg2wh9j/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg2wh9j
   :body: |-
     [Ruby!](https://github.com/simonbrahan/aoc2020/blob/master/day16/main.rb)
 
     Keep finding ticket columns with only a single valid rule, until you have all the columns. My original solution (breadth first search) is still running.
   :replies: []
 - :author: prophetjohn
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg1wyls/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg1wyls
   :body: "# RUBY\n\n[https://github.com/j-clark/adventofcode/commit/29225aa85fe56909fa2cdd19fb30c68537f79d46](https://github.com/j-clark/adventofcode/commit/29225aa85fe56909fa2cdd19fb30c68537f79d46)\n\nI just hacked it as naively as I could think of and it worked and was definitely not my slowest solution \U0001F937‍♀️"
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg09e24/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg09e24
   :body: |-
     **Ruby:** 9:13/23:45, 300/153
 
@@ -49,7 +49,7 @@
     This one was great! Super fun. My favorite yet. Thankfully Eric made Part 2 "easy", but it still would have been fun even if we had to "search" for a solution. I don't mind getting to bed a little earlier though!
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg05zvr/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg05zvr
   :body: |-
     Ruby 147/124
 
@@ -58,14 +58,14 @@
     https://gist.github.com/gurgeous/9ceb70393345c2233b3923647d3095d6
   :replies: []
 - :author: billiamthesecond
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0ag9a/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0ag9a
   :body: |-
     # [Ruby](https://www.billiam.org/advent-of-code/16.html)
 
     Nothing too fancy, and none too fast
   :replies: []
 - :author: rhardih
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0hlnq/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0hlnq
   :body: |-
     Ruby solution to part 1 with a bit of meta programming:
 
@@ -90,7 +90,7 @@
     ```
   :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0snlr/
+  :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0snlr
   :body: |-
     # Ruby
 
@@ -101,10 +101,10 @@
     Both run in ~150ms. Disregarding load/boot time for Ruby it's more like 15ms.
   :replies:
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0ueh2/
+    :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg0ueh2
     :body: Like this. Very idiomatically Rubyish solution. Mine was somewhat messier (though `Array#transpose` came in handy – a method I've never needed to use before).
     :replies:
     - :author: shandley256
-      :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg1g51h/
+      :url: https://www.reddit.com/r/adventofcode/comments/ke2qp6/2020_day_16_solutions/gg1g51h
       :body: "Ah nice! Thanks \U0001F601\n\nI didn't think of using `transpose` ... did you post your solution somewhere?"
       :replies: []

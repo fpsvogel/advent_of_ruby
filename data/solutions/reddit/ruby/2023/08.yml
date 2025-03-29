@@ -1,6 +1,6 @@
 ---
 - :author: carl_omniart
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcpelh9/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcpelh9
   :body: |-
     [https://github.com/carl-omniart/advent\_of\_code/tree/main/2023](https://github.com/carl-omniart/advent_of_code/tree/main/2023)
 
@@ -11,14 +11,14 @@
     P.S. I named this class Syzygy, which is a term for an astronomical conjunction and a title of an X-Files episode that features a young Jack Black. Doesn't _exactly_ make sense as a class name here but what the heck.
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgthv7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgthv7
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day08.rb)
 
     Today definitely felt like one of the kindest example inputs so far this year: the additional sample for Part 2 made it abundantly clear that the node sequences were periodic, after which the next step of taking the least common multiple of the periods fell into place nicely.
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcic7ki/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcic7ki
   :body: |-
     ```ruby
       ins, map = File.read('input.txt').split("\n\n")
@@ -46,7 +46,7 @@
     ```
   :replies: []
 - :author: maths222
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgs2mm/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgs2mm
   :body: |-
     749 / 183
 
@@ -55,7 +55,7 @@
     [code](https://gist.github.com/maths22/be1fe3afff5b3d84d91a60b58c8a20c3)
   :replies:
   - :author: Alohamori
-    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgshh9/
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgshh9
     :body: |-
       Just sharing my solution to Part 1 so that today is also the day you get to learn about `#cycle`:
 
@@ -72,18 +72,18 @@
       ```
     :replies:
     - :author: maths222
-      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgw8hf/
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgw8hf
       :body: Ooh I like that!
       :replies: []
     - :author: yourparadigm
-      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgwv80/
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgwv80
       :body: |-
         One problem with `#cycle` is that it allows you to have an incomplete sequence of the instructions, while the rules state:
 
         > repeat the whole sequence of instructions as necessary
       :replies: []
 - :author: Any-Razzmatazz-4792
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvug5/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvug5
   :body: |-
     Didn't consider LCM for a while, once I pieced that together I was able to put together a solution. Here's some golfed code for shits and giggles though
 
@@ -106,14 +106,14 @@
     ```
   :replies:
   - :author: Symbroson
-    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch0lqy/
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch0lqy
     :body: |-
       Very cool!In [my implementation](https://www.reddit.com/r/adventofcode/comments/18df7px/comment/kcgzr9h/?utm_source=share&utm_medium=web2x&context=3) I split each line on `/\W+/`, group by `:first` and use `1` and `2` as index. I constructed the command array with `d.tr('LR', "\1\2").bytes`. Maybe this could save some bytes for your code?
 
       Could you explain how your implementation for calculating the required steps works? I didn't find a suiting function to do it in a single statement but you did it somehow
     :replies:
     - :author: Any-Razzmatazz-4792
-      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3wcq/
+      :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3wcq
       :body: |-
         Thanks for the tips, I was able to properly implement them + a few other optimizations to shorten my code!
 
@@ -127,14 +127,14 @@
         ```
       :replies:
       - :author: Symbroson
-        :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch5tsn/
+        :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch5tsn
         :body: |-
           nice.
 
           Thanks for the explanation too but I rather wanted to know how your implementation works. I see you do some infinite range find/filter magic and I'm interested to know how this works :)
         :replies:
         - :author: Any-Razzmatazz-4792
-          :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch9p5r/
+          :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch9p5r
           :body: |-
             in my case, the infinite range has 2 use cases. The first case is that i need to iterate from 0 ... a.size to find the connecting index for the given node. Since it's a guarantee that in the array there exists a node that matches that connection, I can use the infinite range syntax 0.. to shorten the code. The second case is that I need to count how many steps it takes to get from from starting point \_\_A to ending point \_\_Z, and by using the infinite range syntax in combination with find, that'll return the number of steps taken once it figures out that we've reached the ending node. Here's what my code looks like "ungolfed" with more readable methods for what I did:
 
@@ -155,7 +155,7 @@
             ```
           :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgulb7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgulb7
   :body: |-
     ```ruby
     DIRECTIONS = $stdin.readline.strip.chars
@@ -187,14 +187,14 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvx6a/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgvx6a
   :body: |-
     https://github.com/Sharparam/advent-of-code/blob/main/src/2023/08/solve.rb
 
     Like [pointed out in a different post](https://www.reddit.com/r/adventofcode/comments/18dfpub/2023_day_8_part_2_why_is_spoiler_correct/) I was also surprised that this method worked, but I guess I'll take a win.
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgzr9h/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcgzr9h
   :body: |-
     Can I somehow shorten the move function? Cant think of a useful method that could calculate n in a single statement, looping over the commands and executing the step block all at once..
 
@@ -218,18 +218,18 @@
     ```
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3w7g/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch3w7g
   :body: |-
     [Link to github](https://github.com/jlugner/2023-aoc/blob/master/solutions/day8/solution.rb)
 
     Just grabbed LCM on part b out of reflex. Not sure why it even works tbh. Just seems all AoCs have at least one problem where it's the way to go. Really like the way rubys .cycle works for problems like this
   :replies:
   - :author: N3m0TheGreat
-    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch4ase/
+    :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kch4ase
     :body: I took the lcm by instinct as well, got the start and then I was like, wait, this shouldn't work. Turns out the inputs are designed such that a -\> z is the length as z -\> z
     :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcheyyc/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kcheyyc
   :body: |-
     Part 1:
 
@@ -268,7 +268,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchkut3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchkut3
   :body: |-
     This was a fun one, one kind of pattern needed to be identified and then a mental leap to solve in the end, nice puzzle!
 
@@ -277,7 +277,7 @@
     [Video Walkthrough](https://youtu.be/4C0lC26U6l4)
   :replies: []
 - :author: comforttiger
-  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchwj7v/
+  :url: https://www.reddit.com/r/adventofcode/comments/18df7px/2023_day_8_solutions/kchwj7v
   :body: |-
     https://github.com/comforttiger/advent_of_code/blob/main/2023/ruby/day8.rb
 

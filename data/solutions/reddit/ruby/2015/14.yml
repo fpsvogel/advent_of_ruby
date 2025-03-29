@@ -1,6 +1,6 @@
 ---
 - :author: SomebodyTookMyHandle
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxydtvs/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxydtvs
   :body: |-
     I also tackled it in Ruby using a class-based approach. A bit sloppy, but, hey, it's not only the reindeer who are racing!
 
@@ -72,7 +72,7 @@
     ```
   :replies:
   - :author: JurgenKesker
-    :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytybj/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytybj
     :body: |-
       Nice, I have almost the same approach. Only I see you use .max\_by. I will look that one up, didn't know that one.
 
@@ -81,11 +81,11 @@
       -- I had a look at max\_by, but it seems to return only 1 leader. What if there are multiple leaders? Your code doesn't seem to handle that.
     :replies:
     - :author: SomebodyTookMyHandle
-      :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy0flil/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy0flil
       :body: That's a very good point. I guess I lucked out in that the leader was the first position in the array so that that reindeer received all the ties.
       :replies: []
 - :author: Axsuul
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxye2lc/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxye2lc
   :body: |-
     Ruby (State machine)
 
@@ -158,7 +158,7 @@
     ```
   :replies: []
 - :author: jchook
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyeaqr/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyeaqr
   :body: |-
     **Ruby**
 
@@ -197,7 +197,7 @@
     ```
   :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyef06/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyef06
   :body: |-
     Well out of the leaderboard today - part 2 kicked my butt. I feel like I can - more and more - see the seams between my ever-so-slightly-more-than-shell-scripts and "real" programs.
 
@@ -290,7 +290,7 @@
     ```
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyiyjk/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyiyjk
   :body: |-
     ruby
 
@@ -337,7 +337,7 @@
     i screwed myself by forgetting that **each** winning reindeer gets a point
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytkcc/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxytkcc
   :body: |-
     Ruby part 1 & 2
 
@@ -412,11 +412,11 @@
     ```
   :replies: []
 - :author: HorizonShadow
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyxwec/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxyxwec
   :body: Ruby - https://github.com/HorizonShadow/Advent-of-Code/tree/master/day14
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxz2qac/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cxz2qac
   :body: |-
     Ruby solution:
 
@@ -496,7 +496,7 @@
     ```
   :replies: []
 - :author: zacwaz
-  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy1snmd/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wqtx2/day_14_solutions/cy1snmd
   :body: |-
     Ruby:
 

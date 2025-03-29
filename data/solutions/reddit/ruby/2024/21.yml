@@ -1,17 +1,17 @@
 ---
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m3c99gh/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m3c99gh
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day21.rb)"
   :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m38oozv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m38oozv
   :body: |-
     [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day21/day21.rb)
 
     Struggled hard on this one. Recognized that it was dp problem, but I had issue figuring out what I needed to memoize. I also made a mistake of selecting individual sub sequence by "weighing" them based on the number of movements required, and selecting only one of them. That was a mistake. Weighing them is fine, but all the substrings of the same weight must be accounted for as well, and that took some snooping around here to figure out.
   :replies: []
 - :author: NullT3rminated
-  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m33nqyg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hj2odw/2024_day_21_solutions/m33nqyg
   :body: |-
     [Language: Ruby 710/223]
 

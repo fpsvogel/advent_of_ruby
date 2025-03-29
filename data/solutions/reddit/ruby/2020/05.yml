@@ -1,6 +1,6 @@
 ---
 - :author: Wattswing
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gijw9ky/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gijw9ky
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     [Code](https://topaz.github.io/paste/#XQAAAQCHBAAAAAAAAAApE8c0yCtOWkGXsb6/Ap/R1MYgWM5XNu2zBIG74I4DeAsdgNBV2lzbiBbOkazv49erCRDEXPtGg9d5LXWxSNbhy6pzusIs2GRsWmq1qH/hXYHz5LN7qZ+QcVtaGM3Z8RN8RMcFrq0/B1xfa+CnH4s5qh+iIFDKXAGQzGJY8Ich8Kza4V/gpZAsL5AW3yRwJXrwkdMZw/Kl5CcNAfaKv3XrLmcIPFH0mmd1PqfzRsTG1RuGArLU6XsyJcbodtq7rtqxNW4kqr3xRLmggVdZb+/or0tVAn+SBDCkQuBt445jdLlJx1o1olRUHihTOEq+O0rnFV4SpnSMJem28egTUkiiIH7ZCqC6kUQyjyjEO/c5G21TVqK5Gl5E/ffyCwaDbHx1VX7TP8JcnWY0HW76eRNM2lVbMd9fxo6SGabY2mpSsOskN8e1VhlAjLkyvpi9f3EAAWUaEhYcclfTcZKW6UW2bB9hMBwHfgxL9/vraSzDd+vIXDBJ+lwQjsGKRnwcR2A4CFapuFLaDCM5+WsoBoZ5mM8WPO6Te64G4DdawIm+NIXHMfs7exei+T7Z7RI9R7Z9Sw8Mq2yEespPyZzC72nGZTT7FcqSdK3YWNjy5XpD/awWsMR3pfNwlPW2uWM+bJ4U8+OZJOsc5SwCM1b7sTHOsC/QqKxRMrDxnjeXYFVqeEyBL69AV2Ft6OsW7qpz/8xk80A=)
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gey4bu4/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gey4bu4
   :body: |-
     Ruby
 
@@ -23,7 +23,7 @@
     ```
   :replies: []
 - :author: purplepinapples
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geu1bdg/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geu1bdg
   :body: |-
     In ruby. Was stuck for a while because I didnt realize `IO.readlines` doesnt strip newlines
 
@@ -65,14 +65,14 @@
     ```
   :replies:
   - :author: lucbloom
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevj26a/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevj26a
     :body: |-
       Haha, subtracting 2 sets to find the one missing. So wasteful, so 2020. Love it.
 
       Doesn't Ruby have a "get first element" function for sets? Like start an iteration and immediately `break`?
     :replies:
     - :author: purplepinapples
-      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevk6xm/
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gevk6xm
       :body: |-
         > "get first element" for sets
 
@@ -81,7 +81,7 @@
         Under the hood, there obviously would be a "first element" in the underlying hash implementation, but it isn't an exposed function.
       :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/getk65n/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/getk65n
   :body: |-
     # Ruby
 
@@ -96,7 +96,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/ges0n5d/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/ges0n5d
   :body: |-
     # Ruby
 
@@ -114,7 +114,7 @@
     ```
   :replies: []
 - :author: tckmn
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoa6oq/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoa6oq
   :body: |-
     ruby, 1/10
 
@@ -139,11 +139,11 @@
     ```
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geobld3/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geobld3
     :body: That's an amazing way to construct the seat numbers! I ended up [doing it a more verbose way](https://github.com/Sharparam/advent-of-code/blob/master/2020/day5/solution.rb).
     :replies:
     - :author: Forbizzle
-      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoce4b/
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoce4b
       :body: |-
         Yeah it's interesting. I immediately recognized that the binary search instructions were just binary numbers. And rather than doing a search I could just use turn them into numbers.
 
@@ -152,11 +152,11 @@
         I also learned about the .tr method in ruby. Having instead done a chain of 4 gsubs.
       :replies: []
   - :author: wace001
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geom92w/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geom92w
     :body: Impressive. Good job! How does tr work?
     :replies:
     - :author: tckmn
-      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georn8k/
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georn8k
       :body: |-
         it's the same as `tr` in bash (stands for "translate") -- it'll replace characters in the first string with corresponding characters in the second string
 
@@ -166,7 +166,7 @@
         ```
       :replies: []
 - :author: Ryuujinx
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geqgw2y/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geqgw2y
   :body: |-
     # Ruby
 
@@ -209,7 +209,7 @@
     Part 2 was mostly the same, I just shoved it in an array sorted it and then checked if current id -2 = last id
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok8ss/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok8ss
   :body: |-
     **Ruby**
 
@@ -230,11 +230,11 @@
     ```
   :replies:
   - :author: Scoobyben
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geop1ap/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geop1ap
     :body: Neat approach to part 2!
     :replies: []
   - :author: wikipedia_text_bot
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok9fu/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geok9fu
     :body: |-
       **[Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic%20progression)**
 
@@ -243,7 +243,7 @@
       [About Me](https://www.reddit.com/user/wikipedia_text_bot/comments/jrn2mj/about_me/) - [Opt out](https://www.reddit.com/user/wikipedia_text_bot/comments/jrti43/opt_out_here/) - OP can reply !delete to delete - [Article of the day](https://redd.it/k6wsfi)
     :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep4x6g/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep4x6g
   :body: |-
     more elixir. realising that in part 2 you're not at the front or back must mean there exists a row with exactly 7 taken seats. so that was nice.
 
@@ -297,18 +297,18 @@
     ```
   :replies:
   - :author: Jedimastert
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep7wr6/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep7wr6
     :body: |-
       > var || []
 
       fyi, this is called [lazy evaluation](https://www.wikiwand.com/en/Lazy_evaluation), and the concept can be applied much broader if you understand it correctly.
     :replies:
     - :author: rkachowski
-      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep9tt1/
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep9tt1
       :body: where's the laziness? i understand it as a null coalescing operation
       :replies:
       - :author: Jedimastert
-        :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepfti8/
+        :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepfti8
         :body: |-
           The idea is that the `[]` was never reached because the `||` operator did it's job
 
@@ -323,11 +323,11 @@
           Does that explain things better?
         :replies:
         - :author: rkachowski
-          :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gephazd/
+          :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gephazd
           :body: awesome, thanks!
           :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep808u/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep808u
   :body: |-
     **Ruby**
 
@@ -359,7 +359,7 @@
     ```
   :replies: []
 - :author: zB0hs
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepjlmd/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepjlmd
   :body: |-
     Here's my Ruby solution to Part 2. Convert the seat codes to binary to get the integer values and then find the missing seat with array subtraction!
 
@@ -370,7 +370,7 @@
     ```
   :replies:
   - :author: steerio
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geplrkr/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geplrkr
     :body: |-
       Another Ruby one (hijacking your comment to have a Ruby subthread):
 
@@ -381,7 +381,7 @@
       ```
     :replies: []
 - :author: ttapu
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoi8x3/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoi8x3
   :body: |-
     ruby
 
@@ -406,7 +406,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqhev/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqhev
   :body: |-
     **Ruby:** 6:43/13:07, 526/975
 
@@ -415,7 +415,7 @@
     I totally misread what to do with the two values we got (I did `row * seat` first instead of `row * 8 + seat`). Did anyone else find the instructions for Part 2 confusing? At first I thought the seat ids would be sparse and that there would just be two seat ids two apart (e.g., seat ids would be like 5, 32, 235, 712, 714, 832 and so your seat would be 713).
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqwzg/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geoqwzg
   :body: |-
     Ruby - 18169/17128. I fell asleep before the puzzle was released ¯\_(ツ)\_/¯
 
@@ -450,7 +450,7 @@
     ```
   :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georjrf/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/georjrf
   :body: |-
     # Day 5 in Ruby
 
@@ -471,7 +471,7 @@
     This outputs both answers.
   :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozly9/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozly9
   :body: |-
     My solution in Ruby.
 
@@ -512,15 +512,15 @@
     ```
   :replies:
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep0mj4/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep0mj4
     :body: 'Pro tip: Whenever you''re just trying to pull some information out of some strings, with very high probability, [there''s a method for that](https://ruby-doc.org/core-2.7.2/String.html). The trick to Ruby mastery is to remember exactly _which_ methods – and what the hell they are called ;) (For this one [I](https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozxna?utm_source=share&utm_medium=web2x&context=3) used `scan`, `tr` and `to_i`.) The same notion for arrays; You rarely want to push stuff yourself and roll your own loop, much less nested loops.'
     :replies:
     - :author: jeffers0n
-      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep301z/
+      :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep301z
       :body: Thanks. I'm still learning Ruby so I know there are tons of methods that aren't even on my radar.
       :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozxna/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/geozxna
   :body: |-
     # Ruby
 
@@ -547,7 +547,7 @@
     ```
   :replies:
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep44im/
+    :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep44im
     :body: |-
       d'oh, just realized that there are three digits of the `LR` part, which means that the `FB` part is shifted by 3 (== multiplied by 8), so there is no need to handle the two parts spearately. The `scan`/`map` part can then be simplified to
 
@@ -557,7 +557,7 @@
       ```
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep913x/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gep913x
   :body: |-
     Ruby, similar to some other submissions:
 
@@ -570,7 +570,7 @@
     ```
   :replies: []
 - :author: maccosmo
-  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepe19m/
+  :url: https://www.reddit.com/r/adventofcode/comments/k71h6r/2020_day_05_solutions/gepe19m
   :body: |-
     One liner for both cases in Ruby with help of /u/Redofab and /u/veit\_dev:
 

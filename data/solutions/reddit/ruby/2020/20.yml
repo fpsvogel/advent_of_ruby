@@ -1,6 +1,6 @@
 ---
 - :author: rundmsef
-  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/giln2a5/
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/giln2a5
   :body: |-
     # Ruby
 
@@ -13,7 +13,7 @@
     I wrote up a more [detailed walkthrough of my solution](https://seththomas.github.io/advent-of-code-2020) that discusses my approach. Full code and unit tests in [github](https://github.com/SethThomas/AOC/tree/master/day20).
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggggp78/
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggggp78
   :body: |-
     **Ruby:** 11:17/2:32:56, 32/668
 
@@ -32,7 +32,7 @@
     Once all that was done I just searched for all possible rotations of the sea monster, which, relatively speaking, was a piece of cake.
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggg8ecn/
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/ggg8ecn
   :body: |-
     Ruby, 947/131
 
@@ -41,7 +41,7 @@
     part 1: https://gist.github.com/gurgeous/e53ab8bfde12b84e026578eb41c27fe7 part 2: https://gist.github.com/gurgeous/9a515a3cf36ddffcda5db5a98b1a4468
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/gggkf8c/
+  :url: https://www.reddit.com/r/adventofcode/comments/kgo01p/2020_day_20_solutions/gggkf8c
   :body: |-
     ### Ruby
 

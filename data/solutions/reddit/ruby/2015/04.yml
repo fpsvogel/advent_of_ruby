@@ -1,6 +1,6 @@
 ---
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmmh2t/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmmh2t
   :body: |-
     Day 4 of the non-programmer's solution.
 
@@ -20,19 +20,19 @@
     ```
   :replies:
   - :author: Aneurysm9
-    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmml28/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxmml28
     :body: You keep calling yourself a non-programmer and your solutions keep looking a lot like mine. I don't know whether that says something about you or about me!
     :replies: []
   - :author: Geambanu
-    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxnceun/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxnceun
     :body: what language is this?
     :replies:
     - :author: joeyrobert
-      :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxndra5/
+      :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxndra5
       :body: Ruby.
       :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxpy3d0/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxpy3d0
     :body: |-
       Nice! I wasn't aware of the =~ operator. These challenges are showing me I have A LOT I still need to learn about Ruby!
 
@@ -43,11 +43,11 @@
       ```
     :replies: []
   - :author: karatedog
-    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cyik9rc/
+    :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cyik9rc
     :body: The 4th day task asks for **at least 5 leading zeros** , not 6.
     :replies: []
 - :author: baritoneCoder
-  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxn5awm/
+  :url: https://www.reddit.com/r/adventofcode/comments/3vdn8a/day_4_solutions/cxn5awm
   :body: |-
     Simple Ruby solution. Definitely not fast but gets the job done.
 

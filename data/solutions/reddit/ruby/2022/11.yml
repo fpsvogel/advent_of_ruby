@@ -1,6 +1,6 @@
 ---
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izsmy5e/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izsmy5e
   :body: |-
     Ruby
 
@@ -43,7 +43,7 @@
     ```
   :replies: []
 - :author: SnooConfections2453
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrxt9y/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrxt9y
   :body: |-
     Golfed ruby (using eval)
 
@@ -65,14 +65,14 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/j0n45gv/
+    :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/j0n45gv
     :body: |-
       Very nice.
 
       `while k[0].any?`saves 2 bytes over`until k[0].empty?`
     :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrf5b5/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrf5b5
   :body: |-
     over engineered OO solution in ruby
 
@@ -124,7 +124,7 @@
     I got stuck trying to keep track of all the factors in an array for a long time...
   :replies: []
 - :author: 6f937f00-3166-11e4-8
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrp9w3/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrp9w3
   :body: |-
     **Ruby**
 
@@ -188,7 +188,7 @@
     ```
   :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izryg6k/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izryg6k
   :body: |-
     **Solution in Ruby**
 
@@ -199,7 +199,7 @@
     https://gist.github.com/seanhandley/9babceb01ed2890a3b390b80e0b2d046#file-advent11-2-rb-L90-L95
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izs7yis/
+  :url: https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izs7yis
   :body: |-
     Ruby
 

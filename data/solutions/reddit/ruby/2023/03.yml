@@ -1,6 +1,6 @@
 ---
 - :author: Lower_Ambition_2147
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kdgo9b2/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kdgo9b2
   :body: |-
     Learning refactoring with this year's Advent of Code. Check commits to see the steps!
 
@@ -9,7 +9,7 @@
     Whole solution with history of refactorings as commits: https://github.com/takiarek/advent_of_code_2023_day_3/tree/day_3
   :replies: []
 - :author: Best_Pirate_69
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kc9o9dh/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kc9o9dh
   :body: |-
     Regex and Ruby rock!
 
@@ -65,7 +65,7 @@
     ```
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsgfkh/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsgfkh
   :body: |-
     ```ruby
     # frozen_string_literal: true
@@ -126,7 +126,7 @@
     ```
   :replies: []
 - :author: SleepingInsomniac
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kburlwr/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kburlwr
   :body: |-
     Part 1:
 
@@ -310,7 +310,7 @@
     ```
   :replies: []
 - :author: Potential-Series-105
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbzj4v8/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbzj4v8
   :body: |-
     part 1. 195 bytes.
 
@@ -325,7 +325,7 @@
     ```
   :replies: []
 - :author: JelloRough
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs9nvp/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs9nvp
   :body: |-
     I did two different approaches on each part. I missed to see how to adapt part 1 to get part 2 as most of the solutions I have seen. Adding a map when a \* was found.
 
@@ -334,25 +334,25 @@
     [day3.rb](https://github.com/hugomosh/adventura-de-codigo/blob/sandbox/2023/day3.rb)
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsca0p/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsca0p
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day03.rb)
 
     This was a pretty neat problem: I certainly wasn't expecting to be reaching for the `Matrix` module already on Day 3, but it ended up working quite well to model the grid. I unfortunately lost quite a bit of time to some faulty deduplication logic on Part 1 (the uniqueness constraint should be value, column, _and row_!), but Part 2 was trivial thereafter.
   :replies:
   - :author: PassifloraCaerulea
-    :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf7je/
+    :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf7je
     :body: Interesting. More structured than my Ruby code since I decided that an array of strings was _perfectly cromulent_ for treating as a two-dimensional data structure :D I've not kept up with the latest Ruby stuff either!
     :replies: []
 - :author: cwby_bbop
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsid0t/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsid0t
   :body: |-
     Edge cases will always get you lol
 
     [https://github.com/ealvar3z/aoc-2023/blob/master/day03.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day03.rb)
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsittp/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsittp
   :body: |-
     Part 1:
 
@@ -424,7 +424,7 @@
     ```
   :replies: []
 - :author: 6f937f00-3166-11e4-8
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbvctzx/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbvctzx
   :body: |-
     ```ruby
     require 'set'
@@ -499,7 +499,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs8gke/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbs8gke
   :body: |-
     Too long to paste today: https://github.com/Sharparam/advent-of-code/blob/main/src/2023/03/solve.rb
 
@@ -508,7 +508,7 @@
     The big one was that \>!I didn't clear my "number buffer" when a symbol happened directly between two numbers on a line, so `123*456` on a line would be parsed as the single number `123456`!\<.
   :replies: []
 - :author: PassifloraCaerulea
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsdpcp/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsdpcp
   :body: |-
     [Part 1](https://topaz.github.io/paste/#XQAAAQBzBAAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ENYxIxejQDv6proEW4TnDiEStYttJDmsfdts1SPJTgrn1Yy2FoQ5yqiZ879eZsad0KfFmufusabgOJvYtEIio2trRduiAfDurOicYk5UU12aM1ar4Ox9sLAOiyrQhp+bGXsIcbhzgAqOdfdTYGZkw3MUQ3anL4nbGMc91pm3MMs4FPc0QHzsv+9KQoO6VxE5e4VvzU/wH/8HvIbsyPrvAQdwnYNK1LmymhFxd9Cln56W6WEBU9UdTHsZjtPfeWf2GvtM2bYyPFLdkC7jl+huxEzXipEvG7TRficTul7CEUk63gYBUQFhWCwXXoYg/FkEDUXaUuPpKn86FBcLGyFmnXazCsxA1rOsf/w0s86ycx5PzSTY/SqWyevzu7gfko1EqXZSnstejIZtOp+WigJT3fzobiu+5OqnlPyebbFLxR7EH2raULX9JUVfp/lUOiJNasOtAQytC8Jtmq8h3qMMS9W7/Fn5TYlkRmkSxCjXpAmy2/40/2wJUMTlGJsJvEENDMHVppaWAoJXC02NrPlSQIGmbB8JCuh6zWhvuFfaoFUbsk3Mqn+z16dRMFPNQvdxpG2Q6Vbz//+NQ28Y=)
 
@@ -519,28 +519,28 @@
     Because I'm an inveterate polyglot I had to switch languages halfway through since today was pretty comfortable for C. Fun excuse to use that wierdo string function `strpbrk`.
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf3cu/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsf3cu
   :body: |-
     really struggled today.
 
     https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2023/day03/day03.rb
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsq0ib/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbsq0ib
   :body: |-
     My code is ugly :(
 
     https://github.com/vinc/advent-of-code/tree/master/ruby/2023/03
   :replies: []
 - :author: Chemical-Mixture1942
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbt7my5/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbt7my5
   :body: |-
     [https://github.com/mathexresources/adventOfCode2023/tree/main/day3](https://github.com/mathexresources/adventOfCode2023/tree/main/day3)
 
     My code is quite big so i figured ill just paste the github repo link, both parts done, feel free to take a look or mention my mistakes and opportunities to improve the code.
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbtqifk/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbtqifk
   :body: |-
     PART 1
 
@@ -609,7 +609,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbttcry/
+  :url: https://www.reddit.com/r/adventofcode/comments/189m3qw/2023_day_3_solutions/kbttcry
   :body: |-
     Damn, maybe Sunday morning brain, but didn't expect that to be that hard!
 

@@ -1,6 +1,6 @@
 ---
 - :author: matas__
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyv9awf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyv9awf
   :body: |-
     Ruby solution
 
@@ -45,7 +45,7 @@
     ```
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypur9z/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypur9z
   :body: |-
     **Ruby, golfed to 76 bytes**
 
@@ -55,7 +55,7 @@
     ```
   :replies:
   - :author: jstanley0
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypwkpc/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypwkpc
     :body: |-
       clever! my solution was just a bit longer
 
@@ -66,7 +66,7 @@
       ```
     :replies:
     - :author: jstanley0
-      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypx5ll/
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypx5ll
       :body: |-
         after reading your solution I realized writing a lambda was totally pointless.
 
@@ -77,7 +77,7 @@
         ```
       :replies: []
   - :author: damagednoob
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqkjdg/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqkjdg
     :body: |-
       You can reduce this further using the `(x-96)%58` trick I've seen in other solutions
 
@@ -86,7 +86,7 @@
       `p$<.each_slice(3).sum{|l|x=(65..).find{|c|l.all?{_1[c.chr]}};(x-96)%58}`
     :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypuw49/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypuw49
   :body: |-
     ruby. I think there's a smarter way to get the number (other than conditionals), but I couldn't think of it
 
@@ -123,7 +123,7 @@
     ```
   :replies:
   - :author: ride7q
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw062/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw062
     :body: |-
       ```ruby
       #!/usr/bin/ruby
@@ -146,11 +146,11 @@
       ```
     :replies: []
 - :author: mathem17
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw5wb/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypw5wb
   :body: Ruby [code](https://github.com/jzhang113/adventofcode/blob/73b5e3a18ab204815b0a97e2852d5d7b311dd084/2022/solutions/03.rb), map-reduce ftw
   :replies: []
 - :author: Arakiyda
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5t0v/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5t0v
   :body: |-
     **Ruby:**
 
@@ -166,7 +166,7 @@
     ```
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrt9dm/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrt9dm
   :body: |-
     # Kotlin
 
@@ -214,11 +214,11 @@
     ```
   :replies:
   - :author: DanZuko420
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyuc6w1/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyuc6w1
     :body: I hadn't seen the ord method used before I started looking at answers in these threads, very clever! I'll have to try this
     :replies: []
 - :author: InevitableYak1979
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytgbl1/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytgbl1
   :body: |-
     Ruby:
 
@@ -247,15 +247,15 @@
     ```
   :replies:
   - :author: OwnAttention3370
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytldaq/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytldaq
     :body: Interesting approach. I'm using Ruby also as I'm learning the language and noted your use of reduce. It is similar to inject correct?
     :replies:
     - :author: InevitableYak1979
-      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytwlst/
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytwlst
       :body: Yep, in Ruby, reduce is an alias for inject.
       :replies: []
 - :author: nithinbekal
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypz2l2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypz2l2
   :body: |-
     [**Ruby solution**](https://github.com/nithinbekal/advent-of-code/blob/22b2299cefaeb6c5005ef5f7d5efd0343c9f1055/lib/03.rb)
 
@@ -291,7 +291,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypzskz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iypzskz
   :body: |-
     # Ruby
 
@@ -324,23 +324,23 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq440y/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq440y
   :body: "# [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day3/main.rb)"
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqcfow/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqcfow
     :body: You do everything with classes then? Very clean.
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrtguj/
+      :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrtguj
       :body: I started using this style only last year. I noticed that its way easier to memoize functions this way. Thank you!
       :replies:
       - :author: craigontour
-        :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyusbds/
+        :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyusbds
         :body: I have tried classes myself and understand the concept, but struggle with their construction.
         :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5krd/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq5krd
   :body: |-
     **GitHub Copilot + Ruby** (4 / 25)
 
@@ -385,14 +385,14 @@
     So making code readable does not only help me, but helps Copilot too.
   :replies: []
 - :author: Helk16
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqh2ng/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqh2ng
   :body: |-
     One of **Ruby** solution (need to refactor the second part to use recursivity maybe)
 
     [https://gitlab.com/LeChPunk/advent\_of\_code/-/tree/main/day\_3](https://gitlab.com/LeChPunk/advent_of_code/-/tree/main/day_3)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqhyuy/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqhyuy
   :body: |-
     Ruby
 
@@ -401,11 +401,11 @@
     Video Walkthrough: https://youtu.be/jeZu8oe2Uy4
   :replies: []
 - :author: ScaredOfMyRawr
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqizx4/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqizx4
   :body: "[My solution in Ruby](https://medium.com/@ashley-peacock/advent-of-code-2022-day-3-solution-rucksack-reorganization-bd2615247bef), I think it's pretty solid, but probably a clever way to do it without looping as much!"
   :replies:
   - :author: matas__
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqo6vb/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqo6vb
     :body: |-
       this is solid :D day\_2:
 
@@ -456,7 +456,7 @@
       ```
     :replies: []
 - :author: matas__
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqnuw7/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqnuw7
   :body: |-
     Ruby code, simple
 
@@ -515,7 +515,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqudc9/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqudc9
     :body: |-
       Hi /u/matas\_\_ . Thanks for sharing your solution, it's great to see how others approach the problems.
 
@@ -524,7 +524,7 @@
       See https://www.reddit.com/r/adventofcode/wiki/faqs/automation
     :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrexpj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyrexpj
   :body: |-
     Ruby
 
@@ -533,7 +533,7 @@
     I used regex to find character sequences instead of counting them in a hash.
   :replies: []
 - :author: MartinSch64
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iys7y56/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iys7y56
   :body: |-
     My solution in Ruby, with focus on readability as it should be
 
@@ -576,21 +576,21 @@
     ```
   :replies:
   - :author: petepete
-    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iysmgb4/
+    :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iysmgb4
     :body: |-
       I also enjoy making mine (somewhat) readable.
 
       https://github.com/peteryates/advent-of-code-2022/blob/main/03/rucksack.rb
     :replies: []
 - :author: CSEcon
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyspp95/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyspp95
   :body: |-
     **ruby**
 
     [gist](https://gist.github.com/mehryar-m/5674fe850f83c6e3e09fe97c31eebac9)
   :replies: []
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytd56k/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iytd56k
   :body: |-
     Ruby
 
@@ -601,7 +601,7 @@
     Part 1 was learning how to traverse the strings one character at a time. Part 2 was learning how to convert the string into an array and use the built-in intersection method.
   :replies: []
 - :author: naturaln0va
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq0y34/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyq0y34
   :body: |-
     **Ruby**
 
@@ -632,7 +632,7 @@
     ```
   :replies: []
 - :author: '0x14f'
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqgjeh/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyqgjeh
   :body: |-
     ### Ruby
 
@@ -668,7 +668,7 @@
     ```
   :replies: []
 - :author: radiales
-  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyr45cz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zb865p/2022_day_3_solutions/iyr45cz
   :body: |-
     Ruby
 

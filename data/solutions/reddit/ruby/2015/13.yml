@@ -1,14 +1,14 @@
 ---
 - :author: SomebodyTookMyHandle
-  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxx8buz/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxx8buz
   :body: 'Brute forced it in Ruby, very similar to how I solved #9 (construct graph, find permutations with built-in method, profit). Basically the only difference is that this graph is directed whereas day #9 was undirected. Missed the leaderboard by a minute due to a variety of comedic errors and misreading the submission instructions for Part Two.'
   :replies:
   - :author: ThereOnceWasAMan
-    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyqpfn/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyqpfn
     :body: 'This is undirected too, since relationships are always reciprocal. Just save "A''s change sitting next to B + B''s change sitting next to A", and consider that "distance from A to B". Then it''s equivalent to #9 -- the only difference is that it''s a true TSP, since you end up back where you started, whereas #9 you never complete the last leg of the TSP.'
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxbvmo/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxbvmo
   :body: |-
     Brute force Ruby solution:
 
@@ -71,15 +71,15 @@
     ```
   :replies:
   - :author: Herathe
-    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxdt68/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxdt68
     :body: 'Hey just a quick pointer: You can use the constant -Float::INFINITY instead of -9999999. That way any value is guaranteed to be larger than maximum'
     :replies:
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxlwks/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxlwks
       :body: Thanks for the tip!!! :) I've just started with Ruby and was doing this quick and dirty, and didn't take the time to find out what the Math.MAX\_INT equivalent was....
       :replies: []
     - :author: SomebodyTookMyHandle
-      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyejbd/
+      :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxyejbd
       :body: |-
         By the way, there's a quick and dirty way to write this:
 
@@ -88,7 +88,7 @@
         Sacrifices a bit of clarity though.
       :replies: []
 - :author: phpaoc
-  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxd775/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxd775
   :body: |-
     Ruby:
 
@@ -113,7 +113,7 @@
     ```
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxe2wk/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxe2wk
   :body: |-
     ruby, again v similar to #9
 
@@ -153,7 +153,7 @@
     whenever i come here i always feel like everyone else has already managed to solve this both faster, and with only 0.2 lines of code
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxgndr/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wm0oy/day_13_solutions/cxxgndr
   :body: |-
     Ruby
 

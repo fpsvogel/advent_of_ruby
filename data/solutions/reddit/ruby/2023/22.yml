@@ -1,6 +1,6 @@
 ---
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18o7014/2023_day_22_solutions/kefyqao/
+  :url: https://www.reddit.com/r/adventofcode/comments/18o7014/2023_day_22_solutions/kefyqao
   :body: |-
     Nice straight-forward one after yesterday's. For part 1, I created a collection of all the brick coordinates and then populated a grid to help with collision detection. Falling was just iterating through all of the bricks (sorted by the lower z value) and checking if the next z coordinate down was empty and moving the brick if not. Then I made two hashes, one to store all bricks above and another for below. I was surprised how fast the part 2 ran, I was expecting that a bfs per brick would've been a time sink.
 
@@ -22,7 +22,7 @@
     [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/20/solution.rb)
   :replies: []
 - :author: '0x623'
-  :url: https://www.reddit.com/r/adventofcode/comments/18o7014/2023_day_22_solutions/kefrpta/
+  :url: https://www.reddit.com/r/adventofcode/comments/18o7014/2023_day_22_solutions/kefrpta
   :body: |-
     Bit manipulation
 

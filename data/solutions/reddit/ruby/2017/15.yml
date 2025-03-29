@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dr9ystc/
+  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dr9ystc
   :body: |-
     Ruby; I'm stupid. I wrote `65535`, thought to myself wait am I right? rewrote it to `1<< ... -1`, ran it, oh yeah it's `65536`, then I freaking went to change it back to 65535 because I **totally have that kind of time**. (silver 101 / gold 60)
 
@@ -26,11 +26,11 @@
     ```
   :replies:
   - :author: raevnos
-    :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra1z7s/
+    :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra1z7s
     :body: 0xFFFF works too.
     :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra48m4/
+  :url: https://www.reddit.com/r/adventofcode/comments/7jxkiw/2017_day_15_solutions/dra48m4
   :body: |-
     **ruby**
 

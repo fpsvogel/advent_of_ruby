@@ -1,6 +1,6 @@
 ---
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iz7zyhh/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iz7zyhh
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     Learning ruby. Very clunky.
   :replies:
   - :author: PiurEwil
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1p89i4/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1p89i4
     :body: |-
       That's actually not _very_ clunky! :) Just a few common Ruby idioms, and it will be perfectly nice code!
 
@@ -31,7 +31,7 @@
       Keep up the good work! :)
     :replies:
     - :author: ffrkAnonymous
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1rr1v9/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1rr1v9
       :body: |-
         wow, thanks for the thoughtful christmas present. I'm glad my 4th day of ruby wasn't totally awful.
 
@@ -50,7 +50,7 @@
         Might I pick your brain about multi-dimensional data-structure? For Day 8, 12, 14? I played with Hash of complex `0+0i` which felt clean but not extendable to 3d, and I'm trying out hashes of hashes for day 14. Array of Array doesn't seem any easier, and 500\*500 nil rubs me the wrong way.
       :replies:
       - :author: PiurEwil
-        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1wm0wk/
+        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1wm0wk
         :body: |-
           The good thing about Advent of Code, as opposed to some other programming contests, is that it's entirely optional to optimize your code (for speed, memory usage, complexity class etc.), so you can focus on whatever pleases you. I typically write the most straightforward and "readable" code that comes to me, even if in the back of my mind something is nagging me about red-black trees and other less enjoyable things :D So, if you feel that a `Hash` of `Hash`es represents the problem nicely, then go forward and have no regrets ;)
 
@@ -71,11 +71,11 @@
           Yeah, there's a bunch of these (autoformatters/linters). These built into IDEs and standalone, like `rubocop`. Just try not to overdo them - they are supposed to help you, not make your life harder. For me a linter is only requires when I work on a project with multiple people - to enforce an agreed-upon coding standard. Then again, I already have a somewhat quirky preferred style ;)
         :replies:
         - :author: ffrkAnonymous
-          :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1x1mex/
+          :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/j1x1mex
           :body: "Yeah, for day9 monkeys i learned classes. I was very confused why ruby complained that my methods (attributes) didn't exist. \U0001F61B\n\nYour tree array demonstrated something I read long ago: choose the right data structure and your code writes itself. For now I'm just getting familiar with the basic structures (and limitations). `Hash` of `Hash`es is more \"dunno what other options/structures to choose from\". So just experiementing before I reach the wacky trees and graphs for the later days.\n\nThank you again for your advice and wisdom."
           :replies: []
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvahdo/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvahdo
   :body: |-
     Ruby solution. Again, using Ruby felt like cheating.
 
@@ -106,11 +106,11 @@
     ```
   :replies:
   - :author: dikkie91
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvdq3d/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvdq3d
     :body: Your solution looks quite similar to what I did in Scala..
     :replies: []
 - :author: Alleyria
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywoenf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywoenf
   :body: |-
     Ruby:
 
@@ -125,7 +125,7 @@
     ```
   :replies: []
 - :author: Arakiyda
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyudv3p/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyudv3p
   :body: |-
     **Ruby**
 
@@ -142,26 +142,26 @@
     ```
   :replies:
   - :author: mathem17
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyueqa6/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyueqa6
     :body: Huh neat, I didn't realize cover? was a thing. It feels like there's a ruby function for everything you need.
     :replies:
     - :author: Arakiyda
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuf50x/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuf50x
       :body: Right? I love Ruby for how often I find exactly what I'm looking for when I read the docs for a class
       :replies:
       - :author: MartinSch64
-        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx6nwt/
+        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx6nwt
         :body: Rubys standart library is indeed very nice.
         :replies: []
 - :author: jeffers0n
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvs13d/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvs13d
   :body: |-
     Ruby
 
     Did everything with Range objects and the "cover?" method. https://git.doublehack.me/s00ner/AoC2022/src/branch/main/day04/solution.rb
   :replies: []
 - :author: DanZuko420
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywjta7/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywjta7
   :body: |-
     Day 4 solution with Ruby. I had an easier time grokking today's than previous days, for some reason. I tried to do that last loop in one line, but I was getting my syntax or formatting wrong or something and it didn't work. I don't like the extra lines but I'm not golfing
 
@@ -192,7 +192,7 @@
     ```
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxjrrp/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxjrrp
     :body: |-
       is
 
@@ -203,18 +203,18 @@
       what you were looking for?
     :replies:
     - :author: DanZuko420
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxn19q/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxn19q
       :body: Yes! Thank you. I was doing `overlap_count +=1; break if two.to_a.include?(_1)`
       :replies:
       - :author: '442401'
-        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxot0k/
+        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxot0k
         :body: |-
           Ah yes, that would increment with every iteration until the break condition is met.
 
           Happy to help.
         :replies: []
 - :author: thedjotaku
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywyqb2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywyqb2
   :body: |-
     Ruby
 
@@ -223,14 +223,14 @@
     I know it's not idiomatic (I think?). It's a cross between what I did with Python and some Ruby idioms.
   :replies: []
 - :author: CSEcon
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywzjrk/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywzjrk
   :body: |-
     ruby
 
     [gist](https://gist.github.com/mehryar-m/d19c99cc65f12d248e7c18ae385e56c9)
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx9z0g/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx9z0g
   :body: |-
     Ruby
 
@@ -250,7 +250,7 @@
     ```
   :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxapgy/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxapgy
   :body: |-
     Ruby
 
@@ -267,7 +267,7 @@
     ```
   :replies: []
 - :author: nithinbekal
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyubm0h/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyubm0h
   :body: |-
     ### Ruby
 
@@ -297,7 +297,7 @@
     [Github](https://github.com/nithinbekal/advent-of-code/blob/e7af75a86b7ff9160e6f95b3b9dd5c41a6b8845f/lib/04.rb)
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyubrfg/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyubrfg
   :body: |-
     **Ruby** , golfed to 81 bytes
 
@@ -320,7 +320,7 @@
     ```
   :replies:
   - :author: damagednoob
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuzi5z/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuzi5z
     :body: |-
       My version at 76 bytes:
 
@@ -329,7 +329,7 @@
       ```
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyviqrl/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyviqrl
       :body: |-
         Ahh, the regex, nice!! I also realized that `to_i` is unnecessary. Down to ~~65~~  ~~63~~ 60 bytes!
 
@@ -339,7 +339,7 @@
         ```
       :replies:
       - :author: '442401'
-        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxlefn/
+        :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxlefn
         :body: |-
           Nice getting rid of `to_i`.
 
@@ -348,14 +348,14 @@
           I fell for it, as did almost all others here.
         :replies: []
 - :author: ScaredOfMyRawr
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv0ifs/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv0ifs
   :body: |-
     [My solution in Ruby](https://medium.com/@ashley-peacock/advent-of-code-2022-day-4-solution-overlapping-sections-d22b9f9467d2). Pretty simple overall, but I think it can be improved.
 
     I think there's a jazzy algorithm to do this, but I can't quite recall what it is, would love to know though! All my brain could think about was sliding windows but I don't think that's useful here as we're not trying to find an overall range etc.
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv6mux/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv6mux
   :body: |-
     **Ruby**
 
@@ -402,7 +402,7 @@
     ```
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv8jy8/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyv8jy8
   :body: |-
     [**ruby**](https://github.com/vinc/advent-of-code/tree/master/ruby/2022/04)
 
@@ -413,7 +413,7 @@
     ```
   :replies: []
 - :author: d_chae
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvdrob/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvdrob
   :body: |-
     Ruby one-liner (p2):
 
@@ -422,18 +422,18 @@
     ```
   :replies:
   - :author: jstanley0
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvm1m0/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvm1m0
     :body: |-
       props for not writing an O(N\*\*2) range overlap test like others here did ;)
 
       I would suggest using `count` rather than `reduce` here though
     :replies:
     - :author: d_chae
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxc4f0/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyxc4f0
       :body: Ah, I totally forgot about count! Thank you
       :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvidjd/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvidjd
   :body: |-
     **Ruby**
 
@@ -455,7 +455,7 @@
     EDIT 2: I looked at ActiveSupport to see the source for `Range#overlaps?` and it's dead simple: `cover?(other.first) || other.cover?(first)`. Should have thought of that. At least now I know how to use ActiveSupport outside Rails.
   :replies: []
 - :author: OwnAttention3370
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywhjds/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iywhjds
   :body: |-
     Ruby - My solution to AoC day 4
 
@@ -505,11 +505,11 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx2d80/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyx2d80
   :body: "# [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day4/main.rb)"
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuqkjp/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuqkjp
   :body: |-
     # Ruby
 
@@ -553,7 +553,7 @@
     Edit: I just realized I’m an idiot and this was trivially solvable with regex and I’m over here doing complicated splits. Ugh. I’ll fix it tomorrow.
   :replies: []
 - :author: craigontour
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyurpvn/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyurpvn
   :body: |-
     # Ruby
 
@@ -581,7 +581,7 @@
     Update: reformatted for Reddit.
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyurtrq/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyurtrq
     :body: |-
       HELP! I pasted in from vcode (MacOS), where using spaces for indentation and CRLF, but it would not format properly as code block. I had to paste and reformat line by line to get it right.
 
@@ -590,15 +590,15 @@
       Cheers
     :replies:
     - :author: nysra
-      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuxj24/
+      :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuxj24
       :body: Reddit needs 4 spaces in front of every single line of a codeblock. Generally selecting the entire code, pressing tab once, and then copying from VSC into Reddit works (on every platform and CRLF doesn't matter). Your output looks very much like you simply copied the code without indenting it first, but hard to say without you telling us exactly what you did.
       :replies: []
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iz02e3q/
+    :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iz02e3q
     :body: did as instructed and got it now. thanks.
     :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuyg1z/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyuyg1z
   :body: |-
     Ruby
 
@@ -607,7 +607,7 @@
     Video Walkthrough: https://youtu.be/ZiPmNii7faU
   :replies: []
 - :author: InevitableYak1979
-  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvuc6m/
+  :url: https://www.reddit.com/r/adventofcode/comments/zc0zta/2022_day_4_solutions/iyvuc6m
   :body: |-
     Ruby
 

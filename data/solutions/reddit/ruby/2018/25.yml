@@ -1,6 +1,6 @@
 ---
 - :author: KeyboardFire
-  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci5rgz/
+  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci5rgz
   :body: |-
     ruby, 10/58:
 
@@ -32,15 +32,15 @@
     well, i really shouldn't be complaining, because i had tons of fun doing the puzzles, which i'm sure consumed lots of free time to make. thanks so much /u/topaz2078 for all the work it took to organize this! :)
   :replies:
   - :author: Porky623
-    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci69yp/
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci69yp
     :body: I feel for you, last year I missed exactly one star and I didn't want to copy paste a solution so I just went to sleep and got the last two stars the next day. This year, though, I was prepared, as you will be next year should you decide to participate again!
     :replies: []
   - :author: dan_144
-    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci6pf9/
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci6pf9
     :body: Day 23 Part 2 was the only solution that took me over 24 hours as well. I finished it up this afternoon in anticipation of Part 2 since I'd been forewarned that it required all 49 other stars.
     :replies: []
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/ecicggk/
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/ecicggk
     :body: |-
       Hi. Well done on AoC. I'm new to it too, but only managed handful of stars. I have learned lots, but far more still to learn.
 
@@ -55,7 +55,7 @@
       is the + [x,y,z,ew]] superfluous?
     :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci7dju/
+  :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/eci7dju
   :body: |-
     I admit I took a cheap shot on this problem. I already had Union-Find written for last year's day 14, so I just imported it and most of my time was spent reminding myself how I was supposed to use it.
 
@@ -116,7 +116,7 @@
     Thanks for a great month!
   :replies:
   - :author: koordinate
-    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/edwqqtn/
+    :url: https://www.reddit.com/r/adventofcode/comments/a9c61w/2018_day_25_solutions/edwqqtn
     :body: |-
       Thank you. For kicks, here is a Swift translation of your code:
 

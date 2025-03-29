@@ -1,6 +1,6 @@
 ---
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshwef/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshwef
   :body: |-
     in ruby, this felt simultaneously wayy too easy and waayy too dirty of a solution. i feel like i'm missing some really elegant iteration trick, but everyone in this thread seems to have the same approach
 
@@ -27,7 +27,7 @@
     ```
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsj6pi/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsj6pi
     :body: |-
       Here's the iteration trick that I used. (Also, your code would not catch if the index would run out at the other end, so below 0.)
 
@@ -47,7 +47,7 @@
       What I like in your solution is that you're passing the proper increment function as a block to `jump()`. Kudos to you.
     :replies: []
   - :author: gettalong
-    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqt8aci/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqt8aci
     :body: |-
       Here is my 2-line quick and dirty solution for use in IRB:
 
@@ -57,7 +57,7 @@
       ```
     :replies: []
 - :author: OneEyedGammer
-  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshytd/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshytd
   :body: |-
     My god, I spent almost 10 minutes trying to figure out why my code wasn't working on part 2. Turns out it doesn't want an absolute value.
 
@@ -87,15 +87,15 @@
     ```
   :replies:
   - :author: gbeier
-    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqu1ghw/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqu1ghw
     :body: I made the exact same mistake. I think "offset" tripped that in my brain.
     :replies:
     - :author: OneEyedGammer
-      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dquvrb8/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dquvrb8
       :body: I don't think we're wrong for thinking that way. From what I've seen from programming challenges it would read that way. Oh well, it didn't take long to long to notice what was wrong.
       :replies: []
 - :author: andreesgor
-  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqti5pu/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqti5pu
   :body: |-
     Ruby:
 
@@ -125,7 +125,7 @@
     ```
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsdne6/
+  :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsdne6
   :body: |-
     Ruby. Huge disappointment! I was running my day4 code instead of my day5 code. I couldn't even count what day it is anymore :)
 
@@ -149,7 +149,7 @@
     PS: I've been keeping a [small blog over on github detailing my Aoc adventure so far.](https://github.com/Unihedro/workout/blob/master/adventofcode2017/entry1.md) there will be a short break before I "blog" about day6+ again though
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshm9c/
+    :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshm9c
     :body: |-
       Another solution in Ruby. A bit more characters, a bit less magic :-)
 
@@ -165,7 +165,7 @@
       ```
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshxts/
+      :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqshxts
       :body: |-
         Respect! Really tidy code - I wrote mine in a rush :/. Some notes (not sure if it'll be helpful but in case it expands your knowledge):
 
@@ -173,11 +173,11 @@
         2. `map!` is a destructive operation which (attempts to) change the original Enumerable as well, it doesn't do much in this case so it can be `map` instead.
       :replies:
       - :author: jschulenklopper
-        :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsizom/
+        :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsizom
         :body: Ha, those were indeed two minor improvements that I made later (updated in the post as well). Looks just like a recent discovery that `.split(" ")` would split on spaces _and_ tabs... just as the default `.split` without argument :-)
         :replies:
         - :author: Unihedron
-          :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsjhqj/
+          :url: https://www.reddit.com/r/adventofcode/comments/7hngbn/2017_day_5_solutions/dqsjhqj
           :body: |-
             Hello, yes, .split uses $; by default, if $; is nil then it uses whitespace. This means newline characters are also included. As such $\<.read.split will give you all non-space character sequences when the parameter is not specified. The use of this global variable is very similar to how perl implements input parsing.
 

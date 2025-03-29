@@ -1,6 +1,6 @@
 ---
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eb9xtuf/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eb9xtuf
   :body: |-
     Ruby
 
@@ -97,7 +97,7 @@
     ```
   :replies:
   - :author: aoc_throwaway
-    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbg934/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbg934
     :body: |-
       check out my part 1 ruby solution:
 
@@ -123,19 +123,19 @@
       --kss
     :replies: []
   - :author: Larkenx
-    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebc0qie/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebc0qie
     :body: here’s my part 1 ruby solution as well, after learning ruby for a couple hours https://github.com/Larkenx/AdventOfCode2018/blob/master/7/parta.rb
     :replies:
     - :author: craigontour
-      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebkkqqn/
+      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebkkqqn
       :body: Which site did you use to learn Ruby so fast?
       :replies:
       - :author: Larkenx
-        :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebl4ws1/
+        :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebl4ws1
         :body: Pretty much the Ruby docs exclusively. I had just learned Perl 6 and Lua, which are quite similar in ways
         :replies: []
 - :author: Dee_Jiensai
-  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eba5rfj/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/eba5rfj
   :body: |-
     ruby 2.5.1
 
@@ -247,7 +247,7 @@
     ```
   :replies:
   - :author: aoc_throwaway
-    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbhb9y/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebbhb9y
     :body: |-
       check out my part 1 ruby solution:
 
@@ -271,7 +271,7 @@
       ```
     :replies: []
 - :author: aoc_throwaway
-  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebazkui/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebazkui
   :body: |-
     Short Ruby solution for part 1, takes \<1ms to run (usually around 0.3ms):
 
@@ -297,7 +297,7 @@
     -kss
   :replies:
   - :author: wzkx
-    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebchy1a/
+    :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebchy1a
     :body: |-
       Very good solution! I translated it into Python to see if it looks the same there.
 
@@ -321,11 +321,11 @@
       ```
     :replies:
     - :author: aoc_throwaway
-      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebfgin4/
+      :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebfgin4
       :body: Nice! Probably faster in python too. Ruby is slow.
       :replies: []
 - :author: morfi717
-  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebcrskf/
+  :url: https://www.reddit.com/r/adventofcode/comments/a3wmnl/2018_day_7_solutions/ebcrskf
   :body: |-
     Ruby (0.08s)
 

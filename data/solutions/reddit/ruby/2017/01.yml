@@ -1,6 +1,6 @@
 ---
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlqjqh/
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlqjqh
   :body: |-
     2 lines of Ruby:
 
@@ -12,11 +12,11 @@
     Just change the argument to rotate to 1 for part 1.
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqltuo8/
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqltuo8
     :body: "[deleted]"
     :replies: []
 - :author: jschulenklopper
-  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlq7z2/
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlq7z2
   :body: |-
     Short solution in Ruby, combining both parts:
 
@@ -33,7 +33,7 @@
     ```
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlws4o/
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlws4o
     :body: |-
       Even more Ruby-esque:
 
@@ -50,11 +50,11 @@
       This removes the elements not meeting the condition from the array, and then totals the remaining digits.
     :replies: []
   - :author: Grimnur87
-    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlu3s6/
+    :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlu3s6
     :body: Good to know. Same approach here, at least the crux lines. I did use an `each_cons(2)` in the first part. This is neater.
     :replies: []
 - :author: disclosure5
-  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlik5e/
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlik5e
   :body: |-
     Ruby
 
@@ -74,7 +74,7 @@
     ```
   :replies: []
 - :author: egze
-  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlw51d/
+  :url: https://www.reddit.com/r/adventofcode/comments/7gsrc2/2017_day_1_solutions/dqlw51d
   :body: |-
     My ruby attempt
 

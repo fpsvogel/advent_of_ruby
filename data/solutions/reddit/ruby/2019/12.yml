@@ -1,20 +1,20 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fbd2dmf/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fbd2dmf
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_12
   :replies:
   - :author: craigontour
-    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fefyp14/
+    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fefyp14
     :body: |-
       > Swift
 
       Hi. Please could you explain the logic of your hashing. I see it creates a hash for each axis. How does this get to an answer?
     :replies:
     - :author: J-Swift
-      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/feirq84/
+      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/feirq84
       :body: |-
         The general solution relies on the fact that X/Y/Z are actually independent. So you figure out how long X takes to repeat by itself, how long Y takes to repeat by itself, and how long Z takes to repeat by itself. Then you figure out the least common multiple of those for the solution.
 
@@ -44,14 +44,14 @@
         I chose the '\_' and 'x' characters so that the components being joined were unambiguous.
       :replies: []
 - :author: MaterialFerret
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fauykys/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fauykys
   :body: |-
     Ruby: [https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day12.rb](https://github.com/LesnyRumcajs/advent-of-ruby-2019/blob/master/src/day12.rb)
 
     I believe I came up with relatively clean and short solution - nothing innovative though, looking at the thread. LCMing the x,y and z for part 2. The day I started Advent of Code 2019 in Ruby I abandoned all hope of brute-forcing the solutions. :)
   :replies: []
 - :author: Yardboy
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fam8via/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fam8via
   :body: |-
     # Ruby
 
@@ -64,14 +64,14 @@
     [https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle12b/solution.rb](https://github.com/Yardboy/advent-of-code/blob/master/2019/puzzle12b/solution.rb)
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faknhog/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faknhog
   :body: |-
     **Ruby**
 
     Because there are so few Ruby solutions here. For the first time this AOC, I caved in and actually used classes and a little structure rather than golfing it as tiny as possible. It still ended up reasonably tight, however: https://github.com/peterc/aoc2019solutions/blob/master/12.rb
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fakngcd/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fakngcd
   :body: |-
     **Ruby**
 
@@ -82,7 +82,7 @@
     Part 2: [https://github.com/hdf1986/advent-of-code/blob/master/day12/part2.rb](https://github.com/hdf1986/advent-of-code/blob/master/day12/part2.rb)
   :replies: []
 - :author: tckmn
-  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faja2gk/
+  :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faja2gk
   :body: |-
     ruby 28/14
 
@@ -109,37 +109,37 @@
     the strategy, which i assume was the intended one, was to find the period for each coordinate and then lcm them together
   :replies:
   - :author: sophiebits
-    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajbk9u/
+    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajbk9u
     :body: Um. Tell us more about how you landed on using this hash function.
     :replies:
     - :author: tckmn
-      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajc1o1/
+      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajc1o1
       :body: that is where my fingers landed on my keyboard
       :replies:
       - :author: sophiebits
-        :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajd1bh/
+        :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajd1bh
         :body: Not worried about collisions?
         :replies:
         - :author: tckmn
-          :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal3bkl/
+          :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal3bkl
           :body: the original code had fewer digits at the end, i tacked on a few and compared the answers to make sure that didn't happen :P
           :replies: []
   - :author: Kache
-    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajfkbc/
+    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fajfkbc
     :body: |-
       What's the `#ris` method?
 
       Every ruby object has a `#hash` method, by the way, (although I learned from [another comment](https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faja0lj?utm_source=share&utm_medium=web2x) that it wasn't necessary).
     :replies:
     - :author: tckmn
-      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal361d/
+      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal361d
       :body: |-
         oh, that's "[r]egex [i]nt[s]", which is a short helper function in my template file that's basically `self.scan(/-?\d+/).map(&:to_i)`
 
         also, that's good to know, thanks!
       :replies: []
   - :author: petercooper
-    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faknabz/
+    :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/faknabz
     :body: |-
       While this is paraphrasing somewhat, my solution replaces the `asdfasdf` line with something like:
 
@@ -148,10 +148,10 @@
       .. which nets you something both small and unique to the data, although your solution is different enough that I might be missing something obvious :)
     :replies:
     - :author: tckmn
-      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal2y3e/
+      :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal2y3e
       :body: ah nice - you are definitely not missing anything obvious, this was just the first thing that came to mind when trying to go fast :P
       :replies:
       - :author: petercooper
-        :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal7ub5/
+        :url: https://www.reddit.com/r/adventofcode/comments/e9j0ve/2019_day_12_solutions/fal7ub5
         :body: To be honest, the pack thing was part of my refactor. My initial "off the cuff" looked more like yours, but was like `a[0] << 48 + a[1] << 32 + a[2] << 16 + a[3]` or something like that, but I've spent a lot of time living in C(!) :-)
         :replies: []

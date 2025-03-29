@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7lf943/2017_day_22_solutions/drlufhn/
+  :url: https://www.reddit.com/r/adventofcode/comments/7lf943/2017_day_22_solutions/drlufhn
   :body: |-
     Ruby; run time: 22 seconds, fun factor: 4/10, I was too worried about bugs and ran on all the sample test cases. Thankfully it worked first time.
 

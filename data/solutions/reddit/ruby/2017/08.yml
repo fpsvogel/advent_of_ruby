@@ -1,6 +1,6 @@
 ---
 - :author: _jonah
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtsqy/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtsqy
   :body: |-
     # Vim + Ruby
 
@@ -58,19 +58,19 @@
     Part 2 is similar
   :replies:
   - :author: fwilson42
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxu6f5/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxu6f5
     :body: I wonder if you could've defined a `method_missing` or something similar to get rid of the initializers. Either way, vim-based solutions are always impressive... nice!
     :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy6qde/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy6qde
     :body: I like these vim solutions a lot, and I really enjoy the work you put into describing them :) cool!
     :replies: []
   - :author: ramendik
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz9xmm/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz9xmm
     :body: Looks nice, but what if the if clause contains a register that is never modified and thus, in your solution, apparently never initialized?
     :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1qbs/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1qbs
   :body: |-
     Ruby does this thing like SmallTalk where you send objects messages, and the objects respond. It so happens that I can give an object a message saying `>, 4` and it will tell me whether it is greater than 4. And so it goes for the other operators used as well.
 
@@ -94,15 +94,15 @@
     ```
   :replies:
   - :author: hxka
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy85h0/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy85h0
     :body: Um, doesn't `send` simply call an object's method by its name and what you do is possible because in Ruby `a op b` is sugar for `a.op(b)`?
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyiv5q/
+      :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyiv5q
       :body: Yes, exactly! As you explained, send has broader consequences than I managed to impart with my explanation.
       :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtdjy/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtdjy
   :body: |-
     Ruby. I missed the alarm and woke up exactly 2 minutes before this day opens.
 
@@ -123,7 +123,7 @@
     ```
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz1rkb/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqz1rkb
     :body: |-
       Same idea here, a bit more readable:
 
@@ -149,7 +149,7 @@
       ```
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxt964/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxt964
   :body: |-
     # Ruby
 
@@ -166,7 +166,7 @@
     ```
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy41zl/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy41zl
   :body: |-
     Metaprogramming is the better eval! Looks like this one is made for Ruby as operators match nicely:
 
@@ -184,7 +184,7 @@
     ```
   :replies: []
 - :author: reacher
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtd8p/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxtd8p
   :body: |-
     **Ruby**
 
@@ -229,7 +229,7 @@
     ```
   :replies: []
 - :author: arachnist
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxx4d3/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxx4d3
   :body: |-
     I couldn't get instance\_variable\_(get|set) to work as i wanted, so I couldn't feed input directly into ruby.
 
@@ -253,7 +253,7 @@
     ```
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy19o0/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy19o0
   :body: |-
     ruby! 9 lines!
 
@@ -272,7 +272,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1dvf/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqy1dvf
   :body: |-
     # Ruby: String substitution and eval
 
@@ -312,7 +312,7 @@
     https://github.com/daniero/code-challenges/blob/master/aoc2017/ruby/08.rb
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyl12l/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyl12l
   :body: |-
     [**Ruby**](https://github.com/Sharparam/advent-of-code/tree/master/2017): Using `method_missing` and `eval` without tampering or matching on the input data.
 
@@ -337,14 +337,14 @@
     ```
   :replies:
   - :author: patrickdavey
-    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyrhce/
+    :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqyrhce
     :body: |-
       Thanks for posting this. I do write ruby for a day job, but, I hardly ever mess around with method\_missing and friends. Really interesting to see how that all works, how it's smart enough to pass the args along to your `dec` and `inc` methods etc.
 
       Really neat! thanks for sharing.
     :replies: []
 - :author: rhardih
-  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxyq5h/
+  :url: https://www.reddit.com/r/adventofcode/comments/7icnff/2017_day_8_solutions/dqxyq5h
   :body: |-
     Ruby, with eval injecting the condition:
 

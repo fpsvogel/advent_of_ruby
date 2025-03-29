@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnakx9/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnakx9
   :body: |-
     Rank #7 for Part 1 ^^ just slightly over 1 minute with Ruby! Didn't make it on leaderboards with part 2 due to a stupid bug that took **18!!!** minutes to debug :(
 
@@ -26,15 +26,15 @@
     ```
   :replies:
   - :author: Grimnur87
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnl07h/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnl07h
     :body: I also used sort! and reverse to optimise the search.
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqno5nn/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqno5nn
       :body: My problem was that I did not check value==compare value and sometimes searches return prematurely as false positive of division to 1. But yes, it was a straightforward approach to take.
       :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqna63c/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqna63c
   :body: |-
     You guys are FAST. But since I see no Ruby solutions I'll still post mine:
 
@@ -78,7 +78,7 @@
     ```
   :replies:
   - :author: Fluffy_ribbit
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbx6d/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbx6d
     :body: |-
       ```ruby
       def check(sheet)
@@ -105,18 +105,18 @@
       ```
     :replies: []
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnhhaw/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnhhaw
     :body: 'Here''s mine: https://raw.githubusercontent.com/jschulenklopper/adventofcode/master/2017/day02/day02b.rb. Reasonably concise but still readable.'
     :replies:
     - :author: mentero
-      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqniwss/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqniwss
       :body: |-
         > Ruby
 
         and mine https://gist.github.com/mentero/3cce36ee20effcf1691992a00692c05c
       :replies: []
 - :author: disclosure5
-  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnb1mb/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnb1mb
   :body: |-
     [Ruby solution here](https://raw.githubusercontent.com/technion/aoc2017/master/two.rb).
 
@@ -127,7 +127,7 @@
     ```
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqne8n0/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqne8n0
     :body: |-
       Tip: `string.split(" ")` splits on any whitespace: spaces and tabs.
 
@@ -142,15 +142,15 @@
       ```
     :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbarw/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbarw
     :body: "[deleted]"
     :replies:
     - :author: disclosure5
-      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbvmx/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnbvmx
       :body: Thanks ! I should have realised they would be tabs..
       :replies: []
   - :author: rkachowski
-    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqni74z/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqni74z
     :body: |-
       i was pretty similar. the same approach with different methods
 
@@ -159,11 +159,11 @@
       ```
     :replies:
     - :author: disclosure5
-      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnig0x/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnig0x
       :body: TIL that .lines is an existing function
       :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqomop6/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqomop6
   :body: |-
     Ruby is amazing!
 
@@ -176,7 +176,7 @@
     ```
   :replies: []
 - :author: disclosure5
-  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnffzu/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h0rnm/2017_day_2_solutions/dqnffzu
   :body: |-
     Following the rushed Ruby, [here's a hopefully nice Erlang answer.](https://github.com/technion/aoc2017/blob/master/two.erl). I don't really follow why line #26 is needed. The file does not end in a new line, but the split/2 seems to break out an empty list at the end anyway.
 

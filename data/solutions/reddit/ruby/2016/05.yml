@@ -1,6 +1,6 @@
 ---
 - :author: broadwall
-  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/dasy3lw/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/dasy3lw
   :body: |-
     Solution: [GitHub](https://github.com/broad-well/aoc2016/blob/master/day5.rb)
 
@@ -9,7 +9,7 @@
     **This program should display a nice hacking effect on ANSI terminals. For part 2, call this using `ruby day5.rb part2`**
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/dat3ff8/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/dat3ff8
   :body: |-
     A clean and simple Ruby solution:
 
@@ -36,7 +36,7 @@
     ```
   :replies: []
 - :author: fixed_carbon
-  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/datwn7c/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gk2yv/2016_day_5_solutions/datwn7c
   :body: |-
     Ruby solution (part two) using an Enumerator to generate [digit, position] pairs. This one is interesting because it generalizes to passwords of any length between 1 and 16 simply by changing the number in the last line of the `take_while` block.
 

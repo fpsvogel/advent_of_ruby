@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqowh44/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqowh44
   :body: |-
     Ruby, part 1 - maths turned out to be a trap and I fell into it
 
@@ -74,15 +74,15 @@
     ```
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoynk8/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoynk8
     :body: Oh my. Why do you write minified code?
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoypai/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoypai
       :body: I'm in the mind set of code golfing because that is my only strength. When you are in unfamiliar territory, it's best to carry something you have with you.
       :replies: []
 - :author: mikefh
-  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyh9r/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyh9r
   :body: |-
     Ruby
 
@@ -253,18 +253,18 @@
     ```
   :replies:
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoz9yp/
+    :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoz9yp
     :body: I'm still new to ruby, and it didn't occur to me that an approach like finding all nearby squares every round instead of handling them per case exists. I learned ( / promptly looked up) a lot of interesting things about ruby in attempt to understand your code. Thank you for sharing and well done! ^^
     :replies:
     - :author: mikefh
-      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqozwxc/
+      :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqozwxc
       :body: |-
         Thanks! And I'm pumped that it helped you uncover new features of the language. I considered using a ruby metaprogramming technique, but it would have hurt its clarity.
 
         Though, after seeing the other more-efficient strategies, I may rewrite after I digest the math.
       :replies: []
 - :author: nawap
-  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyhbr/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqoyhbr
   :body: |-
     Ruby for problem 1
 
@@ -298,7 +298,7 @@
     ```
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqp6u3y/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqp6u3y
   :body: |-
     # Ruby
 
@@ -379,7 +379,7 @@
     You can see it in its entirety [here](https://github.com/daniero/code-challenges/blob/master/aoc2017/ruby/03.rb)
   :replies: []
 - :author: andreesgor
-  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqtiv3v/
+  :url: https://www.reddit.com/r/adventofcode/comments/7h7ufl/2017_day_3_solutions/dqtiv3v
   :body: |-
     I honestly think this is the most bizarre - in all ways - solution here (Ruby)
 

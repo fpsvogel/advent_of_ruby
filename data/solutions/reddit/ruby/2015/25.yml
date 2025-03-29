@@ -1,6 +1,6 @@
 ---
 - :author: ross314
-  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaq8zx/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaq8zx
   :body: |-
     First time on the leaderboard (#62)! I was able to come up with a formula for how many times to apply the multiplication and remainder and then just repeated the steps that many times.
 
@@ -20,15 +20,15 @@
     ```
   :replies:
   - :author: Blecki
-    :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqjg7/
+    :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqjg7
     :body: Really no time before this counts. There are no more days, you're on the leaderboard and shall stay there forever.
     :replies:
     - :author: topaz2078
-      :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyar7bu/
+      :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyar7bu
       :body: I intend to release a much more thorough set of completion data; this leaderboard won't be the only one.
       :replies: []
 - :author: ericdykstra
-  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqbvw/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyaqbvw
   :body: |-
     **Ruby #36 - 10:50**
 
@@ -59,7 +59,7 @@
     Going to throw a donation to /u/topaz2078 when I have money in my paypal account. Enjoyed going through these and will use some of them as practice for learning new languages. Enjoyed learning from all of you here, as well, by looking through your code and reading your comments/suggestions on mine. Merry Christmas!!
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyiarkc/
+  :url: https://www.reddit.com/r/adventofcode/comments/3y5jco/day_25_solutions/cyiarkc
   :body: |-
     Ruby, this day felt as the easiest in a long time. Thanks for Advent of Code, it was great!
 

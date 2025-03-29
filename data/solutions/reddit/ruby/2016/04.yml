@@ -1,13 +1,13 @@
 ---
 - :author: andars_
-  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darhz11/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darhz11
   :body: |-
     Ruby, parts 1 and 2. [link](https://raw.githubusercontent.com/andars/advent-of-code/master/2016/day4/task.rb)
 
     Solutions for part 2 found via a quick search of the output for `north` in vim.
   :replies: []
 - :author: anadhdguy
-  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darj14n/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darj14n
   :body: |-
     ```ruby
     #!/usr/bin/env ruby
@@ -24,7 +24,7 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darm5t9/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/darm5t9
   :body: |-
     I can do both parts in 3 lines of Ruby, and even construct additional pylons:
 
@@ -56,7 +56,7 @@
     ```
   :replies: []
 - :author: socialmeatloaf
-  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/dasoy5y/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gdvve/2016_day_4_solutions/dasoy5y
   :body: |-
     One disgustingly ugly line of Ruby for Part 1:
 

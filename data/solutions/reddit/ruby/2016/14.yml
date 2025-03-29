@@ -1,6 +1,6 @@
 ---
 - :author: yjerem
-  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6bfrw/
+  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6bfrw
   :body: |-
     Ruby, took 90 seconds to run for part II:
 
@@ -35,7 +35,7 @@
     ```
   :replies:
   - :author: 3urny
-    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6p8s0/
+    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6p8s0
     :body: |-
       I did a Ruby solution too. It took about 80s just like yours. One thing that makes the ruby code fast is only checking for hashes with 5 repeated characters at first, and then going back when one is found.
 
@@ -46,11 +46,11 @@
       And since I had the forking anyways, I used that too and got it to run in 5s with both C extension and forking.
     :replies: []
   - :author: jtbandes
-    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6cm0z/
+    :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db6cm0z
     :body: "Very neat. TIL that `String#[]` can accept a substring to search for.\n\nI got #3 for part 1 with a much less clean Ruby solution, but it was too slow for part 2...then I made the fatal choice of deciding to rewrite it in C... \U0001F635 let's just say you won't find me on the part 2 leaderboard."
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db758en/
+  :url: https://www.reddit.com/r/adventofcode/comments/5i8pzz/2016_day_14_solutions/db758en
   :body: |-
     Ruby.
 

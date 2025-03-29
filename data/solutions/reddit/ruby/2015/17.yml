@@ -1,6 +1,6 @@
 ---
 - :author: _jonah
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1xweb/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1xweb
   :body: |-
     ruby:
 
@@ -16,7 +16,7 @@
     ```
   :replies: []
 - :author: inuyasha555
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1y0ii/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1y0ii
   :body: |-
     Opened Eclipse ready to Java then found combinations which of course Java doesn't do nicely and would take too long to write up manually so I had to move on to Ruby instead and write something quickly but wasn't fast enough.
 
@@ -36,7 +36,7 @@
     ```
   :replies: []
 - :author: jchook
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1yt8v/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1yt8v
   :body: |-
     **Ruby**
 
@@ -51,15 +51,15 @@
     ```
   :replies:
   - :author: _jonah
-    :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1zsos/
+    :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy1zsos
     :body: part 1 you can use "count" instead of "find\_all" + ".length"
     :replies:
     - :author: jchook
-      :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy28gxv/
+      :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy28gxv
       :body: wow count _does_ take a block. thanks!
       :replies: []
 - :author: Phakx
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy21fwd/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy21fwd
   :body: |-
     **Ruby**
 
@@ -88,7 +88,7 @@
     ```
   :replies: []
 - :author: HorizonShadow
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy26hii/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy26hii
   :body: |-
     Ruby:
 
@@ -112,7 +112,7 @@
     All solutions here: https://github.com/HorizonShadow/Advent-of-Code
   :replies: []
 - :author: Herathe
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b06x/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b06x
   :body: |-
     ## Ruby part1 https://github.com/herathe/advent-of-code/blob/master/17-1.rb
 
@@ -138,7 +138,7 @@
     ```
   :replies: []
 - :author: JurgenKesker
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b6pj/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2b6pj
   :body: |-
     Ruby
 
@@ -196,7 +196,7 @@
     ```
   :replies: []
 - :author: gareve
-  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2tzgg/
+  :url: https://www.reddit.com/r/adventofcode/comments/3x6cyr/day_17_solutions/cy2tzgg
   :body: |-
     Ruby with bitmasks instead of combination. It ended up being messier than using combination.
 

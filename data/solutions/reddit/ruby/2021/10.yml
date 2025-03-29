@@ -1,17 +1,17 @@
 ---
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/htakj5o/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/htakj5o
   :body: |-
     # Ruby
 
     [https://gist.github.com/Clashbuster/d2f7dc3246f109b987a278d98197c6f0](https://gist.github.com/Clashbuster/d2f7dc3246f109b987a278d98197c6f0)
   :replies: []
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/ho9vo1a/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/ho9vo1a
   :body: Stack solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day10/kiril/partone.rb)
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyezvj/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyezvj
   :body: |-
     **Ruby** 181 bytes
 
@@ -30,7 +30,7 @@
     ```
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyaxxl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyaxxl
   :body: |-
     **Ruby**
 
@@ -62,7 +62,7 @@
     ```
   :replies: []
 - :author: scarfaceDeb
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnye6zt/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnye6zt
   :body: |-
     **Ruby**
 
@@ -106,7 +106,7 @@
     ```
   :replies: []
 - :author: Spock_42
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnywep4/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnywep4
   :body: |-
     This is my Ruby solution to Part 2. Part 1 is similar, just a different scoring pattern. Just learning Ruby for the first time via AoC, so any C&C is appreciated.
 
@@ -130,7 +130,7 @@
     ```
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzgtbl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzgtbl
   :body: |-
     I've found the last two days to be a bit of a slog, so I felt recharged that this one was straightforward (at least for my skillset). I rather enjoyed the decoy sample answer in Pt. 1 -- My thought was "oohhhohooo!! You're bringin' it now!!!!"
 
@@ -139,14 +139,14 @@
     [Ruby Pt. 2](https://tzarnal.github.io/Opal/#XQAAAQA3AgAAAAAAAAAoE8VAZTehaYnyuwTEaiO9AUDb7/afhxrRSAd9icyTM7XPlxTtju/5+jsKCkzkv04DoByTRxGROD4qLI5UATpNcGmondUpNWtajrRddQxTip90X2bBWlszn2h/fNUPz2qXseqes5e7KHuniHH80b/Yc9AHgpmyg50G2/yUDzH4jETOs7I/PnrJCAC34SApsl/bIrNjpJcVrOXnCuuY+Ef5QcevxBZiLYiMVE3RXSG5ckZ9527ttVO1A811aIiqHq2ueJ2IwC+PAzO3IXQDmChIoD9lsrShdx7yqRDstYqFlaGjb8RcHkhXyqvuRvhCmiaraAyQaU5yFHMWxBZB1rX6zscUgaTNiUOYFr7i4gksOBD2Lfu9N922uzpzC3jnG6qhIereIv6th4ihmORZ2buUV5L/8DjY3Q==)
   :replies: []
 - :author: ndnenkov
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzwb46/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnzwb46
   :body: |-
     **Regex (Ruby)**
 
     https://gist.github.com/ndnenkov/3e003f0ea8b91b91d8e6c8351bdfefe8
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyad2r/
+  :url: https://www.reddit.com/r/adventofcode/comments/rd0s54/2021_day_10_solutions/hnyad2r
   :body: |-
     Ruby 1094/951
 

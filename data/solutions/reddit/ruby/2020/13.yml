@@ -1,6 +1,6 @@
 ---
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfrw3ms/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfrw3ms
   :body: |-
     # Ruby
 
@@ -9,7 +9,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQAYBwAAAAAAAAAnE8bNrcUaSC1RPLSslbg3C3mUhvgred777SJtxMUlLYkrtfCu151ao31yyyD8usLO9czk+cI2fDLKqVTt2oetB67KB0VGUVGo6zp2PZQn63Qyn/NGS3/c1hTo734IXYgBWXS6ZLltXzaHhfLEeahYanci5X8hcf4/vKW2FH6TTmJrIejunfUIoxOO3MPsQYVDI33EbFIHQXAzp/LEvPFDL+SIL9K0bmzYEtQwF7EL0SG3DBRvoR0qcdHG08yKABs/AS1ha78kfAKRWBUfDv6TywDCT3k8k6JlJBPionqsVfa/sng6hEwskfxiZeDo661eSzKxVU58vuwDOJsBaAYGApDh+cAzxnA9E0Dpn7ygvXX8XKVqsaLp6nyRRjCc0OQjoSM6hRCqnqdI4AtIE/q1oHNmdiih6WjRlE88mqp30hmn6TlTSv/WsShDHG7etbqxUuowg/wVljBERK65sWf0y8g/60Cd8RfpKifIaq4N8MHH2JC72lakOKPI0w4O3G8pZQ+NAt8xrlxu/XGUWXw3rH7dLd9LRjl/ilw1fru1Bf6Nhpx7s73HgAH6O9IJphxG0bag5HNd7BixjcMFnUHU+TcVfRdfmARir2t1DTR1YISUbey7tgT5vA79KX3BqvrC91xQiHANPyhU0IHSkVhqHk4mcYMmjncsOW0MccbMKnLSHXA4Xjae4cCM7DHXvkcH4IjJ9TO4dBJBn0O7ldLVBLz/wfvAgjR6ca6P7+aJOee4xca+NouqzYJrvhyX//IDh+jpycHf3TYPwdG+WcfaNgUUH4ADcXbU8C0uTyudP0oyzSOnNFgnISmyM2tMvM7P4Ms8nBVaLIhHl4LBRE/ztM6RiBT1mBr3FqStwlGJXkMNRaqbrv/BBfDYgG+CZtV6DbJMwifWy8q1DIfMGvuj0FZJHnUBvZl1aU8hFpZQprw2mHkBluyxTpMGS5DSWe7FBO03FSucOQMjS9JYqvsO3JKOfWwPzR6YQj4CIaOwgyhT6vsQf7oxBkCHhHnkDIEK37kyEKDNeipgNDlOmL7LLXI+vbvJIF6KZwpXLbXtMqdoqY+Yo/ROKjUn8A12WDi0ACaP00TitigSABRIVHF7Ketf/K6rOnIp1WJPCe7yxbBsUNpsYYK/kf66HeA=)
   :replies: []
 - :author: adjudicator
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfra3pk/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfra3pk
   :body: |-
     OO Ruby part b, with both iterative and recursive implentations of the same solution.
 
@@ -20,7 +20,7 @@
     https://nopaste.xyz/?9b0e91305941a03c#3o68g4zxLknXSoPY6XsRyZYak7JVz6cvQ6cMGV7dYaKf
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfr2njd/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfr2njd
   :body: |-
     # Ruby
 
@@ -62,7 +62,7 @@
     ```
   :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfqych1/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfqych1
   :body: |-
     # Ruby
 
@@ -97,14 +97,14 @@
     ```
   :replies: []
 - :author: parentheses-of-doom
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnmkkd/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnmkkd
   :body: |-
     [Ruby](https://github.com/Prajjwal/advent-of-code/blob/master/2020/ruby/day_13.rb)
 
     Not a huge fan of today's problem, because anyone that didn't know about the Chinese Remainder Theorem didn't really stand a chance of solving it. Pretty artificial in terms of difficulty.
   :replies:
   - :author: MimHufford
-    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfoi0qx/
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfoi0qx
     :body: |-
       I solved it without knowing CRT.
 
@@ -115,7 +115,7 @@
       [Here's mine](https://github.com/mimhufford/AdventOfCode/blob/master/2020/13.jai)
     :replies: []
   - :author: spookywooky_FE
-    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnr8gq/
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnr8gq
     :body: |-
       I had, again, big problems to parse the problem statement, and to parse the problem input. For part2 I did read about [diophantine equations](https://cp-algorithms.com/algebra/linear-diophantine-equation.html) for like 20 minutes.
 
@@ -124,19 +124,19 @@
       I heard of CRT before, but was never able to memoize how it works.
     :replies:
     - :author: Dementati
-      :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggu6foy/
+      :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggu6foy
       :body: They did help me. I modelled the problem as a system of Diophantine equations and used a library to solve it.
       :replies:
       - :author: spookywooky_FE
-        :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggvj6pm/
+        :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggvj6pm
         :body: Well, a system of diophantine equations is more or less CRT. However, of course they can help ;) But they did not help me, because I did not get how to apply them.
         :replies:
         - :author: Dementati
-          :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggw9sgh/
+          :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/ggw9sgh
           :body: In what sense are they CRT? CRT seems completely different to me, not least because it requires the divisors to be coprime. And yeah, the way you phrased your comment made it sound like you were saying that Diophantine equations don't help in general.
           :replies: []
   - :author: Hydroxon1um
-    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfq7uu2/
+    :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfq7uu2
     :body: |-
       Actually some basic number theory (modular arithmetic and prime numbers) was sufficient to derive the sieving algorithm.
 
@@ -145,14 +145,14 @@
       [https://en.wikipedia.org/wiki/Chinese\_remainder\_theorem#Search\_by\_sieving](https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Search_by_sieving)
     :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnjtw8/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnjtw8
   :body: |-
     Ruby 911/1809. I've never heard of the Chinese Remainder Theorem, so I cheated and looked here after about an hour of struggling with the math. And then I cheated some more by copying a CRT solver from Rosetta Code.
 
     [paste](https://topaz.github.io/paste/#XQAAAQDjAgAAAAAAAAARiAqGkkN7pUjVWW5O/8kAHtqieaDJW/x6fZAz4dPiQJToiDdFET3JIRXOC1zTFN8lrRTYtBiOuM94vK3SDrc+EyQY/mtgIi57X6SacUcFQ7OxrHgtHERfN996gXIXrNl7uMAjllAJGHaoC+er6HZC9pBmSAwW/Rub7ZdQPcvwPatBWiTNsY/S67wDftjTA5uzND80YFd6bMC5KwMXQBs68thKgzE9cITifEa28H48s/nU9To8v0iSas7T88Errs+8CzEuLDiwPh4mH9i+gTB16zvomGABL4gigPrxbZh0B0Ck/nbLp0R4rA2QXzaLbgtPVk5W3E+s8H+K5u/OH91C1aczTUs2d0GoMgQGdv8t0XIZdyJOxl1HEStcG9nJxDErhFzoPOqo5wsySgVAvxgNDOthpvcnBULYCFE50Fe2PB0Og7X6yqHoMsDhaiiVWopZoXJhdf7nhEKy7mnDOC0S/w2F35fGhCMROEaztYL/EEJVCkvbz8cakuu1Q7atprBmMgS6h96jaTukGd1j+hoYjvOLZuG6XJxi3RvWkxIbP2fSXCS/Jd5pggwIPlIJdayq/+g3cKz/6CH7nQ==)
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnm3g1/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnm3g1
   :body: |-
     Ruby, 18/1577
 
@@ -161,7 +161,7 @@
     https://gist.github.com/gurgeous/045938641f5373a06b702faf3297eb1f
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnpua3/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfnpua3
   :body: |-
     **Ruby:** 7:00/24:19, 737/289
 
@@ -170,7 +170,7 @@
     Problems are getting harder! Part 1 could have gone a little better, but I'm reasonably pleased with how Part 2 went, given how much my rank increased.
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfpdmjs/
+  :url: https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfpdmjs
   :body: |-
     # Ruby
 

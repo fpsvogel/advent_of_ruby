@@ -1,6 +1,6 @@
 ---
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnudsbi/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnudsbi
   :body: |-
     Wow. I think I spent like 12 hours on this. I can't even remember the paths I've travelled, but each of them included "If you use bit masking, I bet there's a way you can just cycle through things and eliminate candidates and it eventually just cycles into place". Messing with bits is something I think can be very powerful, but I'm not great at thinking through. I definitely spent a fair amount of time over-planning for what my solution eventually became.
 
@@ -56,14 +56,14 @@
     ```
   :replies: []
 - :author: SnooConfections2453
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrjfze/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrjfze
   :body: |-
     My solution in ruby: [https://github.com/ciscou/aoc/blob/master/2021/08.rb](https://github.com/ciscou/aoc/blob/master/2021/08.rb)
 
     As always, trying to make the solution both compact and readable.
   :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrs3ax/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrs3ax
   :body: |-
     # Ruby
 
@@ -107,7 +107,7 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoonjl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoonjl
   :body: |-
     ```ruby
     # Ruby, 307 / 38
@@ -135,7 +135,7 @@
     [`Array#permutation`](https://ruby-doc.org/core-2.7.0/Array.html#method-i-permutation) and [`String#tr`](https://ruby-doc.org/core-2.7.0/String.html#method-i-tr) saved the day for me. Part 2 takes about 30 seconds to run. I tripped up because of the line breaks in the example that was not present in the actual input. (The code is slightly cleaned up.)
   :replies: []
 - :author: weiss_i_net
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrbszu/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnrbszu
   :body: |-
     **Ruby**
 
@@ -185,7 +185,7 @@
     ```
   :replies: []
 - :author: ri7chy
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnotqnq/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnotqnq
   :body: |-
     [Python](https://topaz.github.io/paste/#XQAAAQArBgAAAAAAAAA0m0pnuFI8c/sCZpj3cAYdf1rmsJFkgD8wKleJtNqyXMCOhQ13+lVFP2dZxMw8i3ZaKeFIM0NkVCdUIOlsL0xIzvycUZp06Mz0PYAtpRlU/ZWO7b7Iau/lEl8G6nUyw7iV+USWzPGR1Wum/8B3cfzRJ9pTOaER/KtcDECKDJVYQmFQSNzwD19lzYl1lQW/Fr0qAC0KlBP5WrUby14MudUPXEjw/Txm11dMX7K4F+KduflJ8pGMWn7zB12WTiMLL/n7klA1uYdoOzS+dVu6o/lg+cOgdKPFlUmWxDKC8vTgQ3tjtYU3S1HwAVNxntRWhTWluOifQagXl2WRCK2gMLBzOofYi7c8djpLTB5hqIjKcqtOITqZRrXxTaXYl//2noggxvOy9cttyVM1XzbU2Y0zcF8qYC6FAyAPNifaWgO55Hk2BnYWkJ1WkHk/M63JyOdzETo5RAjUtNODRrNPeIJx350FC6dzRgmLF+9XOQ5DR/eGpRQRjndJVT9lObQLT8t40zeu3FaT9jnlr8C5QnYpT+AjLCm3PAOtbscBSDN8ryzHS8QSd45Hxu3F9JkOjeH3HgobZSPxcen2UxQRuunFlDDCtZFvn4YZmuWAcwQrECxWhr5tHO3aTH3ZAIYB6j/7hfPw7yIiD/yQH8eltqQ8uYTkzAEU1PZ18odH29hHsT969jLc4j6ishCl/77rVcA=)
 
@@ -194,18 +194,18 @@
     used counter for checking the common letters.
   :replies:
   - :author: jdyarrington
-    :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoyz7p/
+    :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoyz7p
     :body: I stared at the problem, mostly the numbers showing the segments displayed for about 40 minutes. Then I saw the same pattern that you do in your code and came to almost the same exact methodology as you. Neat!
     :replies:
     - :author: ri7chy
-      :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnpnsor/
+      :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnpnsor
       :body: |-
         runs in a good time as well.
 
         your code?
       :replies:
       - :author: jdyarrington
-        :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnqbgwb/
+        :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnqbgwb
         :body: |-
           Python
 
@@ -218,7 +218,7 @@
           Edit: I have no clue how to format code on reddit so replaced it with a pastebin. Also adding additional thoughts/comments.
         :replies: []
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnps70y/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnps70y
   :body: |-
     Tricky one, at least until it clicked that it's about sets. Here is the full working solution in [Ruby](https://getsturdy.com/uoeIDQk/changes/495e69ca-c17e-4956-a0e6-0ec3c3961f7a)
 
@@ -292,7 +292,7 @@
     It's important to populate the lookup tables in this order. [Full code here](https://getsturdy.com/uoeIDQk/changes/495e69ca-c17e-4956-a0e6-0ec3c3961f7a)
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoqj6s/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoqj6s
   :body: |-
     Ruby 205/816
 
@@ -301,7 +301,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQAPBwAAAAAAAAARiAqGkkN7pOxE/jDIaqDrFWcgz0npJEVu8JMye3H5Wr2Siem6T/HmXnye4iMQFreC88u4FwGGtRFQHFKYvr8DfgV4/GqZtINLzjxBN/vu3b+rz6QkckCBnspFqIvXW0CKUc4vrq8DKK8U4l67J5sSl2yrqu9a7Vg2pIugY2dX+nwErW3pO9cCrmjtrafemkIGkl8Vg6gNadXOn7cywBXKhHL+b3Fda63ZClGlQdqSKcGlT8zX4D6QDrNDWQ+YRiS+HO46Zx+y8lk5Dqe8U4pFYQSmjPfoFtCVpDESnx8Z/R4ZBcw/eTVnAFIgUFvucYjE3B9lDeKXMb9ucQJpAuxRWDQueuogMBxBexqv2IsV8j0S15Vw4Hbbl7RVys89908Lr6KUjEHHt61qzWPnBR0/7TcNXpMgAgqcNZRKwSWmNpSWJFzWzt/0wVUu1YPcPF/Nxs/QCwiylpSaQcxZg6p+hCbf4tCBJV4M44+hqEogLX321W2YBLohUKGv2Tnbj8IxHvSDlqQ9jV1OrIHmFLg5JsYMBtO3cWRH/JWxZpWjaY7GSHL+GCaqpQjz8oUvRE0HTlPgvBBIUsoBa+TXL0+2T2otfYEIF4ro6GSDR5OMufGKZHoS7W955lMSV+m2LZD1oPryhNdPWgH2Fn7iAnyTLosHFtKmaPKA3yGIuRfzUEyVXmHPFtMW4xIgqqD2aAfjg6l/Pohe1F5yVSxbTmY78TUdbBM8M6fvggbKBS5t5n6F4aP+fSHu)
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorgs4/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorgs4
   :body: |-
     ### Ruby
 
@@ -342,7 +342,7 @@
     **END**
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorr06/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnorr06
   :body: |-
     **Ruby** - second top 1000 of the year
 
@@ -402,7 +402,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnosop0/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnosop0
   :body: |-
     **Ruby** : 5:22/25:53, 338/271
 
@@ -425,7 +425,7 @@
     Okay, maybe too complicated...
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoynl0/
+  :url: https://www.reddit.com/r/adventofcode/comments/rbj87a/2021_day_8_solutions/hnoynl0
   :body: |-
     Ruby
 

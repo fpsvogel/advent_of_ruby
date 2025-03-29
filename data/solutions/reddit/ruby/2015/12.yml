@@ -1,6 +1,6 @@
 ---
 - :author: gareve
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7q3o/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7q3o
   :body: |-
     Ruby
 
@@ -21,7 +21,7 @@
     For part 1 I just did the regex /(-)\*\d+/ on my editor and copied the values on a spreadsheet xD. The funny part is that this regex it fails with strings like "asd123def"
   :replies: []
 - :author: Axsuul
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7uw8/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw7uw8
   :body: |-
     Ruby recursive solution
 
@@ -52,7 +52,7 @@
     ```
   :replies: []
 - :author: tremendo
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw8sxq/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxw8sxq
   :body: |-
     Here's mine. Another **Ruby** one:
 
@@ -79,7 +79,7 @@
     ```
   :replies:
   - :author: tremendo
-    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwj2t0/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwj2t0
     :body: |-
       Looking at it a few hours later, bored, felt the need to compact it a little bit:
 
@@ -99,7 +99,7 @@
       ```
     :replies: []
 - :author: gnuconsulting
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxway30/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxway30
   :body: |-
     Day 3 of not being home at 9. It's starting to kill me a little (on the inside). But that's ok, a bug in my part 2 logic would have easily cost me a place on the leaderboard anyway. I did the 'smart' thing and parsed the JSON for part 1 so the bones were all there for part 2. And like most people, this just cried out for recursion.
 
@@ -200,11 +200,11 @@
     ```
   :replies:
   - :author: topaz2078
-    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgcz/
+    :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgcz
     :body: You could have put the `"red"` check at the top of traverseHash instead of before calling traverseHash everywhere.
     :replies: []
 - :author: phpaoc
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgn1/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwcgn1
   :body: |-
     Part1, Ruby, golfed:
 
@@ -215,7 +215,7 @@
     _You will not encounter any strings containing numbers._ clearly was an invitation for not actually parsing JSON.
   :replies: []
 - :author: rkachowski
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpauu/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpauu
   :body: |-
     ruby, not too happy with it..
 
@@ -275,7 +275,7 @@
     but i eventually discovered that when using more than one block param in the call to `Array#each` results in pattern matching kicking in and you lose elements that don't have an appropriate variable to map to... yuk
   :replies: []
 - :author: aprosepro
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpi3y/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwpi3y
   :body: |-
     part 2 in ruby, i enjoyed this one. of course, like others said... i saw part 1 and thought the entire challenge would be a cakewalk. total re-write from my single line regex for part 1.
 
@@ -296,7 +296,7 @@
     ```
   :replies: []
 - :author: jchook
-  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwqecp/
+  :url: https://www.reddit.com/r/adventofcode/comments/3wh73d/day_12_solutions/cxwqecp
   :body: |-
     Ruby, golfed slightly
 

@@ -1,6 +1,6 @@
 ---
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m4achod/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m4achod
   :body: |-
     Finally had time to sit down and go through part 2. Notation explained at the end. My process:
 
@@ -29,7 +29,7 @@
     C_i = c_i OR s\_i (output carry).
   :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3nq8qw/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3nq8qw
   :body: |-
     [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day24/day24.rb)
 
@@ -42,7 +42,7 @@
     There are two edge cases which is x00, y00, and x45, and y45. They have a bit of a unique behavior but I don't think those are twisted up in anyone's puzzle data.
   :replies: []
 - :author: RazarTuk
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3n1lex/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3n1lex
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQAEAwAAAAAAAAAzGknWt5Bv2rAv+DcT5iE66ZPnRosfrwe0LaRaq6pZwCaP76Bpsar4qeuAw4e9Ixi5xNP/ZyUwagqs339V43rea6G7KVaUGQ7i8MQ6AnOIsjiqzY3D0Bom2hL0ycs4QauTiRfwUF3cuF2LEi8T3+Up6fQ+pR4ym4DHsqqfkyprgCGYT/3q4qsl2meOgwW2hGZyFiF1n5ZhGwu4lIHhI/xmkfuwuvjyFLZl8NfaPH2yC5ZI/re/m1eXbbhGpfuFdhFevPbjvTMg3s4pKIebuGoYtIT5Rj/5LE6vJ/Sux+7X3ihc7dPU9lae5CdmNNf7wYElfrc3DoLfWIELZ/lIPazd2rTMEia3+x9De9/mzj5wy1iIs81aqbbUBV5IO//y2J09aFGonakAjsU0TugvmtKS9covY8aQEHkTdQgmDBUF3+kUGac9desS8/BHFXqwTGh73YOitIRNYjSyV9wgHxXnoy2zizW9sSfES41vNVx5Q0GsEmLkw0Pe1IU8qAXh/+af7uQ=)
 
@@ -63,7 +63,7 @@
     So it's definitely some _dense_ code, but I also think it shows off a lot of the syntactic sugar in Ruby.
   :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l88sf/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l88sf
   :body: |-
     1396/1765
 
@@ -82,11 +82,11 @@
     [code](https://github.com/phene/advent-of-code/blob/main/2024/24/24.rb) and [broken graph](https://raw.githubusercontent.com/phene/advent-of-code/refs/heads/main/2024/24/graph-orig.svg) and [fixed graph](https://raw.githubusercontent.com/phene/advent-of-code/refs/heads/main/2024/24/graph-fixed.svg)
   :replies:
   - :author: RonGnumber
-    :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3m1k8v/
+    :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3m1k8v
     :body: I had a similar idea and similar graph (less fancy). Every year there are are a couple of problems where Graphviz is a life-saver, it's really worth taking the time to learn its basic options and get comfortable generating pictures which tell so much more than numbers! (I've done it yesterday too, and 2023 day 25.)
     :replies: []
 - :author: birblett
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3kqkl2/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3kqkl2
   :body: |-
     this solution is _maybe_ functional for any variation of this specific day's input, i have only tested it on two different inputs so far so i can't say for sure that i haven't missed edge cases. i originally solved it by hand and then reverse engineered it to arrive here.
 
@@ -135,7 +135,7 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l1mih/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hl698z/2024_day_24_solutions/m3l1mih
   :body: |-
     Very messy, but by knowing the correct structure of a ripple adder, I was able to find paris of adjacent bits that were incorrect. I then used trial and error updating my input each time until there were no more errors. I couldn't think of a clever way to automate what I was trying to do, but because I knew there were a limited number of ways it could go together. Manual checking was not very hard.
 

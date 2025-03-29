@@ -1,6 +1,6 @@
 ---
 - :author: chipotlecoyote
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/izl0kpf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/izl0kpf
   :body: |-
     **PHP**
 
@@ -9,7 +9,7 @@
     [https://github.com/chipotle/Advent\_of\_Code\_2022/blob/main/advent-code-5.php](https://github.com/chipotle/Advent_of_Code_2022/blob/main/advent-code-5.php)
   :replies: []
 - :author: OwnAttention3370
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz4rknd/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz4rknd
   :body: |-
     My answer for Day 5 in Ruby. Kinda cheated a bit by not parsing the stacks but used regular expressions to parse the instructions of moving to and from.
 
@@ -46,25 +46,25 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz3cbi0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz3cbi0
   :body: |-
     clean ruby
 
     # [Ruby](https://github.com/sreedevk/advent-of-code/blob/main/ruby/2022/day5/main.rb)
   :replies: []
 - :author: sezvar
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxcv0/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxcv0
   :body: |-
     Ruby, 3/2. Best rank I've gotten on a star before :)
 
     https://github.com/bcc32/advent-of-code/tree/main/2022/05
   :replies:
   - :author: DmitryShvetsov
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/jf1f2or/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/jf1f2or
     :body: cleverly devised, to skip parsing the stacks part of the input lol
     :replies: []
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzaym2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzaym2
   :body: |-
     Ruby solution.
 
@@ -75,14 +75,14 @@
     [https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63](https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63)
   :replies:
   - :author: f4780y
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz173a4/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz173a4
     :body: |-
       > [https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63](https://gist.github.com/seanhandley/0e62b90bfbde030fe93c6010f9774f63)
 
       This gives an incorrect answer for part 2 for both the example file and my input file. (Part 1 is correct in both cases) ???
     :replies:
     - :author: shandley256
-      :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1hjc2/
+      :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1hjc2
       :body: |-
         Aha - you're right.
 
@@ -95,14 +95,14 @@
         I fixed the gist - line 30 now correctly clones the initiate state hash.
       :replies:
       - :author: f4780y
-        :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ynpy/
+        :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ynpy
         :body: |-
           > https://github.com/seanhandley/adventofcode2022/tree/main/ruby/day\_5
 
           Nice one.
         :replies: []
 - :author: antoniotto
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1oucq/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1oucq
   :body: |-
     Ruby part 1
 
@@ -153,19 +153,19 @@
     ```
   :replies:
   - :author: DanZuko420
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1wn5y/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1wn5y
     :body: "I didn't know about the transpose method until I saw your answer \U0001F629 That's great to know in the future!"
     :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz269tn/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz269tn
   :body: "**Ruby** playing with pattern matching and yielding to implicit blocks.\n\nHat-tip to /u/shandley256 for the input parsing. \U0001F44D\n\nhttps://gist.github.com/fig/78ffd51065d49c3d2ca8ada407fc1baf"
   :replies:
   - :author: shandley256
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iztq2m9/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iztq2m9
     :body: "You’re welcome \U0001F44C"
     :replies: []
 - :author: Arakiyda
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxsbz/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyyxsbz
   :body: |-
     **Ruby**
 
@@ -194,7 +194,7 @@
     ```
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyze7x2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyze7x2
   :body: |-
     **Ruby**
 
@@ -231,7 +231,7 @@
     ```
   :replies:
   - :author: OlivarTheLagomorph
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzep9h/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzep9h
     :body: |-
       Love the approach, came up with a very similar solution :)
 
@@ -240,7 +240,7 @@
       Love you how resulted in a single loop in your solution and basically tracked the phase you're going through.
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzf81r/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzf81r
   :body: |-
     I'm doing different language each day, all solutions [here](https://github.com/d12bb/AdventOfCode/tree/main/2022).
 
@@ -274,14 +274,14 @@
     ```
   :replies: []
 - :author: ScaredOfMyRawr
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzl81k/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyzl81k
   :body: |-
     Here's my [Ruby solution](https://medium.com/@ashley-peacock/advent-of-code-2022-day-5-solution-ordering-crates-f77db1ca8e58), with a full explanation of approach!
 
     I love it when it's array manipulation! Today was my new favourite day so far, and handy that my two solutions were basically identical (I accidentally did problem 2 the first time as I forgot the reverse!)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyznh6r/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyznh6r
   :body: |-
     Ruby
 
@@ -290,7 +290,7 @@
     Walkthrough Video: [YouTube](https://youtu.be/z3IOkA6inE0)
   :replies: []
 - :author: craigontour
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz01ui4/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz01ui4
   :body: |-
     # Ruby
 
@@ -333,7 +333,7 @@
     To Rubyists, I could not work out how to output a single string of characters from my array of strings. For Part 1 I typed them in 1 by 1 and for Part 2 I created new string. Any tips on answer please?
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ektw/
+    :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1ektw
     :body: |-
       ```ruby
       # Instead of:
@@ -349,7 +349,7 @@
       ```
     :replies: []
 - :author: radiales
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz14op6/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz14op6
   :body: |-
     Ruby
 
@@ -358,7 +358,7 @@
     This one was really fun. It's a great problem for Prolog
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1da2q/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1da2q
   :body: |-
     Ruby, annotated.
 
@@ -419,7 +419,7 @@
     ```
   :replies: []
 - :author: DanZuko420
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1xb85/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz1xb85
   :body: |-
     Ruby solutions for day 5, [part 1](https://github.com/mhashizume/advent-of-code-2022/blob/main/05/crane.rb) and [part 2](https://github.com/mhashizume/advent-of-code-2022/blob/main/05/crane_9001.rb).
 
@@ -428,7 +428,7 @@
     Oh well! Good to know for next time.
   :replies: []
 - :author: chooosen2019
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz2maf2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz2maf2
   :body: |-
     **Ruby**
 
@@ -447,7 +447,7 @@
     ```
   :replies: []
 - :author: matas__
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz010yc/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iz010yc
   :body: |-
     ruby code with parser:
 
@@ -486,7 +486,7 @@
     ```
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyywx3i/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyywx3i
   :body: |-
     Ruby, 287/305
 
@@ -507,13 +507,13 @@
     ```
   :replies: []
 - :author: mathem17
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz0jc2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz0jc2
   :body: |-
     Ruby 2535/2975: [Code](https://github.com/jzhang113/adventofcode/blob/c6883bb964a95e7520e3d345854fe79631f23eac/2022/solutions/05.rb)
 
     Checking the megathread made me feel better that I was too lazy to figure out how to parse the crates from the input
   :replies: []
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz5t9w/
+  :url: https://www.reddit.com/r/adventofcode/comments/zcxid5/2022_day_5_solutions/iyz5t9w
   :body: "# Ruby\n\nhttps://github.com/snowe2010/advent-of-code/blob/master/ruby\\_aoc/2022/day05/day05.rb\n\nI really struggled with this one. Second part took 10 seconds though \U0001F605"
   :replies: []

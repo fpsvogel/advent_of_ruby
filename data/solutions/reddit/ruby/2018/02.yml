@@ -1,6 +1,6 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawj95t/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawj95t
   :body: |-
     I mistyped 4 3 instead of 2 3 and got an obviously wrong answer which I wasn't smart enough to double check, so I had to wait one minute. Still got on top 100 though! [Imgur](https://i.imgur.com/ds13ZAy.png)
 
@@ -21,15 +21,15 @@
     Doesn't actually compute part 2, you have to manually find and replace the character yourself, but better than nothing
   :replies:
   - :author: abnew123
-    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjn4w/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjn4w
     :body: Man, I'm always so sad when I look at other's solutions lol. While I wasn't particularly slow (177th), my code is 70+ lines lol. Oh well, I blame java
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjoq3/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjoq3
       :body: Don't worry I got your back, I'll do a java one for you
       :replies: []
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawmqct/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawmqct
       :body: |-
         Part 1
 
@@ -86,7 +86,7 @@
         ```
       :replies: []
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawwe0m/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawwe0m
       :body: |-
         Another Java solution: Part 1:
 
@@ -138,15 +138,15 @@
         ```
       :replies: []
   - :author: DoodleFungus
-    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjlyk/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjlyk
     :body: Wow, our ruby answers have been remarkably similar both days (but I've barely missed the leaderboard both times, grrrrr)
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjna2/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawjna2
       :body: Fastest gun in the west!
       :replies: []
   - :author: charismotron
-    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawnzm8/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawnzm8
     :body: |-
       TIL: Array#count exists
 
@@ -155,7 +155,7 @@
       I thought about zip but couldn't think of a way to make it work - forgetting there'd be nested arrays.
     :replies:
     - :author: _liquidlemon
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawvsgw/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawvsgw
       :body: |-
         I managed to do it using zip, you might like it
 
@@ -181,19 +181,19 @@
         ```
       :replies: []
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawp4sp/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawp4sp
       :body: It's actually also on Enumerable, so you can directly .count lines on STDIN, except unfortunately we need to use it twice in this case!
       :replies: []
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayay2l/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayay2l
     :body: Can you explain the x.join,y.join 1/0?
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayuhrv/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayuhrv
       :body: at this point both `x` and `y` are array of size-1 strings, so `.join` turns them back into non-split strings and feeds them through `p` which prints them. 1/0 crashes the program. it's faster to type than exit
       :replies: []
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawl9y6/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eawl9y6
   :body: |-
     Ruby
 
@@ -224,7 +224,7 @@
     ```
   :replies:
   - :author: justinhj
-    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eaxf0lv/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eaxf0lv
     :body: |-
       Nice, much more succinct than what I came up with
 
@@ -253,11 +253,11 @@
       ```
     :replies: []
 - :author: omegaxLoL
-  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eax092v/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eax092v
   :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day2.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
   :replies: []
 - :author: EngCanuck
-  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayzzlt/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2aimr/2018_day_2_solutions/eayzzlt
   :body: |-
     Ruby:
 

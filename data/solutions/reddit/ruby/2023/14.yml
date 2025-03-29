@@ -1,13 +1,13 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdcswsg/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdcswsg
   :body: |-
     Fun today messing with pattern matching... Partial manual for part 2, but still fast etc.
 
     [Github](https://github.com/careyi3/aoc_2023/tree/master/solutions/14)[Video Walkthrough](https://youtu.be/Ta9mF9YuLBg)
   :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdbokqb/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdbokqb
   :body: |-
     No half-punchcard-sized solutions for both parts yet? Here's one
 
@@ -30,7 +30,7 @@
     Here's a drop-in replacement for `f()` that reduces total runtime to under 0.9 seconds: [paste](https://topaz.github.io/paste/#XQAAAQAsAQAAAAAAAAAyGUj/Tv+WAV3g/Epryrh8/EkGcaOk2Vq/TzdNF3JIxxliAwe73NuADxZL1UqbLlDPlP1BSWDzX265F9rQceiT3VKKrtzFhN9hkWUz4uKRVnQjVjpCKH8tY8Wr/O/SEUYEG8n2FVbUu5kXHqJF8e6AzlrpGOvaPDZw+3Dn7PaKB43Uf1qd6KfmhX6hDA/1Ih8giCPGvQs7UaBiguCuIWFDCkdloSHE5qxaFd1VXAASaq+NmGwf/7WTyQA=) — very straightforward; just remembers where the next rock should roll to as it iterates through each line. `.`s get replaced by `nil`s because it's a little faster that way. Converting all the single-character strings to integers to begin with saves another ~10% on runtime.
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdadna3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdadna3
   :body: |-
     Both parts start with `tilt_north` and `north_load` functions:
 
@@ -104,11 +104,11 @@
     https://github.com/glebm/advent-of-code
   :replies:
   - :author: globalreset
-    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdafdnz/
+    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdafdnz
     :body: I had no idea lazy enumerations were a thing in Ruby. Love this about AoC, just finding out about unique language features that I wouldn't otherwise see.
     :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdad6l7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdad6l7
   :body: |-
     3905/1478
 
@@ -117,34 +117,34 @@
     [github](https://github.com/globalreset/advent_of_code_2023/blob/main/2023/14/solution.rb)
   :replies:
   - :author: e36freak92
-    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdaf7h4/
+    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdaf7h4
     :body: I stored cycle start and cycle length, then the result is the load from cycle loop\_start + ((total\_cycles - loop\_start) % loop\_len).
     :replies: []
   - :author: schveiguy
-    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdag59k/
+    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdag59k
     :body: |-
       The way to find cycles is to use Floyd's Tortoise and Hare algorithm: [https://en.wikipedia.org/wiki/Cycle\_detection](https://en.wikipedia.org/wiki/Cycle_detection)
 
       That tells you that there _is_ a cycle, and then you need to measure the cycle by running it once.
     :replies:
     - :author: globalreset
-      :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdahfp4/
+      :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdahfp4
       :body: It's hard to figure out how Floyd's applies to these grid states. But I'll chew on this a bit and see if I can make the connection.
       :replies:
       - :author: schveiguy
-        :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1k8j/
+        :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1k8j
         :body: You compare the entire grid (at least that's what I did). Remember, you are just running the same algorithm, on one grid you run it 2x per step, on the other you run it 1x. then compare at each step and see if they are equal -- this means there's a cycle. It's cheap enough because you are comparing what, like 100 strings? If there wasn't a cycle, yeah, it would be super inefficient, but once you get the cycle, you can stop and skip to the end!
         :replies:
         - :author: globalreset
-          :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdffpla/
+          :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdffpla
           :body: Ah! I get it. Run 2 different grids at different rates until they match let's you skip all the storage, so you're only ever storing one grid for the tortoise rate and one for the hare rate. Thanks for clarifying! That's going to come in handy.
           :replies: []
   - :author: globalreset
-    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdaez2b/
+    :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdaez2b
     :body: okay, tried what I thought the trick might be and dropped 10 seconds off my runtime. 3 seconds is still pretty slow, but my rock moving is probably not the most efficient solution either.
     :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdagghb/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdagghb
   :body: |-
     165/776
 
@@ -153,7 +153,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQCmAwAAAAAAAAAyGUj/TzqOZqu+85MIr+7I2PN0WUff+HeS/WSf1Fe62O1gtVpl8OjMxtl/mhz9FSocwvtz4RdGpsL1Re/3qZhzm9C3LM7XtpH3TBE91Whglx5p6C36lD9FCX71oyeCcfUQ0nIPQX85mZYeDnmO9pRJ3lS5xFaBMRozGIgacXXv/TS7kWytUCvfMtvJ/nMhTMalZbD21+steDVdBSwziMIX8n+/kJfukSfyHRs+x2B/jUgpeDZ/TluULjsq6RkPkALQ2Vc6twgYgUZvmcDg3+Y3iz5aAupStQHtkxAC8YQOtSe5W3sWEMKvsO31XQH2RZv41gkyn+IiRN00boU5SvRNrKrW0WLfK+SFRzZTP+WLgzHpNQaE+jeEyObrGaNC0kWiPE7oH3TT11GazIZUfEZr6axFqiTpqi6ArDslX5lIrVPmVfytbjQFfV/T+mJHeu4/JgLHwaMoehSjZZsJey/DVwkqdWmfUroBMSQFQMC25UVo30y1dcdOosZGpxPSh4w68w3t/T2K59YyY7yaoJACT7s6iHQZN6rLszUis2aA+2NFhs6Wj1FSohX87BkOADPHsodB+Nsi8erZLeW3apbCKG4PJBc+0f2rR0U=)
   :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdauk3g/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdauk3g
   :body: |-
     [Language: Haskell]
 
@@ -164,7 +164,7 @@
     Haskell: [14_parabolic_reflector\_dish.hs](https://github.com/petertseng/adventofcode-hs-2023/blob/master/bin/14_parabolic_reflector_dish.hs)
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1uax/
+  :url: https://www.reddit.com/r/adventofcode/comments/18i0xtn/2023_day_14_solutions/kdc1uax
   :body: |-
     Nothing special from me today I guess
 

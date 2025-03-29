@@ -1,6 +1,6 @@
 ---
 - :author: shandley256
-  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ghebg8n/
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ghebg8n
   :body: |-
     **Solution in Ruby**
 
@@ -9,21 +9,21 @@
     Runs in a few milliseconds.
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzzquo/
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzzquo
   :body: |-
     Ruby, relatively quick brute force
 
     [paste](https://topaz.github.io/paste/#XQAAAQAoAgAAAAAAAAAyGUj/T4c8Tgpz+GZV01uLKnl7UFtKCqLkjkhsTUDB2dz3QjU4O3voS3d2E4iJHmUXanUz7zuCY0HMGISq/QHc9kTrFORB8rab27Orh6FCNlPFp1jm6nej11SUxZeqz8rlMGDWs2LCumdvn/mW21kO6Rw/Kw8ApNCtC28kGVYnB7yrdgWu+8+VO4j+JJ2mXsQT1ftyQ5+r5oDPotl4X3VVkvEjjqRcFfRSEjpZyP2VVVg28WKSaVSWFM0EzTmtbcvY1VkvrpnHXPehdB086ojgbDJtVfhxRb2hvRtvahw97GEtEFXM0yYvbAPCNSQ/Fwaz2btFzLCgX14OgLZNyRF4bXOV/J8d4syRcy3IiAFVI28FXYP5Ng6S6iabWiEu/Vhvd4qHBl0U7RvYL+I8HmNTXENm3fA5e45nvFhCCF2Xi/1Yiaj//2+iYwA=)
   :replies: []
 - :author: DmitryShvetsov
-  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggywejp/
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggywejp
   :body: |-
     # Ruby
 
     [https://github.com/dmshvetsov/adventofcode/blob/master/2020/25/1.rb](https://github.com/dmshvetsov/adventofcode/blob/master/2020/25/1.rb)
   :replies:
   - :author: jschulenklopper
-    :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzpx2h/
+    :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggzpx2h
     :body: |-
       Similar,
 
@@ -55,7 +55,7 @@
       ```
     :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggyspxo/
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggyspxo
   :body: |-
     Ruby 616/518
 
@@ -71,7 +71,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggytz6h/
+  :url: https://www.reddit.com/r/adventofcode/comments/kjtg7y/2020_day_25_solutions/ggytz6h
   :body: |-
     **Ruby:** 7:42/7:48, 128/110
 

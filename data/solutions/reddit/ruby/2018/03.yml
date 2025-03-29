@@ -1,6 +1,6 @@
 ---
 - :author: Frizkie
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazkl9g/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazkl9g
   :body: |-
     Ruby
 
@@ -48,14 +48,14 @@
     This one kicked my ass. I barked up the wrong tree for a long time, took me over an hour to debug everything.
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb2rsqp/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb2rsqp
     :body: |-
       Rances can actually be made inclusive simply by adding `...` instead of `..` as the range operator.
 
       Great solution!
     :replies: []
   - :author: daybreaker
-    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0b4bm/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0b4bm
     :body: |-
       Went in sort of the same route for Part 1, using .times instead of .each
 
@@ -78,7 +78,7 @@
       ```
     :replies: []
 - :author: moomaka
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0dv9v/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0dv9v
   :body: |-
     # Ruby
 
@@ -109,11 +109,11 @@
     ```
   :replies:
   - :author: ZoDalek
-    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb11gyo/
+    :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb11gyo
     :body: Shame the struct definition is a little verbose because man the solution itself is so beautifully compact!
     :replies:
     - :author: moomaka
-      :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb141fd/
+      :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb141fd
       :body: |-
         The Struct was just for readability, but you can code golf it down a bit and still keep it fairly easy to read:
 
@@ -131,7 +131,7 @@
         ```
       :replies: []
 - :author: rock_neurotiko
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazomdx/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eazomdx
   :body: |-
     Day 3 in Ruby:
 
@@ -185,7 +185,7 @@
     ```
   :replies: []
 - :author: CommanderViral
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0a1zv/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0a1zv
   :body: |-
     Crystal (both parts 1 and 2 computed together)
 
@@ -234,7 +234,7 @@
     And what's fun is it's valid Ruby with a line added and 3 lines changed.
   :replies: []
 - :author: jschulenklopper
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0s050/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0s050
   :body: |-
     Ruby... but in a single pass over the claims. (I see a lot of double passes; one processing all the claims for marking the fabric, one processing all the claims again or the fabric to look for single-marked spots.)
 
@@ -268,11 +268,11 @@
     ```
   :replies: []
 - :author: omegaxLoL
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0txje/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb0txje
   :body: "[My solution in Ruby](https://github.com/aosousa/AdventOfCode2018/blob/master/day3.rb). Using Advent of Code to learn Ruby this year so any tips are welcome!"
   :replies: []
 - :author: vanderzee94
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb1q783/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eb1q783
   :body: |-
     Ruby Solution for both parts
 
@@ -306,7 +306,7 @@
     ```
   :replies: []
 - :author: 121lazz
-  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eccbxf3/
+  :url: https://www.reddit.com/r/adventofcode/comments/a2lesz/2018_day_3_solutions/eccbxf3
   :body: |-
     Later than late to the party, but a party 'twas.
 

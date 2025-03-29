@@ -1,17 +1,17 @@
 ---
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0my8nw/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0my8nw
   :body: |-
     This was a fun one, implementing a custom sort algorithm. I have no idea what type of sort I created, or what the Big O notation might be, but it works and seems to be fairly performant.
 
     [pastie](https://topaz.github.io/paste/#XQAAAQBcBAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw3D1UZFlD3WW8r2Z9pYT30X7PldGU70XB3egANSDGaglT19UFgzZK2FcUaGiOj2QwDkRsdSI8VlTlRHSx96rEK2fgYkMopVYMKvFrxYEOtlpraQtqXI869FkwIsNbKnv6kcagyhdLWfX1FrLl8cJPgtkQe8xLG+avOac7tsm2wzZjJAichGLIJe9pTdisr1vtXsU3qY0B+qxOP04rSWBTWOsIUzYidqufpLIMbHSc2mRiKVRtfOPytmcjdxuNZ88HGUtQYhQj5oRfApkIikmSc7LwHkj+/qxyQ/14ilCVT1UA+dggc1BlIiGBMDdiyKElBXCnuPhwhZnHZ4ydwmaw0i0QafjZcAQiq8KsDn+SSZLxk3cL1AS5MkB8D+vl96hAPL1U8Q4cZVmMA/0hp4tZOrPZrdm6H1jpMMPLFq4MR5QxHAEgv+AG8Q+uPPtIoba+uvxlwXQyuEEUWUudm3ee1Xfvsj5vOZVA/YVg8F1LwpawkD46eKBV8A2at6zmXymUBhK3JhHhAQIb2drHe61bY5XIkjxHzKoS4SSjWwlExFQ7Z05kxWy3WsxazIE7ID/mP6iVSLUE1kMpUhcd1I8oidpQBtSBHCSEXRhC8c2+F8spS5DlP0//yr/1AA=)
   :replies:
   - :author: nullset_2
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0t597s/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0t597s
     :body: "+1 for ruby \\<3"
     :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0hz686/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0hz686
   :body: |-
     ```ruby
     orderings, updates = ARGF.read.split "\n\n"
@@ -40,7 +40,7 @@
     Part 2 was quite easy by just using the rules in a custom comparator for the `sort` method.
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i076g/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i076g
   :body: |-
     3324/5754
 
@@ -49,11 +49,11 @@
     [https://gist.github.com/riffraff/70e9feca5b8d3c236557a7e0796268db](https://gist.github.com/riffraff/70e9feca5b8d3c236557a7e0796268db)
   :replies:
   - :author: musifter
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iepv5/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iepv5
     :body: Don't worry about not using a topological sort. The input is not a DAG, it has loops. There is no complete sort of the pages, only subsets of them.
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kiv0k/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kiv0k
   :body: |-
     Had a hunch about this one. Felt pretty good when on part 2 I just had to change a `.filter` into a `.partition` and the rest just fell in place by itself :)
 
@@ -85,21 +85,21 @@
     ([part 2 diff](https://github.com/daniero/code-challenges/commit/6923d035a911359c626333c75bae423c28d0c553))
   :replies:
   - :author: TailorSubstantial863
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kylv4/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kylv4
     :body: |-
       I'm pretty sure my code does the exact same thing as yours (algorithmically speaking) but it takes 83 lines.
 
       nicely done. I'm gonna have to put your code in debug mode to figure it out I think.
     :replies: []
 - :author: gosshedd
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iagt3/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iagt3
   :body: |-
     Using the spaceship operator makes both parts equally simple.
 
     [Gist](https://gist.github.com/gmitrev/47b0498c2bd403589cd866b2b077689a)
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ihywy/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ihywy
   :body: |-
     Part 1
 
@@ -132,18 +132,18 @@
     ```
   :replies:
   - :author: Ill_Information_9522
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0lng6f/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0lng6f
     :body: Enjoying following along with your solutions after solving them myself with my beginner's grasp of Ruby. Thanks for sharing.
     :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k2hny/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k2hny
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQA0AwAAAAAAAAA5GUqKNoFH6SMqoVC09YUYn9dyScIBDNYTI4hnvKYWXrPwLsHeHO6l2A0mcRl8Ns3HhQylr3Khfz4JY3+czGhZ93QRGZ/H13DAhWFK7sa7Zv6wWS5++4B4VBZWS5ooiS9de/AlbgI7SjS9heaT2QZnwnZj8giLuaos879X3tI0OJIAogzVUHsgYA0ss0NCeSeaaYRd5dTDriXvXcR0BJQhPeX656k0aWJc79qLHua5fmyFZlpkgrmWHeyQcwm2HzboaMyI/PkhtftOcshzo6ZF1Fn7BRPLa0yZS+JtnWne3EwZRdofK4WG9fc//SX9tbDPgPzr6nYntRd6tKj6WoQNGbtVnOEMA2gKAm4nkVd5SxafWvtFGYpqVBu+r5l6ZIef8H3S7eXUz8qMynQtLBemtp5tY8OnRd6NYf6pRe5XfCBYuuihZxi63r2bpv7S2qR0C/ZenWzHdeCYwMvvEg8M2GwIASjVE1KXXIh38dhsMemXkqdBaX1CUWqSYebyBGT9zhDtieKKnpdIk/18Tf3qLsMSzff/tJCSSw==)
 
     Very interesting problem that is actually quite educational about binary relation and total ordering. Might write up a tutorial post later as a review for myself as well ([done!](https://www.reddit.com/r/adventofcode/comments/1h7mm3w/2024_day_05_part_2_how_nice_is_the_input_a_binary))
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kvznz/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kvznz
   :body: |-
     both parts, quick and easy:
 
@@ -169,7 +169,7 @@
     ```
   :replies: []
 - :author: The_Jare
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0l9y1s/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0l9y1s
   :body: |-
     ```ruby
     rules, reports = ARGF.map(&:strip).reject(&:empty?).partition { | l | l.index("|") }
@@ -196,32 +196,32 @@
     ```
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i5hkk/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i5hkk
   :body: |-
     [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day05.rb)
 
     I wasted a significant amount of time implementing a topological sort of the ordering constraints, just to discover that my input had cycles, so that sort wasn't really possible. After that, I implemented the non-graph solution above. Notable features are the reversal of the updates in `unordered?`, which allows me to check whether any ordering constraint is violated without having to iterate through the constraints, and the usage of an insertion-sort-style first-fit allocation algorithm for pages in Part 2 to perform the allocation of each page in linear time.
   :replies:
   - :author: Eilip999
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6mgo/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6mgo
     :body: |-
       It should not be possible for cycles in input to happen, if it was a case you wouldn't be able to sort it even with your algorithm which is not based on graph.
 
       Edit, Okay it might be possible to have cycle in rules, but then cycle should not be visible in list of pages, so like, you have the edges, but vertices are missing so these edges should not be included in the graph.
     :replies:
     - :author: HAEC_EST_SPARTA
-      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i7zul/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i7zul
       :body: Right, the global set of ordering constraints does contain cycles, although if you pare it down to only the pages contained in each update, then that is no longer the case. I realised that a bit too late, but _c'est la vie_.
       :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6xkn/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0i6xkn
   :body: |-
     I initially wasted time creating "before rules" and "after rules" for part 2, thinking I would need the reverse map to 'squeeze' a value in to the right place. But saw through testing after I was done that it was pointless. I wish I would've thought of the 'sort' method though as that's a clean result.
 
     [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/05/solution.rb)
   :replies: []
 - :author: im_sofi
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ix512/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0ix512
   :body: |-
     Interesting day. Worked a bit on my `std++` library and added a `Enumerable#partitions` function to allow a partitioned scan of `|left, current, right|` over the elements so i could handle the rules being defined as `before` and `after`.
 
@@ -230,7 +230,7 @@
     https://github.com/soupglasses/advent-of-code/blob/main/2024/ruby/day\_05.rb
   :replies: []
 - :author: Independent_Top_8716
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iy7eq/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0iy7eq
   :body: |-
     After (not unexpectedly) realizing that a recursive or permutations based approach would not scale for part2 I used a hinted approach for part 2
 
@@ -292,30 +292,30 @@
     ```
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j6f41/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j6f41
   :body: |-
     It wasn't immediately obvious to me that implementing a ruby sort function would just work here, but it seems there is only one validly sorted order for the string based on the rules, making this leap confirmed the solution to me.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/5](https://github.com/careyi3/aoc_2024/tree/master/solutions/5)
   :replies:
   - :author: FCBStar-of-the-South
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jtl71/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jtl71
     :body: I did not want to implement sorting because there is not any guarantee that the | relation is transitive but apparently it is
     :replies:
     - :author: careyi4
-      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k1hjd/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k1hjd
       :body: Yeah, same, it didn't feel like it should work, but when I tried it and it did work I was surprised. I felt like there surely should be multiple orders that satisified the rules, apparently not per the rules.
       :replies:
       - :author: FCBStar-of-the-South
-        :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k23ww/
+        :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0k23ww
         :body: I was probably reading between the lines too closely haha. The example explicitly checked the ordering between every pair instead of just the adjacent pairs and I thought that's a sign the relation might not be transitive
         :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j9e9o/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0j9e9o
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day05.rb)"
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jm95n/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jm95n
   :body: |-
     Part 2 took me quite some time before realizing a sort would work.
 
@@ -361,7 +361,7 @@
     ```
   :replies: []
 - :author: fredster231
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jploy/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0jploy
   :body: |-
     ```ruby
     rules, updates = File.readlines('005.input')
@@ -388,14 +388,14 @@
     ```
   :replies: []
 - :author: clonewolf
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kh6du/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kh6du
   :body: |-
     Unable to do a TSort on the whole set, I'm doing TSorts on each subset of the graph defined by each update.
 
     [https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day05.rb](https://github.com/christopher-b/advent-of-code/blob/main/lib/advent/year2024/day05.rb)
   :replies: []
 - :author: sigmazero13
-  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kl2i7/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kl2i7
   :body: |-
     Parts 1 and 2 together.
 
@@ -404,7 +404,7 @@
     Basically, just created a Page class with methods to allow for custom sorting using the rules. From there, finding the valid updates (and fixing the invalid ones) was a piece of cake.
   :replies:
   - :author: rcraggs
-    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kpg4l/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h71eyz/2024_day_5_solutions/m0kpg4l
     :body: |-
       I did the same thing in Python. No idea about efficiency but it makes for really tidy code and a simple idea
 

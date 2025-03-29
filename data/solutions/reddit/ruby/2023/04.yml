@@ -1,6 +1,6 @@
 ---
 - :author: dafarmerz
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kca5hsi/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kca5hsi
   :body: |-
     Part 1
 
@@ -21,7 +21,7 @@
     p check\_winners('cards.txt')
   :replies: []
 - :author: Potential-Series-105
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzlfo6/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzlfo6
   :body: |-
     66 bytes seem to be enough for part 1
 
@@ -30,15 +30,15 @@
     ```
   :replies:
   - :author: Potential-Series-105
-    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzmwg3/
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzmwg3
     :body: Thanks to /u/erikade this can be shortened even further to 57 bytes. look at his comment for the magic.
     :replies: []
   - :author: erikade
-    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzou5t/
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzou5t
     :body: Oh wow! Congrats on this beautiful solution, AoC is so much fun!
     :replies: []
 - :author: coderhs
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx9i7w/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx9i7w
   :body: |-
     Part 1
 
@@ -69,14 +69,14 @@
     ```
   :replies:
   - :author: cwby_bbop
-    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxb143/
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxb143
     :body: |-
       The process is there, but your approach is making tons of transformation before storing it all in `f`.
 
       Here was my approach for today: [https://www.reddit.com/r/adventofcode/comments/18actmy/comment/kbx8do6/?utm\_source=share&utm\_medium=web2x&context=3](https://www.reddit.com/r/adventofcode/comments/18actmy/comment/kbx8do6/?utm_source=share&utm_medium=web2x&context=3)
     :replies:
     - :author: coderhs
-      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxbwl7/
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxbwl7
       :body: |-
         Ya, its on purpose, I am trying to do as much as I can i one line. (running it in IRB)
 
@@ -89,7 +89,7 @@
         That is a better approach to break down the string.
       :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhn9f/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhn9f
   :body: |-
     almost golfed. how can I compress this further?There has to be a way to generate the cnt array in one line!
 
@@ -105,7 +105,7 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxk858/
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxk858
     :body: |-
       line 2 can be
 
@@ -122,7 +122,7 @@
       ```
     :replies:
     - :author: Symbroson
-      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrntu/
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrntu
       :body: |-
         golfing this I can get this down to 202 bytes. Removed the bounds check and w-[0] for pow -1 elimination as well
 
@@ -136,7 +136,7 @@
         ```
       :replies:
       - :author: riffraff
-        :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbyz4q8/
+        :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbyz4q8
         :body: |-
           yeah using `$<.map` instead of `File.readlines('input.txt')` would make this quite a few characters less :)
 
@@ -145,18 +145,18 @@
           But yeah, the count array initialization is annoying! I _think_ you could do something nasty with `inject` but ATM I can't see it being shorter.
         :replies: []
 - :author: cwby_bbop
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx8do6/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx8do6
   :body: |-
     Easy day today!! Got it in 33 lines of clean Ruby
 
     [https://github.com/ealvar3z/aoc-2023/blob/master/day04.rb](https://github.com/ealvar3z/aoc-2023/blob/master/day04.rb)
   :replies: []
 - :author: lycheejuice225
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhg3d/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhg3d
   :body: https://github.com/Animeshz/AdventOfCode2023
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhoph/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxhoph
   :body: |-
     Part 1:
 
@@ -189,15 +189,15 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxjdse/
+    :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxjdse
     :body: I think you do not need to `.to_i`, this should work fine with strings ("23" is the same as "23") , but I am not sure what is going on with spaces.
     :replies:
     - :author: glebm
-      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxl62c/
+      :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxl62c
       :body: Yeah it should work fine with strings, there are no spaces left at that point. Numbers are much faster to compare and hash than strings though (not that it matters here).
       :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbybnx3/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbybnx3
   :body: |-
     Another easier one than the day before... Starting to see a pattern here
 
@@ -206,7 +206,7 @@
     [Video Walkthrough](https://youtu.be/6F4xUVLvQOM)
   :replies: []
 - :author: Jonathan_Frias
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbz8l0q/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbz8l0q
   :body: |-
     Part 1
 
@@ -257,14 +257,14 @@
     ```
   :replies: []
 - :author: trevor-e
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzafzf/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbzafzf
   :body: |-
     This day seemed a lot easier than the others, although at first I thought there was a bug in my part\_two since it took a few seconds to run. If anyone is curious I think my Ruby solutions are pretty straightforward to follow along, no bells and whistles:
 
     [https://github.com/trevor-e/AdventOfCode2023/blob/main/day4/day4.rb](https://github.com/trevor-e/AdventOfCode2023/blob/main/day4/day4.rb)
   :replies: []
 - :author: 6f937f00-3166-11e4-8
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kc08jk5/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kc08jk5
   :body: |-
     ```ruby
     require 'set'
@@ -310,7 +310,7 @@
     ```
   :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx5ynn/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx5ynn
   :body: |-
     Part 1 (1255)
 
@@ -346,7 +346,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx6sp8/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx6sp8
   :body: |-
     ```ruby
     cards = Hash[ARGF.read.scan(/^[^\d]+(\d+): ([\d\]+) \| (.+)$/).map do
@@ -379,7 +379,7 @@
     Part 2 is a bit messy, but oh well.
   :replies: []
 - :author: the_bengal_lancer
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7t4h/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7t4h
   :body: |-
     p1:
 
@@ -445,21 +445,21 @@
     ```
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7uid/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbx7uid
   :body: |-
     ##### [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2023-ruby/item/lib/day04.rb)
 
     I spent far longer than I'd like to admit trying to figure out that I was initially parsing some card numbers as winning numbers. Once that issue was resolved, though, the solution to Part 2 came along pretty quickly — this was an instance where writing the optimised solution was faster than writing a non-optimal one. The recurrence relation was quite fun to figure out!
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxitph/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxitph
   :body: |-
     I think this can be shorter, but I am happy enough I didn't hit nasty edge cases
 
     EDIT: too long code block removed [https://gist.github.com/riffraff/0ebd1dc883e67539fb1bf0d43180d876](https://gist.github.com/riffraff/0ebd1dc883e67539fb1bf0d43180d876)
   :replies: []
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxm0se/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxm0se
   :body: |-
     [Allez Cuisine!]
 
@@ -485,7 +485,7 @@
     ```
   :replies: []
 - :author: Annual-Management613
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxpmum/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxpmum
   :body: |-
     ```ruby
     # frozen_string_literal: true
@@ -522,11 +522,11 @@
     ```
   :replies: []
 - :author: Tourister6001PR
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrtuk/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxrtuk
   :body: https://github.com/aslam/advent-of-code/blob/main/day4/solver.rb
   :replies: []
 - :author: vinc686
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvodm/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvodm
   :body: |-
     Part 1:
 
@@ -554,7 +554,7 @@
     https://github.com/vinc/advent-of-code/tree/master/ruby/2023/04
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvtr1/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kbxvtr1
   :body: |-
     PART 1
 
@@ -607,7 +607,7 @@
     ```
   :replies: []
 - :author: aJanuary
-  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kby5u3j/
+  :url: https://www.reddit.com/r/adventofcode/comments/18actmy/2023_day_4_solutions/kby5u3j
   :body: |-
     Particularly proud of implementing part 2 with a single loop.
 

@@ -1,6 +1,6 @@
 ---
 - :author: Symbroson
-  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1g2u9/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1g2u9
   :body: |-
     It took me 4 very long hours of tryharding ways to optimize the recursion until it dawned me that all my efforts were wasted and I should maybe use caching to solve part 2.
 
@@ -13,11 +13,11 @@
     [paste](https://topaz.github.io/paste/#XQAAAQBeBQAAAAAAAAA5GUqKNoFH6SMqfBlGQHyGCNGeiQzN+nrwlZ3Ae8mLEFKGLOUItrisg/NJEqxJxWBXT4eTjntttsPpM9AXPGdGXOwMWb7IQAgdlGCPMyZp3oczzrD+4eRQ5ckatQD338LwEgnZ3JISCWt1lHeA6pE3PRIqrm1qY2GgDSpfG/gOloCZF76swcanH/i2UgmI/X9D897yfIv0ADaskQ48nFlBWKoynhFeyhKktnIU2GXBjhExEzIz2/hyeXcYcIybnj6NHlUo/a1N+j/zh7wJja8x2uCY/ZF3GjOEFyySecdKnNYWDXQZvd0X2YnuX7cJuOS5+hrdzqexWUL8Eb/HNWGasCVxShzyqal0MLdj5MdP6O0dwDyfxZdYDbYl+Pa6by/dXq1Tb+nmruh2AwxRxDimqckCsSZzr7uaTLCixXxZYLDkf9bJDDy1UG5VDsPYFxPtArMdH/4cj0xdj7xMmHfifzHgsDRbWeB70BGMAE9/kLtaFcklGJV+WKXjpS5CyjQK9eVScmwRJ4aV1zlzbi9ALNI1SDf98kJ7pFK4uPAdyHpfZ86WZKuz/K4vG6rf3PqWrqPAmNJbsvwJsxT8xDnhPeu+ba8UzmJirPW37lRLWKeKZOzi9x3LIt3dHsQ+jrJFcG34dPupjIypfUcy04Vs3zNWg+C9npHzB/XNPyJQIocxwBI2jH9JqU9kE4VSvQfcuidDYyGHQOpKZ+EjgXhmkx4u3VTtc2KimAN48E845PA99tWv80vJOfUR3eXkd6WAmp0Nc4oELiOsFKzlSeJ4J8P+zH2W)
   :replies:
   - :author: squirrelhoodie
-    :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1iqul/
+    :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1iqul
     :body: Luckily, I figured out the caching solution a bit quicker, but I let my inefficient code run for 32 minutes before I implemented the cache and found the correct solution in a runtime of... about 0.3 seconds. Insane what a difference it makes. My guess is that non-caching code would have needed at least 5 to 10 hours.
     :replies:
     - :author: Symbroson
-      :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1oe23/
+      :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd1oe23
       :body: |-
         I timed the individual input lines and let it run on 20 processes for about an hour, and it reached about line 450. the times varied from milliseconds, to couple minutes up to half an hour for a single line! (from what I monitored)
 
@@ -26,7 +26,7 @@
         I bet programmers from the networking/web field would've used caching from the start in part one
       :replies: []
 - :author: Alkyonios
-  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd3d838/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd3d838
   :body: |-
     Kind of surprised of how "quickly" I got part 1 (20-25 minutes), to a problem that seemed quite complex initially.
 
@@ -39,7 +39,7 @@
     [Solution](https://topaz.github.io/paste/#XQAAAQAWBAAAAAAAAAAFCPgHbQq4AMkIJWYxjn/lQHzoMyngt1m2nqwQAsFhnyZiivVjX2w6tjXvSZGmy/ibWueEk4o+QVkOa1UTKMY3rdRICK6J0hSL4zizJIURMjcNS0WzGAwUti6/yy57f/va8alZ5M9IC4ZYy2mxqpQF7xqqoo0va6gPKuVGZSmPnBQDZx0eVYx3qOi3SfTodmzms+aapJCYTYlnL3MOqLkTpEsUvdz2mSshrz6KBHyxDbG3cBTAk81X3uH7OBHeHGZpuf5KEX+COIVnu6reV0QMHyLkXSAa5gcgzDifiotVRlkP6lX9q1okNBxNeV2lpCbhdhCOn9amEbFH4qeGxxWGdu7YrgVRfdkn+JMJZzTCd8nBkYJXxCIjGR5c8WrMFi4SXNazNsS2JWDNphQtdzaIY32iIwCC8YfPkBs+ZOcQ2jmOdS+EC4EViB3+p3LSOhLyzKMptaDnK3Mjmq4BLCXhP54sOxUH03sIhbOiRSJbmFEtKqnf1LNYXTBBKmuaww5/3lIMvHT/yTrthg==) (@input is just an array of every line in the input)
   :replies: []
 - :author: glebm
-  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd2vepr/
+  :url: https://www.reddit.com/r/adventofcode/comments/18ge41g/2023_day_12_solutions/kd2vepr
   :body: |-
     Part 1: Brute force all possible `?` substitutions and count the valid ones.
 

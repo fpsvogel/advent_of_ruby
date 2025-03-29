@@ -1,6 +1,6 @@
 ---
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3dig7t/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3dig7t
   :body: |-
     Really overcomplicated this on my first attempt and wrote something that took 20s. Significantly refactored and this runs in about 1s which is just fine by me for AoC purposes.
 
@@ -50,18 +50,18 @@
     ```
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3c9pg4/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3c9pg4
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day22.rb)"
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a99nb/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a99nb
   :body: |-
     Busy weekend, didn't get day 21 done yet, but happy this one wasn't too bad. For part 2 I generated a hash of all sequences I encountered and stored the values found. Then I summed the matching sequences across each start number, the largest value in the end was the correct answer. Fairly slow, but not optimised at all, can deffinately make it faster. Runs in about 5 seconds for me.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/22](https://github.com/careyi3/aoc_2024/tree/master/solutions/22)
   :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a2wy5/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m3a2wy5
   :body: |-
     [git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day22/day22.rb)
 
@@ -70,7 +70,7 @@
     Part 2, I used an inner set to mark sequences I already seen for a number, and it gets processed into a frequency table, which accumulates the price, then it's a simple sort, and pick the last one. There was one mistake I made, and it was that I choose the maximal value a particular sequence is worth for a number, cuz I figure that is the best way to min max, but it turns out the monkey only picks a sequence the first time it appears.
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m38ylua/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m38ylua
   :body: |-
     (1352/1270)
 
@@ -79,7 +79,7 @@
     Completes both parts in around 43 seconds on my machine, pure brute force. With how easy today was it makes me shiver in fear for the coming two final days before day 25…
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39lq9x/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39lq9x
   :body: |-
     ```ruby
     input = File.readlines("input.txt").map(&:to_i)
@@ -118,7 +118,7 @@
     ```
   :replies: []
 - :author: birblett
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m390b32/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m390b32
   :body: |-
     ```ruby
     puts (seq = {}) && File.read("in.txt").split(/\n/).map(&:to_i).sum { |cu, h = {}, last4 = 1048575|
@@ -134,7 +134,7 @@
     just use the last 4 prices as a key to sum up the results of each individual sequence. used some funky bitwise stuff during key generation to save the overhead of passing entire arrays around as keys. runs in about ~1s on my machine (using truffleruby).
   :replies: []
 - :author: yourparadigm
-  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39a4gv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hjroap/2024_day_22_solutions/m39a4gv
   :body: |-
     [LANGUAGE: Go]
 

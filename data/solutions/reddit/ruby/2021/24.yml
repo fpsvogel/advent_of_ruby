@@ -1,6 +1,6 @@
 ---
 - :author: pedantic_git
-  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq1lrig/
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq1lrig
   :body: |-
     My first time commenting but just came here to say how much I enjoyed this puzzle. I went down loads of the rabbitholes here gradually getting more and more complex in my analysis of the code but as I started optimizing at every step (being aware that the "mod 26" at any step would always correspond to a specific digit because the offset was never greater than 15 = 26-9) it eventually became apparent that the digits are effectively paired with each other and the algorithm could be reduced to just:
 
@@ -23,19 +23,19 @@
     ```
   :replies:
   - :author: Fjodleik
-    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq4lwp5/
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hq4lwp5
     :body: I also enjoyed this one a lot, but I can understand some people did not like having to “solve for the input”. Once you notice the pairing, though, it becomes so simple. I kind of brute forced the search for section pairs by trying all input values with all subsequent pairs. The ones that left z at zero I removed and repeated until there were no sections left.
     :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsvnvp/
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsvnvp
   :body: Ruby, 2504/2383. I took a 5-hour break after the leaderboard capped. Converting assembly code into Excel helps me to understand the code more easily. [Here’s the writeup.](https://notes.dt.in.th/20211224T121217Z7595)
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hptf9hd/
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hptf9hd
     :body: THANK YOU, this really helped me when I was stuck!
     :replies: []
 - :author: '0x623'
-  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps8zzq/
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps8zzq
   :body: |-
     [Spreadsheet](https://p.sda1.dev/3/8ec8161a31bce96c098e0bb848979b85/image.png) 437/524 (w/ Ruby to convert input into cells)
 
@@ -44,7 +44,7 @@
     the goal is to feed register `w` with int value `1..9` to make the stack empty at the end.
   :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps5dit/
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hps5dit
   :body: |-
     Ruby / Solving by hand
 
@@ -73,11 +73,11 @@
     [Paste](https://topaz.github.io/paste/#XQAAAQBnAwAAAAAAAAA0m4rOIJ/Vs98O8bk0HwBwC8CGP7GAHnowSbHmnjBGuFEw3moG4b3uTDNNGuQ8NldxbVfto+7W2Tao22AB/fFKHY802kKbeuLgR4F1jN47PXuJnmKNsr6+N3K+5zgaNC/uYi/VpcJKZRlJcnbMFk4/K8bSezUy/cVzgulNb6XlVq/pcNkdXi0Ejgo3FWsYIIfL6LCJ4fUYPJl5oSAy4PvBRwh6UJw0LjCtmQuBJBCipjQEHG97ZKPNUvDwFseUXxcG9zg2dvOHvq/BAoaiXKgFdEdB+tw1wm7vVVQQaA6LdjKGJllEUImFP/3FUGoHXnp6pvlwQdcChDQj5mG5chZdHE7p37hjsjdnEv3z5YvdDv1ErANPDYzQlusG1hwzSvsQjZOFMwohpSOvtpbzIGR8z4AeXLfLs/xqn4cjc40pEVpnVfSoS5ugdWvqeW+mVtj9QsD1VR9q1FGIUWHaa1oKI69EmoiMhi3w6wfHaeXBFXg/GX5jvTUAo0mE22nxl63aYTJZn3+Swf+POpGg) of my code - but I only used this to verify an answer I derived with pen and paper.
   :replies:
   - :author: TheZigerionScammer
-    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsg1kv/
+    :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsg1kv
     :body: I'm surprised you had a relation where two digits were equal to each other. All of mine were offset by a number. K = N + 6 or K = N-3 for example.
     :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsnckl/
+  :url: https://www.reddit.com/r/adventofcode/comments/rnejv5/2021_day_24_solutions/hpsnckl
   :body: |-
     [Ruby](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/24/monad.rb) (1566/1482)
 

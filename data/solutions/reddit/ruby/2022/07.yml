@@ -1,6 +1,6 @@
 ---
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izpf1ub/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izpf1ub
   :body: |-
     Ruby
 
@@ -9,7 +9,7 @@
     OMG, I thought this was going to be easy. I guess it wasn't _that_ hard in idea, but I was going down the wrong path implementing.
   :replies: []
 - :author: kevinluo201
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izek30g/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izek30g
   :body: |-
     ## Ruby version
 
@@ -46,7 +46,7 @@
     ```
   :replies: []
 - :author: tobyaw
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz95oxy/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz95oxy
   :body: |-
     Ruby
 
@@ -74,23 +74,23 @@
     ```
   :replies:
   - :author: OwnAttention3370
-    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9lik9/
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9lik9
     :body: 'Nice implementation. Was wondering about the in operator inside the case statement, I''ve recently started to learn Ruby and haven''t seen it used? I take from the code that is a type of #include? operation on "line"?'
     :replies:
     - :author: tobyaw
-      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9mpql/
+      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9mpql
       :body: Pattern matching is a new feature that appeared in recent versions of Ruby. It can match both structure and content of data. A nice explanation is at https://www.bootrails.com/blog/ruby-pattern-matching/
       :replies:
       - :author: OwnAttention3370
-        :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iza2ch6/
+        :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iza2ch6
         :body: Thank you very much!
         :replies: []
   - :author: antoniotto
-    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izacxi9/
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izacxi9
     :body: Thank you, with your solution you finally introduced me this really awesome feature of pattern matching. Is the first time I can understand it.
     :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8pk82/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8pk82
   :body: |-
     # Bash
 
@@ -103,7 +103,7 @@
     (edit: moved code to topaz/paste url)
   :replies: []
 - :author: philtr
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izad6e2/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izad6e2
   :body: |-
     **Golf in Ruby** (207 Bytes) ([GitHub](https://github.com/philtr/advent/blob/9e577ee74f97cd80032e4ac6bdf7aeef96e99702/2022/07/golf.rb))
 
@@ -114,7 +114,7 @@
     ```
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc45xv/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc45xv
   :body: |-
     Ruby
 
@@ -158,7 +158,7 @@
     ```
   :replies:
   - :author: Steinrikur
-    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcb2af/
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcb2af
     :body: |-
       Dude...
 
@@ -167,11 +167,11 @@
       https://www.reddit.com/r/adventofcode/comments/zesk40/comment/izc8p6y/?utm_source=reddit&utm_medium=web2x&context=3
     :replies:
     - :author: ignurant
-      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcg6dr/
+      :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcg6dr
       :body: Haha. My eyes bulged a bit when my mind transitioned from "I did the same as you, but put the guts all in the same!" to "Okay! We're looking at a bash script! And it ain't an easy one!" haha. I was able to figure it out though with your comment about the same strategy!
       :replies: []
 - :author: marshalofthemark
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8hrxf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8hrxf
   :body: |-
     **Ruby**
 
@@ -227,15 +227,15 @@
     ```
   :replies: []
 - :author: shakdnkashmsna
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i7sj/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i7sj
   :body: "My solution in [ruby](https://github.com/TessHuelskamp/advent-of-code/commit/2247fd35f99b2143df0bad7cab3d242b77b4ded8)\n\nDespite my commit message, \U0001F605, I’m happy with how this turned out and that I was able to build a fake filesystem in under an hour.\n\nThe global variables were sus \U0001F937\U0001F3FC‍♀️ but I was a fan of being able to get the “current directory” with `file_system.dig(*path)`"
   :replies:
   - :author: epic_gamer_4268
-    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i8d8/
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8i8d8
     :body: when the imposter is sus!
     :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaqirb/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaqirb
   :body: |-
     **Ruby**
 
@@ -244,7 +244,7 @@
     [Pastie](https://topaz.github.io/paste/#XQAAAQAnBwAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8KxVUKFt2uqWUgrHtviwBEUiCS7kbflCMR6/T17AvBTiCX+UyuSRq93hpk42lxPpKAQsU2IlR4Is3M2E5ontnL76Utv1Ik7F0giELf22oX9AuC+wxokodO6K7a2YF9Zs9r57IQI2TBqOOdSTL6wWNXuV7lpG9pb7I46eBCxDvMcsQzHUT/3v2ccF6alCW27qJkiohN06K39mwEizGG1NNsP/yqlWU88spK4URNAGjfxUu/JZZ+YhTM24Vaal0p87p4jQL3gzErnUtl3I/2E/pUKiZoGyF90zscMe4Acdl2ZZr0lZw7ETrJLxsxutXGMiPeRpgZkThky2i5l4K0Nh2Ow9ogALnRz9u/AFaxJplYzzes0V7lY3PgJdLvKiF0d5pGuyB/o8xDla6ZSUXTuSx0Dgf61K4xJigrWIgNpzISntREtpOTh6GYtSbYgy0rV1Zi4I4SyFBWY0f4Do6Y4lX4W129W6lhPCkbLhE49KDXNSFsfFn6jbXci66RZfgpTjtpjh6UvWlyCT1KDLLTxWZJebRxMcxKnuLfRkXwH4EDzCujhqqlr/LIc33iWsGGYZ/uMIUAOtOfEKUaYP6SSlLh/MQDuqfou1lJpIFIuqT8GCXGI2CcXbOd4pHsaGGBsBxRLuLhCd8MLUbthxVj5ic0UCpwIKPTvdm4Eq7q5qzADaUjCrV7umOzQJKaO0du3/DRakBFs6UxXo6ImOCL5aaFZK3rn8M/xR7GkRXnFt9Krm3T0oAY62YM3P/K2VqFtqIgKUTSL9eNDUZUOVrLxk6IVtOCYd+VA+/j7YTln/jaw43Otx2e2fMrsxlhKuJeblwQ2v8fIJpRX4pPzLorQdKJO24tuS6JCyXOWV4II6alwZ6nN12kuoXZef3h/kBcyl/ju3bFGeabshXr5wHxeOalxFxA8/EPjVPeaUJzyIb/4o/BYKS1E4vtYv/ghNdGRAYE//ZdedGkNekAbgnPmP9E705Vag7F+LTCNY5f/4IL/Fo=)
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc4dcx/
+    :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izc4dcx
     :body: |-
       I had the same idea of pattern matching on this one! `.split` was just the right move.
 
@@ -264,14 +264,14 @@
       ```
     :replies: []
 - :author: Psilolouben
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaui2g/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izaui2g
   :body: |-
     Handling the paths via strings, not a very elegant but it works
 
     [Ruby](https://github.com/Psilolouben/advent_of_code_2022/blob/master/Day7/aoc7_1.rb)
   :replies: []
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcbkj5/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izcbkj5
   :body: |-
     Ruby solution.
 
@@ -280,7 +280,7 @@
     [Source](https://github.com/SolarBear/AdventOfCode2022/blob/main/day7.rb)
   :replies: []
 - :author: rsthau
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8d5r3/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8d5r3
   :body: |-
     Ruby. 188/197.
 
@@ -323,7 +323,7 @@
     ```
   :replies: []
 - :author: MuumiJumala
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8h2ru/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8h2ru
   :body: |-
     **Ruby** , pattern matching works wonders on this problem:
 
@@ -363,14 +363,14 @@
     ```
   :replies: []
 - :author: mathem17
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8kqd1/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz8kqd1
   :body: |-
     [Ruby 4028/3734](https://github.com/jzhang113/adventofcode/blob/9f57d71a62baf450abd249eb128087851c1d7d17/2022/solutions/07.rb)
 
     Cleaned up the logic significantly by making the file system an Enumerable, so that we can filter across nodes to collect the ones we want.
   :replies: []
 - :author: OlivarTheLagomorph
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz91blt/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz91blt
   :body: |-
     **Ruby**
 
@@ -379,7 +379,7 @@
     Had to get creative with structs and actually build an entire tree of "Directory" and "File" objects. The logic makes total sense to me, but I'm getting a harder time to understand the questions.
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9uoaf/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/iz9uoaf
   :body: |-
     Ruby
 
@@ -388,7 +388,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/nVGMu44W0XM)
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izbbnqa/
+  :url: https://www.reddit.com/r/adventofcode/comments/zesk40/2022_day_7_solutions/izbbnqa
   :body: |-
     **Ruby**
 

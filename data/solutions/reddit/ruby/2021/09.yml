@@ -1,10 +1,10 @@
 ---
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/ho9vhch/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/ho9vhch
   :body: My solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/browse/day09/kiril/solve.rb)
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntirld/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntirld
   :body: |-
     **Ruby** : 4:44/10:20, 248/94!
 
@@ -19,7 +19,7 @@
     Part 2 was fun. Good, quick, easy to understand solution, and I was able to debug pretty quickly. I treated points outside of the cave as having a height of 10 and that worked well!
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnu6cc0/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnu6cc0
   :body: |-
     Ruby
 
@@ -32,7 +32,7 @@
     `Range (min … max): 396.0 ms … 579.9 ms 10 runs`
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnwljmj/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnwljmj
   :body: |-
     **Ruby** Pt 2:
 
@@ -136,7 +136,7 @@
     ```
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntgbwa/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntgbwa
   :body: |-
     Ruby, 67 / 55
 
@@ -145,14 +145,14 @@
     I was in a hurry and wasn’t able to think of `h.times.to_a.product(w.times.to_a)` so I just write two-level for loops `(0...h).each do |i| (0...w).each j |i| …; end end`. GitHub Copilot helped a lot in preventing silly mistakes (I usually use the wrong variables when writing for loops).
   :replies: []
 - :author: firetech_SE
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntiico/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntiico
   :body: |-
     [Ruby 906/854](https://github.com/firetech/advent-of-code/blob/%F0%9F%8E%84/2021/09/basins.rb)
 
     I felt I was unusually slow today, but still ended up in top 1000 for both parts (only second time that has happened this year). I guess having implemented BFS umpteen times (not complaining, I like BFS) for all the previous years has made me well prepared. :D
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntkb9y/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntkb9y
   :body: |-
     ### Ruby
 
@@ -218,11 +218,11 @@
     ```
   :replies:
   - :author: scarfaceDeb
-    :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntoxi6/
+    :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntoxi6
     :body: Interesting.. you did it without using any recursion
     :replies: []
 - :author: scarfaceDeb
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnto9ze/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnto9ze
   :body: |-
     **Ruby**
 
@@ -269,7 +269,7 @@
     https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day9/run.rb#L11-L51
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntpfx8/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hntpfx8
   :body: |-
     Ruby 1178/7093
 
@@ -278,7 +278,7 @@
     [paste](https://topaz.github.io/paste/#XQAAAQCEAwAAAAAAAAA5GUqKNoFH6SMqoVC09YUYkw2S+mIMHB1CSWV0VTWnX51e2y38yPqPFYGVMviZ8FB5y/cUcsDLuOHhkKbbmFYqG9sheuX5AEAeDEPRiP+Nw37hH8iTmGu5oHBy41LsFOIs+tUoQBongxBHkrf8yx5NtMifXoJotBBCd49DRK8jPUyZSriOjwAEWapdv/aLvzjCn4M1CDQKnzUBAVp138+jc3ruOfGlrPNYgWFzac/8RWzP30ilKn+FFIYamX/hgZvIn9IYRuXwhrVgxzjYMXaAkKSl/Lg8ST3V0UesQYF8crHoOhvToAVXR1mxfsrJVEw1GZxiQDpcmpX2qwy5q/A0aLyopQBc+WmhiVSPOPrI9OjpkzETcdPH03Dffq35kr2VxpjxxTmC7JfVTHZXunkTfDt5dlPtfqJG1tGXoRW/RYJoCpmUQrIUx+UkWl4wgr2pvG/gHq1DeWJcuKBl4BILH4eIpc9kZ5/9+hvz1mJk76TT33kx/lwdW0/c+ajTuOfZ8lBI58MDQaTtfsHwnOClghazEe+AaHwqRW3/UZJ8RXUlSF9OKEFNS6AVPMoQJ5yZERcUy166GDeuUEDpWtuxByxFKuglawdbIIOu1bbiurkSOBbXLJM4DSDIbqf5OVdC3MX/9pM9mg==)
   :replies: []
 - :author: weiss_i_net
-  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnuj3ye/
+  :url: https://www.reddit.com/r/adventofcode/comments/rca6vp/2021_day_9_solutions/hnuj3ye
   :body: |-
     **Ruby**
 

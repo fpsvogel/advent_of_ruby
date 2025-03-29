@@ -1,10 +1,10 @@
 ---
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqarsn/
+  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqarsn
   :body: "Ruby; 35/33; tfw it was easy but I'm slow\n\n```ruby\ns=:A\na=Hash.new{|x,y|x[y]=0}\nu=0\n12523873.times{v=a[u]\ns=case s\nwhen :A\nv==0 ? (a[u]=1;u+=1;:B) : (a[u]=1;u-=1;:E)\nwhen :B\nv==0 ? (a[u]=1;u+=1;:C) : (a[u]=1;u+=1;:F)\nwhen :C\nv==0 ? (a[u]=1;u-=1;:D) : (a[u]=0;u+=1;:B)\nwhen :D\nv==0 ? (a[u]=1;u+=1;:E) : (a[u]=0;u-=1;:C)\nwhen :E\nv==0 ? (a[u]=1;u-=1;:A) : (a[u]=0;u+=1;:D)\nwhen :F\nv==0 ? (a[u]=1;u+=1;:A) : (a[u]=1;u+=1;:C)\nend\n}\np a.values.sum\n```\n\n✨\U0001F623 Merry christmas! \U0001F384"
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqot7y/
+  :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/drqot7y
   :body: |-
     # Ruby, gsub and eval
 
@@ -89,7 +89,7 @@
     ```
   :replies:
   - :author: twinkiac
-    :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/dwz296p/
+    :url: https://www.reddit.com/r/adventofcode/comments/7lzo3l/2017_day_25_solutions/dwz296p
     :body: |-
       [@tape's latest tweet](https://i.imgur.com/1tB4iOu.jpg)
 

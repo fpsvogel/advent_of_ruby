@@ -1,5 +1,5 @@
 ---
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/5hoia9/2016_day_11_solutions/db21n90/
+  :url: https://www.reddit.com/r/adventofcode/comments/5hoia9/2016_day_11_solutions/db21n90
   :body: Ruby, BFS with pruning same states by sorting chips/gens per floor. Runs for 43ms for the first star, 20 min for the second (phew, wondered if it'd ever come back :) https://gist.github.com/eregon/28ee8504d4bb5b225fcafdb9872b884a
   :replies: []

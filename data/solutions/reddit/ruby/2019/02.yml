@@ -1,6 +1,6 @@
 ---
 - :author: pwhyz
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ia8ek/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ia8ek
   :body: |-
     # Ruby Golfed
 
@@ -21,14 +21,14 @@
     Full code at [paste](https://topaz.github.io/paste/#XQAAAQBrAgAAAAAAAAAyGUj/Tve38MzRtZbm3r89bULIsmWYplfgMPs86+76gdev4zrFsCgRGPloppeyn2vkDgnVs1tL4aCNpxNV+Ek2X7ciU/gt7UN550xVUvCcR4Qkv7PIzvyJEYPreWCavBQkbQyvKIgs77AtEnIYz9fCdBzwU1juv6ExDoe/y+Vmeba3UmCzVjjLn9vplrjNswDNH2MdTVu4YfsvT0qZ4PaDlFiyX7LfonVUKXWjpx92l2SeG8fJi+vJTARXv8CDKClDHPuduRsPXSfkW9UV69SZp8tyRHgDVl4zPHiP3REFUeSqGYBiF74yyXpLcoEgwe1GMA+D+90LpkWV1bVFLKLiCGpvz1akP4rt7nB9TrmdJloD/l5ea1d96X8sEIZ3oZ3mPmU7/185jgA=)
   :replies: []
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9i4v23/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9i4v23
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_02
   :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fd7tb/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fd7tb
   :body: |-
     ​ ​ ​ ​​ ​ ​ ​​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ ​ Code
 
@@ -90,21 +90,21 @@
     [It looked better in monospace](https://i.imgur.com/zcjuPI2.png). Also I want to tackle every poem type: Day 1 has been haiku, day 2 is shaped poems, will there really be enough types of poems for me to write?!
   :replies:
   - :author: tslater2006
-    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fe4pf/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fe4pf
     :body: |-
       Here's a few different types, should be able to find enough I think?
 
       [Types of poems](https://www.writersdigest.com/whats-new/list-of-50-poetic-forms-for-poets)
     :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h25cv/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h25cv
   :body: |-
     Ruby 2.7.0-dev (hehe)
 
     https://github.com/ni3t/advent-2019/blob/master/2_1202_program\_alarm.rb
   :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9f9uu3/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9f9uu3
   :body: |-
     Ruby, #55/#150
 
@@ -145,7 +145,7 @@
     ```
   :replies:
   - :author: BluFoot
-    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fc1f6/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fc1f6
     :body: |-
       Golfed it up /u/Unihedron
 
@@ -157,7 +157,7 @@
       ```
     :replies:
     - :author: Unihedron
-      :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fcq9j/
+      :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9fcq9j
       :body: |-
         `$<.read.split(?,)` -\> `$/=?,;$<`
 
@@ -168,11 +168,11 @@
         the huge line I don't want to check for now lol. Still working on my poem
       :replies:
       - :author: BluFoot
-        :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9gb3xt/
+        :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9gb3xt
         :body: I thank you for your teachings, that first one is ridiculous
         :replies:
         - :author: Unihedron
-          :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9irna3/
+          :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9irna3
           :body: |-
             Some more:
 
@@ -183,7 +183,7 @@
             BTW, $/=?, helps in this case only because , is not a number. if the seperator is 0, i.e. the input is 10203 and we want 1 2 3, the input "lines" are respectively 10 20 3 which to_i's into 10 20 3. to_i is smart about non-numericals however, and 1, 2, 3 is neatly squeezed into 1 2 3
           :replies:
           - :author: BluFoot
-            :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ixten/
+            :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9ixten
             :body: |-
               Wow, the splat operator to make it an array is next level. I'll do anything for 1 char in golf! ANYTHING!
 
@@ -198,7 +198,7 @@
               ```
             :replies: []
   - :author: UnconstrainedRibhus
-    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9flov9/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9flov9
     :body: |-
       Ah, I like the assignment of `a, b, c, d`
 
@@ -238,7 +238,7 @@
       ```
     :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h0hpu/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4u0rw/2019_day_2_solutions/f9h0hpu
   :body: |-
     **Ruby**
 

@@ -1,6 +1,6 @@
 ---
 - :author: eggselent_folk
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32h60h/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32h60h
   :body: |-
     Part 1
 
@@ -16,7 +16,7 @@
     I tried a similar approach to Part 1, but it was really slow. Then I realized there’s no need to keep running Dijkstra since there’s only one path. Instead, we can just use the path we already have: the savings come from how many grid cells along the path we can skip minus how many we pass by 'cheating' through the wall.
   :replies: []
 - :author: JAntaresN
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32dmpd/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m32dmpd
   :body: |-
     [Day 20 git link](https://github.com/jw-rx-93/advent-of-code-2024/blob/main/day20/day20.rb)
 
@@ -27,14 +27,14 @@
     Edit: implemented manhattan distance instead. Learned something today.
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m31r0rz/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m31r0rz
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQBSBQAAAAAAAAA5GUqKNoFH9WVqAtfQAlEIpeJL/pI3jz8l8zNIKbgBcDs8fKlEL/CNiVvHcK3eo2f1wG2uFy9c4gJqYPLUFmRQObk0r1ctDG23Tm34gRt6y0eQyY1K3b+i262JFsBcUTwua3DLm6KSkqYEXQeJcnMzX2GiPxLyHJWGSpd1fxuDnJy73MlIlL5A6O9r7sUJc74tEcDpuOSFvnIDUAJroBJOl4///H6DVYUL4ZAWQeDifCTkpGd48wf1XWh8OaloKZi3EBui3TYbf2XczZyUTJ0gCrwy+Vh0acUQfuSoTFGJySKo455BdcpopJKl1y3juBmP7oTORtH9I+4Yc9FW6x16Zu2xxSRUQlgzbf1x9qA59hab7ZSSFhgnpgKR6yEueMsduCcaTE1MrEBvThUWafam677wcu+jaQ0J84QspD7caKAlferv+Cj6YKtb/tS78hON9X62Q3+NBEhKbWgkmSs1PcSSmSWgs42iMkoOr9LXiNfqHCdow+xffrKvSWd3WUHN5tOBn2/PX1R+2MMcMD4wUHU+1P6f5hal6aCciijFQ0qntvI31170SCUg5hBWTqE6dsM1/zVWkIBB/gbB70aKBu3Qy2Agvif5WFB9bkR0kjjnpR6QbiR4KCh90LFncnJON33o5rLoSRAJoAX7OxByKGSgzusOC1JU9xhRYzPFiLQHTI4k/ZRdX6QWrS/VNyt489cJmMbQ6EZXS2aSNxDtXZ0Pm1aQYcpSQwVxg9KYOECireQAH48ATQOjXOAcdn2yBJMFPtw0yGLODKhKxBj/RCss1ZFRDrLxOdeuQTyEAlkxA3LEvUBMmyXOIiv09YUM/5OhmCMOYedljBc2+9RK4+e/rLITQNz/vHkIsQ==)
 
     I really don't think today's problem description was very good. Part 1 was clear but I just didn't read carefully. Part 2 sure felt a bit underspecified
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2yun6p/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2yun6p
   :body: |-
     ```ruby
     start, target, map = nil, nil, Set.new
@@ -74,7 +74,7 @@
     ```
   :replies: []
 - :author: globalreset
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2ycfqu/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2ycfqu
   :body: |-
     Advent of the Grid! Quick bfs to get the shortest path. It wasn't immediately obvious to me that there was only one path through, so I wasted time trying to tweak my bfs at first. My find\_path function returns a hash of all the points on the grid and their step counts. For part 1, I went to every point and checked if 1 or 2 steps in any direction would let me short circuit the path. For part 2, this was slow, but worked just changing it to 20 steps in any direction. I cut part 2 down from 7 seconds to 4 by instead testing every point in the grid with every later point to see if it was less than the cheat distance away from the first point. This technique slowed down part 1 quite a bit. I'm curious if anyone found faster solutions.
 
@@ -94,18 +94,18 @@
     [github - solution](https://github.com/globalreset/advent_of_code/blob/main/challenges/2024/20/solution.rb)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zkao9/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zkao9
   :body: |-
     Not too bad today, I was surprised that my lazy solution for part 2 worked in a reasonable time. I made a mistake at the start and assumed that there was a third move needed to get you back onto the track and was overcomplicating it, but turned out not to be an issue anyway. Solution is to run dijkstra, then with the known set of visited paths, for each one, see if it is N steps away (through walls) from another visited point on the path who's distance from the start is longer. For part 1 N = 2, for part 2, N = 20. I use a dump 40x40 grid in the second part centered on the point of interst and then calculate all the points that have a manhatten distance of 20 or less as candidates.
 
     [https://github.com/careyi3/aoc\_2024/tree/master/solutions/20](https://github.com/careyi3/aoc_2024/tree/master/solutions/20)
   :replies: []
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zvmsc/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2zvmsc
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day20.rb)"
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2z9o0z/
+  :url: https://www.reddit.com/r/adventofcode/comments/1hicdtb/2024_day_20_solutions/m2z9o0z
   :body: |-
     For part1 the brute force solution (doing a BFS for every possible cheat pair from the start and the end) correctly finished before I wrote the faster solution for both parts. But it was clear that part2 would take ages.
 

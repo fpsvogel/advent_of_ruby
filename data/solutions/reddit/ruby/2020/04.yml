@@ -1,13 +1,13 @@
 ---
 - :author: nibbl
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gitttl7/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gitttl7
   :body: |-
     **Nim**
 
     [NoPaste snippet](https://nopaste.ml/?l=ruby#XQAAAQCZBAAAAAAAAAAzHIoib6qv/FV7Zr1CCFnA3F5kN8XW/PRzW/6iKAB8+gNtESkcKVq4oT5mMXxrSfKJM0h0k1A0K+ECNtDvbjlukQf/qavQNcFATWDPr0+o1Y93GSZEQ4GeFUj8M6cFu9d5YGrmWFF5gcfNOLlFudy5LeBSq51BeMvh0vpqlvB3Q9bo/aTttYwfkc13+d5ihFVf6lby7UErc0whv0ipqEovXg5KeA28ytLkdVIaMTqSXHP6FXLr3kcHFuLo/U6INO6JVbC+P5T5i/4ZHeWj/AqwQYNS4d6hGojGhFPnQcEAhWg9vbhEb7ZPHHPucUHKqyZykjr3FuCvTjRKQq/GBX0VXId9aPj8z8xz+DrVh8Op7HDgeF2/CDL/d1udbJgllaZ3HQin0ODEohWKWLEFCO2cjP6n1cE020ToYluUt1lq9CdR08KULkXIPFPC7NsH0GcB1r8gUdjYrtie5yiQjJh8PTYOQG7eUSdRYy38jCcPZhFB569TdKiTwNc6IliP6NoFr6H17rGib04ieQCpV6/HDA0QkLBCinchJfPi24Gp85tN5UaAG7q57TCrhjXqPSEnOu729XWZE8coAXSA7fHK1j3SspSoL7yVG1eMtp0DFCdawrdQ0fukuTi45GsMXHrJGABCWeQAwNahtV6ziivUZko1Uq5mgfZroq+m8B9ysgw2EudLxP4l10e75DENO8Kh12xJAf57+xeiSg==)
   :replies: []
 - :author: Wattswing
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/ghlql73/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/ghlql73
   :body: |-
     Ruby [code](https://topaz.github.io/paste/#XQAAAQBhBgAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdGwl8V/4u3Ir2Ib+in6tp5plipJucjjc1Wk5RAef+7DejTvUFMX3TaZWt8JygEErYcm1k6rFOFsu7jrj56CTbPhzVdY1zUx6dpoV1ha2YERKvcalPzM0/PFw1+2isxhgG8dcxCJVKSmWI2tVNrgERts+sUnaZTM1lWfpE7H7BN/Dl3QVMWrW0PkQyMonuEgjZhqm5i82usQ7afH8QBWF3OMi1DGKl3ke/R4ENZFyhONaHPbK2ck0lX+6ST8uc40BbSV5sjFs3COZaZ9vjncma1fZ68AM8HSfjrJMy3ZGWNgHrpCSSmX5U61MoNJTKK2zecn2odk+vXw7HNVXkfyUdE2I9emWnHgXvgV2dwLvrSMMyiXvUAIgRoVVM/MQIBb5hMILV43IOKGVgsQeRM1ESP7USQ6o+afO52g8Ly524riw7lXRgKc8et4WfR4J/rjI2IT9CMzLyZ30GM23JlL0abEyzWgnx09Bc8C5pt1H5p+IMWE42e5SFcy+opi+I8ScYqAgP0yKEfdefl95Oq8qMuvc4UfB/V7F0hAjyO4axFZkMU1Q0aThVB85ADx4VKFCKC7FvdjMJB6uwo8q/J6d3UHWkZFSEu9wIiSPDzU8yaPx0uXolzJ2gVu/wQSeG209gy7tg2HF9jijqu2sSjh7KXaOYQ+3tBId6GLgIMpwJSuLUQdw6ZgP6r0Nmvvq5KTjHuWW44A2suZDTt1kGCtMPlh5CqhPfpWej7BulRxIUuLYfAv/T2plv8rpAuPQqvTKnN5m4N1csWq4oVGfcv62bhUOf/9ogGow==)
 
@@ -72,7 +72,7 @@
     As I struggled with this, valid passports yielded 22 results, but it wasn't correct. By skipping leading zeroes check, I finally got the right answer.
   :replies: []
 - :author: nrith
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gg06u7u/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gg06u7u
   :body: |-
     Ruby, part 1:
 
@@ -95,7 +95,7 @@
     ```
   :replies: []
 - :author: blafunke
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geprjcb/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geprjcb
   :body: |-
     Everything looks like yaml to me.
 
@@ -157,7 +157,7 @@
     ```
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geok056/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geok056
   :body: |-
     **Ruby**
 
@@ -204,7 +204,7 @@
     ```
   :replies: []
 - :author: ndnenkov
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekxq2j/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekxq2j
   :body: |-
     > **Regex** is like violence - if it doesn't solve your problems you aren't using enough of it.
 
@@ -213,7 +213,7 @@
     (Ruby regex one-liner)
   :replies: []
 - :author: zB0hs
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gempzqj/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gempzqj
   :body: |-
     Here's a pointless one-liner in Ruby for Part 2 that relies on a single regex to validate a passport:
 
@@ -222,7 +222,7 @@
     ```
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel4pb2/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel4pb2
   :body: |-
     **Ruby** This is the first day I would have been on the leaderboard if I actually did challenges when they launch :-) Ruby made light work of part 2 of this challenge, so my stopwatch showed 9m28s!
 
@@ -248,19 +248,19 @@
     ```
   :replies:
   - :author: odlp
-    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelkuzo/
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelkuzo
     :body: The `scan` + `to_h` combo is great. I have shamelessly ~~borrowed~~ stolen this and updated my solution.
     :replies:
     - :author: petercooper
-      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelpshe/
+      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelpshe
       :body: Fill your boots, as we say here! :) I have learnt so much from reading other people's code as well.
       :replies: []
   - :author: jeffers0n
-    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelo8q8/
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gelo8q8
     :body: Thanks for posting this. I've been doing mine in Ruby to learn it better and reading your solution makes me realize I need to learn Ruby's built in functions more.
     :replies: []
 - :author: zxywx
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem4wnm/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem4wnm
   :body: |-
     # Single Regex Solutions
 
@@ -283,7 +283,7 @@
     ```
   :replies: []
 - :author: eregontp
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genfsgu/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genfsgu
   :body: |-
     Ruby, part 2
 
@@ -315,7 +315,7 @@
     ```
   :replies:
   - :author: sorghum
-    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genhhy1/
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genhhy1
     :body: |-
       Cool, I ended up with almost the same thing after refactoring:
 
@@ -342,7 +342,7 @@
       ```
     :replies: []
   - :author: Karl_Marxxx
-    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genjztv/
+    :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genjztv
     :body: |-
       > value = data[name.to\_s] and predicate === value
 
@@ -351,15 +351,15 @@
       Edit: I get that some strings can be compared ('===') to the bare regexes, but how does that work for the other stuff that appears to be returning a boolean?
     :replies:
     - :author: sorghum
-      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genmy3k/
+      :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genmy3k
       :body: 'The triple equals is known as the case equality operator. Here the === method is being called on the regex/proc. The === method is also called whenever an object is used in a case/when statement. Good intro here: https://blog.arkency.com/the-equals-equals-equals-case-equality-operator-in-ruby/'
       :replies:
       - :author: Karl_Marxxx
-        :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genrlrz/
+        :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genrlrz
         :body: Ah cool thank you!
         :replies: []
 - :author: Karl_Marxxx
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genia6n/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/genia6n
   :body: |-
     Ruby
 
@@ -395,7 +395,7 @@
     ```
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel9vm3/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gel9vm3
   :body: |-
     My [Ruby solution](https://github.com/odlp/advent-of-code-2020/blob/main/day-4/passports.rb):
 
@@ -438,7 +438,7 @@
     ```
   :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem3ljg/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gem3ljg
   :body: |-
     This was a good use case for Ruby's ActiveModel
 
@@ -519,7 +519,7 @@
     ```
   :replies: []
 - :author: ttapu
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gen4bgb/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gen4bgb
   :body: |-
     my ruby solution, but i still hate regex...
 
@@ -569,7 +569,7 @@
     ```
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekf68w/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekf68w
   :body: |-
     47/34. This one was made for Ruby. Some slight cleanup here. Main bug I encountered was foolishly leaving the # off the front of one regex.
 
@@ -612,7 +612,7 @@
     ```
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekfhq8/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekfhq8
   :body: |-
     Ruby - 169/133
 
@@ -643,7 +643,7 @@
     ```
   :replies: []
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekm3hn/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gekm3hn
   :body: |-
     # Ruby
 
@@ -679,7 +679,7 @@
     ```
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geksy9s/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/geksy9s
   :body: |-
     Solution in Ruby. Part a is clean enough, but part 2 became quite ugly.
 
@@ -726,7 +726,7 @@
     ```
   :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gektlnt/
+  :url: https://www.reddit.com/r/adventofcode/comments/k6e8sw/2020_day_04_solutions/gektlnt
   :body: |-
     **Ruby:** (4:23/16:48, 170/244)
 

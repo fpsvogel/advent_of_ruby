@@ -1,6 +1,6 @@
 ---
 - :author: kateba72
-  :url: https://www.reddit.com/r/adventofcode/comments/18qbsxs/2023_day_25_solutions/keucgrf/
+  :url: https://www.reddit.com/r/adventofcode/comments/18qbsxs/2023_day_25_solutions/keucgrf
   :body: |-
     I had a blast today. This summer, I had a lecture on flow algorithms, which included an algorithm for finding a minimum cut. So, I took this opportunity to revise my knowledge and implement a flow algorithm for the first time.
 

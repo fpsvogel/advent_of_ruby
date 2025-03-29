@@ -1,21 +1,21 @@
 ---
 - :author: Stronbold
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0gyoci/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0gyoci
   :body: "[Solution](https://github.com/Alvaro-Kothe/Advent-of-Code/blob/main/2024/day02.rb)"
   :replies: []
 - :author: HAEC_EST_SPARTA
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0c085b/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m0c085b
   :body: |-
     [Solution on sourcehut](https://git.sr.ht/%7Eawsmith/advent-of-code/tree/2024-ruby/item/lib/day02.rb)
 
     Not much to report (_ba-dum tsss_) for this one: I used a basic regex for parsing and was able to use the same safety evaluation function for Part 1 and (a painfully brute-force) Part 2. I was able to express the strictly increasing/decreasing criterion mostly within a single line, which is somewhat satisfying; additionally, I added a new function, `Integer#signum`, to my extensions library since these types of classifications have been common in years past.
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m06h0vq/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m06h0vq
   :body: "[https://github.com/careyi3/aoc\\_2024/tree/master/solutions/2](https://github.com/careyi3/aoc_2024/tree/master/solutions/2)"
   :replies: []
 - :author: riffraff
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzx7xs/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzx7xs
   :body: |-
     I'm just going to say, this is the first version of my solution for part 1, I could not think of a valid way to say "this is not inc or dec" beyond rand(). I'm lucky it worked :D
 
@@ -38,18 +38,18 @@
     I know pt 2 can be done in linear time but I'm too sleepy and just went with brute force https://gist.github.com/riffraff/415f78c833ac6257951c7e013e93a706
   :replies: []
 - :author: adherry
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00r8jc/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00r8jc
   :body: |-
     [https://github.com/adherry/AOC2024/blob/main/aoc2.rb](https://github.com/adherry/AOC2024/blob/main/aoc2.rb)
 
     Was pondering quite a bit about the second part until i checked the array functions and found `array.combine` that when called as `array.combine(array.length -1)` will give me all variations of an array with a single element removed.
   :replies:
   - :author: '442401'
-    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m09z9lg/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m09z9lg
     :body: Nice find.
     :replies: []
 - :author: The_Jare
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02he32/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02he32
   :body: |-
     ```ruby
     nums = ARGF.each.map { | l | l.split.map(&:to_i) }
@@ -64,7 +64,7 @@
     ```
   :replies: []
 - :author: Sharparam
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzw6uc/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzw6uc
   :body: |-
     ```ruby
     reports = ARGF.map { |line| line.split.map(&:to_i) }
@@ -91,7 +91,7 @@
     Initially had something way wordier but managed to condense it a little at least. Still feels way too verbose though.
   :replies:
   - :author: Sharparam
-    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzyf2x/
+    :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/lzzyf2x
     :body: |-
       Of course, after checking some other solutions in this thread I realize it can be shortened several lines by using `combination`:
 
@@ -112,15 +112,15 @@
       ```
     :replies:
     - :author: Maravedis
-      :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m006u16/
+      :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m006u16
       :body: I don't even think you need the `validate(report) ||` in `validate2`, since if a report is valid without mistake, then removing one always makes it a valid report still.
       :replies:
       - :author: Sharparam
-        :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00blwl/
+        :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00blwl
         :body: That's probably true, in an already valid report, removing the first or last element will make it still be valid. Good catch!
         :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m010hfe/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m010hfe
   :body: |-
     Part 1
 
@@ -147,14 +147,14 @@
     ```
   :replies: []
 - :author: FCBStar-of-the-South
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03eo4i/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m03eo4i
   :body: |-
     [paste](https://topaz.github.io/paste/#XQAAAQDdAgAAAAAAAAA2GkofDKPu58w0EHSiMBIPN58ZrE9yw9d+ctWKcaSkOKfcmYiy2wP4+D4BSgAd5xpef/i0FFExLUzl8+s3srYAeYV5C84s00uBfTf6IfDuMqSYX979rxWt4A6rhyFOEJkGgG4g3u2D3nuHlCc4s73egxXwgJZE6RHkA9KvxGL6FIObMJQqGkPk6bDqCb68JbzfvjIqP9umTLpR2VV6b1DxPue/qU2jPwfg5Fsc9DlODkb5VwGyYzle711NuiKYzpgl2t7/4CFydG4XrOvU+8i7711FRlHOSzn0BcG9YpopQW3yp7oVfhN/ta4+54cBrMTJpArHoMlEKpQlRGA1gBXqLFA4aFI6cDvLimx02ARU51/6pqL5dZqWpZJt0CvjQlpOWQb9EY6h8PuLIzu7xMD3pLAecg0LKFSKIToaUxU5pLZ+h0ELY72iHyiFI9womjv1mif6uvAX/1ossQA=)
 
     O(n^2) brute force. Cannot imagine doing this in one pass but two pass is likely possible. That logic will probably be quite involved and I have other things to do.
   :replies: []
 - :author: XtremeNolaner
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m045adg/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m045adg
   :body: |-
     ```ruby
     def safety_check(report)
@@ -205,7 +205,7 @@
     ```
   :replies: []
 - :author: zaniwoop
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00w9fv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00w9fv
   :body: |-
     ```ruby
     input = File.read("day_2_data.txt")
@@ -259,7 +259,7 @@
     ```
   :replies: []
 - :author: Screech-1
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02ns7r/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m02ns7r
   :body: |-
     ```ruby
 
@@ -267,7 +267,7 @@
     ```
   :replies: []
 - :author: masterarms
-  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00m5vv/
+  :url: https://www.reddit.com/r/adventofcode/comments/1h4ncyr/2024_day_2_solutions/m00m5vv
   :body: |-
     ```ruby
     reports = input.lines.map { |l|

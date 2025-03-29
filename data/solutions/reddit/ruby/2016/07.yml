@@ -1,6 +1,6 @@
 ---
 - :author: fixed_carbon
-  :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/daw1gcv/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/daw1gcv
   :body: |-
     Ruby, showing part 2 only. I wasted a bunch of time trying to understand why the sample input for part 1 passed my original regexp-based code, but the real input gave me the wrong answer. Took me forever to realize the real input could contain multiple hypernet sequences on each line. Ditched my nice stateless regexp solution for this stateful mess. I feel all dirty.
 
@@ -33,7 +33,7 @@
     ```
   :replies:
   - :author: fixed_carbon
-    :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/daw3542/
+    :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/daw3542
     :body: |-
       Couldn't resist polishing that stateful turd into a stateless one:
 
@@ -64,7 +64,7 @@
       ```
     :replies: []
 - :author: johneffort
-  :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/dawq1go/
+  :url: https://www.reddit.com/r/adventofcode/comments/5gy1f2/2016_day_7_solutions/dawq1go
   :body: |-
     Day 7 part 2 in Ruby:
 

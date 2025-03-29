@@ -1,13 +1,13 @@
 ---
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9i4ujc/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9i4ujc
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_01
   :replies: []
 - :author: ECTXGK
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9etbve/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9etbve
   :body: |-
     Ruby
 
@@ -26,14 +26,14 @@
     ```
   :replies:
   - :author: nakilon
-    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9f31db/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9f31db
     :body: |-
       ```ruby
       ruby -rmll/core_ext -e 'p `pbpaste`.split.sum{ |s| MLL::nest_while_list[s.to_i, ->_{_/3-2}, ->_{_>0}].to_a.most.rest.sum }'
       ```
     :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98due7/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98due7
   :body: |-
     I had wrong answer
 
@@ -63,11 +63,11 @@
     With [reception for my poem](https://i.imgur.com/BJPi4gP.png) being better than expected (I had no expectations) I guess I will write more on the next days :P
   :replies:
   - :author: tslater2006
-    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98uztc/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98uztc
     :body: Upvoted for the poem :)
     :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98e7ds/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98e7ds
   :body: |-
     Ruby 24/148
 
@@ -77,18 +77,18 @@
     ```
   :replies:
   - :author: Unihedron
-    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98f6fz/
+    :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98f6fz
     :body: |-
       Very compact I approve
 
       If you're golfing, I'm p. sure I can beat you with `-p`
     :replies:
     - :author: BluFoot
-      :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98gvi5/
+      :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98gvi5
       :body: I've never used `-p` before, can you show me an example? I can't figure it out..
       :replies:
       - :author: Unihedron
-        :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98ke18/
+        :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f98ke18
         :body: |-
           [-p demo](https://tio.run/##KypNqvz/XyXeViVeryi1LLWoOPX//4zUnJx8rvL8opwUrsSkZBBO4fqXX1CSmZ9X/F@3AAA "Ruby – Try It Online")
 
@@ -101,7 +101,7 @@
           On second thoughts, I take that back, ultimately you have to print a sum which is not per-line, so it probably doesn't save much
         :replies: []
 - :author: jamie_ca
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9dns88/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9dns88
   :body: |-
     Firstly, a unified solution in ruby:
 
@@ -150,7 +150,7 @@
     ```
   :replies: []
 - :author: ShinobuLove
-  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9b9r1k/
+  :url: https://www.reddit.com/r/adventofcode/comments/e4axxe/2019_day_1_solutions/f9b9r1k
   :body: |-
     Where are my Ruby-bros at?
 

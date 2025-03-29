@@ -1,6 +1,6 @@
 ---
 - :author: adjudicator
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gflr8bq/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gflr8bq
   :body: |-
     OO Ruby:
 
@@ -9,14 +9,14 @@
     Just using the 90 degree neg/swap vector rotation trick. Still took a while to figure out!
   :replies: []
 - :author: odlp
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkejes/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkejes
   :body: |-
     [Ruby](https://github.com/odlp/advent-of-code-2020/blob/main/day-12/solution.rb)
 
     Enjoyed cracking out `Array#rotate!` ([ref](https://ruby-doc.org/core-2.7.2/Array.html#method-i-rotate-21)) to adjust the direction in part 1!
   :replies: []
 - :author: willkill07
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfjy87o/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfjy87o
   :body: |-
     # Swift
 
@@ -27,22 +27,22 @@
     Done: C (2) , C++ (6) , Java (3), OCaml (1), Python (4), Bash (5), Swift (12) Todo (well, ones to choose from): F#, Haskell, Lisp, C#, Javascript, Typescript, Perl, Ruby, Scala, Rust, Assembly, Kotlin, FORTRAN, D, Go, Nim, Awk, Sed, Perl
   :replies:
   - :author: its_a_gibibyte
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkblw5/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkblw5
     :body: This is an awesome idea, and a cool way to familiarize yourself with a bunch of different languages. What about Raku? If you're planning on doing Perl anyway, it'd be nice to do them one after another and compare the two.
     :replies:
     - :author: willkill07
-      :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfl7nx4/
+      :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfl7nx4
       :body: |-
         Well /u/ **abigail** mentioned that I have Perl twice to choose from... so I’ll add Raku to the potential list
 
         I have some familiarity with most of these, so it’s just a matter of **doing** it
       :replies: []
   - :author: __Abigail__
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfk9wvu/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfk9wvu
     :body: Perl twice? Good choice.
     :replies: []
   - :author: i_have_no_biscuits
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfk6bu5/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfk6bu5
     :body: |-
       ... GWBASIC?
 
@@ -51,7 +51,7 @@
       (You can dip your toe in the water with QBASIC if you want...)
     :replies: []
 - :author: parentheses-of-doom
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi249v/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi249v
   :body: |-
     [Ruby](https://github.com/Prajjwal/advent-of-code/blob/master/2020/ruby/day_12.rb)
 
@@ -60,14 +60,14 @@
     Runs lightning fast, too, since the cartesian transforms are just static lookups.
   :replies: []
 - :author: petercooper
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfiw6qf/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfiw6qf
   :body: |-
     # Ruby
 
     Kept it [short and sweet](https://gist.github.com/peterc/ef27494a081c48334d1ef29ff67f9f4c) today. I don't do both solutions in one file so mushed them together here.
   :replies: []
 - :author: gurgeous
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsb4b/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsb4b
   :body: |-
     Ruby, 50/305
 
@@ -78,7 +78,7 @@
     Edit: here's how you do it with Ruby's Complex number support. I gotta learn this https://gist.github.com/gurgeous/a719b780fa5b117ec5a8f6ede5280985
   :replies:
   - :author: ald_loop
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsjry/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsjry
     :body: |-
       > sigh. I admire those who can do this quickly with complex numbers.
       >
@@ -87,26 +87,26 @@
       Does not compute
     :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsbhf/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhsbhf
   :body: |-
     Ruby 744/1520. My brain absolutely shut down trying to figure out how to do the L/R rotations in part two.
 
     [paste](https://topaz.github.io/paste/#XQAAAQCpBgAAAAAAAAARiAqGkkN7pUjVWW5N06C9m0mxVKYwp83rTcRiKZucKy4ybNfbMp0Ut7lQYAGdIiY8Ss+49n+2YO5gh8nFh4IluugFFJd3MqZpehAvPqerIS/eDJJ2lyaUXh9xddAmGUA0ojALOLzyegeztuXdWijKBp8cEPi0NK7+91NXXH/EhX8o5hu7nYFFl4On5dMfZvkztMvb3fPtC6TGigR9H7AFB2A/pk8coLYV3mGmhrEPnZHPq5pP7zf/zYc+QoJz0xkPD/6QKN/Jrs6G1iDx49lR5RMaensNbQPWgMptlmx6kX6mTCM+ibVSDl9A8iR9E7iyTh0mopQ3Skv2luUBJCk0uDJVnfso2BGS4GuhOhGkC2Xe9G6tVRlGMn0SNsteteL4PjNn+vJJCVcRWZbKwvbGqrts/7x5zolt/H4SLZX48cW9Y1Vc5ONnIBk2ojQae/HDyU3vPX/RBaP5BM+672pBjqKRu+wfOPuudYBojizeRH5PGf/gUtHPJVHzfubM+ULS6VDU53wuH0Aggi5Ebrhn9i2/0zpt70KzKpvU4ycvVx9Nz7pBJv/2rpp4)
   :replies:
   - :author: sentry07
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhtb5p/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhtb5p
     :body: I misread the second part and thought it was still rotating the ship. Then I fixed it and screwed up an if statement and my 180 rotations weren’t happening. I shouldn’t do these when I’m tired.
     :replies: []
   - :author: nospamas
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi5fdd/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi5fdd
     :body: If you ever need a reference in future googling for "Coordinate rotation rules" or "Coordinate rotation table" will get you something like [this](https://useruploads.socratic.org/V4G3pprQT5evsH3JS5Zy_9D861043-9375-4DC6-85EE-5FDA751F5053.png). You could probably work it out with a piece of paper but way easier to google.
     :replies:
     - :author: frontpageminus
-      :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkcc48/
+      :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfkcc48
       :body: Yeah, that would’ve been much easier than drawing it out. Thanks!
       :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhxo8f/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfhxo8f
   :body: |-
     # Ruby
 
@@ -115,7 +115,7 @@
     [https://gist.github.com/Clashbuster/b66c950a6ad762a378d5c3c54d78c1a5](https://gist.github.com/Clashbuster/b66c950a6ad762a378d5c3c54d78c1a5)
   :replies: []
 - :author: Krakhan
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi05h8/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi05h8
   :body: |-
     # Ruby
 
@@ -124,7 +124,7 @@
     [pastebin](https://pastebin.com/RdhqEzCa)
   :replies:
   - :author: jtgorn
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfipktf/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfipktf
     :body: |-
       I have the same approach, however I prefer another style of coding
 
@@ -154,14 +154,14 @@
       ```
     :replies: []
   - :author: Krakhan
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi7jcv/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi7jcv
     :body: |-
       More compact version that uses complex numbers for both parts after realizing the generalisation noting that Part 1 is just a 'waypoint' at (1, 0) as well. Edit: Realized as I woke up that the only thing needed to change was whether you're moving the ship or waypoint. So, corrected function here below for that.
 
       [pastebin](https://pastebin.com/SDzcS0mx)
     :replies: []
 - :author: CodeIsTheEnd
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi084b/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfi084b
   :body: |-
     **Ruby:** 7:16/14:30, 347/257
 
@@ -170,7 +170,7 @@
     Reasonably satisfied with this one. I imagine people who do more competition coding have rotation matrices down pat. Lost some time in Part 2 due to a bad find/replace.
   :replies: []
 - :author: el_daniero
-  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfizpvb/
+  :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfizpvb
   :body: |-
     # Ruby
 
@@ -244,6 +244,6 @@
     Also, for part two at first I had `puts ship_x + ship_y` at the bottom (forgot the `.abs` part) and ended up with the same resulta as part1; Is there a pattern here, or just coincidence?
   :replies:
   - :author: el_daniero
-    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfmwdd8/
+    :url: https://www.reddit.com/r/adventofcode/comments/kbj5me/2020_day_12_solutions/gfmwdd8
     :body: 'Also made an online visualization thing here: [https://daniero.netlify.app/aoc/2020/12/part2](https://daniero.netlify.app/aoc/2020/12/part2) (WIP)'
     :replies: []

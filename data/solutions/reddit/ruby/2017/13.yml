@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6ftpy/
+  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6ftpy
   :body: |-
     After completely failing to get on the leaderboard since my part 2 code ran too slow, it's time to make it faster. It's too inefficient to iterate each possible starting time one by one!
 
@@ -77,7 +77,7 @@
     ```
   :replies:
   - :author: sim642
-    :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6lufv/
+    :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6lufv
     :body: |-
       Took me a while to think through how you're calculating this, especially not being familiar with Ruby syntax. Here's what I managed deduce:
 
@@ -90,22 +90,22 @@
       I have to admit, it is pretty clever but from a mathematical point of view, not too general. The speedup only comes in the case where there are periods that forbid all but one value, hopefully multiple such to get a real big congruence at the end. I wonder if this is the case for the AoC inputs because I'm sure in general one could construct a set of depths and ranges that don't do that and maybe always leave two possible values left, etc. The optimization doesn't help in such case as is but I suppose it could be extended to still be smart enough to only consider such two cases separately and continue the reduction recursively or something. This however still sounds like it can be exponential in general if all periods leave multiple possible remainders.
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6o0a2/
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6o0a2
       :body: |-
         Yup, you've got it, both what I've done and the weaknesses of it. Although it was true for my input that there was only one period that allowed \> 1 value, I can't speak for everyone else's inputs. So I'm guilty of specialising a bit.
 
         Prompted by your idea I decided to write the code that would try to keep track of multiple possible values (https://github.com/petertseng/adventofcode-rb-2017/tree/day13\_multi), but you are right that it's exponential because the number of possible solutions we need to decide between is the product of the numbers of values allowed by each period.
       :replies: []
     - :author: thomastc
-      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6nne8/
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6nne8
       :body: 'Thanks for the summary. This is the direction I was thinking about while my brute force solution was running. It matches my intuition: because we''re looking for something that''s _not_ equal mod something, the CRT is of limited use, and the best we can do is limit the search space a bit.'
       :replies: []
     - :author: pak21
-      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr7jet2/
+      :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr7jet2
       :body: Certainly my input has a very similar set of results (must be congruent to 967380 modulo 1441440, must be one of 15 values modulo 34), even to the detail where the two missing values modulo 34 are 967380 and 967380 + 1441440, thus also giving me a solution of the form n + 2 \* 1441440.
       :replies: []
 - :author: Unihedron
-  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6bw7a/
+  :url: https://www.reddit.com/r/adventofcode/comments/7jgyrt/2017_day_13_solutions/dr6bw7a
   :body: |-
     Ruby; A good day! Even though I screwed up by doing `(x+1)%(correct base)` and had to fix the +1 (wrong intuition), I still solved both parts quickly enough to be on top 20 for both.
 

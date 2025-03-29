@@ -1,6 +1,6 @@
 ---
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec15imz/
+  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec15imz
   :body: |-
     The below is NOT the code I used to get into the leaderboard (since that was mostly vanilla)... it is instead kind of insane code. My leaderboard code took 3-4 seconds to run and I was not satisfied.
 
@@ -200,22 +200,22 @@
     ```
   :replies:
   - :author: evonfriedland
-    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2fdb2/
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2fdb2
     :body: Thanks for sharing your code, p\_tseng. Are there any good (perhaps with diagrams) walkthroughs of the lookup table approach you might recommend?
     :replies:
     - :author: p_tseng
-      :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2qyur/
+      :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec2qyur
       :body: |-
         This is an interesting one because I don't think I found anything with diagrams, but I found Stack Exchange answer https://codereview.stackexchange.com/questions/42718/optimize-conways-game-of-life/42790#42790 to be useful.
 
         (In case it hasn't already been mentioned, day 18 bears enough resemblance to Conway's Game of Life that the opportunities for speedups are similar between the two. Therefore, search results for "fast game of life" or "optimise game of life" are likely to be useful. I only knew this because this is not the first time it's come up in Advent of Code, since we had https://adventofcode.com/2015/day/18 )
       :replies: []
   - :author: xepherys
-    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ed9mx0t/
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ed9mx0t
     :body: Very nice. I'm trying desperately to rewrite this in C#, but not knowing Ruby is making it slightly difficult. Building your lookup table initially and your iterate func mostly make sense... I'm sure I can figure it out eventually lol.
     :replies: []
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec1244r/
+  :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec1244r
   :body: |-
     Ruby, 246/190.
 
@@ -274,6 +274,6 @@
     ```
   :replies:
   - :author: ka-splam
-    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec14om3/
+    :url: https://www.reddit.com/r/adventofcode/comments/a77xq6/2018_day_18_solutions/ec14om3
     :body: Please, fix your code formatting?
     :replies: []

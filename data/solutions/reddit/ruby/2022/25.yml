@@ -1,6 +1,6 @@
 ---
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1miman/
+  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1miman
   :body: |-
     **Ruby**. Code golf coming full circle. ~~134 bytes~~ (EDIT: see replies, down to **111** so far). The first line converts and adds the input and the second line converts the answer to SNAFU. I feel like I should be able to tighten it.
 
@@ -10,7 +10,7 @@
     ```
   :replies:
   - :author: jstanley0
-    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1my0v1/
+    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1my0v1
     :body: |-
       132 bytes. I could eliminate a comma on line one by using `_1` and `_2` in the block with two variables, and I could eliminate the parens on line 2 by moving the `tr` outside the loop, although I had to replace `$><<` with `puts` due to operator precedence so I just saved one byte there.
 
@@ -20,7 +20,7 @@
       ```
     :replies:
     - :author: jstanley0
-      :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1mzmlr/
+      :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1mzmlr
       :body: |-
         for `r` in `0..4`, that horrible ternary `(r>2?1:0)` is equivalent to `r/3`. that saves me _six bytes_, bringing my total to **126** :
 
@@ -30,7 +30,7 @@
         ```
       :replies:
       - :author: jstanley0
-        :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1w31h7/
+        :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1w31h7
         :body: |-
           simplifying part 2 and using the same digit string as the first line: **111**
 
@@ -41,7 +41,7 @@
           ```
         :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1mbzpd/
+  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1mbzpd
   :body: |-
     Ruby
 
@@ -50,7 +50,7 @@
     Video Walkthrough: [YouTube](https://youtu.be/54WUMyWJars)
   :replies: []
 - :author: Elavid
-  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l0sak/
+  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l0sak
   :body: |-
     ## [Ruby](https://github.com/DavidEGrayson/adventofcode/blob/2e4ade3ec9de6690e62559daba758ebe02fa0689/2022_25/advent.rb), adding the SNAFU numbers directly without converting to integers
 
@@ -59,21 +59,21 @@
     **Update:** The version I posted above converts individual SNAFU digits to integers and back to SNAFU, but that's not very cool. [Here is a new version that uses _no integers at all_.](https://github.com/DavidEGrayson/adventofcode/blob/327b66c17407f0398666af1ee9a6c4c0fc18aae5/2022_25/advent.rb)
   :replies:
   - :author: e_blake
-    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1pzwur/
+    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1pzwur
     :body: |-
       Looks similar to [mine](https://www.reddit.com/r/adventofcode/comments/zvduql/2022_day_25m4_solution_without_doing_any_addition/?utm_source=share&utm_medium=web2x&context=3), except I coded my lookup table with DMZOT to avoid even the appearance of integers in my table ;)
 
       And yes, the technique of building up adder/carry on smaller chunks from right to left is how arbitrary-precision big integer libraries work; it's just a tradeoff of whether the smaller adds can be performed directly by lookup table (as is possible with base-5 SNAFU) or utilizes smaller-precision integer math while building up to the larger precision.
     :replies: []
   - :author: dong_chinese
-    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l15ai/
+    :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l15ai
     :body: Awesome, most creative solution I've seen so far.
     :replies:
     - :author: Elavid
-      :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1lbib2/
+      :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1lbib2
       :body: Well, I'm more deserving of that comment now that I've posted a new version with no integers being used at all.
       :replies: []
 - :author: Nnnes
-  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l1d2h/
+  :url: https://www.reddit.com/r/adventofcode/comments/zur1an/2022_day_25_solutions/j1l1d2h
   :body: "# Ruby\n\n116/100 I got my first point since day 1 \U0001F389\n\n```ruby\ndef s2d(s) = s.tr('=\\-012', '01234').to_i(5).then{ |x|\n  x - ('2' * x.to_s(5).size).to_i(5) }\ndef d2s(d) = (('2' * d.to_s(5).size).to_i(5) + d).to_s(5).tr('01234', '=\\-012')\n\nputs d2s(STDIN.readlines.map{ |x| s2d(x) }.sum)\n```\n\nDon't need any modulos or iterating over digits with this method. Just some conversion in and out of normal base 5.\n\n> !my actual solution was to manually change digits until it matched lol. I wrote this afterwards!\\<"
   :replies: []

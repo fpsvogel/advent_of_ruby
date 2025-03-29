@@ -1,6 +1,6 @@
 ---
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnimr1/
+  :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnimr1
   :body: |-
     Ruby, 613 / 24
 
@@ -11,29 +11,29 @@
     I’m not sure if there is some kind of shortcut that people are solving Part 1 so quickly, but I was quite glad I didn’t take it, otherwise I would lose more time in Part 2.
   :replies:
   - :author: PendragonDaGreat
-    :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpniv5a/
+    :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpniv5a
     :body: A lot of people (myself included) solved part 1 by hand knowing it would bite us later all the same.
     :replies:
     - :author: NecessaryWolfie
-      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnkj1p/
+      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnkj1p
       :body: Part 2 was doable by hand too! At least, solving part 1 by hand did not come back to bite me.
       :replies:
       - :author: dan_144
-        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnr2ir/
+        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnr2ir
         :body: I did them both by hand knowing as I did part 1 that it was a gamble on being able to do part 2 the same way. After a few misfires on part 2 I considered switching to write code, but ended up sticking with it and even improved my standing a bit.
         :replies:
         - :author: M1ngXU
-          :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hppgnmw/
+          :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hppgnmw
           :body: |-
             > but ended up sticking with it and even improved my standing a bit.
 
             same, but gave up after 3 hours. should've read ALL the rules though (didn't saw rule 3)
           :replies: []
     - :author: "[deleted]"
-      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpntj8k/
+      :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpntj8k
       :body: "[deleted]"
       :replies:
       - :author: PendragonDaGreat
-        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnuatj/
+        :url: https://www.reddit.com/r/adventofcode/comments/rmnozs/2021_day_23_solutions/hpnuatj
         :body: Yeah, I did some arts and crafts to make a board that I then slide little paper tiles around till I got the right answer. Worked way better than I was hoping tbh, and saves me from trying to figure out how to code a solution.
         :replies: []

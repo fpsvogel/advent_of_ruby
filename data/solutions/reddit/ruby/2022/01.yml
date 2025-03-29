@@ -1,6 +1,6 @@
 ---
 - :author: snowe2010
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq5dnc/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq5dnc
   :body: |-
     # Ruby
 
@@ -53,7 +53,7 @@
     ```
   :replies: []
 - :author: MuumiJumala
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygtai7/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygtai7
   :body: |-
     54 byte golf solution in Ruby (reads input from stdin):
 
@@ -64,7 +64,7 @@
     ```
   :replies:
   - :author: riffraff
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygyaku/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygyaku
     :body: |-
       I got 43 and 52 separately
 
@@ -81,7 +81,7 @@
       ```
     :replies:
     - :author: MuumiJumala
-      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygznkm/
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygznkm
       :body: |-
         You can save a few more:
 
@@ -98,11 +98,11 @@
         ```
       :replies:
       - :author: riffraff
-        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhahfc/
+        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhahfc
         :body: brilliant, thanks!
         :replies: []
       - :author: jstanley0
-        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykmmuq/
+        :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykmmuq
         :body: |-
           Here's Part 2 in 49 bytes:
 
@@ -111,7 +111,7 @@
           ```
         :replies:
         - :author: jstanley0
-          :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykn57v/
+          :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykn57v
           :body: |-
             I am failing to learn all the lessons in the examples above. 46 bytes:
 
@@ -120,7 +120,7 @@
             ```
           :replies: []
 - :author: Vanerac
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyio3gx/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyio3gx
   :body: |-
     Ruby minimal characters:
 
@@ -131,11 +131,11 @@
     `[e[-1],e[-3..-1].sum]`
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjw7pk/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjw7pk
     :body: Don't forget you can reduce `"\n"` to `$/`! And `$/*2 => "\n\n"`
     :replies: []
 - :author: "[deleted]"
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygjmnl/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygjmnl
   :body: |-
     Ruby:
 
@@ -173,7 +173,7 @@
     ```
   :replies: []
 - :author: FeerMonger
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhchgs/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhchgs
   :body: |-
     Ruby guy who started learning Rust a week ago. If anybody with some Rust experience is pushing their solutions to github, I would be very interested in following along and comparing my solutions.
 
@@ -221,7 +221,7 @@
     ```
   :replies:
   - :author: mkeeter
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhkgs4/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhkgs4
     :body: |-
       I've done several years worth of AoC in Rust, and plan to use it again this year!
 
@@ -253,25 +253,25 @@
       (and the repository: https://github.com/mkeeter/advent-of-code/)
     :replies: []
   - :author: Leading_Frosting9655
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhrkz9/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhrkz9
     :body: |-
       > `[sums.len()-3..].to_vec().iter().sum()`
 
       Maybe `.iter().rev().take(3).sum()`?
     :replies: []
   - :author: R4yRayR4yy
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhhp2d/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhhp2d
     :body: |-
       I did whole AoC last year in Rust and Im going to do the same this year, here you go: [https://github.com/DevRayy/AdventOfCode2022](https://github.com/DevRayy/AdventOfCode2022)
 
       Im no rust professional tho
     :replies:
     - :author: FeerMonger
-      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhjid1/
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyhjid1
       :body: I appreciate it, thank you!
       :replies: []
 - :author: MartinSch64
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjzlv2/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyjzlv2
   :body: |-
     My solution in Ruby:
 
@@ -287,14 +287,14 @@
     ```
   :replies:
   - :author: SolarBear
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk21bw/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk21bw
     :body: |-
       Using Ruby is cheating.
 
       I did the same.
     :replies: []
 - :author: nithinbekal
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygje2d/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygje2d
   :body: |-
     **Ruby**
 
@@ -310,7 +310,7 @@
     [Link to solution](https://github.com/nithinbekal/advent-of-code/blob/bf9e78ef8cec95d5a8c9b6a3d655e8c1b77a2c20/lib/01.rb)
   :replies: []
 - :author: dtinth
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyggemo/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyggemo
   :body: |-
     Ruby, 44 / 26. I love Ruby, it allows me to express so much in so little code.
 
@@ -326,7 +326,7 @@
     ```
   :replies: []
 - :author: naturaln0va
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyglg0j/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyglg0j
   :body: |-
     **Ruby** 4k/5k
 
@@ -358,7 +358,7 @@
     ```
   :replies: []
 - :author: hdf1986
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyh7vgw/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyh7vgw
   :body: |-
     **Ruby:**
 
@@ -371,7 +371,7 @@
     [https://github.com/hdf1986/advent-of-code/blob/master/2022/1/2.rb](https://github.com/hdf1986/advent-of-code/blob/master/2022/1/2.rb)
   :replies: []
 - :author: ffrkAnonymous
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykbd6u/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykbd6u
   :body: |-
     Ruby
 
@@ -380,7 +380,7 @@
     First time with Ruby. Also learning TDD. The tests are extra code practice. Everything is more complicated than it needs to be.
   :replies: []
 - :author: thedjotaku
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykeihg/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykeihg
   :body: |-
     Ruby
 
@@ -389,15 +389,15 @@
     I tried to be as idiomatic as I could given my knowledge of Ruby. (Python is my primary language)
   :replies:
   - :author: snowe2010
-    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq4rtz/
+    :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyq4rtz
     :body: You can map + sum to be a bit more idiomatic. Here is my solution. I'm quite late to the party, I know. https://github.com/snowe2010/advent-of-code/blob/master/ruby\_aoc/2022/day01/day01.rb
     :replies:
     - :author: thedjotaku
-      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iywszjr/
+      :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iywszjr
       :body: Thanks! I'll take a look at that!
       :replies: []
 - :author: CSEcon
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykxscx/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iykxscx
   :body: |-
     **ruby**
 
@@ -406,7 +406,7 @@
     [gist](https://gist.github.com/mehryar-m/305fe8ee79a8fe94a5a6859c105bc14f)
   :replies: []
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iylvtwj/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iylvtwj
   :body: |-
     Ruby
 
@@ -415,7 +415,7 @@
     Walkthrough Video: [https://youtu.be/mMbvnYTfleQ](https://youtu.be/mMbvnYTfleQ)
   :replies: []
 - :author: Piggelinmannen
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygretv/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iygretv
   :body: |-
     Quick and dirty solution in ruby
 
@@ -426,7 +426,7 @@
     ```
   :replies: []
 - :author: SolarBear
-  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk38p6/
+  :url: https://www.reddit.com/r/adventofcode/comments/z9ezjb/2022_day_1_solutions/iyk38p6
   :body: |-
     **Ruby solution**
 

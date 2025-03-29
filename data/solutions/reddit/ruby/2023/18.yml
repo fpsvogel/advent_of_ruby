@@ -1,6 +1,6 @@
 ---
 - :author: careyi4
-  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxofxy/
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxofxy
   :body: |-
     More or less a day 10 repeat!
 
@@ -9,7 +9,7 @@
     [Video Walkthrough](https://youtu.be/oZDYH-c4_3c)
   :replies: []
 - :author: jstanley0
-  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxk8y7/
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdxk8y7
   :body: |-
     For part 1, I just did a flood fill. I thought "Ordinarily they'd probably say multiply each dig distance by a billion in part 2, but this time there are colors and they're not used in part 1, so they've gotta be involved in the second part!"
 
@@ -29,7 +29,7 @@
     Note that this code processes the part 1 input twice, with the flood fill and the scanning algorithm, as a sanity check.
   :replies: []
 - :author: GMarshal
-  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3ktc/
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3ktc
   :body: |-
     2681/2823
 
@@ -40,7 +40,7 @@
     [part 2](https://gist.github.com/thecog19/64bd518b3c3c9b525f3b705fd1ca58c6)
   :replies: []
 - :author: _tfa
-  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3r5y/
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdv3r5y
   :body: |-
     (Part 2)
 
@@ -67,7 +67,7 @@
     ```
   :replies: []
 - :author: RelativeLead5
-  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdvvg9u/
+  :url: https://www.reddit.com/r/adventofcode/comments/18l0qtr/2023_day_18_solutions/kdvvg9u
   :body: |-
     Pretty straightforward. I really thought the colors were going to mean something more doing part 1, so I started thinking about how I might generalize for part 2, lol.
 

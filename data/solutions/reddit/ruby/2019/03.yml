@@ -1,6 +1,6 @@
 ---
 - :author: ni3t
-  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j0jt5/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j0jt5
   :body: |-
     360/417 Ruby
 
@@ -11,14 +11,14 @@
     Part 2 I was sorting by the closest single coordinate instead of the closest manhattan distance.
   :replies: []
 - :author: J-Swift
-  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j1apy/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j1apy
   :body: |-
     Ruby
 
     https://github.com/J-Swift/advent-of-code-2019/tree/master/day\_03
   :replies: []
 - :author: Gck2702
-  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9jv0zh/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9jv0zh
   :body: |-
     Ruby solution. Didn't make a global leaderboard since it's at 6AM local time :P
 
@@ -27,25 +27,25 @@
     Edit: Code was a bit too long for comment as per the rules, made a Topaz link.
   :replies:
   - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9lc2po/
+    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9lc2po
     :body: This is really clean! Have definitely taken a few things away from your solution.
     :replies: []
 - :author: judofyr
-  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9izjj2/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9izjj2
   :body: |-
     15/45. Ruby.
 
     [paste](https://topaz.github.io/paste/#XQAAAQD6AgAAAAAAAAARiAiHwcJlXK8fjPChEJL1+xwkvfukGlOLvmbXfJqC//3EXi0ij0i8MFt788CFBTrOgUFI38vUQSdifWlfhk230CThMNuPdhYBX30gGW42TlTURcQRPg50VungEpgPISRkkR1jlnkIy8ojasAhIihGCU/iAnPcuo1dS8OHmiRDvm4x4Y94HfVqqjnkL8NPDsN+Z/7HmqPnUrj6OvoErg6+vi26mpkGrJ/kZjRCAEipz07Ywg/c9OPKd+8BRdHjJ0m8h9LNpun3v+jiw2+hK0HVYW5cjOIW9OAzMQ9ZTK6x5A56mMk/1xx55MMYVbjaF5e0ib73adf/moxkHnSI1Xae+5TnlD9dCtexSdTa2kDWO5zWUgtaEyw/4NDjqdK+8elMgqKRMC8BM39Bf6/Y1kx+bkKLu7RCYcxauUb3d3gU9tF4zuOtRgZy3/9xVrMA)
   :replies:
   - :author: ni3t
-    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j09gx/
+    :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j09gx
     :body: |-
       https://ruby-doc.org/core-2.5.1/IO.html#method-i-lines
 
       `IO#lines` is being deprecated in favor of `IO#each_line`
     :replies: []
 - :author: forlivesavingveggies
-  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j8upm/
+  :url: https://www.reddit.com/r/adventofcode/comments/e5bz2w/2019_day_3_solutions/f9j8upm
   :body: |-
     Who wants to talk about Ruby!!?
 

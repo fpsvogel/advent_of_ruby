@@ -1,42 +1,42 @@
 ---
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hocnwwo/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hocnwwo
   :body: |-
     I found this to be a great way to learn and improve recursive functions. I still have a ways to go, but I got there. Barely!
 
     [Ruby @ github](https://github.com/ttilberg/advent-of-code-2021-rb/blob/main/2021/12/2.rb)
   :replies: []
 - :author: JRX71
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho92eff/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho92eff
   :body: "[Ruby](https://gist.github.com/JX71/3d92a1833fcc26ad96e779213d2e6de8) attempt to be readable (part 2 only)"
   :replies: []
 - :author: SnooConfections2453
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho93rd3/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho93rd3
   :body: 'My solution in 50 lines of ruby: https://github.com/ciscou/aoc/blob/master/2021/12.rb'
   :replies: []
 - :author: AMusingMule
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hoa347u/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hoa347u
   :body: |-
     # [Ruby](https://gist.github.com/kaine119/8bec5cbe2d97868da16a84744e5b7e38)
 
     Simple recursive DFS solution. I kinda cheesed part 2 by running it once per lowercase node to allow one duplication of said node; it takes a solid 1s longer to run than part 1. It's not very efficient because of all the duplicate paths, but I couldn't think of anything else.
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hocnsge/
+    :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/hocnsge
     :body: |-
       Thanks for sharing. I was having a hard time figuring out how to resolve completed routes in the recursive function. I’m not fluent with building up recursive stuff, but I figured it was something like what you had (building up another argument for completed routes). I tried something similar to that, but ended up having an issue where only one route per top level iteration was returning. I couldn’t figure out the “return completed and this route” at the exit clause, and then also return the completed routes at the bottom. Getting closer!
 
       Anyway, here was my solution where I mapped in order to resolve that problem, and then had to write a recursive “untangle the mess function” haha: https://github.com/ttilberg/advent-of-code-2021-rb/blob/main/2021/12/2.rb
     :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho7pzfq/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho7pzfq
   :body: |-
     Ruby 1099/850
 
     [paste](https://topaz.github.io/paste/#XQAAAQDVBAAAAAAAAAA5GUqKNoFH6SMqoVC09YWR20g6Fjy4njtAfnTDe/6u+Gn6Hao+wfKaqM0wJb78UXSXizCPo0tcdH0rfhLBF6BTkXIFTL6rf7HEcSdt5ZfjquN7hRg1AhqdG//1XW/PovXWc9z7V6w0l8vDPMoWsQzxkK7SDwijpdVfBFBPsvpjfiY2EUF+A3TmE8Pr1J3s3tkCjFbOuNKZ+Clq7D1gkhjTKsfTzUAuJ93MJOwEufcbRVFsz8l3LyL7Citin18CKKZiaqxWbKMTiUiQW+rNncoMojomjGzddZ2upJCmH7xGyf5eXEOv1/xl116tJ1mWxPDzqNAlOAVx3rR4tkskw6EKaGzeIdcy1a9sdgBSqaeIVC5dTWGPW7BzcQf0/mpZUK1/TVeLqNgTK+CEX6ulmeTFQeabAiBHRs4Zr7tOWU2DuYzmPDOPHFKmt8Pkoeobpn8naMoOpO94k2fSPOefcwuTsWdAfrtuvxVgx7ZsuRLeqrNq7Dd1rTVXOmyKLk5mKX20tjcnzlRPwGzXz7Uej5XTgVe5cPzllibf5EZ9/++jv6k=)
   :replies: []
 - :author: MuumiJumala
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho7rg14/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho7rg14
   :body: |-
     Recursive Ruby solution (296/458):
 
@@ -69,7 +69,7 @@
     ```
   :replies: []
 - :author: dhruvasagar
-  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho8030p/
+  :url: https://www.reddit.com/r/adventofcode/comments/rehj2r/2021_day_12_solutions/ho8030p
   :body: |-
     Nice and easy
 

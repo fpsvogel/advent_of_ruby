@@ -1,10 +1,10 @@
 ---
 - :author: icyFur
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/hoaazas/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/hoaazas
   :body: My solution in [Ruby](https://getsturdy.com/advent-of-code-2021-uoeIDQk/changes/47771b9e-e206-47cc-92c7-79688a38d96b)
   :replies: []
 - :author: scarfaceDeb
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3f5kw/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3f5kw
   :body: |-
     **Ruby**
 
@@ -64,15 +64,15 @@
     https://github.com/scarfacedeb/advent-of-code/blob/master/2021/day11/run.rb
   :replies:
   - :author: ignurant
-    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho48vq5/
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho48vq5
     :body: "`repeated_permutation` There we go! I spent like 15 minutes annoyed that I couldn’t Ruby up my directions array. I was trying varieties of `permutation` and `combinations` and zip and such. I had not previously seen _repeated_ permutation. Just what the Dr. ordered!"
     :replies:
     - :author: scarfaceDeb
-      :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho4h6pt/
+      :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho4h6pt
       :body: "Yeah, I found so many useful tricks and lesser known methods in Ruby stdlib in the last 10 days too \U0001F600"
       :replies: []
 - :author: madethemcry
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3d5si/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3d5si
   :body: |-
     # RUBY
 
@@ -105,18 +105,18 @@
     I think a custom enumerator would make sense here. Then you could write like so for part 1 `cave.take(100)`and for part 2 `cave.take_while`. Both read fantastic. Time is up for today so I won't refactor that but I liked the day very much!
   :replies: []
 - :author: ignurant
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3ila0/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3ila0
   :body: |-
     I enjoyed this one quite a bit. Somewhat inspired by the DragonRuby Game Toolkit, I modeled it as a world with mobs, so pretty literally.
 
     [Ruby pt 2](https://tzarnal.github.io/Opal/#XQAAAQAFCAAAAAAAAAAxmwhIY/VC+lD6cQOd9lyYAPDWpaReqe9sGQ0BG7rP377TcEubHCvPC0CdwEGG2DqBjJUjG9Qcu7O+lL54KYOxOEJM7AcW7Pd8w7FxmoLcR2zO1eCiO0FZqwtNsUbeQ6sWzT6C/RhB2q0AOugEPQy5xCe5GC1oGJxV01hET95B00Lw8Rg6cyqlVXgA++bbrcnY4G0Libb8Eqbxto4/CzYdUgka+xU7+1wCx+wI1mk7f5I2Pfp/7b/VRoGwr7x65ZzNo8uZBWTXrf8t9sqBe7zOcbPr7pqBzX2amlOVi86MBcXc/V8enThbmQV47A0BDbrBAam46e2k5TuYyDAybVJSMQ9Vp1dHTq+ET3W9wdNAVxcbxk6Tb8RyWBUxL0GHNij+ll5Q9vBbL7XUwc9mOewPBCIfrUD0I465DdatsUVIaMnJe1ifC4xeOG/2/mhhmGbrapJA+4tjC/DUMzu8cTyjqv9CnVsQVI4dUmqGEa8TxZczZKglrS/o69sI0hMpXOqt8Zy69NWcVCGswK6uTb4llvmlb0FG2nvfDL6TyMlMktDLIivE3xobs94pj28PvKl+GrKdicGRvG+wmcRqlozp3ps7+gxXcBSfxacDh4BM0WhBp7A1kMPgJnXcdddZ6vjOZbt1XG6FeFPw052rrKi/KJYzXlbzTucPPChFG7+x17fq0tWtlB5/r9z1iKDpzawLFyUCL8PRDGYfltcwuBcMEKQ/+MaRFTNw3cZ8sIkFmkSvGL72MJNZTcM+BnPgNNxUdCM1VW0LaLa+O9DX8SOjXJBUgb/3IO0VtEzkPJVaw5mOU2lWY7Ok8HBls4TJMvL2MQTYphhvSXzeYylc5IZYS7cHfuBxZhB0mVTwlyIwyKaj3QEMwmJA2jHYeITH8AV/WDy9B7/qY/vpr1c3swpp0NmyAw+MIsylAXCEt0wpRwegHOnCLKb2KZ4IRScn0CeY0b/aXYJ6kFEEUkcskVV+hzQ0Fyf+AOAt5ujCiQN/OK4zYsVyOhJFEt6TVVQjY4U0jgJroo5Bbl1eSg+VE66kG7jSv4fzBJtn3ddGDXiefP78KG7S)
   :replies:
   - :author: conthomporary
-    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3j7po/
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3j7po
     :body: 'All right, I''ll admit it: "throw :MY\_EYES!" got a chuckle out of me'
     :replies: []
 - :author: '442401'
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3py2s/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3py2s
   :body: |-
     **Ruby**
 
@@ -125,18 +125,18 @@
     https://github.com/fig/Advent-of-Code/blob/main/2021/Day11/solution.rb
   :replies: []
 - :author: frontpageminus
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho34hw7/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho34hw7
   :body: |-
     Ruby 746/640
 
     [paste](https://topaz.github.io/paste/#XQAAAQD5AwAAAAAAAAA2mEpiKBEva3oI7tVd9n7D3wNtbmwq32cmfy4Y74dHhdKFKKEoq7i2+I0L99HPs2sbZTY+fHeCVZlf/VgJb0PVyQlFo+sOcvoMcZPwKTjXY2RCOfFIJZQfjmHRYyRfseBHsxipEyQ7snZdsfuICl5bp6Wkck68u4kQcM7qWcHWT1zD2Zgd7IXFshVjwpJQUdbl2HZcJ4DTLJzChhwDbRX2s84FwEx6VQD3L8z9kjLoTTtrZ7V0T8n61Ei6eBb55LAusH0b31KKCMutu37h5D6SN5CkwDMo/sMnECDyB61EI40qDMHAVkIw+xFPuUMt96gi9S69B5jdrc559kEvLTT6Q3MThRK+8XVJi6ZDf03yg/WtoSBUzyKqR3xKQVx/bF3nXdWrHdRuhLOX1iq4JT77Pr5jodum9DPDTlSaM/BmTmYti8j2MGJt/7dIAPeaUBhNVf/fqYxw)
   :replies: []
 - :author: dhruvasagar
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3fwjr/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho3fwjr
   :body: Ruby - https://github.com/dhruvasagar/comp/blob/master/adventofcode/2021/day11/day11.rb
   :replies: []
 - :author: hrunt
-  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho41e39/
+  :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho41e39
   :body: |-
     **Python 3**
 
@@ -145,6 +145,6 @@
     Not a lot to say about this one. For square grids like this, I find using a dictionary of (x, y) coordinates is cleaner than using nested lists. Once I built the step function to serve Part 1, Part 2 was a breeze.
   :replies:
   - :author: kupuguy
-    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho435k7/
+    :url: https://www.reddit.com/r/adventofcode/comments/rds32p/2021_day_11_solutions/ho435k7
     :body: You don't need the extra parentheses `grid[(x, y)]` is cleaner if you just write `grid[x, y]`. You are right about the dict though; though I started using nested lists then quickly switched to a dict.
     :replies: []

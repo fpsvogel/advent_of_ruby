@@ -1,6 +1,6 @@
 ---
 - :author: BluFoot
-  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdbygg/
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdbygg
   :body: |-
     **Ruby**. 700/102. Wasted half an hour from missing a minus sign in the regex scan... Yay.
 
@@ -53,23 +53,23 @@
     ```
   :replies:
   - :author: rawling
-    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddxdj/
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddxdj
     :body: This is roughly what I did (just... much better), and both my code and it get the same, wrong answer.
     :replies:
     - :author: metalim
-      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecde25n/
+      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecde25n
       :body: Because it happens to work only for his specific input. It's not a general solution. Doesn't work for any of my inputs.
       :replies:
       - :author: rawling
-        :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeju5/
+        :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeju5
         :body: Yeah, I think I can visualise a situation where the shrinking grid homes in on a local maximum but misses the global maximum that was hiding between grid points.
         :replies: []
   - :author: xiongtx
-    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecejs06/
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecejs06
     :body: "> Wasted half an hour from missing a minus sign in the regex scan... Yay.\n\n\U0001F602 Every day I fall into a different \U0001F573️...and it seems I'm never alone!"
     :replies: []
 - :author: p_tseng
-  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddocv/
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddocv
   :body: |-
     So, despite having done well today, I just found an input that my solution doesn't work for, so it's definitely not general. It worked for me, but I'll have to look into a better approach for other inputs. The zoom in/zoom out strategy seems like it has a ton of promise so I'm going to try that next.
 
@@ -161,14 +161,14 @@
     ```
   :replies:
   - :author: rcuhljr
-    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddx2g/
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecddx2g
     :body: |-
       > So, despite having done well today, I just found an input that my solution doesn't work for, so it's definitely not general. It worked for me, but I'll have to look into a better approach for other inputs. The zoom in/zoom out strategy seems like it has a ton of promise so I'm going to try that next.
 
       You're not alone, I've been pulling my hair out over my solution. I came here for some sanity checks, and people were generally taking naive approaches similar to what I was doing (moving closer looking for better local maximas). Taking that I tried some other solutions with my data to see if I just had a problem with my implementation, so far I've tried 4 other solvers and none has yielded a correct solution, I'm going to try the Z3 sat solver next and see how it does, but that's a super unsatisfying (hah) approach.
     :replies: []
   - :author: p_tseng
-    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echnznq/
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echnznq
     :body: |-
       At this point, I've explored a bunch of solutions and I'm going to throw my hat in with the strategy of splitting the search space into octants and calculating an **upper bound** of the number of intersections for the regions created. When you contract down to a single point, you know the bound is exact. When all remaining candidates have upper bounds smaller than the best you've found so far, you terminate the search because you know you can do no better than what you've already found.
 
@@ -358,15 +358,15 @@
       ```
     :replies: []
   - :author: metalim
-    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeoxn/
+    :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdeoxn
     :body: "> Yep, doesn't work for both of my inputs. As other 5 solutions from this thread. So far best approach for me was picking random points, then check around, LMAO."
     :replies:
     - :author: rawling
-      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdvdyg/
+      :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/ecdvdyg
       :body: "> Edit: This solution is completely bogus. It got the \"right answer\" because it identified a local maximum that just so happened to have an equal Manhattan distance from the origin as my real answer. It thinks the maximum has 834 bots, but my real maximum has 980 bots.\n\nLove it \U0001F602"
       :replies: []
 - :author: maus80
-  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echuncc/
+  :url: https://www.reddit.com/r/adventofcode/comments/a8s17l/2018_day_23_solutions/echuncc
   :body: |-
     Ruby (pure/no gems) implementation (for part 2) that I believe (should) work on any input
 
