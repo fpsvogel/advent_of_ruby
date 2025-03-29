@@ -19,11 +19,13 @@ gem install advent_of_ruby
 
 In a directory where you want to store your solutions, run the command `arb` and follow the prompts.
 
-Here's a demo.
+### Demo
 
 https://github.com/user-attachments/assets/e9a868c5-1867-4704-9da5-79aa3b0def89
 
-And here's what it looks like to peruse other people's solutions. (Sources of solutions [are listed below](#arb-bootstrap-year-day).)
+### Other solutions
+
+Here's what it looks like to peruse other people's solutions. Solutions from Reddit and [a few GitHub repos](#arb-bootstrap-year-day) are gathered together in a Markdown file, which in this example is viewed in VS Code's Markdown preview.
 
 ![image](https://github.com/user-attachments/assets/1c2330e8-ff57-4669-bfe0-dcb05ae89bea)
 
