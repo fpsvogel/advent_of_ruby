@@ -36,10 +36,10 @@ module Arb
 
       private
 
-      LOGGED_OUT_RESPONSE = "Puzzle inputs differ by user.  Please log in to get your puzzle input.\n"
+      LOGGED_OUT_RESPONSE = "Please log in"
 
       def logged_in(&block)
-        while (response = block.call.body) == LOGGED_OUT_RESPONSE
+        while (response = block.call.body).include? LOGGED_OUT_RESPONSE
           Cli::WorkingDirectory.refresh_aoc_cookie!
           initialize(cookie: ENV["AOC_COOKIE"])
         end
