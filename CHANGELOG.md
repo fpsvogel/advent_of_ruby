@@ -1,3 +1,7 @@
+## [0.3.2] - 2025-06-08
+
+- Use YJIT if available.
+
 ## [0.3.1] - 2025-03-18
 
 - Fixed bugs in refreshing the AoC cookie.
