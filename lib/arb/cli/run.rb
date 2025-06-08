@@ -100,7 +100,6 @@ module Arb
           .sub(/ \[\[.+/, "")
 
         if short_message.start_with?("That's the right answer!")
-          puts
           puts "⭐ #{short_message}"
 
           # TODO don't re-download if the instructions file already contains the next part
