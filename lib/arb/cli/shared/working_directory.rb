@@ -2,18 +2,18 @@ module Arb
   module Cli
     class WorkingDirectory
       FILES = {
-        ".gitignore" => <<~FILE,
+        ".gitignore" => <<~END,
           input/**/*
           instructions/**/*
           others/**/*
           .env
-        FILE
+        END
         ".ruby-version" => "3.3.0\n",
-        "Gemfile" => <<~FILE,
+        "Gemfile" => <<~END,
           source "https://rubygems.org"
           ruby file: ".ruby-version"
-        FILE
-        File.join("spec", "spec_helper.rb") => <<~FILE
+        END
+        File.join("spec", "spec_helper.rb") => <<~END
           require "debug"
 
           Dir[File.join(__dir__, "..", "src", "**", "*.rb")].each do |file|
@@ -21,7 +21,7 @@ module Arb
           end
 
 
-        FILE
+        END
       }
 
       ENV_KEYS = ["EDITOR_COMMAND", "AOC_COOKIE"]

@@ -2,10 +2,10 @@ module Arb
   module SpecWorkingDir
     def working_dir_files
       @working_dir_files ||= {
-        ".env" => <<~FILE.chomp,
+        ".env" => <<~END.chomp,
           EDITOR_COMMAND=code
           AOC_COOKIE=stubbed_session_cookie
-        FILE
+        END
         **Arb::Cli::WorkingDirectory::FILES,
         ".rspec" => "--require spec_helper\n"
       }

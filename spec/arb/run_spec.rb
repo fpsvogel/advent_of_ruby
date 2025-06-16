@@ -37,7 +37,7 @@ describe Arb::Cli do
         create_puzzle!
 
         outputs = [
-          <<~OUT
+          <<~END
             F*
 
             Pending: (Failures listed here are expected and do not affect your suite's status)
@@ -56,7 +56,7 @@ describe Arb::Cli do
 
                    (compared using ==)
                  # ./spec/#{year}/#{day}_spec.rb:11:in
-          OUT
+          END
         ]
 
         run_with(outputs:)
@@ -72,12 +72,12 @@ describe Arb::Cli do
         create_puzzle!(solution:, spec:)
 
         outputs = [
-          <<~OUT,
+          <<~END,
             Specs passed!
 
             Result for 2017#01.1:
             1182
-          OUT
+          END
           "Submit solution? (Y/n)",
           "That's the right answer! You are one gold star closer to debugging the printer.",
           "Downloaded instructions for Part Two."
@@ -104,12 +104,12 @@ describe Arb::Cli do
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         outputs = [
-          <<~OUT,
+          <<~END,
             Specs passed!
 
             Result for 2017#01.2:
             1152
-          OUT
+          END
           "Submit solution? (Y/n)",
           "That's the right answer! You are one gold star closer to debugging the printer."
         ]
@@ -130,16 +130,16 @@ describe Arb::Cli do
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         outputs = [
-          <<~OUT,
+          <<~END,
             Specs passed!
 
             Result for 2017#01.1:
             ✅ 1182
-          OUT
-          <<~OUT,
+          END
+          <<~END,
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
           "You've already submitted the answers to both parts."
         ]
 
@@ -160,16 +160,16 @@ describe Arb::Cli do
         `git commit -m "Solve #{year}##{day}"`
 
         outputs = [
-          <<~OUT,
+          <<~END,
             Specs passed!
 
             Result for 2017#01.1:
             ✅ 1182
-          OUT
-          <<~OUT,
+          END
+          <<~END,
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
           "You've already submitted the answers to both parts."
         ]
 
@@ -189,14 +189,14 @@ describe Arb::Cli do
         options = {spec: true}
         outputs = ["2 examples, 0 failures"]
         not_outputs = [
-          <<~OUT,
+          <<~END,
             Result for 2017#01.1:
             ✅ 1182
-          OUT
-          <<~OUT
+          END
+          <<~END
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
         ]
 
         run_with(options:, outputs:, not_outputs:)
@@ -214,18 +214,18 @@ describe Arb::Cli do
 
         options = {one: true}
         outputs = [
-          <<~OUT,
+          <<~END,
             Result for 2017#01.1:
             ✅ 1182
-          OUT
+          END
           "You've already submitted the answers to both parts."
         ]
         not_outputs = [
           "Specs passed!",
-          <<~OUT
+          <<~END
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
         ]
 
         run_with(options:, outputs:, not_outputs:)
@@ -243,18 +243,18 @@ describe Arb::Cli do
 
         options = {two: true}
         outputs = [
-          <<~OUT,
+          <<~END,
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
           "You've already submitted the answers to both parts."
         ]
         not_outputs = [
           "Specs passed!",
-          <<~OUT
+          <<~END
             Result for 2017#01.1:
             ✅ 1182
-          OUT
+          END
         ]
 
         run_with(options:, outputs:, not_outputs:)
@@ -271,22 +271,22 @@ describe Arb::Cli do
         create_puzzle!(solution:, spec:, previously_submitted_answers:)
 
         outputs = [
-          <<~OUT,
+          <<~END,
             Specs passed!
 
             Result for 2017#01.1:
             ✅ 1182
-          OUT
-          <<~OUT,
+          END
+          <<~END,
             Result for 2017#01.1 `golf`:
             ✅ 1182
-          OUT
-          <<~OUT,
+          END
+          <<~END,
             ------------
 
             Result for 2017#01.2:
             ✅ 1152
-          OUT
+          END
           "You've already submitted the answers to both parts."
         ]
 
@@ -361,13 +361,13 @@ describe Arb::Cli do
   end
 
   def part_one_specs
-    <<~SPEC
+    <<~END_1
       RSpec.describe Year2017::Day01 do
         let(:input) {
           StringIO.new(
-            <<~IN
+            <<~END
               91122111112341212129
-            IN
+            END
           )
         }
 
@@ -379,11 +379,11 @@ describe Arb::Cli do
           expect(subject.part_2(input)).to eq(:todo)
         end
       end
-    SPEC
+    END_1
   end
 
   def part_two_solution
-    <<~SRC
+    <<~END
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
@@ -410,17 +410,17 @@ describe Arb::Cli do
           end
         end
       end
-    SRC
+    END
   end
 
   def part_two_specs
-    <<~SPEC
+    <<~END_1
       RSpec.describe Year2017::Day01 do
         let(:input) {
           StringIO.new(
-            <<~IN
+            <<~END
               91122111112341212129
-            IN
+            END
           )
         }
 
@@ -432,11 +432,11 @@ describe Arb::Cli do
           expect(subject.part_2(input)).to eq(8)
         end
       end
-    SPEC
+    END_1
   end
 
   def variant_solution
-    <<~SRC
+    <<~END
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
@@ -467,6 +467,6 @@ describe Arb::Cli do
           end
         end
       end
-    SRC
+    END
   end
 end

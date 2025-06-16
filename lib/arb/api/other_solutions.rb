@@ -47,14 +47,14 @@ module Arb
             "# #{(solutions.count > 1) ? "Solutions" : "Solution"} by #{author}\n" +
               solutions
                 .map { |solution|
-                  <<~SOLUTION
+                  <<~END
                     #{"## #{solution[:name]}\n" if solutions.count > 1}#{solution[:url]}
 
                     ```ruby
                     #{solution[:solution]}
                     ```
 
-                  SOLUTION
+                  END
                 }
                 .join
           }
@@ -79,14 +79,14 @@ module Arb
           reddit_comment_to_markdown(reply, level: level + 1)
         }.join("\n\n")
 
-        <<~COMMENT.gsub(/(?:\n\s*){3,}/, "\n\n")
+        <<~END.gsub(/(?:\n\s*){3,}/, "\n\n")
           #{"#" * (level + 1)} #{"↳" * level}#{level.zero? ? "Solution by" : "Reply by"} #{comment[:author]}
           #{comment[:url]}
 
           #{comment[:body]}
 
           #{replies unless replies.empty?}
-        COMMENT
+        END
       end
     end
   end

@@ -17,13 +17,13 @@ module Arb
       end
 
       def self.template(year:, day:)
-        <<~SPECS
+        <<~END_1
           RSpec.describe Year#{year}::Day#{day} do
             let(:input) {
               StringIO.new(
-                <<~IN
+                <<~END
                   something
-                IN
+                END
               )
             }
 
@@ -35,7 +35,7 @@ module Arb
               expect(subject.part_2(input)).to eq(:todo)
             end
           end
-        SPECS
+        END_1
       end
     end
   end

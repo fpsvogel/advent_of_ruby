@@ -49,39 +49,6 @@ module DownloadSolutions
           }
         }
       }
-
-      # def other_solutions(year:, day:, part:)
-      #   "# #{year} Day #{day} Part #{part}\n\n" +
-      #     PATHS
-      #       .map { |username, path_builder|
-      #       actual_path = nil
-      #       solution = nil
-      #       paths = path_builder.call(year:, day:, part:)
-
-      #       paths.each do |path|
-      #         next if solution
-      #         response = connection.get("/#{username}/#{path.sub("/tree/", "/")}")
-      #         next if response.status == 404
-
-      #         actual_path = path
-      #         solution = (EDITS[username] || :itself.to_proc).call(response.body)
-      #       end
-
-      #       if solution
-      #         <<~SOLUTION
-      #           # ------------------------------------------------------------------------------
-      #           # #{username}: #{UI_URI}/#{username}/#{actual_path}
-      #           # ------------------------------------------------------------------------------
-
-      #           #{solution}
-
-      #         SOLUTION
-      #       end
-      #     }
-      #       .compact
-      #       .join
-      #       .strip + "\n"
-      # end
     end
   end
 end

@@ -17,7 +17,7 @@ module Arb
       end
 
       def self.template(year:, day:)
-        <<~SRC
+        <<~END
           # https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}
           module Year#{year}
             class Day#{day}
@@ -34,7 +34,7 @@ module Arb
               end
             end
           end
-        SRC
+        END
       end
     end
   end

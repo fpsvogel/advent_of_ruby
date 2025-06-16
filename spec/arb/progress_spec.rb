@@ -13,7 +13,7 @@ describe Arb::Cli do
 
       expect(Date).to receive(:today).at_least(:once).and_return(Date.new(2024, 1, 1))
 
-      output = <<~OUT
+      output = <<~END
         You have completed:
 
         All:    16.4%   37/225 puzzles
@@ -21,7 +21,7 @@ describe Arb::Cli do
         2016:   100%    25/25
         2019:   4%      1/25
         2020:   44%     11/25
-      OUT
+      END
 
       expect {
         Arb::Cli.progress

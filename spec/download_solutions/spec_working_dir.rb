@@ -15,16 +15,16 @@ module DownloadSolutions
       Dir.chdir(@working_dir)
 
       if service == :github
-        dotenv = <<~FILE.chomp
+        dotenv = <<~END.chomp
           GITHUB_TOKEN=stubbed_github_token
-        FILE
+        END
       elsif service == :reddit
-        dotenv = <<~FILE.chomp
+        dotenv = <<~END.chomp
           REDDIT_CLIENT_ID=stubbed_reddit_client_id
           REDDIT_CLIENT_SECRET=stubbed_reddit_client_secret
           REDDIT_USERNAME=fpsvogel
           REDDIT_PASSWORD=stubbed_reddit_password
-        FILE
+        END
       end
       File.write(".env", dotenv)
 
