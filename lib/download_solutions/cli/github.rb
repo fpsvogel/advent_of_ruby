@@ -12,7 +12,7 @@ module DownloadSolutions
       repos = Api::Github::REPOS
       if author
         if repos.key?(author)
-          repos = repos.select { _1 == author }
+          repos = repos.select { it == author }
         else
           raise InputError, "Repo author #{PASTEL.blue(author)} not found."
         end
