@@ -3,7 +3,7 @@ module DownloadSolutions
     class Reddit
       class RejectUnwantedReplies
         # Filters out replies that are not gennerally relevant for posterity:
-        #   - removed with no replies
+        #   - removed/deleted with no replies
         #   - by moderators
         #   - by bots
         #
@@ -21,7 +21,7 @@ module DownloadSolutions
           end
 
           comment[:replies].reject! do
-            (it[:body].strip == "[removed]" && it[:replies].empty?) ||
+            (["[removed]", "[deleted]"].include?(it[:body].strip) && it[:replies].empty?) ||
               %w[AutoModerator daggerdragon backtickbot].include?(it[:author])
           end
         end

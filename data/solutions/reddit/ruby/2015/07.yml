@@ -48,10 +48,6 @@
 
         This solution doesn't work for all inputs right, wouldn't `c -> b` throw a `NameError`?
       :replies: []
-  - :author: "[deleted]"
-    :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxr1w6y
-    :body: "[deleted]"
-    :replies: []
 - :author: gnuconsulting
   :url: https://www.reddit.com/r/adventofcode/comments/3vr4m4/day_7_solutions/cxq2b7s
   :body: |-
