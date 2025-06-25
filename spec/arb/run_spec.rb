@@ -361,15 +361,15 @@ describe Arb::Cli do
   end
 
   def part_one_specs
-    <<~END_1
+    <<~END_OUTER
       RSpec.describe Year2017::Day01 do
-        let(:input) {
+        let(:input) do
           StringIO.new(
             <<~END
               91122111112341212129
             END
           )
-        }
+        end
 
         it "solves Part One" do
           expect(subject.part_1(input)).to eq(16)
@@ -379,7 +379,7 @@ describe Arb::Cli do
           expect(subject.part_2(input)).to eq(:todo)
         end
       end
-    END_1
+    END_OUTER
   end
 
   def part_two_solution
@@ -414,15 +414,15 @@ describe Arb::Cli do
   end
 
   def part_two_specs
-    <<~END_1
+    <<~END_OUTER
       RSpec.describe Year2017::Day01 do
-        let(:input) {
+        let(:input) do
           StringIO.new(
             <<~END
               91122111112341212129
             END
           )
-        }
+        end
 
         it "solves Part One" do
           expect(subject.part_1(input)).to eq(16)
@@ -432,7 +432,7 @@ describe Arb::Cli do
           expect(subject.part_2(input)).to eq(8)
         end
       end
-    END_1
+    END_OUTER
   end
 
   def variant_solution
