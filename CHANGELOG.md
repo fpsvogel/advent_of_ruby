@@ -1,3 +1,10 @@
+## [0.3.3] - 2025-06-25
+
+- Added auto-formatting of files created by `arb bootstrap` if RuboCop is available. https://github.com/fpsvogel/advent_of_ruby/pull/1 by [@dvandersluis](https://github.com/dvandersluis)
+- Fixed a bug with `arb bootstrap` on Day 8 and 9. [`b324d28`](https://github.com/fpsvogel/advent_of_ruby/commit/b324d28aa7665eba7f6236fa26c02102909fcb27)
+- Changed formatting of created spec files: for `let(:input)`, use a `do ... end` block (not curly braces), and use `END` as the heredoc delimiter.
+- Bumped Ruby version to 3.4.4
+
 ## [0.3.2] - 2025-06-08
 
 - Use YJIT if available.
