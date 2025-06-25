@@ -71,7 +71,7 @@ module Arb
         end
 
         year = Integer(year, exception: false) || (raise InputError, "Year must be a number.")
-        day = Integer(day, exception: false) || (raise InputError, "Day must be a number.")
+        day = Integer(day.delete_prefix("0"), exception: false) || (raise InputError, "Day must be a number.")
 
         unless year.between?(2015, Date.today.year)
           raise InputError, "Year must be between 2015 and this year."
