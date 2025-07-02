@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    advent_of_ruby (0.3.3)
+    advent_of_ruby (0.3.4)
       benchmark (~> 0.4)
       debug (~> 1.0)
       dotenv (~> 3.0)

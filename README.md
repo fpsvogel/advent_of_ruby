@@ -41,6 +41,7 @@ Shortcuts:
 
 - Downloads the input and instructions files for the given day.
 - Creates a solution file and a spec file for the given day.
+  - If the current directory contains `.rubocop.yml` or a Gemfile specifying `rubocop`, then the new solution and spec files are auto-formatted using RuboCop.
 - Creates two files (one for each puzzle part) with other people's solutions from [/r/adventofcode](https://www.reddit.com/r/adventofcode) and these repos:
   - <https://github.com/ahorner/advent-of-code>
   - <https://github.com/eregon/adventofcode>
