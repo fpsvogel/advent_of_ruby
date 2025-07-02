@@ -1,3 +1,7 @@
+## [0.3.5] - 2025-07-02
+
+- RuboCop auto-formatting in `arb bootstrap` now happens if RuboCop is bundled at the top level *or* if a RuboCop config (`.rubocop.yml`) is present in the current directory.
+
 ## [0.3.4] - 2025-07-02
 
 - RuboCop auto-formatting in `arb bootstrap` now only happens if RuboCop is bundled at the top level, i.e. with `gem "rubocop"` in the Gemfile. This is so that auto-formatting doesn't happen if RuboCop just happens to be installed, or happens to be a dependency (e.g. of Standard).
