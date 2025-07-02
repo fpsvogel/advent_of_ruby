@@ -13,7 +13,7 @@ module Arb
           File.write(file_path, template(year:, day:))
         end
 
-        Formatter.format(file_path)
+        Formatters::RuboCop.format(file_path)
 
         file_path
       end
