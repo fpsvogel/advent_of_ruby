@@ -1,3 +1,7 @@
+## [0.3.4] - 2025-07-02
+
+- RuboCop auto-formatting in `arb bootstrap` now only happens if RuboCop is bundled at the top level, i.e. with `gem "rubocop"` in the Gemfile. This is so that auto-formatting doesn't happen if RuboCop just happens to be installed, or happens to be a dependency (e.g. of Standard).
+
 ## [0.3.3] - 2025-06-25
 
 - Added auto-formatting of files created by `arb bootstrap` if RuboCop is available. https://github.com/fpsvogel/advent_of_ruby/pull/1 by [@dvandersluis](https://github.com/dvandersluis)
