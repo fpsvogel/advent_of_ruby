@@ -17,6 +17,7 @@ module DownloadSolutions
         end
 
         private_class_method def self.clean_body!(comment, languages)
+          debugger if comment[:author] == "doromin"
           comment[:body] = preclean_markdown(comment[:body], languages)
             .then { |body_markdown| MARKDOWN_PARSER.render(body_markdown) }
             .then { |body_html| to_cleaned_markdown(body_html, languages) }
@@ -40,7 +41,7 @@ module DownloadSolutions
             .gsub("&#39;", "'")
             # Convert one or two backticks on their own line, to three for a code block.
             .gsub(
-              /\\?`(?:\\?`)?(?:#{languages.first})?\n(.+?)\n\\?`(?:\\?`)?(?=\n|\z)/m,
+              /\\?`(?:\\?`)?(?:#{languages.first})?\n+(.+?)\n\\?`(?:\\?`)?(?=\n|\z)/m,
               "\n\n```\n\\1\n```\n"
             )
             .gsub(/    ```.*/, "") # Superfluous backticks (already indented)
@@ -57,6 +58,8 @@ module DownloadSolutions
               ReverseMarkdown.convert(cleaned_raw_body, github_flavored: true)
             }
             .gsub(/ +\n/, "\n") # Strip trailing spaces
+            .sub(/```ruby\n{2,}/, "```ruby\n") # Remove leading newlines from code blocks
+            .sub(/\n{2,}```$/, "\n```") # Remove trailing newlines from code blocks
         end
       end
     end

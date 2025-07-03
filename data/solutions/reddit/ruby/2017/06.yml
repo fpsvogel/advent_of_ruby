@@ -142,7 +142,6 @@
     **Ruby** simply using mem-string(join) instead of array of mem-arrays as comparison made it fast enough.
 
     ```ruby
-
         data = input.split("\t").strip.map(&:to_i)
         results = []
 
@@ -173,7 +172,6 @@
           cycles += 1
         end
         puts 'part2 -------', cycles, '----------'
-
     ```
   :replies:
   - :author: jschulenklopper
