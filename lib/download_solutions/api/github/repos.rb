@@ -39,14 +39,8 @@ module DownloadSolutions
           }
         },
         "ZogStriP" => {
-          repo: "adventofcode-old",
-          both_parts: ->(day:) {
-            /\A#{day.to_s.rjust(2, "0")}_.+\.rb\z/
-          },
-          edits: ->(file_contents) {
-            # Remove input at the end of the file.
-            file_contents.split("\n__END__").first
-          }
+          repo: "adventofcode",
+          both_parts: "%<day>.2d.rb"
         }
       }
     end

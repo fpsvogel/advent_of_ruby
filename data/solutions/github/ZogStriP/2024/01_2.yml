@@ -1,0 +1,7 @@
+---
+- :name: 01.rb
+  :url: https://github.com/ZogStriP/adventofcode/blob/main/2024
+  :solution: |-
+    a, b = $<.map { _1.split.map &:to_i }.transpose.map &:sort
+    p a.zip(b).sum { (_1 - _2).abs }
+    p a.sum { _1 * b.count(_1) }
