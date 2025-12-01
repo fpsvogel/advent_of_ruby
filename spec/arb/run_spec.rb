@@ -49,7 +49,7 @@ describe Arb::Cli do
             Failures:
 
               1) Year#{year}::Day#{day} solves Part One
-                 Failure/Error: expect(subject.part_1(input)).to eq(:todo)
+                 Failure/Error: expect(subject.part_1(input)).to eq :todo
 
                    expected: :todo
                         got: nil
@@ -372,11 +372,11 @@ describe Arb::Cli do
         end
 
         it "solves Part One" do
-          expect(subject.part_1(input)).to eq(16)
+          expect(subject.part_1(input)).to eq 16
         end
 
         xit "solves Part Two" do
-          expect(subject.part_2(input)).to eq(:todo)
+          expect(subject.part_2(input)).to eq :todo
         end
       end
     END_OUTER
@@ -425,11 +425,11 @@ describe Arb::Cli do
         end
 
         it "solves Part One" do
-          expect(subject.part_1(input)).to eq(16)
+          expect(subject.part_1(input)).to eq 16
         end
 
         it "solves Part Two" do
-          expect(subject.part_2(input)).to eq(8)
+          expect(subject.part_2(input)).to eq 8
         end
       end
     END_OUTER

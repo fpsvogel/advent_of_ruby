@@ -30,11 +30,11 @@ module Arb
             end
 
             it "solves Part One" do
-              expect(subject.part_1(input)).to eq(:todo)
+              expect(subject.part_1(input)).to eq :todo
             end
 
             xit "solves Part Two" do
-              expect(subject.part_2(input)).to eq(:todo)
+              expect(subject.part_2(input)).to eq :todo
             end
           end
         END_OUTER
