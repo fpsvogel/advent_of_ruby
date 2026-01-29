@@ -31,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*.rb", "data/**/*"]
   spec.bindir = "bin"
   spec.executables << "arb"
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib", "dev"]
 end
