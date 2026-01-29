@@ -26,7 +26,7 @@ module Arb
         Git.commit!(filenames:, message:)
 
         # TODO less naive check: ensure prev. days are finished too
-        if !files_modified && day == "25"
+        if !files_modified && day == Util.max_day(year:).to_s.rjust(2, "0")
           puts
           puts "🎉 You've finished #{year}!"
           puts

@@ -39,7 +39,7 @@ module DownloadSolutions
           }
         },
         "ZogStriP" => {
-          repo: "adventofcode",
+          repo: "adventofcode-old",
           both_parts: "%<day>.2d.rb"
         }
       }

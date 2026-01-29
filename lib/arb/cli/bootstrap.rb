@@ -5,7 +5,7 @@ module Arb
     def self.bootstrap(year: nil, day: nil)
       WorkingDirectory.prepare!
 
-      year, day = YearDayValidator.validate_year_and_day(year:, day:)
+      year, day = YearDayValidator.validate_and_fill_in_year_and_day(year:, day:)
 
       instructions_path = Files::Instructions.download(year:, day:)
       others_1_path, others_2_path = Files::OtherSolutions.download(year:, day:)

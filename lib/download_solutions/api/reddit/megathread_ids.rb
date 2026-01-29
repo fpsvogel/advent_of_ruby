@@ -3,6 +3,7 @@ module DownloadSolutions
     class Reddit
       # From https://www.reddit.com/r/adventofcode/wiki/archives/solution_megathreads
       MEGATHREAD_IDS = {
+        2025 => %w[1pb3y8p 1pbzqcx 1pcvaj4 1pdr8x6 1pemdwd 1pfguxk 1pg9w66 1ph3tfc 1phywvn 1pity70 1pjp1rm 1pkje0o],
         2024 => %w[1h3vp6n 1h4ncyr 1h5frsp 1h689qf 1h71eyz 1h7tovg 1h8l3z5 1h9bdmp 1ha27bo 1hau6hl 1hbm0al 1hcdnk0 1hd4wda 1hdvhvu 1hele8m 1hfboft 1hg38ah 1hguacy 1hhlb8g 1hicdtb 1hj2odw 1hjroap 1hkgj5b 1hl698z 1hlu4ht],
         2023 => %w[1883ibu 188w447 189m3qw 18actmy 18b4b0r 18bwe6t 18cnzbm 18df7px 18e5ytd 18evyu9 18fmrjk 18ge41g 18h940b 18i0xtn 18isayp 18jjpfk 18k9ne5 18l0qtr 18ltr8m 18mmfxb 18nevo3 18o7014 18oy4pc 18pnycy 18qbsxs],
         2022 => %w[z9ezjb zac2v2 zb865p zc0zta zcxid5 zdw0u6 zesk40 zfpnka zgnice zhjfo4 zifqmh zjnruc zkmyh4 zli1rd zmcn64 zn6k1l znykq2 zoqhvy zpihwi zqezkn zrav4h zsct8w zt6xz5 zu28ij zur1an],

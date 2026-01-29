@@ -1,7 +1,7 @@
 module Arb
   module Cli
     class YearDayValidator
-      def self.validate_year_and_day(year:, day:, default_to_untracked_or_last_committed: false)
+      def self.validate_and_fill_in_year_and_day(year:, day:, default_to_untracked_or_last_committed: false)
         year, day = year&.to_s, day&.to_s&.rjust(2, "0")
 
         # The first two digits of the year may be omitted.
@@ -22,7 +22,7 @@ module Arb
 
               if day && !default_to_untracked_or_last_committed
                 day =
-                  if day == "25"
+                  if day == Util.max_day(year:).to_s.rjust(2, "0")
                     :end
                   else
                     day.next
@@ -73,12 +73,7 @@ module Arb
         year = Integer(year, exception: false) || (raise InputError, "Year must be a number.")
         day = Integer(day.delete_prefix("0"), exception: false) || (raise InputError, "Day must be a number.")
 
-        unless year.between?(2015, Date.today.year)
-          raise InputError, "Year must be between 2015 and this year."
-        end
-        unless day.between?(1, 25) && Date.new(year, 12, day) <= Date.today
-          raise InputError, "Day must be between 1 and 25, and <= today."
-        end
+        Util.validate_year_and_day(year:, day:)
 
         [year.to_s, day.to_s.rjust(2, "0")]
       end

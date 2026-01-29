@@ -7,6 +7,7 @@ require "redcarpet"
 require "reverse_markdown"
 require "yaml"
 require_relative "../arb/version"
+require_relative "../arb/util"
 
 module DownloadSolutions
   InputError = Class.new(StandardError)

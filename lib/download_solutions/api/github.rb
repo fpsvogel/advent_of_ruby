@@ -16,10 +16,11 @@ module DownloadSolutions
       # @param year [Integer]
       # @param day [Integer]
       # @param max_day [Integer]
+      # @param input_day [Integer]
       # @param force [Boolean]
       # @param existing_solutions [Array<Array(Integer, Integer)>]
       # @return [Array<Hash>, nil] nil if the year directory doesn't exist for the author.
-      def get_solutions(author:, year:, input_day: nil, max_day: 25, force: false, existing_solutions: [])
+      def get_solutions(author:, year:, max_day:, input_day: nil, force: false, existing_solutions: [])
         solutions = {new: {}, skipped: [], not_found: []}
 
         year_directory = (REPOS[author][:year_directory] || "%<year>d") % {year:}
@@ -31,7 +32,7 @@ module DownloadSolutions
           end
 
           1.upto(2) do |part|
-            next if day == 25 && part == 2
+            next if day == max_day && part == 2
 
             if !force && existing_solutions.include?([day, part])
               solutions[:skipped] << [day, part]

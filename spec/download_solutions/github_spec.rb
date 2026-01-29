@@ -39,7 +39,7 @@ describe DownloadSolutions::Cli do
       end
     end
 
-    %w[ahorner erergon erikw gchan ZogStriP].each do |author|
+    %w[ahorner eregon erikw gchan ZogStriP].each do |author|
       context "#{author} 2023", vcr: "github_#{author}_2023" do
         it { download_solutions(author:, year: 2023) }
       end

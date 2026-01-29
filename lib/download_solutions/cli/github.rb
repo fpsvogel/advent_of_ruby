@@ -1,7 +1,12 @@
 module DownloadSolutions
   module Cli
     def self.github(year: nil, day: nil, author: nil, force: false)
-      validate_year_and_day(year:, day:)
+      if day
+        if year.nil?
+          raise InputError, "Year must be specified when day is specified."
+        end
+        Arb::Util.validate_year_and_day(year:, day:)
+      end
 
       author_name = author.nil? ? "all authors" : PASTEL.blue(author)
       detail = "by #{author_name}"
@@ -18,14 +23,17 @@ module DownloadSolutions
         end
       end
 
-      max_year, max_day = max_year_and_day(year:, day:)
+      years_and_max_days = Arb::Util.years_and_max_days
+      if year
+        years_and_max_days = years_and_max_days.slice(year)
+      end
 
       authors = repos.keys
       authors.each do |author|
         author_directory = File.join(github_directory, author)
         Dir.mkdir(author_directory) unless Dir.exist?(author_directory)
 
-        (year || 2015).upto(year || max_year) do |current_year|
+        years_and_max_days.each do |current_year, max_day|
           year_directory = File.join(author_directory, current_year.to_s)
 
           existing_solutions =

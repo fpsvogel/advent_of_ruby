@@ -52,10 +52,9 @@ module Arb
       def self.committed_by_year
         committed_solution_files = `git log --diff-filter=A --name-only --pretty=format: src`
 
-        previous_days = (2015..Date.today.year - 1).map { [it, (1..25).to_a] }.to_h
-        if Date.today.month == 12
-          previous_days[Date.today.year] = (1..Date.today.day)
-        end
+        previous_days = Util.years_and_max_days.transform_values { |max_day|
+          (1..max_day).to_a
+        }
 
         committed_days = committed_solution_files
           .split("\n")

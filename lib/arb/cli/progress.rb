@@ -7,6 +7,7 @@ module Arb
 
       total_count = committed.values.sum(&:count)
       my_counts_by_year = committed
+        .transform_keys(&:to_i)
         .transform_values { it.values.count(&:itself) }
         .reject { |k, v| v.zero? }
       my_total_count = my_counts_by_year.values.sum
@@ -20,16 +21,11 @@ module Arb
       puts
 
       my_counts_by_year.each do |year, my_count|
-        year_count =
-          if year.to_i == Date.today.year
-            this_year_count
-          else
-            25
-          end
+        max_day = Util.years_and_max_days[year]
 
-        year_percent = (my_count.to_f / year_count * 100).round
+        year_percent = (my_count.to_f / max_day * 100).round
 
-        puts "#{PASTEL.blue("#{year}:")}\t#{year_percent}%\t#{my_count}/#{year_count}"
+        puts "#{PASTEL.blue("#{year}:")}\t#{year_percent}%\t#{my_count}/#{max_day}"
       end
     end
   end

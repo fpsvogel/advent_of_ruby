@@ -1,7 +1,12 @@
 module DownloadSolutions
   module Cli
     def self.reddit(year: nil, day: nil, languages: ["ruby"], force: false)
-      validate_year_and_day(year:, day:)
+      if day
+        if year.nil?
+          raise InputError, "Year must be specified when day is specified."
+        end
+        Arb::Util.validate_year_and_day(year:, day:)
+      end
 
       language_names = PASTEL.blue(languages.join(", "))
       detail = "for #{language_names}"
@@ -10,9 +15,12 @@ module DownloadSolutions
       language_directory = File.join("data", "solutions", "reddit", languages.join("-"))
       Dir.mkdir(language_directory) unless Dir.exist?(language_directory)
 
-      max_year, max_day = max_year_and_day(year:, day:)
+      years_and_max_days = Arb::Util.years_and_max_days
+      if year
+        years_and_max_days = years_and_max_days.slice(year)
+      end
 
-      (year || 2015).upto(year || max_year) do |current_year|
+      years_and_max_days.each do |current_year, max_day|
         year_directory = File.join("data", "solutions", "reddit", languages.join("-"), current_year.to_s)
         Dir.mkdir(year_directory) unless Dir.exist?(year_directory)
 
