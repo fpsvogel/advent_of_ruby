@@ -1,0 +1,39 @@
+---
+- :name: 04.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    require "matrix"
+
+    MAP = INPUT.split("\n").each_with_index.each_with_object({}) do |(row, y), map|
+      row.chars.each_with_index do |cell, x|
+        map[Vector[x, y]] = cell
+      end
+    end
+
+    ADJACENCIES = (-1..1).to_a.product((-1..1).to_a).map { |dx, dy| Vector[dx, dy] } - [Vector[0, 0]]
+
+    def accessible_rolls(map)
+      map.select do |position, cell|
+        next false unless cell == "@"
+
+        neighboring_rolls = ADJACENCIES.count { |offset| map[offset + position] == "@" }
+        neighboring_rolls < 4
+      end
+    end
+
+    def clear(map)
+      removed = []
+
+      loop do
+        removable = accessible_rolls(map).keys
+        break if removable.empty?
+
+        map = map.except(*removable)
+        removed += removable
+      end
+
+      removed
+    end
+
+    solve!("The number of initially accessible rolls is:", accessible_rolls(MAP).size)
+    solve!("The total number of removable rolls is:", clear(MAP).size)

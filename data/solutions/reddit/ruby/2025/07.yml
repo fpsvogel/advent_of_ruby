@@ -1,0 +1,213 @@
+---
+- :author: thaadjarvis
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/ntdpc7f
+  :body: |-
+    [solution](https://github.com/mtking2/aoc-ruby/blob/main/lib/solutions/year2025/day07.rb)
+
+    Part 1 just iterating and counting splits
+
+    Part 2 using \>!recursion and memoization!\<
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsv51ep
+  :body: |-
+    https://asciinema.org/a/sabtPpvg27FtpvZ27zS4VxaIH
+
+    https://github.com/SleepingInsomniac/adventofcode/tree/master/2025-12-07
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsum8ms
+  :body: |-
+    Solutions in Ruby for part 1 and part 2. No recursion, no dfs, etc.
+
+    [GitHub Day 7 part 1 and part 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-07.rb)
+  :replies: []
+- :author: Intelligent_Net_9057
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsucl6w
+  :body: |-
+    ```ruby
+    tree = File.readlines('test_input', chomp: true)
+    beams = [0] * tree[0].length
+    beams[tree.shift.chars.find_index('S')] = 1
+    splits = 0
+
+    tree.each do |line|
+      line.chars.each_with_index do |c, i|
+        if c == '^' && beams[i] > 0
+          splits += 1
+          beams[i-1] += beams[i]
+          beams[i+1] += beams[i]
+          beams[i] = 0
+        end
+      end
+    end
+
+    puts "Part 1 : #{splits}"
+    puts "Part 2 : #{beams.sum}"
+    ```
+  :replies: []
+- :author: Mahedros
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsszky8
+  :body: |-
+    For once I've managed to overcome my stubbornness and actually go back to make something efficient rather than just let the brute force code run for 12 hours
+
+    [Code Link](https://topaz.github.io/paste/#XQAAAQAKCAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8KxkURAq1MNsPbt6HX6Vl9MUBsAFA2fZ7UeLBp9rfMabILJJXIO9G6n2aBBUDc2ZX4vbyOrCXe0HqHl8HWoSGrxseDo04/PSV3b/iXlpH6vER64cio881Jqa+7Mhqt9elIwPY8GahLlfkZIIaL4QJx643qKHkXkwxIWgqSrhbNsSkbtQhIyu+ErfQxFBjRynZlErvYWVeCiG1cdx5D42vfNkk8CRuzZK9j6biojXeKy67X0c8AKYf9j5OSZaMS1DckVOmRl7fjoThUccEXAMSxAr9cAx/fUcBcwUMeUR7IuSRoyW06f1cJNdRfcsrDjX689srtYHcC+TfFLZQ//bsifDqKRVpJ4Oo0cpd/gru/5FS03FFTlblHnA7hD84FAQ477KBnX+U1Wgw9Dwpz2HF7CUo5lJ51Kk5maRcib6QIUuYq+/v1HxayxJ00soKfcTb8DfCBmoBED5FSWuev2Sg8tz0v2lfOFbMzLfVE2+PFW/ddx2zu35BHAw7l+5jZtLrzcPno7KLYV/efeNpwSvz5i0lRPltYPZXfygAMnTop0TDazKLgl1xTgoutd/+wQ5AGz+rp14Niq8LUe3NLKL1jLoA6GbR+LvIc/IG5Nachqoe+5G78SOmdt/gFTIeaSvWT6L0v9dbwRAyP/sD8K+dv+xcjpSkw5vrylVPuxLloOVLObw5GqnKaAkX/ISwhRNYm6iXW2QisDNkrbHgphpmLhRF6U4q+UgpNbdtJEC5o1IAOLtX4mU3y7eb7TZzowRkq3/JGtPM+chw2TI70g0LmJCbMsMp+ksXoqG9MHXhK1F6CQHNCOU7Ep25E3YafvHf/iV8FEg==)
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsq8fmy
+  :body: |-
+    ugly, but it works. Somehow I got tripped when doing part 2 using the same way I was doing part 1, probably order of updates or something, so had to change that
+
+    ```ruby
+    def solve_easy(grid)
+      split = 0
+      grid.rows.each_with_index do |row, nrow|
+        0.upto(row.length - 1) do |ncol|
+          if ["|", "S"].include?(grid.rows[nrow - 1][ncol])
+            if row[ncol] == "^"
+              row[ncol - 1] = "|"
+              row[ncol + 1] = "|"
+              split += 1
+            elsif row[ncol] == "."
+              row[ncol] = "|"
+            end
+          end
+        end
+      end
+      split
+    end
+
+    def solve_hard(grid)
+      timelines = Hash.new(0)
+      grid.rows.size.times do |nrow|
+        row = grid.rows[nrow]
+        row.size.times do |ncol|
+          if row[ncol] == "S"
+            timelines[[nrow + 1, ncol]] += 1
+          elsif row[ncol] == "^"
+            timelines[[nrow + 1, ncol - 1]] += timelines[[nrow, ncol]]
+            timelines[[nrow + 1, ncol + 1]] += timelines[[nrow, ncol]]
+          else
+            timelines[[nrow + 1, ncol]] += timelines[[nrow, ncol]]
+          end
+        end
+      end
+      timelines.keys.select { |nrow, _| nrow == grid.rows.size }.sum { |k| timelines[k] }
+    end
+    ```
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsr8zk1
+  :body: |-
+    \
+
+    ```ruby
+    # Note: this won't work with '^^' but the input doesn't include any
+
+    input = File
+              .readlines("07_input.txt", chomp: true)
+              .map { |x| x.split("") }
+
+    def splitter(x) x == "^" end
+    def beam(x) x == "|" end
+    def int(x) x.is_a? Integer end
+
+    # Part 1
+
+    result = 0
+
+    start = input[0].index("S")
+    input[1][start] = "|"
+
+    input.each_with_index do |row, x|
+      row.each_with_index do |col, y|
+        if splitter(col) and beam(input[x-1][y])
+          row[y-1] = row[y+1] = "|" # split beam
+          input[x+1][y-1] = input[x+1][y+1] = "|" # continue beam
+          result += 1
+        elsif !splitter(col) and beam(input[x-1][y])
+          row[y] = "|"
+        end
+      end
+    end
+
+    puts "Part 1: ", result
+
+    # Part 2
+
+    input[1][start] = 1 # initial beam
+
+    input.each_with_index do |row, x|
+      row.prepend(0); row.append(0) # to avoid issues near the end
+      row.each_with_index do |col, y|
+        if col == "." then row[y] = 0 end
+        if beam(col)
+          if splitter(row[y-1]) and splitter(row[y+1])
+            row[y] = input[x-1][y-1].to_i + input[x-1][y+1].to_i + input[x-1][y]
+            # last one doesn't need to_i as it is always 0 or an int
+          elsif splitter(row[y-1]) and !splitter(row[y+1])
+            row[y] = input[x-1][y-1] + input[x-1][y]
+          elsif !splitter(row[y-1]) and splitter(row[y+1])
+            row[y] = input[x-1][y+1] + input[x-1][y]
+          elsif int(input[x-1][y])
+            row[y] = input[x-1][y]
+          end
+        end
+      end
+    end
+
+    puts "Part 2: ", input[-1].inject(:+)
+    ```
+  :replies:
+  - :author: xr51z
+    :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsr9qhw
+    :body: Admittedly [this post](https://www.reddit.com/r/adventofcode/comments/1pgbg8a/2025_day_7_part_2_visualization_for_the_sample/) helped me a lot to visualize the problem in my head.
+    :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pg9w66/2025_day_7_solutions/nsrk303
+  :body: |-
+    Part 1
+
+    ```ruby
+    GRID = File.readlines("input.txt").map(&:chars)
+    start = Complex(GRID[0].index(?S), 0)
+
+    beams = [start]
+    count = 0
+
+    (GRID.size-1).times do |o|
+        nextBeams = []
+        beams.each do |pos|
+            if GRID[pos.imag+1][pos.real] == ?^
+                nextBeams << pos + 1+1i
+                nextBeams << pos - 1+1i
+                count += 1
+            else
+                nextBeams << pos + 0+1i
+            end
+        end
+        nextBeams.uniq!
+        beams = nextBeams
+    end
+    puts count
+    ```
+
+    Part 2
+
+    ```ruby
+    GRID = File.readlines("input.txt").map(&:chars)
+    start = Complex(GRID[0].index(?S), 0)
+    MEM = {}
+
+    def solve(pos) =
+        MEM[pos] ||= case
+                       when pos.imag == GRID.size - 1
+                          1
+                       when GRID[pos.imag+1][pos.real] == ?^
+                          solve(pos + 1+1i) + solve(pos - 1+1i)
+                       else
+                          solve(pos + 0+1i)
+                     end
+    puts solve(start)
+    ```
+  :replies: []

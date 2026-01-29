@@ -1,0 +1,187 @@
+---
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nsku8t6
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_1/secret\_entrance\_part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_1/secret_entrance_part_1.rb)
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_1/secret\_entrance\_part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_1/secret_entrance_part_2.rb)
+
+    Puzzle solved with a circular linked list.
+  :replies: []
+- :author: Few-Orchid-8393
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/ns61umj
+  :body: |-
+    part two in 9 lines (at a comfy and traditional 80-char width):
+
+    ```ruby
+    position = 50
+    password = 0
+    ARGF.each_line do |instruction|
+      rotation = instruction.sub(/^L/, "-").sub(/^R/, "").to_i
+      direction = rotation <=> 0
+      password += ((direction * rotation) + ((direction * position) % 100)) / 100
+      position = (position + rotation) % 100
+    end
+    puts password
+    ```
+
+    I chose Ruby because it's an elegant language, and I've been doing a little scripting in it recently. It's not as popular as it deserves to be, imo.
+
+    Since I stripped the comments from this rendition, here's the whole idea: because integer division with negatives is a little weird, for password computation purposes I render "negative" (leftward) rotation as "positive) (rightward) rotation. To do that I want to flip the sign on the rotation if it's positive, and flip the sign on the position (before restoring it to Zmod100, no negatives allowed).
+
+    By computing the sign of the rotation, I get to do this without any `if` expressions, which is pretty cool. When the direction is rightward, all the extra computation in the `password +=` expression does nothing; it's the same as `(position + rotation) / 100`. But when the direction is leftward, that formula inverts both the original position and the rotation, treating it as rightward rotation from the equivalent complementary position on the dial.
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nro9mh3
+  :body: |-
+    Not very many half-punchcard solutions yet (and an unfortunate number of oversized solutions in comments). Here's one for both parts including an attempt at descriptive comments:
+
+    ```ruby
+    puts STDIN.readlines.reduce([50, 0, 0]) { |a, x| # [Initial position, P1, P2]
+      n = a[0] + x.tr('LR', '-+').to_i # Current dial position (not mod 100 yet)
+      z = n % 100 == 0 ? 1 : 0 # Is it set to zero now?
+      [n % 100, a[1] + z, a[2] + n.abs / 100 + (a[0] > 0 && n <= 0 ? 1 : 0)]
+    }[1, 2] # ^P1 , ^P2: ^Count spins, ^Add 1 if it decreased to/past 0
+    ```
+
+    For parsing, `L`s and `R`s are simply turned into `-`s and `+`s before the string is parsed as an integer.
+
+    For Part 2's edge case handling, I initially used a multiply-by-zero trick `(a[0] * (n - 1) < 0 ? 1 : 0)`, but that's the same length as the much clearer version above.
+
+    Results are added up using a simple `.reduce()` accumulator (the `a`).
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nroeeh5
+    :body: the `tr`usage is very clever, love it!
+    :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nrqu8i5
+  :body: |-
+    ## Part 1
+
+    ```ruby
+    def solve(input)
+      pointer = 50
+      zeros = 0
+
+      until input.eof?
+        rotation = input.readline&.chomp
+        dist = rotation.gsub('L', '-').gsub('R', '').to_i
+        pointer = (pointer + dist) % 100
+        zeros += 1 if pointer == 0
+      end
+
+      zeros
+    end
+    ```
+
+    ## Part 2
+
+    ```ruby
+    def solve(input, size = 100)
+      pointer = 50
+      zeros = 0
+
+      while rotation = input.readline&.chomp
+        dist = rotation.gsub('L', '-').gsub('R', '').to_i
+        prev_pointer = pointer
+        pointer += dist
+        crossings, pointer = pointer.divmod(size)
+        crossings = crossings.abs
+
+        crossings -= 1 if pointer == 0 && dist.positive?
+        crossings -= 1 if prev_pointer == 0 && dist.negative?
+        crossings += 1 if pointer == 0
+
+        zeros += crossings
+
+        break if input.eof?
+      end
+
+      zeros
+    end
+    ```
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nroeoal
+  :body: |-
+    straightforward but verbose, there are better solutions
+
+    ```ruby
+    def solve_easy(lines)
+      res = 0
+      pos = 50
+      lines.each do |line|
+        move = line[0] == 'L' ? -1 : 1
+        num = line[1..].to_i
+        pos = (pos + move * num) % 100
+        res += 1 if pos == 0
+      end
+      res
+    end
+
+    def solve_hard(lines)
+      res = 0
+      pos = 50
+      lines.each do |line|
+        move = line[0] == 'L' ? -1 : 1
+        num = line[1..].to_i
+        num.times do
+          pos = (pos + move) % 100
+          res += 1 if pos == 0
+        end
+      end
+      res
+    end
+    ```
+  :replies: []
+- :author: im_sofi
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nrow8a0
+  :body: |-
+    Couldn't wrap my head around Day 1 part 2 for the longest of times, but with some tests made it quite trivial to implement without using counting.
+
+    https://codeberg.org/soupglasses/advent-of-code/src/branch/main/2025/day\_01.rb
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nroyuzs
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_01](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_01)"
+  :replies: []
+- :author: justjarvo
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nrq9co3
+  :body: |-
+    Initially did both parts with floor/modulo but kept getting off-by-one errors for part 2 so I just stepped through like a heathen
+
+    ```ruby
+    dial, p1, p2 = 50, 0, 0
+
+    input.each do |ins|
+      ins[1..].to_i.times do
+        dial += ins[0] == "R" ? 1 : -1
+        dial = 99 if dial == -1
+        dial = 0 if dial == 100
+        p2 += 1 if dial == 0
+      end
+      p1 += 1 if dial == 0
+    end
+
+    p [p1, p2]
+    ```
+  :replies:
+  - :author: kronn
+    :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nrqr5md
+    :body: I was equally frustrated and came to the same low as you did.
+    :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nrs0rxs
+  :body: |-
+    Part 1 (solve\_part\_1) and Part 2 (solve\_part\_2) each individually solved in a single file with a shared parsing function (parse\_input):
+
+    [GitHub 2025/Day-01.rb](https://github.com/srugh/AdventOfCode/blob/main/2025/day-01.rb)
+  :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1pb3y8p/2025_day_1_solutions/nro151z
+  :body: |-
+    [GitHub](https://github.com/Sharparam/advent-of-code/blob/main/src/y2025/d01/solve.rb)
+
+    In my sleep deprived state I can't come up with a cleaner version for now, maybe I'll come back later™ and make it nicer.
+  :replies: []

@@ -1,0 +1,56 @@
+---
+- :name: 07.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    require "matrix"
+
+    MANIFOLD = INPUT.split("\n").each_with_index.each_with_object({}) do |(row, y), manifold|
+      row.chars.each_with_index do |char, x|
+        manifold[Vector[x, y]] = char unless char == "."
+      end
+    end
+
+    START_POSITION = MANIFOLD.invert["S"]
+    HEIGHT = INPUT.split("\n").size
+
+    def step(particles, manifold)
+      new_particles = Hash.new(0)
+      splits = 0
+
+      particles.each do |(particle, timelines)|
+        drop = (particle + Vector[0, 1])
+
+        case manifold[drop]
+        when "^"
+          splits += 1
+          new_particles[(drop + Vector[-1, 0])] += timelines
+          new_particles[(drop + Vector[1, 0])] += timelines
+        else
+          new_particles[drop] += timelines
+        end
+      end
+
+      [new_particles, splits]
+    end
+
+    def teleport(manifold)
+      total_splits = 0
+      particles = {START_POSITION => 1}
+      step = 0
+
+      loop do
+        break if step >= HEIGHT
+
+        particles, splits = step(particles, manifold)
+        total_splits += splits
+        step += 1
+      end
+
+      [particles, total_splits]
+    end
+
+    final_particles, splits = teleport(MANIFOLD)
+    solve!("The total number of splits performed is:", splits)
+
+    total_timelines = final_particles.values.sum
+    solve!("The total number of timelines after splitting is:", total_timelines)

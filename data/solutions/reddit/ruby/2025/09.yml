@@ -1,0 +1,26 @@
+---
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1phywvn/2025_day_9_solutions/nu6tir3
+  :body: |-
+    I got inspired by the _Coordinate System Compression_ approach.
+
+    [Paste](https://topaz.github.io/paste/#XQAAAQB0BwAAAAAAAAA3G8iwV4Qppo79/Ujg+7qaomHJcVmcDMXaCHzF/szaCN1B3OQWh7s2tQ+43K8lY7nmb4hhnibJfso5Wp2gdiVwWpld8FvJMlogqHwXRsgKiG4gk5i1GhO18WRb2sZTD5UhPgnsJMZhH/uE9rJ/aLju1p65CuS37k9jNTquS0mpBEck6DeQvTOdrZtxojQmmHm9OTfHtOllBF8aMRTksb0giU3KTyDv8gw0p1irAzaVLw9CzWN0nSThmhndqHysOQGdnMkE+3g+5sNnflIk0wqEc5njuru8L0EMNpa5rJ3O5h/TkpnJqftNERqIjScxvd7fgn3edpy2MhgZq3WEXwNoiE1XpI4JGI4wGB8bsk/22v21PMtyrVXN0oIwrVT+jMq4iT7vfCifWR9aqh+JmRXkOZvwI89QpRr+Eq2SDlxR7niZqUIJepcBa9Hx1fcMyf7NKswJRi/6rM5+voiFEOV3M8awwM7weBXv7jJMUpM2ZO9Gy72gTBeFvgL7HODU06uZfj/Rfz4VqMVhF8sQ3p22sZ1rjkyaghzV2BVzK6G5/37H3qvzrrsW604oWAijGFkcOp6fduK7wV2AW+/qMkHyfeVzP1829Lvdjxoe7OjoN4aLnygfkEcZiNyNDuCfG/aOAEgxeTR5GXVEPI3Nwk/yDm/wxrdCBAspp+6Z+PiS4Phq6mqsUN9q8IBc67ET/USi8uT05elS/Kh4pHnTGCHqgdexUOYOmH2jVshG3LUeyCZa9Agohl5MkxwLjdjvWJDu0XfdaHIESqCaocskhTCFYymIlM3LkoTfWjHOJfedmM88GuK/MJOU/0fK35rIV2hmzIeXRZG1kxjR8xz3RmJECiWIiBoyBr+5oQpLW+UOoG34eWT2jFM97BjR1RlQ4tq7QYCJay346itBZxn7bkHf29WrBqypVTz2x2tgss8FOOUBOmRL/A5X1/9W7Ht0flaVodT68Qj4ekba/QF3DV6rA1M6zCUnCnMKa5UBlBnoPRQKbOhyqfTTKfHcYGnzTdpIrs9JoEw7Ff7RyJnaxA20w/G02pP3tdTZ0USYDtCaUk80w+3/0NLZzAnS2tM3YIGUKDnzekwCb0FWeEGpYjUAsDAJ1AlJy/rjcdo3t6rtss/SQtTJ60uIwSOXt7aXtPY4Yuax6X3r/LDjKg==)
+  :replies:
+  - :author: craigontour
+    :url: https://www.reddit.com/r/adventofcode/comments/1phywvn/2025_day_9_solutions/nw082oo
+    :body: |-
+      Struggled with part2, so looked at your solution for tips, but when I run I get "undefined local variable or method 'it'". What do you do different for 'it' to work?
+
+      [Edit] It see it's supported in 3.4.
+    :replies:
+    - :author: _tfa
+      :url: https://www.reddit.com/r/adventofcode/comments/1phywvn/2025_day_9_solutions/nw0e9ft
+      :body: That's right. You have to update Ruby.
+      :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1phywvn/2025_day_9_solutions/nt7uca8
+  :body: |-
+    [Link](https://topaz.github.io/paste/#XQAAAQDOCQAAAAAAAAA5GUqKNoFH6SMqoVC09YUYoyM0HaPFXythHlAP4pnJzZ/mGYNycp42xxVNhQ0tL4RBJLGPO5bk+V0PGuI9TwnUwUp1Z/rgB5cXuK6002ovOWs3hT/F3Xi18HNzcrRtXCNQbXSr0Nr9o9OhD1grYOkQbPSDkUpFxHF/rIA2YhN2zmcsbxJ4E6mXXdWTACvNlSAp1hhbSbcWfkbKwkUT++y62UfIJ26s2pgajxJE7yDUb56tSqH/F/VCGFJ5ps6Pxnwr1+7/JtBNGW15Ru/gLfk+8oKJnUaH6NHv9jAHo1mwVWoPnHy4PKDAQ1Uey+pM8Q3LSiWWGuvUaPZ8LDiO73DhamUylLxCo7kZKPt0EDl/fGlsoLsxMhm4BkQY9izQmVVYlo8vqsYLkznXDaKmgqJq4bAhEm2pu1xUy7GaHtTBdgIG4yb7lCZzLj/Bxp35YpxyP64glLpEWR2fY0reypQGY1o989ghmxXKbFvfBuuKWTnOg8KouNO10TiRUxkgkHje02hq7IqDU7Za7yQvvvUElxXsGRB1dnK5F80O1f/xrLlHJWIVLCYPJIZIx6+axxSLMjiD2GvBvznqVb+3YdDddXvrS7KnoJBSqRuHcHjUW7UcJMxKQx1yQE97mJHBFZJjFsCQYyw+cpD0ak3KQoj/YT0qIVBXDRSacDTjEb995fPlCAOok0cFWpuQu1KMeSG+BGoHUJcRqilkqncmlQ/gROU/mISTNuh0uczMwwVgBT0uFMzXFMGZvwxssm21HJ5Mpm8JM+kbawMRxp5Kw8JCZN+3dOoXWflshvBclC4ene1xpOrm9jQ+fW7vKwnN/e5sTFE21j5MEo3RENT6fUB+ecg5uSqxqcIrMWo+ulnGlvIfuDGbqPp6JLV4b3Ztap+2mOWoUpjQEGykJJCn6y1S2FLNs/IYV6JGZrNjVKZKHcJs3hqlGbvVmp1mczI4uhTEHwH02SvpAlOUCJefRu2KHC93W1d9dKTEHrbtpN/yQNz6kOftUW5zNHiHZwWpBqNxen5W1wS2YNl9jiHANPGe8eUdGiXjcO5uRwv/thXWEDFb6bs2tmlheTNZFReCnRJXHTmAjXbKsQG1ZHp+Fo7+cP1wXGUyoEv/qDs7Lg==)
+
+    Definitely hardest one so far. Part 1 was super easy, part 2 kept me up until 3AM. At least I got a script that shouldn't take over 30 minutes to find the solution, ahem. Good night.
+  :replies: []

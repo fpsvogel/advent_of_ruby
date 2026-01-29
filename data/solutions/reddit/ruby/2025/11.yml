@@ -1,0 +1,69 @@
+---
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pjp1rm/2025_day_11_solutions/nuhk3ir
+  :body: |-
+    Part 1:
+
+    ```ruby
+    TREE = File.readlines("input.txt").map{ it.scan(/(...): (.*)/)}
+               .flatten(1)
+               .map{|node, neighbours| [node, neighbours.split]}
+               .to_h
+
+    def solve(node, target)
+        return 1 if node == target
+        TREE[node].map{solve(it, target)}.sum
+    end
+
+    puts solve("you", "out")
+    ```
+
+    Part 2: [Paste](https://topaz.github.io/paste/#XQAAAQCOBAAAAAAAAAAjlIQlg38G5hKsB77A1DF67Y2pXyBxCQxuOlWiLUsdIzsv54a3zV6twiVZqW2FXkkywX+ffAsHE8J3i577QRXKM41LIbMWodpfzMUo4t9RF0MC9/m3xRkqkvdZSIinGyZ6W2o1DRGBIqjxIxSWj1wrgJSqVePXJ72kVvxtShjBDheqGFW9MJIFxoN+hCbSoxWHOSXDN/B7fLfBt2m5z36Pnyqw6xXNUtYjpafCmRrsMiT/wuuhLeOsl77OwEEwGc8E49VpTjDYdQI2/Ob8VxU0xrz5G8UP3EKRd3Njg6Mqlk9+zA/Eoobn1P3k2Wh3pnFkjVRm0L/dY/LZx9QxjyjfIWVzY6wX/KqCWUPUdYZZFmYP/yR8SemlPO0TAlZarFK1DwD9s6xIrL+9JeVXhf8RKSQpQkVR1UuohNiGQpeEX3/7lrrYYqiCjh/ulhfupd+wcZyxNAabEM7wNosTX5uf5zwmvj4H42qOA6y36+UzvlCHNVjKIVzFGlGynfqTVnltRkZDFHsu6I8gyMBZJ+T0mOgsFfJ8LvfrhPVCfBh0HX2DKCtdi6Zx8j51HnvwSnOB+VXAxmiGyi+CsPLmQ1AglO3dDeSTyX2Xq+IiSGoxptLHBD6vmCGIKxfakjirmo3WU7AVHv7DLzlQ6Z2CRZ7MPzTY5iMk3tuxQfwAisEw/rKk3ZNKaorv68obMOXW84/9uw+EoeX/3YN+4w==)
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pjp1rm/2025_day_11_solutions/nti5say
+  :body: |-
+    Part 1 - basic recursive dfs counting paths, nothing fancy at all.
+
+    Part 2 - DP on a DAG using memo and filters.
+
+    [GitHub for both part 1 and part 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-11.rb)
+  :replies: []
+- :author: notathrowaway0983
+  :url: https://www.reddit.com/r/adventofcode/comments/1pjp1rm/2025_day_11_solutions/ntgbu1d
+  :body: |-
+    Pretty happy with my 100ms, given I only know about graphs that they have nodes and you can kinda move from one to another. Here I assume no cycles, but `fft` and `dac` can be an any order. Also works good when there are more nodes to visit, found solutions (or lack of them, output contains separate counts for all possible paths) for 30 nodes in 12 seconds.
+
+    ```ruby
+    require "set"
+
+    $nodes = input.lines.to_h do |l|
+      from, *to = l.chomp.split(" ")
+      [from[0..-2], to]
+    end
+
+    $memory = Hash.new
+    $to_visit = ["fft", "dac"].to_set
+    $nothing = Set.new
+
+    def count_paths(node)
+      return { $nothing => 1 } if node == "out"
+      return $memory[node] if $memory[node]
+
+      child_counts = $nodes[node]
+        .map { |n| count_paths(n) }
+        .reduce do |s, e|
+          s.merge(e) { |_, a, b| a + b }
+        end
+
+      if $to_visit.include? node
+        child_counts = child_counts.to_h { |k,v| [k + [node], v]}
+      end
+
+      $memory[node] = child_counts
+    end
+
+    pp count_paths("you")
+    pp count_paths("svr")
+    ```
+  :replies: []

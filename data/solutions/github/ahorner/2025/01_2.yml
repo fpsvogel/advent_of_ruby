@@ -1,0 +1,37 @@
+---
+- :name: 01.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    START = 50
+    RANGE = 100
+
+    ROTATION_MATCHER = /([LR])(\d+)/
+    ROTATIONS = INPUT.split("\n").map do |line|
+      direction, steps = line.match(ROTATION_MATCHER).captures
+      [direction, steps.to_i]
+    end
+
+    def calculate_password(moves, click: false)
+      position = START
+      password = 0
+
+      moves.each do |(direction, steps)|
+        clicks = steps / RANGE +
+          ((direction == "L" && position != 0 && (position - (steps % RANGE)) <= 0) ? 1 : 0) +
+          ((direction == "R" && (position + (steps % RANGE)) >= RANGE) ? 1 : 0)
+
+        position += (direction == "L") ? -steps : steps
+        position %= RANGE
+
+        password += if click
+          clicks
+        else
+          (position == 0) ? 1 : 0
+        end
+      end
+
+      password
+    end
+
+    solve!("The password is:", calculate_password(ROTATIONS))
+    solve!("The password including clicks is:", calculate_password(ROTATIONS, click: true))

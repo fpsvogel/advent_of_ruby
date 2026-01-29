@@ -1,0 +1,101 @@
+---
+- :name: '09.rb'
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    require "matrix"
+
+    RED_TILES = INPUT.split("\n").map { |line| Vector[*line.split(",").map(&:to_i)] }
+
+    def area(v1, v2)
+      width = (v2[0] - v1[0]).abs + 1
+      height = (v2[1] - v1[1]).abs + 1
+      width * height
+    end
+
+    def optimal_corners(tiles)
+      tiles.combination(2).max_by { |v1, v2| area(v1, v2) }
+    end
+
+    largest = area(*optimal_corners(RED_TILES))
+
+    solve!("The largest rectangular area is:", largest)
+
+    LOOP = (RED_TILES + [RED_TILES[0]]).each_cons(2).to_a
+
+    def point_contained?(point, loop)
+      intersections = 0
+
+      loop.each do |v1, v2|
+        if v1[1] == v2[1]
+          x1 = (v1[0] < v2[0]) ? v1[0] : v2[0]
+          x2 = (v1[0] > v2[0]) ? v1[0] : v2[0]
+
+          return true if point[1] == v1[1] && point[0] >= x1 && point[0] <= x2
+        else
+          y1 = (v1[1] < v2[1]) ? v1[1] : v2[1]
+          y2 = (v1[1] > v2[1]) ? v1[1] : v2[1]
+
+          return true if point[0] == v1[0] && point[1] >= y1 && point[1] <= y2
+          intersections += 1 if point[0] < v1[0] && point[1] > y1 && point[1] <= y2
+        end
+      end
+
+      intersections % 2 == 1
+    end
+
+    def edge_intersects?((p1, p2), loop)
+      loop.any? do |v1, v2|
+        next false if (p1[1] == p2[1]) == (v1[1] == v2[1])
+
+        x1 = (v1[0] < v2[0]) ? v1[0] : v2[0]
+        x2 = (v1[0] > v2[0]) ? v1[0] : v2[0]
+        y1 = (v1[1] < v2[1]) ? v1[1] : v2[1]
+        y2 = (v1[1] > v2[1]) ? v1[1] : v2[1]
+
+        if p1[1] == p2[1]
+          x1 > p1[0] && x1 < p2[0] && p1[1] > y1 && p1[1] < y2
+        else
+          p1[0] > x1 && p1[0] < x2 && y1 > p1[1] && y1 < p2[1]
+        end
+      end
+    end
+
+    def optimal_contained(tiles, loop)
+      tiles.combination(2).sort_by { |v1, v2| -area(v1, v2) }.detect do |v1, v2|
+        minx = (v1[0] < v2[0]) ? v1[0] : v2[0]
+        maxx = (v1[0] > v2[0]) ? v1[0] : v2[0]
+        miny = (v1[1] < v2[1]) ? v1[1] : v2[1]
+        maxy = (v1[1] > v2[1]) ? v1[1] : v2[1]
+
+        corners = [
+          Vector[minx, miny],
+          Vector[maxx, miny],
+          Vector[maxx, maxy],
+          Vector[minx, maxy]
+        ]
+        unless corners.all? { |corner| point_contained?(corner, loop) }
+          # puts v1, v2, "rejected bc corner"
+          next false
+        end
+
+        edges = [
+          [corners[0], corners[1]],
+          [corners[1], corners[2]],
+          [corners[3], corners[2]],
+          [corners[0], corners[3]]
+        ]
+        if edges.any? { |edge| edge_intersects?(edge, loop) }
+          # puts v1, v2, "rejected bc edge"
+          next false
+        end
+
+        true
+      end
+    end
+
+    optimal = optimal_contained(RED_TILES, LOOP)
+
+    solve!(
+      "The largest fully-contained rectangular area is:",
+      area(*optimal)
+    )

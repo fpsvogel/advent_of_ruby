@@ -1,0 +1,73 @@
+---
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1ph3tfc/2025_day_8_solutions/nt09027
+  :body: |-
+    Used DSU / Union find for this one.
+
+    [GitHub solution for both part 1 and part 2 using Ruby](https://github.com/srugh/AdventOfCode/blob/main/2025/day-08.rb)
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1ph3tfc/2025_day_8_solutions/nszpat1
+  :body: "[LINK](https://topaz.github.io/paste/#XQAAAQAtBgAAAAAAAAA5GUqKNoFH6SMqoVC09YUYdlQd9lvuD0yaWfOoUhdmwU3iFZtA1EYdUcBXWSpoi3hN8NnYO0x/Gu4Ryyma/PBexBnUS4FSGlRH8HAStpcRgm4VvwdrQdaBGB+6KVd8QOY7UPjNJxP1WsqcmlgaBVZQ2HykpWjforhlkvJiD2qbkXYLiWa0bge05ExU8bfy5Xc0AoYMf2oFnd+90vCDPAmQN7YirC9kgdpv2UjP2d9XDdQSzl0x6tIHI6IHEl/MIiYC6XsRGKujfG55OigVsKVuZuhHRhm/reIjNLL2rADiZsux3zmVUC5a6M7TiAqcDFpS1ksMa4ViXvUqnBkxQibgTG6eAKLrPmAY47kP4amjXQkPm3yr8VErm27Cfyw4xBVdp37qYmj95Jm4eivZk7xNqZDq7t2tpFJtWIncfaWejMuyFRMDErAS2R8GioxnlxRdXQ0mdsiP9qrPt5oG2ufepAx8A6jmhNv2ZoQMBkNvNDnJSJatu/e3/r8DYqiCJ89WciuLR0+imr0KEqPgffryUtgSlLKtmBzF0fzyNl3Tp1teEJKtH7w5v1yWWIcjXNlnPEoRpNLUXczWa7E5Z0i1mg5KmPNuwj0VkfT1RZ8UeYG6LLAKy99k5Sj2xuaU3NvAN7a0qCR6chCG+iXAwhLSa2AfiVv6M3s+9FJwB8BMZ/dnypZ2JEbWnHD8J2MoYpwOr/EMmlnIvb/ItdDfEU0HoxGQez19ND1iujQfxMtTmKBf/X3X4EwIzWa6H+eQEd6eO7blL0Ih2ISpKUOCUdKXt3DAAALqysSG+TRrt+lBlwtvi/aVTVNXq7pUmOdvFqDLmuYei7bxBxUhAqC+y5o++gEbyZh2rU9Dao6r6DPwkHv/0k8fhw==)"
+  :replies: []
+- :author: el_daniero
+  :url: https://www.reddit.com/r/adventofcode/comments/1ph3tfc/2025_day_8_solutions/nswfxdm
+  :body: |-
+    ```ruby
+    N = 1000
+    input = File.readlines('input08.txt').map { it.scan(/\d+/).map(&:to_i) }
+
+    circuits = input.to_h { [it,Set[it]] }
+    by_distance = input.combination(2).sort_by { |a,b| Math.sqrt(a.zip(b).sum { |ai,bi| (ai-bi)**2 }) }
+
+    print "Part 1: "
+    by_distance.take(N).each do |a,b|
+      ca,cb = circuits.values_at a,b
+      next if ca == cb
+
+      ca.merge cb
+      cb.each { circuits[it] = ca }
+    end
+
+    puts circuits.values.uniq.map(&:size).max(3).reduce(:*)
+
+    print "Part 2: "
+    by_distance.drop(N).each do |a,b|
+      ca,cb = circuits.values_at a,b
+      next if ca == cb
+
+      ca.merge cb
+      cb.each { circuits[it] = ca }
+
+      if circuits.values.uniq.size == 1
+        puts a[0]*b[0]
+        break
+      end
+    end
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1ph3tfc/2025_day_8_solutions/nswnuat
+  :body: |-
+    Part 1: [paste](https://topaz.github.io/paste/#XQAAAQBbAwAAAAAAAAAxmwhIY/U8uRGJe0wm8TD4UT8WFHJqY/veL97LoU6Dy/WfRDFYXlfX6PjMyFZoF8VZun3D1xbCBR5/xZWxa8nYpneP1J6Urt17E/nNd2krWX/S+KjyBuHsfryhXtVCu/TnNa/avwE2Yd65Kbjwwjienr5idmOgnAvTMZxWJSfOuLcl1Xg00guFCtB3eNN0xrXviKSbTlLxgMVpUrLIMWD8C2Hc1mCyDjetNVM501wtP/v3A8fVC9WvWolqt485zm9FMi/2Nsk5HOcCDCrMXykV/gzbL3mcvf0bV3dSRS6lTpFRhL1PASsYp8OHHFCFrJUGqyJb7BcqJS29RbLEeLZ7v+qjvIcc1fdeYcmrkyeOt2F2INUIBH95nWxItt2s1pNEUnFAsCPC6lBOGxh1rAFBwUrM/vxk6sditaCmCz8bTu3a26qje11ipUYkpdbVutFu4bqIoWgyZzCIg8BtDhv9lNmlzicNOp48ysOBjI1ZikOHb+aJ9ltB/GU5JV5gsscCUCAI2sQJR/pc0EJnIPJvKwEgE/Vg/5QNa8N3br4DfE+jWLQyyAFPXlNABv8/mXnjiLvalBLlXjrmUi6senq90iigWzz74q2wAnIRUl8lfbX+cdd0TVytbLeNtNIFB/wz/3+1SwA=)
+
+    Part 2 (easier than part 1 today):
+
+    ```ruby
+    def dist(x,y) = x.zip(y).map{it.reduce(&:-)}.sum{it**2}
+    circuit = Set.new
+
+    File.readlines("08/input.txt")
+                .map{ it.split(?,).map(&:to_i) }
+                .combination(2)
+                .sort_by{ dist *it }
+                .each do |a,b|
+        circuit << a << b
+        (puts a[0] * b[0]; break) if circuit.size == 1000
+    end
+    ```
+  :replies:
+  - :author: xr51z
+    :url: https://www.reddit.com/r/adventofcode/comments/1ph3tfc/2025_day_8_solutions/nszqlqq
+    :body: I also do AoC in Ruby and I love seeing how efficiently you do this (and previous entries). It's like we have the exact same idea but your code is a third of my amount of lines. Learning a lot! Thank you!
+    :replies: []

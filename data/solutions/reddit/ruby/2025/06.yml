@@ -1,0 +1,246 @@
+---
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsodrwg
+  :body: |-
+    https://github.com/SleepingInsomniac/adventofcode/tree/master/2025-12-06
+
+    ```ruby
+    def part_1(input)
+      lines = input.readlines(chomp: true)
+      ops = lines.pop.split(/\s+/).map(&:to_sym)
+      numbers = lines.map { |l| l.strip.split(/\s+/).map(&:to_i) }
+        .transpose.map.with_index { |col, i| col.reduce(ops[i]) }.sum
+    end
+
+    def part_2(input)
+      lines = input.readlines(chomp: true)
+      ops = lines.pop.scan(/[^\s]\s+/)
+      start, stop = 0, 0
+      ranges = ops.map.with_index { |op, i| stop += op.size ; (start...(i == ops.size - 1 ? stop : stop - 1)).tap { start = stop } }
+      ops.map! { it.strip.to_sym }
+      lines.map { |l| ranges.map { |r| l[r].chars } }.transpose.map.with_index { |r, i| r.transpose.reverse.map { it.join.to_i }.reduce(ops[i]) }.sum
+    end
+    ```
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsnzd8r
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_06](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_06)"
+  :replies: []
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsngua5
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_6/part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_6/part_1.rb)
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_6/part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_6/part_2.rb)
+  :replies: []
+- :author: Mahedros
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsmks32
+  :body: |-
+    Ah, there's the difficulty jump we've been waiting for. The "eureka" moment for me was realizing the operators are always left-aligned, so I can parse that line first and use the widths of its splits to parse the value lines
+
+    [Code Link](https://topaz.github.io/paste/#XQAAAQAACgAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw6AjPxsUgu9rdE7zhPPHPyXwxOHK81zITg/yhxqdKmLQEniJYuRkLq8JUbpiJpEA6fYdDJgmkC1iyEhNq7J/hMXfeBM7NBbT67a1yG8RgnjkgUPVEYlNurj/c2JWc0WYvGqpfQEiA718N3V8PqQ1+koJpRieOv0eD6pvg2Sqzc4CM0ZV7bPPq5l5hWZcM5y6V4jbGdhnmt2WUdl9Elpt7/HSK6C7MXz/CO82zd/W1vQhH57EHKmSkUQKV9caoP8VawNvCwH0koI9gcNAkGd8b/99IpMHJ1wPxxQmA8FlD3sWsfv59PVngcrp+JshELiMGnHWqhFzGSwFr+R3vdAsqmwsGs8qjTPsAgq1IK8tKrCtWAs3TRwXIDBLSL64bxnB3iVQqaYdjP2uTad98KyPw3oFAPDYObtdLQCSGIrTWpU2D6NuK7tzamiOPl8ksDHiJjOf9AwgEod2ahqA/VAHq+hdRUMwG5G2hr9y3Q1CgAWv7OKKP5fDEBeX/ltOucJS3DXc61VSWT6Fud8W/xCkqJGtTefovvfthQc32ukCaqNvoKDLO3PNWntxh7KIdGOHiGr9GVGlY70eUhOxnMKEFWu9mJ/aNtH+ghrUXfiglUjT2LppJJmEUcxWa6BrbzH5k8Vfp+Lh7+hcNLPkt9Uqc+AH+AFCAwfZd4NoOdcr19GVa8SXIJvX+HKopi3hNKY2QhAM6y7IPRYvcvpBPiUdkbTOZJFLse1RKEZ5HMaSNpHYjqo2Hu87kisVwtqQxMmHyTBAmFEQj8oX0wcjN7Vg67unfzlFiEVT0Xx1ARIN214SS/LBZ1UHm+80ksBAFz5SMkuLcfFQCKef8TXMKU7nYetNvmCBD3cJYkKuk1tkY2geN14L+xM8yxEySEVxQTQxY5tn24cmRFL6zFDFfk7x10ZsZEGVf7R91D46E/T2x0pLuafqgiijQdwFywo92WEb04ZeOgqgh58Kb/R5IV/tBukaFhxL3I6XrlQXCqAUlI3QfCzs/I5sAaDBl8K1hmcTFxQ/muyPENPQpUs1FbNLwm4IJXlJNBTIZ/KqGisSa5gFC7gwhlsg4fqJd/cw8Aa+PJSZO/+Pw8ai)
+  :replies:
+  - :author: isaacfink
+    :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsmmgqb
+    :body: I had the same realization, I was dreading having to parse each line character by character with a lookahead
+    :replies: []
+- :author: systemnate
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nslvhbm
+  :body: |-
+    Finished part 1 very quickly, but failed to read the "right-aligned" part and went down an approach where I was trying to add the ones, then tens, then hundreds, etc. of the number.
+
+    Fun fact: the problem mentions a "magnetically sealed garbage smasher", like in Star Wars: Episode IV. The solution to the sample input for part 2 is 3263827, which is the number of the trash compactor in Star Wars.
+
+    ```ruby
+    require "debug"
+    require_relative "../utils.rb"
+
+    raw = AOC::Input.resolve(ARGV, DATA)
+    data = AOC::Parser.raw_data(raw).split("\n")
+
+    part_one_data = data.map { _1.split(" ") }.transpose
+    part_two_data = data.map(&:chars).transpose.slice_before { _1.all?(" ") }
+
+    PartOne = Struct.new(:problems) do
+      def numbers
+        problems[0..-2].map(&:to_i)
+      end
+
+      def operand
+        problems[-1].to_sym
+      end
+
+      def solution
+        numbers.reduce(operand)
+      end
+    end
+
+    PartTwo = Struct.new(:problems) do
+      def numbers
+        problems.map { |arr| arr[..-2] }.map(&:join).map(&:to_i).reject(&:zero?)
+      end
+
+      def operand
+        problems.flatten.detect { |char| %w[* +].include?(char) }
+      end
+
+      def solution
+        numbers.reduce(operand)
+      end
+    end
+
+    part_one = part_one_data.map { PartOne.new(_1) }
+    part_two = part_two_data.map { PartTwo.new(_1) }
+
+    puts part_one.map { _1.solution }.sum
+    puts part_two.map { _1.solution }.sum
+    __END__
+    123 328 51 64
+     45 64 387 23
+      6 98 215 314
+    * + * +
+    ```
+  :replies: []
+- :author: Prior-Advice-5207
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nskr8yo
+  :body: |-
+    Today I felt like revisiting a language I loved like a decade ago… `Array#transpose` was very handy for part 2!
+
+    https://github.com/diktomat/AdventOfCode/blob/main/2025/d06/d06.rb
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsli9n2
+  :body: |-
+    Part 1
+
+    ```ruby
+    input = File.readlines("input.txt").map{it.split}
+    values = input[..-2].map{it.map(&:to_i)}
+    ops = input.last.map(&:to_sym)
+
+    puts values.first.zip(*values[1..]).each_with_index.sum{|l,i| l.reduce(ops[i])}
+    ```
+
+    Part 2
+
+    ```ruby
+    *values, ops = File.readlines("input.txt")
+    total = i = 0
+
+    while i < ops.size
+        j = ops.index(/[+*]/, i+1) || ops.size + 1
+        a = values.map{it[i...j-1].chars}
+        total += a.first.zip(*a[1..]).map{it.join.to_i}.reduce(ops[i].to_sym)
+        i = j
+    end
+    puts total
+    ```
+  :replies: []
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsk4m2h
+  :body: |-
+    No time to do part 2 yet so haven't looked at other people's solutions. But I'm very happy with my one-liner for part 1!
+
+    ```ruby
+    #!/usr/bin/env ruby
+    p ARGF.readlines.map(&:split).transpose.map {|l| l.pop.then {l.map(&:to_i).reduce(it.to_sym)}}.sum
+    ```
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsk95yt
+  :body: |-
+    not quite happy with the fact I'm parsing the data two different ways, but hey, it works
+
+    ```ruby
+    def solve_easy(text)
+      lines = text.lines.map(&:split)
+      last = lines.pop
+      matrix = lines.map { |l| l.map(&:to_i) }
+      matrix << last
+      matrix.transpose.sum { |col| col[..-2].inject(col.last) }
+    end
+
+    def solve_hard(text)
+      matrix = text.lines.map { |l| l.chars }.transpose
+      stack = []
+      results = 0
+      op = nil
+      while line = matrix.shift
+        if line.all? { _1 == ' ' } || matrix.empty?
+          results += stack.inject(op)
+          stack = []
+          op = nil
+          next
+        end
+        op ||= line.last
+        stack << line[..-2].join.to_i
+      end
+      results
+    end
+    ```
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1pfguxk/2025_day_6_solutions/nsl3rrd
+  :body: |-
+    If it works, it works...
+
+    ```ruby
+    # Part 1
+
+    input = File
+              .readlines("06_input.txt", chomp: true)
+              .map { |x| x.split(" ") }
+
+    input.each_with_index do |x, idx|
+      next unless idx < input.length - 1
+      x.map!(&:to_i)
+    end
+
+    result = 0
+
+    input.transpose.each do |x|
+      operator = x.length - 1
+      case x[operator]
+      when "*"
+        result += x[0..operator-1].inject(:*)
+      when "+"
+        result += x[0..operator-1].inject(:+)
+      end
+    end
+
+    puts "Part 1: ", result
+
+    # Part 2
+
+    input = File
+              .readlines("06_input.txt", chomp: true)
+              .map(&:chars)
+              .transpose
+              .map { |x| x.join.delete(" ") }
+
+    result = 0
+    input.delete("")
+    values = Array.new
+    operator = "+"
+
+    input.each_with_index do |x, idx|
+      if x.match?(/\+|\*/)
+        if values.length != 0
+          operator.include?("+") ? i = values.inject(:+) : i = values.inject(:*)
+          result += i
+        end
+        values.clear
+        values << x.chop.to_i
+        operator = x[-1]
+      else
+        values << x.to_i
+      end
+    end
+
+    # Ugly... but it gets the job done. Should've written a method.
+    operator.include?("+") ? i = values.inject(:+) : i = values.inject(:*)
+    result += i
+
+    puts "Part 2: ", result
+    ```
+  :replies: []

@@ -1,0 +1,22 @@
+---
+- :name: 2a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: "ranges = $<.read.strip.split(\",\").map {\n  a, b = it.split('-')\n  a = '1' + '0' * a.size if a.size.odd?  \n  b = '9' * (b.size - 1) if b.size.odd?\n  next if a.to_i > b.to_i\n  raise unless a.size == b.size && a.size.even?\n  [a, b, a.to_i..b.to_i]\n}.compact\n\nsilly = []\nranges.each { |a, b, range|\n  s = a.size\n  (a[0...s/2]..b[0...s/2]).each { |half|\n    n = (half * 2).to_i\n    silly << n if range.cover? n\n  }\n}\np silly.sum"
+- :name: 2a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    r=[]
+    $<.read.chomp.split(?,).map{
+      a,b=it.split ?-
+      a=?1+?0*a.size if a.size.odd?
+      b=?9*(b.size-1)if b.size.odd?
+      s=a.size
+      (a[0,s/2]..b[0,s/2]).each{
+        n=(it*2).to_i
+        r<<n if a.to_i<=n&&n<=b.to_i
+      }
+    }
+    p r.sum
+- :name: 2a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: p$<.read.chomp.split(?,).sum{a,b=it.split ?-;(a[..s=a.size/-2-1].to_i..b[..s].to_i).sum{a.to_i<=(n="#{it}#{it}".to_i)&&n<=b.to_i ? n:0}}

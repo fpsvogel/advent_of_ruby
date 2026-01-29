@@ -1,0 +1,41 @@
+---
+- :name: 02.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    RANGES = INPUT.strip.split(",").map do |range|
+      range.split("-").map(&:to_i)
+    end
+
+    def repeats_at?(digits, size)
+      return false unless digits.length % size == 0
+
+      slices = digits.each_slice(size).to_a
+      slices.each_cons(2).all? { |a, b| a == b }
+    end
+
+    def repeats_once?(id)
+      digits = id.to_s.chars
+      return false unless digits.length.even?
+
+      repeats_at?(digits, digits.length / 2)
+    end
+
+    def repeats_any?(id)
+      digits = id.to_s.chars
+      midpoint = digits.length / 2
+
+      midpoint.downto(1).any? do |size|
+        repeats_at?(digits, size)
+      end
+    end
+
+    def sum_ids(ranges, &block)
+      ranges.sum do |(start_id, end_id)|
+        (start_id..end_id).sum do |id|
+          block.call(id) ? id : 0
+        end
+      end
+    end
+
+    solve!("The sum of invalid IDs is:", sum_ids(RANGES) { |id| repeats_once?(id) })
+    solve!("The sum of invalid IDs (with any sequence length) is:", sum_ids(RANGES) { |id| repeats_any?(id) })

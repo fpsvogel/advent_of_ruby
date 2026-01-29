@@ -1,0 +1,58 @@
+---
+- :name: 2b.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    ranges = $<.read.strip.split(",").flat_map {
+      a, b = it.split('-')
+      raise if a.to_i > b.to_i
+
+      if a.size == b.size
+        a..b
+      else
+        raise unless a.size + 1 == b.size
+        [
+          a..('9' * a.size),
+          ('1' + '0' * a.size)..b
+        ]
+      end
+    }
+
+    silly = Set.new
+    ranges.each { |range|
+      a, b = range.begin, range.end
+      s = a.size
+
+      (1..s/2).each { |stride|
+        if s % stride == 0
+          repeats = s / stride
+          (a[0...stride]..b[0...stride]).each { |part|
+            n = part * repeats
+            silly << n.to_i if range.cover? n
+          }
+        end
+      }
+    }
+
+    p silly.sum
+- :name: 2b_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    r=Set[]
+    $<.read.strip.split(?,).flat_map{
+    a,b=it.split(?-)
+    (s=a.size)==b.size ? [[a,b]]:[[a,?9*s],[?1+?0*s,b]]
+    }.each{|a,b|
+      s=a.size
+      (1..s/2).each{|z|
+        if s%z==0
+          (a[0,z]..b[0,z]).each{
+            n=it*(s/z)
+            r << n.to_i if (a..b).cover? n
+          }
+        end
+      }
+    }
+    p r.sum
+- :name: 2b_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: "$<.read.split(/\\D/).each_slice(2){|a,b,d=(c=b).size|s=a.size;b=?9*s if s<d;(1..s/2).map{|z|(a[0,z]..b[0,z]).map{n=it*(s/z);$*<<n.to_i if(a..b).cover? n}if s%z==0};a,b=?1+?0*s,c;redo if s<d};p$*.uniq.sum"

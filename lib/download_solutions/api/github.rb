@@ -24,7 +24,7 @@ module DownloadSolutions
         solutions = {new: {}, skipped: [], not_found: []}
 
         year_directory = (REPOS[author][:year_directory] || "%<year>d") % {year:}
-        year_files = get_year_files!(solutions:, year_directory:, author:, year:) || (return solutions)
+        year_files = get_year_files!(solutions:, year_directory:, author:, year:, max_day:) || (return solutions)
 
         (input_day || 1).upto(input_day || max_day) do |day|
           if REPOS[author][:day_directory]
@@ -53,7 +53,7 @@ module DownloadSolutions
 
       private
 
-      def get_year_files!(solutions:, year_directory:, author:, year:)
+      def get_year_files!(solutions:, year_directory:, author:, year:, max_day:)
         year_response = api_connection.get("/repos/#{author}/#{REPOS[author][:repo]}/contents/#{year_directory}")
 
         if year_response.status == 404

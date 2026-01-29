@@ -1,0 +1,21 @@
+---
+- :name: day-02-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-02
+  :solution: |-
+    ranges.sum { |range|
+      min, max = range.split(?-).map(&:to_i)
+
+      (min..max)
+        .select { |n|
+          str = n.to_s
+
+          length = str.length
+
+          (1...length)
+            .select { length % _1 == 0 }
+            .any? { |i|
+              str.match?(/\A(#{str[0...i]})+\z/)
+            }
+        }
+        .sum
+    }.tap { puts _1}

@@ -1,0 +1,29 @@
+---
+- :name: day-07-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-07
+  :solution: |-
+    lines = input
+      .each_line
+      .each_slice(2) # skip every second line
+      .map(&:first)
+
+    beams = {
+      lines.first.index("S") => 1
+    }
+
+    lines[1..-1].each do |line|
+      new_beams = Hash.new(0)
+
+      beams.each do |beam, count|
+        if line[beam] == ?^
+          new_beams[beam - 1] += count
+          new_beams[beam + 1] += count
+        else
+          new_beams[beam] += count
+        end
+      end
+
+      beams = new_beams
+    end
+
+    puts beams.values.sum

@@ -1,0 +1,45 @@
+---
+- :name: 11.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    MAP = INPUT.split("\n").each_with_object({}) do |line, map|
+      loc, neighbors = line.split(": ")
+      map[loc] = neighbors.split(" ")
+    end
+
+    def paths(map, current, goal, known = Hash.new { |h, k| h[k] = 0 })
+      return 1 if current == goal
+      return known[current] if known.key?(current)
+      return 0 if !map[current]
+
+      map[current].each do |neighbor|
+        known[current] += paths(map, neighbor, goal, known)
+      end
+
+      known[current]
+    end
+
+    solve!(
+      "The total number of paths from `you` to `out` is:",
+      paths(MAP, "you", "out")
+    )
+
+    # Given the nature of the problem, we know that there are no loops possible,
+    # so data can only visit `fft` and `dac` in one specific order. We check to see
+    # which direction data flows, and break the path into segments based on that.
+    fft_paths = paths(MAP, "fft", "dac")
+    dac_paths = paths(MAP, "dac", "fft")
+
+    path_segments = [
+      (paths(MAP, "svr", "fft") if fft_paths > 0),
+      (paths(MAP, "svr", "dac") if dac_paths > 0),
+      (fft_paths if fft_paths > 0),
+      (dac_paths if dac_paths > 0),
+      (paths(MAP, "dac", "out") if fft_paths > 0),
+      (paths(MAP, "fft", "out") if dac_paths > 0)
+    ].compact
+
+    solve!(
+      "The total number of output paths from the server through `fft` and `dac` is:",
+      path_segments.reduce(1, :*)
+    )

@@ -1,0 +1,217 @@
+---
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/nskwjkx
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_4/part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_4/part_1.rb)
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_4/part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_4/part_2.rb)
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/nsbq4e6
+  :body: |-
+    https://asciinema.org/a/ZJUVtS4mkmD8bYUTUChU8xcGN
+
+    ## Both parts
+
+    ```ruby
+    class Grid
+      include Enumerable
+
+      def initialize(data, width, height)
+        @data, @width, @height = data, width, height
+      end
+
+      def neighbors(x, y)
+        [
+          [-1, -1], [0, -1], [1, -1],
+          [-1, 0], [1, 0],
+          [-1, 1], [0, 1], [1, 1],
+        ]
+          .map { |dx, dy| [x + dx, y + dy] }
+          .reject { |x, y| x < 0 || y < 0 || x >= @width || y >= @height }
+      end
+
+      def roll?(x, y) = self[x, y] != '.'
+      def count_neighbors(x, y) = neighbors(x, y).count { |x, y| roll?(x, y) }
+      def [](x, y) = @data[y * @width + x]
+
+      def []=(x, y, value)
+        @data[y * @width + x] = value
+      end
+
+      def accessible?(x, y) = count_neighbors(x, y) < 4
+      def each = 0.upto(@height - 1) { |y| 0.upto(@width - 1) { |x| yield x, y } }
+      def count_accessible = count { |x, y| roll?(x, y) && accessible?(x, y) }
+      def accessible_rolls = select { |x, y| roll?(x, y) && accessible?(x, y) }
+      def remove(rolls) = rolls.each { |x, y| self[x, y] = "." }
+    end
+
+    lines = input.readlines(chomp: true)
+    width, height = lines.first.size, lines.size
+    grid = Grid.new(lines.join.chars, width, height)
+
+    part_1 = grid.accessible_rolls.count
+    total = 0
+
+    loop do
+      removable = grid.accessible_rolls
+      break if removable.empty?
+      removable.each { |x, y| grid[x, y] = grid[x, y].colorize(:red) }
+      total += removable.count
+      grid.remove(removable)
+    end
+
+    part_2 = total
+    ```
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/nsazos6
+  :body: |-
+    Each part shares parsing, otherwise each solved independently. Part 1 simple traverse the grid, Part 2 continue transversing the grid until 0 can be removed, updating/mutating the grid while scanning (since the final result is all that matters and not the count per iteration which may reduce total grid traversals needed).
+
+    [2025 Day-04 ruby solution for Part 1 and Part 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-04.rb)
+  :replies: []
+- :author: Mahedros
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7aezz
+  :body: "[Link to Code](https://topaz.github.io/paste/#XQAAAQCtCAAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw6AjPxpQKi2L5b7FYOvRiQfnq6pZ3l8BSNmGYKISOzndSPcw7D2gplGGLncIWHEOAn7SbfQYcXKwBQIfezoST/lGr7XVS7qy18NnC/9ELffeJkT8m+KerUvQfHh8jY6mx3NjCloW+B5ywHAIbgocLq/m01dacocMWl9Mil55F8dV7gyRkGUk1GvigihDKrvFuMVS4MOUHF9yoouRBNLuS5ht3AJUkQbNn1GFXkUl3XVXJm106Z2WCqxngZjTo9mkVYQ1Bl/LvTgXaAPsOThyf3gzigQZGeK7hOYQ/z3OK56Es5IEpSYQQRUsayyNXuh/a7Q3dEdJeNEtIFMLyyBbWr6ePJ18SrWT51lzRj1PJSc0zTEFJHPCOMGz6t7dB8qZ2ACBu91G3gdqYxgdoiWccLar2qbA2GOlZsxap09U+vuK4DNRcZFpovEbzlREvRYunnP/Or2TjjH9WiqiOX2giLX91aYUW1jycEOpyOXVaSGmyx6AYOazMtjcdgZUFGUyfIWkc1k03xFxc/BW7uxAmx9ZqWD67Z2b8Zv9ClmpxpE9WXdBlTg6yEtvzjTuJ94u0XtOwxfnItHRgcrzeTduOhcdGnNVuVJ3MJ8BU0LLg/mpH05x0sgwSCU9/EnA9pjhJXYKLPD7OFH7fe8qmYGYK2YujZBtR7astJ9rA2fObPDJjpH8rJPE)"
+  :replies:
+  - :author: munchler
+    :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7cap6
+    :body: 'Ruby: The OG vibe-coding language.'
+    :replies: []
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7l9y7
+  :body: |-
+    Love it when I can solve a puzzle this far in within 45 minutes of my alarm going off in the morning. Thanks to my trusty `grid.rb` that has been growing over the years of solving AoC!
+
+    [https://github.com/pedantic-git/aoc2025/blob/main/04/04.rb](https://github.com/pedantic-git/aoc2025/blob/main/04/04.rb)
+
+    [https://github.com/pedantic-git/aoc2025/blob/main/utils/grid.rb](https://github.com/pedantic-git/aoc2025/blob/main/utils/grid.rb)
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7ezro
+  :body: |-
+    look, I have a helper class, but it's trivial. horrible solutin but I can't believe I got it right, I always screw up these.
+
+    ```ruby
+    def solve_easy(grid)
+      count = 0
+      grid.each_with_position do |tile, i, j|
+        if tile.value == '@'
+          close_rolls = grid.neighbors8(tile).select { |t| t.value == '@' }
+          if close_rolls.size < 4
+            count += 1
+          end
+        end
+      end
+      count
+    end
+
+    def solve_hard(grid)
+      queue = grid.tiles_with_value('@')
+      removed = 0
+      loop do
+        break if queue.empty?
+        current = queue.shift
+        next if grid[current.i, current.j].value == '.'
+        close_rolls = grid.neighbors8(current).select { |t| t.value == '@' }
+        if close_rolls.size < 4
+          grid[current.i, current.j] = '.'
+          removed += 1
+          queue.concat(close_rolls)
+        end
+      end
+      removed
+    end
+    ```
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns81d1z
+  :body: |-
+    ```ruby
+    input = File.readlines("input.txt")
+
+    GRID = Set.new
+    input.each_with_index do |l, y|
+      l.chars.each_with_index do |c, x|
+        GRID << Complex(x,y) if c == ?@
+      end
+    end
+
+    ADJ = [-1-1i, -1+0i, -1+1i, 0-1i, 0+1i, +1-1i, +1+0i, +1+1i]
+
+    def accessible(grid) = grid.reject{ |i| ADJ.map{it+i}.count{ grid.include?(it)} >=4 }
+
+    acc = accessible(GRID)
+    puts acc.count
+
+    g = GRID.dup
+    until acc.empty?
+      g -= acc
+      acc = accessible(g)
+    end
+    puts GRID.count - g.count
+    ```
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7jzl2
+  :body: |-
+    The half punchcard is more cramped for today's problem, but still very achievable.
+
+    ```ruby
+    g = STDIN.read; g += ?\n * (w = g.index(?\n)) * 2
+    loop { g.tr! ?#, ?-; (h = g.chars).each_with_index { |c, i| next if c != ?@
+      g[i] = ?# if [*(-w-2..-w), -1, 1, *(w..w+2)].count{ h[i + _1] == ?@ } < 4 }
+      p g.count ?# if !g[?-]; break if !g[?#] }
+    p g.count ?-
+    ```
+
+    Despite calling my input `g` for "grid", it remains a one-dimensional string. Newline characters form "walls" so I don't run into trouble with wrapping across lines. I suspect there's some better way to enumerate adjacent indices but I can't think of one at the moment.
+
+    The removed rolls are marked with a `#`; then, at the beginning of each pass, all `#`s are replaced with `-`s. After a pass, if there are no `-`s then part 1 is done and if there are no `#`s then part 2 is done.
+
+    _Edit: the newline walls weren't big enough for all inputs (top left corner could "see" the bottom right corner). Added `* 2` to line 1 to fix._
+  :replies:
+  - :author: Nnnes
+    :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7rcqt
+    :body: |-
+      > better way to enumerate adjacent indices
+
+      ```ruby
+      g = STDIN.read; g = ?. * (w = g.index(?\n)) + g + ?. * w
+      loop { g.tr! ?#, ?-; (h = g.chars).each_with_index { |c, i| next if c != ?@
+        g[i] = ?# if [-w - 2, -1, w].sum([]) { h[i + _1, 3] }.count(?@) <= 4 }
+        puts g.count ?# if !g[?-]; break if !g[?#] }
+      p g.count ?-
+      ```
+
+      Better? Not sure, but at least it's noticeably faster.
+    :replies: []
+- :author: justjarvo
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7vvo3
+  :body: |-
+    ```ruby
+    require_relative "grid"
+
+    def remove_rolls(grid)
+      grid.each_cell
+        .filter_map { |x, y, c| [x, y] if c == "@" && grid.adjacent_values(x, y).count { _1 == "@" } < 4 }
+        .each { |x, y| grid[x, y] = "R" }
+    end
+
+    grid = Grid.parse(File.read("input/d04.txt"))
+    removed = remove_rolls(grid)
+    p1 = p2 = removed.size
+    p2 += removed.size while (removed = remove_rolls(grid)).any?
+
+    p [p1, p2]
+    ```
+
+    Grid code: [https://github.com/leejarvis/adventofcode/blob/master/2025/grid.rb](https://github.com/leejarvis/adventofcode/blob/master/2025/grid.rb)
+
+    Vacation for the next few days so no AoC for me, excited to get stuck into some challenges when I return.
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pdr8x6/2025_day_4_solutions/ns7zt95
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_04](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_04)"
+  :replies: []

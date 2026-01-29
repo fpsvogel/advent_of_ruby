@@ -1,0 +1,11 @@
+---
+- :name: day-06-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-06
+  :solution: |-
+    input
+      .each_line
+      .map(&:split)
+      .transpose
+      .map { _1[0...-1].map(&:to_i).inject(_1[-1]) }
+      .sum
+      .tap { puts _1 }

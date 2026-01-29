@@ -1,0 +1,59 @@
+---
+- :name: '08.rb'
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    require "matrix"
+
+    JUNCTION_BOXES = INPUT.split("\n").map do |row|
+      Vector[*row.split(",").map(&:to_i)]
+    end
+
+    N_CLOSEST ||= 1000 # rubocop:disable Lint/OrAssignmentToConstant
+
+    def pairs(boxes)
+      boxes.combination(2).sort_by { |a, b| (a - b).magnitude }
+    end
+
+    def circuits(boxes)
+      connections = pairs(boxes).first(N_CLOSEST)
+      flattened = connections.flatten
+      boxes = connections.flatten.uniq.sort_by { |box| flattened.count(box) }
+
+      circuits = connections
+      loop do
+        break circuits if boxes.empty?
+        box = boxes.shift
+
+        connected, circuits = circuits.partition { |boxes| boxes.include?(box) }
+        circuit = Set.new(connected.flatten)
+        circuits << circuit.to_a
+      end
+    end
+
+    solve!(
+      "The product of the sizes of the three largest circuits is:",
+      circuits(JUNCTION_BOXES).map(&:size).sort.last(3).reduce(:*)
+    )
+
+    def last_connection(boxes)
+      target = boxes.size
+      connections = pairs(boxes)
+
+      used = Set.new
+      connection = nil
+
+      loop do
+        break false if connections.empty?
+        break connection if used.size == target
+
+        connection = connections.shift
+        used << connection[0]
+        used << connection[1]
+      end
+    end
+
+    final = last_connection(JUNCTION_BOXES)
+    solve!(
+      "The product of X coordinates of the last connection is:",
+      final.map(&:first).reduce(:*)
+    )

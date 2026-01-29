@@ -1,0 +1,15 @@
+---
+- :name: day-03-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-03
+  :solution: |-
+    banks = input.split("\n").map(&:chars).map { _1.map(&:to_i) }
+
+    banks.sum { |bank|
+      tens, idx = bank[0...-1]
+        .each.with_index
+        .max_by { |value, _idx| value }
+
+      ones = bank[(idx + 1)..-1].max
+
+      tens * 10 + ones
+    }.tap { puts _1 }

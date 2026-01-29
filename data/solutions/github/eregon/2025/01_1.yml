@@ -1,0 +1,17 @@
+---
+- :name: 1a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    dial = 50
+    p $<.map {
+      dial = (dial + it.tr('LR', '-+').to_i) % 100
+    }.count(0)
+- :name: 1a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: d=50;p$<.map{(d+=it.tr('LR','-+').to_i)%100}.count 0
+- :name: 1a_golf2.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    d=50;n=0
+    $<.map{eval"d#{it.sub(?L,'-=').sub(?R,'+=')};n+=1 if d%100==0"}
+    p n

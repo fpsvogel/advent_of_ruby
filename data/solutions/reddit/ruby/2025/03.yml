@@ -1,0 +1,369 @@
+---
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/nskw3ne
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_3/lobby\_part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_3/lobby_part_1.rb)
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_3/lobby\_part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_3/lobby_part_2.rb)
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns7xmkh
+  :body: |-
+    ```ruby
+    input = File.readlines("input.txt", chomp: true)
+
+    def solve(source, digits, result="")
+      return result if result.length == digits
+
+      chunk = source[..result.length - digits]
+      i = chunk.index(chunk.chars.max)
+      solve(source[i+1..], digits, result+source[i])
+    end
+
+    puts input.sum{ solve(it, 2).to_i }
+    puts input.sum{ solve(it, 12).to_i }
+    ```
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns6trgt
+  :body: |-
+    https://asciinema.org/a/vFZ0jkcQ4wAPhLVFvY3v391i9 https://github.com/SleepingInsomniac/adventofcode/blob/master/2025-12-03/
+
+    ```ruby
+    class Bank
+      def initialize(values, count)
+        @values = values.chars.map(&:to_i)
+        @pointers = ((@values.size - count)...@values.size).to_a
+      end
+
+      def count = @pointers.size
+      def pointer_value(i) = @values[@pointers[i]]
+      def bank_value(i) = @values[i]
+
+      def maximize
+        limit = 0
+        bi = @values.size - count - 1
+        pi = 0
+
+        until pi >= count
+          limit = (pi == 0 ? 0 : @pointers[pi - 1] + 1)
+
+          bi.downto(limit) do |i|
+            @pointers[pi] = i if bank_value(i) >= pointer_value(pi)
+          end
+
+          pi += 1
+          bi += 1
+        end
+
+        self
+      end
+
+      def joltage = @pointers.map.with_index { |p, i| @values[p] * (10 ** (count - i - 1)) }.sum
+    end
+
+    def solve(input, count)
+      total = 0
+      until input.eof?
+        total += Bank.new(input.gets.chomp, count).maximize.joltage
+      end
+      total
+    end
+
+    puts solve(input, 2)
+    puts solve(input, 12)
+    ```
+  :replies: []
+- :author: Early_Guarantee57
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns5ktdp
+  :body: |-
+    Day 3:
+
+    [Day 3](https://github.com/odrodriguezc/advent-of-code-2025/blob/main/lib/advent_of_code_2025/solvers/three.rb)
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns4z90v
+  :body: |-
+    Shared parsing, otherwise part 1 (find largest value not at the end, then largest number from what remains) and part 2 (iterating through string with managing offsets)
+
+    [GitHub: Day-03 parts 1 and 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-03.rb)
+  :replies: []
+- :author: Nnnes
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns0zphu
+  :body: |-
+    This really seems like a day that'd be easy to fully fit into half a punchcard in plenty of different languages, but I don't see any here yet! (Honorable mention to the [x86\_64 asm solution](https://old.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns0ub0u/) that fits each part in half a punchcard.)
+
+    _edit: I think this can have a `[Red(dit) One]` label for being the first full half-punchcard solution_
+
+    ```ruby
+    lines = STDIN.read.split(?\n).map(&:chars)
+    puts [2, 12].map { |n| lines.sum { |b|
+      l, r = -1, -n
+      b.select { _1 == b[(l += 1)..r].max && r += 1 }.join.to_i
+    }}
+    ```
+
+    This uses the same simple greedy algorithm as many (most?) of the other solutions.
+
+    The right side bound is tracked by the negative index `r`. When we've `select`ed enough batteries, `r` is incremented to 0 and `b[(l += 1)..r]` always returns an empty array, effectively skipping the remainder of the elements (luckily, `[].max` is `nil` and not a bounds error).
+  :replies: []
+- :author: justjarvo
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns172l7
+  :body: |-
+    ```ruby
+    def joltage(bank, battery_size:)
+      size = bank.size - battery_size
+      battery = []
+
+      bank.each_char.lazy.map(&:to_i).each do |n|
+        battery.pop && size -= 1 while size > 0 && battery[-1] && battery[-1] < n
+        battery << n
+      end
+
+      battery[0...battery_size].join.to_i
+    end
+
+    input = File.readlines("input/d03.txt", chomp: true)
+    p1, p2 = 0, 0
+    input.each do |bank|
+      p1 += joltage(bank, battery_size: 2)
+      p2 += joltage(bank, battery_size: 12)
+    end
+
+    p [p1, p2]
+    ```
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns24lw2
+  :body: |-
+    ```ruby
+    def aoc2503(batteries)
+      input = File.readlines("03_input.txt", chomp: true)
+      result = 0
+      input.each do |x|
+        joltage = ""
+        s_end = batteries
+        s_start = 0
+        batteries.times do |i|
+          y = x[s_start..-s_end]
+          9.downto(0) do |j|
+            j = j.to_s
+            if y.index(j) != nil
+              joltage << j
+              s_start += y.index(j) + 1
+              s_end -= 1
+              break
+            end
+          end
+        end
+      result += joltage.to_i
+    end
+      return result
+    end
+
+    puts "Part 1: ", aoc2503(2)
+    puts "Part 2: ", aoc2503(12)
+    ```
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns1096p
+  :body: |-
+    I got a bit lost for some reason, but in the end the solution seems nice enough to me.
+
+    ```ruby
+    def max_bank(numbers, want:)
+      found = []
+      want.downto(1) do |need|
+        top, idx = max_bank_helper(numbers, need:)
+        found << top
+        numbers = numbers[(idx + 1)..]
+      end
+      found.reverse.map.with_index { |v, i| v * (10**i) }.sum
+    end
+
+    def max_bank_helper(numbers, need:)
+      numbers[..-need].each_with_index.max_by { |v, i| [v, -i] }
+    end
+
+    def solve_easy(lines)
+      lines.sum { |row| max_bank(row, want: 2) }
+    end
+
+    def solve_hard(lines)
+      lines.sum { |row| max_bank(row, want: 12) }
+    end
+    ```
+  :replies: []
+- :author: bulinutza
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns1n75z
+  :body: |-
+    I ended up with a function that works for both puzzle parts, taking the expected size as an argument.
+
+    ```ruby
+    def process_battery(battery_line, expected_size)
+        index = 0
+
+        expected_size.downto(1).collect do |size|
+            found_digit = 0
+
+            index.upto(battery_line.size - size).each do |i|
+                digit = battery_line[i].to_i
+
+                if digit > found_digit
+                    found_digit = digit
+                    index = i + 1
+                end
+            end
+
+            found_digit
+        end.join('')
+    end
+
+    input.split("\n").sum{ |battery_line| process_battery(battery_line, 12).to_i }
+    ```
+  :replies: []
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns1no9d
+  :body: |-
+    Thought I was being clever on part 1 by statically compiling all the possibilities as regexps (actually really fast!)
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    REGEXPS = 99.downto(11).to_h { [it.to_s.chars.then {Regexp.new("#{_1}.*#{_2}")}, it]}
+
+    def joltage(bank)
+      REGEXPS.find {|r,_| r.match?(bank)}.last
+    end
+
+    puts ARGF.inject(0) {|acc,bank| acc + joltage(bank)}
+    ```
+
+    Not so good for part 2, though! (I solved it the same way as many of you.)
+  :replies: []
+- :author: systemnate
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns2ofba
+  :body: |-
+    For part 1, I just used Array#combination, but this was too slow for N=12. For part 2, I used a [monotonic stack](https://www.geeksforgeeks.org/dsa/introduction-to-monotonic-stack-2/). Notice that the sample input is at the end of the file under "\_\_END\_\_" this is a not very well known Ruby trick where DATA will refer to the data underneath \_\_END\_\_ and treat it as a File. Pretty cool.
+
+    ```ruby
+    require_relative "../utils.rb"
+
+    # some custom logic I made to either read
+    # from the sample input or download the input
+    # from the website
+    raw = AOC::Input.resolve(ARGV, DATA)
+    data = AOC::Parser.line_numbers(raw)
+
+    class BatteryBank
+      attr_reader :banks
+
+      def initialize(banks)
+        @banks = banks
+      end
+
+      # first attempt, brute force
+      def joltage
+        banks.combination(2).max.map(&:to_s).join.to_i
+      end
+
+      # second attempt, monotonic stack
+      def joltage_fast(n = 12)
+        number_to_remove = banks.length - n
+
+        banks.each_with_object([]) do |digit, stack|
+          while number_to_remove > 0 && !stack.empty? && stack.last < digit
+            stack.pop
+
+            number_to_remove -= 1
+          end
+
+          stack << digit
+        end.first(n).map(&:to_s).join.to_i
+      end
+    end
+
+    # part 1
+    part_one = data.map { |banks| BatteryBank.new(banks).joltage }
+    puts part_one.sum
+
+    # part 2
+    part_two = data.map { |banks| BatteryBank.new(banks).joltage_fast }
+    puts part_two.sum
+
+    __END__
+    987654321111111
+    811111111111119
+    234234234234278
+    818181911112111
+    ```
+  :replies: []
+- :author: Mahedros
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns325ct
+  :body: |-
+    Decided to teach myself a new language starting today. Is this good Ruby? Probably not, but it's technically the best Ruby I've ever written
+
+    ```ruby
+    def part1
+      total = 0
+      File.foreach('input').each do |line|
+        line = line.strip()
+        first_digit = 0
+        second_digit = 0
+        for i in 0...line.length
+          digit = Integer(line[i])
+          if digit > first_digit && i != (line.length - 1)
+            first_digit = digit
+            second_digit = 0
+            next
+          end
+          if digit > second_digit
+            second_digit = digit
+          end
+        end
+        total += (first_digit * 10) + second_digit
+      end
+      puts total
+    end
+
+    def part2
+      total = 0
+      File.foreach('input').each do |line|
+        line = line.strip()
+        digits = [0] * 12
+        for i in 0...line.length
+          digit = Integer(line[i])
+          for j in 0...digits.length
+            digit_set = check_digit(line, digits, digit, i, j)
+            if digit_set
+              break
+            end
+          end
+        end
+        total += Integer(digits.join)
+      end
+      puts total
+    end
+
+    def check_digit(line, digits, digit, i, digit_pos)
+      if digit > digits[digit_pos] and i < (line.length - (digits.length - 1 - digit_pos))
+        digits[digit_pos] = digit
+        for j in (digit_pos + 1)...digits.length
+          digits[j] = 0
+        end
+        return true
+      end
+      return false
+    end
+
+    if __FILE__ == $PROGRAM_NAME
+      Dir.chdir(File.dirname( __FILE__ ))
+      part1
+      part2
+    end
+    ```
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pcvaj4/2025_day_3_solutions/ns39fbu
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_03](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_03)"
+  :replies: []

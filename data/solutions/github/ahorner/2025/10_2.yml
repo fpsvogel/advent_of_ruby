@@ -1,0 +1,72 @@
+---
+- :name: 10.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    require "z3"
+
+    LIGHT_SEQUENCE_MATCHER = /\[(.*?)\]/
+    BUTTON_PATTERN_MATCHER = /\((.*?)\)/
+    JOLTAGE_PATTERN_MATCHER = /\{(.*?)\}/
+
+    Machine = Data.define(:goal, :buttons, :joltages)
+
+    MACHINES = INPUT.split("\n").map do |line|
+      goal = line.match(LIGHT_SEQUENCE_MATCHER)[1].chars.map { |c| (c == "#") ? 1 : 0 }
+      buttons = line.scan(BUTTON_PATTERN_MATCHER).map { |bp| bp[0].split(",").map(&:to_i) }
+      joltages = line.match(JOLTAGE_PATTERN_MATCHER)[1].split(",").map(&:to_i)
+
+      Machine.new(goal:, buttons:, joltages:)
+    end
+
+    def min_sequence_presses(machine)
+      goal = machine.goal
+      buttons = machine.buttons
+
+      combinations = (1..buttons.size).flat_map { |n| buttons.combination(n).to_a }
+      working = combinations.select do |combo|
+        pressed = Array.new(goal.size, 0)
+        combo.each { |button| button.each { |pos| pressed[pos] ^= 1 } }
+
+        pressed == goal
+      end
+
+      working.map(&:size).min
+    end
+
+    solve!(
+      "The minimal number of button presses is:",
+      MACHINES.sum { |machine| min_sequence_presses(machine) }
+    )
+
+    def min_joltage_presses(machine)
+      optimizer = Z3::Optimize.new
+
+      buttons = machine.buttons.each_with_index.map do |button, i|
+        count = Z3::Int("b#{i}")
+        optimizer.assert(count >= 0)
+
+        count
+      end
+
+      machine.joltages.each_with_index do |joltage, i|
+        values = buttons.each_with_index.map do |count, j|
+          button_value = Z3::Int("v#{j}_#{i}")
+          value = machine.buttons[j].include?(i) ? 1 : 0
+
+          optimizer.assert(button_value == (count * value))
+          button_value
+        end
+
+        optimizer.assert(joltage == values.sum)
+      end
+
+      presses = Z3::Int("presses")
+      optimizer.assert(presses == buttons.sum)
+      optimizer.minimize(presses)
+      optimizer.model[presses].to_i if optimizer.satisfiable?
+    end
+
+    solve!(
+      "The minimal number of presses to reach all target joltages is:",
+      MACHINES.sum { |machine| min_joltage_presses(machine) }
+    )

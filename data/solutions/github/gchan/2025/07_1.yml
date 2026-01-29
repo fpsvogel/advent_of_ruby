@@ -1,0 +1,33 @@
+---
+- :name: day-07-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-07
+  :solution: |-
+    lines = input
+      .each_line
+      .each_slice(2) # skip every second line
+      .map(&:first)
+
+    beams = [
+      lines.first.index("S")
+    ]
+
+    splits = 0
+
+    lines[1..-1].each do |line|
+      new_beams = []
+
+      beams.each do |beam|
+        if line[beam] == ?^
+          splits += 1
+
+          new_beams << beam - 1
+          new_beams << beam + 1
+        else
+          new_beams << beam
+        end
+      end
+
+      beams = new_beams.uniq
+    end
+
+    puts splits

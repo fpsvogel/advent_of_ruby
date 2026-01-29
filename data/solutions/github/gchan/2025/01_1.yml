@@ -1,0 +1,25 @@
+---
+- :name: day-01-part-1.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-01
+  :solution: |-
+    rotations = input.split("\n")
+
+    position = 50
+    count_zero = 0
+
+    rotations.each do |rotation|
+      direction, distance = rotation.scan(/[LR]+|\d+/)
+      distance = distance.to_i
+
+      case direction
+      when "L"
+        position -= distance
+      when "R"
+        position += distance
+      end
+
+      position %= 100
+      count_zero += 1 if position == 0
+    end
+
+    puts count_zero

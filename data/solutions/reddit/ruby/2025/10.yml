@@ -1,0 +1,73 @@
+---
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/nudj3n0
+  :body: |-
+    Part 1:
+
+    ```ruby
+    input = File.readlines("input.txt")
+                .map{ it.scan(/\[(.+)\] ([()\d,]+)/)}
+                .flatten(1)
+                .map{ |l,b|
+                            [
+                                l.reverse.gsub(?.,?0).gsub(?#,?1).to_i(2),
+                                b.scan(/\((.+?)\)/).flatten.map{ it.split(?,).map{1 << it.to_i}.reduce(&:|)}
+                            ]
+                }
+
+    puts input.sum {|z,b| 1.upto(b.size).find{|c| b.combination(c).any?{ it.reduce(&:^) == z}} }
+    ```
+
+    Part 2:
+
+    That was a tough one. I got inspired by [this thread](https://www.reddit.com/r/adventofcode/comments/1pk87hl/2025_day_10_part_2_bifurcate_your_way_to_victory/): [Paste](https://topaz.github.io/paste/#XQAAAQBuBwAAAAAAAAA0m4poOBCMftdkRQiciXYGFBdLcr8czW9TNbult1FTw8hi7RjuG3N7nWSKl+Ojw06rUyBOmI9nnOAUVyMm5QlJapUyR9NlpWwZzKsITW+HqmGVBBpKCGEi39GLox2a7Q2is/by5448BGD5LaYgscEy76hSq2fSfZNLSCqj1b2rFlLwTcx4s+R9zyHBaTUGS5CuL4vPbxRBmK9TSXz4CrYBsjGJ6q19eJZyWCOqKUAWS5SFPahQUQsYY2OWLBFQUCD5QJOsfhbn8KaypJQWP3X6QQEWfLWjWt3y/bulu9coB1hORtBAsN3p556Ibi2/Flrzpk29Ku1diBrfIG3Pv4GmP7QGBgfhNhXMorUeni+zHGgsRNzeNuDiaR4A/2ZAXc79BgQWYov+u0Mg7+j3WUYwtWBkV0f+5czVTchDZr9uAytgZ8pURAM91yYxLcZdpQ/So/oup3Hwvsuj/JmN2esbuAh64l5hzqhgiBW4DLJbAgutb46rq+LXodg00A4Ze5RvaMQUPthJWJeCkhTT312nJsZV3yMIi3ZHxYRVa/7kwyo2OdXQZJVc3w8Wz1KmbVdOdWpfplcftf68nXBkgC63SSAktBtF+6tIgV2fwHBcfnlVOwEIZ4MxxdN2dC+2Eowf7wBr7CaWV+QQCptGgUM6woqi6xE9RmBuk+rfBELDrcxkoy7MZlHoUPHjWm8HnHoQ9oEUMMyCUktfjBwApikIPUQbbeXtonl/LbSV24mJ9BAtNiZJtV9lxXQCgXd2eoKogoe2aQz8p1+CN8nCEZg4MWbXe3cQMVr6d1jZEyJDlk5y8ZudZ3MBmIh0D7LpUF9DBtKvBkAYN/peVQAmmSw8rBiSSwyhnIi1ig/w4YCjxE3CaPsiUCCOw1tRjMMZWYIBMbqpyIRFZFgAhMgg6jmy1U/lTgZ4s7LO7Bdsc+rY70TkynHUOjweCgVdLWOCOy266g+TrZAUaBci/uKJO3kfD37TUT00ceL/xiss5FvDGZlFOEZlAbEY9Gu+JQJKzukIh/xHLe4=)
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/ntctd7p
+  :body: |-
+    [LINK](https://topaz.github.io/paste/#XQAAAQBnBAAAAAAAAAA0m4poOBCMftdkRQicgxqzrJtesqtO5HNoJyV8IUlraV1wGhmrxaU8vq+N/svmLBfE4aEwMN6Edw7/eQI/cYcwlyLfkogF0+1QwXfgUz3OzIQ6fs4vW8poF3IpWH3gZFRPWy7CKBQx0mPB8cZZZvaYtPl3PPtdL//aSIAbg0OGUir3CbK+c8PpiJ5gaGEzHVRblYJVc5LF+bq9LwL9Hcq8v6C+JwHoUCcIdJoYRT0RkNpo1jbEJ+SKS14FMm3HYzsNF0D0KMt3U5Z7d4w2gIX+lJP/iEZx2eU16l+bL3LbmCQOrW1nK0OV52u2YR0u0xlRtoVK2WsAxFiklno+kZBEjpOyTqjos+v7P86Fm6C+c1qx1CFvhfUFDlD0yGABl/Xu91UufiSOUbkKE8VEnN9xk6nUq+tR4YUPLZmrIV/hU6nOGtasWbv/SNhV2G0juL8aS6O7v0PXeXc2TxPA0IFrvPB/XfWxq3eScswOxw+dkXhpnSk1Ud8L8jj6g0litGuZ2Otx9t3zdr8QCqsxBSBaTkQv5vUx823pXxh6oRan9LUtGWZNBhWapixYFVn2GW2S0yWvq8SaVxpGS/lFJcfhTgOmTm2Zi1pg6jOujLXwV9mIgYjA0gxWO1xBow9xP5r5psahBZ4Anqvw7nqnr/3WhWo=) (part 1 only)
+
+    I am not a programmer, just a 30s-something guy who decide to learn coding earlier this year, and today I am defeated for the first time this AoC.
+
+    Part 1 went really well, I had the solution after about 20 minutes. However, I've been chewing on part 2 for hours now and I've decided to give up. I wanted to write my own algorithm (lol) but failed, then investigated this (to me unbeknownst) Z3 thing everyone's talking about, but decided to call it a day. You win, elves!
+  :replies:
+  - :author: flwyd
+    :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/nwj1dec
+    :body: If it makes you feel any better, I _am_ a professional programmer and it took me two weeks to fully solve part 2.
+    :replies: []
+  - :author: ChupeDeJaiba
+    :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/ntdfawe
+    :body: |-
+      I loled at the `puts "Part 2: ", "ERROR: brain too small"`
+
+      A few suggestions from a fellow ruby enthusiast (?)
+
+      Since only the min amount of button presses is needed, I think that changing `buttons.length.downto(1)` to `1.upto(buttons.length)` will allow you to exit as soon as a sequence reaches the end state instead of going trough all combinations. Something like `Enumerable#find`
+
+      To avoid being `#hacky` you can use `Float::INFINITY` as an initial minpresses value
+
+      Look into `String#scan` and some REGEX for input parsing, is pretty useful for AoC
+    :replies: []
+- :author: Sharparam
+  :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/nt9vc46
+  :body: |-
+    [LANGUAGE: Python]
+
+    [Did part 1 in Ruby](https://github.com/Sharparam/advent-of-code/blob/main/src/y2025/d10/solve.rb), and then had to admit defeat and [use Python and Z3 for part 2](https://github.com/Sharparam/advent-of-code/blob/main/src/y2025/d10/sandbox.ipynb).
+
+    Makes me wish there were Z3 bindings for Ruby that are not in ["very early stages of development"](https://github.com/taw/z3).
+  :replies:
+  - :author: firetech_SE
+    :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/ntawa5m
+    :body: |-
+      They might be in early stages, but they are still [perfectly usable](https://github.com/firetech/advent-of-code/blob/0fb1c0178b4b6250487f0a6fbf0191e4331471e4/2025/10/factory_z3.rb). ;)
+
+      My first instance of using it was three years ago, in 2022, and I've never had any issues (except that just `require 'z3'` slows down general Ruby a bit due to [some hacks](https://github.com/taw/z3/blob/master/lib/z3/hacks.rb)).
+    :replies:
+    - :author: Sharparam
+      :url: https://www.reddit.com/r/adventofcode/comments/1pity70/2025_day_10_solutions/ntbxsc5
+      :body: |-
+        Oh that is some good news, thank you for pointing it out!
+
+        One less thing to need Python for :)
+      :replies: []

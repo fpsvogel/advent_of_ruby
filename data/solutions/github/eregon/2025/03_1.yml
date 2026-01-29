@@ -1,0 +1,13 @@
+---
+- :name: 3a.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: |-
+    p $<.sum {
+      d = it.chomp.chars
+      a = d[..-2].max
+      b = d[d.index(a)+1..].max
+      (a+b).to_i
+    }
+- :name: 3a_golf.rb
+  :url: https://github.com/eregon/adventofcode/blob/master/2025
+  :solution: p$<.sum{(a=(d=it.to_i.digits)[1..].max)*10+d[...d.rindex(a)].max}

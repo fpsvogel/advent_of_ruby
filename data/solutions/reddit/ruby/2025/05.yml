@@ -1,0 +1,324 @@
+---
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsl0mch
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_5/part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_5/part_1.rb)
+
+    Explanation: `id.between?(range.first, range.last)` this is how ruby solve it.
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_5/part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_5/part_2.rb)
+
+    Explanation: Sort + two while loops + one condition = done.
+  :replies: []
+- :author: Basic_Ent
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsiegyo
+  :body: |-
+    [https://github.com/ceautery/advent2025/blob/main/app/day\_5.rb](https://github.com/ceautery/advent2025/blob/main/app/day_5.rb)
+
+    Nothing overly fancy. This puzzle exposes the dark side of a ruby feature: You can declare a range with ints as strings, and it behaves like you'd expect, but it can't do math to calculate size or to see if a number is in the range. So size is nil, and checking for members takes a full scan of the elements, and goes much slower.
+
+    TL;DR make sure you (&:to\_i) all the things.
+
+    ```ruby
+    ~ # pry
+    [1] pry(main)> r = ("11".."22")
+    => "11".."22"
+    [2] pry(main)> r.to_a
+    => ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"]
+    [3] pry(main)> r.size
+    => nil
+    [4] pry(main)> (11..22).size
+    => 12
+    [5] pry(main)>
+    ```
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nshjak9
+  :body: |-
+    The 'work' was just to condense the list of ranges down. From there using a Ruby block was trivial to solve (Part 1 counting ingredients in range, part 2 simply summing the ranges).
+
+    [GitHub link for solution to both Part 1 and Part 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-05.rb)
+  :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nshifiu
+  :body: |-
+    https://github.com/SleepingInsomniac/adventofcode/blob/master/2025-12-05/part\_2.rb
+
+    ```ruby
+    class FreshDB
+      def initialize
+        @ranges = []
+      end
+
+      def <<(range)
+        return if @ranges.any? { |r| r.cover?(range) }
+
+        @ranges.reject! { |r| range.cover?(r) }
+
+        if index = @ranges.index { |r| r.cover?(range.begin) }
+          updatable = @ranges.delete_at(index)
+          b = range.begin < updatable.begin ? range.begin : updatable.begin
+          self << (b..range.end)
+        elsif index = @ranges.index { |r| r.cover?(range.end) }
+          updatable = @ranges.delete_at(index)
+          e = range.end > updatable.end ? range.end : updatable.end
+          self << (range.begin..e)
+        else
+          @ranges << range
+        end
+      end
+
+      def fresh?(ingredient_id)
+        @ranges.any? { |range| range.cover?(ingredient_id) }
+      end
+
+      def fresh_total
+        @ranges.reduce(0) { |m, r| m + r.count }
+      end
+    end
+
+    # ..parse
+    db << range
+    ids.count { |id| db.fresh?(id) } # Part 1
+    db.fresh_total # Part 2
+    ```
+  :replies: []
+- :author: Mahedros
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsffljv
+  :body: |-
+    Foolishly wasted my first attempt at part 2 by forgetting that Ruby's default sort doesn't sort in place. I was sorting and then immediately discarding the sorted list
+
+    [Code](https://topaz.github.io/paste/#XQAAAQDGBQAAAAAAAAARiEJHiiMzw3cPM/1Vl+2nyBa63n8Kw6AjPxsUgu9rdE7zg7+tZ3WD1ORhBz4OK9efDPXPJ0R3el67IYpr6wJJeO4USW2W5T4/K2vtXmBaNGBedkIQ6c2hdYcno4+KLsRmsFcq8x6kkG4aOWgylrI/hK21x8AKx701DRHi9Go3OKnY3JveVADxzWs/EsJLhTVE+wbKkuM1mAjJ2fKwNscGqqgU4BSsPfqKrxW0IRxHB4A+UXpyjHX48oY80g5sH+1N0ZONesiDUbt5XXGZnQCY33vrDqZyS57mazMMP/bJPCnbHeTw+soZsFxZIoZue93SrWrWBvP+2OqpgW4w/VR1hK7sZIQ8JSt+poGC7ZUTYaSOVYGsICKxVRHuCGzVtcT3l0qdiFJosHsSCGHqM2lIMXHw0jokQX3SW9LwYivIkofp0K4sm0dCkdOecgentnPasXeayl1ez2I4BiFlfj8x5YhZ9Kwo0ST1TW29HuuiAMrDmSPwe9B6zOfpqR+GhI94VFQao/g7WUPxXwm0llwCHLzvTPXx8Sh84a/K/oRbFmJBfDbFt2+EA8xYdgUbN+pmIkJJ+V5o9ZPE5EdyM0UA+TXp8sjLBZeV4bYfjuuS1S/Gg0IPK0y8p9hxOMxtcoO8UJSrtCr/lhKNR+5MrUP9niEK)
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsdv36t
+  :body: |-
+    ```ruby
+        def solve_easy(input)
+          ranges, ids = input
+          ids.count do |id|
+            ranges.any? { |r| r.include?(id) }
+          end
+        end
+
+        def extend_range(a, b)
+          [a.begin, b.begin].min..[a.end, b.end].max
+        end
+
+        def solve_hard(input)
+          ranges, _ids = input
+          stack = ranges.sort_by(&:begin)
+          isolated = []
+
+          while stack.any?
+            left_range = stack.shift
+            if stack.empty?
+              isolated << left_range
+              break
+            end
+            stack.dup.each_with_index do |right_range, i|
+              if right_range.begin > left_range.end + 1
+                isolated << left_range
+              else
+                left_range = extend_range(left_range, right_range)
+                stack.delete_at(i)
+                stack.unshift(left_range)
+              end
+              break
+            end
+          end
+          isolated.sum(&:size)
+        end
+    ```
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nse3ksf
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_05](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_05)"
+  :replies: []
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nse74m0
+  :body: |-
+    I find the `consolidate!` method to be quite clunky - if I hadn't just woken up in the morning I might have found a more higher-order way to do it. Still, the rest of this class is relatively cute and it runs quickly.
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    require 'set'
+
+    class Ims
+      attr_reader :ranges, :io
+
+      def initialize(io)
+        @io = io
+        @ranges = Set.new
+        until /^$/ =~ (l=io.readline)
+          add_range! l
+        end
+        consolidate!
+      end
+
+      def add_range!(s)
+        r = s.split('-').then {_1.to_i .. _2.to_i}
+        ranges << r
+      end
+
+      # Consolidate any ranges that overlap... could be more elegant I reckon
+      def consolidate!
+        ranges.dup.each do |r|
+          if overs = ranges.find_all {(it != r) && it.overlap?(r)}
+            to_delete = overs << r
+            to_delete.each {ranges.delete it}
+            ranges << (to_delete.map(&:min).min .. to_delete.map(&:max).max)
+          end
+        end
+      end
+
+      def fresh?(n)
+        ranges.any? {it.include? n.to_i}
+      end
+
+      def n_fresh
+        io.count {fresh? it}
+      end
+
+      def n_possible
+        ranges.sum(&:count)
+      end
+
+    end
+
+    i = Ims.new(ARGF)
+    p i.n_fresh
+    p i.n_possible
+    ```
+  :replies: []
+- :author: im_sofi
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nse9a1e
+  :body: |-
+    Another fun day. A classic advent of code range set theory question. Getting to use [my std++ library](https://codeberg.org/soupglasses/advent-of-code/src/commit/a8f20c537bd86b994df924601a28f2630ace7814/std++.rb#L68-L103) which implements a subset of set theory for the Range class in Ruby. Quite trivial once you have those functions implemented. :D
+
+    https://codeberg.org/soupglasses/advent-of-code/src/branch/main/2025/day\_05.rb
+  :replies: []
+- :author: _tfa
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsed21x
+  :body: |-
+    Part 1
+
+    ```ruby
+    input = File.read("input.txt").split("\n\n")
+    ranges = input[0].lines.map{ it.split(?-).map(&:to_i)}.map{Range.new(*it)}
+    ing = input[1].lines.map(&:to_i)
+
+    puts ing.count{ |i| ranges.any?{ |r| r.include?(i)}}
+    ```
+
+    Part 2
+
+    ```ruby
+    class Range
+      def subtract(other)
+        return [] if (other.begin <= self.begin && other.max >= self.max)
+        return [self] if other.begin > self.end || other.end < self.begin
+        res = []
+        res << (self.begin..other.begin-1) if self.begin < other.begin
+        res << (other.max+1..self.max) if other.max < self.max
+        res
+      end
+      alias_method :-, :subtract
+    end
+
+    input = File.read("input.txt").split("\n\n")
+    ranges = input[0].lines.map{ it.split(?-).map(&:to_i)}.map{Range.new(*it)}
+
+    s = []
+
+    ranges.each do |r|
+      n = s.inject([r]){|a,i| a.map{it-i}.flatten}
+      n.each{ s << it }
+    end
+
+    puts s.sum(&:size)
+    ```
+  :replies: []
+- :author: bulinutza
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nseed5w
+  :body: |-
+    Part 2:
+
+    ```ruby
+    total_fresh = 0
+    previous_max = 0
+
+    input.
+      lines.
+      map { |line| line.split('-').map(&:to_i) }.
+      sort { |range1, range2| range1[0] <=> range2[0] }.
+      each do |range|
+        min = range[0]
+        min = previous_max + 1 if min <= previous_max
+
+        delta = range[1] - min + 1
+
+        if delta > 0
+            total_fresh += delta
+            previous_max = range[1]
+        end
+    end
+    ```
+  :replies: []
+- :author: xr51z
+  :url: https://www.reddit.com/r/adventofcode/comments/1pemdwd/2025_day_5_solutions/nsgue98
+  :body: |-
+    \
+
+    ```ruby
+    require 'set'
+
+    input = File
+              .readlines("05_input.txt", chomp: true)
+    split = input
+              .find_index("")
+    ranges = input[0..split-1]
+              .map { |x| x.split("-")}
+              .map { |x| x.map(&:to_i) }
+              .sort_by { |min, max| [min, max] }
+    ids = input[1+split..-1]
+              .map(&:to_i)
+
+    # Part 1
+
+    fresh = Set.new
+
+    ids.each do |id|
+      ranges.each do |min, max|
+        if id.between?(min, max) then fresh.add(id) end
+      end
+    end
+
+    puts "Part 1: ", fresh.size
+
+    # Part 2
+
+    freshranges = 0
+
+    ranges.each_with_index do |x, idx|
+      next unless idx < ranges.length - 1
+      nextone = ranges[idx+1]
+
+      if nextone[0] <= x[1]
+        nextone[0] = x[0]
+        if nextone[1] <= x[1]
+          nextone[1] = x[1]
+        end
+        x[0] = 0; x[1] = 0
+      end
+    end
+
+    ranges.each do |min, max|
+      next unless min != 0 and max != 0
+      freshranges += (max - min) + 1
+    end
+
+    puts "Part 2: ", freshranges
+    ```
+  :replies: []

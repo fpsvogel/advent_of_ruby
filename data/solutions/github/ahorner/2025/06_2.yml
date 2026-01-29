@@ -1,0 +1,44 @@
+---
+- :name: 06.rb
+  :url: https://github.com/ahorner/advent-of-code/blob/main/lib/2025
+  :solution: |-
+    LINES = INPUT.split("\n")
+    PROBLEMS = LINES.map { |line| line.strip.split(/\s+/) }.transpose
+
+    def solve(problem)
+      numbers = problem[0..-2].map(&:to_i)
+      operator = problem[-1].to_sym
+      numbers.reduce(operator)
+    end
+
+    problem_totals = PROBLEMS.map { |problem| solve(problem) }
+    grand_total = problem_totals.sum
+
+    solve!("The grand total of problem solutions is:", grand_total)
+
+    def rtl_solve(lines)
+      maxy = lines.size
+      maxx = lines.max_by(&:size).size
+
+      total = 0
+      numbers = []
+      maxx.downto(0).each do |x|
+        number = ""
+        (0...maxy).each do |y|
+          case lines[y][x]
+          when /\d/
+            number << lines[y][x]
+          when "*", "+"
+            numbers << number.to_i
+            number = ""
+            total += numbers.reduce(lines[y][x].to_sym)
+            numbers = []
+          end
+        end
+        numbers << number.to_i unless number.empty?
+      end
+
+      total
+    end
+
+    solve!("The grand total (solving right-to-left) is:", rtl_solve(LINES))

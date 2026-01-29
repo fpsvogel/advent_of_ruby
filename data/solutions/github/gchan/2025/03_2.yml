@@ -1,0 +1,23 @@
+---
+- :name: day-03-part-2.rb
+  :url: https://github.com/gchan/advent-of-code-ruby/blob/main/2025/day-03
+  :solution: |-
+    banks = input.split("\n").map(&:chars).map { _1.map(&:to_i) }
+
+    banks.sum { |bank|
+      digits = []
+      target_digits = 12
+      idx = 0
+
+      while digits.size < target_digits
+        digit, rel_idx = bank[idx..(-target_digits + digits.size)]
+          .each.with_index
+          .max_by { |value, _idx| value }
+
+        idx += rel_idx + 1
+
+        digits << digit
+      end
+
+      digits.join.to_i
+    }.tap { puts _1 }

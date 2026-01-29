@@ -1,0 +1,185 @@
+---
+- :author: StillFast7545
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nskv362
+  :body: |-
+    Part 1: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_2/gift\_shop\_part\_1.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_2/gift_shop_part_1.rb)
+
+    Part 2: [https://github.com/MarioPerac/AdventOfCode2025/blob/main/day\_2/gift\_shop\_part\_2.rb](https://github.com/MarioPerac/AdventOfCode2025/blob/main/day_2/gift_shop_part_2.rb)
+  :replies: []
+- :author: justjarvo
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrupo4w
+  :body: ". I am not good at math, so string manipulation it is \U0001F605 I wouldn't mind being pointed to some material to help me figure out how to approach this without all the string work.\n\n```ruby\ndef p1_invalid?(str)\n  n = str.size\n  n.even? && str[0, n/2] == str[n/2, n/2]\nend\n\ndef p2_invalid?(str)\n  n = str.size\n\n  (1...n).each do |m|\n    next unless n % m == 0\n    return true if str == str[0, m] * (n / m)\n  end\n\n  false\nend\n\ninput = File.read(\"input/d02.txt\").split(\",\")\np1, p2 = 0, 0\ninput.each do |range|\n  Range.new(*range.split(\"-\").map(&:to_i)).each do |num|\n    p1 += num if p1_invalid?(num.to_s)\n    p2 += num if p2_invalid?(num.to_s)\n  end\nend\n\np [p1, p2]\n```"
+  :replies: []
+- :author: srugh
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrxw6zq
+  :body: |-
+    Shared parsing, other wise part 1 (compare halves of string) and part 2 (compare chunks to full string) both independently solved.
+
+    [GitHub: Day-02 parts 1 and 2](https://github.com/srugh/AdventOfCode/blob/main/2025/day-02.rb)
+  :replies: []
+- :author: pedantic_git
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nruo72g
+  :body: |-
+    It's brute force, sure, but I'm really happy with how elegant my solution is, thanks to regexps. It could be terser still but I wanted it to still be readable!
+
+    ```ruby
+    #!/usr/bin/env ruby
+
+    acc1, acc2 = 0, 0
+
+    ARGF.read.scan(/(\d+)-(\d+)/) do |l,r|
+      (l.to_i).upto(r.to_i) do
+        acc1 += it if /\A(.+)\1\Z/ =~ it.to_s
+        acc2 += it if /\A(.+)\1+\Z/ =~ it.to_s
+      end
+    end
+
+    puts acc1, acc2
+    ```
+  :replies:
+  - :author: _tfa
+    :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nruokq9
+    :body: Nice. To make it even shorter you could use strings in the upto-loop and only call to\_i when adding "it" to the accumulators.
+    :replies:
+    - :author: pedantic_git
+      :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrur3dt
+      :body: Ooh - it feels dirty using `upto` on a string, like it's going to sort them asciibetically or something, but it does seem to work!
+      :replies: []
+- :author: SleepingInsomniac
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrwuvy2
+  :body: |-
+    ## Part 1
+
+    ```ruby
+    class IDRange
+      def self.parse(file)
+        return nil if file.eof?
+        IDRange.new(*file.gets(',').gsub(/,$/, '').split('-'))
+      end
+
+      def initialize(start, stop)
+        @start, @stop = start.to_i, stop.to_i
+      end
+
+      def range = (@start..@stop)
+      def invalid_ids = range.select { |n| n.to_s =~ /^(\d+)\1$/ }
+    end
+
+    def solve(input)
+      total = 0
+      while range = IDRange.parse(input)
+        total += range.invalid_ids.sum
+      end
+      total
+    end
+    ```
+
+    ## Part 2
+
+    ```ruby
+    ...
+      def invalid_ids = range.select { |n| n.to_s =~ /^(\d+)\1+$/ }
+    ...
+    ```
+  :replies: []
+- :author: im_sofi
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrxps5w
+  :body: |-
+    Absolutely got stuck on an assumption that 1-9 was valid numbers for part 2.
+
+    Part 1 and 2 are done by enforcing each rule and picking the lowest next number. Regex is only used for parsing. :)
+
+    https://codeberg.org/soupglasses/advent-of-code/src/branch/main/2025/day\_02.rb
+  :replies: []
+- :author: riffraff
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nruhu7c
+  :body: |-
+    The simplest thing I could think of, tho it is quite slow since it creates a ton of garbage, but it works. Fun fact: `Integer#digits` gives the numbers ordered from the least significant to the most, but it seems to work anyway.
+
+    ```ruby
+    def parse(io)
+      io.read.scan(/(\d+)-(\d+)/).map { |a, b| (a.to_i)..(b.to_i) }.to_a
+    end
+
+    def same_subarray?(array, length)
+      parts = array.each_slice(length)
+      parts.uniq.length == 1
+    end
+
+    def invalid?(digits)
+      return false if digits.length.odd?
+      same_subarray?(digits, digits.length / 2)
+    end
+
+    def invalid_hard?(digits)
+      1.upto(digits.length / 2).any? { |len| same_subarray?(digits, len) }
+    end
+
+    def solve(ranges, &block)
+      ranges.sum do |r|
+        r.sum do |number|
+          block.call(number.digits) ? number : 0
+        end
+      end
+    end
+
+    def solve_easy(ranges)
+      solve(ranges) { |number| invalid?(number) }
+    end
+
+    def solve_hard(ranges)
+      solve(ranges) { |number| invalid_hard?(number) }
+    end
+    ```
+  :replies:
+  - :author: riffraff
+    :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nruiioj
+    :body: btw, this works with ranges of strings too, as you can do `'1'..'20'` and get `"1","2","3",..,"20"` but I never trust that :)
+    :replies: []
+- :author: systemnate
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrwmy2f
+  :body: |-
+    ```ruby
+    data = data.split(",")
+               .map { |range| range.split("-") }
+               .map { |first, last| (first.to_i..last.to_i) }
+
+    class Product
+      def self.invalid?(product_id)
+        product_id = product_id.to_s
+        middle_point = product_id.length / 2
+        product_id.chars[0...middle_point] == product_id.chars[middle_point..]
+      end
+
+      def self.really_invalid?(product_id)
+        product_id = product_id.to_s
+
+        (1..product_id.length / 2).each do |length|
+          pattern = product_id[0...length]
+
+          return true if pattern * (product_id.length / length) == product_id
+        end
+
+        false
+      end
+    end
+
+    # part 1
+    invalid_numbers = data.each_with_object([]) do |range, invalids|
+      invalids << range.select { |n| Product.invalid?(n) }
+    end.flatten.compact
+
+    puts invalid_numbers.sum
+
+    # part 2
+    invalid_numbers = data.each_with_object([]) do |range, invalids|
+      invalids << range.select { |n| Product.really_invalid?(n) }
+    end.flatten.compact
+
+    puts invalid_numbers.sum
+    ```
+  :replies: []
+- :author: onyx_and_iris
+  :url: https://www.reddit.com/r/adventofcode/comments/1pbzqcx/2025_day_2_solutions/nrukvww
+  :body: "[https://git.onyxandiris.online/onyx\\_online/aoc2025/src/branch/main/day\\_02](https://git.onyxandiris.online/onyx_online/aoc2025/src/branch/main/day_02)"
+  :replies: []
