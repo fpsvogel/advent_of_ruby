@@ -11,12 +11,13 @@ describe Arb::Cli do
       create_fake_solutions!(year: "2019", days: "01")
       create_fake_solutions!(year: "2020", days: "10".."20")
 
-      expect(Date).to receive(:today).at_least(:once).and_return(Date.new(2024, 1, 1))
+      expected_total = Arb::Util.years_and_max_days.values.flatten.sum
+      expected_percent = (37.0 / expected_total * 100).round(1)
 
       output = <<~END
         You have completed:
 
-        All:    16.4%   37/225 puzzles
+        All:    #{expected_percent}%   37/#{expected_total} puzzles
 
         2016:   100%    25/25
         2019:   4%      1/25
