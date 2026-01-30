@@ -9,13 +9,6 @@ require "yaml"
 require "arb/version"
 require "arb/util"
 
-module Arb
-  module DownloadSolutions
-    InputError = Class.new(StandardError)
-    PASTEL = Pastel.new
-  end
-end
-
 Dir[File.join(__dir__, "**", "*.rb")].each do |file|
   require file
 end

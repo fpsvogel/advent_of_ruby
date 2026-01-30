@@ -1,4 +1,19 @@
 module Arb
+  InputError = Class.new(StandardError)
+
+  PASTEL =
+    if ENV["NO_COLOR"]
+      Object.new.tap do |no_op_pastel|
+        Pastel::ANSI::ATTRIBUTES.keys.each do |pastel_method_name|
+          no_op_pastel.define_singleton_method(pastel_method_name) do |*args|
+            args.any? ? args.first : self
+          end
+        end
+      end
+    else
+      Pastel.new
+    end
+
   module Util
     def self.years_and_max_days
       return @years_and_max_days if @years_and_max_days

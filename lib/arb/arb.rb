@@ -9,11 +9,6 @@ require "reverse_markdown"
 require "rspec/core"
 require "yaml"
 
-module Arb
-  InputError = Class.new(StandardError)
-  PASTEL = Pastel.new
-end
-
 Dir[File.join(__dir__, "**", "*.rb")].each do |file|
   require file
 end
