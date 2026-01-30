@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.summary = "CLI for Advent of Code in Ruby, via the `arb` command."
   spec.homepage = "https://github.com/fpsvogel/advent_of_ruby"
   spec.license = "MIT"
-  spec.required_ruby_version = "~> #{File.read(".ruby-version").strip}"
+  spec.required_ruby_version = ">= #{File.read(".ruby-version")[/\d+\.\d+/]}" # e.g. "3.4" from "3.4.8"
 
   spec.add_runtime_dependency "benchmark", "~> 0.4"
   spec.add_runtime_dependency "debug", "~> 1.0"

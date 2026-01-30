@@ -33,7 +33,7 @@ GEM
       logger
     faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
-    faraday-retry (2.3.1)
+    faraday-retry (2.4.0)
       faraday (~> 2.0)
     io-console (0.8.0)
     irb (1.15.2)
@@ -42,8 +42,12 @@ GEM
       reline (>= 0.4.2)
     json (2.12.2)
     logger (1.7.0)
+    mini_portile2 (2.8.9)
     net-http (0.6.0)
       uri
+    nokogiri (1.18.8)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.8-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.8-aarch64-linux-musl)
@@ -110,9 +114,6 @@ PLATFORMS
 
 DEPENDENCIES
   advent_of_ruby!
-
-RUBY VERSION
-   ruby 3.4.5p51
 
 BUNDLED WITH
    2.6.7
