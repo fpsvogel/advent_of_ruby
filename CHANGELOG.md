@@ -1,3 +1,9 @@
+## [0.4.0] - 2026-01-30
+
+- Added solutions for 2025 from Reddit megathreads and GitHub repos.
+- Added support for the [NO_COLOR](https://no-color.org) environment variable.
+- Changed Ruby version to >= 3.4.
+
 ## [0.3.5] - 2025-07-02
 
 - RuboCop auto-formatting in `arb bootstrap` now happens if RuboCop is bundled at the top level *or* if a RuboCop config (`.rubocop.yml`) is present in the current directory.
