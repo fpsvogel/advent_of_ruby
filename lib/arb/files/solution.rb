@@ -23,16 +23,10 @@ module Arb
           # https://adventofcode.com/#{year}/day/#{day.delete_prefix("0")}
           module Year#{year}
             class Day#{day}
-              def part_1(input_file)
-                lines = input_file.readlines(chomp: true)
-
-                nil
+              def part_1(file)
               end
 
-              def part_2(input_file)
-                lines = input_file.readlines(chomp: true)
-
-                nil
+              def part_2(file)
               end
             end
           end

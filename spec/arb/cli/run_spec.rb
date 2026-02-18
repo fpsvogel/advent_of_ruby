@@ -339,8 +339,8 @@ describe Arb::Cli do
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
-          def part_1(input_file)
-            captcha = input_file.read.chomp.chars.map(&:to_i)
+          def part_1(file)
+            captcha = file.read.chomp.chars.map(&:to_i)
               .then { [*it, it.first] } # append first element to simulate a circular list
 
             captcha
@@ -350,10 +350,7 @@ describe Arb::Cli do
               .sum
           end
 
-          def part_2(input_file)
-            lines = input_file.readlines(chomp: true)
-
-            nil
+          def part_2(file)
           end
         end
       end
@@ -387,8 +384,8 @@ describe Arb::Cli do
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
-          def part_1(input_file)
-            captcha = input_file.read.chomp.chars.map(&:to_i)
+          def part_1(file)
+            captcha = file.read.chomp.chars.map(&:to_i)
             captcha << captcha.first # simulates a circular list
 
             captcha
@@ -398,8 +395,8 @@ describe Arb::Cli do
               .sum
           end
 
-          def part_2(input_file)
-            captcha = input_file.read.chomp.chars.map(&:to_i)
+          def part_2(file)
+            captcha = file.read.chomp.chars.map(&:to_i)
             first_half, second_half = captcha.each_slice(captcha.size / 2).to_a
 
             first_half
@@ -440,8 +437,8 @@ describe Arb::Cli do
       # https://adventofcode.com/2017/day/1
       module Year2017
         class Day01
-          def part_1(input_file)
-            captcha = input_file.read.chomp.chars.map(&:to_i)
+          def part_1(file)
+            captcha = file.read.chomp.chars.map(&:to_i)
             captcha << captcha.first # simulates a circular list
 
             captcha
@@ -451,12 +448,12 @@ describe Arb::Cli do
               .sum
           end
 
-          def part_1_golf(input_file)
-            input_file.read.chomp.chars.map(&:to_i).tap { it << it.first }.each_cons(2).sum { _1 == _2 ? _1 : 0 }
+          def part_1_golf(file)
+            file.read.chomp.chars.map(&:to_i).tap { it << it.first }.each_cons(2).sum { _1 == _2 ? _1 : 0 }
           end
 
-          def part_2(input_file)
-            captcha = input_file.read.chomp.chars.map(&:to_i)
+          def part_2(file)
+            captcha = file.read.chomp.chars.map(&:to_i)
             first_half, second_half = captcha.each_slice(captcha.size / 2).to_a
 
             first_half

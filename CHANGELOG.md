@@ -1,3 +1,9 @@
+## [0.4.1] - 2026-02-18
+
+- Added `arb spec` command for running specs for all solutions.
+- Simplified the solution templates.
+- Added missing `rake` development dependency.
+
 ## [0.4.0] - 2026-01-30
 
 - Added solutions for 2025 from Reddit megathreads and GitHub repos.
