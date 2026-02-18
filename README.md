@@ -71,6 +71,10 @@ Shortcuts:
 
 - Shows progress (total and by year) based on the number of your solutions committed in Git.
 
+### `arb spec`
+
+- Runs RSpec tests for all solutions.
+
 ## Prior art
 
 - [AoC-rb](https://github.com/Keirua/aoc-cli)—this gem was originally based on it

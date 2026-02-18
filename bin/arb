@@ -34,6 +34,11 @@ class ArbApp < Thor
     Arb::Cli.commit
   end
 
+  desc "spec", "Runs all specs."
+  def spec
+    RSpec::Core::Runner.run(["spec"])
+  end
+
   default_task :run_day
 end
 
